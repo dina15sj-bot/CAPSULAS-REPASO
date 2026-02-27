@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ley 31/1995 — Prevención de Riesgos Laborales</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f4f8;--surface:#fff;--border:#c8d4e0;--text:#141e2a;--muted:#6a7a8a;
+  --navy:#0d2137;
+  --blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --green:#1a6a3a;--green-dim:#1a6a3a14;
+  --red:#b5282a;--red-dim:#b5282a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --orange:#c4681a;--orange-dim:#c4681a14;
+  --purple:#6a3a8a;--purple-dim:#6a3a8a14;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --warm:#eef2f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c8d4e028 31px,#c8d4e028 32px);}
+header{text-align:center;margin-bottom:2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1100px;margin:1.2rem auto 0;}
+.full{grid-column:1/-1;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}.full{grid-column:1;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+
+/* DEFINICIONES */
+.def-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.7rem;}
+.def-block{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.7rem 0.8rem;}
+.def-term{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:0.25rem;}
+.def-val{font-size:0.78rem;line-height:1.5;color:var(--text);}
+.def-val strong{color:var(--navy);}
+
+/* 9 PRINCIPIOS ART 15 */
+.princ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+@media(max-width:600px){.princ-grid{grid-template-columns:1fr 1fr;}}
+.princ-item{border-radius:8px;border:1px solid;padding:0.6rem 0.55rem;display:flex;gap:0.5rem;align-items:flex-start;}
+.princ-n{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;line-height:1;flex-shrink:0;min-width:26px;}
+.princ-text{font-size:0.72rem;line-height:1.4;}
+.princ-text strong{display:block;margin-bottom:0.1rem;font-size:0.75rem;}
+
+.p1{background:#f0f8f4;border-color:var(--green);}.p1 .princ-n{color:var(--green);}
+.p2{background:#f0f8f4;border-color:var(--teal);}.p2 .princ-n{color:var(--teal);}
+.p3{background:#f4f0f8;border-color:var(--purple);}.p3 .princ-n{color:var(--purple);}
+.p4{background:#f8f4f0;border-color:var(--orange);}.p4 .princ-n{color:var(--orange);}
+.p5{background:#f0f4f8;border-color:var(--blue);}.p5 .princ-n{color:var(--blue);}
+.p6{background:#f8f0f0;border-color:var(--red);}.p6 .princ-n{color:var(--red);}
+.p7{background:#f4f8f0;border-color:var(--green);}.p7 .princ-n{color:var(--green);}
+.p8{background:#f0f8f8;border-color:var(--teal);}.p8 .princ-n{color:var(--teal);}
+.p9{background:#f8f4f8;border-color:var(--purple);}.p9 .princ-n{color:var(--purple);}
+
+/* DEBERES EMPRESARIO */
+.deb-list{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+.deb-item{display:flex;align-items:flex-start;gap:0.5rem;padding:0.4rem 0.5rem;border-radius:5px;font-size:0.79rem;line-height:1.4;background:var(--warm);border:1px solid var(--border);}
+.deb-item::before{content:'▸';flex-shrink:0;font-size:0.7rem;margin-top:0.15rem;}
+.deb-item strong{color:var(--navy);}
+.deb-item span{color:var(--muted);}
+
+/* DERECHOS TRABAJADORES */
+.der-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.der-item{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.65rem 0.7rem;display:flex;gap:0.6rem;align-items:flex-start;}
+.der-icon{font-size:1.1rem;flex-shrink:0;}
+.der-text{font-size:0.78rem;line-height:1.4;}
+.der-text strong{color:var(--navy);display:block;margin-bottom:0.1rem;}
+.der-text span{color:var(--muted);}
+.der-item.highlight{background:var(--red-dim);border-color:var(--red);}
+.der-item.highlight .der-text strong{color:var(--red);}
+
+/* ORGANIZACIÓN PREVENCIÓN */
+.org-flow{display:flex;flex-direction:column;gap:0.5rem;}
+.org-item{display:flex;align-items:center;gap:0.8rem;background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.6rem 0.8rem;}
+.org-size{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.15rem 0.5rem;border-radius:3px;flex-shrink:0;font-weight:700;}
+.os-micro{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+.os-med{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.os-grande{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple);}
+.os-ext{background:var(--orange-dim);color:var(--orange);border:1px solid var(--orange);}
+.org-info strong{font-size:0.82rem;color:var(--navy);display:block;margin-bottom:0.1rem;}
+.org-info span{font-size:0.72rem;color:var(--muted);line-height:1.3;}
+
+/* RIESGOS SANITARIOS */
+.riesgos-sec{max-width:1100px;margin:0 auto;}
+.riesgos-title-bar{display:flex;align-items:center;gap:0.8rem;margin:2rem 0 1rem;}
+.riesgos-title-bar div{flex:1;height:2px;background:var(--navy);opacity:0.15;}
+.riesgos-title-bar span{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+
+.riesgos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+@media(max-width:700px){.riesgos-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:450px){.riesgos-grid{grid-template-columns:1fr;}}
+.riesgo-card{border-radius:10px;overflow:hidden;border:2px solid;}
+.riesgo-head{padding:0.75rem 0.7rem;text-align:center;}
+.riesgo-icon{font-size:1.5rem;margin-bottom:0.2rem;}
+.riesgo-type{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;}
+.riesgo-body{padding:0.7rem;background:white;}
+.riesgo-item{font-size:0.72rem;color:var(--muted);padding:0.22rem 0;border-bottom:1px solid var(--border);line-height:1.3;display:flex;gap:0.35rem;}
+.riesgo-item:last-child{border-bottom:none;}
+.riesgo-item::before{content:'·';flex-shrink:0;font-size:1rem;line-height:0.9;}
+
+.rb{border-color:#8a1a1a;}.rb .riesgo-head{background:#fff0f0;}.rb .riesgo-type{color:#8a1a1a;}.rb .riesgo-item::before{color:#8a1a1a;}
+.rq{border-color:var(--orange);}.rq .riesgo-head{background:var(--orange-dim);}.rq .riesgo-type{color:var(--orange);}.rq .riesgo-item::before{color:var(--orange);}
+.rf{border-color:var(--blue);}.rf .riesgo-head{background:var(--blue-dim);}.rf .riesgo-type{color:var(--blue);}.rf .riesgo-item::before{color:var(--blue);}
+.re{border-color:var(--green);}.re .riesgo-head{background:var(--green-dim);}.re .riesgo-type{color:var(--green);}.re .riesgo-item::before{color:var(--green);}
+.rp{border-color:var(--purple);}.rp .riesgo-head{background:var(--purple-dim);}.rp .riesgo-type{color:var(--purple);}.rp .riesgo-item::before{color:var(--purple);}
+.ro{border-color:var(--teal);}.ro .riesgo-head{background:var(--teal-dim);}.ro .riesgo-type{color:var(--teal);}.ro .riesgo-item::before{color:var(--teal);}
+
+/* INGESA SANITARIO */
+.ingesa-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+.ingesa-item{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.7rem 0.8rem;}
+.ingesa-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.35rem;font-weight:700;}
+.ingesa-val{font-size:0.78rem;line-height:1.5;}
+.ingesa-val strong{color:var(--navy);}
+.ingesa-val span{color:var(--muted);}
+
+/* REGLA DE ORO */
+.gold-bar{background:var(--navy);border-radius:9px;padding:0.9rem 1.2rem;max-width:1100px;margin:1.2rem auto 0;display:flex;align-items:center;gap:1rem;}
+.gold-icon{font-size:1.8rem;flex-shrink:0;}
+.gold-text{color:white;font-size:0.82rem;line-height:1.6;}
+.gold-text strong{color:#ffd090;}
+
+/* TEST */
+.test-card .card-head{background:var(--red-dim);border-bottom:2px solid var(--red);}
+.test-card .card-title{color:var(--red);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">⚠️ Ley 31/1995 · PRL</div>
+  <h1>Prevención de Riesgos Laborales</h1>
+  <p class="subtitle">Marco general + Aplicación en sanidad · INGESA Enfermería</p>
+</header>
+
+<!-- PARTE 1: MARCO GENERAL -->
+<div class="grid2">
+
+  <!-- OBJETO + DEFINICIONES -->
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">📋</span>
+      <span class="card-title" style="color:white">Objeto y conceptos básicos — Art. 2</span>
+    </div>
+    <div class="card-body">
+      <div style="background:var(--blue-dim);border-left:4px solid var(--blue);border-radius:0 6px 6px 0;padding:0.75rem 1rem;font-size:0.83rem;line-height:1.6;margin-bottom:0.9rem;">
+        <strong>Objeto:</strong> promover la <strong>seguridad y salud</strong> de los trabajadores mediante medidas y actividades de <strong>prevención de los riesgos</strong> derivados del trabajo.
+      </div>
+      <div class="def-grid">
+        <div class="def-block">
+          <div class="def-term" style="color:var(--green);">Prevención</div>
+          <div class="def-val">Conjunto de actividades/medidas en <strong>todas las fases</strong> de la empresa para <strong>evitar o disminuir</strong> los riesgos laborales</div>
+        </div>
+        <div class="def-block">
+          <div class="def-term" style="color:var(--red);">Riesgo laboral</div>
+          <div class="def-val">Posibilidad de que un trabajador sufra un <strong>daño derivado del trabajo</strong><br><span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;">Probabilidad × Gravedad</span></div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Riesgo laboral = P × G</div>
+        <div class="memo-text" style="font-size:0.78rem">Se valora por la <span style="color:var(--blue)">probabilidad</span> de que ocurra × la <span style="color:var(--red)">gravedad</span> del daño</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIZACIÓN PREVENTIVA -->
+  <div class="card">
+    <div class="card-head" style="background:var(--purple-dim);border-bottom:2px solid var(--purple)">
+      <span class="card-icon">🏗️</span>
+      <span class="card-title" style="color:var(--purple)">Organización de la prevención</span>
+    </div>
+    <div class="card-body">
+      <div class="org-flow">
+        <div class="org-item">
+          <div class="org-size os-micro">Microempresa</div>
+          <div class="org-info"><strong>Asunción personal por el empresario</strong><span>Solo si empresa pequeña y actividad de bajo riesgo</span></div>
+        </div>
+        <div class="org-item">
+          <div class="org-size os-med">Pequeña</div>
+          <div class="org-info"><strong>Designación de trabajadores</strong><span>Encargados específicamente de la actividad preventiva</span></div>
+        </div>
+        <div class="org-item">
+          <div class="org-size os-grande">Grande</div>
+          <div class="org-info"><strong>Servicio de prevención propio</strong><span>Unidad específica dentro de la empresa</span></div>
+        </div>
+        <div class="org-item">
+          <div class="org-size os-ext">Cualquier tamaño</div>
+          <div class="org-info"><strong>Servicio de prevención ajeno</strong><span>Entidad especializada externa — puede combinarse con otras modalidades</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 9 PRINCIPIOS ART 15 -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card">
+    <div class="card-head" style="background:var(--gold-dim);border-bottom:2px solid var(--gold)">
+      <span class="card-icon">⭐</span>
+      <span class="card-title" style="color:#8a6a10">Art. 15 — 9 Principios de la acción preventiva ★★</span>
+    </div>
+    <div class="card-body">
+      <div class="princ-grid">
+        <div class="princ-item p1">
+          <div class="princ-n">1</div>
+          <div class="princ-text"><strong>Evitar los riesgos</strong><span style="color:var(--muted)">Primer paso siempre</span></div>
+        </div>
+        <div class="princ-item p2">
+          <div class="princ-n">2</div>
+          <div class="princ-text"><strong>Evaluar los inevitables</strong><span style="color:var(--muted)">Los que no se puedan evitar</span></div>
+        </div>
+        <div class="princ-item p3">
+          <div class="princ-n">3</div>
+          <div class="princ-text"><strong>Combatir en el origen</strong><span style="color:var(--muted)">Atacar la causa, no el efecto</span></div>
+        </div>
+        <div class="princ-item p4">
+          <div class="princ-n">4</div>
+          <div class="princ-text"><strong>Adaptar el trabajo a la persona</strong><span style="color:var(--muted)">Ergonomía y puesto</span></div>
+        </div>
+        <div class="princ-item p5">
+          <div class="princ-n">5</div>
+          <div class="princ-text"><strong>Evolución de la técnica</strong><span style="color:var(--muted)">Actualización tecnológica</span></div>
+        </div>
+        <div class="princ-item p6">
+          <div class="princ-n">6</div>
+          <div class="princ-text"><strong>Sustituir lo peligroso</strong><span style="color:var(--muted)">Por lo de poco o ningún peligro</span></div>
+        </div>
+        <div class="princ-item p7">
+          <div class="princ-n">7</div>
+          <div class="princ-text"><strong>Planificar la prevención</strong><span style="color:var(--muted)">Plan integrado en la empresa</span></div>
+        </div>
+        <div class="princ-item p8">
+          <div class="princ-n">8</div>
+          <div class="princ-text"><strong>Colectiva antes que individual</strong><span style="color:var(--muted)">Protección colectiva &gt; EPI</span></div>
+        </div>
+        <div class="princ-item p9">
+          <div class="princ-n">9</div>
+          <div class="princ-text"><strong>Dar instrucciones</strong><span style="color:var(--muted)">Adecuadas a los trabajadores</span></div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Orden crítico de test: principio 8</div>
+        <div class="memo-text" style="font-size:0.78rem">Siempre <span style="color:var(--teal)">protección COLECTIVA</span> antes que <span style="color:var(--orange)">individual (EPI)</span> — el EPI es el último recurso</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEBERES + DERECHOS -->
+<div class="grid2" style="margin-top:1.2rem">
+
+  <div class="card">
+    <div class="card-head" style="background:var(--orange-dim);border-bottom:2px solid var(--orange)">
+      <span class="card-icon">🏢</span>
+      <span class="card-title" style="color:var(--orange)">Deberes del empresario — Arts. 14 ss.</span>
+    </div>
+    <div class="card-body">
+      <div style="background:var(--orange-dim);border-left:4px solid var(--orange);border-radius:0 6px 6px 0;padding:0.6rem 0.9rem;font-size:0.8rem;line-height:1.5;margin-bottom:0.8rem;">
+        <strong>Deber general:</strong> garantizar la seguridad y salud en <strong>todos los aspectos</strong> relacionados con el trabajo
+      </div>
+      <ul class="deb-list">
+        <li class="deb-item" style="border-left:3px solid var(--green)"><span class="deb-item">▸</span><div><strong>Evaluación inicial de riesgos</strong> <span>y revisarla cuando cambien condiciones</span></div></li>
+        <li class="deb-item" style="border-left:3px solid var(--blue)"><span class="deb-item">▸</span><div><strong>Plan de Prevención</strong> <span>— integrar la prevención en la empresa</span></div></li>
+        <li class="deb-item" style="border-left:3px solid var(--teal)"><span class="deb-item">▸</span><div><strong>Medidas de protección colectiva</strong> <span>y si no basta, EPI adecuados</span></div></li>
+        <li class="deb-item" style="border-left:3px solid var(--purple)"><span class="deb-item">▸</span><div><strong>Informar y formar</strong> <span>a trabajadores sobre riesgos y medidas</span></div></li>
+        <li class="deb-item" style="border-left:3px solid var(--orange)"><span class="deb-item">▸</span><div><strong>Vigilancia de la salud</strong> <span>según riesgos del puesto — con confidencialidad</span></div></li>
+        <li class="deb-item" style="border-left:3px solid var(--red)"><span class="deb-item">▸</span><div><strong>Consulta y participación</strong> <span>de trabajadores y representantes en PRL</span></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" style="background:var(--green-dim);border-bottom:2px solid var(--green)">
+      <span class="card-icon">👷</span>
+      <span class="card-title" style="color:var(--green)">Derechos de los trabajadores</span>
+    </div>
+    <div class="card-body">
+      <div class="der-grid">
+        <div class="der-item">
+          <span class="der-icon">🛡️</span>
+          <div class="der-text"><strong>Protección eficaz</strong><span>En seguridad y salud laboral</span></div>
+        </div>
+        <div class="der-item">
+          <span class="der-icon">📚</span>
+          <div class="der-text"><strong>Información y formación</strong><span>En prevención de riesgos</span></div>
+        </div>
+        <div class="der-item">
+          <span class="der-icon">🗣️</span>
+          <div class="der-text"><strong>Consulta y participación</strong><span>Directa o por delegados de prevención / Comité SS</span></div>
+        </div>
+        <div class="der-item">
+          <span class="der-icon">🩺</span>
+          <div class="der-text"><strong>Vigilancia periódica salud</strong><span>Adaptada al riesgo del puesto</span></div>
+        </div>
+        <div class="der-item highlight" style="grid-column:1/-1">
+          <span class="der-icon">🚨</span>
+          <div class="der-text"><strong>Interrumpir actividad ante riesgo grave e inminente ★</strong><span>Derecho a abandonar el lugar de trabajo sin penalización</span></div>
+        </div>
+      </div>
+      <div class="memo-box" style="background:var(--red-dim);border-color:var(--red)">
+        <div class="memo-label" style="color:var(--red)">🧠 Derecho clave de test</div>
+        <div class="memo-text" style="font-size:0.78rem">Ante <strong style="color:var(--red)">riesgo grave e inminente</strong> → derecho a interrumpir y abandonar el trabajo — sin represalias</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PARTE 2: APLICACIÓN EN SANIDAD -->
+<div style="max-width:1100px;margin:2rem auto 1rem;">
+  <div style="display:flex;align-items:center;gap:0.8rem;">
+    <div style="flex:1;height:2px;background:var(--navy);opacity:0.15;"></div>
+    <span style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--navy);white-space:nowrap;">🏥 Aplicación en el ámbito sanitario</span>
+    <div style="flex:1;height:2px;background:var(--navy);opacity:0.15;"></div>
+  </div>
+</div>
+
+<!-- 6 GRUPOS DE RIESGOS -->
+<div style="max-width:1100px;margin:0 auto">
+  <div class="riesgos-grid">
+    <div class="riesgo-card rb">
+      <div class="riesgo-head"><div class="riesgo-icon">🦠</div><div class="riesgo-type">Biológicos ★</div></div>
+      <div class="riesgo-body">
+        <div class="riesgo-item">Pinchazos, cortes, salpicaduras: VIH, VHB, VHC</div>
+        <div class="riesgo-item">Contacto con pacientes infecciosos (aéreo, gotas, contacto)</div>
+      </div>
+    </div>
+    <div class="riesgo-card rq">
+      <div class="riesgo-head"><div class="riesgo-icon">⚗️</div><div class="riesgo-type">Químicos</div></div>
+      <div class="riesgo-body">
+        <div class="riesgo-item">Fármacos citotóxicos</div>
+        <div class="riesgo-item">Desinfectantes, anestésicos inhalatorios</div>
+        <div class="riesgo-item">Óxido de etileno</div>
+      </div>
+    </div>
+    <div class="riesgo-card rf">
+      <div class="riesgo-head"><div class="riesgo-icon">⚡</div><div class="riesgo-type">Físicos</div></div>
+      <div class="riesgo-body">
+        <div class="riesgo-item">Radiaciones ionizantes y no ionizantes</div>
+        <div class="riesgo-item">Ruido, temperatura, electricidad</div>
+        <div class="riesgo-item">Caídas y golpes</div>
+      </div>
+    </div>
+    <div class="riesgo-card re">
+      <div class="riesgo-head"><div class="riesgo-icon">🏋️</div><div class="riesgo-type">Ergonómicos</div></div>
+      <div class="riesgo-body">
+        <div class="riesgo-item">Movilización de pacientes</div>
+        <div class="riesgo-item">Posturas forzadas</div>
+        <div class="riesgo-item">Sobrecarga musculoesquelética</div>
+      </div>
+    </div>
+    <div class="riesgo-card rp">
+      <div class="riesgo-head"><div class="riesgo-icon">🧠</div><div class="riesgo-type">Psicosociales ★</div></div>
+      <div class="riesgo-body">
+        <div class="riesgo-item">Sobrecarga de trabajo y estrés</div>
+        <div class="riesgo-item">Turnicidad y nocturnidad</div>
+        <div class="riesgo-item">Falta de apoyo, conflictos</div>
+      </div>
+    </div>
+    <div class="riesgo-card ro">
+      <div class="riesgo-head"><div class="riesgo-icon">⚠️</div><div class="riesgo-type">Otros ★</div></div>
+      <div class="riesgo-body">
+        <div class="riesgo-item">Agresiones a profesionales</div>
+        <div class="riesgo-item">Riesgo para embarazo y lactancia</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBLIGACIONES INGESA EN SANIDAD -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">🏥</span>
+      <span class="card-title" style="color:white">Obligaciones del empleador sanitario (INGESA/Servicio de Salud)</span>
+    </div>
+    <div class="card-body">
+      <div class="ingesa-grid">
+        <div class="ingesa-item">
+          <div class="ingesa-label" style="color:var(--red)">🔍 Evaluación específica</div>
+          <div class="ingesa-val"><strong>Por unidad/servicio:</strong> <span>biológicos, químicos, físicos, ergonómicos y psicosociales — no vale solo una evaluación genérica</span></div>
+        </div>
+        <div class="ingesa-item">
+          <div class="ingesa-label" style="color:var(--blue)">🛡️ Protección colectiva</div>
+          <div class="ingesa-val"><strong>Cabinas bioseguridad</strong> · <span>ventilación · agujas retráctiles · contenedores punzantes · protocolos frente a agresiones</span></div>
+        </div>
+        <div class="ingesa-item">
+          <div class="ingesa-label" style="color:var(--orange)">🧤 EPI en sanidad</div>
+          <div class="ingesa-val"><span>Guantes · mascarillas · gafas · pantallas · delantales plomados — según evaluación de riesgos</span></div>
+        </div>
+        <div class="ingesa-item">
+          <div class="ingesa-label" style="color:var(--purple)">📚 Formación específica</div>
+          <div class="ingesa-val"><span>Citostáticos · radiología · prevención pinchazos · residuos · riesgos psicosociales</span></div>
+        </div>
+        <div class="ingesa-item" style="grid-column:1/-1">
+          <div class="ingesa-label" style="color:var(--green)">🩺 Vigilancia de la salud adaptada</div>
+          <div class="ingesa-val"><strong>Vacunación:</strong> <span>VHB, gripe… · </span><strong>Controles específicos:</strong> <span>personal expuesto a biológicos, citostáticos, radiación ionizante</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGLA DE ORO EXAMEN -->
+<div class="gold-bar">
+  <span class="gold-icon">🎯</span>
+  <div class="gold-text">
+    Cuando veas "Ley 31/1995 en sanidad" piensa siempre en:
+    <strong>Evaluación específica por servicio</strong> →
+    <strong>Medidas colectivas + EPI</strong> →
+    <strong>Vigilancia de la salud</strong> →
+    Especial atención a <strong>biológicos, psicosociales y agresiones</strong>
+  </div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Ley 31/1995</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cómo se valora el riesgo laboral?</div>
+          <div class="q-answer"><strong>Probabilidad × Gravedad</strong> del daño</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el primer principio de la acción preventiva (art. 15)?</div>
+          <div class="q-answer"><strong>Evitar los riesgos</strong> — antes de evaluar</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">En cuanto a protección, ¿qué debe anteponerse según el art. 15?</div>
+          <div class="q-answer">La protección <strong>colectiva</strong> a la <strong>individual</strong> (EPI)</div>
+          <div class="q-note">Trampa: el EPI es el último recurso, no el primero</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué derecho tiene el trabajador ante un riesgo grave e inminente?</div>
+          <div class="q-answer"><strong>Interrumpir la actividad y abandonar el trabajo</strong> sin represalias</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el principal riesgo biológico en enfermería?</div>
+          <div class="q-answer"><strong>Exposición a sangre y fluidos</strong> — pinchazos, cortes, salpicaduras (VIH, VHB, VHC)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Basta una evaluación de riesgos genérica para todo el hospital?</div>
+          <div class="q-answer"><strong>No</strong> — debe ser específica por unidad/servicio (biológicos, químicos, psicosociales…)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué incluye la vigilancia de la salud específica en sanidad?</div>
+          <div class="q-answer"><strong>Vacunación</strong> (VHB, gripe…) + <strong>controles específicos</strong> en expuestos a biológicos, citostáticos o radiación</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuándo puede el empresario asumir personalmente la prevención?</div>
+          <div class="q-answer">Solo en <strong>microempresas con actividad de bajo riesgo</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

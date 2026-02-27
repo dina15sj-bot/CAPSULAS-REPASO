@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proceso Enfermero — 5 Fases</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f4f8;--surface:#fff;--border:#c8d4e0;--text:#141e2a;--muted:#6a7a8a;
+  --navy:#0d2137;
+  --c1:#1e5f8a;--c1d:#1e5f8a18;/* Valoración - azul */
+  --c2:#6a3a8a;--c2d:#6a3a8a18;/* Diagnóstico - púrpura */
+  --c3:#c49a2a;--c3d:#c49a2a18;/* Planificación - oro */
+  --c4:#1a6a3a;--c4d:#1a6a3a18;/* Ejecución - verde */
+  --c5:#b5282a;--c5d:#b5282a18;/* Evaluación - rojo */
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --warm:#eef2f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c8d4e028 31px,#c8d4e028 32px);}
+
+header{text-align:center;margin-bottom:2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.wrap{max-width:1100px;margin:0 auto;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+
+/* CICLO VISUAL */
+.ciclo{display:flex;align-items:center;justify-content:center;gap:0;max-width:900px;margin:0 auto 1.8rem;flex-wrap:wrap;gap:0.3rem;}
+.ciclo-seg{display:flex;flex-direction:column;align-items:center;gap:0.25rem;flex:1;min-width:100px;}
+.ciclo-bubble{width:64px;height:64px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid;font-weight:900;}
+.ciclo-num{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;line-height:1;}
+.ciclo-letter{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;line-height:1;}
+.ciclo-name{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;text-align:center;}
+.ciclo-arrow{font-size:1.2rem;color:var(--muted);align-self:center;flex:0;}
+@media(max-width:600px){.ciclo{gap:0.5rem;}.ciclo-arrow{display:none;}.ciclo-seg{min-width:80px;flex:0 0 calc(33% - 0.5rem);}}
+
+.cs1 .ciclo-bubble{background:var(--c1d);border-color:var(--c1);}.cs1 .ciclo-letter,.cs1 .ciclo-num{color:var(--c1);}.cs1 .ciclo-name{color:var(--c1);}
+.cs2 .ciclo-bubble{background:var(--c2d);border-color:var(--c2);}.cs2 .ciclo-letter,.cs2 .ciclo-num{color:var(--c2);}.cs2 .ciclo-name{color:var(--c2);}
+.cs3 .ciclo-bubble{background:var(--c3d);border-color:var(--c3);}.cs3 .ciclo-letter,.cs3 .ciclo-num{color:#8a6a10;}.cs3 .ciclo-name{color:#8a6a10;}
+.cs4 .ciclo-bubble{background:var(--c4d);border-color:var(--c4);}.cs4 .ciclo-letter,.cs4 .ciclo-num{color:var(--c4);}.cs4 .ciclo-name{color:var(--c4);}
+.cs5 .ciclo-bubble{background:var(--c5d);border-color:var(--c5);}.cs5 .ciclo-letter,.cs5 .ciclo-num{color:var(--c5);}.cs5 .ciclo-name{color:var(--c5);}
+
+/* FASE CARDS */
+.fase-card{background:var(--surface);border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:1rem;}
+.fase-head{display:flex;align-items:stretch;}
+.fase-color{width:6px;flex-shrink:0;}
+.fase-icon-block{padding:1.1rem 0.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;min-width:65px;}
+.fase-icon{font-size:1.8rem;}
+.fase-header-text{padding:0.9rem 0.9rem 0.9rem 0;flex:1;}
+.fase-num{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:600;margin-bottom:0.2rem;}
+.fase-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;line-height:1.1;margin-bottom:0.2rem;}
+.fase-desc{font-size:0.78rem;color:var(--muted);line-height:1.4;}
+.fase-body{padding:0 1.1rem 1.1rem;}
+.acciones-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;}
+@media(max-width:500px){.acciones-grid{grid-template-columns:1fr;}}
+.accion{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.6rem 0.7rem;border-left:3px solid;}
+.accion-title{font-weight:700;font-size:0.8rem;margin-bottom:0.15rem;}
+.accion-desc{font-size:0.7rem;color:var(--muted);line-height:1.3;}
+
+/* FASE COLORS */
+.f1 .fase-color{background:var(--c1);}
+.f1 .fase-icon-block{background:var(--c1d);}
+.f1 .fase-num,.f1 .fase-name{color:var(--c1);}
+.f1 .accion{border-color:var(--c1);}
+.f1 .accion-title{color:var(--c1);}
+
+.f2 .fase-color{background:var(--c2);}
+.f2 .fase-icon-block{background:var(--c2d);}
+.f2 .fase-num,.f2 .fase-name{color:var(--c2);}
+.f2 .accion{border-color:var(--c2);}
+.f2 .accion-title{color:var(--c2);}
+
+.f3 .fase-color{background:var(--c3);}
+.f3 .fase-icon-block{background:var(--c3d);}
+.f3 .fase-num,.f3 .fase-name{color:#8a6a10;}
+.f3 .accion{border-color:var(--c3);}
+.f3 .accion-title{color:#8a6a10;}
+
+.f4 .fase-color{background:var(--c4);}
+.f4 .fase-icon-block{background:var(--c4d);}
+.f4 .fase-num,.f4 .fase-name{color:var(--c4);}
+.f4 .accion{border-color:var(--c4);}
+.f4 .accion-title{color:var(--c4);}
+
+.f5 .fase-color{background:var(--c5);}
+.f5 .fase-icon-block{background:var(--c5d);}
+.f5 .fase-num,.f5 .fase-name{color:var(--c5);}
+.f5 .accion{border-color:var(--c5);}
+.f5 .accion-title{color:var(--c5);}
+
+/* TABLA RESUMEN */
+.tabla{width:100%;border-collapse:collapse;font-size:0.78rem;background:var(--surface);border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.tabla th{background:var(--navy);color:white;padding:0.6rem 0.8rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;}
+.tabla td{padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.tabla tr:last-child td{border-bottom:none;}
+.tabla tr:hover td{background:#f5f8fb;}
+.fase-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:3px;}
+
+/* TEST */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;background:var(--c5d);border-bottom:2px solid var(--c5);}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--c5);}
+.card-body{padding:1rem 1.1rem;}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--c5);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🩺 Metodología Enfermera</div>
+  <h1>El Proceso Enfermero (PE)</h1>
+  <p class="subtitle">5 fases · Metodología sistemática · INGESA Enfermería</p>
+</header>
+
+<div class="wrap">
+
+  <!-- CICLO VISUAL -->
+  <div class="ciclo">
+    <div class="ciclo-seg cs1">
+      <div class="ciclo-bubble"><div class="ciclo-num">01</div><div class="ciclo-letter">V</div></div>
+      <div class="ciclo-name">Valoración</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-seg cs2">
+      <div class="ciclo-bubble"><div class="ciclo-num">02</div><div class="ciclo-letter">D</div></div>
+      <div class="ciclo-name">Diagnóstico</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-seg cs3">
+      <div class="ciclo-bubble"><div class="ciclo-num">03</div><div class="ciclo-letter">P</div></div>
+      <div class="ciclo-name">Planificación</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-seg cs4">
+      <div class="ciclo-bubble"><div class="ciclo-num">04</div><div class="ciclo-letter">E</div></div>
+      <div class="ciclo-name">Ejecución</div>
+    </div>
+    <div class="ciclo-arrow">→</div>
+    <div class="ciclo-seg cs5">
+      <div class="ciclo-bubble"><div class="ciclo-num">05</div><div class="ciclo-letter">E</div></div>
+      <div class="ciclo-name">Evaluación</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-bottom:1.5rem;">
+    <div class="memo-box" style="display:inline-block;text-align:left;">
+      <div class="memo-label">🧠 V·D·P·E·E — las 5 fases</div>
+      <div class="memo-text">
+        <span style="color:var(--c1)">V</span>aloración ·
+        <span style="color:var(--c2)">D</span>iagnóstico ·
+        <span style="color:#8a6a10">P</span>lanificación ·
+        <span style="color:var(--c4)">E</span>jecución ·
+        <span style="color:var(--c5)">E</span>valuación
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 1: VALORACIÓN -->
+  <div class="fase-card f1">
+    <div class="fase-head">
+      <div class="fase-color"></div>
+      <div class="fase-icon-block"><div class="fase-icon">🔍</div></div>
+      <div class="fase-header-text">
+        <div class="fase-num">Fase 01 · Inicial</div>
+        <div class="fase-name">Valoración</div>
+        <div class="fase-desc">Recogida y organización de datos sobre el estado de salud del paciente, familia o comunidad</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="acciones-grid">
+        <div class="accion">
+          <div class="accion-title">📋 Recogida de datos</div>
+          <div class="accion-desc">Entrevista clínica, observación y exploración física</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">✅ Validación</div>
+          <div class="accion-desc">Verificar que la información sea precisa, completa y objetiva</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🗂️ Organización</div>
+          <div class="accion-desc">Agrupar datos en patrones (Gordon) o necesidades (Henderson)</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">📝 Registro</div>
+          <div class="accion-desc">Anotar hallazgos formalmente <strong>sin interpretaciones subjetivas</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 2: DIAGNÓSTICO -->
+  <div class="fase-card f2">
+    <div class="fase-head">
+      <div class="fase-color"></div>
+      <div class="fase-icon-block"><div class="fase-icon">🧠</div></div>
+      <div class="fase-header-text">
+        <div class="fase-num">Fase 02 · Análisis</div>
+        <div class="fase-name">Diagnóstico</div>
+        <div class="fase-desc">Análisis de datos para identificar respuestas humanas a problemas de salud</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="acciones-grid">
+        <div class="accion">
+          <div class="accion-title">🔬 Análisis y síntesis</div>
+          <div class="accion-desc">Interpretar datos para identificar capacidades y problemas del paciente</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">⚖️ Identificación</div>
+          <div class="accion-desc">Diferenciar <strong>problemas independientes</strong> (DxE) de <strong>problemas de colaboración</strong></div>
+        </div>
+        <div class="accion" style="grid-column:1/-1">
+          <div class="accion-title">🏷️ Formulación NANDA-I · Formato PES</div>
+          <div class="accion-desc"><strong>P</strong>roblema + <strong>E</strong>tiología + <strong>S</strong>ignos y síntomas — taxonomía NANDA-I</div>
+        </div>
+      </div>
+      <div class="memo-box" style="background:var(--c2d);border-color:var(--c2);margin-top:0.6rem;">
+        <div class="memo-label" style="color:var(--c2)">🧠 Formato diagnóstico</div>
+        <div class="memo-text" style="font-size:0.78rem"><span style="color:var(--c2)">P</span>roblema · <span style="color:var(--c2)">E</span>tiología · <span style="color:var(--c2)">S</span>ignos/síntomas → NANDA-I</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 3: PLANIFICACIÓN -->
+  <div class="fase-card f3">
+    <div class="fase-head">
+      <div class="fase-color"></div>
+      <div class="fase-icon-block"><div class="fase-icon">📐</div></div>
+      <div class="fase-header-text">
+        <div class="fase-num">Fase 03 · Estrategia</div>
+        <div class="fase-name">Planificación</div>
+        <div class="fase-desc">Desarrollo de estrategias para prevenir, minimizar o corregir los problemas identificados</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="acciones-grid">
+        <div class="accion">
+          <div class="accion-title">🎯 Priorización</div>
+          <div class="accion-desc">Qué problemas abordar primero — herramienta: <strong>Modelo AREA</strong></div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🏆 Resultados NOC</div>
+          <div class="accion-desc">Definir objetivos <strong>medibles y observables</strong> esperados con los cuidados</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">⚙️ Intervenciones NIC</div>
+          <div class="accion-desc">Seleccionar acciones basadas en la evidencia para lograr los objetivos NOC</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">📋 Registro del plan</div>
+          <div class="accion-desc">Documentar para asegurar la <strong>continuidad asistencial</strong></div>
+        </div>
+      </div>
+      <div class="memo-box" style="background:var(--c3d);border-color:var(--c3);margin-top:0.6rem;">
+        <div class="memo-label" style="color:#8a6a10">🧠 Taxonomías</div>
+        <div class="memo-text" style="font-size:0.78rem">NANDA-I (diagnósticos) · <span style="color:#8a6a10">NOC</span> (resultados) · <span style="color:#8a6a10">NIC</span> (intervenciones)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 4: EJECUCIÓN -->
+  <div class="fase-card f4">
+    <div class="fase-head">
+      <div class="fase-color"></div>
+      <div class="fase-icon-block"><div class="fase-icon">⚡</div></div>
+      <div class="fase-header-text">
+        <div class="fase-num">Fase 04 · Acción</div>
+        <div class="fase-name">Ejecución</div>
+        <div class="fase-desc">Fase en la que se llevan a cabo las intervenciones planificadas previamente</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="acciones-grid">
+        <div class="accion">
+          <div class="accion-title">🔄 Revaloración previa</div>
+          <div class="accion-desc">Confirmar que las intervenciones siguen siendo <strong>necesarias y seguras</strong></div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🗣️ Información al paciente</div>
+          <div class="accion-desc">Comunicar las acciones que se van a realizar</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🏥 Aplicación NIC</div>
+          <div class="accion-desc">Realizar actividades y supervisar cualquier asistencia delegada</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">📝 Registro</div>
+          <div class="accion-desc">Anotar la intervención ejecutada y la <strong>respuesta inmediata</strong> del paciente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 5: EVALUACIÓN -->
+  <div class="fase-card f5">
+    <div class="fase-head">
+      <div class="fase-color"></div>
+      <div class="fase-icon-block"><div class="fase-icon">📊</div></div>
+      <div class="fase-header-text">
+        <div class="fase-num">Fase 05 · Cierre del ciclo</div>
+        <div class="fase-name">Evaluación</div>
+        <div class="fase-desc">Comparación sistemática entre el estado real del paciente y los resultados esperados</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="acciones-grid">
+        <div class="accion">
+          <div class="accion-title">📏 Valoración NOC</div>
+          <div class="accion-desc">Medir si se han alcanzado los indicadores definidos en los objetivos</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🔎 Juicio de eficacia</div>
+          <div class="accion-desc">Analizar por qué se lograron o no los objetivos planteados</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🔀 Toma de decisiones</div>
+          <div class="accion-desc"><strong>Mantener</strong> el plan · <strong>Modificar</strong> si no funcionó · <strong>Finalizar</strong> si se resolvió</div>
+        </div>
+        <div class="accion">
+          <div class="accion-title">🔁 Retroalimentación</div>
+          <div class="accion-desc">Registrar conclusiones para ajustar y mejorar el ciclo del PE</div>
+        </div>
+      </div>
+      <div class="memo-box" style="background:var(--c5d);border-color:var(--c5);margin-top:0.6rem;">
+        <div class="memo-label" style="color:var(--c5)">🧠 Decisión en evaluación</div>
+        <div class="memo-text" style="font-size:0.78rem"><span style="color:var(--c4)">Mantener</span> · <span style="color:var(--gold)">Modificar</span> · <span style="color:var(--c5)">Finalizar</span> — según resultado NOC</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA RESUMEN -->
+  <div style="margin:1.5rem 0 1.2rem;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:0.7rem;padding-left:0.3rem;border-left:4px solid var(--navy);">Tabla resumen — Las 5 fases de un vistazo</div>
+    <div style="overflow-x:auto;">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Pregunta clave</th>
+            <th>Herramienta/Taxonomía</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="fase-pill" style="background:var(--c1d);color:var(--c1);border:1px solid var(--c1)">1. Valoración</span></td>
+            <td>¿Cuál es el estado del paciente?</td>
+            <td>Gordon / Henderson</td>
+            <td>Base de datos de enfermería</td>
+          </tr>
+          <tr>
+            <td><span class="fase-pill" style="background:var(--c2d);color:var(--c2);border:1px solid var(--c2)">2. Diagnóstico</span></td>
+            <td>¿Cuál es el problema?</td>
+            <td>NANDA-I · Formato PES</td>
+            <td>Etiqueta diagnóstica</td>
+          </tr>
+          <tr>
+            <td><span class="fase-pill" style="background:var(--c3d);color:#8a6a10;border:1px solid var(--c3)">3. Planificación</span></td>
+            <td>¿Qué vamos a hacer?</td>
+            <td>NOC (resultados) · NIC (intervenciones)</td>
+            <td>Plan de cuidados</td>
+          </tr>
+          <tr>
+            <td><span class="fase-pill" style="background:var(--c4d);color:var(--c4);border:1px solid var(--c4)">4. Ejecución</span></td>
+            <td>¿Cómo lo hacemos?</td>
+            <td>Actividades NIC</td>
+            <td>Intervención registrada</td>
+          </tr>
+          <tr>
+            <td><span class="fase-pill" style="background:var(--c5d);color:var(--c5);border:1px solid var(--c5)">5. Evaluación</span></td>
+            <td>¿Funcionó?</td>
+            <td>Indicadores NOC</td>
+            <td>Mantener / Modificar / Finalizar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TEST -->
+  <div class="card">
+    <div class="card-head"><span style="font-size:1.1rem">🎯</span><span class="card-title">Preguntas tipo test — Proceso Enfermero</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuántas fases tiene el Proceso Enfermero?</div>
+          <div class="q-answer"><strong>5 fases</strong> — V·D·P·E·E</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué fase se formula el diagnóstico siguiendo el formato PES?</div>
+          <div class="q-answer"><strong>Fase 2 — Diagnóstico</strong></div>
+          <div class="q-note">P: Problema · E: Etiología · S: Signos y síntomas</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué taxonomía se usa para los resultados esperados?</div>
+          <div class="q-answer"><strong>NOC</strong> (Nursing Outcomes Classification)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué taxonomía se usa para las intervenciones de enfermería?</div>
+          <div class="q-answer"><strong>NIC</strong> (Nursing Interventions Classification)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué fase se priorizan los problemas con el Modelo AREA?</div>
+          <div class="q-answer"><strong>Fase 3 — Planificación</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tres decisiones se pueden tomar en la fase de Evaluación?</div>
+          <div class="q-answer"><strong>Mantener · Modificar · Finalizar</strong> el plan</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué fase se registran los hallazgos sin interpretaciones subjetivas?</div>
+          <div class="q-answer"><strong>Fase 1 — Valoración</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué se hace antes de aplicar las intervenciones en la fase de Ejecución?</div>
+          <div class="q-answer"><strong>Revalorar al paciente</strong> para confirmar que las intervenciones siguen siendo necesarias y seguras</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

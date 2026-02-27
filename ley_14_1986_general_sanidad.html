@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ley 14/1986 General de Sanidad — INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f5f0;
+  --surface: #ffffff;
+  --border: #ddd5c8;
+  --text: #1e1a14;
+  --muted: #8a7a68;
+  --red: #b5282a;
+  --red-dim: #b5282a14;
+  --gold: #c49a2a;
+  --gold-dim: #c49a2a18;
+  --blue: #1e5f8a;
+  --blue-dim: #1e5f8a14;
+  --green: #2a7a4a;
+  --green-dim: #2a7a4a14;
+  --teal: #1a6a6a;
+  --teal-dim: #1a6a6a14;
+  --navy: #0d2137;
+  --warm: #f0ebe0;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 2rem 1.5rem 4rem;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 31px, #d8cfc028 31px, #d8cfc028 32px);
+}
+
+/* HEADER */
+header { text-align:center; margin-bottom:2.5rem; }
+.law-badge {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:var(--navy); color:white;
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  letter-spacing:0.12em; padding:0.35rem 1.1rem; border-radius:3px;
+  margin-bottom:1rem; text-transform:uppercase;
+}
+h1 {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(1.8rem,5vw,2.9rem); color:var(--navy); line-height:1.1;
+}
+.subtitle { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; }
+
+/* GRIDS */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; max-width:1100px; margin:0 auto; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; max-width:1100px; margin:1.2rem auto 0; }
+.grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; max-width:1100px; margin:1.2rem auto 0; }
+.full { grid-column:1/-1; }
+@media(max-width:850px){ .grid2,.grid3 { grid-template-columns:1fr 1fr; } .grid4 { grid-template-columns:1fr 1fr; } }
+@media(max-width:550px){ .grid2,.grid3,.grid4 { grid-template-columns:1fr; } .full { grid-column:1; } }
+
+/* CARD */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+.card-head { padding:0.75rem 1.1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; }
+.card-icon { font-size:1.1rem; flex-shrink:0; }
+.card-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; flex:1; }
+.card-body { padding:1rem 1.1rem; }
+
+/* SPEC ROW */
+.spec-row { display:flex; align-items:flex-start; gap:0.7rem; padding:0.55rem 0; border-bottom:1px solid var(--border); font-size:0.8rem; }
+.spec-row:last-child { border-bottom:none; }
+.spec-icon { font-size:1rem; flex-shrink:0; margin-top:0.1rem; }
+.spec-content { line-height:1.5; }
+.spec-content strong { color:var(--navy); }
+
+/* MEMO BOX */
+.memo-box { border-radius:6px; padding:0.55rem 0.9rem; margin-top:0.8rem; border:1px solid var(--gold); background:var(--gold-dim); }
+.memo-label { font-family:'JetBrains Mono',monospace; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--gold); margin-bottom:0.25rem; }
+.memo-text { color:var(--text); font-weight:700; font-size:0.82rem; line-height:1.6; }
+
+/* ART BADGE */
+.art-badge {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.62rem;
+  font-weight:600; padding:0.12rem 0.5rem; border-radius:3px; margin-right:0.3rem;
+  vertical-align:middle;
+}
+.ab-red { background:var(--red-dim); color:var(--red); border:1px solid var(--red); }
+.ab-blue { background:var(--blue-dim); color:var(--blue); border:1px solid var(--blue); }
+.ab-green { background:var(--green-dim); color:var(--green); border:1px solid var(--green); }
+.ab-navy { background:#0d213720; color:var(--navy); border:1px solid var(--navy); }
+
+/* ART 1 CARD */
+.art1-card .card-head { background:var(--navy); }
+.art1-card .card-title { color:white; }
+.art1-bignum {
+  font-family:'Playfair Display',serif; font-size:6rem; font-weight:900;
+  color:var(--navy); opacity:0.06; position:absolute; right:0.8rem; top:-0.5rem; line-height:1;
+}
+.art1-wrap { position:relative; }
+.def-box { background:var(--blue-dim); border-left:4px solid var(--blue); border-radius:0 6px 6px 0; padding:0.7rem 1rem; font-size:0.82rem; line-height:1.6; margin-bottom:0.7rem; }
+.titular-row { display:flex; gap:0.6rem; }
+.tit-pill {
+  flex:1; text-align:center; border-radius:7px; padding:0.7rem 0.5rem;
+  border:1px solid;
+}
+.tit-es { background:var(--blue-dim); border-color:var(--blue); }
+.tit-ex { background:var(--green-dim); border-color:var(--green); }
+.tit-icon { font-size:1.4rem; margin-bottom:0.2rem; }
+.tit-label { font-weight:700; font-size:0.8rem; }
+.tit-es .tit-label { color:var(--blue); }
+.tit-ex .tit-label { color:var(--green); }
+.tit-desc { font-size:0.68rem; color:var(--muted); margin-top:0.15rem; line-height:1.3; }
+
+/* PRINCIPIOS PUIP */
+.puip-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; }
+.puip-card {
+  border-radius:8px; padding:0.8rem; border:1px solid; text-align:center;
+}
+.puip-letter { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:900; line-height:1; margin-bottom:0.2rem; }
+.puip-name { font-family:'JetBrains Mono',monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.35rem; }
+.puip-desc { font-size:0.72rem; color:var(--muted); line-height:1.4; }
+
+.puip-p1 { background:var(--red-dim); border-color:var(--red); }
+.puip-p1 .puip-letter { color:var(--red); }
+.puip-p1 .puip-name { color:var(--red); }
+.puip-u { background:var(--blue-dim); border-color:var(--blue); }
+.puip-u .puip-letter { color:var(--blue); }
+.puip-u .puip-name { color:var(--blue); }
+.puip-i { background:var(--green-dim); border-color:var(--green); }
+.puip-i .puip-letter { color:var(--green); }
+.puip-i .puip-name { color:var(--green); }
+.puip-p2 { background:var(--teal-dim); border-color:var(--teal); }
+.puip-p2 .puip-letter { color:var(--teal); }
+.puip-p2 .puip-name { color:var(--teal); }
+
+/* ORGANIZACIÓN SNS */
+.org-card .card-head { background:var(--navy); }
+.org-card .card-title { color:white; }
+
+.azc-flow { display:flex; flex-direction:column; gap:0.5rem; }
+.azc-level {
+  display:flex; align-items:center; gap:0.8rem;
+  background:var(--warm); border:1px solid var(--border); border-radius:7px;
+  padding:0.7rem 0.9rem; position:relative;
+}
+.azc-level::after {
+  content:'↓'; position:absolute; bottom:-0.75rem; left:1.4rem;
+  color:var(--muted); font-size:0.8rem;
+}
+.azc-level:last-child::after { display:none; }
+.azc-letter {
+  font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900;
+  min-width:32px; text-align:center; flex-shrink:0; line-height:1;
+}
+.azc-info strong { font-size:0.85rem; display:block; color:var(--navy); margin-bottom:0.15rem; }
+.azc-info span { font-size:0.73rem; color:var(--muted); line-height:1.4; }
+
+.azl-a .azc-letter { color:var(--red); }
+.azl-z .azc-letter { color:var(--blue); }
+.azl-c .azc-letter { color:var(--green); }
+
+/* NIVELES */
+.nivel-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+.nivel-card {
+  border-radius:8px; padding:1rem; border:2px solid;
+}
+.nivel-p { background:var(--blue-dim); border-color:var(--blue); }
+.nivel-e { background:var(--red-dim); border-color:var(--red); }
+.nivel-header { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.6rem; }
+.nivel-icon { font-size:1.4rem; }
+.nivel-title { font-family:'Playfair Display',serif; font-weight:700; font-size:0.95rem; }
+.nivel-p .nivel-title { color:var(--blue); }
+.nivel-e .nivel-title { color:var(--red); }
+.nivel-items { list-style:none; display:flex; flex-direction:column; gap:0.3rem; }
+.nivel-items li { font-size:0.76rem; color:var(--muted); display:flex; align-items:flex-start; gap:0.4rem; line-height:1.4; }
+.nivel-items li::before { content:'·'; font-size:1.2rem; line-height:1; flex-shrink:0; margin-top:-0.05rem; }
+.nivel-p .nivel-items li::before { color:var(--blue); }
+.nivel-e .nivel-items li::before { color:var(--red); }
+.nivel-clave {
+  margin-top:0.7rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem;
+  font-weight:700; text-transform:uppercase; letter-spacing:0.1em;
+  padding:0.25rem 0.5rem; border-radius:3px; display:inline-block;
+}
+.nivel-p .nivel-clave { background:var(--blue); color:white; }
+.nivel-e .nivel-clave { background:var(--red); color:white; }
+
+/* DERECHOS */
+.derechos-card .card-head { background:var(--green-dim); border-bottom:2px solid var(--green); }
+.derechos-card .card-title { color:var(--green); }
+
+.der-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
+.der-item {
+  border-radius:7px; padding:0.7rem 0.7rem; border:1px solid; text-align:center;
+}
+.der-letter { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; line-height:1; margin-bottom:0.2rem; }
+.der-name { font-family:'JetBrains Mono',monospace; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.3rem; font-weight:600; }
+.der-desc { font-size:0.68rem; color:var(--muted); line-height:1.3; }
+
+.di { background:var(--blue-dim); border-color:var(--blue); }
+.di .der-letter,.di .der-name { color:var(--blue); }
+.dc { background:var(--teal-dim); border-color:var(--teal); }
+.dc .der-letter,.dc .der-name { color:var(--teal); }
+.dp { background:var(--green-dim); border-color:var(--green); }
+.dp .der-letter,.dp .der-name { color:var(--green); }
+.dm { background:var(--gold-dim); border-color:var(--gold); }
+.dm .der-letter,.dm .der-name { color:#8a6a10; }
+.dl { background:var(--red-dim); border-color:var(--red); }
+.dl .der-letter,.dl .der-name { color:var(--red); }
+.df { background:#f3e5f515; border-color:#8e44ad; }
+.df .der-letter,.df .der-name { color:#8e44ad; }
+
+@media(max-width:600px){ .der-grid { grid-template-columns:repeat(2,1fr); } }
+
+/* TEST */
+.test-card .card-head { background:var(--red-dim); border-bottom:2px solid var(--red); }
+.test-card .card-title { color:var(--red); }
+.q-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 1.5rem; }
+.q-block { padding:0.6rem 0; border-bottom:1px dashed var(--border); font-size:0.79rem; }
+.q-block:last-child { border-bottom:none; }
+.q-text { color:var(--muted); margin-bottom:0.25rem; line-height:1.4; }
+.q-text::before { content:'❓ '; }
+.q-answer { font-weight:700; color:var(--red); display:flex; align-items:flex-start; gap:0.4rem; }
+.q-answer::before { content:'→'; color:var(--gold); font-weight:900; flex-shrink:0; }
+.q-note { font-size:0.68rem; color:var(--muted); margin-top:0.1rem; font-style:italic; }
+
+/* NOTA COMPLEMENTARIA */
+.nota-bar {
+  max-width:1100px; margin:1.2rem auto 0;
+  background:var(--navy); color:white;
+  border-radius:8px; padding:0.9rem 1.3rem;
+  display:flex; align-items:center; gap:1rem; font-size:0.79rem; line-height:1.5;
+}
+.nota-icon { font-size:1.4rem; flex-shrink:0; }
+.nota-text strong { color:#90caf9; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="law-badge">⚖️ Ley 14/1986 · General de Sanidad</div>
+  <h1>Sistema Nacional de Salud</h1>
+  <p class="subtitle">Estructura · Principios · Derechos · INGESA Enfermería</p>
+</header>
+
+<div class="grid2">
+
+  <!-- ART 1 -->
+  <div class="card art1-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">📋</span>
+      <span class="card-title">Art. 1 — Objeto y Titulares</span>
+    </div>
+    <div class="card-body">
+      <div class="art1-wrap">
+        <div class="art1-bignum">1</div>
+        <div class="def-box">
+          <strong>Objeto:</strong> Regular todas las acciones para hacer efectivo el derecho a la protección de la salud del <span class="art-badge ab-red">art. 43 CE</span>
+        </div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.5rem;">Titulares del derecho</div>
+      <div class="titular-row">
+        <div class="tit-pill tit-es">
+          <div class="tit-icon">🇪🇸</div>
+          <div class="tit-label">Españoles</div>
+          <div class="tit-desc">Todos los españoles son titulares</div>
+        </div>
+        <div class="tit-pill tit-ex">
+          <div class="tit-icon">🌍</div>
+          <div class="tit-label">Extranjeros residentes</div>
+          <div class="tit-desc">Extranjeros residentes en España</div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.8rem">
+        <div class="memo-label">🧠 Clave examen</div>
+        <div class="memo-text">Art. 1 = <span style="color:var(--red)">Objeto</span> + <span style="color:var(--blue)">Titulares</span><br>
+        <span style="font-size:0.7rem;font-weight:400;color:var(--muted)">Españoles + extranjeros <strong>residentes</strong> (no todos los extranjeros)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRINCIPIOS PUIP -->
+  <div class="card">
+    <div class="card-head" style="background:var(--gold-dim);border-bottom:2px solid var(--gold)">
+      <span class="card-icon">⭐</span>
+      <span class="card-title" style="color:#8a6a10">Principios Generales — Arts. 3–17</span>
+    </div>
+    <div class="card-body">
+      <div class="puip-grid">
+        <div class="puip-card puip-p1">
+          <div class="puip-letter">P</div>
+          <div class="puip-name">Prevención / Promoción</div>
+          <div class="puip-desc">Prioridad: promoción de la salud y prevención de la enfermedad</div>
+        </div>
+        <div class="puip-card puip-u">
+          <div class="puip-letter">U</div>
+          <div class="puip-name">Universalidad</div>
+          <div class="puip-desc">Asistencia sanitaria pública extendida a <strong>toda la población</strong></div>
+        </div>
+        <div class="puip-card puip-i">
+          <div class="puip-letter">I</div>
+          <div class="puip-name">Igualdad / Integral</div>
+          <div class="puip-desc">Igualdad efectiva, superar desequilibrios. Concepción integral del sistema</div>
+        </div>
+        <div class="puip-card puip-p2">
+          <div class="puip-letter">P</div>
+          <div class="puip-name">Participación</div>
+          <div class="puip-desc">Ciudadanos y poderes públicos en formulación y control de política sanitaria</div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.8rem">
+        <div class="memo-label">🧠 P·U·I·P</div>
+        <div class="memo-text">
+          <span style="color:var(--red)">P</span>revención ·
+          <span style="color:var(--blue)">U</span>niversalidad ·
+          <span style="color:var(--green)">I</span>gualdad/Integral ·
+          <span style="color:var(--teal)">P</span>articipación
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid2 -->
+
+<div class="grid2" style="margin-top:1.2rem">
+
+  <!-- ORGANIZACIÓN SNS -->
+  <div class="card org-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">🏗️</span>
+      <span class="card-title" style="color:white">Organización del SNS — A·Z·C</span>
+    </div>
+    <div class="card-body">
+      <div style="font-size:0.76rem;color:var(--muted);margin-bottom:0.9rem;line-height:1.5;">
+        SNS = <strong style="color:var(--navy)">estructuras y servicios públicos del Estado + CCAA</strong>, coordinados.<br>
+        Eje del modelo: las <strong style="color:var(--navy)">CCAA</strong> crean sus Servicios de Salud.
+      </div>
+      <div class="azc-flow">
+        <div class="azc-level azl-a">
+          <div class="azc-letter">A</div>
+          <div class="azc-info">
+            <strong>Área de Salud</strong>
+            <span>Pieza básica de los Servicios de Salud de las CCAA. Delimitada por criterios geográficos, demográficos y socioeconómicos. Debe ofrecer <strong>todas las prestaciones</strong> del sistema</span>
+          </div>
+        </div>
+        <div class="azc-level azl-z">
+          <div class="azc-letter">Z</div>
+          <div class="azc-info">
+            <strong>Zonas Básicas de Salud</strong>
+            <span>Unidades inferiores al Área. Donde se organiza la <strong>Atención Primaria</strong></span>
+          </div>
+        </div>
+        <div class="azc-level azl-c">
+          <div class="azc-letter">C</div>
+          <div class="azc-info">
+            <strong>Centros de Salud</strong>
+            <span>Sede física de la Zona Básica. Punto de acceso a la Atención Primaria</span>
+          </div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 A·Z·C</div>
+        <div class="memo-text">
+          <span style="color:var(--red)">Á</span>rea →
+          <span style="color:var(--blue)">Z</span>ona Básica →
+          <span style="color:var(--green)">C</span>entro de Salud
+          <div style="font-size:0.7rem;font-weight:400;color:var(--muted);margin-top:0.2rem">De mayor a menor: A contiene Z, Z se organiza en C</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIVELES ASISTENCIALES -->
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">🏥</span>
+      <span class="card-title" style="color:white">Niveles Asistenciales — P·E</span>
+    </div>
+    <div class="card-body">
+      <div class="nivel-grid">
+        <div class="nivel-card nivel-p">
+          <div class="nivel-header">
+            <span class="nivel-icon">🏠</span>
+            <span class="nivel-title">Atención Primaria</span>
+          </div>
+          <ul class="nivel-items">
+            <li>Primer nivel de acceso al sistema</li>
+            <li>Promoción, prevención, educación sanitaria</li>
+            <li>Atención básica y enfoque comunitario</li>
+            <li>Centros de salud y consultorios</li>
+          </ul>
+          <div class="nivel-clave">Puerta de entrada</div>
+        </div>
+        <div class="nivel-card nivel-e">
+          <div class="nivel-header">
+            <span class="nivel-icon">🏨</span>
+            <span class="nivel-title">Atención Especializada</span>
+          </div>
+          <ul class="nivel-items">
+            <li>Hospitales y servicios diagnósticos</li>
+            <li>Hospitalización y consultas externas</li>
+            <li>Urgencias hospitalarias</li>
+            <li>Rehabilitación y alta complejidad</li>
+          </ul>
+          <div class="nivel-clave">Enfermedad compleja</div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.8rem">
+        <div class="memo-label">🧠 P·E</div>
+        <div class="memo-text">
+          <span style="color:var(--blue)">P</span>rimaria → <span style="color:var(--blue)">P</span>uerta · <span style="color:var(--blue)">P</span>revención<br>
+          <span style="color:var(--red)">E</span>specializada → <span style="color:var(--red)">E</span>nfermedad compleja · <span style="color:var(--red)">E</span>stancias
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid2 -->
+
+<!-- DERECHOS ICPMLF -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card derechos-card">
+    <div class="card-head">
+      <span class="card-icon">🛡️</span>
+      <span class="card-title">Derechos de los ciudadanos — I·C·P·M·L·F</span>
+    </div>
+    <div class="card-body">
+      <div class="der-grid">
+        <div class="der-item di">
+          <div class="der-letter">I</div>
+          <div class="der-name">Información</div>
+          <div class="der-desc">Sobre servicios sanitarios accesibles y sobre su propio proceso</div>
+        </div>
+        <div class="der-item dc">
+          <div class="der-letter">C</div>
+          <div class="der-name">Confidencialidad</div>
+          <div class="der-desc">Información relacionada con su proceso y estancia</div>
+        </div>
+        <div class="der-item dp">
+          <div class="der-letter">P</div>
+          <div class="der-name">Participación</div>
+          <div class="der-desc">En la actividad sanitaria a través de instituciones comunitarias y asociaciones</div>
+        </div>
+        <div class="der-item dm">
+          <div class="der-letter">M</div>
+          <div class="der-name">Médico asignado</div>
+          <div class="der-desc">Médico de cabecera conocido por su nombre como interlocutor principal</div>
+        </div>
+        <div class="der-item dl">
+          <div class="der-letter">L</div>
+          <div class="der-name">Libre elección</div>
+          <div class="der-desc">De médico y demás sanitarios titulados en los términos reglamentarios</div>
+        </div>
+        <div class="der-item df">
+          <div class="der-letter">F</div>
+          <div class="der-name">Fármacos</div>
+          <div class="der-desc">Obtener medicamentos y productos sanitarios necesarios</div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.8rem">
+        <div class="memo-label">🧠 I·C·P·M·L·F</div>
+        <div class="memo-text" style="font-size:0.8rem">
+          <span style="color:var(--blue)">I</span>nformación ·
+          <span style="color:var(--teal)">C</span>onfidencialidad ·
+          <span style="color:var(--green)">P</span>articipación ·
+          <span style="color:#8a6a10">M</span>édico ·
+          <span style="color:var(--red)">L</span>ibre elección ·
+          <span style="color:#6a3a8a">F</span>ármacos
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST PREGUNTAS -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head">
+      <span class="card-icon">🎯</span>
+      <span class="card-title">Preguntas tipo test — INGESA</span>
+    </div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el objeto de la Ley 14/1986?</div>
+          <div class="q-answer"><strong>Regular las acciones para hacer efectivo el art. 43 CE</strong> (derecho a la protección de la salud)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Quiénes son titulares del derecho según el art. 1?</div>
+          <div class="q-answer"><strong>Españoles y extranjeros residentes en España</strong></div>
+          <div class="q-note">Ojo: "residentes", no todos los extranjeros</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuál es la pieza básica de los Servicios de Salud de las CCAA?</div>
+          <div class="q-answer"><strong>El Área de Salud</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Dónde se organiza la Atención Primaria?</div>
+          <div class="q-answer"><strong>En las Zonas Básicas de Salud</strong>, a través de los Centros de Salud</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el primer principio general (prioridad) del SNS?</div>
+          <div class="q-answer"><strong>Promoción de la salud y prevención de la enfermedad</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué ley complementa a la Ley 14/1986 en coordinación y cartera de servicios?</div>
+          <div class="q-answer"><strong>Ley 16/2003</strong> de cohesión y calidad del SNS</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">El SNS es el conjunto de estructuras y servicios públicos de…</div>
+          <div class="q-answer"><strong>La Administración del Estado + las CCAA</strong>, adecuadamente coordinados</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué derecho reconoce la Ley 14/1986 respecto al médico asignado?</div>
+          <div class="q-answer">Que se les asigne un médico <strong>conocido por su nombre</strong> como interlocutor principal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTA COMPLEMENTARIA -->
+<div class="nota-bar">
+  <span class="nota-icon">📌</span>
+  <span class="nota-text">
+    La Ley 14/1986 es la <strong>ley base del SNS</strong> y mantiene vigente su núcleo preguntable (arts. 1–3, estructura, derechos). Ha sido complementada por <strong>Ley 16/2003</strong> (cohesión y calidad) y modificada puntualmente por LO 3/2018 (protección de datos), pero los principios generales son el corazón del examen.
+  </span>
+</div>
+
+</body>
+</html>

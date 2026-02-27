@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatuto Marco 2/3 — Planificación, Derechos y Deberes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4f8f4;--surface:#fff;--border:#c8d8c8;--text:#141e14;--muted:#6a8a6a;
+  --navy:#0d2137;--blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --red:#b5282a;--red-dim:#b5282a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --green:#2a7a4a;--green-dim:#2a7a4a14;
+  --purple:#6a3a8a;--purple-dim:#6a3a8a14;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --warm:#eef4ee;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c8d8c828 31px,#c8d8c828 32px);}
+header{text-align:center;margin-bottom:2.5rem;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.1rem;border-radius:3px;margin-bottom:0.5rem;text-transform:uppercase;}
+.badge2{display:inline-flex;align-items:center;gap:0.5rem;background:var(--green);color:white;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;padding:0.25rem 0.8rem;border-radius:3px;margin-left:0.5rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,2.7rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1100px;margin:1.2rem auto 0;}
+.full{grid-column:1/-1;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}.full{grid-column:1;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+
+/* CAP III FLOW */
+.crpp-flow{display:flex;flex-direction:column;gap:0;}
+.crpp-item{display:flex;gap:0.8rem;align-items:stretch;position:relative;}
+.crpp-item::after{content:'↓';position:absolute;bottom:-0.8rem;left:1.1rem;color:var(--muted);font-size:0.8rem;z-index:1;}
+.crpp-item:last-child::after{display:none;}
+.crpp-marker{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:36px;}
+.crpp-letter{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;line-height:1;text-align:center;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0;}
+.crpp-content{flex:1;background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.6rem 0.8rem;margin-bottom:0.8rem;}
+.crpp-content strong{font-size:0.83rem;color:var(--navy);display:block;margin-bottom:0.1rem;}
+.crpp-content span{font-size:0.73rem;color:var(--muted);line-height:1.4;}
+.crpp-art{font-family:'JetBrains Mono',monospace;font-size:0.58rem;display:inline-block;padding:0.08rem 0.35rem;border-radius:2px;margin-top:0.25rem;}
+
+.cc .crpp-letter{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.cc .crpp-art{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.cr .crpp-letter{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal);}
+.cr .crpp-art{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal);}
+.cp .crpp-letter{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+.cp .crpp-art{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+.cpp .crpp-letter{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple);}
+.cpp .crpp-art{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple);}
+
+/* DERECHOS ERFS */
+.der-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;}
+@media(max-width:700px){.der-grid{grid-template-columns:repeat(3,1fr);}}
+.der-card{border-radius:8px;border:1px solid;text-align:center;overflow:hidden;}
+.der-head{padding:0.6rem 0.4rem;}
+.der-letter{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;margin-bottom:0.1rem;}
+.der-key{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+.der-body{padding:0.5rem 0.5rem;background:white;}
+.der-title{font-weight:700;font-size:0.73rem;margin-bottom:0.15rem;}
+.der-desc{font-size:0.65rem;color:var(--muted);line-height:1.3;}
+
+.de{border-color:var(--navy);}.de .der-head{background:var(--navy);}.de .der-letter,.de .der-key{color:white;}.de .der-title{color:var(--navy);}
+.dr{border-color:var(--blue);}.dr .der-head{background:var(--blue-dim);}.dr .der-letter,.dr .der-key{color:var(--blue);}.dr .der-title{color:var(--blue);}
+.df{border-color:var(--teal);}.df .der-head{background:var(--teal-dim);}.df .der-letter,.df .der-key{color:var(--teal);}.df .der-title{color:var(--teal);}
+.dp{border-color:var(--green);}.dp .der-head{background:var(--green-dim);}.dp .der-letter,.dp .der-key{color:var(--green);}.dp .der-title{color:var(--green);}
+.ds{border-color:var(--red);}.ds .der-head{background:var(--red-dim);}.ds .der-letter,.ds .der-key{color:var(--red);}.ds .der-title{color:var(--red);}
+
+/* DEBERES */
+.deb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;}
+@media(max-width:700px){.deb-grid{grid-template-columns:repeat(3,1fr);}}
+.deb-card{border-radius:8px;border:1px solid;text-align:center;overflow:hidden;}
+.deb-head{padding:0.6rem 0.4rem;}
+.deb-letter{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;margin-bottom:0.1rem;}
+.deb-key{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+.deb-body{padding:0.5rem 0.5rem;background:white;}
+.deb-title{font-weight:700;font-size:0.73rem;margin-bottom:0.15rem;}
+.deb-desc{font-size:0.65rem;color:var(--muted);line-height:1.3;}
+
+.dl{border-color:var(--blue);}.dl .deb-head{background:var(--blue-dim);}.dl .deb-letter,.dl .deb-key{color:var(--blue);}.dl .deb-title{color:var(--blue);}
+.dpr{border-color:var(--teal);}.dpr .deb-head{background:var(--teal-dim);}.dpr .deb-letter,.dpr .deb-key{color:var(--teal);}.dpr .deb-title{color:var(--teal);}
+.dn{border-color:var(--green);}.dn .deb-head{background:var(--green-dim);}.dn .deb-letter,.dn .deb-key{color:var(--green);}.dn .deb-title{color:var(--green);}
+.dse{border-color:var(--purple);}.dse .deb-head{background:var(--purple-dim);}.dse .deb-letter,.dse .deb-key{color:var(--purple);}.dse .deb-title{color:var(--purple);}
+.db{border-color:var(--red);}.db .deb-head{background:var(--red-dim);}.db .deb-letter,.db .deb-key{color:var(--red);}.db .deb-title{color:var(--red);}
+
+/* DERECHOS COLECTIVOS */
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.col-item{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.7rem;text-align:center;}
+.col-icon{font-size:1.4rem;margin-bottom:0.3rem;}
+.col-title{font-weight:700;font-size:0.8rem;color:var(--navy);margin-bottom:0.2rem;}
+.col-desc{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+
+/* TEST */
+.test-card .card-head{background:var(--red-dim);border-bottom:2px solid var(--red);}
+.test-card .card-title{color:var(--red);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="badge">⚖️ Ley 55/2003 · Estatuto Marco</div>
+    <span class="badge2">2 de 3 — Caps. III y IV</span>
+  </div>
+  <h1>Planificación · Derechos · Deberes</h1>
+  <p class="subtitle">Personal estatutario SNS · INGESA Enfermería</p>
+</header>
+
+<div class="grid2">
+  <!-- CAP III -->
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">📊</span>
+      <span class="card-title" style="color:white">Cap. III — Planificación RRHH · C·R·P·P</span>
+    </div>
+    <div class="card-body">
+      <div class="crpp-flow">
+        <div class="crpp-item cc">
+          <div class="crpp-marker"><div class="crpp-letter">C</div></div>
+          <div class="crpp-content">
+            <strong>Comisión de RRHH del SNS <span class="crpp-art">Art. 10</span></strong>
+            <span>Planificación, diseño de programas de formación y modernización. Coordina la planificación entre CCAA y AGE</span>
+          </div>
+        </div>
+        <div class="crpp-item cr">
+          <div class="crpp-marker"><div class="crpp-letter">R</div></div>
+          <div class="crpp-content">
+            <strong>Registros e instrumentos <span class="crpp-art">Art. 11</span></strong>
+            <span>Registros de personal (SIS del SNS) · Catálogos y plantillas · Relación de puestos de trabajo</span>
+          </div>
+        </div>
+        <div class="crpp-item cp">
+          <div class="crpp-marker"><div class="crpp-letter">P</div></div>
+          <div class="crpp-content">
+            <strong>Planificación de RRHH <span class="crpp-art">Art. 12</span></strong>
+            <span>Dimensionamiento, distribución, estabilidad, formación. Negociación en mesas → planificación de necesidades, reasignación, convocatorias selección</span>
+          </div>
+        </div>
+        <div class="crpp-item cpp">
+          <div class="crpp-marker"><div class="crpp-letter">P</div></div>
+          <div class="crpp-content">
+            <strong>Planes de ordenación RRHH <span class="crpp-art">Art. 13</span></strong>
+            <span>Instrumento básico global. Objetivos · Efectivos y estructura · Cuantificación · Acceso · Movilidad · Promoción</span>
+          </div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 C·R·P·P</div>
+        <div class="memo-text">
+          <span style="color:var(--blue)">C</span>omisión RRHH (art.10) ·
+          <span style="color:var(--teal)">R</span>egistros (art.11) ·
+          <span style="color:var(--green)">P</span>lanificación (art.12) ·
+          <span style="color:var(--purple)">P</span>lanes (art.13)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ART 17 DERECHOS INDIVIDUALES -->
+  <div class="card">
+    <div class="card-head" style="background:var(--green-dim);border-bottom:2px solid var(--green)">
+      <span class="card-icon">🛡️</span>
+      <span class="card-title" style="color:var(--green)">Art. 17 — Derechos individuales · E·R·F·P·S ★</span>
+    </div>
+    <div class="card-body">
+      <div class="der-grid">
+        <div class="der-card de">
+          <div class="der-head"><div class="der-letter">E</div><div class="der-key">Estabilidad</div></div>
+          <div class="der-body"><div class="der-title">Estabilidad en el empleo</div><div class="der-desc">Ejercicio efectivo de la profesión/funciones del nombramiento</div></div>
+        </div>
+        <div class="der-card dr">
+          <div class="der-head"><div class="der-letter">R</div><div class="der-key">Retribuciones</div></div>
+          <div class="der-body"><div class="der-title">Percepción puntual</div><div class="der-desc">De retribuciones e indemnizaciones</div></div>
+        </div>
+        <div class="der-card df">
+          <div class="der-head"><div class="der-letter">F</div><div class="der-key">Formación</div></div>
+          <div class="der-body"><div class="der-title">Formación continuada</div><div class="der-desc">Adecuada a la función desempeñada</div></div>
+        </div>
+        <div class="der-card dp">
+          <div class="der-head"><div class="der-letter">P</div><div class="der-key">Promoción</div></div>
+          <div class="der-body"><div class="der-title">Promoción interna</div><div class="der-desc">Y desarrollo profesional. Reconocimiento de cualificación</div></div>
+        </div>
+        <div class="der-card ds">
+          <div class="der-head"><div class="der-letter">S</div><div class="der-key">Seguridad</div></div>
+          <div class="der-body"><div class="der-title">Seguridad y salud laboral</div><div class="der-desc">Protección eficaz en el trabajo</div></div>
+        </div>
+      </div>
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.8rem;font-size:0.73rem;color:var(--muted);margin-top:0.7rem;line-height:1.5;">
+        También: participación en planificación · no discriminación · intimidad y dignidad · colectivos (art. 18): negociación, representación, reunión, huelga
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 E·R·F·P·S</div>
+        <div class="memo-text">
+          <span style="color:var(--navy)">E</span>stabilidad ·
+          <span style="color:var(--blue)">R</span>etribuciones ·
+          <span style="color:var(--teal)">F</span>ormación ·
+          <span style="color:var(--green)">P</span>romoción ·
+          <span style="color:var(--red)">S</span>eguridad laboral
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DERECHOS COLECTIVOS + DEBERES -->
+<div class="grid2" style="margin-top:1.2rem">
+
+  <div class="card">
+    <div class="card-head" style="background:var(--blue-dim);border-bottom:2px solid var(--blue)">
+      <span class="card-icon">🤝</span>
+      <span class="card-title" style="color:var(--blue)">Art. 18 — Derechos colectivos</span>
+    </div>
+    <div class="card-body">
+      <div class="col-grid">
+        <div class="col-item">
+          <div class="col-icon">🗣️</div>
+          <div class="col-title">Negociación colectiva</div>
+          <div class="col-desc">Representación y participación en mesas de negociación</div>
+        </div>
+        <div class="col-item">
+          <div class="col-icon">📣</div>
+          <div class="col-title">Derecho de reunión</div>
+          <div class="col-desc">En los términos de la legislación general</div>
+        </div>
+        <div class="col-item">
+          <div class="col-icon">✊</div>
+          <div class="col-title">Huelga y conflicto colectivo</div>
+          <div class="col-desc">Según legislación general aplicable</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEBERES LPNSB -->
+  <div class="card">
+    <div class="card-head" style="background:var(--red-dim);border-bottom:2px solid var(--red)">
+      <span class="card-icon">📌</span>
+      <span class="card-title" style="color:var(--red)">Arts. 19 ss. — Deberes · L·P·N·S·B ★</span>
+    </div>
+    <div class="card-body">
+      <div class="deb-grid">
+        <div class="deb-card dl">
+          <div class="deb-head"><div class="deb-letter">L</div><div class="deb-key">Ley</div></div>
+          <div class="deb-body"><div class="deb-title">Constitución y leyes</div><div class="deb-desc">Respetar la CE, Estatuto de Autonomía y ordenamiento jurídico</div></div>
+        </div>
+        <div class="deb-card dpr">
+          <div class="deb-head"><div class="deb-letter">P</div><div class="deb-key">Profesionalidad</div></div>
+          <div class="deb-body"><div class="deb-title">Lealtad y eficacia</div><div class="deb-desc">Principios técnicos, científicos, éticos y deontológicos</div></div>
+        </div>
+        <div class="deb-card dn">
+          <div class="deb-head"><div class="deb-letter">N</div><div class="deb-key">Normas</div></div>
+          <div class="deb-body"><div class="deb-title">Organización y funcionamiento</div><div class="deb-desc">Cumplir normas del servicio de salud</div></div>
+        </div>
+        <div class="deb-card dse">
+          <div class="deb-head"><div class="deb-letter">S</div><div class="deb-key">Secreto</div></div>
+          <div class="deb-body"><div class="deb-title">Secreto profesional</div><div class="deb-desc">Información del paciente</div></div>
+        </div>
+        <div class="deb-card db">
+          <div class="deb-head"><div class="deb-letter">B</div><div class="deb-key">Bienes</div></div>
+          <div class="deb-body"><div class="deb-title">Buen uso de bienes</div><div class="deb-desc">Medios, recursos y bienes del servicio de salud</div></div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 L·P·N·S·B</div>
+        <div class="memo-text">
+          <span style="color:var(--blue)">L</span>ey ·
+          <span style="color:var(--teal)">P</span>rofesionalidad ·
+          <span style="color:var(--green)">N</span>ormas ·
+          <span style="color:var(--purple)">S</span>ecreto ·
+          <span style="color:var(--red)">B</span>ienes
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Caps. III y IV</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Qué órgano desarrolla la planificación de RRHH del SNS (art. 10)?</div>
+          <div class="q-answer"><strong>Comisión de Recursos Humanos del SNS</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el instrumento básico de planificación global de RRHH de un servicio de salud?</div>
+          <div class="q-answer"><strong>Los Planes de Ordenación de Recursos Humanos</strong> (art. 13)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué derecho individual del art. 17 garantiza la permanencia en el puesto?</div>
+          <div class="q-answer"><strong>Estabilidad en el empleo</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿El personal estatutario tiene derecho a huelga?</div>
+          <div class="q-answer"><strong>Sí</strong> — derecho colectivo del art. 18, en los términos de la legislación general</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué deber obliga a guardar información sobre el paciente?</div>
+          <div class="q-answer"><strong>Secreto profesional</strong> (deber S de L·P·N·S·B)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Los registros de personal están integrados en…</div>
+          <div class="q-answer"><strong>El Sistema de Información Sanitaria del SNS</strong> (art. 11)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿La planificación de RRHH (art. 12) requiere negociación previa?</div>
+          <div class="q-answer"><strong>Sí</strong>, previa negociación en las mesas correspondientes</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué deber exige actuar con principios técnicos, éticos y deontológicos?</div>
+          <div class="q-answer"><strong>Profesionalidad</strong> — ejercer con lealtad y eficacia (deber P)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

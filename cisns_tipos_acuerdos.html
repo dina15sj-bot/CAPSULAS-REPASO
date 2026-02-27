@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tipos de Acuerdos del CISNS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f4f0;--surface:#fff;--border:#c4d4c4;--text:#141e14;--muted:#6a7a6a;
+  --navy:#0d2137;
+  --blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --green:#1a6a3a;--green-dim:#1a6a3a14;
+  --red:#b5282a;--red-dim:#b5282a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --orange:#c4681a;--orange-dim:#c4681a14;
+  --warm:#eef4ee;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c4d4c428 31px,#c4d4c428 32px);}
+header{text-align:center;margin-bottom:2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.4rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+
+.wrap{max-width:1000px;margin:0 auto;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.5;}
+
+/* ESCALA VINCULACIÓN */
+.scale-bar{display:flex;align-items:stretch;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,0.07);margin-bottom:1.5rem;}
+.scale-seg{flex:1;padding:0.9rem 0.7rem;text-align:center;display:flex;flex-direction:column;justify-content:center;}
+.scale-kw{font-family:'Syne',sans-serif;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;line-height:1;margin-bottom:0.3rem;}
+.scale-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:0.2rem;}
+.scale-sub{font-size:0.65rem;opacity:0.85;}
+.ss1{background:var(--blue-dim);border-right:2px solid var(--border);}.ss1 .scale-kw{color:var(--blue);}.ss1 .scale-label{color:var(--blue);}
+.ss2{background:var(--orange-dim);border-right:2px solid var(--border);}.ss2 .scale-kw{color:var(--orange);}.ss2 .scale-label{color:var(--orange);}
+.ss3{background:var(--red-dim);}.ss3 .scale-kw{color:var(--red);}.ss3 .scale-label{color:var(--red);}
+@media(max-width:600px){.scale-bar{flex-direction:column;}.scale-seg{border-right:none!important;border-bottom:2px solid var(--border);}.ss3{border-bottom:none!important;}}
+
+/* TIPO CARDS — grandes */
+.tipo-card{background:var(--surface);border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,0.06);margin-bottom:1.2rem;}
+.tipo-head{display:flex;align-items:stretch;gap:0;}
+.tipo-color-bar{width:6px;flex-shrink:0;}
+.tipo-icon-block{padding:1.2rem 1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;min-width:70px;}
+.tipo-icon{font-size:2rem;}
+.tipo-header-text{padding:1rem 1rem 1rem 0;flex:1;}
+.tipo-num{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:600;margin-bottom:0.3rem;}
+.tipo-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;line-height:1.1;margin-bottom:0.25rem;}
+.tipo-kw-badge{display:inline-flex;align-items:center;gap:0.3rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:20px;letter-spacing:0.08em;}
+.tipo-body{padding:0 1.2rem 1.2rem 1.2rem;}
+.tipo-body-inner{background:var(--warm);border:1px solid var(--border);border-radius:8px;padding:0.9rem 1rem;}
+
+.tipo-row{display:flex;align-items:flex-start;gap:0.6rem;padding:0.45rem 0;border-bottom:1px solid var(--border);font-size:0.8rem;line-height:1.5;}
+.tipo-row:last-child{border-bottom:none;}
+.tipo-row-icon{flex-shrink:0;font-size:0.9rem;margin-top:0.1rem;}
+.tipo-row strong{color:var(--navy);}
+.tipo-row span{color:var(--muted);}
+
+/* CARD COLORES */
+.tc-rec .tipo-color-bar{background:var(--blue);}
+.tc-rec .tipo-icon-block{background:var(--blue-dim);}
+.tc-rec .tipo-num{color:var(--blue);}
+.tc-rec .tipo-name{color:var(--blue);}
+.tc-rec .tipo-kw-badge{background:var(--blue);color:white;}
+.tc-rec .tipo-row-icon{color:var(--blue);}
+
+.tc-conv .tipo-color-bar{background:var(--orange);}
+.tc-conv .tipo-icon-block{background:var(--orange-dim);}
+.tc-conv .tipo-num{color:var(--orange);}
+.tc-conv .tipo-name{color:var(--orange);}
+.tc-conv .tipo-kw-badge{background:var(--orange);color:white;}
+.tc-conv .tipo-row-icon{color:var(--orange);}
+
+.tc-coord .tipo-color-bar{background:var(--red);}
+.tc-coord .tipo-icon-block{background:var(--red-dim);}
+.tc-coord .tipo-num{color:var(--red);}
+.tc-coord .tipo-name{color:var(--red);}
+.tc-coord .tipo-kw-badge{background:var(--red);color:white;}
+.tc-coord .tipo-row-icon{color:var(--red);}
+
+/* COMPARATIVA */
+.comp-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+.comp-table th{background:var(--navy);color:white;padding:0.55rem 0.8rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;}
+.comp-table th:first-child{border-radius:5px 0 0 0;}
+.comp-table th:last-child{border-radius:0 5px 0 0;}
+.comp-table td{padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.comp-table tr:last-child td{border-bottom:none;}
+.comp-table tr:hover td{background:#f5faf5;}
+.td-tipo{font-weight:700;white-space:nowrap;}
+.tdr{border-left:3px solid var(--blue);}
+.tdc{border-left:3px solid var(--orange);}
+.tdco{border-left:3px solid var(--red);}
+.td-type-r .td-tipo{color:var(--blue);}
+.td-type-c .td-tipo{color:var(--orange);}
+.td-type-co .td-tipo{color:var(--red);}
+
+.vinc-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:3px;}
+.vp-or{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.vp-co{background:var(--orange-dim);color:var(--orange);border:1px solid var(--orange);}
+.vp-vi{background:var(--red-dim);color:var(--red);border:1px solid var(--red);}
+
+/* TEST */
+.test-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.test-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;background:var(--red-dim);}
+.test-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--red);}
+.test-body{padding:1rem 1.1rem;}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🏛️ CISNS · Tipos de acuerdos</div>
+  <h1>Recomendaciones · Convenios · Actuaciones Coordinadas</h1>
+  <p class="subtitle">Consejo Interterritorial del SNS · INGESA Enfermería</p>
+</header>
+
+<div class="wrap">
+
+  <!-- ESCALA DE VINCULACIÓN -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);text-align:center;margin-bottom:0.5rem;">Escala de vinculación — de menor a mayor</div>
+  <div class="scale-bar">
+    <div class="scale-seg ss1">
+      <div class="scale-kw">1</div>
+      <div class="scale-label">Recomendaciones</div>
+      <div class="scale-sub">ORIENTAN — no son norma obligatoria</div>
+    </div>
+    <div class="scale-seg ss2">
+      <div class="scale-kw">2</div>
+      <div class="scale-label">Convenios</div>
+      <div class="scale-sub">CONTRATO — obligan a partes firmantes</div>
+    </div>
+    <div class="scale-seg ss3">
+      <div class="scale-kw">3</div>
+      <div class="scale-label">Actuaciones Coordinadas</div>
+      <div class="scale-sub">VINCULANTES — obligatorias para TODAS las CCAA</div>
+    </div>
+  </div>
+
+  <!-- TIPO 1: RECOMENDACIONES -->
+  <div class="tipo-card tc-rec">
+    <div class="tipo-head">
+      <div class="tipo-color-bar"></div>
+      <div class="tipo-icon-block"><div class="tipo-icon">💡</div></div>
+      <div class="tipo-header-text">
+        <div class="tipo-num">Tipo 1 · Forma habitual de acuerdo</div>
+        <div class="tipo-name">Recomendaciones del CISNS</div>
+        <span class="tipo-kw-badge">ORIENTAN</span>
+      </div>
+    </div>
+    <div class="tipo-body">
+      <div class="tipo-body-inner">
+        <div class="tipo-row"><span class="tipo-row-icon">✅</span><div><strong>Aprobación:</strong> <span>por consenso en el seno del CISNS</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">📢</span><div><strong>Naturaleza:</strong> <span>expresan la posición del Consejo — <strong>no son norma estrictamente obligatoria</strong></span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">⚖️</span><div><strong>Para las CCAA:</strong> <span>deben <strong>motivar</strong> si deciden apartarse de ellas (no pueden ignorarlas sin explicación)</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">📋</span><div><strong>Uso típico:</strong> <span>protocolos, estándares de calidad, criterios de homogeneización del SNS</span></div></div>
+      </div>
+      <div class="memo-box" style="background:var(--blue-dim);border-color:var(--blue)">
+        <div class="memo-label" style="color:var(--blue)">🧠 Recomendaciones = ORIENTAN</div>
+        <div class="memo-text" style="font-size:0.78rem">No obligan, pero la CA que se aparta <strong>tiene que motivarlo</strong> — no pueden ignorarse libremente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPO 2: CONVENIOS -->
+  <div class="tipo-card tc-conv">
+    <div class="tipo-head">
+      <div class="tipo-color-bar"></div>
+      <div class="tipo-icon-block"><div class="tipo-icon">🤝</div></div>
+      <div class="tipo-header-text">
+        <div class="tipo-num">Tipo 2 · Para acciones concretas conjuntas</div>
+        <div class="tipo-name">Convenios de Cooperación</div>
+        <span class="tipo-kw-badge">CONTRATO</span>
+      </div>
+    </div>
+    <div class="tipo-body">
+      <div class="tipo-body-inner">
+        <div class="tipo-row"><span class="tipo-row-icon">📝</span><div><strong>Forma:</strong> <span>acuerdos formalizados mediante <strong>convenio</strong> entre el CISNS/Estado y las CCAA</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">🎯</span><div><strong>Objeto:</strong> <span>acciones sanitarias conjuntas <strong>concretas y específicas</strong></span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">⚖️</span><div><strong>Vinculación:</strong> <span><strong>obligan a las partes firmantes</strong> en los términos pactados — no a todas las CCAA</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">🔑</span><div><strong>Diferencia clave:</strong> <span>solo vincula a quienes <strong>firman</strong> el convenio, no al resto de CCAA</span></div></div>
+      </div>
+      <div class="memo-box" style="background:var(--orange-dim);border-color:var(--orange)">
+        <div class="memo-label" style="color:var(--orange)">🧠 Convenios = CONTRATO entre firmantes</div>
+        <div class="memo-text" style="font-size:0.78rem">Compromiso formal → solo obliga a las CCAA que <strong>firman</strong>, no a todas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPO 3: ACTUACIONES COORDINADAS -->
+  <div class="tipo-card tc-coord">
+    <div class="tipo-head">
+      <div class="tipo-color-bar"></div>
+      <div class="tipo-icon-block"><div class="tipo-icon">🚨</div></div>
+      <div class="tipo-header-text">
+        <div class="tipo-num">Tipo 3 · Emergencias y salud pública</div>
+        <div class="tipo-name">Actuaciones Coordinadas en Salud Pública</div>
+        <span class="tipo-kw-badge">VINCULANTES</span>
+      </div>
+    </div>
+    <div class="tipo-body">
+      <div class="tipo-body-inner">
+        <div class="tipo-row"><span class="tipo-row-icon">🦠</span><div><strong>Contexto:</strong> <span>usadas especialmente durante la pandemia COVID-19</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">⚖️</span><div><strong>Base legal:</strong> <span>legislación de salud pública + <strong>Ley 40/2015</strong> de Régimen Jurídico del Sector Público</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">🔴</span><div><strong>Vinculación:</strong> <span><strong>obligatorias para TODAS las CCAA</strong>, incluso las que votan en contra, mientras estén vigentes</span></div></div>
+        <div class="tipo-row"><span class="tipo-row-icon">🏛️</span><div><strong>Adopción:</strong> <span>se adoptan en el CISNS al amparo de la legislación específica de salud pública</span></div></div>
+      </div>
+      <div class="memo-box" style="background:var(--red-dim);border-color:var(--red)">
+        <div class="memo-label" style="color:var(--red)">🧠 Coordinadas = VINCULANTES para TODAS</div>
+        <div class="memo-text" style="font-size:0.78rem">Incluso si una CA <strong>vota en contra</strong> → está obligada mientras estén vigentes · Ley 40/2015</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA COMPARATIVA -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:1.2rem;">
+    <div style="padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;background:var(--navy)">
+      <span style="font-size:1.1rem">📊</span>
+      <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:white">Tabla comparativa — Las 3 de un vistazo</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Palabra clave</th>
+            <th>Aprobación</th>
+            <th>¿Obliga a quién?</th>
+            <th>¿Puede ignorarse?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="td-type-r">
+            <td class="tdr td-tipo">💡 Recomendaciones</td>
+            <td><span class="vinc-pill vp-or">ORIENTAN</span></td>
+            <td>Por consenso</td>
+            <td>Ninguna CCAA directamente</td>
+            <td>No sin <strong>motivar</strong> la separación</td>
+          </tr>
+          <tr class="td-type-c">
+            <td class="tdc td-tipo">🤝 Convenios</td>
+            <td><span class="vinc-pill vp-co">CONTRATO</span></td>
+            <td>Firma bilateral</td>
+            <td>Solo CCAA <strong>firmantes</strong></td>
+            <td>No — es un contrato</td>
+          </tr>
+          <tr class="td-type-co">
+            <td class="tdco td-tipo">🚨 Actuaciones Coord.</td>
+            <td><span class="vinc-pill vp-vi">VINCULANTES</span></td>
+            <td>CISNS (mayoría)</td>
+            <td><strong>TODAS las CCAA</strong>, incluso las que votan en contra</td>
+            <td><strong>No</strong> — obligatorias mientras vigentes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TEST -->
+  <div class="test-card">
+    <div class="test-head"><span style="font-size:1.1rem">🎯</span><span class="test-title">Preguntas tipo test — Acuerdos del CISNS</span></div>
+    <div class="test-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es la palabra clave de las recomendaciones del CISNS?</div>
+          <div class="q-answer"><strong>ORIENTAN</strong> — no son norma estrictamente obligatoria</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Una CA decide no seguir una recomendación del CISNS. ¿Puede hacerlo?</div>
+          <div class="q-answer">Sí, pero debe <strong>motivar</strong> la separación — no puede ignorarla sin justificación</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué son los convenios de cooperación del CISNS?</div>
+          <div class="q-answer">Compromisos formales para acciones concretas que <strong>obligan solo a las CCAA firmantes</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tipo de acuerdo del CISNS fue el instrumento clave en la pandemia COVID?</div>
+          <div class="q-answer"><strong>Actuaciones coordinadas en salud pública</strong></div>
+          <div class="q-note">Al amparo de la legislación de salud pública y la Ley 40/2015</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Las actuaciones coordinadas obligan a una CA que votó en contra?</div>
+          <div class="q-answer"><strong>Sí</strong> — son obligatorias para TODAS las CCAA mientras estén vigentes</div>
+          <div class="q-note">Trampa clásica: incluso el voto en contra no exime de cumplirlas</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué ley ampara las actuaciones coordinadas del CISNS?</div>
+          <div class="q-answer">La legislación de salud pública + <strong>Ley 40/2015</strong> de Régimen Jurídico del Sector Público</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatuto Marco 1/3 — Clasificación y Nombramientos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f8f5f0;--surface:#fff;--border:#ddd5c8;--text:#1e1a14;--muted:#8a7a68;
+  --navy:#0d2137;--blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --red:#b5282a;--red-dim:#b5282a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --green:#2a7a4a;--green-dim:#2a7a4a14;
+  --purple:#6a3a8a;--purple-dim:#6a3a8a14;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --warm:#f0ebe0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#d8cfc028 31px,#d8cfc028 32px);}
+header{text-align:center;margin-bottom:2.5rem;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.1rem;border-radius:3px;margin-bottom:0.5rem;text-transform:uppercase;}
+.badge2{display:inline-flex;align-items:center;gap:0.5rem;background:var(--red);color:white;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;padding:0.25rem 0.8rem;border-radius:3px;margin-left:0.5rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,2.7rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1100px;margin:1.2rem auto 0;}
+.full{grid-column:1/-1;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}.full{grid-column:1;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+.art-b{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:600;padding:0.1rem 0.4rem;border-radius:2px;margin-left:0.3rem;vertical-align:middle;}
+.ab-n{background:#0d213720;color:var(--navy);border:1px solid var(--navy);}
+.ab-b{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.ab-r{background:var(--red-dim);color:var(--red);border:1px solid var(--red);}
+
+/* PRINCIPIOS */
+.prin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+.prin-item{border-radius:7px;padding:0.65rem 0.6rem;border:1px solid;text-align:center;}
+.prin-letter{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;line-height:1;margin-bottom:0.2rem;}
+.prin-name{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;font-weight:600;}
+.prin-desc{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+.pl{background:var(--blue-dim);border-color:var(--blue);}.pl .prin-letter,.pl .prin-name{color:var(--blue);}
+.pi1{background:var(--green-dim);border-color:var(--green);}.pi1 .prin-letter,.pi1 .prin-name{color:var(--green);}
+.pi2{background:var(--teal-dim);border-color:var(--teal);}.pi2 .prin-letter,.pi2 .prin-name{color:var(--teal);}
+.ps{background:var(--red-dim);border-color:var(--red);}.ps .prin-letter,.ps .prin-name{color:var(--red);}
+.pc{background:var(--gold-dim);border-color:var(--gold);}.pc .prin-letter,.pc .prin-name{color:#8a6a10;}
+.pp{background:var(--purple-dim);border-color:var(--purple);}.pp .prin-letter,.pp .prin-name{color:var(--purple);}
+@media(max-width:600px){.prin-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* CLASIFICACIÓN TREE */
+.crit-row{display:flex;align-items:center;gap:0.7rem;padding:0.5rem 0;border-bottom:1px solid var(--border);font-size:0.81rem;}
+.crit-row:last-child{border-bottom:none;}
+.crit-letter{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;min-width:28px;text-align:center;flex-shrink:0;line-height:1;}
+.crit-info strong{color:var(--navy);display:block;font-size:0.82rem;margin-bottom:0.1rem;}
+.crit-info span{font-size:0.72rem;color:var(--muted);line-height:1.3;}
+
+/* PERSONAL TYPES */
+.ptype-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.ptype-card{border-radius:8px;border:1px solid;overflow:hidden;}
+.ptype-head{padding:0.6rem 0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.ptype-head-title{font-family:'Playfair Display',serif;font-weight:700;font-size:0.85rem;}
+.ptype-body{padding:0.7rem 0.8rem;background:white;}
+.pt-san .ptype-head{background:var(--blue-dim);border-bottom:1px solid var(--blue);}
+.pt-san .ptype-head-title{color:var(--blue);}
+.pt-san{border-color:var(--blue);}
+.pt-gs .ptype-head{background:var(--teal-dim);border-bottom:1px solid var(--teal);}
+.pt-gs .ptype-head-title{color:var(--teal);}
+.pt-gs{border-color:var(--teal);}
+.sub-item{font-size:0.75rem;color:var(--muted);padding:0.25rem 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:0.4rem;line-height:1.4;}
+.sub-item:last-child{border-bottom:none;}
+.sub-item::before{content:'·';font-size:1.2rem;line-height:0.9;flex-shrink:0;}
+.pt-san .sub-item::before{color:var(--blue);}
+.pt-gs .sub-item::before{color:var(--teal);}
+
+/* NOMBRAMIENTOS */
+.nom-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.7rem;}
+@media(max-width:700px){.nom-grid{grid-template-columns:1fr 1fr;}}
+.nom-card{border-radius:9px;overflow:hidden;border:2px solid;}
+.nom-head{padding:0.8rem 0.7rem;text-align:center;}
+.nom-letter{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+.nom-name{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;}
+.nom-body{padding:0.7rem 0.75rem;background:white;}
+.nom-title{font-weight:700;font-size:0.8rem;margin-bottom:0.25rem;}
+.nom-desc{font-size:0.72rem;color:var(--muted);line-height:1.4;}
+.nom-art{font-family:'JetBrains Mono',monospace;font-size:0.6rem;margin-top:0.35rem;opacity:0.8;}
+
+.nf{border-color:var(--navy);}.nf .nom-head{background:var(--navy);}.nf .nom-letter,.nf .nom-name{color:white;}.nf .nom-title{color:var(--navy);}
+.ni{border-color:var(--blue);}.ni .nom-head{background:var(--blue-dim);}.ni .nom-letter,.ni .nom-name{color:var(--blue);}.ni .nom-title{color:var(--blue);}
+.ne{border-color:var(--red);}.ne .nom-head{background:var(--red-dim);}.ne .nom-letter,.ne .nom-name{color:var(--red);}.ne .nom-title{color:var(--red);}
+.ns{border-color:var(--green);}.ns .nom-head{background:var(--green-dim);}.ns .nom-letter,.ns .nom-name{color:var(--green);}.ns .nom-title{color:var(--green);}
+
+/* TEST */
+.test-card .card-head{background:var(--red-dim);border-bottom:2px solid var(--red);}
+.test-card .card-title{color:var(--red);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="badge">⚖️ Ley 55/2003 · Estatuto Marco</div>
+    <span class="badge2">1 de 3 — Caps. I y II</span>
+  </div>
+  <h1>Clasificación y Nombramientos</h1>
+  <p class="subtitle">Personal estatutario SNS · INGESA Enfermería</p>
+</header>
+
+<!-- OBJETO + PRINCIPIOS -->
+<div class="grid2">
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">📋</span>
+      <span class="card-title" style="color:white">Cap. I — Arts. 1–4 · Normas generales</span>
+    </div>
+    <div class="card-body">
+      <div style="background:var(--blue-dim);border-left:4px solid var(--blue);border-radius:0 6px 6px 0;padding:0.7rem 1rem;font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;">
+        <strong>Objeto (art. 1):</strong> Establecer las bases reguladoras de la <strong>relación funcionarial especial</strong> del personal estatutario de los servicios de salud del SNS.
+      </div>
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;font-size:0.79rem;line-height:1.5;margin-bottom:0.8rem;">
+        <strong>Ámbito (art. 2):</strong> Personal estatutario de CCAA + servicios sanitarios de la AGE integrados en el SNS<br>
+        <strong>Carácter:</strong> relación funcionarial especial — <span style="color:var(--red);font-weight:700">NO laboral común</span>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.6rem;">Estructura: 14 capítulos · 80 artículos</div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Clave art. 1</div>
+        <div class="memo-text">Ley 55/2003 · bases · relación funcionarial especial · personal estatutario SNS</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head" style="background:var(--gold-dim);border-bottom:2px solid var(--gold)">
+      <span class="card-icon">⭐</span>
+      <span class="card-title" style="color:#8a6a10">Principios arts. 3–4 — L·I·I·S·C·P</span>
+    </div>
+    <div class="card-body">
+      <div class="prin-grid">
+        <div class="prin-item pl">
+          <div class="prin-letter">L</div>
+          <div class="prin-name">Ley y Derecho</div>
+          <div class="prin-desc">Sometimiento pleno a la ley y al derecho</div>
+        </div>
+        <div class="prin-item pi1">
+          <div class="prin-letter">I</div>
+          <div class="prin-name">Igualdad</div>
+          <div class="prin-desc">Igualdad, mérito, capacidad y publicidad en el acceso</div>
+        </div>
+        <div class="prin-item pi2">
+          <div class="prin-letter">I</div>
+          <div class="prin-name">Inamovilidad</div>
+          <div class="prin-desc">Inamovilidad en la condición de personal estatutario fijo</div>
+        </div>
+        <div class="prin-item ps">
+          <div class="prin-letter">S</div>
+          <div class="prin-name">Servicio Público</div>
+          <div class="prin-desc">Dedicación prioritaria al servicio público</div>
+        </div>
+        <div class="prin-item pc">
+          <div class="prin-letter">C</div>
+          <div class="prin-name">Coordinación</div>
+          <div class="prin-desc">Coordinación, cooperación e información entre AAPP sanitarias</div>
+        </div>
+        <div class="prin-item pp">
+          <div class="prin-letter">P</div>
+          <div class="prin-name">Participación</div>
+          <div class="prin-desc">Organizaciones sindicales a través de negociación colectiva</div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 L·I·I·S·C·P</div>
+        <div class="memo-text">
+          <span style="color:var(--blue)">L</span>ey ·
+          <span style="color:var(--green)">I</span>gualdad ·
+          <span style="color:var(--teal)">I</span>namovilidad ·
+          <span style="color:var(--red)">S</span>ervicio ·
+          <span style="color:#8a6a10">C</span>oordinación ·
+          <span style="color:var(--purple)">P</span>articipación
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLASIFICACIÓN -->
+<div class="grid2" style="margin-top:1.2rem">
+  <div class="card">
+    <div class="card-head" style="background:var(--blue-dim);border-bottom:2px solid var(--blue)">
+      <span class="card-icon">🗂️</span>
+      <span class="card-title" style="color:var(--blue)">Art. 5 — Criterios de clasificación F·T·N</span>
+    </div>
+    <div class="card-body">
+      <div class="crit-row">
+        <div class="crit-letter" style="color:var(--blue)">F</div>
+        <div class="crit-info"><strong>Función desarrollada</strong><span>Tipo de actividad que realiza: sanitaria vs gestión/servicios</span></div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-letter" style="color:var(--teal)">T</div>
+        <div class="crit-info"><strong>Título exigido para el ingreso</strong><span>Nivel académico: universitario (grado/licenciatura) o Formación Profesional</span></div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-letter" style="color:var(--red)">N</div>
+        <div class="crit-info"><strong>Tipo de nombramiento</strong><span>Fijo, interino, eventual o sustituto → ver arts. 8–9</span></div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 F·T·N</div>
+        <div class="memo-text">
+          <span style="color:var(--blue)">F</span>unción ·
+          <span style="color:var(--teal)">T</span>ítulo ·
+          <span style="color:var(--red)">N</span>ombramiento
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.6rem;">Arts. 6–7 · Tipos de personal</div>
+        <div class="ptype-grid">
+          <div class="ptype-card pt-san">
+            <div class="ptype-head"><span style="font-size:1rem">🏥</span><span class="ptype-head-title">Sanitario <span class="art-b ab-b">Art. 6</span></span></div>
+            <div class="ptype-body">
+              <div class="sub-item">Ejerce <strong>profesión o especialidad sanitaria</strong></div>
+              <div class="sub-item"><strong>Universitario:</strong> Licenciado / Diplomado (Grado enfermería, fisio…)</div>
+              <div class="sub-item"><strong>FP:</strong> Técnico Superior / Técnico</div>
+            </div>
+          </div>
+          <div class="ptype-card pt-gs">
+            <div class="ptype-head"><span style="font-size:1rem">📊</span><span class="ptype-head-title">Gestión y Servicios <span class="art-b" style="background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal)">Art. 7</span></span></div>
+            <div class="ptype-body">
+              <div class="sub-item">Funciones de <strong>gestión</strong> o profesiones/<strong>oficios no sanitarios</strong></div>
+              <div class="sub-item">Clasificación por título: universitario, FP, bachiller, ESO…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOMBRAMIENTOS -->
+  <div class="card">
+    <div class="card-head" style="background:var(--red-dim);border-bottom:2px solid var(--red)">
+      <span class="card-icon">📝</span>
+      <span class="card-title" style="color:var(--red)">Arts. 8–9 quater — Nombramientos F·I·E·S ★</span>
+    </div>
+    <div class="card-body">
+      <div class="nom-grid">
+        <div class="nom-card nf">
+          <div class="nom-head">
+            <div class="nom-letter">F</div>
+            <div class="nom-name">Fijo</div>
+          </div>
+          <div class="nom-body">
+            <div class="nom-title">Personal fijo</div>
+            <div class="nom-desc">Supera proceso selectivo → desempeño con carácter <strong>permanente</strong> de una plaza</div>
+            <div class="nom-art">Art. 8</div>
+          </div>
+        </div>
+        <div class="nom-card ni">
+          <div class="nom-head">
+            <div class="nom-letter">I</div>
+            <div class="nom-name">Interino</div>
+          </div>
+          <div class="nom-body">
+            <div class="nom-title">Plaza vacante</div>
+            <div class="nom-desc">Ocupa plaza <strong>vacante</strong> mientras se cubre por fijo o se amortiza</div>
+            <div class="nom-art">Art. 9</div>
+          </div>
+        </div>
+        <div class="nom-card ne">
+          <div class="nom-head">
+            <div class="nom-letter">E</div>
+            <div class="nom-name">Eventual</div>
+          </div>
+          <div class="nom-body">
+            <div class="nom-title">Necesidad temporal</div>
+            <div class="nom-desc">Necesidades <strong>coyunturales o extraordinarias</strong>: aumento actividad, programas especiales…</div>
+            <div class="nom-art">Art. 9</div>
+          </div>
+        </div>
+        <div class="nom-card ns">
+          <div class="nom-head">
+            <div class="nom-letter">S</div>
+            <div class="nom-name">Sustituto</div>
+          </div>
+          <div class="nom-body">
+            <div class="nom-title">Reserva de plaza</div>
+            <div class="nom-desc">Sustituye a personal con <strong>derecho a reserva de plaza</strong>: IT, maternidad, excedencias, sindical…</div>
+            <div class="nom-art">Art. 9 bis</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.8rem;font-size:0.75rem;color:var(--muted);margin-top:0.8rem;line-height:1.5;">
+        ⚠️ Arts. 9 ter y 9 quater: régimen del temporal y medidas para <strong style="color:var(--navy)">reducir abuso de temporalidad</strong>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 F·I·E·S — nombramientos</div>
+        <div class="memo-text">
+          <span style="color:var(--navy)">F</span>ijo (permanente) ·
+          <span style="color:var(--blue)">I</span>nterino (vacante) ·
+          <span style="color:var(--red)">E</span>ventual (coyuntural) ·
+          <span style="color:var(--green)">S</span>ustituto (reserva plaza)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Caps. I y II</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el objeto del Estatuto Marco (art. 1)?</div>
+          <div class="q-answer"><strong>Las bases de la relación funcionarial especial</strong> del personal estatutario del SNS</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">La relación del personal estatutario es de carácter…</div>
+          <div class="q-answer"><strong>Funcionarial especial</strong> — no laboral común</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuántos criterios de clasificación establece el art. 5?</div>
+          <div class="q-answer"><strong>Tres:</strong> Función, Título y Tipo de nombramiento (F·T·N)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tipo de nombramiento se da para plaza vacante mientras se cubre por fijo?</div>
+          <div class="q-answer"><strong>Interino</strong> (art. 9)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tipo de nombramiento cubre necesidades coyunturales o aumento de actividad?</div>
+          <div class="q-answer"><strong>Eventual</strong> (art. 9)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Para qué se nombra al personal sustituto?</div>
+          <div class="q-answer"><strong>Sustituir a personal con derecho a reserva de plaza</strong> (IT, maternidad, excedencias…)</div>
+          <div class="q-note">Art. 9 bis — distinto del interino y del eventual</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuál de los principios de ordenación garantiza la permanencia del personal fijo?</div>
+          <div class="q-answer"><strong>Inamovilidad</strong> en la condición de personal estatutario fijo</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué diferencia al personal sanitario del de gestión y servicios?</div>
+          <div class="q-answer">El sanitario ejerce <strong>profesión sanitaria</strong>; gestión/servicios realiza funciones <strong>no sanitarias o de gestión</strong></div>
+          <div class="q-note">Arts. 6 y 7 respectivamente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

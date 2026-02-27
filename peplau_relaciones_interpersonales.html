@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peplau — Modelo de Relaciones Interpersonales</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4f0f8;--surface:#fff;--border:#d4c8e4;--text:#1a1428;--muted:#7a6a8a;
+  --navy:#0d2137;
+  --viol:#5a2a8a;--viol-dim:#5a2a8a14;
+  --rose:#9a2060;--rose-dim:#9a206014;
+  --blue:#2060a0;--blue-dim:#2060a014;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --green:#2a7a4a;--green-dim:#2a7a4a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --lilac:#7a4aaa;--lilac-dim:#7a4aaa18;
+  --warm:#f2eef8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#d4c8e428 31px,#d4c8e428 32px);}
+
+header{text-align:center;margin-bottom:2.2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--viol);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.wrap{max-width:1100px;margin:0 auto;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+@media(max-width:700px){.grid2{grid-template-columns:1fr;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(90,42,138,0.07);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+
+/* IDEA CENTRAL */
+.core-bar{background:var(--viol);border-radius:10px;padding:1rem 1.3rem;max-width:1100px;margin:0 auto 1.4rem;display:flex;align-items:center;gap:1rem;}
+.core-icon{font-size:2rem;flex-shrink:0;}
+.core-text{color:white;}
+.core-text strong{display:block;font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;margin-bottom:0.2rem;}
+.core-text span{font-size:0.8rem;opacity:0.88;line-height:1.5;}
+
+/* 4 FASES FLOW */
+.fases-flow{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;}
+.fase-item{display:grid;grid-template-columns:80px 1fr;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:0;position:relative;}
+.fase-item+.fase-item{margin-top:0.6rem;}
+.fase-item::after{content:'↓';position:absolute;bottom:-0.65rem;left:38px;color:var(--muted);font-size:0.9rem;z-index:1;background:var(--bg);padding:0 0.15rem;}
+.fase-item:last-child::after{display:none;}
+.fase-left{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem 0.5rem;border-right:2px solid var(--border);}
+.fase-letter{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;line-height:1;}
+.fase-name-v{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-top:0.2rem;text-align:center;}
+.fase-num{font-family:'JetBrains Mono',monospace;font-size:0.6rem;opacity:0.6;margin-bottom:0.15rem;}
+.fase-right{padding:0.8rem 1rem;}
+.fase-title{font-family:'Playfair Display',serif;font-size:0.98rem;font-weight:900;margin-bottom:0.35rem;}
+.fase-desc{font-size:0.78rem;color:var(--muted);line-height:1.5;}
+.fase-desc strong{color:var(--text);}
+.fase-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:3px;margin-bottom:0.35rem;}
+
+/* Fase colors */
+.f1 .fase-left{background:var(--blue-dim);}.f1 .fase-letter,.f1 .fase-name-v{color:var(--blue);}.f1 .fase-title{color:var(--blue);}.f1 .fase-tag{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.f2 .fase-left{background:var(--teal-dim);}.f2 .fase-letter,.f2 .fase-name-v{color:var(--teal);}.f2 .fase-title{color:var(--teal);}.f2 .fase-tag{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal);}
+.f3 .fase-left{background:var(--viol-dim);}.f3 .fase-letter,.f3 .fase-name-v{color:var(--viol);}.f3 .fase-title{color:var(--viol);}.f3 .fase-tag{background:var(--viol-dim);color:var(--viol);border:1px solid var(--viol);}
+.f4 .fase-left{background:var(--green-dim);}.f4 .fase-letter,.f4 .fase-name-v{color:var(--green);}.f4 .fase-title{color:var(--green);}.f4 .fase-tag{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+
+/* OIER STRIP */
+.oier-strip{display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-top:1rem;}
+.oier-seg{flex:1;text-align:center;padding:0.55rem 0.3rem;border-right:1px solid var(--border);}
+.oier-seg:last-child{border-right:none;}
+.oier-l{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;line-height:1;}
+.oier-n{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+.os1{background:var(--blue-dim);}.os1 .oier-l,.os1 .oier-n{color:var(--blue);}
+.os2{background:var(--teal-dim);}.os2 .oier-l,.os2 .oier-n{color:var(--teal);}
+.os3{background:var(--viol-dim);}.os3 .oier-l,.os3 .oier-n{color:var(--viol);}
+.os4{background:var(--green-dim);}.os4 .oier-l,.os4 .oier-n{color:var(--green);}
+
+/* ROLES */
+.roles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem;}
+@media(max-width:600px){.roles-grid{grid-template-columns:1fr 1fr;}}
+.rol-card{border-radius:8px;border:1px solid;text-align:center;overflow:hidden;}
+.rol-head{padding:0.65rem 0.4rem;}
+.rol-icon{font-size:1.3rem;margin-bottom:0.15rem;}
+.rol-name{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
+.rol-body{padding:0.5rem 0.5rem;background:white;font-size:0.67rem;color:var(--muted);line-height:1.3;}
+
+.r1{border-color:var(--blue);}.r1 .rol-head{background:var(--blue-dim);}.r1 .rol-name{color:var(--blue);}
+.r2{border-color:var(--teal);}.r2 .rol-head{background:var(--teal-dim);}.r2 .rol-name{color:var(--teal);}
+.r3{border-color:var(--viol);}.r3 .rol-head{background:var(--viol-dim);}.r3 .rol-name{color:var(--viol);}
+.r4{border-color:var(--rose);}.r4 .rol-head{background:var(--rose-dim);}.r4 .rol-name{color:var(--rose);}
+.r5{border-color:var(--green);}.r5 .rol-head{background:var(--green-dim);}.r5 .rol-name{color:var(--green);}
+.r6{border-color:var(--gold);}.r6 .rol-head{background:var(--gold-dim);}.r6 .rol-name{color:#8a6a10;}
+
+/* BASES TEÓRICAS */
+.base-row{display:flex;align-items:flex-start;gap:0.6rem;padding:0.45rem 0;border-bottom:1px solid var(--border);font-size:0.79rem;line-height:1.4;}
+.base-row:last-child{border-bottom:none;}
+.base-row::before{content:'◆';color:var(--viol);flex-shrink:0;font-size:0.6rem;margin-top:0.2rem;}
+.base-row strong{color:var(--navy);}
+.base-row span{color:var(--muted);}
+
+/* TEST */
+.test-card .card-head{background:var(--rose-dim);border-bottom:2px solid var(--rose);}
+.test-card .card-title{color:var(--rose);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--rose);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🟣 Teoría Enfermería · Peplau</div>
+  <h1>Modelo de Relaciones Interpersonales</h1>
+  <p class="subtitle">Hildegard E. Peplau · INGESA Enfermería</p>
+</header>
+
+<div class="wrap">
+
+  <!-- IDEA CENTRAL -->
+  <div class="core-bar">
+    <span class="core-icon">🤝</span>
+    <div class="core-text">
+      <strong>La enfermería como proceso interpersonal terapéutico</strong>
+      <span>La <strong style="color:#e0c8f8">relación enfermera–persona</strong> es el eje del cuidado. Favorece el <strong style="color:#e0c8f8">crecimiento de ambos</strong>. El objetivo no es "dar cuidados" sino que el paciente <strong style="color:#e0c8f8">crezca, gane autonomía y entienda su problema.</strong></span>
+    </div>
+  </div>
+
+  <!-- 4 FASES -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);text-align:center;margin-bottom:0.7rem;">4 Fases secuenciales de la relación enfermera–paciente</div>
+
+  <div class="fases-flow">
+    <!-- ORIENTACIÓN -->
+    <div class="fase-item f1">
+      <div class="fase-left">
+        <div class="fase-num">01</div>
+        <div class="fase-letter">O</div>
+        <div class="fase-name-v">Orientación</div>
+      </div>
+      <div class="fase-right">
+        <div class="fase-tag">Primer contacto — desconocidos</div>
+        <div class="fase-title">Orientación</div>
+        <div class="fase-desc">
+          Enfermera y paciente se encuentran por primera vez. Se <strong>identifica el problema</strong> y el tipo de ayuda necesaria. La enfermera realiza la <strong>valoración inicial</strong>; el paciente expresa sus necesidades, dudas y expectativas.
+        </div>
+      </div>
+    </div>
+
+    <!-- IDENTIFICACIÓN -->
+    <div class="fase-item f2">
+      <div class="fase-left">
+        <div class="fase-num">02</div>
+        <div class="fase-letter">I</div>
+        <div class="fase-name-v">Identificación</div>
+      </div>
+      <div class="fase-right">
+        <div class="fase-tag">Vínculo — plan de cuidados</div>
+        <div class="fase-title">Identificación</div>
+        <div class="fase-desc">
+          El paciente <strong>reconoce a la enfermera</strong> como persona de ayuda y empieza a sentirse aceptado. Se selecciona la asistencia adecuada y se formula el <strong>plan de cuidados</strong>. Disminuyen sentimientos de impotencia y desesperanza.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPLOTACIÓN -->
+    <div class="fase-item f3">
+      <div class="fase-left">
+        <div class="fase-num">03</div>
+        <div class="fase-letter">E</div>
+        <div class="fase-name-v">Explotación</div>
+      </div>
+      <div class="fase-right">
+        <div class="fase-tag">Uso activo de recursos</div>
+        <div class="fase-title">Explotación</div>
+        <div class="fase-desc">
+          El paciente <strong>utiliza activamente</strong> los recursos disponibles (información, apoyo, técnicas, educación). Hace preguntas, pide ayuda, resuelve problemas. Aumenta su <strong>participación y autonomía</strong> en el proceso de cuidado.
+        </div>
+      </div>
+    </div>
+
+    <!-- RESOLUCIÓN -->
+    <div class="fase-item f4">
+      <div class="fase-left">
+        <div class="fase-num">04</div>
+        <div class="fase-letter">R</div>
+        <div class="fase-name-v">Resolución</div>
+      </div>
+      <div class="fase-right">
+        <div class="fase-tag">Independencia — cierre terapéutico</div>
+        <div class="fase-title">Resolución</div>
+        <div class="fase-desc">
+          Las necesidades han sido abordadas. Se produce la <strong>terminación de la relación terapéutica</strong>. El paciente alcanza mayor <strong>independencia y crecimiento personal</strong> — ya no requiere la misma ayuda profesional.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OIER STRIP -->
+  <div class="oier-strip">
+    <div class="oier-seg os1"><div class="oier-l">O</div><div class="oier-n">Orientación</div></div>
+    <div class="oier-seg os2"><div class="oier-l">I</div><div class="oier-n">Identificación</div></div>
+    <div class="oier-seg os3"><div class="oier-l">E</div><div class="oier-n">Explotación</div></div>
+    <div class="oier-seg os4"><div class="oier-l">R</div><div class="oier-n">Resolución</div></div>
+  </div>
+
+  <!-- ROLES + BASES -->
+  <div class="grid2" style="margin-top:1.2rem">
+
+    <!-- 6 ROLES -->
+    <div class="card">
+      <div class="card-head" style="background:var(--viol-dim);border-bottom:2px solid var(--viol)">
+        <span class="card-icon">🎭</span>
+        <span class="card-title" style="color:var(--viol)">6 Roles de la enfermera en la relación</span>
+      </div>
+      <div class="card-body">
+        <div class="roles-grid">
+          <div class="rol-card r1">
+            <div class="rol-head"><div class="rol-icon">🚪</div><div class="rol-name">Extraña</div></div>
+            <div class="rol-body"><strong>Al inicio</strong> — enfermera y paciente son desconocidos, sin historia previa</div>
+          </div>
+          <div class="rol-card r2">
+            <div class="rol-head"><div class="rol-icon">💡</div><div class="rol-name">Recurso</div></div>
+            <div class="rol-body">Persona de recurso: proporciona información y respuestas a preguntas concretas</div>
+          </div>
+          <div class="rol-card r3">
+            <div class="rol-head"><div class="rol-icon">📚</div><div class="rol-name">Docente</div></div>
+            <div class="rol-body">Enseña al paciente sobre su proceso, cuidados y autocuidado</div>
+          </div>
+          <div class="rol-card r4">
+            <div class="rol-head"><div class="rol-icon">🧭</div><div class="rol-name">Líder</div></div>
+            <div class="rol-body">Guía la relación terapéutica con iniciativa y dirección</div>
+          </div>
+          <div class="rol-card r5">
+            <div class="rol-head"><div class="rol-icon">🗣️</div><div class="rol-name">Consejera</div></div>
+            <div class="rol-body">Ayuda al paciente a comprender y integrar su experiencia de enfermedad</div>
+          </div>
+          <div class="rol-card r6">
+            <div class="rol-head"><div class="rol-icon">🪞</div><div class="rol-name">Sustituta</div></div>
+            <div class="rol-body">Figura significativa temporal — el paciente la percibe como alguien de su pasado</div>
+          </div>
+        </div>
+        <div class="memo-box" style="background:var(--viol-dim);border-color:var(--viol)">
+          <div class="memo-label" style="color:var(--viol)">🧠 E·R·D·L·C·S — 6 roles</div>
+          <div class="memo-text" style="font-size:0.78rem">
+            <span style="color:var(--blue)">E</span>xtraña ·
+            <span style="color:var(--teal)">R</span>ecurso ·
+            <span style="color:var(--viol)">D</span>ocente ·
+            <span style="color:var(--rose)">L</span>íder ·
+            <span style="color:var(--green)">C</span>onsejera ·
+            <span style="color:#8a6a10">S</span>ustituta
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BASES + CONTEXTO -->
+    <div class="card">
+      <div class="card-head" style="background:var(--navy)">
+        <span class="card-icon" style="color:white">🧬</span>
+        <span class="card-title" style="color:white">Bases teóricas y contexto de examen</span>
+      </div>
+      <div class="card-body">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.5rem;">Fundamentos teóricos</div>
+        <div class="base-row"><span class="base-row">◆</span><div><strong>Psicoanálisis y teoría interpersonal</strong> <span>de Harry Stack Sullivan: ansiedad, necesidades, conflicto</span></div></div>
+        <div class="base-row"><span class="base-row">◆</span><div><strong>Enfermería psiquiátrica y psicosocial</strong> <span>— la relación interpersonal como herramienta terapéutica</span></div></div>
+        <div class="base-row"><span class="base-row">◆</span><div><strong>Crecimiento personal</strong> <span>de enfermera Y paciente — la relación beneficia a ambos</span></div></div>
+
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin:0.8rem 0 0.5rem;">Claves para identificar preguntas de Peplau</div>
+        <div style="background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.7rem 0.8rem;">
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <div style="font-size:0.78rem;display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--viol);font-size:0.8rem;flex-shrink:0">★</span><span>Pregunta sobre <strong>relación terapéutica</strong> + fases → <strong>Peplau</strong></span></div>
+            <div style="font-size:0.78rem;display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--viol);font-size:0.8rem;flex-shrink:0">★</span><span>Roles de la enfermera en <strong>salud mental</strong> → <strong>Peplau</strong></span></div>
+            <div style="font-size:0.78rem;display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--viol);font-size:0.8rem;flex-shrink:0">★</span><span>"Proceso interpersonal" + <strong>crecimiento mutuo</strong> → <strong>Peplau</strong></span></div>
+            <div style="font-size:0.78rem;display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--viol);font-size:0.8rem;flex-shrink:0">★</span><span>Fase donde el paciente <strong>usa activamente recursos</strong> = <strong>Explotación</strong></span></div>
+          </div>
+        </div>
+
+        <div style="background:var(--rose-dim);border:1px solid var(--rose);border-radius:6px;padding:0.6rem 0.8rem;margin-top:0.7rem;font-size:0.77rem;line-height:1.5;">
+          ⚠️ <strong style="color:var(--rose)">Trampa:</strong> "Explotación" no es negativo — significa que el paciente <strong>explota (aprovecha) activamente</strong> los recursos disponibles
+        </div>
+
+        <div class="memo-box">
+          <div class="memo-label">🧠 O·I·E·R — las 4 fases</div>
+          <div class="memo-text" style="font-size:0.78rem">
+            <span style="color:var(--blue)">O</span>rientación (valoración) ·
+            <span style="color:var(--teal)">I</span>dentificación (plan) ·
+            <span style="color:var(--viol)">E</span>xplotación (uso activo) ·
+            <span style="color:var(--green)">R</span>esolución (independencia)
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TEST -->
+  <div class="card test-card" style="margin-top:1.2rem">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Peplau</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el eje central del modelo de Peplau?</div>
+          <div class="q-answer">La <strong>relación interpersonal terapéutica</strong> enfermera–paciente</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué fase se realiza la valoración inicial y el paciente expresa sus necesidades?</div>
+          <div class="q-answer"><strong>Orientación</strong> — primer contacto</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué fase el paciente utiliza activamente los recursos disponibles?</div>
+          <div class="q-answer"><strong>Explotación</strong></div>
+          <div class="q-note">Trampa: "explotación" = aprovechar activamente, no algo negativo</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuántas fases tiene el modelo de Peplau y cuáles son?</div>
+          <div class="q-answer"><strong>4 fases:</strong> Orientación · Identificación · Explotación · Resolución</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuántos roles ejerce la enfermera según Peplau?</div>
+          <div class="q-answer"><strong>6 roles:</strong> Extraña · Recurso · Docente · Líder · Consejera · Sustituta</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué área de enfermería se enmarca la teoría de Peplau?</div>
+          <div class="q-answer"><strong>Enfermería psiquiátrica y psicosocial</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué ocurre en la fase de Resolución?</div>
+          <div class="q-answer">Termina la relación terapéutica; el paciente alcanza <strong>mayor independencia y crecimiento personal</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué rol asume la enfermera al inicio de la relación, cuando ambos son desconocidos?</div>
+          <div class="q-answer">Rol de <strong>Extraña</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

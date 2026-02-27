@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Limpieza · Desinfección · Esterilización</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --border: #1f2d45;
+    --text: #e8edf5;
+    --muted: #7a8fa8;
+    --clean: #00d4aa;
+    --clean-dim: #00d4aa22;
+    --low: #4a9eff;
+    --low-dim: #4a9eff22;
+    --mid: #f59e0b;
+    --mid-dim: #f59e0b22;
+    --high: #ff6b6b;
+    --high-dim: #ff6b6b22;
+    --sterile: #a855f7;
+    --sterile-dim: #a855f722;
+    --danger: #ff3d3d;
+    --danger-dim: #ff3d3d15;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 2rem 1.5rem 4rem;
+    background-image: 
+      radial-gradient(ellipse at 20% 0%, #00d4aa08 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, #a855f708 0%, transparent 60%);
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .title-tag {
+    display: inline-block;
+    background: var(--clean-dim);
+    border: 1px solid var(--clean);
+    color: var(--clean);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    padding: 0.3rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--clean) 0%, #4a9eff 40%, var(--sterile) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* PIPELINE */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pipe-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    min-width: 130px;
+    position: relative;
+    border: 1px solid;
+    transition: transform 0.2s;
+  }
+  .pipe-step:hover { transform: translateY(-3px); }
+
+  .pipe-step.clean { background: var(--clean-dim); border-color: var(--clean); }
+  .pipe-step.disinfect { background: var(--low-dim); border-color: var(--low); }
+  .pipe-step.sterilize { background: var(--sterile-dim); border-color: var(--sterile); }
+
+  .pipe-icon { font-size: 1.8rem; }
+  .pipe-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+  .pipe-step.clean .pipe-label { color: var(--clean); }
+  .pipe-step.disinfect .pipe-label { color: var(--low); }
+  .pipe-step.sterilize .pipe-label { color: var(--sterile); }
+
+  .pipe-desc {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .arrow {
+    color: var(--muted);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  /* GRID */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .danger-box { grid-column: 1; }
+  }
+
+  .section-card {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-icon { font-size: 1.4rem; }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .card-content { padding: 1.2rem; }
+
+  /* LIMPIEZA */
+  .clean-card .card-header { background: var(--clean-dim); }
+  .clean-card .card-title { color: var(--clean); }
+
+  .detergent-box {
+    background: #0d1f1b;
+    border: 1px solid var(--clean);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .detergent-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--clean);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .formula {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .formula-part {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+  }
+  .plus { color: var(--clean); font-weight: 700; }
+
+  .use-tags { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.8rem; }
+  .use-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .use-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--clean);
+    flex-shrink: 0;
+  }
+
+  /* DESINFECCIÓN */
+  .disinfect-card .card-header { background: #4a9eff11; }
+  .disinfect-card .card-title { color: var(--low); }
+
+  .level-section {
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid;
+    overflow: hidden;
+  }
+
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .level-low .level-header { background: var(--low-dim); color: var(--low); border-color: var(--low); }
+  .level-mid .level-header { background: var(--mid-dim); color: var(--mid); border-color: var(--mid); }
+  .level-high .level-header { background: var(--high-dim); color: var(--high); border-color: var(--high); }
+
+  .level-low { border-color: var(--low); }
+  .level-mid { border-color: var(--mid); }
+  .level-high { border-color: var(--high); }
+
+  .level-body { padding: 0.8rem; background: var(--bg); }
+
+  .agent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .agent-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .agent-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .agent-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .level-low .agent-name { color: var(--low); }
+  .level-mid .agent-name { color: var(--mid); }
+  .level-high .agent-name { color: var(--high); }
+
+  .agent-use { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+  /* ESTERILIZACIÓN */
+  .sterilize-card .card-header { background: var(--sterile-dim); }
+  .sterilize-card .card-title { color: var(--sterile); }
+
+  .steril-method {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.9rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .steril-method::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .steril-physical::before { background: var(--sterile); }
+  .steril-chemical::before { background: var(--mid); }
+
+  .steril-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .steril-physical .steril-type { color: var(--sterile); }
+  .steril-chemical .steril-type { color: var(--mid); }
+
+  .steril-name {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .steril-detail { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+  .star-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #f59e0b22;
+    border: 1px solid var(--mid);
+    color: var(--mid);
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 0.4rem;
+  }
+
+  /* DANGER BOX */
+  .danger-box {
+    grid-column: 1 / -1;
+    background: var(--danger-dim);
+    border: 1px solid var(--danger);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .danger-header {
+    background: #ff3d3d15;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid #ff3d3d44;
+  }
+
+  .danger-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--danger);
+    letter-spacing: 0.05em;
+  }
+  .danger-subtitle {
+    font-size: 0.75rem;
+    color: #ff9999;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .danger-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #ff3d3d22;
+  }
+
+  @media (max-width: 600px) {
+    .danger-grid { grid-template-columns: 1fr; }
+  }
+
+  .danger-agent {
+    background: var(--bg);
+    padding: 1.2rem 1.5rem;
+  }
+
+  .danger-agent-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--danger);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .danger-context {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #ff9999;
+    margin-bottom: 0.8rem;
+    background: #ff3d3d11;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .tox-list { list-style: none; }
+  .tox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #1f2d45;
+  }
+  .tox-item:last-child { border-bottom: none; }
+  .tox-emoji { font-size: 0.9rem; flex-shrink: 0; }
+
+  /* SPAULDING */
+  .spaulding-bar {
+    max-width: 1300px;
+    margin: 2rem auto 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .spaulding-title {
+    padding: 0.8rem 1.2rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+  }
+
+  .spaulding-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .spaulding-cell {
+    background: var(--bg);
+    padding: 1rem 1.2rem;
+    text-align: center;
+  }
+
+  .sp-category {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+  .sp-critical .sp-category { color: var(--sterile); }
+  .sp-semicritical .sp-category { color: var(--high); }
+  .sp-noncritical .sp-category { color: var(--low); }
+
+  .sp-def { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .sp-process {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .sp-critical .sp-process { background: var(--sterile-dim); color: var(--sterile); border: 1px solid var(--sterile); }
+  .sp-semicritical .sp-process { background: var(--high-dim); color: var(--high); border: 1px solid var(--high); }
+  .sp-noncritical .sp-process { background: var(--low-dim); color: var(--low); border: 1px solid var(--low); }
+
+  .sp-examples { font-size: 0.68rem; color: var(--muted); margin-top: 0.4rem; }
+
+  /* Pulse animation for danger */
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,61,61,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(255,61,61,0); }
+  }
+  .danger-box { animation: pulse-border 3s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-tag">🏥 Enfermería INGESA · Higiene Hospitalaria</div>
+  <h1>Limpieza · Desinfección · Esterilización</h1>
+  <p class="subtitle">Cadena de procesamiento del instrumental — Resumen visual de examen</p>
+</header>
+
+<!-- PIPELINE VISUAL -->
+<div class="pipeline">
+  <div class="pipe-step clean">
+    <span class="pipe-icon">🧹</span>
+    <span class="pipe-label">Limpieza</span>
+    <span class="pipe-desc">Elimina suciedad<br>y carga orgánica</span>
+  </div>
+  <span class="arrow">→</span>
+  <div class="pipe-step disinfect">
+    <span class="pipe-icon">🧪</span>
+    <span class="pipe-label">Desinfección</span>
+    <span class="pipe-desc">Reduce/elimina<br>microorganismos</span>
+  </div>
+  <span class="arrow">→</span>
+  <div class="pipe-step sterilize">
+    <span class="pipe-icon">⚗️</span>
+    <span class="pipe-label">Esterilización</span>
+    <span class="pipe-desc">Elimina TODOS<br>incluidas esporas</span>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<div class="main-grid">
+
+  <!-- LIMPIEZA -->
+  <div class="section-card clean-card">
+    <div class="card-header">
+      <span class="card-icon">🧼</span>
+      <span class="card-title" style="color:var(--clean)">Limpieza</span>
+    </div>
+    <div class="card-content">
+      <div class="detergent-box">
+        <div class="detergent-title">Detergente Neutro</div>
+        <div class="formula">
+          <span class="formula-part">Tensioactivos</span>
+          <span class="plus">+</span>
+          <span class="formula-part">pH neutro</span>
+        </div>
+        <div class="use-tags">
+          <div class="use-tag">Superficies generales</div>
+          <div class="use-tag">Mobiliario</div>
+        </div>
+      </div>
+      <div class="detergent-box">
+        <div class="detergent-title">Detergente Enzimático</div>
+        <div class="formula">
+          <span class="formula-part">Tensioactivos</span>
+          <span class="plus">+</span>
+          <span class="formula-part">Enzimas</span>
+        </div>
+        <div style="font-size:0.68rem; color:var(--muted); margin-top:0.3rem; font-family:'JetBrains Mono',monospace;">
+          proteasas · lipasas · amilasas
+        </div>
+        <div class="use-tags">
+          <div class="use-tag">Instrumental previo a esterilización</div>
+          <div class="use-tag">Cubetas y lavadoras de material</div>
+          <div class="use-tag">Endoscopios (limpieza previa)</div>
+        </div>
+      </div>
+      <div style="background:#0d1520; border:1px dashed var(--border); border-radius:6px; padding:0.7rem; font-size:0.7rem; color:var(--muted);">
+        ⚠️ La limpieza es SIEMPRE el primer paso, sin ella la desinfección/esterilización fracasa
+      </div>
+    </div>
+  </div>
+
+  <!-- DESINFECCIÓN -->
+  <div class="section-card disinfect-card">
+    <div class="card-header">
+      <span class="card-icon">🧪</span>
+      <span class="card-title" style="color:var(--low)">Desinfección</span>
+    </div>
+    <div class="card-content">
+
+      <div class="level-section level-low">
+        <div class="level-header">⬇️ Bajo Nivel</div>
+        <div class="level-body">
+          <div class="agent-row">
+            <span class="agent-icon">🧴</span>
+            <div>
+              <div class="agent-name">Amonios Cuaternarios</div>
+              <div class="agent-use">Superficies, mobiliario, camillas · No frente a esporas ni M. tuberculosis</div>
+            </div>
+          </div>
+          <div class="agent-row">
+            <span class="agent-icon">💧</span>
+            <div>
+              <div class="agent-name">Alcoholes 70%</div>
+              <div class="agent-use">Pequeñas superficies · Cabezales · Tapones viales · Termómetros · Rápida acción, volátil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-section level-mid">
+        <div class="level-header">⬅️ Nivel Intermedio</div>
+        <div class="level-body">
+          <div class="agent-row">
+            <span class="agent-icon">🟡</span>
+            <div>
+              <div class="agent-name">Compuestos Clorados</div>
+              <div class="agent-use">
+                <strong style="color:var(--mid)">Hipoclorito sódico</strong> · Dicloroisocianurato (NaDCC)<br>
+                Superficies con sangre 🩸 · Derrames biológicos · Cuartos sucios<br>
+                <span style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:#d4a700">1000 ppm (general) / 10.000 ppm (derrames)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-section level-high">
+        <div class="level-header">⬆️ Alto Nivel</div>
+        <div class="level-body">
+          <div class="agent-row">
+            <span class="agent-icon">🔴</span>
+            <div>
+              <div class="agent-name">Glutaraldehído ⭐ EXAMEN</div>
+              <div class="agent-use">
+                "Esterilización en frío" · <strong style="color:var(--high)">Endoscopios</strong> · Material anestesia termosensible<br>
+                <span style="color:#ff9999; font-size:0.7rem;">⚠️ Tóxico: sensibilización resp. · irritante · exposición laboral → colapso</span>
+              </div>
+              <div class="star-badge">⭐ Pregunta favorita toxicidad</div>
+            </div>
+          </div>
+          <div class="agent-row">
+            <span class="agent-icon">🧬</span>
+            <div>
+              <div class="agent-name">OPA (ortoftaldehído)</div>
+              <div class="agent-use">Alternativa al glutaraldehído · Endoscopios · Menor irritación pero mancha piel</div>
+            </div>
+          </div>
+          <div class="agent-row">
+            <span class="agent-icon">🫧</span>
+            <div>
+              <div class="agent-name">Peróxido H₂O₂ / Ácido Peracético</div>
+              <div class="agent-use">Procesadoras automáticas (ÁCIDO PERACÉTICO) · Endoscopios · Material termosensible</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ESTERILIZACIÓN -->
+  <div class="section-card sterilize-card">
+    <div class="card-header">
+      <span class="card-icon">⚗️</span>
+      <span class="card-title" style="color:var(--sterile)">Esterilización</span>
+    </div>
+    <div class="card-content">
+
+      <div class="steril-method steril-physical">
+        <div class="steril-type">🔥 Método Físico</div>
+        <div class="steril-name">Autoclave (Vapor)</div>
+        <div class="steril-detail">
+          Método ESTÁNDAR / gold standard<br>
+          134°C · 3 min ó 121°C · 15 min<br>
+          Instrumental metálico + textil<br>
+          <span style="color:var(--sterile); font-size:0.7rem;">✓ Barato · rápido · no tóxico</span>
+        </div>
+      </div>
+
+      <div class="steril-method steril-chemical">
+        <div class="steril-type">🧪 Baja Temperatura (Termosensible)</div>
+        <div class="steril-name">Óxido de Etileno ⚠️ EXAMEN</div>
+        <div class="steril-detail">
+          Material complejo termosensible<br>
+          Central de esterilización<br>
+          <span style="color:#ff9999; font-size:0.7rem;">⚠️ Gas tóxico · carcinógeno · muy regulado · lento (aireación)</span>
+        </div>
+        <div class="star-badge">⭐ Riesgo laboral / toxicidad</div>
+      </div>
+
+      <div class="steril-method steril-chemical">
+        <div class="steril-type">🧪 Baja Temperatura</div>
+        <div class="steril-name">Peróxido H₂O₂ Vapor (STERRAD)</div>
+        <div class="steril-detail">
+          Alternativa moderna al EtO<br>
+          Menos tóxico · ciclos cortos<br>
+          No para instrumental con lúmenes largos/estrechos
+        </div>
+      </div>
+
+      <div class="steril-method steril-chemical">
+        <div class="steril-type">🧪 Baja Temperatura</div>
+        <div class="steril-name">Ácido Peracético (líquido)</div>
+        <div class="steril-detail">
+          Procesadoras automáticas<br>
+          Endoscopios termoestables al líquido<br>
+          Uso inmediato (no almacenamiento estéril)
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DANGER BOX -->
+  <div class="danger-box">
+    <div class="danger-header">
+      <div>
+        <div style="font-size:2rem;">☠️</div>
+      </div>
+      <div>
+        <div class="danger-title">⚡ Los "Peligrosos" del Examen — Accidente Laboral / Toxicidad</div>
+        <div class="danger-subtitle">Preguntas estrella sobre exposición laboral y toxicidad en hospital</div>
+      </div>
+    </div>
+    <div class="danger-grid">
+      <div class="danger-agent">
+        <div class="danger-agent-name">
+          ☣️ Glutaraldehído
+        </div>
+        <div class="danger-context">Desinfección alto nivel · endoscopios</div>
+        <ul class="tox-list">
+          <li class="tox-item"><span class="tox-emoji">🫁</span> Sensibilización respiratoria (asma ocupacional)</li>
+          <li class="tox-item"><span class="tox-emoji">👁️</span> Irritación intensa mucosas, ojos, piel</li>
+          <li class="tox-item"><span class="tox-emoji">💀</span> Exposición intensa → colapso, pérdida consciencia</li>
+          <li class="tox-item"><span class="tox-emoji">🔴</span> Producto "estrella" en preguntas de toxicidad hospitalaria</li>
+          <li class="tox-item"><span class="tox-emoji">🛡️</span> EPI: guantes gruesos + mascarilla FFP2/FFP3 + gafas + campana</li>
+        </ul>
+      </div>
+      <div class="danger-agent">
+        <div class="danger-agent-name">
+          ☢️ Óxido de Etileno
+        </div>
+        <div class="danger-context">Esterilización termosensible · central esterilización</div>
+        <ul class="tox-list">
+          <li class="tox-item"><span class="tox-emoji">🧬</span> Carcinógeno confirmado (IARC grupo 1)</li>
+          <li class="tox-item"><span class="tox-emoji">🫁</span> Irritante respiratorio grave · neurotóxico</li>
+          <li class="tox-item"><span class="tox-emoji">⏱️</span> Ciclos lentos + aireación obligatoria (12-16h)</li>
+          <li class="tox-item"><span class="tox-emoji">📋</span> Muy regulado · trabajadores con vigilancia médica</li>
+          <li class="tox-item"><span class="tox-emoji">🛡️</span> Uso exclusivo en central de esterilización cerrada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SPAULDING -->
+<div class="spaulding-bar">
+  <div class="spaulding-title">📐 Clasificación de Spaulding — Qué proceso necesita cada material</div>
+  <div class="spaulding-grid">
+    <div class="spaulding-cell sp-critical">
+      <div class="sp-category">🔴 CRÍTICO</div>
+      <div class="sp-def">Contacta con tejido estéril o sistema vascular</div>
+      <div class="sp-process">ESTERILIZACIÓN</div>
+      <div class="sp-examples">Instrumental quirúrgico · agujas · catéteres · implantes</div>
+    </div>
+    <div class="spaulding-cell sp-semicritical">
+      <div class="sp-category">🟠 SEMICRÍTICO</div>
+      <div class="sp-def">Contacta con mucosas o piel no intacta</div>
+      <div class="sp-process">DAN (alto nivel)</div>
+      <div class="sp-examples">Endoscopios · laringoscopio · circuitos anestesia · especulos</div>
+    </div>
+    <div class="spaulding-cell sp-noncritical">
+      <div class="sp-category">🟢 NO CRÍTICO</div>
+      <div class="sp-def">Contacta solo con piel íntegra</div>
+      <div class="sp-process">DAN/DIN bajo nivel</div>
+      <div class="sp-examples">Tensiómetro · fonendoscopio · camillas · mobiliario</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

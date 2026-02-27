@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vías Sensitivas del Sistema Nervioso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            border: none;
+            background: #f0f0f0;
+            color: #333;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            background: #e0e0e0;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+        
+        .pathway-content {
+            display: none;
+        }
+        
+        .pathway-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pathway-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .pathway-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #1e3c72;
+        }
+        
+        .pathway-info h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .pathway-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pathway-info li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .pathway-info li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1e3c72;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .diagram-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        .neuron-path {
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 2s ease forwards;
+        }
+        
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .label {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .legend {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .legend h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .pathway-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 VÍAS SENSITIVAS DEL SISTEMA NERVIOSO</h1>
+            <p>Anatomía y Fisiología de los Tractos Sensitivos</p>
+        </div>
+        
+        <div class="content">
+            <div class="tabs">
+                <button class="tab active" onclick="showPathway('posteriores')">Cordones Posteriores</button>
+                <button class="tab" onclick="showPathway('lateral')">Espinotalámica Lateral</button>
+                <button class="tab" onclick="showPathway('anterior')">Espinotalámica Anterior</button>
+                <button class="tab" onclick="showPathway('comparacion')">Comparación</button>
+            </div>
+            
+            <!-- CORDONES POSTERIORES -->
+            <div id="posteriores" class="pathway-content active">
+                <h2 style="color: #1e3c72; margin-bottom: 20px; font-size: 1.8em;">Cordones Posteriores (Lemnisco Medial)</h2>
+                
+                <div class="pathway-grid">
+                    <div class="pathway-info">
+                        <h3>📋 Características</h3>
+                        <ul>
+                            <li><strong>Función:</strong> Tacto fino, propiocepción consciente, vibración</li>
+                            <li><strong>Decusación:</strong> Bulbo raquídeo (lemnisco medial)</li>
+                            <li><strong>Neuronas:</strong> 3 órdenes</li>
+                            <li><strong>Velocidad:</strong> Conducción rápida (fibras mielínicas gruesas)</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">🔄 Trayecto</h3>
+                        <ul>
+                            <li><strong>1ª neurona:</strong> Ganglio raquídeo → Cordón posterior (fascículos grácil y cuneiforme)</li>
+                            <li><strong>2ª neurona:</strong> Núcleos grácil/cuneiforme → Decusación en bulbo → Lemnisco medial</li>
+                            <li><strong>3ª neurona:</strong> Tálamo (VPL) → Corteza sensitiva primaria</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Corteza -->
+                            <ellipse cx="200" cy="50" rx="120" ry="30" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
+                            <text x="200" y="55" text-anchor="middle" class="label" fill="#c92a2a">Corteza Sensitiva</text>
+                            
+                            <!-- Tálamo -->
+                            <rect x="160" y="120" width="80" height="40" rx="10" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="2"/>
+                            <text x="200" y="145" text-anchor="middle" class="label" fill="#0c7c74">Tálamo (VPL)</text>
+                            
+                            <!-- Bulbo -->
+                            <rect x="140" y="250" width="120" height="60" rx="10" fill="#95e1d3" opacity="0.3" stroke="#95e1d3" stroke-width="2"/>
+                            <text x="200" y="270" text-anchor="middle" class="label" fill="#087f5b">Bulbo</text>
+                            <text x="200" y="290" text-anchor="middle" class="label" font-size="12" fill="#087f5b">Núcleos grácil/</text>
+                            <text x="200" y="305" text-anchor="middle" class="label" font-size="12" fill="#087f5b">cuneiforme</text>
+                            
+                            <!-- Médula espinal -->
+                            <rect x="170" y="400" width="60" height="150" rx="10" fill="#ffd93d" opacity="0.3" stroke="#ffd93d" stroke-width="2"/>
+                            <text x="200" y="470" text-anchor="middle" class="label" fill="#f08c00">Médula</text>
+                            <text x="200" y="485" text-anchor="middle" class="label" font-size="11" fill="#f08c00">Cordones</text>
+                            <text x="200" y="500" text-anchor="middle" class="label" font-size="11" fill="#f08c00">posteriores</text>
+                            
+                            <!-- Receptor -->
+                            <circle cx="200" cy="570" r="15" fill="#845ef7" opacity="0.3" stroke="#845ef7" stroke-width="2"/>
+                            <text x="200" y="575" text-anchor="middle" class="label" font-size="12" fill="#5f3dc4">Receptor</text>
+                            
+                            <!-- Vías neuronales -->
+                            <!-- 1ª neurona -->
+                            <path class="neuron-path" d="M 200 555 L 200 410" stroke="#845ef7" marker-end="url(#arrowPurple)"/>
+                            
+                            <!-- Decusación -->
+                            <path class="neuron-path" d="M 200 400 L 200 310 Q 200 290 180 280 L 120 280" stroke="#95e1d3" marker-end="url(#arrowGreen)" style="animation-delay: 0.5s"/>
+                            
+                            <!-- 2ª neurona -->
+                            <path class="neuron-path" d="M 120 280 L 120 200 Q 120 180 140 170 L 180 160" stroke="#4ecdc4" marker-end="url(#arrowTeal)" style="animation-delay: 1s"/>
+                            
+                            <!-- 3ª neurona -->
+                            <path class="neuron-path" d="M 200 120 L 200 80" stroke="#ff6b6b" marker-end="url(#arrowRed)" style="animation-delay: 1.5s"/>
+                            
+                            <!-- Marcadores de flecha -->
+                            <defs>
+                                <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#845ef7"/>
+                                </marker>
+                                <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#95e1d3"/>
+                                </marker>
+                                <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#4ecdc4"/>
+                                </marker>
+                                <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#ff6b6b"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Etiquetas de neuronas -->
+                            <text x="250" y="480" class="label" font-size="12" fill="#845ef7">1ª neurona</text>
+                            <text x="60" y="240" class="label" font-size="12" fill="#95e1d3">Decusación</text>
+                            <text x="250" y="200" class="label" font-size="12" fill="#4ecdc4">2ª neurona</text>
+                            <text x="250" y="100" class="label" font-size="12" fill="#ff6b6b">3ª neurona</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ESPINOTALÁMICA LATERAL -->
+            <div id="lateral" class="pathway-content">
+                <h2 style="color: #1e3c72; margin-bottom: 20px; font-size: 1.8em;">Vía Espinotalámica Lateral</h2>
+                
+                <div class="pathway-grid">
+                    <div class="pathway-info">
+                        <h3>📋 Características</h3>
+                        <ul>
+                            <li><strong>Función:</strong> Dolor y temperatura</li>
+                            <li><strong>Decusación:</strong> Médula espinal (1-2 segmentos arriba)</li>
+                            <li><strong>Neuronas:</strong> 3 órdenes</li>
+                            <li><strong>Velocidad:</strong> Conducción lenta (fibras poco mielinizadas)</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">🔄 Trayecto</h3>
+                        <ul>
+                            <li><strong>1ª neurona:</strong> Ganglio raquídeo → Asta posterior medular</li>
+                            <li><strong>2ª neurona:</strong> Asta posterior → Decusación inmediata → Cuadrante anterolateral contralateral</li>
+                            <li><strong>3ª neurona:</strong> Tálamo (VPL) → Corteza sensitiva primaria</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Corteza -->
+                            <ellipse cx="200" cy="50" rx="120" ry="30" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
+                            <text x="200" y="55" text-anchor="middle" class="label" fill="#c92a2a">Corteza Sensitiva</text>
+                            
+                            <!-- Tálamo -->
+                            <rect x="160" y="120" width="80" height="40" rx="10" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="2"/>
+                            <text x="200" y="145" text-anchor="middle" class="label" fill="#0c7c74">Tálamo (VPL)</text>
+                            
+                            <!-- Tronco encefálico -->
+                            <rect x="140" y="220" width="120" height="100" rx="10" fill="#a9def9" opacity="0.3" stroke="#a9def9" stroke-width="2"/>
+                            <text x="200" y="265" text-anchor="middle" class="label" fill="#1971c2">Tronco</text>
+                            <text x="200" y="285" text-anchor="middle" class="label" fill="#1971c2">Encefálico</text>
+                            
+                            <!-- Médula espinal -->
+                            <rect x="140" y="400" width="120" height="150" rx="10" fill="#ffd93d" opacity="0.3" stroke="#ffd93d" stroke-width="2"/>
+                            <text x="200" y="470" text-anchor="middle" class="label" fill="#f08c00">Médula</text>
+                            <text x="200" y="485" text-anchor="middle" class="label" font-size="11" fill="#f08c00">Cuadrante</text>
+                            <text x="200" y="500" text-anchor="middle" class="label" font-size="11" fill="#f08c00">anterolateral</text>
+                            
+                            <!-- Receptor dolor/temperatura -->
+                            <circle cx="280" cy="520" r="15" fill="#e03131" opacity="0.3" stroke="#e03131" stroke-width="2"/>
+                            <text x="280" y="525" text-anchor="middle" class="label" font-size="11" fill="#c92a2a">🔥</text>
+                            
+                            <!-- Vías neuronales -->
+                            <!-- 1ª neurona -->
+                            <path class="neuron-path" d="M 270 520 L 230 490" stroke="#e03131" marker-end="url(#arrowRed2)"/>
+                            
+                            <!-- Decusación inmediata -->
+                            <path class="neuron-path" d="M 230 490 Q 220 480 210 470 L 170 450" stroke="#f59f00" marker-end="url(#arrowOrange)" style="animation-delay: 0.5s"/>
+                            <text x="240" y="460" class="label" font-size="11" fill="#f59f00">Decusación</text>
+                            
+                            <!-- 2ª neurona ascendente -->
+                            <path class="neuron-path" d="M 170 450 L 170 330" stroke="#1971c2" marker-end="url(#arrowBlue)" style="animation-delay: 1s"/>
+                            
+                            <!-- Hacia tálamo -->
+                            <path class="neuron-path" d="M 170 220 L 180 160" stroke="#4ecdc4" marker-end="url(#arrowTeal2)" style="animation-delay: 1.5s"/>
+                            
+                            <!-- 3ª neurona -->
+                            <path class="neuron-path" d="M 200 120 L 200 80" stroke="#ff6b6b" marker-end="url(#arrowRed3)" style="animation-delay: 2s"/>
+                            
+                            <!-- Marcadores -->
+                            <defs>
+                                <marker id="arrowRed2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#e03131"/>
+                                </marker>
+                                <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#f59f00"/>
+                                </marker>
+                                <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#1971c2"/>
+                                </marker>
+                                <marker id="arrowTeal2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#4ecdc4"/>
+                                </marker>
+                                <marker id="arrowRed3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#ff6b6b"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Etiquetas -->
+                            <text x="290" y="500" class="label" font-size="12" fill="#e03131">1ª neurona</text>
+                            <text x="110" y="390" class="label" font-size="12" fill="#1971c2">2ª neurona</text>
+                            <text x="250" y="100" class="label" font-size="12" fill="#ff6b6b">3ª neurona</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ESPINOTALÁMICA ANTERIOR -->
+            <div id="anterior" class="pathway-content">
+                <h2 style="color: #1e3c72; margin-bottom: 20px; font-size: 1.8em;">Vía Espinotalámica Anterior</h2>
+                
+                <div class="pathway-grid">
+                    <div class="pathway-info">
+                        <h3>📋 Características</h3>
+                        <ul>
+                            <li><strong>Función:</strong> Tacto grueso (protopático), presión</li>
+                            <li><strong>Decusación:</strong> Médula espinal (1-2 segmentos arriba)</li>
+                            <li><strong>Neuronas:</strong> 3 órdenes</li>
+                            <li><strong>Velocidad:</strong> Conducción intermedia</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">🔄 Trayecto</h3>
+                        <ul>
+                            <li><strong>1ª neurona:</strong> Ganglio raquídeo → Asta posterior medular</li>
+                            <li><strong>2ª neurona:</strong> Asta posterior → Decusación → Cuadrante anterior contralateral</li>
+                            <li><strong>3ª neurona:</strong> Tálamo (VPL) → Corteza sensitiva primaria</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Corteza -->
+                            <ellipse cx="200" cy="50" rx="120" ry="30" fill="#ff6b6b" opacity="0.3" stroke="#ff6b6b" stroke-width="2"/>
+                            <text x="200" y="55" text-anchor="middle" class="label" fill="#c92a2a">Corteza Sensitiva</text>
+                            
+                            <!-- Tálamo -->
+                            <rect x="160" y="120" width="80" height="40" rx="10" fill="#4ecdc4" opacity="0.3" stroke="#4ecdc4" stroke-width="2"/>
+                            <text x="200" y="145" text-anchor="middle" class="label" fill="#0c7c74">Tálamo (VPL)</text>
+                            
+                            <!-- Tronco encefálico -->
+                            <rect x="140" y="220" width="120" height="100" rx="10" fill="#d0bfff" opacity="0.3" stroke="#d0bfff" stroke-width="2"/>
+                            <text x="200" y="265" text-anchor="middle" class="label" fill="#7950f2">Tronco</text>
+                            <text x="200" y="285" text-anchor="middle" class="label" fill="#7950f2">Encefálico</text>
+                            
+                            <!-- Médula espinal -->
+                            <rect x="140" y="400" width="120" height="150" rx="10" fill="#74c0fc" opacity="0.3" stroke="#74c0fc" stroke-width="2"/>
+                            <text x="200" y="470" text-anchor="middle" class="label" fill="#1864ab">Médula</text>
+                            <text x="200" y="485" text-anchor="middle" class="label" font-size="11" fill="#1864ab">Cuadrante</text>
+                            <text x="200" y="500" text-anchor="middle" class="label" font-size="11" fill="#1864ab">anterior</text>
+                            
+                            <!-- Receptor tacto -->
+                            <circle cx="270" cy="520" r="15" fill="#228be6" opacity="0.3" stroke="#228be6" stroke-width="2"/>
+                            <text x="270" y="525" text-anchor="middle" class="label" font-size="11" fill="#1864ab">👆</text>
+                            
+                            <!-- Vías neuronales -->
+                            <!-- 1ª neurona -->
+                            <path class="neuron-path" d="M 260 520 L 230 490" stroke="#228be6" marker-end="url(#arrowBlue2)"/>
+                            
+                            <!-- Decusación -->
+                            <path class="neuron-path" d="M 230 490 Q 220 480 210 470 L 175 445" stroke="#7950f2" marker-end="url(#arrowPurple2)" style="animation-delay: 0.5s"/>
+                            
+                            <!-- 2ª neurona -->
+                            <path class="neuron-path" d="M 175 445 L 175 330" stroke="#5c7cfa" marker-end="url(#arrowIndigo)" style="animation-delay: 1s"/>
+                            
+                            <!-- Hacia tálamo -->
+                            <path class="neuron-path" d="M 175 220 L 185 160" stroke="#4ecdc4" marker-end="url(#arrowTeal3)" style="animation-delay: 1.5s"/>
+                            
+                            <!-- 3ª neurona -->
+                            <path class="neuron-path" d="M 200 120 L 200 80" stroke="#ff6b6b" marker-end="url(#arrowRed4)" style="animation-delay: 2s"/>
+                            
+                            <!-- Marcadores -->
+                            <defs>
+                                <marker id="arrowBlue2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#228be6"/>
+                                </marker>
+                                <marker id="arrowPurple2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#7950f2"/>
+                                </marker>
+                                <marker id="arrowIndigo" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#5c7cfa"/>
+                                </marker>
+                                <marker id="arrowTeal3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#4ecdc4"/>
+                                </marker>
+                                <marker id="arrowRed4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#ff6b6b"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Etiquetas -->
+                            <text x="280" y="500" class="label" font-size="12" fill="#228be6">1ª neurona</text>
+                            <text x="115" y="390" class="label" font-size="12" fill="#5c7cfa">2ª neurona</text>
+                            <text x="250" y="100" class="label" font-size="12" fill="#ff6b6b">3ª neurona</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- COMPARACIÓN -->
+            <div id="comparacion" class="pathway-content">
+                <h2 style="color: #1e3c72; margin-bottom: 20px; font-size: 1.8em;">Comparación de Vías Sensitivas</h2>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white;">
+                            <th style="padding: 15px; text-align: left;">Característica</th>
+                            <th style="padding: 15px; text-align: left;">Cordones Posteriores</th>
+                            <th style="padding: 15px; text-align: left;">Espinotalámica Lateral</th>
+                            <th style="padding: 15px; text-align: left;">Espinotalámica Anterior</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 12px; border: 1px solid #dee2e6;"><strong>Función</strong></td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Tacto fino, propiocepción, vibración</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Dolor y temperatura</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Tacto grueso, presión</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;"><strong>Decusación</strong></td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Bulbo raquídeo</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Médula (1-2 segmentos arriba)</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Médula (1-2 segmentos arriba)</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 12px; border: 1px solid #dee2e6;"><strong>Localización medular</strong></td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Cordones posteriores (ipsilateral hasta bulbo)</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Cuadrante anterolateral (contralateral)</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Cuadrante anterior (contralateral)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;"><strong>Velocidad</strong></td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Rápida (fibras gruesas mielinizadas)</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Lenta (fibras finas poco mielinizadas)</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Intermedia</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 12px; border: 1px solid #dee2e6;"><strong>Relevos</strong></td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Núcleos grácil/cuneiforme → Tálamo → Corteza</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Asta posterior → Tálamo → Corteza</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Asta posterior → Tálamo → Corteza</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;"><strong>Síndromes por lesión</strong></td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Pérdida de tacto fino, ataxia sensitiva ipsilateral</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Pérdida de dolor/temperatura contralateral</td>
+                            <td style="padding: 12px; border: 1px solid #dee2e6;">Pérdida de tacto grueso contralateral</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="legend">
+                    <h4>📌 Puntos Clave para Recordar</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 8px 0;">✓ <strong>Cordones posteriores:</strong> Única vía que decusa en el bulbo (tardía)</li>
+                        <li style="padding: 8px 0;">✓ <strong>Vías espinotalámicas:</strong> Decusación inmediata en médula (1-2 segmentos arriba)</li>
+                        <li style="padding: 8px 0;">✓ <strong>Todas convergen en:</strong> Tálamo (VPL) → Corteza sensitiva primaria</li>
+                        <li style="padding: 8px 0;">✓ <strong>Síndrome de Brown-Séquard:</strong> Hemisección medular → Pérdida de tacto fino ipsilateral + dolor/temperatura contralateral</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showPathway(pathway) {
+            // Ocultar todo
+            document.querySelectorAll('.pathway-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el seleccionado
+            document.getElementById(pathway).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

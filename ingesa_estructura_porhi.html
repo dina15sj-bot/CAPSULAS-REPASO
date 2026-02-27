@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INGESA — Estructura y PORHI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4f8;
+  --surface: #ffffff;
+  --border: #c8d4e0;
+  --text: #141e2a;
+  --muted: #6a7a8a;
+  --navy: #0d2137;
+  --blue: #1a5a9a;
+  --blue-dim: #1a5a9a14;
+  --teal: #1a7a6a;
+  --teal-dim: #1a7a6a14;
+  --red: #b5282a;
+  --red-dim: #b5282a14;
+  --gold: #c49a2a;
+  --gold-dim: #c49a2a18;
+  --green: #2a7a4a;
+  --green-dim: #2a7a4a14;
+  --purple: #6a3a8a;
+  --purple-dim: #6a3a8a14;
+  --warm: #eef2f6;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* HEADER */
+header { text-align:center; margin-bottom:2.5rem; }
+.ing-badge {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:var(--navy); color:white;
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  letter-spacing:0.12em; padding:0.35rem 1.1rem; border-radius:3px;
+  margin-bottom:1rem; text-transform:uppercase;
+}
+h1 { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(1.8rem,5vw,2.9rem); color:var(--navy); line-height:1.1; }
+.subtitle { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; }
+
+/* GRIDS */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; max-width:1100px; margin:0 auto; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; max-width:1100px; margin:1.2rem auto 0; }
+.full { grid-column:1/-1; }
+@media(max-width:750px){ .grid2,.grid3 { grid-template-columns:1fr; } .full { grid-column:1; } }
+
+/* CARD */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+.card-head { padding:0.75rem 1.1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; }
+.card-icon { font-size:1.1rem; flex-shrink:0; }
+.card-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; flex:1; }
+.card-body { padding:1rem 1.1rem; }
+
+/* MEMO BOX */
+.memo-box { border-radius:6px; padding:0.55rem 0.9rem; margin-top:0.8rem; border:1px solid var(--gold); background:var(--gold-dim); }
+.memo-label { font-family:'JetBrains Mono',monospace; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--gold); margin-bottom:0.25rem; }
+.memo-text { color:var(--text); font-weight:700; font-size:0.82rem; line-height:1.6; }
+
+/* NATURALEZA */
+.nat-card .card-head { background:var(--navy); }
+.nat-card .card-title { color:white; }
+.nat-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; margin-bottom:0.8rem; }
+.nat-item { background:var(--warm); border:1px solid var(--border); border-radius:7px; padding:0.7rem 0.8rem; }
+.nat-label { font-family:'JetBrains Mono',monospace; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:0.25rem; }
+.nat-value { font-size:0.82rem; font-weight:600; color:var(--navy); line-height:1.4; }
+.nat-item.highlight { background:var(--blue-dim); border-color:var(--blue); }
+.nat-item.highlight .nat-value { color:var(--blue); }
+
+/* ORG CHART */
+.org-chart { display:flex; flex-direction:column; align-items:center; gap:0; }
+.org-level { width:100%; display:flex; flex-direction:column; align-items:center; }
+.org-box {
+  border-radius:7px; padding:0.65rem 1rem; text-align:center;
+  border:2px solid; position:relative; width:90%;
+  transition:transform 0.15s;
+}
+.org-box:hover { transform:translateY(-2px); }
+.org-connector {
+  width:2px; height:28px; background:var(--border); flex-shrink:0;
+}
+.org-row { display:flex; width:100%; gap:0.8rem; justify-content:center; position:relative; }
+.org-row::before {
+  content:''; position:absolute; top:0; left:10%; right:10%;
+  height:2px; background:var(--border);
+}
+.org-row-item { flex:1; display:flex; flex-direction:column; align-items:center; }
+.org-row-connector { width:2px; height:16px; background:var(--border); }
+
+.ob-pres { background:var(--navy); border-color:var(--navy); color:white; }
+.ob-pres .ob-title { color:white; }
+.ob-pres .ob-art { color:#90b8d8; }
+
+.ob-dir { background:var(--blue-dim); border-color:var(--blue); }
+.ob-dir .ob-title { color:var(--blue); }
+
+.ob-sub1 { background:var(--teal-dim); border-color:var(--teal); }
+.ob-sub1 .ob-title { color:var(--teal); }
+
+.ob-sub2 { background:var(--purple-dim); border-color:var(--purple); }
+.ob-sub2 .ob-title { color:var(--purple); }
+
+.ob-part { background:var(--gold-dim); border-color:var(--gold); }
+.ob-part .ob-title { color:#8a6a10; }
+
+.ob-title { font-family:'Playfair Display',serif; font-weight:700; font-size:0.82rem; margin-bottom:0.15rem; }
+.ob-art { font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:var(--muted); }
+.ob-sub { font-size:0.68rem; color:var(--muted); margin-top:0.1rem; line-height:1.3; }
+
+/* FUNCIONES CARDS */
+.func-card { border-top:3px solid; }
+.fc-pres { border-color:var(--navy); }
+.fc-pres .card-head { background:var(--navy); }
+.fc-pres .card-title { color:white; }
+.fc-dir { border-color:var(--blue); }
+.fc-dir .card-head { background:var(--blue-dim); }
+.fc-dir .card-title { color:var(--blue); }
+.fc-sg1 { border-color:var(--teal); }
+.fc-sg1 .card-head { background:var(--teal-dim); }
+.fc-sg1 .card-title { color:var(--teal); }
+.fc-sg2 { border-color:var(--purple); }
+.fc-sg2 .card-head { background:var(--purple-dim); }
+.fc-sg2 .card-title { color:var(--purple); }
+
+.func-list { list-style:none; display:flex; flex-direction:column; gap:0.35rem; }
+.func-list li {
+  display:flex; align-items:flex-start; gap:0.5rem;
+  font-size:0.78rem; color:var(--muted); line-height:1.4; padding:0.3rem 0;
+  border-bottom:1px solid var(--border);
+}
+.func-list li:last-child { border-bottom:none; }
+.func-list li::before { content:'▸'; flex-shrink:0; margin-top:0.05rem; font-size:0.7rem; }
+.fc-pres .func-list li::before { color:var(--navy); }
+.fc-dir .func-list li::before { color:var(--blue); }
+.fc-sg1 .func-list li::before { color:var(--teal); }
+.fc-sg2 .func-list li::before { color:var(--purple); }
+.func-list li strong { color:var(--text); }
+
+.art-badge {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.58rem;
+  font-weight:600; padding:0.1rem 0.4rem; border-radius:2px; margin-left:0.3rem; vertical-align:middle;
+}
+.ab-n { background:#0d213720; color:var(--navy); border:1px solid var(--navy); }
+.ab-b { background:var(--blue-dim); color:var(--blue); border:1px solid var(--blue); }
+.ab-t { background:var(--teal-dim); color:var(--teal); border:1px solid var(--teal); }
+.ab-p { background:var(--purple-dim); color:var(--purple); border:1px solid var(--purple); }
+
+/* PERIFERIA */
+.per-card .card-head { background:var(--green-dim); border-bottom:2px solid var(--green); }
+.per-card .card-title { color:var(--green); }
+.per-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem; }
+.per-item { background:var(--warm); border:1px solid var(--border); border-radius:7px; padding:0.7rem; text-align:center; }
+.per-icon { font-size:1.4rem; margin-bottom:0.3rem; }
+.per-title { font-weight:700; font-size:0.8rem; color:var(--navy); margin-bottom:0.2rem; }
+.per-desc { font-size:0.68rem; color:var(--muted); line-height:1.4; }
+@media(max-width:600px){ .per-grid { grid-template-columns:1fr; } }
+
+/* PORHI */
+.porhi-card .card-head { background:var(--red-dim); border-bottom:2px solid var(--red); }
+.porhi-card .card-title { color:var(--red); }
+.porhi-meta { display:flex; gap:0.6rem; margin-bottom:0.9rem; flex-wrap:wrap; }
+.porhi-pill {
+  background:var(--warm); border:1px solid var(--border); border-radius:5px;
+  padding:0.35rem 0.7rem; font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  color:var(--navy);
+}
+.porhi-pill strong { color:var(--red); }
+
+.lineas-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
+.linea-item {
+  background:var(--warm); border:1px solid var(--border); border-radius:7px;
+  padding:0.7rem 0.8rem; display:flex; gap:0.6rem; align-items:flex-start;
+}
+.linea-num {
+  font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900;
+  color:var(--red); opacity:0.5; line-height:1; flex-shrink:0;
+}
+.linea-text { font-size:0.75rem; color:var(--muted); line-height:1.4; }
+.linea-text strong { color:var(--text); display:block; margin-bottom:0.15rem; font-size:0.8rem; }
+@media(max-width:600px){ .lineas-grid { grid-template-columns:1fr; } }
+
+/* TEST */
+.test-card .card-head { background:var(--red-dim); border-bottom:2px solid var(--red); }
+.test-card .card-title { color:var(--red); }
+.q-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 1.5rem; }
+.q-block { padding:0.6rem 0; border-bottom:1px dashed var(--border); font-size:0.79rem; }
+.q-block:last-child { border-bottom:none; }
+.q-text { color:var(--muted); margin-bottom:0.25rem; line-height:1.4; }
+.q-text::before { content:'❓ '; }
+.q-answer { font-weight:700; color:var(--red); display:flex; align-items:flex-start; gap:0.4rem; }
+.q-answer::before { content:'→'; color:var(--gold); font-weight:900; flex-shrink:0; }
+.q-note { font-size:0.68rem; color:var(--muted); margin-top:0.1rem; font-style:italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ing-badge">🏥 INGESA · RD 118/2023</div>
+  <h1>Instituto Nacional de Gestión Sanitaria</h1>
+  <p class="subtitle">Estructura · Organización · PORHI · INGESA Enfermería</p>
+</header>
+
+<div class="grid2">
+
+  <!-- NATURALEZA -->
+  <div class="card nat-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">🏛️</span>
+      <span class="card-title">Naturaleza y régimen jurídico — Art. 1</span>
+    </div>
+    <div class="card-body">
+      <div class="nat-grid">
+        <div class="nat-item highlight" style="grid-column:1/-1">
+          <div class="nat-label">Nombre completo</div>
+          <div class="nat-value">Instituto Nacional de Gestión Sanitaria — <span style="color:var(--blue)">INGESA</span></div>
+        </div>
+        <div class="nat-item">
+          <div class="nat-label">Naturaleza</div>
+          <div class="nat-value">Entidad gestora de la <strong>Seguridad Social</strong></div>
+        </div>
+        <div class="nat-item">
+          <div class="nat-label">Adscripción</div>
+          <div class="nat-value">Ministerio de Sanidad a través de la <strong>Secretaría de Estado de Sanidad</strong></div>
+        </div>
+        <div class="nat-item" style="grid-column:1/-1">
+          <div class="nat-label">Función global</div>
+          <div class="nat-value">Gestión directa de los servicios sanitarios de la Seguridad Social en <strong>Ceuta y Melilla</strong> + coordinación y apoyo al SNS</div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Identidad INGESA</div>
+        <div class="memo-text">Entidad gestora SS → adscrita Minsterio Sanidad → gestiona Ceuta + Melilla</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANIGRAMA -->
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">🗂️</span>
+      <span class="card-title" style="color:white">Organigrama Servicios Centrales — P·D·G·A</span>
+    </div>
+    <div class="card-body">
+      <div class="org-chart">
+        <!-- PRESIDENCIA -->
+        <div class="org-level">
+          <div class="org-box ob-pres">
+            <div class="ob-title">PRESIDENCIA</div>
+            <div class="ob-art">Art. 4 · Secretaría de Estado de Sanidad</div>
+            <div class="ob-sub">Máxima representación · dirección estratégica</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+        <!-- DIRECCIÓN -->
+        <div class="org-level">
+          <div class="org-box ob-dir" style="width:82%">
+            <div class="ob-title">DIRECCIÓN</div>
+            <div class="ob-art">Art. 5 · Nivel: Dirección General</div>
+            <div class="ob-sub">Gestión ordinaria · Representación legal · Supervisión territorial</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+        <!-- SUBDIRECCIONES -->
+        <div class="org-row">
+          <div class="org-row-item">
+            <div class="org-row-connector"></div>
+            <div class="org-box ob-sub1" style="width:100%">
+              <div class="ob-title">Subdir. Gestión Sanitaria</div>
+              <div class="ob-art">Art. 6 — G</div>
+              <div class="ob-sub">AP + AE · RRHH · Farmacia · Inversiones</div>
+            </div>
+          </div>
+          <div class="org-row-item">
+            <div class="org-row-connector"></div>
+            <div class="org-box ob-sub2" style="width:100%">
+              <div class="ob-title">Subdir. Asuntos Generales</div>
+              <div class="ob-art">Art. 7 — A</div>
+              <div class="ob-sub">Presupuestos · Contratación · Secretaría órganos participación</div>
+            </div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+        <!-- PARTICIPACIÓN -->
+        <div class="org-row">
+          <div class="org-row-item">
+            <div class="org-row-connector"></div>
+            <div class="org-box ob-part" style="width:100%">
+              <div class="ob-title">Consejo de Participación</div>
+              <div class="ob-art">Órgano colegiado · Ley 40/2015</div>
+            </div>
+          </div>
+          <div class="org-row-item">
+            <div class="org-row-connector"></div>
+            <div class="org-box ob-part" style="width:100%">
+              <div class="ob-title">Comisiones Ejecutivas Territoriales</div>
+              <div class="ob-art">Ceuta y Melilla · Órganos colegiados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.9rem">
+        <div class="memo-label">🧠 P·D·G·A</div>
+        <div class="memo-text">
+          <span style="color:var(--navy)">P</span>residencia ·
+          <span style="color:var(--blue)">D</span>irección ·
+          <span style="color:var(--teal)">G</span>estión Sanitaria ·
+          <span style="color:var(--purple)">A</span>suntos Generales
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FUNCIONES -->
+<div class="grid2" style="margin-top:1.2rem">
+
+  <div class="card func-card fc-pres">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">👑</span>
+      <span class="card-title">Presidencia <span class="art-badge ab-n">Art. 4</span></span>
+    </div>
+    <div class="card-body">
+      <ul class="func-list">
+        <li>La ostenta la persona titular de la <strong>Secretaría de Estado de Sanidad</strong></li>
+        <li><strong>Máxima representación institucional</strong> del INGESA</li>
+        <li>Impulso y <strong>dirección estratégica</strong> del Organismo</li>
+        <li>Aprobación de grandes planes y líneas de actuación</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card func-card fc-dir">
+    <div class="card-head">
+      <span class="card-icon">🎯</span>
+      <span class="card-title">Dirección <span class="art-badge ab-b">Art. 5</span></span>
+    </div>
+    <div class="card-body">
+      <ul class="func-list">
+        <li><strong>Nivel orgánico: Dirección General</strong></li>
+        <li>Dirección y <strong>gestión ordinaria</strong> del INGESA</li>
+        <li>Planificación, dirección, control e <strong>inspección</strong> de actividades</li>
+        <li><strong>Representación legal</strong> del Organismo</li>
+        <li>Impulso y supervisión de Gerencias y <strong>Direcciones Territoriales</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card func-card fc-sg1">
+    <div class="card-head">
+      <span class="card-icon">🏥</span>
+      <span class="card-title">Subdir. Gestión Sanitaria <span class="art-badge ab-t">Art. 6</span></span>
+    </div>
+    <div class="card-body">
+      <ul class="func-list">
+        <li>Ordenación, control y evaluación de <strong>Atención Primaria y Especializada</strong></li>
+        <li>Gestión de <strong>convenios de servicios sanitarios</strong></li>
+        <li>Planificación de las <strong>inversiones sanitarias</strong></li>
+        <li>Control y seguimiento de la <strong>prestación farmacéutica</strong></li>
+        <li>Planificación, ordenación y gestión de <strong>RRHH del INGESA</strong></li>
+      </ul>
+      <div class="memo-box" style="background:var(--teal-dim);border-color:var(--teal)">
+        <div class="memo-label" style="color:var(--teal)">🧠 lo que gestiona la G</div>
+        <div class="memo-text" style="font-size:0.78rem">AP + AE · Convenios · Inversiones · Farmacia · RRHH</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card func-card fc-sg2">
+    <div class="card-head">
+      <span class="card-icon">📊</span>
+      <span class="card-title">Subdir. Asuntos Generales <span class="art-badge ab-p">Art. 7</span></span>
+    </div>
+    <div class="card-body">
+      <ul class="func-list">
+        <li>Gestión <strong>económico-presupuestaria</strong>, contabilidad y contratación</li>
+        <li>Régimen interior, <strong>asuntos generales</strong> y asistencia técnica</li>
+        <li>Relaciones con los <strong>servicios territoriales</strong> en su ámbito</li>
+        <li><strong>Secretaría</strong> del Consejo de Participación y Comisiones Ejecutivas Territoriales</li>
+      </ul>
+      <div class="memo-box" style="background:var(--purple-dim);border-color:var(--purple)">
+        <div class="memo-label" style="color:var(--purple)">🧠 lo que gestiona la A</div>
+        <div class="memo-text" style="font-size:0.78rem">Presupuestos · Contratos · Interior · Secretaría órganos participación</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ORGANIZACIÓN PERIFÉRICA -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card per-card">
+    <div class="card-head">
+      <span class="card-icon">📍</span>
+      <span class="card-title">Organización Periférica</span>
+    </div>
+    <div class="card-body">
+      <div class="per-grid">
+        <div class="per-item">
+          <div class="per-icon">🏛️</div>
+          <div class="per-title">Dir. Territorial Ceuta</div>
+          <div class="per-desc">Planificación y gestión de recursos. Coordinación con servicios centrales. Elaboración de propuestas de presupuesto</div>
+        </div>
+        <div class="per-item">
+          <div class="per-icon">🏛️</div>
+          <div class="per-title">Dir. Territorial Melilla</div>
+          <div class="per-desc">Mismas funciones que Ceuta. Ejecución de programas y objetivos anuales</div>
+        </div>
+        <div class="per-item">
+          <div class="per-icon">⚗️</div>
+          <div class="per-title">C. N. Dosimetría (Valencia)</div>
+          <div class="per-desc">Centro Nacional de Dosimetría integrado en la estructura del INGESA</div>
+        </div>
+      </div>
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;margin-top:0.8rem;font-size:0.78rem;line-height:1.5;color:var(--muted)">
+        Cada Dirección Territorial agrupa → <strong style="color:var(--navy)">Gerencia de Atención Sanitaria</strong> (AP + AE) de Ceuta y de Melilla
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PORHI -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card porhi-card">
+    <div class="card-head">
+      <span class="card-icon">📋</span>
+      <span class="card-title">PORHI — Plan de Ordenación de Recursos Humanos del INGESA</span>
+    </div>
+    <div class="card-body">
+      <div class="porhi-meta">
+        <div class="porhi-pill">Aprobado: <strong>17 enero 2018</strong></div>
+        <div class="porhi-pill">Vigencia inicial: <strong>2017–2021</strong></div>
+        <div class="porhi-pill">Ampliado: <strong>19 enero 2023</strong></div>
+      </div>
+
+      <div style="background:var(--red-dim);border-left:4px solid var(--red);border-radius:0 6px 6px 0;padding:0.7rem 1rem;font-size:0.81rem;line-height:1.6;margin-bottom:0.9rem;">
+        <strong>Objetivo fundamental:</strong> "Planificación de los recursos humanos necesarios para llevar a cabo los fines que el INGESA tiene encomendados, dotándolo de los elementos necesarios para su desarrollo en los distintos aspectos que configuran su gestión."
+      </div>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.6rem;">Principales líneas de acción</div>
+      <div class="lineas-grid">
+        <div class="linea-item">
+          <div class="linea-num">1</div>
+          <div class="linea-text">
+            <strong>Estructura organizativa</strong>
+            Desarrollo de Servicios Periféricos (Gerencias + C.N. Dosimetría) según necesidades actuales
+          </div>
+        </div>
+        <div class="linea-item">
+          <div class="linea-num">2</div>
+          <div class="linea-text">
+            <strong>Planificación asistencial</strong>
+            RRHH vinculada a necesidades asistenciales. Adecuación normativa vigente
+          </div>
+        </div>
+        <div class="linea-item">
+          <div class="linea-num">3</div>
+          <div class="linea-text">
+            <strong>Categorías profesionales</strong>
+            Adecuación de clasificación y denominación. Oferta de profesionales en formación
+          </div>
+        </div>
+        <div class="linea-item">
+          <div class="linea-num">4</div>
+          <div class="linea-text">
+            <strong>Selección y estabilidad</strong>
+            Selección, provisión de plazas y promoción interna → estabilidad en el empleo
+          </div>
+        </div>
+        <div class="linea-item">
+          <div class="linea-num">5</div>
+          <div class="linea-text">
+            <strong>Formación y carrera</strong>
+            Desarrollo profesional continuo · Movilidad · Evaluación del desempeño
+          </div>
+        </div>
+        <div class="linea-item">
+          <div class="linea-num">6</div>
+          <div class="linea-text">
+            <strong>Salud laboral e igualdad</strong>
+            Prevención de riesgos · Conciliación · Mejora del clima laboral
+          </div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.9rem">
+        <div class="memo-label">🧠 PORHI en 3 palabras</div>
+        <div class="memo-text">
+          <span style="color:var(--red)">Ajustar estructura</span> ·
+          <span style="color:var(--red)">Planificar RRHH</span> ·
+          <span style="color:var(--red)">Ordenar plantillas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head">
+      <span class="card-icon">🎯</span>
+      <span class="card-title">Preguntas tipo test — INGESA</span>
+    </div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es la naturaleza jurídica del INGESA?</div>
+          <div class="q-answer"><strong>Entidad gestora de la Seguridad Social</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿A qué ministerio está adscrito el INGESA?</div>
+          <div class="q-answer"><strong>Ministerio de Sanidad</strong>, a través de la Secretaría de Estado de Sanidad</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Quién ostenta la Presidencia del INGESA?</div>
+          <div class="q-answer">La persona titular de la <strong>Secretaría de Estado de Sanidad</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué nivel orgánico tiene la Dirección del INGESA?</div>
+          <div class="q-answer"><strong>Dirección General</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué subdirección tiene la secretaría de los órganos de participación?</div>
+          <div class="q-answer"><strong>Subdirección General de Asuntos Generales y Económico-Presupuestarios</strong></div>
+          <div class="q-note">Art. 7 — función "horizontal"</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué subdirección gestiona los RRHH y la prestación farmacéutica?</div>
+          <div class="q-answer"><strong>Subdirección General de Gestión Sanitaria</strong></div>
+          <div class="q-note">Art. 6 — junto con AP, AE e inversiones sanitarias</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuándo se aprobó el PORHI y cuál es su vigencia inicial?</div>
+          <div class="q-answer"><strong>17 enero 2018</strong>, vigencia <strong>2017–2021</strong> (ampliado en 2023)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué centro singular, fuera de Ceuta y Melilla, está integrado en el INGESA?</div>
+          <div class="q-answer"><strong>Centro Nacional de Dosimetría</strong> (Valencia)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

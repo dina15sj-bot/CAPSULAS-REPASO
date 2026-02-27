@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatuto Marco 3/3 — Carrera y Retribuciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5f0f8;--surface:#fff;--border:#d5c8e0;--text:#1a1422;--muted:#7a6a8a;
+  --navy:#0d2137;--blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --red:#b5282a;--red-dim:#b5282a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --green:#2a7a4a;--green-dim:#2a7a4a14;
+  --purple:#6a3a8a;--purple-dim:#6a3a8a14;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --orange:#c4681a;--orange-dim:#c4681a14;
+  --warm:#f0ebe0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#d5c8e028 31px,#d5c8e028 32px);}
+header{text-align:center;margin-bottom:2.5rem;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.1rem;border-radius:3px;margin-bottom:0.5rem;text-transform:uppercase;}
+.badge2{display:inline-flex;align-items:center;gap:0.5rem;background:var(--purple);color:white;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;padding:0.25rem 0.8rem;border-radius:3px;margin-left:0.5rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,2.7rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+.full{grid-column:1/-1;}
+@media(max-width:750px){.grid2{grid-template-columns:1fr;}.full{grid-column:1;}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+
+/* CARRERA IDIVIDUAL PILLARS */
+.idh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;margin-bottom:0.8rem;}
+.idh-card{border-radius:9px;overflow:hidden;border:2px solid;text-align:center;}
+.idh-head{padding:0.9rem 0.6rem;}
+.idh-letter{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+.idh-name{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;}
+.idh-body{padding:0.7rem;background:white;}
+.idh-title{font-weight:700;font-size:0.82rem;margin-bottom:0.2rem;}
+.idh-desc{font-size:0.7rem;color:var(--muted);line-height:1.4;}
+
+.ci{border-color:var(--purple);}.ci .idh-head{background:var(--purple-dim);}.ci .idh-letter,.ci .idh-name{color:var(--purple);}.ci .idh-title{color:var(--purple);}
+.cd{border-color:var(--blue);}.cd .idh-head{background:var(--blue-dim);}.cd .idh-letter,.cd .idh-name{color:var(--blue);}.cd .idh-title{color:var(--blue);}
+.ch{border-color:var(--teal);}.ch .idh-head{background:var(--teal-dim);}.ch .idh-letter,.ch .idh-name{color:var(--teal);}.ch .idh-title{color:var(--teal);}
+
+/* CARRERA PROGRESION */
+.prog-flow{display:flex;align-items:center;gap:0;justify-content:center;margin:0.8rem 0;}
+.prog-step{flex:1;text-align:center;position:relative;}
+.prog-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.3rem;border:3px solid;}
+.prog-circle span{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;}
+.prog-label{font-size:0.68rem;color:var(--muted);font-weight:600;}
+.prog-arrow{font-size:1.2rem;color:var(--border);flex-shrink:0;margin:0 -0.2rem;margin-bottom:1.5rem;}
+.pg1 .prog-circle{background:var(--blue-dim);border-color:var(--blue);}.pg1 .prog-circle span{color:var(--blue);}
+.pg2 .prog-circle{background:var(--teal-dim);border-color:var(--teal);}.pg2 .prog-circle span{color:var(--teal);}
+.pg3 .prog-circle{background:var(--green-dim);border-color:var(--green);}.pg3 .prog-circle span{color:var(--green);}
+.pg4 .prog-circle{background:var(--purple-dim);border-color:var(--purple);}.pg4 .prog-circle span{color:var(--purple);}
+
+/* RETRIBUCIONES SISTEMA */
+.ret-split{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.9rem;}
+.ret-col{border-radius:9px;overflow:hidden;border:2px solid;}
+.ret-col-head{padding:0.7rem 0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.ret-col-icon{font-size:1.2rem;}
+.ret-col-title{font-family:'Playfair Display',serif;font-weight:700;font-size:0.92rem;}
+.ret-col-body{padding:0.7rem 0.9rem;background:white;}
+.ret-item{padding:0.4rem 0;border-bottom:1px solid var(--border);font-size:0.79rem;display:flex;align-items:flex-start;gap:0.5rem;line-height:1.4;}
+.ret-item:last-child{border-bottom:none;}
+.ret-item::before{content:'▸';flex-shrink:0;font-size:0.7rem;margin-top:0.15rem;}
+.ret-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.08rem 0.35rem;border-radius:2px;font-weight:600;margin-right:0.3rem;vertical-align:middle;}
+
+.rc-bas{border-color:var(--navy);}
+.rc-bas .ret-col-head{background:var(--navy);}
+.rc-bas .ret-col-title,.rc-bas .ret-col-icon{color:white;}
+.rc-bas .ret-item::before{color:var(--navy);}
+.rc-bas .ret-tag{background:#0d213725;color:var(--navy);border:1px solid var(--navy);}
+
+.rc-com{border-color:var(--purple);}
+.rc-com .ret-col-head{background:var(--purple-dim);}
+.rc-com .ret-col-title,.rc-com .ret-col-icon{color:var(--purple);}
+.rc-com .ret-item::before{color:var(--purple);}
+.rc-com .ret-tag{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple);}
+
+/* COMP DESTINO / ESPECÍFICO / PROD */
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.comp-card{border-radius:8px;border:1px solid;overflow:hidden;}
+.comp-head{padding:0.6rem 0.7rem;text-align:center;}
+.comp-icon{font-size:1.3rem;margin-bottom:0.2rem;}
+.comp-name{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
+.comp-body{padding:0.6rem 0.7rem;background:white;}
+.comp-def{font-weight:700;font-size:0.78rem;margin-bottom:0.2rem;}
+.comp-desc{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+.comp-note{font-family:'JetBrains Mono',monospace;font-size:0.58rem;margin-top:0.3rem;}
+
+.cc-d{border-color:var(--blue);}.cc-d .comp-head{background:var(--blue-dim);}.cc-d .comp-name{color:var(--blue);}.cc-d .comp-def{color:var(--blue);}.cc-d .comp-note{color:var(--blue);}
+.cc-e{border-color:var(--orange);}.cc-e .comp-head{background:var(--orange-dim);}.cc-e .comp-name{color:var(--orange);}.cc-e .comp-def{color:var(--orange);}.cc-e .comp-note{color:var(--orange);}
+.cc-p{border-color:var(--green);}.cc-p .comp-head{background:var(--green-dim);}.cc-p .comp-name{color:var(--green);}.cc-p .comp-def{color:var(--green);}.cc-p .comp-note{color:var(--green);}
+
+/* TEMPORAL BANNER */
+.temp-banner{background:var(--red-dim);border:1px solid var(--red);border-radius:8px;padding:0.8rem 1rem;display:flex;align-items:center;gap:0.9rem;margin-top:0.8rem;}
+.temp-icon{font-size:1.6rem;flex-shrink:0;}
+.temp-text{font-size:0.8rem;line-height:1.5;}
+.temp-text strong{color:var(--red);}
+
+/* BCTP RESUMEN */
+.bctp-row{display:flex;gap:0.7rem;flex-wrap:wrap;margin-bottom:0.8rem;}
+.bctp-pill{flex:1;min-width:120px;border-radius:7px;padding:0.7rem;border:1px solid;text-align:center;}
+.bctp-l{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+.bctp-k{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-bottom:0.2rem;}
+.bctp-v{font-size:0.7rem;color:var(--muted);line-height:1.3;}
+
+.bp{border-color:var(--navy);background:#0d213710;}.bp .bctp-l{color:var(--navy);}.bp .bctp-k{color:var(--navy);}
+.bc{border-color:var(--purple);background:var(--purple-dim);}.bc .bctp-l{color:var(--purple);}.bc .bctp-k{color:var(--purple);}
+.bt{border-color:var(--red);background:var(--red-dim);}.bt .bctp-l{color:var(--red);}.bt .bctp-k{color:var(--red);}
+.bpr{border-color:var(--orange);background:var(--orange-dim);}.bpr .bctp-l{color:var(--orange);}.bpr .bctp-k{color:var(--orange);}
+
+/* TEST */
+.test-card .card-head{background:var(--red-dim);border-bottom:2px solid var(--red);}
+.test-card .card-title{color:var(--red);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="badge">⚖️ Ley 55/2003 · Estatuto Marco</div>
+    <span class="badge2">3 de 3 — Caps. VIII y IX</span>
+  </div>
+  <h1>Carrera Profesional y Retribuciones</h1>
+  <p class="subtitle">Personal estatutario SNS · INGESA Enfermería</p>
+</header>
+
+<div class="grid2">
+
+  <!-- CARRERA PROFESIONAL -->
+  <div class="card">
+    <div class="card-head" style="background:var(--purple-dim);border-bottom:2px solid var(--purple)">
+      <span class="card-icon">🎓</span>
+      <span class="card-title" style="color:var(--purple)">Cap. VIII · Art. 40 — Carrera Profesional · I·D·H ★</span>
+    </div>
+    <div class="card-body">
+      <div style="background:var(--purple-dim);border-left:4px solid var(--purple);border-radius:0 6px 6px 0;padding:0.7rem 1rem;font-size:0.82rem;line-height:1.6;margin-bottom:0.8rem;color:var(--navy);">
+        Derecho a <strong>progresar de forma individualizada</strong> como reconocimiento al desarrollo profesional: conocimientos · experiencia · objetivos · compromiso.
+      </div>
+
+      <div class="idh-grid">
+        <div class="idh-card ci">
+          <div class="idh-head"><div class="idh-letter">I</div><div class="idh-name">Individual</div></div>
+          <div class="idh-body"><div class="idh-title">Progresión individual</div><div class="idh-desc">No por grupos, sino por cada profesional según su trayectoria</div></div>
+        </div>
+        <div class="idh-card cd">
+          <div class="idh-head"><div class="idh-letter">D</div><div class="idh-name">Desarrollo</div></div>
+          <div class="idh-body"><div class="idh-title">Basada en desarrollo</div><div class="idh-desc">Conocimientos + experiencia + cumplimiento de objetivos + compromiso</div></div>
+        </div>
+        <div class="idh-card ch">
+          <div class="idh-head"><div class="idh-letter">H</div><div class="idh-name">Homologación</div></div>
+          <div class="idh-body"><div class="idh-title">Reconocimiento recíproco</div><div class="idh-desc">Se buscará homologar grados entre servicios de salud del SNS</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.8rem;">
+        <div style="background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.7rem 0.8rem;font-size:0.78rem;line-height:1.5;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.25rem;">¿Quién la regula?</div>
+          <strong style="color:var(--navy)">Cada CCAA</strong> establece su sistema · En INGESA: mediante acuerdos propios
+        </div>
+        <div style="background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.7rem 0.8rem;font-size:0.78rem;line-height:1.5;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.25rem;">¿Qué puede conllevar?</div>
+          <strong style="color:var(--navy)">Mejoras retributivas</strong> y funcionales (tareas y responsabilidad)
+        </div>
+      </div>
+
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.9rem;font-size:0.75rem;color:var(--muted);line-height:1.5;">
+        ⚠️ <strong style="color:var(--navy)">Trampa de test:</strong> La carrera es <span style="color:var(--purple);font-weight:700">individualizada</span>, no colectiva por grupos. Cada profesional progresa según su propio desarrollo.
+      </div>
+
+      <div class="memo-box">
+        <div class="memo-label">🧠 I·D·H</div>
+        <div class="memo-text">
+          <span style="color:var(--purple)">I</span>ndividual ·
+          <span style="color:var(--blue)">D</span>esarrollo profesional ·
+          <span style="color:var(--teal)">H</span>omologación entre servicios SNS
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETRIBUCIONES SISTEMA -->
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">💰</span>
+      <span class="card-title" style="color:white">Cap. IX · Arts. 41–45 — Retribuciones · B·C·T·P ★</span>
+    </div>
+    <div class="card-body">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-align:center;background:var(--navy);color:white;border-radius:6px;padding:0.5rem;margin-bottom:0.9rem;letter-spacing:0.08em;">
+        SISTEMA = <span style="color:#90caf9">BÁSICAS</span> + <span style="color:#ce93d8">COMPLEMENTARIAS</span>
+      </div>
+
+      <div class="ret-split">
+        <!-- BÁSICAS -->
+        <div class="ret-col rc-bas">
+          <div class="ret-col-head">
+            <span class="ret-col-icon">⚪</span>
+            <span class="ret-col-title">Básicas <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;opacity:0.7">(art. 42)</span></span>
+          </div>
+          <div class="ret-col-body">
+            <div class="ret-item"><span class="ret-tag">S</span> <span><strong>Sueldo</strong> según categoría y grupo</span></div>
+            <div class="ret-item"><span class="ret-tag">T</span> <span><strong>Trienios</strong> — por antigüedad</span></div>
+            <div class="ret-item"><span class="ret-tag">E</span> <span><strong>Pagas extraordinarias</strong> ligadas a sueldo y trienios</span></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin-top:0.5rem;text-align:center;">Se fijan en la Ley de PGE</div>
+          </div>
+        </div>
+        <!-- COMPLEMENTARIAS -->
+        <div class="ret-col rc-com">
+          <div class="ret-col-head">
+            <span class="ret-col-icon">🟣</span>
+            <span class="ret-col-title">Complementarias <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;opacity:0.7">(art. 43)</span></span>
+          </div>
+          <div class="ret-col-body">
+            <div class="ret-item"><span class="ret-tag" style="background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue)">D</span> <span><strong>Destino</strong> — nivel del puesto</span></div>
+            <div class="ret-item"><span class="ret-tag" style="background:var(--orange-dim);color:var(--orange);border:1px solid var(--orange)">E</span> <span><strong>Específico</strong> — dificultad, turnicidad, penosidad</span></div>
+            <div class="ret-item"><span class="ret-tag" style="background:var(--green-dim);color:var(--green);border:1px solid var(--green)">P</span> <span><strong>Productividad</strong> — actividad, calidad, objetivos</span></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin-top:0.5rem;text-align:center;">Se definen en cada servicio de salud</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLEMENTOS DETALLE -->
+      <div class="comp-grid" style="margin-bottom:0.8rem;">
+        <div class="comp-card cc-d">
+          <div class="comp-head"><div class="comp-icon">📍</div><div class="comp-name">Destino</div></div>
+          <div class="comp-body">
+            <div class="comp-def">Nivel del puesto</div>
+            <div class="comp-desc">Se abona en <strong>14 pagas</strong></div>
+            <div class="comp-note">Art. 43</div>
+          </div>
+        </div>
+        <div class="comp-card cc-e">
+          <div class="comp-head"><div class="comp-icon">⚙️</div><div class="comp-name">Específico</div></div>
+          <div class="comp-body">
+            <div class="comp-def">Condiciones del puesto</div>
+            <div class="comp-desc">Dificultad · responsabilidad · penosidad · turnicidad · guardias…</div>
+            <div class="comp-note">Art. 43</div>
+          </div>
+        </div>
+        <div class="comp-card cc-p">
+          <div class="comp-head"><div class="comp-icon">📈</div><div class="comp-name">Productividad</div></div>
+          <div class="comp-body">
+            <div class="comp-def">Rendimiento</div>
+            <div class="comp-desc">Actividad · calidad · consecución de objetivos</div>
+            <div class="comp-note">Art. 43</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTS 44-45 -->
+      <div class="temp-banner">
+        <span class="temp-icon">⚠️</span>
+        <div class="temp-text">
+          <strong>Art. 44 — Temporal:</strong> percibe TODAS las retribuciones básicas y complementarias, <strong>SALVO los trienios</strong><br>
+          <strong>Art. 45 — Aspirantes en prácticas:</strong> retribuciones determinadas por cada servicio de salud (análogas a la categoría, con matices)
+        </div>
+      </div>
+
+      <div class="memo-box">
+        <div class="memo-label">🧠 B·C·T·P / S·T·E / D·E·P</div>
+        <div class="memo-text" style="font-size:0.78rem">
+          <span style="color:var(--navy)">B</span>ásicas · <span style="color:var(--purple)">C</span>omplementarias · <span style="color:var(--red)">T</span>emporal sin trienios · <span style="color:var(--orange)">P</span>rácticas reglas propias<br>
+          <span style="font-size:0.7rem;font-weight:400;color:var(--muted)">Básicas: <span style="color:var(--navy);font-weight:700">S</span>ueldo–<span style="color:var(--navy);font-weight:700">T</span>rienios–<span style="color:var(--navy);font-weight:700">E</span>xtra &nbsp;|&nbsp; Complementarias: <span style="color:var(--purple);font-weight:700">D</span>estino–<span style="color:var(--orange);font-weight:700">E</span>specífico–<span style="color:var(--green);font-weight:700">P</span>roductividad</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- RESUMEN COMPARATIVO B-C-T-P -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card">
+    <div class="card-head" style="background:var(--gold-dim);border-bottom:2px solid var(--gold)">
+      <span class="card-icon">📊</span>
+      <span class="card-title" style="color:#8a6a10">Tabla resumen rápido — ¿Qué cobra cada uno?</span>
+    </div>
+    <div class="card-body" style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:0.78rem;">
+        <thead>
+          <tr>
+            <th style="background:var(--navy);color:white;padding:0.55rem 0.8rem;text-align:left;border-radius:5px 0 0 0;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;">Personal</th>
+            <th style="background:var(--navy);color:#90caf9;padding:0.55rem 0.8rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;">Sueldo</th>
+            <th style="background:var(--navy);color:#90caf9;padding:0.55rem 0.8rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;">Trienios</th>
+            <th style="background:var(--navy);color:#90caf9;padding:0.55rem 0.8rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;">P.Extra</th>
+            <th style="background:var(--navy);color:#ce93d8;padding:0.55rem 0.8rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;">Destino</th>
+            <th style="background:var(--navy);color:#ce93d8;padding:0.55rem 0.8rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;">Específico</th>
+            <th style="background:var(--navy);color:#ce93d8;padding:0.55rem 0.8rem;text-align:center;border-radius:0 5px 0 0;font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;">Productividad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.55rem 0.8rem;border-left:3px solid var(--navy);font-weight:700;color:var(--navy)">🏅 Fijo</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#faf8fc">
+            <td style="padding:0.55rem 0.8rem;border-left:3px solid var(--red);font-weight:700;color:var(--red)">⏱️ Temporal (I/E/S)</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--red);font-size:1.2rem;font-weight:900">✗</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+            <td style="padding:0.55rem;text-align:center;color:var(--green);font-size:1rem">✓</td>
+          </tr>
+          <tr>
+            <td style="padding:0.55rem 0.8rem;border-left:3px solid var(--orange);font-weight:700;color:var(--orange)">📝 Aspirante prácticas</td>
+            <td colspan="6" style="padding:0.55rem;text-align:center;color:var(--muted);font-style:italic;font-size:0.75rem">Según determine cada servicio de salud (análogo a categoría, con matices)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.6rem;background:var(--red-dim);border:1px solid var(--red);border-radius:5px;padding:0.5rem 0.8rem;font-size:0.75rem;color:var(--red);font-weight:700;">
+        ★ CLAVE TEST: El temporal cobra TODO menos los <strong>TRIENIOS</strong> (art. 44)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Caps. VIII y IX</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cómo es la carrera profesional según el art. 40?</div>
+          <div class="q-answer"><strong>Individualizada</strong> — no por grupos</div>
+          <div class="q-note">Trampa clásica: nunca colectiva</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Quién establece el sistema de carrera profesional del personal estatutario?</div>
+          <div class="q-answer"><strong>Cada Comunidad Autónoma</strong> (en INGESA, mediante acuerdos propios)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué puede conllevar el progreso en carrera profesional?</div>
+          <div class="q-answer"><strong>Mejoras retributivas y funcionales</strong> (tareas y responsabilidad)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuáles son las retribuciones básicas del personal estatutario?</div>
+          <div class="q-answer"><strong>Sueldo · Trienios · Pagas extraordinarias</strong> (art. 42)</div>
+          <div class="q-note">Se fijan en la Ley de Presupuestos Generales del Estado</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuáles son los tres complementos retributivos principales?</div>
+          <div class="q-answer"><strong>Destino · Específico · Productividad</strong> (art. 43)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">El complemento de destino se abona en…</div>
+          <div class="q-answer"><strong>14 pagas</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué retribución NO percibe el personal estatutario temporal?</div>
+          <div class="q-answer"><strong>Los trienios</strong> (art. 44) — cobra todo lo demás</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué orienta el complemento de productividad?</div>
+          <div class="q-answer"><strong>Actividad, calidad y consecución de objetivos</strong></div>
+          <div class="q-note">Diferencia vs específico: el específico es por condiciones del puesto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

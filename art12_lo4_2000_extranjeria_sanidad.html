@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art. 12 LO 4/2000 — Sanidad y Extranjería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf7f2;
+  --warm: #f0ebe0;
+  --border: #d8cfc0;
+  --text: #2a2118;
+  --muted: #8a7a68;
+  --red: #b5282a;
+  --red-dim: #b5282a15;
+  --gold: #c49a2a;
+  --gold-dim: #c49a2a18;
+  --blue: #1e5f8a;
+  --blue-dim: #1e5f8a15;
+  --green: #2a7a4a;
+  --green-dim: #2a7a4a15;
+  --purple: #6a3a8a;
+  --purple-dim: #6a3a8a15;
+  --navy: #1a2a4a;
+  --teal: #1a6a6a;
+  --teal-dim: #1a6a6a15;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  padding: 2rem 1.5rem 4rem;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 31px, #d8cfc030 31px, #d8cfc030 32px);
+}
+
+header { text-align:center; margin-bottom:2.5rem; }
+.law-badge {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:var(--navy); color:white;
+  font-family:'JetBrains Mono',monospace; font-size:0.7rem;
+  letter-spacing:0.12em; padding:0.35rem 1rem; border-radius:3px;
+  margin-bottom:1rem; text-transform:uppercase;
+}
+h1 {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(1.6rem,4.5vw,2.8rem); color:var(--navy);
+  line-height:1.1; letter-spacing:-0.02em;
+}
+.subtitle { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; }
+
+/* TIMELINE NORMAS */
+.timeline-wrap { max-width:800px; margin:0 auto 2rem; }
+.tl-title { font-family:'JetBrains Mono',monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); text-align:center; margin-bottom:1rem; }
+.timeline {
+  display:flex; align-items:center; gap:0; position:relative;
+}
+.tl-node {
+  flex:1; text-align:center; position:relative;
+  padding:0 0.3rem;
+}
+.tl-dot {
+  width:14px; height:14px; border-radius:50%;
+  margin:0 auto 0.4rem;
+  border:2px solid;
+}
+.tl-line {
+  position:absolute; top:6px; left:50%; width:100%; height:2px;
+  z-index:0;
+}
+.tl-node:last-child .tl-line { display:none; }
+.tl-year { font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:600; margin-bottom:0.2rem; }
+.tl-law { font-size:0.7rem; font-weight:700; margin-bottom:0.15rem; }
+.tl-desc { font-size:0.65rem; color:var(--muted); line-height:1.3; }
+
+.tl-node.n1 .tl-dot { background:var(--blue); border-color:var(--blue); }
+.tl-node.n1 .tl-year { color:var(--blue); }
+.tl-node.n1 .tl-law { color:var(--blue); }
+.tl-node.n1 .tl-line { background:linear-gradient(90deg,var(--blue),var(--green)); }
+
+.tl-node.n2 .tl-dot { background:var(--green); border-color:var(--green); }
+.tl-node.n2 .tl-year { color:var(--green); }
+.tl-node.n2 .tl-law { color:var(--green); }
+.tl-node.n2 .tl-line { background:linear-gradient(90deg,var(--green),var(--red)); }
+
+.tl-node.n3 .tl-dot { background:var(--red); border-color:var(--red); }
+.tl-node.n3 .tl-year { color:var(--red); }
+.tl-node.n3 .tl-law { color:var(--red); }
+.tl-node.n3 .tl-line { background:linear-gradient(90deg,var(--red),var(--teal)); }
+
+.tl-node.n4 .tl-dot { background:var(--teal); border-color:var(--teal); }
+.tl-node.n4 .tl-year { color:var(--teal); }
+.tl-node.n4 .tl-law { color:var(--teal); }
+
+/* GRID */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; max-width:1100px; margin:0 auto; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; max-width:1100px; margin:1.2rem auto 0; }
+.grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; max-width:1100px; margin:1.2rem auto 0; }
+.full { grid-column:1/-1; }
+@media(max-width:750px){
+  .grid2,.grid3,.grid4 { grid-template-columns:1fr; }
+  .full { grid-column:1; }
+}
+
+/* CARD */
+.card { background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(42,33,24,0.06); }
+.card-head { padding:0.75rem 1.1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; }
+.card-icon { font-size:1.1rem; flex-shrink:0; }
+.card-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; flex:1; }
+.card-body { padding:1rem 1.1rem; }
+
+/* ART 12 CENTRAL */
+.art12-card .card-head { background:var(--navy); }
+.art12-card .card-title,.art12-card .card-icon { color:white!important; filter:none; }
+
+.art12-num {
+  font-family:'Playfair Display',serif; font-size:5rem; font-weight:900;
+  color:var(--navy); opacity:0.08; position:absolute; right:1rem; top:0.2rem;
+  line-height:1; pointer-events:none;
+}
+.art12-wrap { position:relative; }
+.art12-quote {
+  background:var(--blue-dim); border-left:4px solid var(--blue);
+  border-radius:0 6px 6px 0; padding:0.8rem 1rem;
+  font-size:0.82rem; line-height:1.6; color:var(--navy);
+  font-style:italic; margin-bottom:0.8rem;
+}
+.remite-arrow {
+  display:flex; align-items:center; gap:0.5rem;
+  font-size:0.75rem; color:var(--muted); margin-bottom:0.6rem;
+}
+.remite-pill {
+  background:var(--warm); border:1px solid var(--border); border-radius:3px;
+  padding:0.18rem 0.5rem; font-family:'JetBrains Mono',monospace; font-size:0.65rem;
+  color:var(--navy);
+}
+
+/* MEMO BOX */
+.memo-box {
+  background:var(--gold-dim); border:1px solid var(--gold); border-radius:6px;
+  padding:0.6rem 0.9rem; margin-top:0.8rem;
+}
+.memo-label { font-family:'JetBrains Mono',monospace; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--gold); margin-bottom:0.3rem; }
+.memo-text { color:var(--text); font-weight:600; line-height:1.5; }
+
+/* E-U-M-E CARDS */
+.eume-card { border-radius:10px; overflow:hidden; }
+
+.eume-head {
+  padding:0.9rem 1rem 0.6rem;
+  text-align:center;
+}
+.eume-letter {
+  font-family:'Playfair Display',serif; font-size:3.2rem; font-weight:900; line-height:1;
+}
+.eume-palabra { font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; margin-top:0.2rem; opacity:0.8; }
+.eume-body { padding:0.8rem 1rem; background:white; }
+.eume-title { font-weight:700; font-size:0.85rem; margin-bottom:0.35rem; }
+.eume-desc { font-size:0.78rem; color:var(--muted); line-height:1.5; }
+.eume-key {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.62rem;
+  padding:0.12rem 0.45rem; border-radius:3px; margin-top:0.4rem; font-weight:600;
+}
+
+.eume-e1 .eume-head { background:var(--blue-dim); border-bottom:3px solid var(--blue); }
+.eume-e1 .eume-letter { color:var(--blue); }
+.eume-e1 .eume-palabra { color:var(--blue); }
+.eume-e1 .eume-title { color:var(--blue); }
+.eume-e1 .eume-key { background:var(--blue-dim); border:1px solid var(--blue); color:var(--blue); }
+
+.eume-u .eume-head { background:var(--red-dim); border-bottom:3px solid var(--red); }
+.eume-u .eume-letter { color:var(--red); }
+.eume-u .eume-palabra { color:var(--red); }
+.eume-u .eume-title { color:var(--red); }
+.eume-u .eume-key { background:var(--red-dim); border:1px solid var(--red); color:var(--red); }
+
+.eume-m .eume-head { background:var(--purple-dim); border-bottom:3px solid var(--purple); }
+.eume-m .eume-letter { color:var(--purple); }
+.eume-m .eume-palabra { color:var(--purple); }
+.eume-m .eume-title { color:var(--purple); }
+.eume-m .eume-key { background:var(--purple-dim); border:1px solid var(--purple); color:var(--purple); }
+
+.eume-e2 .eume-head { background:var(--green-dim); border-bottom:3px solid var(--green); }
+.eume-e2 .eume-letter { color:var(--green); }
+.eume-e2 .eume-palabra { color:var(--green); }
+.eume-e2 .eume-title { color:var(--green); }
+.eume-e2 .eume-key { background:var(--green-dim); border:1px solid var(--green); color:var(--green); }
+
+/* IRREGULAR TABLE */
+.irr-card .card-head { background:var(--red-dim); border-bottom:2px solid var(--red); }
+.irr-card .card-title { color:var(--red); }
+
+.garantias-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem; margin-bottom:0.8rem; }
+.garantia-box {
+  border-radius:7px; padding:0.8rem 0.7rem; text-align:center;
+  border:1px solid;
+}
+.garantia-icon { font-size:1.6rem; margin-bottom:0.3rem; }
+.garantia-title { font-weight:700; font-size:0.8rem; margin-bottom:0.2rem; }
+.garantia-desc { font-size:0.68rem; color:var(--muted); line-height:1.4; }
+
+.gb-u { background:var(--red-dim); border-color:var(--red); }
+.gb-u .garantia-title { color:var(--red); }
+.gb-m { background:var(--purple-dim); border-color:var(--purple); }
+.gb-m .garantia-title { color:var(--purple); }
+.gb-e { background:var(--green-dim); border-color:var(--green); }
+.gb-e .garantia-title { color:var(--green); }
+
+/* TEST QUESTIONS */
+.test-card .card-head { background:#fff8ee; border-bottom:2px solid var(--gold); }
+.test-card .card-title { color:#8a6a10; }
+.q-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 1.5rem; }
+.q-block { padding:0.65rem 0; border-bottom:1px dashed var(--border); font-size:0.8rem; }
+.q-block:last-child { border-bottom:none; }
+.q-text { color:var(--muted); margin-bottom:0.25rem; line-height:1.4; }
+.q-text::before { content:'❓ '; }
+.q-answer { font-weight:700; color:var(--red); display:flex; align-items:flex-start; gap:0.4rem; }
+.q-answer::before { content:'→'; color:var(--gold); font-weight:900; flex-shrink:0; margin-top:0.05rem; }
+.q-note { font-size:0.68rem; color:var(--muted); margin-top:0.1rem; font-style:italic; }
+
+/* NORMATIVA CHAIN */
+.norm-card .card-head { background:var(--navy); }
+.norm-card .card-title { color:white; }
+.norm-chain { display:flex; flex-direction:column; gap:0.5rem; }
+.norm-item {
+  display:flex; align-items:center; gap:0.7rem;
+  background:var(--warm); border:1px solid var(--border); border-radius:6px; padding:0.6rem 0.8rem;
+  font-size:0.79rem; position:relative;
+}
+.norm-item::after {
+  content:'↓'; position:absolute; bottom:-0.8rem; left:1.5rem;
+  color:var(--muted); font-size:0.8rem; z-index:1;
+}
+.norm-item:last-child::after { display:none; }
+.norm-pill {
+  font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:600;
+  padding:0.2rem 0.5rem; border-radius:3px; flex-shrink:0; min-width:90px; text-align:center;
+}
+.np-blue { background:var(--blue-dim); border:1px solid var(--blue); color:var(--blue); }
+.np-green { background:var(--green-dim); border:1px solid var(--green); color:var(--green); }
+.np-red { background:var(--red-dim); border:1px solid var(--red); color:var(--red); }
+.np-teal { background:var(--teal-dim); border:1px solid var(--teal); color:var(--teal); }
+.norm-text { line-height:1.4; }
+.norm-text strong { color:var(--navy); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="law-badge">📋 LO 4/2000 · Art. 12</div>
+  <h1>Sanidad y Extranjería</h1>
+  <p class="subtitle">Derecho a la asistencia sanitaria · INGESA Enfermería</p>
+</header>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap">
+  <div class="tl-title">Evolución normativa</div>
+  <div class="timeline">
+    <div class="tl-node n1">
+      <div class="tl-dot"></div>
+      <div class="tl-line"></div>
+      <div class="tl-year">2000</div>
+      <div class="tl-law">LO 4/2000</div>
+      <div class="tl-desc">Reconoce derecho sanitario extranjeros. Art. 12 original</div>
+    </div>
+    <div class="tl-node n2">
+      <div class="tl-dot"></div>
+      <div class="tl-line"></div>
+      <div class="tl-year">2009</div>
+      <div class="tl-law">LO 2/2009</div>
+      <div class="tl-desc">Reforma y detalla: empadronados, menores y embarazadas</div>
+    </div>
+    <div class="tl-node n3">
+      <div class="tl-dot"></div>
+      <div class="tl-line"></div>
+      <div class="tl-year">2012</div>
+      <div class="tl-law">RDL 16/2012</div>
+      <div class="tl-desc">Recorte: remite genéricamente a legislación sanitaria. Restringe irregulares</div>
+    </div>
+    <div class="tl-node n4">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Post-2012</div>
+      <div class="tl-law">Normativa posterior</div>
+      <div class="tl-desc">Estatal y autonómica re-amplían hacia universalidad (art. 3 ter LGS)</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid2">
+
+  <!-- ART 12 -->
+  <div class="card art12-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">⚖️</span>
+      <span class="card-title">Art. 12 LO 4/2000 — Redacción actual</span>
+    </div>
+    <div class="card-body">
+      <div class="art12-wrap">
+        <div class="art12-num">12</div>
+        <div class="art12-quote">
+          "Los extranjeros tienen derecho a la asistencia sanitaria en los términos previstos en la <strong>legislación vigente en materia sanitaria</strong>."
+        </div>
+      </div>
+      <div class="remite-arrow">
+        <span>Remite a →</span>
+        <span class="remite-pill">Ley General de Sanidad</span>
+        <span class="remite-pill">RDL 16/2012</span>
+        <span class="remite-pill">Normativa SNS</span>
+      </div>
+      <div style="font-size:0.79rem; color:var(--muted); line-height:1.6; background:var(--warm); border-radius:6px; padding:0.7rem 0.9rem; border:1px solid var(--border);">
+        ⚠️ La LO 4/2000 no tiene catálogo propio. Para oposición: sabes el <strong style="color:var(--navy)">art. 12</strong> como referencia y que los matices (residencia, padrón, etc.) vienen de la normativa sanitaria.
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Mnemotecnia</div>
+        <div class="memo-text">"<span style="color:var(--red)">1-2</span>, salud para ti y para mí" → Art. <span style="color:var(--red);font-size:1.1rem">12</span> LO <span style="color:var(--red);font-size:1.1rem">4</span>/2000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CADENA NORMATIVA -->
+  <div class="card norm-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">🔗</span>
+      <span class="card-title" style="color:white">Cadena normativa clave</span>
+    </div>
+    <div class="card-body">
+      <div class="norm-chain">
+        <div class="norm-item">
+          <span class="norm-pill np-blue">Art. 43 CE</span>
+          <span class="norm-text"><strong>Derecho a la protección de la salud</strong> — Constitución Española. Base de todo</span>
+        </div>
+        <div class="norm-item">
+          <span class="norm-pill np-blue">LGS 14/1986</span>
+          <span class="norm-text"><strong>Ley General de Sanidad</strong> — Marco del SNS. Art. 3 ter → tendencia universalidad</span>
+        </div>
+        <div class="norm-item">
+          <span class="norm-pill np-green">LO 4/2000</span>
+          <span class="norm-text"><strong>Art. 12</strong> → Reconoce derecho sanitario extranjeros y remite a legislación sanitaria</span>
+        </div>
+        <div class="norm-item">
+          <span class="norm-pill np-green">LO 2/2009</span>
+          <span class="norm-text">Reforma el art. 12 → detalla empadronados, <strong>menores y embarazadas</strong></span>
+        </div>
+        <div class="norm-item">
+          <span class="norm-pill np-red">RDL 16/2012</span>
+          <span class="norm-text"><strong>Recorte</strong> → Reformula art. 12 con remisión genérica. Limita irregulares a mínimos garantizados</span>
+        </div>
+        <div class="norm-item">
+          <span class="norm-pill np-teal">Post-2012</span>
+          <span class="norm-text">Normativa estatal y autonómica re-amplían la asistencia acercándola a la <strong>universalidad</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- E-U-M-E -->
+<div class="grid4" style="margin-top:1.2rem">
+  <div class="card eume-card eume-e1">
+    <div class="eume-head">
+      <div class="eume-letter">E</div>
+      <div class="eume-palabra">Empadronado</div>
+    </div>
+    <div class="eume-body">
+      <div class="eume-title">= Igual que español</div>
+      <div class="eume-desc">Extranjero empadronado en su municipio de residencia → asistencia sanitaria en las <strong>mismas condiciones que los españoles</strong></div>
+      <div class="eume-key">Requiere empadronamiento</div>
+    </div>
+  </div>
+
+  <div class="card eume-card eume-u">
+    <div class="eume-head">
+      <div class="eume-letter">U</div>
+      <div class="eume-palabra">Urgencias</div>
+    </div>
+    <div class="eume-body">
+      <div class="eume-title">Hasta el alta médica</div>
+      <div class="eume-desc">Asistencia sanitaria pública de urgencia por <strong>enfermedad grave o accidente</strong>, cualquiera que sea su causa, <strong>hasta el alta médica</strong></div>
+      <div class="eume-key">Cualquier situación adm.</div>
+    </div>
+  </div>
+
+  <div class="card eume-card eume-m">
+    <div class="eume-head">
+      <div class="eume-letter">M</div>
+      <div class="eume-palabra">Menores</div>
+    </div>
+    <div class="eume-body">
+      <div class="eume-title">= Igual que español</div>
+      <div class="eume-desc">Extranjeros <strong>menores de 18 años</strong> → asistencia sanitaria en las mismas condiciones que los españoles, <strong>con independencia de su situación administrativa</strong></div>
+      <div class="eume-key">Sin importar situación adm.</div>
+    </div>
+  </div>
+
+  <div class="card eume-card eume-e2">
+    <div class="eume-head">
+      <div class="eume-letter">E</div>
+      <div class="eume-palabra">Embarazo</div>
+    </div>
+    <div class="eume-body">
+      <div class="eume-title">Embarazo · Parto · Postparto</div>
+      <div class="eume-desc">Extranjeras embarazadas → derecho a asistencia sanitaria durante el <strong>embarazo, parto y postparto</strong></div>
+      <div class="eume-key">Las 3 fases cubiertas</div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO EUME + GARANTIAS MÍNIMAS -->
+<div class="grid2" style="margin-top:1.2rem">
+
+  <div class="card">
+    <div class="card-head" style="background:var(--gold-dim);border-bottom:2px solid var(--gold)">
+      <span class="card-icon">🧠</span>
+      <span class="card-title" style="color:#8a6a10">Mnemotecnia E·U·M·E</span>
+    </div>
+    <div class="card-body">
+      <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:1rem;">
+        <div style="text-align:center;padding:0.8rem 1rem;background:var(--blue-dim);border:2px solid var(--blue);border-radius:8px">
+          <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--blue);line-height:1">E</div>
+          <div style="font-size:0.6rem;color:var(--blue);font-family:'JetBrains Mono',monospace">Empadronado</div>
+        </div>
+        <div style="text-align:center;padding:0.8rem 1rem;background:var(--red-dim);border:2px solid var(--red);border-radius:8px">
+          <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--red);line-height:1">U</div>
+          <div style="font-size:0.6rem;color:var(--red);font-family:'JetBrains Mono',monospace">Urgencias</div>
+        </div>
+        <div style="text-align:center;padding:0.8rem 1rem;background:var(--purple-dim);border:2px solid var(--purple);border-radius:8px">
+          <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--purple);line-height:1">M</div>
+          <div style="font-size:0.6rem;color:var(--purple);font-family:'JetBrains Mono',monospace">Menores</div>
+        </div>
+        <div style="text-align:center;padding:0.8rem 1rem;background:var(--green-dim);border:2px solid var(--green);border-radius:8px">
+          <div style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--green);line-height:1">E</div>
+          <div style="font-size:0.6rem;color:var(--green);font-family:'JetBrains Mono',monospace">Embarazo</div>
+        </div>
+      </div>
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.7rem;font-size:0.78rem;line-height:1.6;text-align:center;">
+        Los 4 supuestos del <strong style="color:var(--navy)">art. 12 LO 4/2000</strong><br>
+        <span style="color:var(--muted);font-size:0.72rem">Los 2 últimos (M+E) son garantías reforzadas: aplican <strong>siempre</strong>, incluso en situación irregular</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GARANTÍAS MÍNIMAS PARA IRREGULARES -->
+  <div class="card irr-card">
+    <div class="card-head">
+      <span class="card-icon">⚠️</span>
+      <span class="card-title">Situación irregular — Mínimos garantizados</span>
+    </div>
+    <div class="card-body">
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.8rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;">Aunque no tengan residencia ni empadronamiento:</div>
+      <div class="garantias-grid">
+        <div class="garantia-box gb-u">
+          <div class="garantia-icon">🚨</div>
+          <div class="garantia-title">Urgencias</div>
+          <div class="garantia-desc">Enfermedad grave o accidente hasta el <strong>alta médica</strong></div>
+        </div>
+        <div class="garantia-box gb-m">
+          <div class="garantia-icon">👶</div>
+          <div class="garantia-title">Menores 18</div>
+          <div class="garantia-desc">En igualdad con españoles. <strong>Sin excepción</strong></div>
+        </div>
+        <div class="garantia-box gb-e">
+          <div class="garantia-icon">🤱</div>
+          <div class="garantia-title">Embarazo</div>
+          <div class="garantia-desc">Embarazo · parto · postparto. Las <strong>3 fases</strong></div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0;background:var(--red-dim);border-color:var(--red)">
+        <div class="memo-label" style="color:var(--red)">🧠 Regla para irregulares</div>
+        <div class="memo-text" style="font-size:0.82rem">
+          <span style="color:var(--red)">U</span>rgencias + <span style="color:var(--purple)">M</span>enores + <span style="color:var(--green)">E</span>mbarazo<br>
+          <span style="font-size:0.7rem;color:var(--muted);font-weight:400">= Los 3 últimos de E·<strong>U·M·E</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PREGUNTAS TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head">
+      <span class="card-icon">🎯</span>
+      <span class="card-title">Preguntas tipo test — INGESA</span>
+    </div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">El derecho de los extranjeros a la asistencia sanitaria se recoge en…</div>
+          <div class="q-answer"><strong>Art. 12 LO 4/2000</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué norma reformó el art. 12 LO 4/2000 para detallar los derechos de menores y embarazadas?</div>
+          <div class="q-answer"><strong>LO 2/2009</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué norma restringió en 2012 la asistencia a extranjeros irregulares?</div>
+          <div class="q-answer"><strong>RDL 16/2012</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Los menores extranjeros tienen derecho a asistencia sanitaria…</div>
+          <div class="q-answer"><strong>En las mismas condiciones que los españoles</strong>, con independencia de su situación administrativa</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Las mujeres extranjeras embarazadas tienen derecho a asistencia durante…</div>
+          <div class="q-answer"><strong>Embarazo, parto y postparto</strong></div>
+          <div class="q-note">Las tres fases, no solo el parto</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Un extranjero en situación irregular sufre un accidente grave. ¿Tiene derecho a asistencia?</div>
+          <div class="q-answer"><strong>Sí</strong> — Urgencias por enfermedad grave o accidente hasta el alta médica</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tres supuestos están garantizados incluso en situación irregular?</div>
+          <div class="q-answer"><strong>Urgencias · Menores de 18 años · Embarazo/parto/postparto</strong></div>
+          <div class="q-note">U·M·E — los mínimos irrenunciables</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué supuesto requiere empadronamiento para acceder a asistencia como un español?</div>
+          <div class="q-answer"><strong>Extranjeros empadronados</strong> en su municipio de residencia</div>
+          <div class="q-note">Es el único supuesto E·U·M·E que requiere trámite previo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergencias Intraparto - Guía de Actuación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #d32f2f;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        /* Urgency Legend */
+        .urgency-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .urgency-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .urgency-critical {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 2px solid #d32f2f;
+            color: #b71c1c;
+        }
+        
+        .urgency-high {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 2px solid #f57c00;
+            color: #e65100;
+        }
+        
+        .urgency-moderate {
+            background: linear-gradient(135deg, #fff8e1, #ffecb3);
+            border: 2px solid #fbc02d;
+            color: #f57f17;
+        }
+        
+        .urgency-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        .dot-critical { background: #d32f2f; }
+        .dot-high { background: #f57c00; }
+        .dot-moderate { background: #fbc02d; }
+        
+        /* Emergency Cards */
+        .emergency-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .emergency-card {
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emergency-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+        }
+        
+        .card-critical {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-left: 8px solid #d32f2f;
+        }
+        
+        .card-high {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 8px solid #f57c00;
+        }
+        
+        .card-moderate {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left: 8px solid #fbc02d;
+        }
+        
+        .urgency-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .badge-critical {
+            background: #d32f2f;
+            color: white;
+        }
+        
+        .badge-high {
+            background: #f57c00;
+            color: white;
+        }
+        
+        .badge-moderate {
+            background: #fbc02d;
+            color: #5d4037;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-right: 140px;
+        }
+        
+        .card-icon {
+            font-size: 2.5em;
+            line-height: 1;
+        }
+        
+        .card-title {
+            flex: 1;
+        }
+        
+        .situation {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .trigger {
+            color: #5a5a5a;
+            font-size: 0.95em;
+            line-height: 1.5;
+            padding: 10px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+        
+        .actions-section {
+            margin-top: 15px;
+        }
+        
+        .actions-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-list {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .action-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .action-item-critical {
+            border-left-color: #d32f2f;
+        }
+        
+        .action-item-high {
+            border-left-color: #f57c00;
+        }
+        
+        .action-item-moderate {
+            border-left-color: #fbc02d;
+        }
+        
+        .action-number {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+        
+        .action-text {
+            flex: 1;
+            color: #2c3e50;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .action-highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* Special Alert Box */
+        .alert-box {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            border: 3px solid #3f51b5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .alert-box-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-box-content {
+            color: #283593;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        
+        .four-t {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .t-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3f51b5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .t-title {
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+        
+        .t-description {
+            color: #5c6bc0;
+            font-size: 0.9em;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+        
+        .info-box-title {
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-box-text {
+            color: #1976d2;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .card-header {
+                padding-right: 0;
+                flex-direction: column;
+            }
+            
+            .urgency-badge {
+                position: static;
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+            
+            .urgency-legend {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .emergency-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 EMERGENCIAS INTRAPARTO</h1>
+        <p class="subtitle">Protocolos de actuación urgente</p>
+        
+        <!-- Urgency Legend -->
+        <div class="urgency-legend">
+            <div class="urgency-item urgency-critical">
+                <div class="urgency-dot dot-critical"></div>
+                <span>CRÍTICA - Emergencia vital</span>
+            </div>
+            <div class="urgency-item urgency-high">
+                <div class="urgency-dot dot-high"></div>
+                <span>ALTA - Actuación inmediata</span>
+            </div>
+            <div class="urgency-item urgency-moderate">
+                <div class="urgency-dot dot-moderate"></div>
+                <span>MODERADA - Vigilancia estrecha</span>
+            </div>
+        </div>
+        
+        <!-- Emergency Cards Grid -->
+        <div class="emergency-grid">
+            
+            <!-- 1. PROLAPSO DE CORDÓN -->
+            <div class="emergency-card card-critical">
+                <span class="urgency-badge badge-critical">⚡ CRÍTICA</span>
+                <div class="card-header">
+                    <div class="card-icon">🆘</div>
+                    <div class="card-title">
+                        <div class="situation">Prolapso de Cordón Umbilical</div>
+                        <div class="trigger">Cordón por delante o al lado de la presentación fetal</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚡ ACTUACIÓN INMEDIATA:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">1</div>
+                            <div class="action-text">Posición <span class="action-highlight">genupectoral o Trendelenburg</span></div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">2</div>
+                            <div class="action-text"><span class="action-highlight">Elevar manualmente la presentación</span> para descomprimir el cordón</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">3</div>
+                            <div class="action-text"><span class="action-highlight">NO manipular el cordón</span></div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">4</div>
+                            <div class="action-text">Tocolítico si procede</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">5</div>
+                            <div class="action-text"><span class="action-highlight">CESÁREA URGENTE</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2. ROTURA UTERINA -->
+            <div class="emergency-card card-critical">
+                <span class="urgency-badge badge-critical">⚡ CRÍTICA</span>
+                <div class="card-header">
+                    <div class="card-icon">💔</div>
+                    <div class="card-title">
+                        <div class="situation">Rotura Uterina Sospechada</div>
+                        <div class="trigger">Dolor brusco + sangrado + pérdida de presentación + alteración FCF + shock</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚡ ACTUACIÓN INMEDIATA:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Laparotomía y cesárea de urgencia</span></div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Control hemodinámico (vías, fluidos, hemoderivados)</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">3</div>
+                            <div class="action-text">Valorar <span class="action-highlight">histerectomía</span> si necesario</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3. DPPNI -->
+            <div class="emergency-card card-critical">
+                <span class="urgency-badge badge-critical">⚡ CRÍTICA</span>
+                <div class="card-header">
+                    <div class="card-icon">🩸</div>
+                    <div class="card-title">
+                        <div class="situation">Desprendimiento Prematuro de Placenta (DPPNI)</div>
+                        <div class="trigger">Hemorragia intraparto + dolor + hipertono uterino</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚡ ACTUACIÓN INMEDIATA:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Reanimación materna</span>: vía venosa, fluidos, hemoderivados</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Valorar <span class="action-highlight">cesárea urgente</span> según estado materno-fetal</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">3</div>
+                            <div class="action-text">Monitorización continua de coagulación</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4. PLACENTA PREVIA CON SANGRADO -->
+            <div class="emergency-card card-critical">
+                <span class="urgency-badge badge-critical">⚡ CRÍTICA</span>
+                <div class="card-header">
+                    <div class="card-icon">🔴</div>
+                    <div class="card-title">
+                        <div class="situation">Placenta Previa con Sangrado en TP</div>
+                        <div class="trigger">Sangrado vaginal en trabajo de parto + placenta previa conocida</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚡ ACTUACIÓN INMEDIATA:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">NO TACTO VAGINAL</span> (¡NUNCA!)</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Ecografía abdominal para confirmar</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">3</div>
+                            <div class="action-text">Estabilización materna (vías, fluidos)</div>
+                        </div>
+                        <div class="action-item action-item-critical">
+                            <div class="action-number">4</div>
+                            <div class="action-text"><span class="action-highlight">CESÁREA</span> (en la mayoría de casos)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. RCTG PATOLÓGICO -->
+            <div class="emergency-card card-high">
+                <span class="urgency-badge badge-high">🔥 ALTA</span>
+                <div class="card-header">
+                    <div class="card-icon">📉</div>
+                    <div class="card-title">
+                        <div class="situation">Registro Cardiotocográfico Patológico</div>
+                        <div class="trigger">Desaceleraciones tardías recurrentes + variabilidad ausente + bradicardia mantenida</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">🔥 ACTUACIÓN:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-high">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Reanimación intrauterina:</span> cambio de posición (decúbito lateral izquierdo)</div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Administrar <span class="action-highlight">O₂ materno</span> (mascarilla 10 L/min)</div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">3</div>
+                            <div class="action-text">Líquidos IV para mejorar perfusión</div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">4</div>
+                            <div class="action-text"><span class="action-highlight">Suspender uterotónicos</span></div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">5</div>
+                            <div class="action-text">Valorar <span class="action-highlight">extracción urgente</span> (cesárea o instrumental)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 6. MECONIO ESPESO -->
+            <div class="emergency-card card-high">
+                <span class="urgency-badge badge-high">🔥 ALTA</span>
+                <div class="card-header">
+                    <div class="card-icon">💩</div>
+                    <div class="card-title">
+                        <div class="situation">Líquido Amniótico con Meconio Espeso</div>
+                        <div class="trigger">Meconio espeso + patrón RCTG no tranquilizador</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">🔥 ACTUACIÓN:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-high">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Monitorización fetal continua</span></div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Valorar <span class="action-highlight">pH fetal</span> o prueba complementaria</div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">3</div>
+                            <div class="action-text">Si sufrimiento fetal: <span class="action-highlight">finalizar parto</span> (instrumental/cesárea)</div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">4</div>
+                            <div class="action-text">Preparar equipo neonatal para aspiración si necesario</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 7. TAQUISISTOLIA -->
+            <div class="emergency-card card-high">
+                <span class="urgency-badge badge-high">🔥 ALTA</span>
+                <div class="card-header">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">
+                        <div class="situation">Taquisistolia / Hiperdinamia Uterina</div>
+                        <div class="trigger">≥5 contracciones/10 min, muy intensas o sin relajación</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">🔥 ACTUACIÓN:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-high">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Reducir o suspender oxitocina</span></div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Valorar administrar <span class="action-highlight">tocolítico</span></div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">3</div>
+                            <div class="action-text">Colocar a la gestante en <span class="action-highlight">decúbito lateral</span></div>
+                        </div>
+                        <div class="action-item action-item-high">
+                            <div class="action-number">4</div>
+                            <div class="action-text">Vigilar <span class="action-highlight">RCTG continuo</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 8. PROCÚBITO DE CORDÓN -->
+            <div class="emergency-card card-moderate">
+                <span class="urgency-badge badge-moderate">⚠️ MODERADA</span>
+                <div class="card-header">
+                    <div class="card-icon">〰️</div>
+                    <div class="card-title">
+                        <div class="situation">Procúbito/Laterocidencia de Cordón</div>
+                        <div class="trigger">Cordón palpable junto a presentación + RCTG alterado</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚠️ ACTUACIÓN:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Vigilancia estrecha</span> continua</div>
+                        </div>
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Si compromiso fetal: <span class="action-highlight">finalizar parto</span> (normalmente cesárea)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 9. AMENAZA DE ROTURA -->
+            <div class="emergency-card card-moderate">
+                <span class="urgency-badge badge-moderate">⚠️ MODERADA</span>
+                <div class="card-header">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">
+                        <div class="situation">Amenaza de Rotura / TP en Cicatriz Alto Riesgo</div>
+                        <div class="trigger">Trabajo de parto en útero con cicatriz + clínica sospechosa</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚠️ ACTUACIÓN:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">1</div>
+                            <div class="action-text"><span class="action-highlight">Suspender oxitocina</span> inmediatamente</div>
+                        </div>
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Monitorización <span class="action-highlight">muy estrecha</span></div>
+                        </div>
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">3</div>
+                            <div class="action-text"><span class="action-highlight">Bajo umbral para cesárea</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 10. PARTO INSTRUMENTADO -->
+            <div class="emergency-card card-moderate">
+                <span class="urgency-badge badge-moderate">⚠️ MODERADA</span>
+                <div class="card-header">
+                    <div class="card-icon">🔧</div>
+                    <div class="card-title">
+                        <div class="situation">Parto Instrumentado (Fórceps/Ventosa)</div>
+                        <div class="trigger">Expulsivo prolongado o sufrimiento fetal</div>
+                    </div>
+                </div>
+                <div class="actions-section">
+                    <div class="actions-title">⚠️ ACTUACIÓN:</div>
+                    <div class="action-list">
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">1</div>
+                            <div class="action-text">Comprobar <span class="action-highlight">criterios estrictos</span>: dilatación completa, encajamiento, estimación de peso, pelvis adecuada</div>
+                        </div>
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">2</div>
+                            <div class="action-text">Informar a la paciente y obtener consentimiento</div>
+                        </div>
+                        <div class="action-item action-item-moderate">
+                            <div class="action-number">3</div>
+                            <div class="action-text"><span class="action-highlight">Disponer de quirófano</span> por si fracasa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- HPP Special Section -->
+        <div class="alert-box">
+            <div class="alert-box-title">
+                🩸 HEMORRAGIA POSTPARTO (HPP)
+            </div>
+            <div class="alert-box-content">
+                <p style="margin-bottom: 15px;"><strong>Definición:</strong> ≥500 ml vaginal o ≥1000 ml cesárea. La <strong>atonía uterina</strong> es la causa principal.</p>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <div style="font-weight: 700; margin-bottom: 10px; color: #1a237e;">⚡ ACTUACIÓN INMEDIATA:</div>
+                    <div style="display: grid; gap: 8px;">
+                        <div>1️⃣ <span class="action-highlight">Masaje uterino vigoroso</span></div>
+                        <div>2️⃣ <span class="action-highlight">Uterotónicos</span>: oxitocina → ergóticos → prostaglandinas</div>
+                        <div>3️⃣ <span class="action-highlight">Canalizar dos vías</span> periféricas gruesas</div>
+                        <div>4️⃣ <span class="action-highlight">Reposición de volumen</span> agresiva</div>
+                        <div>5️⃣ Búsqueda sistemática de <span class="action-highlight">las 4 T</span></div>
+                        <div>6️⃣ Si falla: taponamiento uterino o <span class="action-highlight">histerectomía</span></div>
+                    </div>
+                </div>
+                
+                <div class="four-t">
+                    <div class="t-item">
+                        <div class="t-title">🔴 TONO</div>
+                        <div class="t-description">Atonía uterina (causa más frecuente)</div>
+                    </div>
+                    <div class="t-item">
+                        <div class="t-title">🧩 TEJIDO</div>
+                        <div class="t-description">Restos placentarios o coágulos</div>
+                    </div>
+                    <div class="t-item">
+                        <div class="t-title">💔 TRAUMA</div>
+                        <div class="t-description">Laceraciones, rotura uterina</div>
+                    </div>
+                    <div class="t-item">
+                        <div class="t-title">🩸 TROMBINA</div>
+                        <div class="t-description">Coagulopatía</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alumbramiento Section -->
+        <div class="info-box">
+            <div class="info-box-title">
+                🤰 ALUMBRAMIENTO DIRIGIDO (Prevención HPP)
+            </div>
+            <div class="info-box-text">
+                <strong>Protocolo estándar:</strong><br>
+                1️⃣ <span class="action-highlight">Oxitocina</span> tras la salida del feto<br>
+                2️⃣ <span class="action-highlight">Tracción controlada del cordón</span><br>
+                3️⃣ <span class="action-highlight">Masaje uterino</span> suave
+            </div>
+        </div>
+        
+        <!-- Retención Placentaria -->
+        <div class="info-box" style="margin-top: 20px;">
+            <div class="info-box-title">
+                ⏱️ RETENCIÓN PLACENTARIA
+            </div>
+            <div class="info-box-text">
+                <strong>Definición:</strong> No expulsión en <30 min con alumbramiento dirigido o <60 min si espontáneo<br><br>
+                <strong>Actuación:</strong><br>
+                1️⃣ <span class="action-highlight">Extracción manual de placenta</span><br>
+                2️⃣ Valorar legrado si restos<br>
+                3️⃣ Si fracasa o sangrado masivo → <span class="action-highlight">histerectomía</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; text-align: center; color: #6c757d; font-size: 0.95em; border-left: 4px solid #6c757d;">
+            💡 <strong>Recuerda:</strong> En emergencias obstétricas, la rapidez de actuación salva vidas. Siempre ten en cuenta el binomio materno-fetal y activa al equipo multidisciplinar precozmente.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LO 1/2004 — Violencia de Género</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#fdf0f4;--surface:#fff;--border:#e8c8d4;--text:#220a14;--muted:#8a5a6a;
+  --navy:#0d2137;
+  --viol:#8a1a4a;--viol-dim:#8a1a4a14;
+  --rose:#c0204a;--rose-dim:#c0204a14;
+  --pink:#d4406a;--pink-dim:#d4406a14;
+  --lilac:#6a3a8a;--lilac-dim:#6a3a8a14;
+  --blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --green:#2a7a4a;--green-dim:#2a7a4a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --orange:#c4681a;--orange-dim:#c4681a14;
+  --warm:#fdf5f8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#e8c8d428 31px,#e8c8d428 32px);}
+
+/* HEADER */
+header{text-align:center;margin-bottom:2.5rem;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--viol);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.8rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,2.8rem);color:var(--viol);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+
+/* GRIDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1100px;margin:1.2rem auto 0;}
+.full{grid-column:1/-1;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}.full{grid-column:1;}}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(139,26,74,0.07);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+.art-b{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:600;padding:0.08rem 0.38rem;border-radius:2px;margin-left:0.3rem;vertical-align:middle;}
+.ab-v{background:var(--viol-dim);color:var(--viol);border:1px solid var(--viol);}
+.ab-b{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.ab-g{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+
+/* ESTRUCTURA TITULOS */
+.tit-flow{display:flex;flex-direction:column;gap:0.5rem;}
+.tit-item{display:flex;align-items:center;gap:0.8rem;background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.65rem 0.9rem;}
+.tit-num{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;min-width:82px;flex-shrink:0;}
+.tit-kw{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:0.15rem;}
+.tit-desc{font-size:0.76rem;color:var(--muted);line-height:1.4;}
+.tit-content{flex:1;}
+
+.tp .tit-num{color:var(--viol);}
+.t1 .tit-num{color:var(--pink);}
+.t2 .tit-num{color:var(--rose);}
+.t3 .tit-num{color:var(--blue);}
+.t4 .tit-num{color:var(--orange);}
+.t5 .tit-num{color:var(--teal);}
+.tp .tit-kw{color:var(--viol);}
+.t1 .tit-kw{color:var(--pink);}
+.t2 .tit-kw{color:var(--rose);}
+.t3 .tit-kw{color:var(--blue);}
+.t4 .tit-kw{color:var(--orange);}
+.t5 .tit-kw{color:var(--teal);}
+
+/* OBJETO */
+.obj-card .card-head{background:var(--viol);}
+.obj-card .card-title,.obj-card .card-icon{color:white;}
+.obj-quote{background:var(--viol-dim);border-left:4px solid var(--viol);border-radius:0 6px 6px 0;padding:0.75rem 1rem;font-size:0.83rem;line-height:1.7;margin-bottom:0.8rem;color:var(--text);}
+.princ-list{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+.princ-list li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:var(--muted);padding:0.3rem 0;border-bottom:1px solid var(--border);line-height:1.4;}
+.princ-list li:last-child{border-bottom:none;}
+.princ-list li::before{content:'◆';color:var(--viol);flex-shrink:0;font-size:0.6rem;margin-top:0.2rem;}
+.princ-list li strong{color:var(--text);}
+
+/* ÁMBITOS T1 */
+.amb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;}
+@media(max-width:650px){.amb-grid{grid-template-columns:repeat(3,1fr);}}
+.amb-item{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.6rem 0.4rem;text-align:center;}
+.amb-icon{font-size:1.3rem;margin-bottom:0.25rem;}
+.amb-label{font-weight:700;font-size:0.73rem;color:var(--navy);}
+
+/* DERECHOS T2 CAPS */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+.cap-card{border-radius:9px;overflow:hidden;border:2px solid;}
+.cap-head{padding:0.7rem;text-align:center;}
+.cap-icon{font-size:1.4rem;margin-bottom:0.2rem;}
+.cap-roman{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;margin-bottom:0.15rem;}
+.cap-name{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+.cap-body{padding:0.7rem;background:white;}
+.cap-item{font-size:0.73rem;color:var(--muted);padding:0.25rem 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:0.4rem;line-height:1.4;}
+.cap-item:last-child{border-bottom:none;}
+.cap-item::before{content:'▸';flex-shrink:0;font-size:0.7rem;margin-top:0.1rem;}
+
+.cc1{border-color:var(--viol);}.cc1 .cap-head{background:var(--viol-dim);}.cc1 .cap-icon,.cc1 .cap-roman,.cc1 .cap-name{color:var(--viol);}.cc1 .cap-item::before{color:var(--viol);}
+.cc2{border-color:var(--rose);}.cc2 .cap-head{background:var(--rose-dim);}.cc2 .cap-icon,.cc2 .cap-roman,.cc2 .cap-name{color:var(--rose);}.cc2 .cap-item::before{color:var(--rose);}
+.cc3{border-color:var(--lilac);}.cc3 .cap-head{background:var(--lilac-dim);}.cc3 .cap-icon,.cc3 .cap-roman,.cc3 .cap-name{color:var(--lilac);}.cc3 .cap-item::before{color:var(--lilac);}
+
+/* JME CARDS */
+.jme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+.jme-card{border-radius:9px;overflow:hidden;border:2px solid;text-align:center;}
+.jme-head{padding:0.9rem 0.6rem;}
+.jme-letter{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+.jme-name{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;}
+.jme-body{padding:0.7rem;background:white;}
+.jme-title{font-weight:700;font-size:0.82rem;margin-bottom:0.2rem;}
+.jme-desc{font-size:0.7rem;color:var(--muted);line-height:1.4;}
+.jme-art{font-family:'JetBrains Mono',monospace;font-size:0.6rem;margin-top:0.3rem;}
+
+.jj{border-color:var(--viol);}.jj .jme-head{background:var(--viol-dim);}.jj .jme-letter,.jj .jme-name{color:var(--viol);}.jj .jme-title{color:var(--viol);}.jj .jme-art{color:var(--viol);}
+.jm{border-color:var(--rose);}.jm .jme-head{background:var(--rose-dim);}.jm .jme-letter,.jm .jme-name{color:var(--rose);}.jm .jme-title{color:var(--rose);}.jm .jme-art{color:var(--rose);}
+.je{border-color:var(--lilac);}.je .jme-head{background:var(--lilac-dim);}.je .jme-letter,.je .jme-name{color:var(--lilac);}.je .jme-title{color:var(--lilac);}.je .jme-art{color:var(--lilac);}
+
+/* EXCEDENCIA TABLE */
+.exc-card .card-head{background:var(--lilac-dim);border-bottom:2px solid var(--lilac);}
+.exc-card .card-title{color:var(--lilac);}
+.exc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.8rem;}
+.exc-item{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.65rem 0.8rem;}
+.exc-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.25rem;}
+.exc-value{font-size:0.82rem;font-weight:700;color:var(--navy);line-height:1.4;}
+.exc-value.highlight{color:var(--lilac);}
+.exc-value.warn{color:var(--rose);}
+
+/* TIMELINE EXCEDENCIA */
+.exc-timeline{display:flex;align-items:stretch;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-top:0.8rem;}
+.exc-seg{flex:1;padding:0.7rem 0.5rem;text-align:center;}
+.exc-seg-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;line-height:1;margin-bottom:0.15rem;}
+.exc-seg-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:0.25rem;}
+.exc-seg-desc{font-size:0.65rem;line-height:1.3;}
+
+.es1{background:#f8eef4;border-right:2px solid var(--border);}
+.es1 .exc-seg-num{color:var(--green);}
+.es1 .exc-seg-label{color:var(--green);}
+.es2{background:#f2ecf8;border-right:2px solid var(--border);}
+.es2 .exc-seg-num{color:var(--lilac);}
+.es2 .exc-seg-label{color:var(--lilac);}
+.es3{background:#fff0f4;}
+.es3 .exc-seg-num{color:var(--rose);}
+.es3 .exc-seg-label{color:var(--rose);}
+
+/* TUTELAS T3-T5 */
+.tut-card .card-head{background:var(--navy);}
+.tut-card .card-title{color:white;}
+.tut-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.tut-item{border-radius:7px;overflow:hidden;border:1px solid;}
+.tut-head{padding:0.6rem 0.7rem;display:flex;align-items:center;gap:0.5rem;}
+.tut-title{font-family:'Playfair Display',serif;font-weight:700;font-size:0.85rem;}
+.tut-body{padding:0.6rem 0.7rem;background:white;font-size:0.73rem;color:var(--muted);line-height:1.4;}
+.tut-body strong{color:var(--text);}
+
+.tt3{border-color:var(--blue);}.tt3 .tut-head{background:var(--blue-dim);}.tt3 .tut-title{color:var(--blue);}
+.tt4{border-color:var(--orange);}.tt4 .tut-head{background:var(--orange-dim);}.tt4 .tut-title{color:var(--orange);}
+.tt5{border-color:var(--teal);}.tt5 .tut-head{background:var(--teal-dim);}.tt5 .tut-title{color:var(--teal);}
+
+/* ACREDITACION */
+.acr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;}
+.acr-item{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.55rem;text-align:center;}
+.acr-icon{font-size:1.1rem;margin-bottom:0.2rem;}
+.acr-label{font-size:0.7rem;font-weight:700;color:var(--navy);line-height:1.3;}
+
+/* TEST */
+.test-card .card-head{background:var(--rose-dim);border-bottom:2px solid var(--rose);}
+.test-card .card-title{color:var(--rose);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--rose);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🟣 LO 1/2004 · Violencia de Género</div>
+  <h1>Medidas de Protección Integral contra la Violencia de Género</h1>
+  <p class="subtitle">Ley Orgánica 1/2004 · INGESA Enfermería</p>
+</header>
+
+<div class="grid2">
+
+  <!-- OBJETO + ESTRUCTURA -->
+  <div class="card obj-card">
+    <div class="card-head">
+      <span class="card-icon">📋</span>
+      <span class="card-title">Objeto y Principios — Tít. Preliminar</span>
+    </div>
+    <div class="card-body">
+      <div class="obj-quote">
+        <strong>Objeto (art. 1):</strong> Luchar contra la violencia que ejercen los <strong>hombres</strong> sobre las <strong>mujeres</strong> en el marco de una <strong>relación afectiva de pareja</strong>, como manifestación de discriminación, desigualdad y relaciones de poder.
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.5rem;">Principios rectores (art. 2)</div>
+      <ul class="princ-list">
+        <li><strong>Sensibilización, prevención, detección precoz</strong> y atención integral</li>
+        <li>Garantía de derechos: <strong>integridad, libertad, seguridad, igualdad</strong></li>
+        <li>Coordinación y cooperación institucional</li>
+      </ul>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Clave objeto</div>
+        <div class="memo-text">Hombre → Mujer · en relación de pareja · discriminación + desigualdad + poder</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTRUCTURA TITULOS -->
+  <div class="card">
+    <div class="card-head" style="background:var(--navy)">
+      <span class="card-icon" style="color:white">🗂️</span>
+      <span class="card-title" style="color:white">Estructura general — 6 Títulos</span>
+    </div>
+    <div class="card-body">
+      <div class="tit-flow">
+        <div class="tit-item tp">
+          <div class="tit-num">Tít. Prel.</div>
+          <div class="tit-content"><div class="tit-kw">Objeto y principios</div><div class="tit-desc">Art. 1–2: definición de violencia de género + principios rectores</div></div>
+        </div>
+        <div class="tit-item t1">
+          <div class="tit-num">Título I</div>
+          <div class="tit-content"><div class="tit-kw">Sensibilización, prevención y detección</div><div class="tit-desc">Educación · publicidad · medios · sanidad · servicios sociales · laboral</div></div>
+        </div>
+        <div class="tit-item t2">
+          <div class="tit-num">Título II ★</div>
+          <div class="tit-content"><div class="tit-kw">Derechos de las víctimas</div><div class="tit-desc">Cap. I: info/social/jurídica · Cap. II: laborales · Cap. III: funcionarias</div></div>
+        </div>
+        <div class="tit-item t3">
+          <div class="tit-num">Título III</div>
+          <div class="tit-content"><div class="tit-kw">Tutela institucional</div><div class="tit-desc">Delegación del Gobierno + Observatorio Estatal VG</div></div>
+        </div>
+        <div class="tit-item t4">
+          <div class="tit-num">Título IV</div>
+          <div class="tit-content"><div class="tit-kw">Tutela penal</div><div class="tit-desc">Reforma Código Penal · agravantes · órdenes de protección</div></div>
+        </div>
+        <div class="tit-item t5">
+          <div class="tit-num">Título V</div>
+          <div class="tit-content"><div class="tit-kw">Tutela judicial civil</div><div class="tit-desc">Vivienda · custodia · visitas · órdenes de alejamiento</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TÍTULO I ÁMBITOS -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card">
+    <div class="card-head" style="background:var(--pink-dim);border-bottom:2px solid var(--pink)">
+      <span class="card-icon">👁️</span>
+      <span class="card-title" style="color:var(--pink)">Título I — Ámbitos de sensibilización, prevención y detección precoz</span>
+    </div>
+    <div class="card-body">
+      <div class="amb-grid">
+        <div class="amb-item"><div class="amb-icon">📚</div><div class="amb-label">Educación</div></div>
+        <div class="amb-item"><div class="amb-icon">📺</div><div class="amb-label">Publicidad y Medios</div></div>
+        <div class="amb-item"><div class="amb-icon">🏥</div><div class="amb-label">Sanidad</div></div>
+        <div class="amb-item"><div class="amb-icon">🤝</div><div class="amb-label">Servicios Sociales</div></div>
+        <div class="amb-item"><div class="amb-icon">💼</div><div class="amb-label">Ámbito Laboral</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TÍTULO II CAPS -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card">
+    <div class="card-head" style="background:var(--rose);"> 
+      <span class="card-icon" style="color:white">🛡️</span>
+      <span class="card-title" style="color:white">Título II ★ — Derechos de las mujeres víctimas de violencia de género</span>
+    </div>
+    <div class="card-body">
+      <div class="cap-grid">
+        <div class="cap-card cc1">
+          <div class="cap-head">
+            <div class="cap-icon">ℹ️</div>
+            <div class="cap-roman">Cap. I</div>
+            <div class="cap-name">Triple protección</div>
+          </div>
+          <div class="cap-body">
+            <div class="cap-item">Derecho a <strong>información y orientación</strong> sobre recursos y derechos</div>
+            <div class="cap-item"><strong>Asistencia social integral</strong>: atención, emergencia, apoyo, acogida y recuperación</div>
+            <div class="cap-item"><strong>Asistencia jurídica gratuita</strong>, incluso <span style="color:var(--viol);font-weight:700">antes de la denuncia</span></div>
+          </div>
+        </div>
+        <div class="cap-card cc2">
+          <div class="cap-head">
+            <div class="cap-icon">💼</div>
+            <div class="cap-roman">Cap. II</div>
+            <div class="cap-name">Derechos laborales</div>
+          </div>
+          <div class="cap-body">
+            <div class="cap-item"><strong>Reducción/reordenación de jornada</strong></div>
+            <div class="cap-item"><strong>Movilidad geográfica</strong> y cambio de centro</div>
+            <div class="cap-item"><strong>Suspensión o extinción</strong> del contrato con prestaciones</div>
+            <div class="cap-item"><strong>Faltas justificadas</strong> de asistencia</div>
+          </div>
+        </div>
+        <div class="cap-card cc3">
+          <div class="cap-head">
+            <div class="cap-icon">🏛️</div>
+            <div class="cap-roman">Cap. III</div>
+            <div class="cap-name">Funcionarias ★</div>
+          </div>
+          <div class="cap-body">
+            <div class="cap-item"><strong>Reducción/reordenación</strong> del tiempo de trabajo <span class="art-b ab-v">Art. 24</span></div>
+            <div class="cap-item"><strong>Movilidad geográfica</strong> de centro de trabajo</div>
+            <div class="cap-item"><strong>Excedencia específica</strong> por VG</div>
+            <div class="cap-item"><strong>Faltas justificadas</strong> (art. 25) — según SSSS o salud</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff5f8;border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;margin-top:0.8rem;font-size:0.77rem;line-height:1.5;color:var(--muted);">
+        ⚠️ <strong style="color:var(--navy)">Trampa de test Cap. I:</strong> La asistencia jurídica gratuita se reconoce <strong style="color:var(--viol)">ANTES de la denuncia formal</strong> — no es necesario haber denunciado.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAP III FUNCIONARIAS + EXCEDENCIA -->
+<div class="grid2" style="margin-top:1.2rem">
+
+  <!-- JME -->
+  <div class="card">
+    <div class="card-head" style="background:var(--lilac-dim);border-bottom:2px solid var(--lilac)">
+      <span class="card-icon">🏛️</span>
+      <span class="card-title" style="color:var(--lilac)">Cap. III — Funcionarias · J·M·E · Arts. 24–26</span>
+    </div>
+    <div class="card-body">
+      <div class="jme-grid">
+        <div class="jme-card jj">
+          <div class="jme-head"><div class="jme-letter">J</div><div class="jme-name">Jornada</div></div>
+          <div class="jme-body">
+            <div class="jme-title">Reducción / reordenación</div>
+            <div class="jme-desc">Del tiempo de trabajo para hacer efectiva la protección</div>
+            <div class="jme-art">Art. 24 LO 1/2004</div>
+          </div>
+        </div>
+        <div class="jme-card jm">
+          <div class="jme-head"><div class="jme-letter">M</div><div class="jme-name">Movilidad</div></div>
+          <div class="jme-body">
+            <div class="jme-title">Cambio de centro</div>
+            <div class="jme-desc">Movilidad geográfica de centro de trabajo</div>
+            <div class="jme-art">Art. 24 LO 1/2004</div>
+          </div>
+        </div>
+        <div class="jme-card je">
+          <div class="jme-head"><div class="jme-letter">E</div><div class="jme-name">Excedencia</div></div>
+          <div class="jme-body">
+            <div class="jme-title">Excedencia específica</div>
+            <div class="jme-desc">Según TREBEP art. 89.5 — sin tiempo previo mínimo</div>
+            <div class="jme-art">Art. 24 + TREBEP</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;font-size:0.77rem;line-height:1.6;margin-top:0.8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.4rem;">Art. 25 — Faltas justificadas</div>
+        Las faltas de asistencia estarán justificadas por el tiempo que determinen los <strong>servicios sociales o de salud</strong> competentes.
+      </div>
+      <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;font-size:0.77rem;line-height:1.6;margin-top:0.6rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.4rem;">Art. 26 — Acreditación</div>
+        <div class="acr-grid">
+          <div class="acr-item"><div class="acr-icon">⚖️</div><div class="acr-label">Orden de protección</div></div>
+          <div class="acr-item"><div class="acr-icon">📄</div><div class="acr-label">Sentencia</div></div>
+          <div class="acr-item"><div class="acr-icon">🔍</div><div class="acr-label">Informe del Fiscal</div></div>
+          <div class="acr-item"><div class="acr-icon">📋</div><div class="acr-label">Otras formas previstas</div></div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 J·M·E — funcionarias VG</div>
+        <div class="memo-text"><span style="color:var(--viol)">J</span>ornada · <span style="color:var(--rose)">M</span>ovilidad · <span style="color:var(--lilac)">E</span>xcedencia + Faltas justificadas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXCEDENCIA TREBEP -->
+  <div class="card exc-card">
+    <div class="card-head">
+      <span class="card-icon">📅</span>
+      <span class="card-title">Excedencia VG — TREBEP art. 89.5 ★ NÚMEROS CLAVE</span>
+    </div>
+    <div class="card-body">
+      <div class="exc-grid">
+        <div class="exc-item">
+          <div class="exc-label">Tiempo mínimo previo</div>
+          <div class="exc-value highlight">NO se exige</div>
+        </div>
+        <div class="exc-item">
+          <div class="exc-label">Permanencia mínima</div>
+          <div class="exc-value highlight">NO se exige</div>
+        </div>
+        <div class="exc-item">
+          <div class="exc-label">Retribución íntegra</div>
+          <div class="exc-value highlight">Primeros 2 meses</div>
+        </div>
+        <div class="exc-item">
+          <div class="exc-label">Después de 2 meses</div>
+          <div class="exc-value warn">Sin retribución</div>
+        </div>
+      </div>
+
+      <!-- TIMELINE -->
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.4rem;margin-top:0.3rem;">Línea temporal de derechos</div>
+      <div class="exc-timeline">
+        <div class="exc-seg es1">
+          <div class="exc-seg-num">2m</div>
+          <div class="exc-seg-label">Retribución íntegra</div>
+          <div class="exc-seg-desc">Sueldo completo + prestaciones familiares por hijo</div>
+        </div>
+        <div class="exc-seg es2">
+          <div class="exc-seg-num">6m</div>
+          <div class="exc-seg-label">Reserva de puesto</div>
+          <div class="exc-seg-desc">Reserva + cómputo antigüedad, carrera y SS</div>
+        </div>
+        <div class="exc-seg es3">
+          <div class="exc-seg-num">18m</div>
+          <div class="exc-seg-label">Prórroga máx.</div>
+          <div class="exc-seg-desc">Prórroga 3m+3m si actuaciones judiciales lo exigen</div>
+        </div>
+      </div>
+
+      <div style="background:var(--lilac-dim);border:1px solid var(--lilac);border-radius:6px;padding:0.65rem 0.9rem;margin-top:0.8rem;font-size:0.78rem;line-height:1.5;">
+        ⚠️ <strong style="color:var(--lilac)">La excedencia no tiene límite máximo de duración</strong>, pero la <strong>reserva de puesto y el cómputo</strong> solo están garantizados durante los 6 meses (prorrogables hasta 18).
+      </div>
+
+      <div class="memo-box">
+        <div class="memo-label">🧠 Los 3 números de la excedencia VG</div>
+        <div class="memo-text">
+          <span style="color:var(--green)">2 meses</span> retribución íntegra ·
+          <span style="color:var(--lilac)">6 meses</span> reserva puesto ·
+          <span style="color:var(--rose)">18 meses</span> prórroga máxima
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TUTELAS III IV V -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card tut-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">⚖️</span>
+      <span class="card-title">Títulos III, IV y V — Las tres tutelas</span>
+    </div>
+    <div class="card-body">
+      <div class="tut-grid">
+        <div class="tut-item tt3">
+          <div class="tut-head"><span style="font-size:1rem">🏛️</span><span class="tut-title">Tít. III — Institucional</span></div>
+          <div class="tut-body">
+            Crea la <strong>Delegación del Gobierno contra la Violencia de Género</strong> y el <strong>Observatorio Estatal de Violencia sobre la Mujer</strong>. Coordina Administraciones.
+          </div>
+        </div>
+        <div class="tut-item tt4">
+          <div class="tut-head"><span style="font-size:1rem">⚖️</span><span class="tut-title">Tít. IV — Penal</span></div>
+          <div class="tut-body">
+            Modifica el <strong>Código Penal</strong>: tipifica y agrava conductas de VG. Introduce <strong>órdenes de protección</strong> y medidas cautelares.
+          </div>
+        </div>
+        <div class="tut-item tt5">
+          <div class="tut-head"><span style="font-size:1rem">🏠</span><span class="tut-title">Tít. V — Civil</span></div>
+          <div class="tut-body">
+            Medidas civiles: <strong>atribución de vivienda</strong>, guarda y custodia, régimen de visitas y <strong>órdenes de alejamiento y protección</strong>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — LO 1/2004</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el objeto de la LO 1/2004?</div>
+          <div class="q-answer"><strong>Combatir la violencia de hombres sobre mujeres en relación de pareja</strong>, como manifestación de discriminación y desigualdad</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿En qué ámbitos actúa preventivamente el Título I?</div>
+          <div class="q-answer"><strong>Educación · publicidad/medios · sanidad · servicios sociales · laboral</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Tienen derecho las víctimas a asistencia jurídica gratuita antes de denunciar?</div>
+          <div class="q-answer"><strong>Sí</strong> — desde que lo soliciten, incluso antes de la denuncia formal</div>
+          <div class="q-note">Trampa clásica — no requiere denuncia previa</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tres derechos específicos reconoce la LO 1/2004 a las funcionarias víctimas? (J·M·E)</div>
+          <div class="q-answer"><strong>Jornada</strong> (reducción/reordenación) · <strong>Movilidad</strong> geográfica · <strong>Excedencia</strong> específica</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuánto tiempo se percibe retribución íntegra en la excedencia por VG?</div>
+          <div class="q-answer"><strong>Los 2 primeros meses</strong></div>
+          <div class="q-note">Después: sin retribución (salvo norma específica)</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuánto dura la reserva de puesto en la excedencia VG? ¿Y la prórroga máxima?</div>
+          <div class="q-answer"><strong>6 meses</strong> (reserva) prorrogables hasta <strong>18 meses</strong> si lo exigen actuaciones judiciales</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué órgano crea la LO 1/2004 para coordinar la lucha contra la VG?</div>
+          <div class="q-answer"><strong>Delegación del Gobierno contra la VG</strong> y el <strong>Observatorio Estatal de VG</strong></div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cómo se acredita la situación de violencia de género para las funcionarias (art. 26)?</div>
+          <div class="q-answer"><strong>Orden de protección · sentencia · informe del Fiscal</strong> u otras formas previstas normativamente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

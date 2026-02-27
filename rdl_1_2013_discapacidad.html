@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RDL 1/2013 — Derechos Personas con Discapacidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f2f0f8;--surface:#fff;--border:#d0cae0;--text:#1a1528;--muted:#7a6a8a;
+  --navy:#0d2137;--blue:#1e5f8a;--blue-dim:#1e5f8a14;
+  --red:#b5282a;--red-dim:#b5282a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --green:#2a7a4a;--green-dim:#2a7a4a14;
+  --purple:#5a2a8a;--purple-dim:#5a2a8a14;
+  --teal:#1a6a6a;--teal-dim:#1a6a6a14;
+  --rose:#a02070;--rose-dim:#a0207014;
+  --orange:#c4681a;--orange-dim:#c4681a14;
+  --warm:#eeeaf5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#d0cae028 31px,#d0cae028 32px);}
+header{text-align:center;margin-bottom:2.5rem;}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--purple);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.8rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4.5vw,2.8rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+
+/* 4 KEYWORDS BANNER */
+.kw-bar{max-width:1100px;margin:0 auto 1.5rem;display:flex;gap:0.7rem;flex-wrap:wrap;justify-content:center;}
+.kw-pill{background:var(--purple);color:white;border-radius:20px;padding:0.35rem 1rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:600;letter-spacing:0.08em;}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1100px;margin:0 auto;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1100px;margin:1.2rem auto 0;}
+.full{grid-column:1/-1;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}.full{grid-column:1;}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.8rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.25rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.82rem;line-height:1.6;}
+
+/* OBJETO */
+.obj-card .card-head{background:var(--purple);}.obj-card .card-title,.obj-card .card-icon{color:white;}
+.obj-main{background:var(--purple-dim);border-left:4px solid var(--purple);border-radius:0 6px 6px 0;padding:0.75rem 1rem;font-size:0.83rem;line-height:1.6;margin-bottom:0.8rem;}
+.via-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+.via-item{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.6rem;text-align:center;}
+.via-icon{font-size:1.3rem;margin-bottom:0.25rem;}
+.via-label{font-weight:700;font-size:0.75rem;color:var(--navy);margin-bottom:0.15rem;}
+.via-desc{font-size:0.65rem;color:var(--muted);line-height:1.3;}
+
+/* CONCEPTOS */
+.conc-card .card-head{background:var(--blue-dim);border-bottom:2px solid var(--blue);}
+.conc-card .card-title{color:var(--blue);}
+.conc-block{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.8rem 0.9rem;margin-bottom:0.7rem;}
+.conc-block:last-child{margin-bottom:0;}
+.conc-term{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--purple);margin-bottom:0.3rem;font-weight:700;}
+.conc-def{font-size:0.8rem;line-height:1.6;color:var(--text);}
+.conc-def strong{color:var(--navy);}
+.conc-tag{display:inline-block;background:var(--purple-dim);border:1px solid var(--purple);color:var(--purple);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.08rem 0.4rem;border-radius:2px;margin:0.15rem 0.15rem 0 0;}
+
+/* PRINCIPIOS */
+.prin-card .card-head{background:var(--navy);}
+.prin-card .card-title{color:white;}
+.prin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;}
+@media(max-width:600px){.prin-grid{grid-template-columns:repeat(2,1fr);}}
+.prin-item{border-radius:8px;border:1px solid;text-align:center;overflow:hidden;}
+.prin-head{padding:0.65rem 0.4rem;}
+.prin-letter{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;line-height:1;margin-bottom:0.1rem;}
+.prin-key{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;}
+.prin-body{padding:0.5rem 0.4rem;background:white;}
+.prin-desc{font-size:0.67rem;color:var(--muted);line-height:1.3;}
+
+.pd{border-color:var(--purple);}.pd .prin-head{background:var(--purple-dim);}.pd .prin-letter,.pd .prin-key{color:var(--purple);}
+.pn{border-color:var(--red);}.pn .prin-head{background:var(--red-dim);}.pn .prin-letter,.pn .prin-key{color:var(--red);}
+.pi{border-color:var(--blue);}.pi .prin-head{background:var(--blue-dim);}.pi .prin-letter,.pi .prin-key{color:var(--blue);}
+.pa{border-color:var(--teal);}.pa .prin-head{background:var(--teal-dim);}.pa .prin-letter,.pa .prin-key{color:var(--teal);}
+.pdi{border-color:var(--green);}.pdi .prin-head{background:var(--green-dim);}.pdi .prin-letter,.pdi .prin-key{color:var(--green);}
+.pdial{border-color:var(--gold);}.pdial .prin-head{background:var(--gold-dim);}.pdial .prin-letter,.pdial .prin-key{color:#8a6a10;}
+.pno{border-color:var(--orange);}.pno .prin-head{background:var(--orange-dim);}.pno .prin-letter,.pno .prin-key{color:var(--orange);}
+.pt{border-color:var(--rose);}.pt .prin-head{background:var(--rose-dim);}.pt .prin-letter,.pt .prin-key{color:var(--rose);}
+
+/* DERECHOS SANITARIOS */
+.san-card .card-head{background:var(--green-dim);border-bottom:2px solid var(--green);}
+.san-card .card-title{color:var(--green);}
+.san-row{display:flex;align-items:flex-start;gap:0.7rem;padding:0.55rem 0;border-bottom:1px solid var(--border);font-size:0.8rem;}
+.san-row:last-child{border-bottom:none;}
+.san-icon{font-size:1rem;flex-shrink:0;margin-top:0.1rem;}
+.san-content{line-height:1.5;}
+.san-content strong{color:var(--navy);}
+.san-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.08rem 0.38rem;border-radius:2px;font-weight:600;margin-right:0.2rem;vertical-align:middle;}
+.st-s{background:var(--green-dim);color:var(--green);border:1px solid var(--green);}
+.st-p{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue);}
+.st-e{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple);}
+
+/* NO DISCRIMINACIÓN */
+.nodisc-card .card-head{background:var(--red-dim);border-bottom:2px solid var(--red);}
+.nodisc-card .card-title{color:var(--red);}
+.nd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.nd-item{border-radius:7px;border:1px solid;padding:0.7rem;text-align:center;}
+.nd-icon{font-size:1.3rem;margin-bottom:0.3rem;}
+.nd-title{font-weight:700;font-size:0.8rem;margin-bottom:0.2rem;}
+.nd-desc{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+
+.nd-proh{background:var(--red-dim);border-color:var(--red);}.nd-proh .nd-title{color:var(--red);}
+.nd-acc{background:var(--blue-dim);border-color:var(--blue);}.nd-acc .nd-title{color:var(--blue);}
+.nd-aj{background:var(--green-dim);border-color:var(--green);}.nd-aj .nd-title{color:var(--green);}
+
+/* INFRACCIONES */
+.infr-card .card-head{background:var(--orange-dim);border-bottom:2px solid var(--orange);}
+.infr-card .card-title{color:var(--orange);}
+.infr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.infr-item{border-radius:8px;overflow:hidden;border:2px solid;}
+.infr-head{padding:0.6rem;text-align:center;}
+.infr-icon{font-size:1.4rem;margin-bottom:0.15rem;}
+.infr-level{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;}
+.infr-body{padding:0.65rem;background:white;}
+.infr-def{font-weight:700;font-size:0.78rem;margin-bottom:0.2rem;}
+.infr-desc{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+
+.il{border-color:#c4681a;}.il .infr-head{background:var(--orange-dim);}.il .infr-level{color:var(--orange);}.il .infr-def{color:var(--orange);}
+.ig{border-color:var(--red);}.ig .infr-head{background:var(--red-dim);}.ig .infr-level{color:var(--red);}.ig .infr-def{color:var(--red);}
+.img2{border-color:var(--purple);}.img2 .infr-head{background:var(--purple-dim);}.img2 .infr-level{color:var(--purple);}.img2 .infr-def{color:var(--purple);}
+
+/* TEST */
+.test-card .card-head{background:var(--red-dim);border-bottom:2px solid var(--red);}
+.test-card .card-title{color:var(--red);}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.q-block{padding:0.6rem 0;border-bottom:1px dashed var(--border);font-size:0.79rem;}
+.q-block:last-child{border-bottom:none;}
+.q-text{color:var(--muted);margin-bottom:0.25rem;line-height:1.4;}
+.q-text::before{content:'❓ ';}
+.q-answer{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.4rem;}
+.q-answer::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.q-note{font-size:0.68rem;color:var(--muted);margin-top:0.1rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">♿ RDL 1/2013 · Ley General Discapacidad</div>
+  <h1>Derechos de las Personas con Discapacidad e Inclusión Social</h1>
+  <p class="subtitle">Real Decreto Legislativo 1/2013 · INGESA Enfermería</p>
+</header>
+
+<!-- 4 PALABRAS CLAVE -->
+<div class="kw-bar">
+  <div class="kw-pill">⚖️ Igualdad de oportunidades</div>
+  <div class="kw-pill">🚫 No discriminación</div>
+  <div class="kw-pill">♿ Accesibilidad universal</div>
+  <div class="kw-pill">🤝 Inclusión social</div>
+</div>
+
+<div class="grid2">
+
+  <!-- OBJETO -->
+  <div class="card obj-card">
+    <div class="card-head">
+      <span class="card-icon">📋</span>
+      <span class="card-title">Objeto y ámbito — Título Preliminar</span>
+    </div>
+    <div class="card-body">
+      <div class="obj-main">
+        <strong>Garantizar</strong> el derecho a la <strong>igualdad de oportunidades y de trato</strong>, y el ejercicio <strong>real y efectivo</strong> de derechos de las personas con discapacidad, en igualdad con el resto de la ciudadanía.
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.5rem;">Lo hace mediante tres vías</div>
+      <div class="via-grid">
+        <div class="via-item">
+          <div class="via-icon">🧍</div>
+          <div class="via-label">Autonomía personal</div>
+          <div class="via-desc">Promoción de la autonomía e independencia individual</div>
+        </div>
+        <div class="via-item">
+          <div class="via-icon">♿</div>
+          <div class="via-label">Accesibilidad universal</div>
+          <div class="via-desc">Entornos, productos y servicios accesibles para todos</div>
+        </div>
+        <div class="via-item">
+          <div class="via-icon">🌐</div>
+          <div class="via-label">Acceso a derechos</div>
+          <div class="via-desc">Empleo, educación, protección social, participación política</div>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 3 vías del objeto</div>
+        <div class="memo-text">
+          <span style="color:var(--purple)">A</span>utonomía ·
+          <span style="color:var(--purple)">A</span>ccesibilidad ·
+          <span style="color:var(--purple)">A</span>cceso a derechos
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPTOS CLAVE -->
+  <div class="card conc-card">
+    <div class="card-head">
+      <span class="card-icon">📖</span>
+      <span class="card-title">Conceptos clave — Definiciones legales</span>
+    </div>
+    <div class="card-body">
+      <div class="conc-block">
+        <div class="conc-term">🧑‍🦽 Persona con discapacidad</div>
+        <div class="conc-def">La que presenta <strong>deficiencias físicas, mentales, intelectuales o sensoriales</strong>, previsiblemente <strong>permanentes</strong>, que al interactuar con diversas <strong>barreras</strong> puedan impedir su participación plena y efectiva en la sociedad, en igualdad de condiciones.</div>
+        <div style="margin-top:0.5rem">
+          <span class="conc-tag">Físicas</span>
+          <span class="conc-tag">Mentales</span>
+          <span class="conc-tag">Intelectuales</span>
+          <span class="conc-tag">Sensoriales</span>
+          <span class="conc-tag">Permanentes</span>
+        </div>
+      </div>
+      <div class="conc-block">
+        <div class="conc-term">♿ Accesibilidad universal</div>
+        <div class="conc-def">Condición que deben cumplir los <strong>entornos, procesos, bienes, productos y servicios</strong> para ser <strong>comprensibles, utilizables y practicables</strong> por todas las personas, en condiciones de seguridad y comodidad, de la forma más <strong>autónoma y natural</strong> posible.</div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Accesibilidad = CUP</div>
+        <div class="memo-text">
+          <span style="color:var(--blue)">C</span>omprensibles ·
+          <span style="color:var(--blue)">U</span>tilizables ·
+          <span style="color:var(--blue)">P</span>racticables — por todas las personas
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PRINCIPIOS ART 3 -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card prin-card">
+    <div class="card-head">
+      <span class="card-icon" style="color:white">⭐</span>
+      <span class="card-title">Art. 3 — Principios generales</span>
+    </div>
+    <div class="card-body">
+      <div class="prin-grid">
+        <div class="prin-item pd">
+          <div class="prin-head"><div class="prin-letter">D</div><div class="prin-key">Dignidad</div></div>
+          <div class="prin-body"><div class="prin-desc">Respeto de la dignidad, autonomía individual, libertad para tomar decisiones e independencia</div></div>
+        </div>
+        <div class="prin-item pn">
+          <div class="prin-head"><div class="prin-letter">N</div><div class="prin-key">No discrimin.</div></div>
+          <div class="prin-body"><div class="prin-desc">No discriminación por razón de discapacidad</div></div>
+        </div>
+        <div class="prin-item pi">
+          <div class="prin-head"><div class="prin-letter">I</div><div class="prin-key">Igualdad</div></div>
+          <div class="prin-body"><div class="prin-desc">Igualdad de oportunidades</div></div>
+        </div>
+        <div class="prin-item pa">
+          <div class="prin-head"><div class="prin-letter">A</div><div class="prin-key">Accesibilidad</div></div>
+          <div class="prin-body"><div class="prin-desc">Accesibilidad universal</div></div>
+        </div>
+        <div class="prin-item pdi">
+          <div class="prin-head"><div class="prin-letter">D</div><div class="prin-key">Diseño</div></div>
+          <div class="prin-body"><div class="prin-desc">Diseño universal o diseño para todas las personas</div></div>
+        </div>
+        <div class="prin-item pdial">
+          <div class="prin-head"><div class="prin-letter">D</div><div class="prin-key">Diálogo</div></div>
+          <div class="prin-body"><div class="prin-desc">Diálogo civil con organizaciones representativas de personas con discapacidad</div></div>
+        </div>
+        <div class="prin-item pno">
+          <div class="prin-head"><div class="prin-letter">N</div><div class="prin-key">Normalizac.</div></div>
+          <div class="prin-body"><div class="prin-desc">Normalización de las políticas en discapacidad</div></div>
+        </div>
+        <div class="prin-item pt">
+          <div class="prin-head"><div class="prin-letter">T</div><div class="prin-key">Transversalid.</div></div>
+          <div class="prin-body"><div class="prin-desc">Transversalidad de las políticas en discapacidad</div></div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.8rem">
+        <div class="memo-label">🧠 D·N·I·A·D·D·N·T — 8 principios</div>
+        <div class="memo-text" style="font-size:0.78rem">
+          <span style="color:var(--purple)">D</span>ignidad ·
+          <span style="color:var(--red)">N</span>o discriminación ·
+          <span style="color:var(--blue)">I</span>gualdad ·
+          <span style="color:var(--teal)">A</span>ccesibilidad ·
+          <span style="color:var(--green)">D</span>iseño ·
+          <span style="color:#8a6a10">D</span>iálogo ·
+          <span style="color:var(--orange)">N</span>ormalización ·
+          <span style="color:var(--rose)">T</span>ransversalidad
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DERECHOS SANITARIOS + NO DISCRIMINACIÓN -->
+<div class="grid2" style="margin-top:1.2rem">
+
+  <div class="card san-card">
+    <div class="card-head">
+      <span class="card-icon">🏥</span>
+      <span class="card-title">Derechos — Perspectiva sanitaria y social</span>
+    </div>
+    <div class="card-body">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--green);margin-bottom:0.6rem;font-weight:700;">Protección de la Salud ★</div>
+      <div class="san-row">
+        <span class="san-icon">💊</span>
+        <div class="san-content">
+          <span class="san-tag st-s">SALUD</span>
+          Prevención, promoción, protección y recuperación de la salud <strong>sin discriminación por discapacidad</strong>
+        </div>
+      </div>
+      <div class="san-row">
+        <span class="san-icon">🧠</span>
+        <div class="san-content">
+          <span class="san-tag st-s">MENTAL</span>
+          Atención específica a la <strong>salud mental</strong>
+        </div>
+      </div>
+      <div class="san-row">
+        <span class="san-icon">🤰</span>
+        <div class="san-content">
+          <span class="san-tag st-s">SEXUAL</span>
+          Salud <strong>sexual y reproductiva</strong> — incluidas las personas con discapacidad
+        </div>
+      </div>
+      <div class="san-row">
+        <span class="san-icon">🔄</span>
+        <div class="san-content">
+          <span class="san-tag st-s">CICLO VITAL</span>
+          Necesidades a lo largo del ciclo vital: <strong>infancia, vejez</strong>, etc.
+        </div>
+      </div>
+      <div style="margin-top:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--blue);margin-bottom:0.5rem;font-weight:700;">Protección social · Educación · Empleo</div>
+      <div class="san-row">
+        <span class="san-icon">🤝</span>
+        <div class="san-content">
+          <span class="san-tag st-p">SOCIAL</span> Asistencia sanitaria, rehabilitación, prestaciones económicas, apoyo a la autonomía
+        </div>
+      </div>
+      <div class="san-row">
+        <span class="san-icon">📚</span>
+        <div class="san-content">
+          <span class="san-tag st-e">EDUCACIÓN</span> Educación <strong>inclusiva</strong> · <span class="san-tag st-e">EMPLEO</span> Con <strong>ajustes razonables</strong>, empleo protegido y ordinario
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card nodisc-card">
+    <div class="card-head">
+      <span class="card-icon">⚖️</span>
+      <span class="card-title">Igualdad de oportunidades y no discriminación</span>
+    </div>
+    <div class="card-body">
+      <div class="nd-grid" style="margin-bottom:0.9rem">
+        <div class="nd-item nd-proh">
+          <div class="nd-icon">🚫</div>
+          <div class="nd-title">Prohibición de discriminación</div>
+          <div class="nd-desc">Directa <strong>e indirecta</strong> por razón de discapacidad</div>
+        </div>
+        <div class="nd-item nd-acc">
+          <div class="nd-icon">➕</div>
+          <div class="nd-title">Acción positiva</div>
+          <div class="nd-desc">Medidas para <strong>compensar desventajas</strong> de las personas con discapacidad</div>
+        </div>
+        <div class="nd-item nd-aj">
+          <div class="nd-icon">🔧</div>
+          <div class="nd-title">Ajustes razonables</div>
+          <div class="nd-desc">Adaptaciones necesarias que <strong>no supongan carga desproporcionada</strong></div>
+        </div>
+      </div>
+
+      <!-- INFRACCIONES -->
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--orange);margin-bottom:0.5rem;font-weight:700;">Infracciones y sanciones</div>
+      <div class="infr-grid">
+        <div class="infr-item il">
+          <div class="infr-head">
+            <div class="infr-icon">🟡</div>
+            <div class="infr-level">Leve</div>
+          </div>
+          <div class="infr-body">
+            <div class="infr-def">Incumplimientos menores</div>
+            <div class="infr-desc">Sanción económica menor</div>
+          </div>
+        </div>
+        <div class="infr-item ig">
+          <div class="infr-head">
+            <div class="infr-icon">🟠</div>
+            <div class="infr-level">Grave</div>
+          </div>
+          <div class="infr-body">
+            <div class="infr-def">Incumplimientos relevantes</div>
+            <div class="infr-desc">En empleo, bienes y servicios, transportes, espacios públicos</div>
+          </div>
+        </div>
+        <div class="infr-item img2">
+          <div class="infr-head">
+            <div class="infr-icon">🔴</div>
+            <div class="infr-level">Muy grave</div>
+          </div>
+          <div class="infr-body">
+            <div class="infr-def">Vulneraciones graves</div>
+            <div class="infr-desc">Sanciones económicas y otras medidas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="memo-box">
+        <div class="memo-label">🧠 Clave ajustes razonables</div>
+        <div class="memo-text" style="font-size:0.78rem">Adaptación <strong>necesaria y adecuada</strong> que NO suponga carga <strong>desproporcionada</strong> → para garantizar igualdad real</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0">
+  <div class="card test-card">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — RDL 1/2013</span></div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-block">
+          <div class="q-text">¿Cuál es el objeto principal del RDL 1/2013?</div>
+          <div class="q-answer"><strong>Garantizar la igualdad de oportunidades y de trato</strong> y el ejercicio real y efectivo de derechos de las personas con discapacidad</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Según el RDL 1/2013, ¿qué tipo de deficiencias caracterizan a la persona con discapacidad?</div>
+          <div class="q-answer"><strong>Físicas, mentales, intelectuales o sensoriales</strong>, previsiblemente permanentes</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cómo define la ley la accesibilidad universal?</div>
+          <div class="q-answer">Condición para que entornos, bienes y servicios sean <strong>comprensibles, utilizables y practicables</strong> por todas las personas</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Cuántos principios generales establece el art. 3?</div>
+          <div class="q-answer"><strong>8 principios</strong> — D·N·I·A·D·D·N·T</div>
+          <div class="q-note">Dignidad · No discrim. · Igualdad · Accesibilidad · Diseño · Diálogo · Normalización · Transversalidad</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué son los ajustes razonables?</div>
+          <div class="q-answer">Adaptaciones necesarias y adecuadas que <strong>no supongan carga desproporcionada</strong> para garantizar igualdad real</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿El derecho a la salud incluye la salud sexual y reproductiva de personas con discapacidad?</div>
+          <div class="q-answer"><strong>Sí</strong> — el RDL 1/2013 reconoce expresamente la salud sexual y reproductiva</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">¿Qué tipo de discriminación prohíbe la ley?</div>
+          <div class="q-answer"><strong>Directa e indirecta</strong> por razón de discapacidad</div>
+        </div>
+        <div class="q-block">
+          <div class="q-text">Las infracciones en materia de discapacidad se clasifican en…</div>
+          <div class="q-answer"><strong>Leves, graves y muy graves</strong> — con sanciones económicas y otras medidas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

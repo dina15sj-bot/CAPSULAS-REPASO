@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfermedad de Alzheimer - Infografía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .icon {
+            width: 35px;
+            height: 35px;
+            background: #667eea;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .section-content {
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .bullet-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+        }
+        
+        .bullet-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .card h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .progression {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .phase {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 3px solid #e0e0e0;
+            position: relative;
+        }
+        
+        .phase-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .phase h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .phase p {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .phase:nth-child(2) .phase-number {
+            background: #764ba2;
+        }
+        
+        .phase:nth-child(3) .phase-number {
+            background: #d63031;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .progression {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section-title {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 ENFERMEDAD DE ALZHEIMER</h1>
+            <p>Guía de Repaso Neurológico</p>
+        </div>
+        
+        <div class="content">
+            <!-- Tipo -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">1</span>
+                    TIPO
+                </h2>
+                <div class="section-content">
+                    <p style="font-size: 1.1em; font-weight: 600;">
+                        Demencia <span class="highlight">cortical primaria</span>, 
+                        <span class="highlight">neurodegenerativa</span>, 
+                        <span class="highlight">crónica</span> y 
+                        <span class="highlight">progresiva</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Etiopatogenia -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">2</span>
+                    ETIOPATOGENIA
+                </h2>
+                <div class="section-content">
+                    <div class="two-column">
+                        <div class="card">
+                            <h4>🔬 Hallazgos Moleculares</h4>
+                            <ul class="bullet-list">
+                                <li><strong>β-amiloide extracelular</strong> → Placas seniles</li>
+                                <li><strong>Tau hiperfosforilada</strong> → Ovillos neurofibrilares</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>🧩 Atrofia Cortical</h4>
+                            <ul class="bullet-list">
+                                <li>Temporal medial</li>
+                                <li>Hipocampo</li>
+                                <li>Parietal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Clínica -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">3</span>
+                    CLÍNICA
+                </h2>
+                <div class="section-content">
+                    <div class="two-column">
+                        <div class="card">
+                            <h4>🎯 Inicial</h4>
+                            <ul class="bullet-list">
+                                <li><strong>Amnesia episódica reciente</strong> (problemas de fijación)</li>
+                                <li><strong>Anomia</strong> (no encuentra palabras)</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>📈 Evolución</h4>
+                            <ul class="bullet-list">
+                                <li>Afasia + agnosia + apraxia + acalculia</li>
+                                <li>Desorientación temporoespacial</li>
+                                <li>Cambios de conducta y agitación</li>
+                                <li>Psicosis</li>
+                                <li>Dependencia en AVD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Diagnóstico -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">4</span>
+                    DIAGNÓSTICO
+                </h2>
+                <div class="section-content">
+                    <ul class="bullet-list">
+                        <li><strong>Evaluación clínica</strong> + Test cognitivos (MMSE, MoCA, GDS)</li>
+                        <li><strong>Neuroimagen:</strong> Atrofia hipocampal / parietotemporal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Tratamiento -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">5</span>
+                    TRATAMIENTO
+                </h2>
+                <div class="section-content">
+                    <ul class="bullet-list">
+                        <li><strong>IChE (Inhibidores de colinesterasa):</strong> 
+                            <span class="highlight">Donepezilo</span>, 
+                            <span class="highlight">Rivastigmina</span>, 
+                            <span class="highlight">Galantamina</span> 
+                            → Fase leve-moderada
+                        </li>
+                        <li><strong>Memantina (antagonista NMDA):</strong> 
+                            Fase moderada-grave
+                        </li>
+                        <li><strong>Manejo no farmacológico:</strong> 
+                            Manejo conductual y soporte a cuidadores
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Progresión -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">6</span>
+                    PROGRESIÓN (FASES)
+                </h2>
+                <div class="section-content">
+                    <div class="progression">
+                        <div class="phase">
+                            <div class="phase-number">I</div>
+                            <h4>INICIAL</h4>
+                            <p>
+                                • Olvidos frecuentes<br>
+                                • AVD básicas conservadas<br>
+                                • Independencia mantenida
+                            </p>
+                        </div>
+                        <div class="phase">
+                            <div class="phase-number">II</div>
+                            <h4>MEDIA</h4>
+                            <p>
+                                • Dependencia en AVD instrumentales<br>
+                                • Trastornos de conducta<br>
+                                • Desorientación
+                            </p>
+                        </div>
+                        <div class="phase">
+                            <div class="phase-number">III</div>
+                            <h4>AVANZADA</h4>
+                            <p>
+                                • Dependencia total<br>
+                                • Acinesia y rigidez<br>
+                                • Trastornos de deglución
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            📚 Material de repaso - Neurología | Enfermedad de Alzheimer
+        </div>
+    </div>
+</body>
+</html>

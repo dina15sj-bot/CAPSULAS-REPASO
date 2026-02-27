@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constitución Española — INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf7f2;
+  --warm: #f0ebe0;
+  --border: #d8cfc0;
+  --text: #2a2118;
+  --muted: #8a7a68;
+  --red: #b5282a;
+  --red-dim: #b5282a18;
+  --gold: #c49a2a;
+  --gold-dim: #c49a2a18;
+  --blue: #1e5f8a;
+  --blue-dim: #1e5f8a15;
+  --green: #2a7a4a;
+  --green-dim: #2a7a4a15;
+  --purple: #6a3a8a;
+  --purple-dim: #6a3a8a15;
+  --navy: #1a2a4a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  padding: 2rem 1.5rem 4rem;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 31px, #d8cfc044 31px, #d8cfc044 32px);
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+.flag-stripe {
+  height: 6px;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red) 25%, var(--gold) 25%, var(--gold) 75%, var(--red) 75%);
+  border-radius: 3px;
+  margin-bottom: 1.2rem;
+  max-width: 200px;
+  margin-left: auto; margin-right: auto;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 1100px;
+  margin: 1.2rem auto 0;
+}
+.full { grid-column: 1 / -1; }
+
+@media (max-width: 750px) {
+  .grid, .grid-3 { grid-template-columns: 1fr; }
+  .full { grid-column: 1; }
+}
+
+/* CARD */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(42,33,24,0.06);
+}
+
+.card-head {
+  padding: 0.8rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.card-icon { font-size: 1.1rem; flex-shrink: 0; }
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  flex: 1;
+}
+.card-body { padding: 1rem 1.1rem; }
+
+/* ESTRUCTURA card */
+.struct-card .card-head { background: var(--navy); }
+.struct-card .card-title { color: white; }
+.struct-card .card-icon { filter: brightness(10); }
+
+.struct-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.82rem;
+}
+.struct-row:last-child { border-bottom: none; }
+.struct-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--red);
+  min-width: 50px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.struct-label { color: var(--text); line-height: 1.4; }
+.struct-note { font-size: 0.72rem; color: var(--muted); }
+
+/* MNEMOTECNIA badge */
+.memo-box {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.78rem;
+}
+.memo-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+.memo-text { color: var(--text); font-weight: 600; line-height: 1.5; }
+
+/* TITULO PRELIMINAR */
+.prelim-card .card-head { background: #f5ede0; border-bottom: 2px solid var(--gold); }
+.prelim-card .card-title { color: var(--navy); }
+
+.art-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0ebe0;
+  font-size: 0.81rem;
+}
+.art-row:last-child { border-bottom: none; }
+.art-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--red);
+  text-align: center;
+  background: var(--red-dim);
+  border-radius: 4px;
+  padding: 0.2rem 0;
+  line-height: 1.6;
+}
+.art-content { line-height: 1.5; }
+.art-content strong { color: var(--navy); }
+.art-tag {
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+}
+
+/* TITULO I */
+.titulo1-card .card-head { background: var(--blue-dim); border-bottom: 2px solid var(--blue); }
+.titulo1-card .card-title { color: var(--blue); }
+
+.cap-block {
+  border-left: 3px solid var(--border);
+  padding-left: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+.cap-block:last-child { margin-bottom: 0; }
+.cap-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+.cap-arts {
+  font-size: 0.81rem;
+  line-height: 1.5;
+}
+.cap-arts strong { color: var(--blue); }
+
+.cap-block.cap-i { border-color: #aaa; }
+.cap-block.cap-ii { border-color: var(--red); }
+.cap-block.cap-ii .cap-name { color: var(--red); }
+.cap-block.cap-iii { border-color: var(--green); }
+.cap-block.cap-iii .cap-name { color: var(--green); }
+.cap-block.cap-iv { border-color: var(--purple); }
+.cap-block.cap-iv .cap-name { color: var(--purple); }
+.cap-block.cap-v { border-color: var(--gold); }
+.cap-block.cap-v .cap-name { color: var(--gold); }
+
+/* PROTECCIÓN art. 53 */
+.prot-card .card-head { background: var(--blue-dim); border-bottom: 2px solid var(--blue); }
+.prot-card .card-title { color: var(--blue); }
+
+.prot-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: stretch;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px dashed var(--border);
+}
+.prot-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.prot-level {
+  min-width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 0.4rem;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.prot-level .prot-icon { font-size: 1.2rem; margin-bottom: 0.2rem; }
+.prot-high { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+.prot-med { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue); }
+.prot-low { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+.prot-info { font-size: 0.8rem; line-height: 1.5; }
+.prot-info strong { color: var(--navy); display: block; margin-bottom: 0.2rem; }
+.prot-arts { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+
+/* SANITARIOS */
+.san-card .card-head { background: var(--green-dim); border-bottom: 2px solid var(--green); }
+.san-card .card-title { color: var(--green); }
+
+.san-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: start;
+  gap: 0.7rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f0ebe0;
+}
+.san-row:last-child { border-bottom: none; }
+.san-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--green);
+  text-align: center;
+  line-height: 1;
+}
+.san-body { font-size: 0.81rem; line-height: 1.5; }
+.san-body strong { color: var(--navy); }
+.san-body .san-key {
+  display: inline-block;
+  background: var(--green-dim);
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  margin-top: 0.2rem;
+}
+
+/* PREGUNTAS TIPO TEST */
+.test-card .card-head { background: var(--red-dim); border-bottom: 2px solid var(--red); }
+.test-card .card-title { color: var(--red); }
+
+.q-block {
+  padding: 0.7rem 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.81rem;
+}
+.q-block:last-child { border-bottom: none; }
+.q-text {
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+.q-text::before { content: '❓ '; }
+.q-answer {
+  font-weight: 700;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.q-answer::before { content: '→'; color: var(--gold); font-weight: 900; }
+.q-note { font-size: 0.7rem; color: var(--muted); margin-top: 0.15rem; font-style: italic; }
+
+/* MNEMOTECNIA GRANDE */
+.memo-card .card-head { background: var(--gold-dim); border-bottom: 2px solid var(--gold); }
+.memo-card .card-title { color: #8a6a10; }
+
+.memo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+.memo-item {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+}
+.memo-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+.memo-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--red);
+  font-weight: 600;
+  margin: 0.1rem 0;
+}
+.memo-word { font-size: 0.72rem; color: var(--muted); }
+
+/* ART 53 VISUAL */
+.piramide {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.pir-level {
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+.pir-1 { background: var(--red-dim); border: 1px solid var(--red); }
+.pir-2 { background: var(--blue-dim); border: 1px solid var(--blue); margin: 0 0.5rem; }
+.pir-3 { background: var(--green-dim); border: 1px solid var(--green); margin: 0 1rem; }
+.pir-label { font-weight: 700; }
+.pir-1 .pir-label { color: var(--red); }
+.pir-2 .pir-label { color: var(--blue); }
+.pir-3 .pir-label { color: var(--green); }
+.pir-arts { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); text-align: right; }
+.pir-prot { font-size: 0.68rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag-stripe"></div>
+  <h1>Constitución Española 1978</h1>
+  <p class="subtitle">Esquema para preguntas tipo test · INGESA Enfermería</p>
+</header>
+
+<div class="grid" style="max-width:1100px;margin:0 auto;">
+
+  <!-- ESTRUCTURA GLOBAL -->
+  <div class="card struct-card">
+    <div class="card-head">
+      <span class="card-icon">📜</span>
+      <span class="card-title" style="color:white">Estructura global</span>
+    </div>
+    <div class="card-body">
+      <div class="struct-row">
+        <div class="struct-num">169</div>
+        <div class="struct-label">artículos en total <span class="struct-note">— Tít. Preliminar + Títulos I al X</span></div>
+      </div>
+      <div class="struct-row">
+        <div class="struct-num">4</div>
+        <div class="struct-label">disposiciones adicionales</div>
+      </div>
+      <div class="struct-row">
+        <div class="struct-num">9</div>
+        <div class="struct-label">disposiciones transitorias</div>
+      </div>
+      <div class="struct-row">
+        <div class="struct-num">1</div>
+        <div class="struct-label">disposición derogatoria</div>
+      </div>
+      <div class="struct-row">
+        <div class="struct-num">1</div>
+        <div class="struct-label">disposición final</div>
+      </div>
+      <div class="struct-row">
+        <div class="struct-num" style="font-size:0.75rem;color:var(--muted)">+</div>
+        <div class="struct-label"><strong>Preámbulo</strong> <span class="struct-note">— sin valor normativo</span></div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 Mnemotecnia 169</div>
+        <div class="memo-text">"1 Constitución · 6 letras en ESPAÑA · 9 letras en DERECHOS = <span style="color:var(--red);font-size:1rem">169</span>"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TITULO PRELIMINAR -->
+  <div class="card prelim-card">
+    <div class="card-head">
+      <span class="card-icon">⚖️</span>
+      <span class="card-title">Título Preliminar — Arts. 1 a 9</span>
+    </div>
+    <div class="card-body">
+      <div class="art-row">
+        <div class="art-num">1</div>
+        <div class="art-content"><strong>Estado social y democrático de Derecho</strong><br><span style="font-size:0.74rem;color:var(--muted)">Valores: libertad · justicia · igualdad · pluralismo político</span><span class="art-tag">★ CLAVE</span></div>
+      </div>
+      <div class="art-row">
+        <div class="art-num">2</div>
+        <div class="art-content"><strong>Unidad</strong> de la Nación + <strong>Autonomía</strong> + <strong>Solidaridad</strong></div>
+      </div>
+      <div class="art-row">
+        <div class="art-num">3</div>
+        <div class="art-content"><strong>Castellano</strong> lengua oficial + cooficialidad de otras lenguas en su CA</div>
+      </div>
+      <div class="art-row">
+        <div class="art-num">4</div>
+        <div class="art-content"><strong>Bandera</strong> de España</div>
+      </div>
+      <div class="art-row">
+        <div class="art-num">6·7·8</div>
+        <div class="art-content"><strong>Partidos</strong> políticos · <strong>Sindicatos</strong> y asoc. empresariales · <strong>FF.AA.</strong></div>
+      </div>
+      <div class="art-row">
+        <div class="art-num">9</div>
+        <div class="art-content"><strong>Principios:</strong> legalidad · jerarquía normativa · publicidad · irretroactividad sancionadora · seguridad jurídica · responsabilidad · interdicción arbitrariedad</div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 1·2·3·4 — 6·7·8 — 9</div>
+        <div class="memo-text">
+          <span style="color:var(--red)">1</span> S-D-D &nbsp;·&nbsp; <span style="color:var(--red)">2</span> U-A-S &nbsp;·&nbsp; <span style="color:var(--red)">3</span> C-I &nbsp;·&nbsp; <span style="color:var(--red)">4</span> B<br>
+          <span style="color:var(--red)">6-7-8</span> P-S-F &nbsp;·&nbsp; <span style="color:var(--red)">9</span> L-J-S
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+<div class="grid-3">
+
+  <!-- TITULO I ESTRUCTURA -->
+  <div class="card titulo1-card">
+    <div class="card-head">
+      <span class="card-icon">📋</span>
+      <span class="card-title">Título I — Arts. 10 a 55</span>
+    </div>
+    <div class="card-body">
+      <div style="font-size:0.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:0.7rem;text-transform:uppercase;letter-spacing:0.1em;">"De los derechos y deberes fundamentales"</div>
+
+      <div class="cap-block cap-i">
+        <div class="cap-name">Cap. I · Art. 11</div>
+        <div class="cap-arts">Españoles y <strong>extranjeros</strong></div>
+      </div>
+      <div class="cap-block cap-ii">
+        <div class="cap-name">Cap. II · Arts. 14–38</div>
+        <div class="cap-arts"><strong>Derechos y libertades</strong><br>
+          <span style="font-size:0.72rem">Secc. 1.ª arts. 15–29 → <strong style="color:var(--red)">Fund.</strong><br>Secc. 2.ª arts. 30–38 → ciudadanos</span>
+        </div>
+      </div>
+      <div class="cap-block cap-iii">
+        <div class="cap-name">Cap. III · Arts. 39–52</div>
+        <div class="cap-arts"><strong>Principios rectores</strong> sociales y económicos<br><span style="font-size:0.72rem;color:var(--green)">← Aquí están salud, familia, SS</span></div>
+      </div>
+      <div class="cap-block cap-iv">
+        <div class="cap-name">Cap. IV · Art. 53</div>
+        <div class="cap-arts"><strong>Garantías</strong> de libertades y derechos</div>
+      </div>
+      <div class="cap-block cap-v">
+        <div class="cap-name">Cap. V · Art. 55</div>
+        <div class="cap-arts"><strong>Suspensión</strong> de derechos</div>
+      </div>
+
+      <div class="memo-box" style="background:var(--blue-dim);border-color:var(--blue);">
+        <div class="memo-label" style="color:var(--blue)">🧠 5 capítulos</div>
+        <div class="memo-text" style="font-size:0.85rem;letter-spacing:0.05em"><span style="color:var(--red)">E</span>–<span style="color:var(--red)">D</span>–<span style="color:var(--red)">P</span>–<span style="color:var(--red)">G</span>–<span style="color:var(--red)">S</span><br><span style="font-size:0.7rem;color:var(--muted)">Españoles · Derechos · Principios · Garantías · Suspensión</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ART 53 PROTECCIÓN -->
+  <div class="card prot-card">
+    <div class="card-head">
+      <span class="card-icon">🛡️</span>
+      <span class="card-title">Art. 53 — Niveles de protección</span>
+    </div>
+    <div class="card-body">
+      <div class="piramide">
+        <div class="pir-level pir-1">
+          <div>
+            <div class="pir-label">🔴 Máxima protección</div>
+            <div class="pir-prot">Recurso de amparo TC · Proc. preferente y sumario</div>
+          </div>
+          <div class="pir-arts">Secc. 1.ª<br>Arts. 15–29</div>
+        </div>
+        <div class="pir-level pir-2">
+          <div>
+            <div class="pir-label">🔵 Protección media</div>
+            <div class="pir-prot">Ley ordinaria + Tribunales ordinarios</div>
+          </div>
+          <div class="pir-arts">Secc. 2.ª<br>Arts. 30–38</div>
+        </div>
+        <div class="pir-level pir-3">
+          <div>
+            <div class="pir-label">🟢 Principios rectores</div>
+            <div class="pir-prot">Necesitan desarrollo legal · No son exigibles directamente</div>
+          </div>
+          <div class="pir-arts">Cap. III<br>Arts. 39–52</div>
+        </div>
+      </div>
+      <div class="memo-box" style="margin-top:0.9rem">
+        <div class="memo-label">🧠 A·T·L</div>
+        <div class="memo-text">
+          <span style="color:var(--red)">A</span>mparo → Secc. 1.ª (15–29)<br>
+          <span style="color:var(--blue)">T</span>ribunales → Secc. 2.ª (30–38)<br>
+          <span style="color:var(--green)">L</span>eyes → Principios rectores (39–52)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTÍCULOS SANITARIOS -->
+  <div class="card san-card">
+    <div class="card-head">
+      <span class="card-icon">🏥</span>
+      <span class="card-title">Artículos sanitarios — Cap. III</span>
+    </div>
+    <div class="card-body">
+      <div class="san-row">
+        <div class="san-num">39</div>
+        <div class="san-body">
+          <strong>Familia y menores</strong><br>
+          Protección social, económica y jurídica<br>
+          <span class="san-key">FAMILIA</span>
+        </div>
+      </div>
+      <div class="san-row">
+        <div class="san-num">41</div>
+        <div class="san-body">
+          <strong>Seguridad Social</strong><br>
+          Para todos los ciudadanos<br>
+          <span class="san-key">SEGURIDAD SOCIAL</span>
+        </div>
+      </div>
+      <div class="san-row">
+        <div class="san-num" style="color:var(--red);font-size:1.6rem">43</div>
+        <div class="san-body">
+          <strong style="color:var(--red)">Derecho a la protección de la SALUD ★</strong><br>
+          Poderes públicos organizarán y tutelarán la salud pública mediante medidas preventivas y prestaciones<br>
+          <span class="san-key" style="background:var(--red-dim);border-color:var(--red);color:var(--red)">ART. ESTRELLA INGESA</span>
+        </div>
+      </div>
+
+      <div class="memo-box" style="background:var(--green-dim);border-color:var(--green);">
+        <div class="memo-label" style="color:var(--green)">🧠 39 · 41 · 43</div>
+        <div class="memo-text">
+          <span style="color:var(--green)">39</span> → Familia &nbsp; <span style="color:var(--green)">41</span> → SS &nbsp; <span style="color:var(--green)">43</span> → Salud<br>
+          <span style="font-size:0.7rem;color:var(--muted)">"Familia — Seguridad — Salud" (orden numérico)</span><br>
+          <span style="font-size:0.7rem;color:var(--muted)">Art. 43 CE + Ley 14/1986 General de Sanidad</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid-3 -->
+
+<!-- PREGUNTAS TIPO TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0;">
+<div class="card test-card full">
+  <div class="card-head">
+    <span class="card-icon">🎯</span>
+    <span class="card-title">Preguntas tipo test más frecuentes — INGESA</span>
+  </div>
+  <div class="card-body">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 1.5rem;">
+      <div class="q-block">
+        <div class="q-text">La Constitución reconoce el derecho a la protección de la salud en el artículo…</div>
+        <div class="q-answer">Artículo <strong style="font-size:1.1rem">43</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">España se constituye en un Estado…</div>
+        <div class="q-answer"><strong>Social y democrático de Derecho</strong> (art. 1)</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">La familia y los menores se protegen en el artículo…</div>
+        <div class="q-answer">Artículo <strong style="font-size:1.1rem">39</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">La Seguridad Social se recoge en el artículo…</div>
+        <div class="q-answer">Artículo <strong style="font-size:1.1rem">41</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Los derechos fundamentales con recurso de amparo se garantizan en…</div>
+        <div class="q-answer">Art. <strong>53.2</strong> — Secc. 1.ª Cap. II (arts. 15–29)</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Los valores superiores del ordenamiento son…</div>
+        <div class="q-answer"><strong>Libertad · Justicia · Igualdad · Pluralismo político</strong></div>
+        <div class="q-note">Art. 1 CE — los 4 valores, en este orden</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Los principios rectores (art. 39–52) son directamente exigibles?</div>
+        <div class="q-answer"><strong>NO</strong> — necesitan desarrollo mediante ley</div>
+        <div class="q-note">Art. 53.3 CE — solo informan la legislación</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Cuántos artículos tiene la Constitución?</div>
+        <div class="q-answer"><strong>169 artículos</strong></div>
+        <div class="q-note">+ 4 adicionales, 9 transitorias, 1 derogatoria, 1 final</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

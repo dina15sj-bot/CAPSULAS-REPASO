@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ataxia: Tipos y Características</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .intro-box {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .intro-box h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+        
+        .intro-box p {
+            color: #34495e;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        
+        .types-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .type-btn {
+            padding: 15px 35px;
+            border: none;
+            background: white;
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 3px solid #e0e0e0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .type-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .type-btn.cerebelosa {
+            border-color: #e74c3c;
+        }
+        
+        .type-btn.cerebelosa.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border-color: #e74c3c;
+        }
+        
+        .type-btn.sensitiva {
+            border-color: #f39c12;
+        }
+        
+        .type-btn.sensitiva.active {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            border-color: #f39c12;
+        }
+        
+        .type-btn.vestibular {
+            border-color: #9b59b6;
+        }
+        
+        .type-btn.vestibular.active {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            border-color: #9b59b6;
+        }
+        
+        .type-btn.comparacion {
+            border-color: #16a085;
+        }
+        
+        .type-btn.comparacion.active {
+            background: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);
+            color: white;
+            border-color: #16a085;
+        }
+        
+        .ataxia-content {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .ataxia-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .ataxia-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-card.cerebelosa {
+            border-color: #e74c3c;
+        }
+        
+        .info-card.sensitiva {
+            border-color: #f39c12;
+        }
+        
+        .info-card.vestibular {
+            border-color: #9b59b6;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .info-card li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .info-card.cerebelosa li:before {
+            color: #e74c3c;
+        }
+        
+        .info-card.sensitiva li:before {
+            color: #f39c12;
+        }
+        
+        .info-card.vestibular li:before {
+            color: #9b59b6;
+        }
+        
+        .diagram-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            margin-top: 30px;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .anatomical-diagram {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: #e8f4f8;
+            transition: background 0.3s ease;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+        }
+        
+        .highlight-box h4 {
+            color: #e67e22;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        
+        .key-feature {
+            display: inline-block;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .cerebelosa-feature {
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+        
+        .sensitiva-feature {
+            color: #f39c12;
+            border: 2px solid #f39c12;
+        }
+        
+        .vestibular-feature {
+            color: #9b59b6;
+            border: 2px solid #9b59b6;
+        }
+        
+        .icon-large {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+            text-align: center;
+        }
+        
+        @media (max-width: 968px) {
+            .ataxia-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 ATAXIA: TIPOS Y CARACTERÍSTICAS</h1>
+            <p>Guía Comparativa Neurológica Interactiva</p>
+        </div>
+        
+        <div class="content">
+            <div class="intro-box">
+                <h2>📌 ¿Qué es la Ataxia?</h2>
+                <p>
+                    La <strong>ataxia</strong> es un trastorno de la coordinación que afecta el control motor fino, 
+                    la marcha y el equilibrio. Se clasifica según la estructura neurológica afectada en tres tipos principales: 
+                    <strong>cerebelosa</strong>, <strong>sensitiva</strong> y <strong>vestibular</strong>. Cada tipo presenta 
+                    características clínicas distintivas que permiten su diferenciación.
+                </p>
+            </div>
+            
+            <div class="types-selector">
+                <button class="type-btn cerebelosa active" onclick="showType('cerebelosa')">
+                    🎯 Ataxia Cerebelosa
+                </button>
+                <button class="type-btn sensitiva" onclick="showType('sensitiva')">
+                    📡 Ataxia Sensitiva
+                </button>
+                <button class="type-btn vestibular" onclick="showType('vestibular')">
+                    🌀 Ataxia Vestibular
+                </button>
+                <button class="type-btn comparacion" onclick="showType('comparacion')">
+                    📊 Comparación
+                </button>
+            </div>
+            
+            <!-- ATAXIA CEREBELOSA -->
+            <div id="cerebelosa" class="ataxia-content active">
+                <div class="ataxia-grid">
+                    <div class="info-card cerebelosa">
+                        <h3>🎯 Estructura Afectada</h3>
+                        <ul>
+                            <li><strong>Cerebelo</strong> y sus conexiones</li>
+                            <li>Hemisferios cerebelosos</li>
+                            <li>Vermis cerebeloso</li>
+                            <li>Pedúnculos cerebelosos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card cerebelosa">
+                        <h3>🔍 Causas Típicas</h3>
+                        <ul>
+                            <li><strong>Vasculares:</strong> Ictus cerebeloso</li>
+                            <li><strong>Neoplásicas:</strong> Tumores de fosa posterior</li>
+                            <li><strong>Desmielinizantes:</strong> Esclerosis múltiple</li>
+                            <li><strong>Tóxicas:</strong> Alcoholismo crónico</li>
+                            <li><strong>Farmacológicas:</strong> Antiepilépticos, sedantes</li>
+                            <li><strong>Hereditarias:</strong> Ataxias genéticas (Friedreich, SCA)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4>🎨 Características Clínicas Distintivas</h4>
+                    <div style="margin-top: 15px;">
+                        <span class="key-feature cerebelosa-feature">Marcha de base amplia</span>
+                        <span class="key-feature cerebelosa-feature">Dismetría</span>
+                        <span class="key-feature cerebelosa-feature">Disdiadococinesia</span>
+                        <span class="key-feature cerebelosa-feature">Temblor de intención</span>
+                        <span class="key-feature cerebelosa-feature">Nistagmo</span>
+                        <span class="key-feature cerebelosa-feature">Habla escandida</span>
+                    </div>
+                </div>
+                
+                <div class="info-card cerebelosa">
+                    <h3>⚕️ Exploración Neurológica</h3>
+                    <ul>
+                        <li><strong>Prueba dedo-nariz:</strong> Movimiento oscilante (dismetría)</li>
+                        <li><strong>Prueba talón-rodilla:</strong> Trayectoria irregular</li>
+                        <li><strong>Movimientos alternantes rápidos:</strong> Disdiadococinesia (incapacidad para realizar movimientos rápidos alternantes)</li>
+                        <li><strong>Marcha:</strong> Base ampliada, pasos irregulares, inestabilidad</li>
+                        <li><strong>Romberg:</strong> Negativo (no empeora al cerrar ojos)</li>
+                        <li><strong>Nistagmo:</strong> Presente, puede ser multidireccional</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">Anatomía del Cerebelo</div>
+                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="anatomical-diagram">
+                        <!-- Cerebelo -->
+                        <ellipse cx="300" cy="200" rx="180" ry="120" fill="#ffcccc" stroke="#e74c3c" stroke-width="3" opacity="0.7"/>
+                        
+                        <!-- Hemisferios -->
+                        <ellipse cx="220" cy="200" rx="100" ry="100" fill="#ff9999" stroke="#c0392b" stroke-width="2" opacity="0.6"/>
+                        <ellipse cx="380" cy="200" rx="100" ry="100" fill="#ff9999" stroke="#c0392b" stroke-width="2" opacity="0.6"/>
+                        
+                        <!-- Vermis -->
+                        <rect x="280" y="120" width="40" height="160" rx="10" fill="#ff6666" stroke="#a93226" stroke-width="2" opacity="0.7"/>
+                        
+                        <!-- Pedúnculos -->
+                        <line x1="300" y1="80" x2="300" y2="40" stroke="#e74c3c" stroke-width="8" stroke-linecap="round"/>
+                        <circle cx="300" cy="40" r="8" fill="#e74c3c"/>
+                        
+                        <!-- Etiquetas -->
+                        <text x="220" y="210" text-anchor="middle" fill="#c0392b" font-weight="bold" font-size="16">Hemisferio</text>
+                        <text x="220" y="230" text-anchor="middle" fill="#c0392b" font-weight="bold" font-size="16">izquierdo</text>
+                        
+                        <text x="380" y="210" text-anchor="middle" fill="#c0392b" font-weight="bold" font-size="16">Hemisferio</text>
+                        <text x="380" y="230" text-anchor="middle" fill="#c0392b" font-weight="bold" font-size="16">derecho</text>
+                        
+                        <text x="300" y="200" text-anchor="middle" fill="#a93226" font-weight="bold" font-size="14">VERMIS</text>
+                        
+                        <text x="320" y="30" fill="#c0392b" font-weight="bold" font-size="14">Pedúnculos</text>
+                        <text x="320" y="50" fill="#c0392b" font-weight="bold" font-size="14">cerebelosos</text>
+                        
+                        <!-- Flechas indicadoras -->
+                        <path d="M 150 180 Q 100 180 100 200" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrowRed)"/>
+                        <text x="50" y="200" fill="#c0392b" font-size="13">Coordinación</text>
+                        <text x="50" y="215" fill="#c0392b" font-size="13">movimientos</text>
+                        
+                        <defs>
+                            <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#e74c3c"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- ATAXIA SENSITIVA -->
+            <div id="sensitiva" class="ataxia-content">
+                <div class="ataxia-grid">
+                    <div class="info-card sensitiva">
+                        <h3>📡 Estructura Afectada</h3>
+                        <ul>
+                            <li><strong>Cordones posteriores</strong> de la médula espinal</li>
+                            <li>Raíces posteriores</li>
+                            <li>Nervios periféricos (fibras sensitivas)</li>
+                            <li>Vías de propiocepción consciente</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card sensitiva">
+                        <h3>🔍 Causas Típicas</h3>
+                        <ul>
+                            <li><strong>Déficit vitamínico:</strong> Mielopatía por déficit de vitamina B12</li>
+                            <li><strong>Infecciosas:</strong> Tabes dorsal (neurosífilis)</li>
+                            <li><strong>Desmielinizantes:</strong> Esclerosis múltiple</li>
+                            <li><strong>Neuropatías:</strong> Polineuropatías periféricas graves</li>
+                            <li><strong>Metabólicas:</strong> Diabetes mellitus avanzada</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4>🎨 Características Clínicas Distintivas</h4>
+                    <div style="margin-top: 15px;">
+                        <span class="key-feature sensitiva-feature">Romberg POSITIVO</span>
+                        <span class="key-feature sensitiva-feature">Pérdida vibratoria</span>
+                        <span class="key-feature sensitiva-feature">Pérdida propioceptiva</span>
+                        <span class="key-feature sensitiva-feature">Empeora con ojos cerrados</span>
+                        <span class="key-feature sensitiva-feature">Marcha taloneante</span>
+                    </div>
+                </div>
+                
+                <div class="info-card sensitiva">
+                    <h3>⚕️ Exploración Neurológica</h3>
+                    <ul>
+                        <li><strong>Romberg:</strong> POSITIVO (aumenta inestabilidad al cerrar ojos)</li>
+                        <li><strong>Sensibilidad vibratoria:</strong> Disminuida o abolida (diapasón)</li>
+                        <li><strong>Propiocepción:</strong> Dificultad para identificar posición de dedos</li>
+                        <li><strong>Marcha:</strong> Taloneante, observando constantemente el suelo</li>
+                        <li><strong>Signo de Lhermitte:</strong> Puede estar presente en lesión de cordones posteriores</li>
+                        <li><strong>Control visual:</strong> El paciente NECESITA mirar sus pies al caminar</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">Cordones Posteriores - Médula Espinal</div>
+                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="anatomical-diagram">
+                        <!-- Corte transversal médula -->
+                        <ellipse cx="300" cy="200" rx="100" ry="120" fill="#ffe6cc" stroke="#f39c12" stroke-width="3"/>
+                        
+                        <!-- Sustancia gris (mariposa) -->
+                        <path d="M 280 200 Q 260 180 250 160 Q 260 140 280 120 L 320 120 Q 340 140 350 160 Q 340 180 320 200 Z M 280 200 Q 260 220 250 240 Q 260 260 280 280 L 320 280 Q 340 260 350 240 Q 340 220 320 200 Z" fill="#d4d4d4" stroke="#888" stroke-width="2"/>
+                        
+                        <!-- Cordones posteriores (RESALTADOS) -->
+                        <path d="M 280 100 Q 300 80 320 100 L 320 120 L 280 120 Z" fill="#f39c12" stroke="#e67e22" stroke-width="3" opacity="0.8"/>
+                        
+                        <!-- Indicador cordones posteriores -->
+                        <rect x="260" y="70" width="80" height="35" rx="8" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+                        <text x="300" y="92" text-anchor="middle" fill="#e67e22" font-weight="bold" font-size="14">Cordones</text>
+                        <text x="300" y="107" text-anchor="middle" fill="#e67e22" font-weight="bold" font-size="14">Posteriores</text>
+                        
+                        <!-- Raíz posterior -->
+                        <line x1="350" y1="160" x2="420" y2="120" stroke="#f39c12" stroke-width="6"/>
+                        <circle cx="420" cy="120" r="12" fill="#f39c12"/>
+                        <text x="430" y="115" fill="#e67e22" font-weight="bold" font-size="13">Raíz</text>
+                        <text x="430" y="130" fill="#e67e22" font-weight="bold" font-size="13">posterior</text>
+                        
+                        <!-- Receptor periférico -->
+                        <line x1="420" y1="120" x2="500" y2="80" stroke="#f39c12" stroke-width="4" stroke-dasharray="5,5"/>
+                        <circle cx="500" cy="80" r="15" fill="#ffe6cc" stroke="#f39c12" stroke-width="3"/>
+                        <text x="500" y="85" text-anchor="middle" fill="#e67e22" font-weight="bold" font-size="16">👆</text>
+                        <text x="520" y="75" fill="#e67e22" font-size="12">Receptor</text>
+                        <text x="520" y="90" fill="#e67e22" font-size="12">propiocepción</text>
+                        
+                        <!-- Flecha ascendente -->
+                        <path d="M 300 100 L 300 30" stroke="#f39c12" stroke-width="5" marker-end="url(#arrowOrange)"/>
+                        <text x="310" y="60" fill="#e67e22" font-weight="bold">Hacia cerebro</text>
+                        
+                        <!-- Funciones -->
+                        <rect x="80" y="160" width="150" height="80" rx="10" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+                        <text x="155" y="180" text-anchor="middle" fill="#e67e22" font-weight="bold" font-size="14">Funciones:</text>
+                        <text x="155" y="200" text-anchor="middle" fill="#d68910" font-size="12">• Propiocepción</text>
+                        <text x="155" y="218" text-anchor="middle" fill="#d68910" font-size="12">• Vibración</text>
+                        <text x="155" y="236" text-anchor="middle" fill="#d68910" font-size="12">• Tacto fino</text>
+                        
+                        <defs>
+                            <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#f39c12"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- ATAXIA VESTIBULAR -->
+            <div id="vestibular" class="ataxia-content">
+                <div class="ataxia-grid">
+                    <div class="info-card vestibular">
+                        <h3>🌀 Estructura Afectada</h3>
+                        <ul>
+                            <li><strong>Aparato vestibular</strong> (laberinto)</li>
+                            <li>Nervio vestibulococlear (VIII par craneal)</li>
+                            <li>Núcleos vestibulares del tronco cerebral</li>
+                            <li>Canales semicirculares</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-card vestibular">
+                        <h3>🔍 Causas Típicas</h3>
+                        <ul>
+                            <li><strong>Inflamatorias:</strong> Neuronitis vestibular, laberintitis</li>
+                            <li><strong>Vascular:</strong> Ictus de tronco cerebral</li>
+                            <li><strong>Degenerativas:</strong> Enfermedad de Ménière</li>
+                            <li><strong>Neoplásicas:</strong> Tumores del ángulo pontocerebeloso (neurinoma del acústico)</li>
+                            <li><strong>Posicionales:</strong> Vértigo posicional paroxístico benigno (VPPB)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4>🎨 Características Clínicas Distintivas</h4>
+                    <div style="margin-top: 15px;">
+                        <span class="key-feature vestibular-feature">Vértigo intenso</span>
+                        <span class="key-feature vestibular-feature">Nistagmo rotatorio</span>
+                        <span class="key-feature vestibular-feature">Náuseas y vómitos</span>
+                        <span class="key-feature vestibular-feature">Empeora con movimientos de cabeza</span>
+                        <span class="key-feature vestibular-feature">Lateropulsión</span>
+                        <span class="key-feature vestibular-feature">Acúfenos (si afecta cóclea)</span>
+                    </div>
+                </div>
+                
+                <div class="info-card vestibular">
+                    <h3>⚕️ Exploración Neurológica</h3>
+                    <ul>
+                        <li><strong>Nistagmo:</strong> Horizontal-rotatorio, dirección fija</li>
+                        <li><strong>Test de Dix-Hallpike:</strong> Reproduce vértigo y nistagmo (en VPPB)</li>
+                        <li><strong>Marcha:</strong> Tendencia a caer hacia el lado lesionado</li>
+                        <li><strong>Prueba de Unterberger:</strong> Rotación hacia lado afecto al marchar en el sitio con ojos cerrados</li>
+                        <li><strong>Test de impulso cefálico (HIT):</strong> Alterado en lesión vestibular periférica</li>
+                        <li><strong>Síntomas vegetativos:</strong> Náuseas, vómitos, sudoración</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">Aparato Vestibular y VIII Par Craneal</div>
+                    <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="anatomical-diagram">
+                        <!-- Laberinto -->
+                        <ellipse cx="450" cy="200" rx="80" ry="100" fill="#e8d5f2" stroke="#9b59b6" stroke-width="3" opacity="0.6"/>
+                        
+                        <!-- Canales semicirculares -->
+                        <circle cx="430" cy="140" r="30" fill="none" stroke="#9b59b6" stroke-width="4"/>
+                        <circle cx="490" cy="170" r="25" fill="none" stroke="#9b59b6" stroke-width="4"/>
+                        <circle cx="460" cy="240" r="28" fill="none" stroke="#9b59b6" stroke-width="4"/>
+                        
+                        <!-- Utrículo y sáculo -->
+                        <ellipse cx="445" cy="195" rx="20" ry="25" fill="#c39bd3" stroke="#8e44ad" stroke-width="2"/>
+                        
+                        <!-- Cóclea -->
+                        <path d="M 400 220 Q 390 230 400 240 Q 410 230 400 220 M 395 225 Q 385 235 395 245 Q 405 235 395 225" fill="none" stroke="#9b59b6" stroke-width="3"/>
+                        
+                        <!-- VIII Par craneal -->
+                        <line x1="420" y1="200" x2="300" y2="200" stroke="#9b59b6" stroke-width="8"/>
+                        
+                        <!-- Núcleos vestibulares (tronco) -->
+                        <rect x="150" y="170" width="100" height="60" rx="10" fill="#d5c6e8" stroke="#8e44ad" stroke-width="3"/>
+                        <text x="200" y="200" text-anchor="middle" fill="#8e44ad" font-weight="bold" font-size="14">Núcleos</text>
+                        <text x="200" y="218" text-anchor="middle" fill="#8e44ad" font-weight="bold" font-size="14">Vestibulares</text>
+                        
+                        <!-- Conexión a núcleos -->
+                        <line x1="300" y1="200" x2="250" y2="200" stroke="#9b59b6" stroke-width="6" marker-end="url(#arrowPurple)"/>
+                        
+                        <!-- Etiquetas -->
+                        <text x="450" y="120" text-anchor="middle" fill="#8e44ad" font-weight="bold" font-size="15">Canales</text>
+                        <text x="450" y="105" text-anchor="middle" fill="#8e44ad" font-weight="bold" font-size="15">semicirculares</text>
+                        
+                        <text x="350" y="195" text-anchor="middle" fill="#8e44ad" font-weight="bold" font-size="14">VIII Par</text>
+                        <text x="350" y="210" text-anchor="middle" fill="#8e44ad" font-size="12">(vestibulococlear)</text>
+                        
+                        <!-- Funciones -->
+                        <rect x="150" y="260" width="100" height="100" rx="10" fill="#f4ecf7" stroke="#9b59b6" stroke-width="2"/>
+                        <text x="200" y="280" text-anchor="middle" fill="#8e44ad" font-weight="bold" font-size="13">Funciones:</text>
+                        <text x="200" y="300" text-anchor="middle" fill="#7d3c98" font-size="11">• Equilibrio</text>
+                        <text x="200" y="318" text-anchor="middle" fill="#7d3c98" font-size="11">• Orientación</text>
+                        <text x="200" y="336" text-anchor="middle" fill="#7d3c98" font-size="11">  espacial</text>
+                        <text x="200" y="354" text-anchor="middle" fill="#7d3c98" font-size="11">• Coordinación</text>
+                        
+                        <!-- Señal de vértigo -->
+                        <g transform="translate(480, 300)">
+                            <circle cx="0" cy="0" r="35" fill="#ffeaa7" stroke="#fdcb6e" stroke-width="3"/>
+                            <text x="0" y="8" text-anchor="middle" font-size="35">🌀</text>
+                            <text x="0" y="-45" text-anchor="middle" fill="#d68910" font-weight="bold" font-size="12">Vértigo</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#9b59b6"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- COMPARACIÓN -->
+            <div id="comparacion" class="ataxia-content">
+                <h2 style="color: #2c3e50; margin-bottom: 25px; font-size: 2em; text-align: center;">📊 Tabla Comparativa de Ataxias</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">Cerebelosa</th>
+                            <th style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);">Sensitiva</th>
+                            <th style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">Vestibular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Estructura afectada</strong></td>
+                            <td>Cerebelo y conexiones</td>
+                            <td>Cordones posteriores, raíces, nervios periféricos</td>
+                            <td>Aparato vestibular, VIII par, núcleos vestibulares</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Signo de Romberg</strong></td>
+                            <td>❌ Negativo (no empeora con ojos cerrados)</td>
+                            <td>✅ <strong>POSITIVO</strong> (empeora con ojos cerrados)</td>
+                            <td>❌ Negativo o levemente positivo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Control visual</strong></td>
+                            <td>No mejora con visión</td>
+                            <td>✅ <strong>MEJORA con visión</strong> (necesita mirar el suelo)</td>
+                            <td>No mejora significativamente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vértigo</strong></td>
+                            <td>❌ Ausente</td>
+                            <td>❌ Ausente</td>
+                            <td>✅ <strong>PRESENTE e intenso</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nistagmo</strong></td>
+                            <td>✅ Presente (multidireccional)</td>
+                            <td>❌ Ausente</td>
+                            <td>✅ Presente (horizontal-rotatorio)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dismetría</strong></td>
+                            <td>✅ <strong>PRESENTE</strong> (dedo-nariz, talón-rodilla)</td>
+                            <td>Puede estar presente</td>
+                            <td>❌ Ausente o mínima</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disdiadococinesia</strong></td>
+                            <td>✅ <strong>PRESENTE</strong></td>
+                            <td>❌ Ausente</td>
+                            <td>❌ Ausente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tipo de marcha</strong></td>
+                            <td>Base amplia, pasos irregulares</td>
+                            <td>Taloneante, observando el suelo constantemente</td>
+                            <td>Lateropulsión (tendencia a caer hacia un lado)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sensibilidad vibratoria</strong></td>
+                            <td>✅ Normal</td>
+                            <td>❌ <strong>ALTERADA</strong></td>
+                            <td>✅ Normal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Propiocepción</strong></td>
+                            <td>✅ Normal</td>
+                            <td>❌ <strong>ALTERADA</strong></td>
+                            <td>✅ Normal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Síntomas vegetativos</strong></td>
+                            <td>❌ Ausentes</td>
+                            <td>❌ Ausentes</td>
+                            <td>✅ <strong>Náuseas, vómitos</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temblor de intención</strong></td>
+                            <td>✅ <strong>PRESENTE</strong></td>
+                            <td>❌ Ausente</td>
+                            <td>❌ Ausente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relación con movimiento de cabeza</strong></td>
+                            <td>Sin relación</td>
+                            <td>Sin relación</td>
+                            <td>✅ <strong>EMPEORA con movimientos</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Causas más comunes</strong></td>
+                            <td>Ictus, tumores, EM, alcohol, fármacos</td>
+                            <td>Déficit B12, tabes dorsal, neuropatías</td>
+                            <td>Neuronitis, laberintitis, Ménière, neurinoma</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h4>💡 Claves Diagnósticas Rápidas</h4>
+                    <div style="margin-top: 15px; line-height: 2;">
+                        <p><strong>🎯 Si hay DISMETRÍA + DISDIADOCOCINESIA + TEMBLOR DE INTENCIÓN</strong> → Cerebelosa</p>
+                        <p><strong>📡 Si EMPEORA AL CERRAR OJOS (Romberg +) + PÉRDIDA VIBRATORIA</strong> → Sensitiva</p>
+                        <p><strong>🌀 Si hay VÉRTIGO + NÁUSEAS + EMPEORA CON MOVIMIENTOS DE CABEZA</strong> → Vestibular</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showType(type) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.ataxia-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Desactivar todos los botones
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(type).classList.add('active');
+            
+            // Activar el botón correspondiente
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

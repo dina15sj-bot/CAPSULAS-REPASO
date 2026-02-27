@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividad Física OMS — INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f7f4;
+  --surface: #ffffff;
+  --border: #c8ddd6;
+  --text: #1a2a22;
+  --muted: #6a8a7a;
+  --kids: #e67e22;
+  --kids-dim: #e67e2215;
+  --adult: #2980b9;
+  --adult-dim: #2980b915;
+  --mayor: #8e44ad;
+  --mayor-dim: #8e44ad15;
+  --gesta: #c0392b;
+  --gesta-dim: #c0392b15;
+  --oms: #1a6a4a;
+  --oms-dim: #1a6a4a15;
+  --gold: #c49a2a;
+  --gold-dim: #c49a2a18;
+  --navy: #0d2137;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* HEADER */
+header { text-align:center; margin-bottom:2.5rem; }
+.oms-badge {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:var(--oms); color:white;
+  font-family:'JetBrains Mono',monospace; font-size:0.68rem;
+  letter-spacing:0.12em; padding:0.35rem 1.1rem; border-radius:20px;
+  margin-bottom:1rem; text-transform:uppercase;
+}
+h1 {
+  font-family:'Syne',sans-serif; font-weight:800;
+  font-size:clamp(1.8rem,5vw,3rem); color:var(--navy);
+  line-height:1.1;
+}
+.subtitle { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.15em; text-transform:uppercase; margin-top:0.5rem; }
+
+/* AGE RIBBON */
+.age-ribbon {
+  display:flex; max-width:1100px; margin:0 auto 2rem;
+  border-radius:10px; overflow:hidden;
+  border:1px solid var(--border); box-shadow:0 2px 10px rgba(0,0,0,0.07);
+}
+.ar-seg {
+  flex:1; padding:1rem 0.8rem; text-align:center; cursor:default;
+  transition:filter 0.2s;
+}
+.ar-seg:hover { filter:brightness(0.95); }
+.ar-age {
+  font-family:'Syne',sans-serif; font-weight:800;
+  font-size:1.1rem; line-height:1.2; margin-bottom:0.3rem;
+}
+.ar-label { font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; }
+.ar-memo { font-family:'JetBrains Mono',monospace; font-size:0.62rem; margin-top:0.3rem; opacity:0.8; }
+.seg-kids { background:var(--kids); color:white; }
+.seg-adult { background:var(--adult); color:white; }
+.seg-mayor { background:var(--mayor); color:white; }
+.seg-gesta { background:var(--gesta); color:white; }
+
+/* GRID */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; max-width:1100px; margin:0 auto; }
+.grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; max-width:1100px; margin:1.2rem auto 0; }
+.full { grid-column:1/-1; }
+@media(max-width:850px){
+  .grid2,.grid4 { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:550px){
+  .grid2,.grid4 { grid-template-columns:1fr; }
+  .full { grid-column:1; }
+  .age-ribbon { flex-direction:column; }
+}
+
+/* CARD */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+.card-head { padding:0.75rem 1.1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; }
+.card-icon { font-size:1.1rem; flex-shrink:0; }
+.card-title { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; flex:1; }
+.card-body { padding:1rem 1.1rem; }
+
+/* GROUP CARDS */
+.group-card { border-top:4px solid; }
+.kids-card { border-color:var(--kids); }
+.kids-card .card-head { background:var(--kids-dim); }
+.kids-card .card-title { color:var(--kids); }
+.adult-card { border-color:var(--adult); }
+.adult-card .card-head { background:var(--adult-dim); }
+.adult-card .card-title { color:var(--adult); }
+.mayor-card { border-color:var(--mayor); }
+.mayor-card .card-head { background:var(--mayor-dim); }
+.mayor-card .card-title { color:var(--mayor); }
+.gesta-card { border-color:var(--gesta); }
+.gesta-card .card-head { background:var(--gesta-dim); }
+.gesta-card .card-title { color:var(--gesta); }
+
+/* CIFRA GRANDE */
+.big-num {
+  font-family:'Syne',sans-serif; font-weight:800;
+  line-height:1;
+}
+
+/* SPEC ROWS */
+.spec-row {
+  display:flex; align-items:flex-start; gap:0.7rem;
+  padding:0.55rem 0; border-bottom:1px solid var(--border);
+  font-size:0.8rem;
+}
+.spec-row:last-child { border-bottom:none; }
+.spec-icon { font-size:1rem; flex-shrink:0; margin-top:0.1rem; }
+.spec-content { line-height:1.5; }
+.spec-content strong { display:block; font-size:0.82rem; margin-bottom:0.1rem; }
+.spec-num {
+  font-family:'JetBrains Mono',monospace; font-weight:600;
+  font-size:0.95rem; padding:0.1rem 0.35rem; border-radius:3px;
+  display:inline-block; margin-right:0.3rem;
+}
+.num-kids { background:var(--kids-dim); color:var(--kids); border:1px solid var(--kids); }
+.num-adult { background:var(--adult-dim); color:var(--adult); border:1px solid var(--adult); }
+.num-mayor { background:var(--mayor-dim); color:var(--mayor); border:1px solid var(--mayor); }
+.num-gesta { background:var(--gesta-dim); color:var(--gesta); border:1px solid var(--gesta); }
+
+/* MEMO BOX */
+.memo-box {
+  border-radius:6px; padding:0.55rem 0.8rem; margin-top:0.8rem;
+  border:1px solid var(--gold); background:var(--gold-dim);
+}
+.memo-label { font-family:'JetBrains Mono',monospace; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--gold); margin-bottom:0.25rem; }
+.memo-text { color:var(--text); font-weight:700; font-size:0.82rem; line-height:1.5; }
+
+/* COMPARATIVA TABLE */
+.comp-table { width:100%; border-collapse:collapse; font-size:0.78rem; }
+.comp-table th {
+  padding:0.55rem 0.7rem; text-align:left;
+  font-family:'JetBrains Mono',monospace; font-size:0.62rem;
+  text-transform:uppercase; letter-spacing:0.1em;
+  background:var(--navy); color:white;
+}
+.comp-table th:first-child { border-radius:5px 0 0 0; }
+.comp-table th:last-child { border-radius:0 5px 0 0; }
+.comp-table td { padding:0.55rem 0.7rem; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.5; }
+.comp-table tr:last-child td { border-bottom:none; }
+.comp-table tr:hover td { background:#f5faf7; }
+.td-grupo { font-weight:700; font-size:0.82rem; white-space:nowrap; }
+.comp-table .kids-row td:first-child { border-left:3px solid var(--kids); }
+.comp-table .adult-row td:first-child { border-left:3px solid var(--adult); }
+.comp-table .mayor-row td:first-child { border-left:3px solid var(--mayor); }
+.comp-table .gesta-row td:first-child { border-left:3px solid var(--gesta); }
+.td-kids { color:var(--kids); }
+.td-adult { color:var(--adult); }
+.td-mayor { color:var(--mayor); }
+.td-gesta { color:var(--gesta); }
+.tag {
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:0.6rem;
+  padding:0.1rem 0.4rem; border-radius:2px; font-weight:600; margin-right:0.2rem;
+}
+.tag-mod { background:#e3f2fd; color:#1565c0; border:1px solid #90caf9; }
+.tag-vig { background:#fce4ec; color:#b71c1c; border:1px solid #f48fb1; }
+.tag-fue { background:#e8f5e9; color:#1b5e20; border:1px solid #a5d6a7; }
+.tag-equ { background:#f3e5f5; color:#4a148c; border:1px solid #ce93d8; }
+
+/* TEST */
+.test-card .card-head { background:var(--oms-dim); border-bottom:2px solid var(--oms); }
+.test-card .card-title { color:var(--oms); }
+.q-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 1.5rem; }
+.q-block { padding:0.6rem 0; border-bottom:1px dashed var(--border); font-size:0.79rem; }
+.q-block:last-child { border-bottom:none; }
+.q-text { color:var(--muted); margin-bottom:0.25rem; line-height:1.4; }
+.q-text::before { content:'❓ '; }
+.q-answer { font-weight:700; color:var(--oms); display:flex; align-items:flex-start; gap:0.4rem; }
+.q-answer::before { content:'→'; color:var(--gold); font-weight:900; flex-shrink:0; }
+.q-note { font-size:0.68rem; color:var(--muted); margin-top:0.1rem; font-style:italic; }
+
+/* MENSAJE OMS */
+.msg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.7rem; }
+.msg-item { background:var(--oms-dim); border:1px solid var(--oms); border-radius:7px; padding:0.7rem 0.8rem; }
+.msg-icon { font-size:1.4rem; margin-bottom:0.3rem; }
+.msg-title { font-weight:700; font-size:0.8rem; color:var(--oms); margin-bottom:0.2rem; }
+.msg-desc { font-size:0.72rem; color:var(--muted); line-height:1.4; }
+@media(max-width:600px){ .msg-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="oms-badge">🌍 OMS · Guías de Actividad Física 2020</div>
+  <h1>Actividad Física por Grupos de Edad</h1>
+  <p class="subtitle">Recomendaciones OMS · INGESA Enfermería</p>
+</header>
+
+<!-- RIBBON EDADES -->
+<div class="age-ribbon">
+  <div class="ar-seg seg-kids">
+    <div class="ar-age">5–17</div>
+    <div class="ar-label">👦 Niños y Adolescentes</div>
+    <div class="ar-memo">CO-LE · "60-A-3"</div>
+  </div>
+  <div class="ar-seg seg-adult">
+    <div class="ar-age">18–64</div>
+    <div class="ar-label">🧑 Adultos</div>
+    <div class="ar-memo">ADUL · "150-300 / 2F"</div>
+  </div>
+  <div class="ar-seg seg-mayor">
+    <div class="ar-age">≥65</div>
+    <div class="ar-label">👴 Adultos Mayores</div>
+    <div class="ar-memo">MAYOR · "A + 3E"</div>
+  </div>
+  <div class="ar-seg seg-gesta">
+    <div class="ar-age">🤰</div>
+    <div class="ar-label">Embarazo / Posparto</div>
+    <div class="ar-memo">G15 · "Gestante 150"</div>
+  </div>
+</div>
+
+<!-- CARDS GRUPOS -->
+<div class="grid2">
+
+  <!-- NIÑOS -->
+  <div class="card group-card kids-card">
+    <div class="card-head">
+      <span class="card-icon">🏃</span>
+      <span class="card-title">Niños y Adolescentes · 5–17 años</span>
+    </div>
+    <div class="card-body">
+      <div class="spec-row">
+        <span class="spec-icon">⏱️</span>
+        <div class="spec-content">
+          <strong>Cantidad diaria mínima</strong>
+          <span class="spec-num num-kids">60 min</span> de actividad moderada a vigorosa <strong>cada día</strong>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🫀</span>
+        <div class="spec-content">
+          <strong>Tipo principal</strong>
+          <span class="tag tag-mod">Aeróbica</span> la mayor parte del tiempo
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">💪</span>
+        <div class="spec-content">
+          <strong>Fuerza ósea y muscular</strong>
+          Al menos <span class="spec-num num-kids">3 días/sem</span> — actividad vigorosa + refuerzo muscular y óseo
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">📱</span>
+        <div class="spec-content">
+          <strong>Sedentarismo / pantallas</strong>
+          Limitar. Cuanto menos, mejor. <span style="font-size:0.72rem;color:var(--muted)">(sin cifra exacta)</span>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 60 · A · 3</div>
+        <div class="memo-text">
+          <span style="color:var(--kids)">60</span> min/día ·
+          <span style="color:var(--kids)">A</span>eróbico ·
+          <span style="color:var(--kids)">3</span> días/sem fuerza ósea y muscular
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADULTOS -->
+  <div class="card group-card adult-card">
+    <div class="card-head">
+      <span class="card-icon">🚴</span>
+      <span class="card-title">Adultos · 18–64 años</span>
+    </div>
+    <div class="card-body">
+      <div class="spec-row">
+        <span class="spec-icon">🟢</span>
+        <div class="spec-content">
+          <strong>Aeróbica moderada / semana</strong>
+          <span class="spec-num num-adult">150–300</span> min <span class="tag tag-mod">moderada</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🔴</span>
+        <div class="spec-content">
+          <strong>Aeróbica vigorosa / semana</strong>
+          <span class="spec-num num-adult">75–150</span> min <span class="tag tag-vig">vigorosa</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">↔️</span>
+        <div class="spec-content">
+          <strong>Combinación equivalente</strong>
+          Moderada + vigorosa pueden combinarse proporcionalmente
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">💪</span>
+        <div class="spec-content">
+          <strong>Fuerza muscular</strong>
+          Grandes grupos musculares <span class="spec-num num-adult">≥2 días/sem</span> <span class="tag tag-fue">fuerza</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🪑</span>
+        <div class="spec-content">
+          <strong>Sedentarismo</strong>
+          Más sedentarismo → más actividad moderada-vigorosa para compensar
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 150-300 / 75-150 / 2F</div>
+        <div class="memo-text">
+          <span style="color:var(--adult)">150–300</span> mod ·
+          <span style="color:var(--adult)">75–150</span> vig ·
+          <span style="color:var(--adult)">2F</span> fuerza/sem
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAYORES -->
+  <div class="card group-card mayor-card">
+    <div class="card-head">
+      <span class="card-icon">🧘</span>
+      <span class="card-title">Adultos Mayores · ≥65 años</span>
+    </div>
+    <div class="card-body">
+      <div class="spec-row">
+        <span class="spec-icon">✅</span>
+        <div class="spec-content">
+          <strong>Aeróbica — igual que adultos</strong>
+          <span class="spec-num num-mayor">150–300</span> <span class="tag tag-mod">mod</span> ó <span class="spec-num num-mayor">75–150</span> <span class="tag tag-vig">vig</span> o combinación
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">💪</span>
+        <div class="spec-content">
+          <strong>Fuerza muscular</strong>
+          <span class="spec-num num-mayor">≥2 días/sem</span> <span class="tag tag-fue">fuerza</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">⚖️</span>
+        <div class="spec-content">
+          <strong>Equilibrio + multicomponente ★</strong>
+          <span class="spec-num num-mayor">≥3 días/sem</span> <span class="tag tag-equ">equilibrio</span> — fuerza + equilibrio + marcha para <strong>reducir caídas</strong>
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 A + 3E</div>
+        <div class="memo-text">
+          <span style="color:var(--mayor)">A</span> como adultos +
+          <span style="color:var(--mayor)">3E</span> = 3 días Equilibrio/multicomponente
+          <div style="font-size:0.7rem;color:var(--muted);font-weight:400;margin-top:0.2rem">La diferencia clave vs adultos: el trabajo de equilibrio para prevenir caídas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GESTANTE -->
+  <div class="card group-card gesta-card">
+    <div class="card-head">
+      <span class="card-icon">🤰</span>
+      <span class="card-title">Embarazo y Posparto</span>
+    </div>
+    <div class="card-body">
+      <div class="spec-row">
+        <span class="spec-icon">⏱️</span>
+        <div class="spec-content">
+          <strong>Aeróbica moderada / semana</strong>
+          Al menos <span class="spec-num num-gesta">150 min</span> <span class="tag tag-mod">moderada</span> distribuidos en varios días
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">💪</span>
+        <div class="spec-content">
+          <strong>Fuerza muscular suave</strong>
+          Incluir ejercicios de fortalecimiento muscular <em>suaves</em>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">🩺</span>
+        <div class="spec-content">
+          <strong>Suelo pélvico</strong>
+          Trabajo de suelo pélvico siempre que no haya <strong>contraindicaciones médicas</strong>
+        </div>
+      </div>
+      <div class="spec-row">
+        <span class="spec-icon">⚠️</span>
+        <div class="spec-content">
+          <strong>Condición importante</strong>
+          Siempre <strong>sin contraindicaciones</strong> médicas. No se especifica actividad vigorosa.
+        </div>
+      </div>
+      <div class="memo-box">
+        <div class="memo-label">🧠 G15 — "Gestante 150"</div>
+        <div class="memo-text">
+          <span style="color:var(--gesta)">G</span>estante →
+          <span style="color:var(--gesta)">150</span> min/sem moderada + suelo pélvico
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid2 -->
+
+<!-- TABLA COMPARATIVA -->
+<div style="max-width:1100px;margin:1.2rem auto 0;">
+<div class="card">
+  <div class="card-head" style="background:var(--navy);">
+    <span class="card-icon" style="color:white">📊</span>
+    <span class="card-title" style="color:white">Tabla resumen — Comparativa grupos</span>
+  </div>
+  <div class="card-body" style="padding:0; overflow-x:auto;">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th>Aeróbica moderada</th>
+          <th>Aeróbica vigorosa</th>
+          <th>Fuerza</th>
+          <th>Extra clave</th>
+          <th>Memo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="kids-row">
+          <td class="td-grupo td-kids">👦 5–17 años</td>
+          <td><span class="spec-num num-kids" style="font-size:0.78rem">60 min/DÍA</span> mín. aeróbica M-V</td>
+          <td>Incluida en los 60 min</td>
+          <td><span class="spec-num num-kids" style="font-size:0.78rem">3 días/sem</span> muscular + ósea</td>
+          <td>Limitar pantallas (sin cifra)</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--kids);font-weight:700">60-A-3</td>
+        </tr>
+        <tr class="adult-row">
+          <td class="td-grupo td-adult">🧑 18–64 años</td>
+          <td><span class="spec-num num-adult" style="font-size:0.78rem">150–300 min/sem</span></td>
+          <td><span class="spec-num num-adult" style="font-size:0.78rem">75–150 min/sem</span></td>
+          <td><span class="spec-num num-adult" style="font-size:0.78rem">≥2 días/sem</span></td>
+          <td>Compensar sedentarismo</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--adult);font-weight:700">150/75/2F</td>
+        </tr>
+        <tr class="mayor-row">
+          <td class="td-grupo td-mayor">👴 ≥65 años</td>
+          <td><span class="spec-num num-mayor" style="font-size:0.78rem">150–300 min/sem</span></td>
+          <td><span class="spec-num num-mayor" style="font-size:0.78rem">75–150 min/sem</span></td>
+          <td><span class="spec-num num-mayor" style="font-size:0.78rem">≥2 días/sem</span></td>
+          <td><span class="spec-num num-mayor" style="font-size:0.78rem">≥3 días/sem</span> equilibrio + marcha <span class="tag tag-equ">⚖️ caídas</span></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--mayor);font-weight:700">A + 3E</td>
+        </tr>
+        <tr class="gesta-row">
+          <td class="td-grupo td-gesta">🤰 Gestante/Posparto</td>
+          <td><span class="spec-num num-gesta" style="font-size:0.78rem">150 min/sem</span> varios días</td>
+          <td style="color:var(--muted);font-size:0.75rem">No especificada</td>
+          <td>Suave + suelo pélvico</td>
+          <td>Sin contraindicación médica</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--gesta);font-weight:700">G15</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- MENSAJES CLAVE OMS -->
+<div style="max-width:1100px;margin:1.2rem auto 0;">
+<div class="card">
+  <div class="card-head" style="background:var(--oms-dim);border-bottom:2px solid var(--oms);">
+    <span class="card-icon">🌍</span>
+    <span class="card-title" style="color:var(--oms)">Mensajes clave OMS — "Cada movimiento cuenta"</span>
+  </div>
+  <div class="card-body">
+    <div class="msg-grid">
+      <div class="msg-item">
+        <div class="msg-icon">🚶</div>
+        <div class="msg-title">Todo suma</div>
+        <div class="msg-desc">Caminar, subir escaleras, tareas domésticas activas… cualquier actividad cuenta y se acumula</div>
+      </div>
+      <div class="msg-item">
+        <div class="msg-icon">❤️</div>
+        <div class="msg-title">Beneficios</div>
+        <div class="msg-desc">Reduce mortalidad, ECV, DM tipo 2, algunos cánceres, depresión y deterioro cognitivo</div>
+      </div>
+      <div class="msg-item">
+        <div class="msg-icon">♿</div>
+        <div class="msg-title">Para todos</div>
+        <div class="msg-desc">Sanos, con enfermedad crónica o discapacidad: se recomienda actividad adaptada a su capacidad</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- TEST -->
+<div style="max-width:1100px;margin:1.2rem auto 0;">
+<div class="card test-card">
+  <div class="card-head">
+    <span class="card-icon">🎯</span>
+    <span class="card-title">Preguntas tipo test — INGESA</span>
+  </div>
+  <div class="card-body">
+    <div class="q-grid">
+      <div class="q-block">
+        <div class="q-text">¿Cuántos minutos diarios de actividad física se recomiendan en niños de 5–17 años?</div>
+        <div class="q-answer"><strong>60 minutos</strong> de actividad moderada a vigorosa al día</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Cuántos días/semana deben realizar niños actividad de fuerza ósea y muscular?</div>
+        <div class="q-answer"><strong>Al menos 3 días/semana</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Minutos de actividad aeróbica moderada recomendados para adultos 18–64 años (por semana):</div>
+        <div class="q-answer"><strong>150–300 minutos/semana</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">Minutos de aeróbica vigorosa recomendados para adultos (por semana):</div>
+        <div class="q-answer"><strong>75–150 minutos/semana</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Cuántos días/semana de fuerza muscular se recomiendan en adultos?</div>
+        <div class="q-answer"><strong>Al menos 2 días/semana</strong></div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Qué añaden los ≥65 años respecto a los adultos?</div>
+        <div class="q-answer"><strong>≥3 días/sem de equilibrio funcional + multicomponente</strong> para reducir caídas</div>
+        <div class="q-note">El resto de recomendaciones aeróbicas son iguales</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Cuántos minutos/semana de actividad moderada se recomiendan en embarazadas?</div>
+        <div class="q-answer"><strong>150 minutos/semana</strong> distribuidos en varios días</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">¿Qué ejercicio específico incluyen las recomendaciones OMS para embarazadas?</div>
+        <div class="q-answer"><strong>Trabajo de suelo pélvico</strong> (sin contraindicaciones médicas)</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

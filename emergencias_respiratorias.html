@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergencias Respiratorias</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f1015;--surface:#1a1c22;--surface2:#22252e;--border:#2e3340;--text:#e8eaf0;--muted:#8892a4;
+  --tep:#e05a2b;--tep-d:#e05a2b20;--tep-b:#e05a2b40;
+  --neut:#2b8ae0;--neut-d:#2b8ae020;--neut-b:#2b8ae040;
+  --anaf:#e0b02b;--anaf-d:#e0b02b20;--anaf-b:#e0b02b40;
+  --epig:#6ad45a;--epig-d:#6ad45a20;--epig-b:#6ad45a40;
+  --alarm:#ff4444;--alarm-d:#ff444420;
+  --gold:#c49a2a;--gold-dim:#c49a2a25;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;min-height:100vh;}
+
+/* FONDO SUTIL */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,#e05a2b08 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,#2b8ae008 0%,transparent 50%);pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2.5rem;}
+.header-tag{display:inline-flex;align-items:center;gap:0.4rem;background:var(--alarm);color:white;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;padding:0.3rem 1rem;border-radius:2px;margin-bottom:0.8rem;text-transform:uppercase;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.7;}}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);line-height:1.05;letter-spacing:-0.02em;}
+h1 span{color:var(--alarm);}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-top:0.6rem;}
+
+/* ABCDE BANNER */
+.abcde{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:2rem;}
+.abc-seg{flex:1;padding:0.7rem 0.5rem;text-align:center;border-right:1px solid var(--border);}
+.abc-seg:last-child{border-right:none;}
+.abc-letter{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--alarm);}
+.abc-word{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-top:0.1rem;}
+@media(max-width:500px){.abcde{flex-wrap:wrap;}.abc-seg{flex:0 0 33.33%;border-bottom:1px solid var(--border);}}
+
+/* EMERGENCIA CARDS */
+.em-card{background:var(--surface);border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.5rem;position:relative;}
+.em-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.em-tep::before{background:var(--tep);}
+.em-neut::before{background:var(--neut);}
+.em-anaf::before{background:var(--anaf);}
+.em-epig::before{background:var(--epig);}
+
+.em-head{display:flex;align-items:stretch;}
+.em-numblock{width:70px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem 0.5rem;border-right:1px solid var(--border);}
+.em-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;}
+.em-icon{font-size:1.2rem;margin-top:0.15rem;}
+.em-headinfo{padding:1rem 1.1rem;flex:1;}
+.em-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.2rem;}
+.em-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;line-height:1.1;margin-bottom:0.3rem;}
+.em-clinica{font-size:0.78rem;line-height:1.5;color:var(--muted);}
+.em-clinica strong{color:var(--text);}
+
+.em-tep .em-numblock{background:var(--tep-d);}
+.em-tep .em-num,.em-tep .em-label,.em-tep .em-title{color:var(--tep);}
+.em-neut .em-numblock{background:var(--neut-d);}
+.em-neut .em-num,.em-neut .em-label,.em-neut .em-title{color:var(--neut);}
+.em-anaf .em-numblock{background:var(--anaf-d);}
+.em-anaf .em-num,.em-anaf .em-label,.em-anaf .em-title{color:var(--anaf);}
+.em-epig .em-numblock{background:var(--epig-d);}
+.em-epig .em-num,.em-epig .em-label,.em-epig .em-title{color:var(--epig);}
+
+.em-body{padding:0 1.1rem 1.1rem;}
+
+/* PASOS DE ACTUACIÓN */
+.steps{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.8rem;}
+.step{display:flex;align-items:flex-start;gap:0.7rem;padding:0.55rem 0.7rem;background:var(--surface2);border-radius:6px;border:1px solid var(--border);font-size:0.76rem;line-height:1.45;}
+.step-n{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;flex-shrink:0;min-width:22px;padding-top:0.05rem;}
+.step-text{color:var(--text);}
+.step-text strong{color:var(--text);font-weight:700;}
+.step-text .sub{display:block;font-size:0.68rem;color:var(--muted);margin-top:0.1rem;line-height:1.35;}
+.step-alarm{border-color:var(--alarm);background:var(--alarm-d);}
+.step-alarm .step-n{color:var(--alarm);}
+.step-key{border-left:3px solid;}
+
+/* FÁRMACOS */
+.farma-label{font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.4rem;margin-top:0.6rem;display:flex;align-items:center;gap:0.4rem;}
+.farma-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.4rem;}
+@media(max-width:550px){.farma-grid{grid-template-columns:1fr;}}
+.farma-item{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.65rem;border-left:3px solid;}
+.farma-name{font-weight:700;font-size:0.77rem;margin-bottom:0.12rem;}
+.farma-dose{font-family:'JetBrains Mono',monospace;font-size:0.66rem;color:var(--muted);line-height:1.35;margin-bottom:0.08rem;}
+.farma-note{font-size:0.65rem;color:var(--muted);font-style:italic;}
+.farma-alarm{background:var(--alarm-d);border-color:var(--alarm);}
+.farma-alarm .farma-name{color:var(--alarm);}
+
+/* MEMO */
+.memo{border-radius:6px;padding:0.5rem 0.85rem;border:1px solid var(--gold);background:var(--gold-dim);margin-top:0.6rem;}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.18rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.77rem;line-height:1.5;}
+
+/* ALERT BOX */
+.alert-box{display:flex;gap:0.6rem;align-items:flex-start;background:var(--alarm-d);border:1px solid var(--alarm);border-radius:6px;padding:0.55rem 0.75rem;font-size:0.74rem;line-height:1.4;margin-top:0.5rem;}
+.alert-box::before{content:'⚠️';flex-shrink:0;}
+.alert-box strong{color:var(--alarm);}
+
+/* GRID 2 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:700px){.grid2{grid-template-columns:1fr;}}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:1.5rem;}
+.thead2{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;background:var(--alarm-d);}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--alarm);}
+.tbody{padding:1rem 1.1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.77rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--alarm);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.65rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+
+.sec-div{display:flex;align-items:center;gap:0.8rem;margin:2rem 0 1rem;}
+.sec-div div{flex:1;height:1px;background:var(--border);}
+.sec-div span{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--muted);white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="header-tag">🚨 Protocolo de emergencia</div>
+  <h1>Emergencias <span>Respiratorias</span></h1>
+  <p class="subtitle">TEP · Neumotórax tensión · Anafilaxia · Epiglotitis · INGESA 2026</p>
+</header>
+
+<!-- ABCDE -->
+<div class="abcde">
+  <div class="abc-seg"><div class="abc-letter">A</div><div class="abc-word">Airway · Vía aérea</div></div>
+  <div class="abc-seg"><div class="abc-letter">B</div><div class="abc-word">Breathing · Ventilación</div></div>
+  <div class="abc-seg"><div class="abc-letter">C</div><div class="abc-word">Circulation · Circulación</div></div>
+  <div class="abc-seg"><div class="abc-letter">D</div><div class="abc-word">Disability · Neurológico</div></div>
+  <div class="abc-seg"><div class="abc-letter">E</div><div class="abc-word">Exposure · Exposición</div></div>
+</div>
+
+<!-- TEP MASIVO -->
+<div class="em-card em-tep">
+  <div class="em-head">
+    <div class="em-numblock"><div class="em-num">01</div><div class="em-icon">🩸</div></div>
+    <div class="em-headinfo">
+      <div class="em-label">Emergencia vascular pulmonar</div>
+      <div class="em-title">Tromboembolismo Pulmonar Masivo</div>
+      <div class="em-clinica"><strong>Clínica:</strong> Disnea brusca · síncope · ingurgitación yugular · <strong>hipotensión/shock</strong></div>
+    </div>
+  </div>
+  <div class="em-body">
+    <div class="farma-label" style="color:var(--tep)">⚡ Actuación por pasos</div>
+    <div class="steps">
+      <div class="step" style="border-left:3px solid var(--tep)">
+        <span class="step-n" style="color:var(--tep)">1</span>
+        <div class="step-text"><strong>ABCDE · monitorización · O₂ alta concentración</strong> (mascarilla reservorio)</div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--tep)">
+        <span class="step-n" style="color:var(--tep)">2</span>
+        <div class="step-text"><strong>Fluidoterapia:</strong> cristaloides (SSF 0,9% o Ringer) en bolos pequeños <strong>250–500 ml</strong>
+          <span class="sub">⚠️ Vigilar sobrecarga en paciente cardiópata — no sobrehidratar</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--tep)">
+        <span class="step-n" style="color:var(--tep)">3</span>
+        <div class="step-text"><strong>Anticoagulación inmediata</strong> (si no contraindicación)</div>
+      </div>
+      <div class="step step-alarm">
+        <span class="step-n">4★</span>
+        <div class="step-text"><strong>Fibrinólisis en TEP masivo + inestabilidad hemodinámica</strong>
+          <span class="sub">Si fibrinólisis CI o fracasa → embolectomía quirúrgica / trombectomía percutánea / filtro VCI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="farma-label" style="color:var(--tep)">💊 Fármacos</div>
+    <div class="farma-grid">
+      <div class="farma-item" style="border-color:var(--alarm);">
+        <div class="farma-name" style="color:var(--alarm)">⭐ Alteplasa (fibrinólisis)</div>
+        <div class="farma-dose">100 mg IV total en 2 h<br>10 mg bolo IV + 90 mg perfusión 2 h<br>Si &lt;65 kg: máx 1,5 mg/kg</div>
+        <div class="farma-note">Solo TEP masivo con inestabilidad hemodinámica</div>
+      </div>
+      <div class="farma-item" style="border-color:var(--tep);">
+        <div class="farma-name" style="color:var(--tep)">HNF — Heparina No Fraccionada</div>
+        <div class="farma-dose">Bolo IV: 80 U/kg<br>Perfusión: 18 U/kg/h<br>Ajustar según TTPa</div>
+        <div class="farma-note">Elección en TEP masivo que requiere fibrinólisis posible</div>
+      </div>
+      <div class="farma-item" style="border-color:var(--tep);">
+        <div class="farma-name" style="color:var(--tep)">HBPM</div>
+        <div class="farma-dose">Dosis terapéuticas ajustadas a peso<br>SC cada 12 h</div>
+        <div class="farma-note">Alternativa en TEP no masivo hemodinámicamente estable</div>
+      </div>
+      <div class="farma-item" style="border-color:var(--tep);">
+        <div class="farma-name" style="color:var(--tep)">Cristaloides</div>
+        <div class="farma-dose">SSF 0,9% / Ringer Lactato<br>Bolos 250–500 ml si hipotensión</div>
+        <div class="farma-note">Vigilar sobrecarga VD — no agresivo</div>
+      </div>
+    </div>
+    <div class="memo"><div class="memo-label">🧠 Clave TEP masivo</div><div class="memo-text" style="font-size:0.75rem">Inestabilidad hemodinámica → <span style="color:var(--alarm)">fibrinólisis con Alteplasa</span> · HNF en masivo · HBPM en no masivo · nunca fibrinólisis sin inestabilidad ★</div></div>
+  </div>
+</div>
+
+<!-- NEUMOTÓRAX A TENSIÓN -->
+<div class="em-card em-neut">
+  <div class="em-head">
+    <div class="em-numblock"><div class="em-num">02</div><div class="em-icon">💨</div></div>
+    <div class="em-headinfo">
+      <div class="em-label">Emergencia pleural</div>
+      <div class="em-title">Neumotórax a Tensión</div>
+      <div class="em-clinica"><strong>Clínica:</strong> Disnea extrema · hipotensión · <strong>desviación traqueal contralateral</strong> · ingurgitación yugular</div>
+    </div>
+  </div>
+  <div class="em-body">
+    <div class="alert-box"><div><strong>Diagnóstico CLÍNICO</strong> — no esperar radiografía. Actuar de inmediato.</div></div>
+
+    <div class="farma-label" style="color:var(--neut);margin-top:0.8rem;">⚡ Actuación por pasos</div>
+    <div class="steps">
+      <div class="step step-alarm">
+        <span class="step-n" style="color:var(--alarm)">1★</span>
+        <div class="step-text"><strong>Descompresión de emergencia con aguja</strong>
+          <span class="sub">Aguja gruesa 14–16 G · 2.º espacio intercostal · línea medioclavicular · borde SUPERIOR costilla inferior (evitar paquete vasculonervioso)</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--neut)">
+        <span class="step-n" style="color:var(--neut)">2</span>
+        <div class="step-text"><strong>Drenaje definitivo con tubo torácico</strong>
+          <span class="sub">4.º–5.º espacio intercostal · línea axilar anterior/media · conectado a sello de agua ★ (menor riesgo grandes vasos, mejor para RCP)</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--neut)">
+        <span class="step-n" style="color:var(--neut)">3</span>
+        <div class="step-text"><strong>O₂ alta concentración</strong> · analgesia IV (fentanilo o morfina)
+          <span class="sub">Vigilar depresión respiratoria con opioides</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--neut)">
+        <span class="step-n" style="color:var(--neut)">4</span>
+        <div class="step-text"><strong>Fluidoterapia si shock:</strong> bolos cristaloides 250–500 ml, reevaluar</div>
+      </div>
+    </div>
+
+    <div class="memo"><div class="memo-label">🧠 No hay fármaco "de neumotórax"</div><div class="memo-text" style="font-size:0.75rem">La clave es el <span style="color:var(--neut)">gesto mecánico</span>: aguja → tubo. En obesos usar agujas más largas. 4.º–5.º EIC línea axilar = práctica clínica habitual ★</div></div>
+  </div>
+</div>
+
+<!-- ANAFILAXIA -->
+<div class="em-card em-anaf">
+  <div class="em-head">
+    <div class="em-numblock"><div class="em-num">03</div><div class="em-icon">⚡</div></div>
+    <div class="em-headinfo">
+      <div class="em-label">Emergencia sistémica</div>
+      <div class="em-title">Anafilaxia / Shock Anafiláctico</div>
+      <div class="em-clinica"><strong>Clínica:</strong> Urticaria/habones · estridor · disnea · hipotensión · <strong>afectación multiorgánica rápida</strong></div>
+    </div>
+  </div>
+  <div class="em-body">
+    <div class="farma-label" style="color:var(--anaf)">⚡ Actuación por pasos</div>
+    <div class="steps">
+      <div class="step step-alarm">
+        <span class="step-n" style="color:var(--alarm)">1★★</span>
+        <div class="step-text"><strong>ADRENALINA IM — INMEDIATA</strong> — cara anterolateral del muslo
+          <span class="sub">No perder tiempo con vía venosa · IM es de elección · repetir cada 5–15 min si precisa</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--anaf)">
+        <span class="step-n" style="color:var(--anaf)">2</span>
+        <div class="step-text"><strong>Posición:</strong> Trendelenburg si shock · semisentado si disnea predominante</div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--anaf)">
+        <span class="step-n" style="color:var(--anaf)">3</span>
+        <div class="step-text"><strong>O₂ alto flujo</strong> con mascarilla reservorio</div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--anaf)">
+        <span class="step-n" style="color:var(--anaf)">4</span>
+        <div class="step-text"><strong>Fluidoterapia:</strong> SSF 0,9% bolos rápidos
+          <span class="sub">Adulto: 500–1000 ml inicial · Niño: 20 ml/kg, repetir según respuesta</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--anaf)">
+        <span class="step-n" style="color:var(--anaf)">5</span>
+        <div class="step-text"><strong>Coadyuvantes:</strong> antihistamínicos + corticoides (fase tardía)</div>
+      </div>
+    </div>
+
+    <div class="farma-label" style="color:var(--anaf)">💊 Fármacos</div>
+    <div class="farma-grid">
+      <div class="farma-item farma-alarm">
+        <div class="farma-name">⭐ Adrenalina 1:1000 IM</div>
+        <div class="farma-dose">0,01 mg/kg · máx 0,5 mg (adulto)<br>Cara anterolateral del muslo<br>Repetir cada 5–15 min si precisa</div>
+        <div class="farma-note">Siempre primero. No esperar vía IV.</div>
+      </div>
+      <div class="farma-item" style="border-color:#7a6a2a;">
+        <div class="farma-name" style="color:#c49a2a">Glucagón IV</div>
+        <div class="farma-dose">1–2 mg IV (adulto)<br>Perfusión posterior según respuesta</div>
+        <div class="farma-note">Si paciente con betabloqueantes y mala respuesta a adrenalina ★</div>
+      </div>
+      <div class="farma-item" style="border-color:var(--anaf);">
+        <div class="farma-name" style="color:var(--anaf)">Antihistamínicos H1 ± H2</div>
+        <div class="farma-dose">Difenhidramina / clorfenamina IV/IM<br>± Ranitidina IV</div>
+        <div class="farma-note">Coadyuvantes — NO sustituyen adrenalina</div>
+      </div>
+      <div class="farma-item" style="border-color:var(--anaf);">
+        <div class="farma-name" style="color:var(--anaf)">Corticoides</div>
+        <div class="farma-dose">Metilprednisolona IV 1–2 mg/kg<br>o Hidrocortisona IV 100–200 mg (adulto)</div>
+        <div class="farma-note">Prevención reacción bifásica — no actúan de inmediato</div>
+      </div>
+    </div>
+    <div class="memo"><div class="memo-label">🧠 Clave anafilaxia — orden de prioridad</div><div class="memo-text" style="font-size:0.75rem"><span style="color:var(--alarm)">1. Adrenalina IM</span> · 2. Posición + O₂ · 3. Fluidos · 4. Antihistamínicos · 5. Corticoides (tardío) · Glucagón solo si betabloqueantes ★</div></div>
+  </div>
+</div>
+
+<!-- EPIGLOTITIS -->
+<div class="em-card em-epig">
+  <div class="em-head">
+    <div class="em-numblock"><div class="em-num">04</div><div class="em-icon">🦠</div></div>
+    <div class="em-headinfo">
+      <div class="em-label">Emergencia vía aérea superior</div>
+      <div class="em-title">Epiglotitis / Obstrucción VAS</div>
+      <div class="em-clinica"><strong>Clínica:</strong> Aparición brusca · babeo · disfagia · estridor · <strong>posición trípode</strong> · aspecto tóxico</div>
+    </div>
+  </div>
+  <div class="em-body">
+    <div class="alert-box"><div><strong>NO agitar</strong> al paciente · <strong>NO explorar faringe bruscamente</strong> → puede precipitar obstrucción total</div></div>
+
+    <div class="farma-label" style="color:var(--epig);margin-top:0.8rem;">⚡ Actuación por pasos</div>
+    <div class="steps">
+      <div class="step step-alarm">
+        <span class="step-n" style="color:var(--alarm)">1★</span>
+        <div class="step-text"><strong>Garantizar vía aérea en entorno controlado</strong>
+          <span class="sub">Intubación orotraqueal en quirófano/UCI con equipo experto · Si falla: cricotiroidotomía de emergencia</span>
+        </div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--epig)">
+        <span class="step-n" style="color:var(--epig)">2</span>
+        <div class="step-text"><strong>Vía IV + fluidoterapia:</strong> SSF 0,9% o glucosado 5% · mantener normovolemia</div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--epig)">
+        <span class="step-n" style="color:var(--epig)">3</span>
+        <div class="step-text"><strong>Antibiótico IV inmediato</strong> — ver tabla fármacos</div>
+      </div>
+      <div class="step" style="border-left:3px solid var(--epig)">
+        <span class="step-n" style="color:var(--epig)">4</span>
+        <div class="step-text"><strong>Corticoides</strong> para reducir edema · analgesia/antipiréticos IV</div>
+      </div>
+    </div>
+
+    <div class="farma-label" style="color:var(--epig)">💊 Fármacos — dosis pediátrica y adulto comparadas</div>
+
+    <!-- CONTEXTO PEDIÁTRICO -->
+    <div style="background:var(--epig-d);border:1px solid var(--epig);border-radius:6px;padding:0.5rem 0.75rem;font-size:0.73rem;line-height:1.5;margin-bottom:0.55rem;display:flex;gap:0.5rem;align-items:flex-start;">
+      <span style="flex-shrink:0;">👶</span>
+      <div><strong style="color:var(--epig)">Contexto pediátrico (2–8 años):</strong> Aunque la vacuna Hib ha reducido drásticamente su incidencia, no la ha eliminado. También puede ser causada por S. aureus y estreptococos. Evolución espontánea mala sin tratamiento → intubación nasotraqueal precoz, extubación habitualmente a los 3–4 días con antibióticos.</div>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:0.6rem;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.73rem;background:var(--surface2);border-radius:6px;overflow:hidden;">
+        <thead>
+          <tr>
+            <th style="background:var(--epig);color:black;padding:0.4rem 0.65rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;">Fármaco</th>
+            <th style="background:var(--epig);color:black;padding:0.4rem 0.65rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;">👶 Pediátrico</th>
+            <th style="background:var(--epig);color:black;padding:0.4rem 0.65rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;">🧑 Adulto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.45rem 0.65rem;font-weight:700;color:var(--alarm);">⭐ Ceftriaxona IV</td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">50–100 mg/kg/día · 1 dosis IV<br><span style="color:var(--muted);font-size:0.6rem;">Máx 2 g/dosis · Pediamécum AEP</span></td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">1 g/24 h IV<br><span style="color:var(--muted);font-size:0.6rem;">Hasta 2 g si grave</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.45rem 0.65rem;font-weight:700;color:var(--epig);">Cefotaxima IV</td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">100–200 mg/kg/día en 3–4 dosis<br><span style="color:var(--muted);font-size:0.6rem;">Alternativa pediátrica de elección</span></td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">1–2 g/8 h IV</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.45rem 0.65rem;font-weight:700;color:var(--epig);">Dexametasona IV/IM</td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">0,15–0,6 mg/kg · dosis única<br><span style="color:var(--muted);font-size:0.6rem;">Reduce edema de vía aérea</span></td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">4–10 mg IV<br><span style="color:var(--muted);font-size:0.6rem;">Uso variable según guía</span></td>
+          </tr>
+          <tr>
+            <td style="padding:0.45rem 0.65rem;font-weight:700;color:var(--epig);">Paracetamol IV/oral</td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">15 mg/kg/dosis · c/6 h<br><span style="color:var(--muted);font-size:0.6rem;">IV si no tolera oral</span></td>
+            <td style="padding:0.45rem 0.65rem;font-family:'JetBrains Mono',monospace;font-size:0.64rem;color:var(--text);">1 g/6–8 h IV u oral</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="memo"><div class="memo-label">🧠 Clave epiglotitis pediátrica</div><div class="memo-text" style="font-size:0.74rem">Pico 2–8 años · <span style="color:var(--epig)">H. influenzae tipo b</span> causa clásica · Hib reduce incidencia pero no elimina · <span style="color:var(--alarm)">Ceftriaxona IV 50–100 mg/kg/día</span> · posición trípode ★ · extubación a los 3–4 días · adrenalina nebulizada NO es eficaz en epiglotitis</div></div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="tcard">
+  <div class="thead2"><span style="font-size:1.1rem">🎯</span><span class="ttitle">Preguntas tipo test — Emergencias respiratorias</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuándo está indicada la fibrinólisis en el TEP?</div><div class="qa"><strong>TEP masivo con inestabilidad hemodinámica</strong></div><div class="qn">No en TEP no masivo estable</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la dosis de Alteplasa en TEP masivo?</div><div class="qa"><strong>100 mg IV en 2 h</strong> — 10 mg bolo + 90 mg perfusión 2 h</div><div class="qn">Si &lt;65 kg: máx 1,5 mg/kg</div></div>
+    <div class="qb"><div class="qt">¿Por qué no hay que esperar la Rx para actuar en neumotórax a tensión?</div><div class="qa">Es un diagnóstico <strong>clínico</strong> — la demora puede ser fatal</div></div>
+    <div class="qb"><div class="qt">¿En qué espacio y línea se coloca el tubo torácico definitivo?</div><div class="qa"><strong>4.º–5.º EIC · línea axilar anterior/media</strong> — conectado a sello de agua</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el fármaco de primera elección en anafilaxia?</div><div class="qa"><strong>Adrenalina IM 1:1000</strong> — cara anterolateral del muslo</div><div class="qn">No esperar vía IV</div></div>
+    <div class="qb"><div class="qt">¿Para qué se usa el glucagón en la anafilaxia?</div><div class="qa">Pacientes con <strong>betabloqueantes</strong> con mala respuesta a adrenalina</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el antibiótico de elección en epiglotitis?</div><div class="qa"><strong>Ceftriaxona IV</strong> — cubre H. influenzae tipo b</div></div>
+    <div class="qb"><div class="qt">¿Qué posición está contraindicada explorar en la epiglotitis?</div><div class="qa">Exploración brusca de la faringe y agitación del paciente — puede precipitar <strong>obstrucción total</strong></div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

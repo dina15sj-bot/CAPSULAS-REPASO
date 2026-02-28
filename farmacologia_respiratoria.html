@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farmacología Respiratoria — INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4fc;--surface:#fff;--border:#c4cfe0;--text:#111828;--muted:#6a7a9a;
+  --navy:#0d1e37;
+  --b2:#1e6aaa;--b2-d:#1e6aaa14;      /* β2 agonistas */
+  --saba:#1e8a5a;--saba-d:#1e8a5a14;  /* SABA */
+  --laba:#1a5a8a;--laba-d:#1a5a8a14;  /* LABA */
+  --acolin:#8a5a1a;--acolin-d:#8a5a1a14; /* Anticolinérgicos */
+  --sama:#c4681a;--sama-d:#c4681a14;
+  --lama:#8a4a0a;--lama-d:#8a4a0a14;
+  --ci:#6a1a8a;--ci-d:#6a1a8a14;     /* CI */
+  --cs:#8a1a2a;--cs-d:#8a1a2a14;     /* CS sistémicos */
+  --teo:#2a6a6a;--teo-d:#2a6a6a14;
+  --mont:#4a6a2a;--mont-d:#4a6a2a14;
+  --anti:#6a4a8a;--anti-d:#6a4a8a14; /* antihistamínicos */
+  --blact:#1e5a8a;--blact-d:#1e5a8a14; /* β-lactámicos */
+  --macro:#2a7a4a;--macro-d:#2a7a4a14; /* macrólidos */
+  --quino:#7a2a1a;--quino-d:#7a2a1a14; /* quinolonas */
+  --gold:#c49a2a;--gold-dim:#c49a2a20;
+  --alarm:#b5282a;--alarm-d:#b5282a14;
+  --warm:#f4f6fc;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c4cfe028 31px,#c4cfe028 32px);}
+.wrap{max-width:1100px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--b2);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+
+.sec-div{display:flex;align-items:center;gap:0.8rem;margin:2rem 0 1rem;}
+.sec-div div{flex:1;height:2px;background:var(--navy);opacity:0.1;}
+.sec-div span{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+
+.memo{border-radius:6px;padding:0.5rem 0.85rem;border:1px solid var(--gold);background:var(--gold-dim);margin-top:0.6rem;}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.18rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.78rem;line-height:1.5;}
+
+/* ── MECANISMO BANNER ── */
+.mec-banner{border-radius:10px;padding:0.7rem 1rem;display:flex;align-items:flex-start;gap:0.9rem;border:2px solid;margin-bottom:0.7rem;}
+.mec-icon{font-size:1.8rem;flex-shrink:0;}
+.mec-content{flex:1;}
+.mec-title{font-family:'Playfair Display',serif;font-weight:900;font-size:1rem;margin-bottom:0.15rem;}
+.mec-mecan{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;padding:0.12rem 0.5rem;border-radius:3px;color:white;display:inline-block;margin-bottom:0.3rem;}
+.mec-text{font-size:0.76rem;line-height:1.5;}
+
+/* ── FÁRMACO GRID ── */
+.farma-row{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.5rem;}
+@media(max-width:600px){.farma-row{grid-template-columns:1fr;}}
+.farma-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;border-left:4px solid;}
+.farma-head{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.7rem;border-bottom:1px solid var(--border);}
+.farma-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:3px;color:white;text-transform:uppercase;flex-shrink:0;}
+.farma-name{font-weight:700;font-size:0.82rem;}
+.farma-body{padding:0.5rem 0.7rem;font-size:0.73rem;line-height:1.45;}
+.farma-mol{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:0.18rem;}
+.farma-uso{margin-bottom:0.18rem;}
+.farma-ea{display:flex;align-items:flex-start;gap:0.3rem;background:var(--alarm-d);border:1px solid var(--alarm);border-radius:4px;padding:0.28rem 0.5rem;font-size:0.68rem;line-height:1.3;}
+.farma-ea::before{content:'⚠️';flex-shrink:0;font-size:0.75rem;}
+.farma-ea strong{color:var(--alarm);}
+.farma-nota{display:flex;align-items:flex-start;gap:0.3rem;background:var(--gold-dim);border:1px solid var(--gold);border-radius:4px;padding:0.28rem 0.5rem;font-size:0.68rem;line-height:1.3;margin-top:0.3rem;}
+.farma-nota::before{content:'★';flex-shrink:0;color:var(--gold);font-weight:900;}
+
+/* ── FLASH TABLE ── */
+.flash-table{width:100%;border-collapse:collapse;font-size:0.75rem;}
+.flash-table th{background:var(--navy);color:white;padding:0.5rem 0.75rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;}
+.flash-table td{padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.4;}
+.flash-table tr:last-child td{border-bottom:none;}
+.flash-table tr:hover td{background:var(--warm);}
+.tag-s{font-family:'JetBrains Mono',monospace;font-size:0.57rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:3px;color:white;white-space:nowrap;}
+.mecan-pill{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.08rem 0.4rem;border-radius:10px;border:1px solid;white-space:nowrap;}
+
+/* ── ANTIBIÓTICOS ── */
+.atb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;}
+@media(max-width:650px){.atb-grid{grid-template-columns:1fr;}}
+.atb-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.atb-head{padding:0.65rem 0.85rem;border-bottom:1px solid var(--border);}
+.atb-icon{font-size:1.2rem;}
+.atb-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:900;margin-top:0.1rem;}
+.atb-sub{font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;margin-top:0.05rem;}
+.atb-body{padding:0.65rem 0.85rem;display:flex;flex-direction:column;gap:0.4rem;}
+.atb-mol{font-weight:700;font-size:0.79rem;margin-bottom:0.05rem;}
+.atb-uso{font-size:0.72rem;line-height:1.4;color:var(--text);}
+.atb-ea{display:flex;align-items:flex-start;gap:0.3rem;background:var(--alarm-d);border:1px solid var(--alarm);border-radius:4px;padding:0.28rem 0.5rem;font-size:0.68rem;line-height:1.3;margin-top:0.15rem;}
+.atb-ea::before{content:'⚠️';flex-shrink:0;font-size:0.75rem;}
+.atb-ea strong{color:var(--alarm);}
+
+/* ── TEST ── */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.t-head{padding:0.75rem 1.1rem;border-bottom:2px solid var(--b2);background:var(--b2-d);display:flex;align-items:center;gap:0.6rem;}
+.t-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--b2);}
+.t-body{padding:1rem 1.1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.77rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--b2);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.65rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="badge">💊 Farmacología</div>
+  <h1>Farmacología Respiratoria</h1>
+  <p class="subtitle">Broncodilatadores · Corticoides · Antibióticos · Mecanismos · INGESA 2026</p>
+</header>
+
+<!-- ══════════════════════
+     TABLA FLASH ULTRA-RÁPIDA
+══════════════════════ -->
+<div class="sec-div"><div></div><span>⚡ Esquema ultra-flash — todos los grupos</span><div></div></div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:0.8rem;">
+  <div style="overflow-x:auto;">
+    <table class="flash-table">
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th>Mecanismo</th>
+          <th>Fármacos clave</th>
+          <th>Uso</th>
+          <th>EA ★</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag-s" style="background:var(--saba);">SABA</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--b2);color:var(--b2);">↑AMPc → broncodilatación</span></td>
+          <td><strong>Salbutamol</strong></td>
+          <td>Rescates — crisis aguda</td>
+          <td style="color:var(--alarm);">Temblor · taquicardia</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--laba);">LABA</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--b2);color:var(--b2);">↑AMPc → broncodilatación</span></td>
+          <td><strong>Formoterol · Salmeterol</strong></td>
+          <td>Mantenimiento</td>
+          <td style="color:var(--alarm);">Nunca solos en asma ★★</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--sama);">SAMA</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--acolin);color:var(--acolin);">Bloqueo M1-M3 → ↓broncoconstricción vagal</span></td>
+          <td><strong>Ipratropio</strong></td>
+          <td>Crisis aguda (+ salbutamol)</td>
+          <td style="color:var(--alarm);">Boca seca · retención urinaria</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--lama);">LAMA</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--acolin);color:var(--acolin);">Bloqueo M1-M3 → ↓broncoconstricción vagal</span></td>
+          <td><strong>Tiotropio · Umeclidinio</strong></td>
+          <td>Mantenimiento EPOC</td>
+          <td style="color:var(--alarm);">Boca seca · visión borrosa</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--ci);">CI</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--ci);color:var(--ci);">Antiinflamatorio local</span></td>
+          <td><strong>Budesonida · Fluticasona</strong></td>
+          <td>Mantenimiento asma/EPOC</td>
+          <td style="color:var(--alarm);">Candidiasis · disfonía → enjuague ★</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--cs);">CS sist.</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--cs);color:var(--cs);">Antiinflamatorio sistémico</span></td>
+          <td><strong>Prednisona · Metilprednisolona</strong></td>
+          <td>Ciclos cortos en agudo</td>
+          <td style="color:var(--alarm);">HTA · hiperglucemia · osteoporosis</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--teo);">Teofilina</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--teo);color:var(--teo);">Inhibe PDE → ↑AMPc</span></td>
+          <td><strong>Teofilina</strong></td>
+          <td>Refuerzo en EPOC/asma grave</td>
+          <td style="color:var(--alarm);">Margen estrecho · arritmias · convulsiones ★★</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--mont);">Montelukast</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--mont);color:var(--mont);">Bloqueo leucotrienos</span></td>
+          <td><strong>Montelukast</strong></td>
+          <td>Coadyuvante asma/rinitis</td>
+          <td style="color:var(--alarm);">EA leves · cefalea · alteraciones sueño</td>
+        </tr>
+        <tr>
+          <td><span class="tag-s" style="background:var(--anti);">AH1</span></td>
+          <td><span class="mecan-pill" style="border-color:var(--anti);color:var(--anti);">Bloqueo receptor H1</span></td>
+          <td><strong>Cetirizina · Loratadina (2ª gen.)</strong></td>
+          <td>Rinitis · urticaria · anafilaxia</td>
+          <td style="color:var(--alarm);">Sedación en 1ª gen. (difenhidramina)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     β2 AGONISTAS
+══════════════════════ -->
+<div class="sec-div"><div></div><span>💨 β2 Agonistas — SABA y LABA</span><div></div></div>
+
+<div class="mec-banner" style="border-color:var(--b2);background:var(--b2-d);">
+  <span class="mec-icon">⚙️</span>
+  <div class="mec-content">
+    <div class="mec-title" style="color:var(--b2);">Mecanismo β2 agonistas</div>
+    <span class="mec-mecan" style="background:var(--b2);">β2 agonistas → ↑AMPc → relajación músculo liso bronquial → broncodilatación</span>
+    <div class="mec-text">Actúan sobre receptores β2 adrenérgicos del músculo liso bronquial. Al activarlos, aumentan el AMPc intracelular vía adenilato ciclasa, lo que relaja la musculatura y produce broncodilatación. La diferencia clave entre SABA y LABA es la <strong>duración de acción</strong>.</div>
+  </div>
+</div>
+
+<div class="farma-row">
+  <div class="farma-card" style="border-color:var(--saba);">
+    <div class="farma-head" style="background:var(--saba-d);">
+      <span class="farma-tag" style="background:var(--saba);">SABA</span>
+      <span class="farma-name" style="color:var(--saba);">Salbutamol (Ventolin®)</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol">Short-Acting β2 Agonist · duración 4–6 h</div>
+      <div class="farma-uso">💊 <strong>Indicación:</strong> rescate en crisis aguda · primera línea en urgencias · asma pediátrica</div>
+      <div class="farma-uso">🛤️ <strong>Vía:</strong> IDM + cámara (preferible) · nebulizado · IV en UCI</div>
+      <div class="farma-ea"><strong>EA:</strong> temblor fino · taquicardia · hipopotasemia con dosis altas</div>
+      <div class="farma-nota">Broncodilatador de rescate ★ — se usa cuando el paciente nota síntomas</div>
+    </div>
+  </div>
+
+  <div class="farma-card" style="border-color:var(--laba);">
+    <div class="farma-head" style="background:var(--laba-d);">
+      <span class="farma-tag" style="background:var(--laba);">LABA</span>
+      <span class="farma-name" style="color:var(--laba);">Formoterol · Salmeterol</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol">Long-Acting β2 Agonist · duración ≥12 h · Formoterol también acción rápida</div>
+      <div class="farma-uso">💊 <strong>Indicación:</strong> mantenimiento asma y EPOC · siempre asociados a CI en asma</div>
+      <div class="farma-uso">🛤️ <strong>Vía:</strong> inhalada exclusivamente</div>
+      <div class="farma-ea"><strong>EA:</strong> taquicardia · temblor · hipopotasemia</div>
+      <div class="farma-nota" style="background:var(--alarm-d);border-color:var(--alarm);">⛔ NUNCA solos en asma — siempre con CI (riesgo muerte por asma) ★★★</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     ANTICOLINÉRGICOS
+══════════════════════ -->
+<div class="sec-div"><div></div><span>🔵 Anticolinérgicos inhalados — SAMA y LAMA</span><div></div></div>
+
+<div class="mec-banner" style="border-color:var(--acolin);background:var(--acolin-d);">
+  <span class="mec-icon">🔒</span>
+  <div class="mec-content">
+    <div class="mec-title" style="color:var(--acolin);">Mecanismo anticolinérgicos</div>
+    <span class="mec-mecan" style="background:var(--acolin);">Bloqueo M1–M3 → inhiben broncoconstricción vagal → broncodilatación</span>
+    <div class="mec-text">Bloquean receptores muscarínicos (M1, M3) en el músculo liso bronquial y glándulas mucosas. Inhiben la broncoconstricción mediada por el nervio vago (tono colinérgico). Especialmente útiles en <strong>EPOC</strong> donde el tono vagal es muy relevante.</div>
+  </div>
+</div>
+
+<div class="farma-row">
+  <div class="farma-card" style="border-color:var(--sama);">
+    <div class="farma-head" style="background:var(--sama-d);">
+      <span class="farma-tag" style="background:var(--sama);">SAMA</span>
+      <span class="farma-name" style="color:var(--sama);">Ipratropio (Atrovent®)</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol">Short-Acting Muscarinic Antagonist · duración 4–8 h</div>
+      <div class="farma-uso">💊 <strong>Indicación:</strong> crisis aguda de asma moderada-grave (junto a salbutamol) · exacerbación EPOC</div>
+      <div class="farma-uso">🛤️ <strong>Vía:</strong> nebulizado (junto con salbutamol en urgencias)</div>
+      <div class="farma-ea"><strong>EA:</strong> boca seca · retención urinaria · visión borrosa · estreñimiento</div>
+      <div class="farma-nota">En asma moderada-grave añadir a salbutamol: ↓ hospitalizaciones ★</div>
+    </div>
+  </div>
+
+  <div class="farma-card" style="border-color:var(--lama);">
+    <div class="farma-head" style="background:var(--lama-d);">
+      <span class="farma-tag" style="background:var(--lama);">LAMA</span>
+      <span class="farma-name" style="color:var(--lama);">Tiotropio · Umeclidinio · Glicopirronio</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol">Long-Acting Muscarinic Antagonist · duración ≥24 h</div>
+      <div class="farma-uso">💊 <strong>Indicación:</strong> mantenimiento EPOC (primera línea) · asma no controlada como add-on</div>
+      <div class="farma-uso">🛤️ <strong>Vía:</strong> inhalada 1 vez/día</div>
+      <div class="farma-ea"><strong>EA:</strong> boca seca ★ · retención urinaria · estreñimiento · visión borrosa</div>
+      <div class="farma-nota">Cuidado: glaucoma de ángulo estrecho e hiperplasia prostática = precaución</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     CORTICOIDES
+══════════════════════ -->
+<div class="sec-div"><div></div><span>🟣 Corticoides — inhalados y sistémicos</span><div></div></div>
+
+<div class="farma-row">
+  <div class="farma-card" style="border-color:var(--ci);">
+    <div class="farma-head" style="background:var(--ci-d);">
+      <span class="farma-tag" style="background:var(--ci);">CI</span>
+      <span class="farma-name" style="color:var(--ci);">Budesonida · Fluticasona · Beclometasona</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol">Corticoides inhalados — antiinflamatorio local</div>
+      <div class="farma-uso">💊 <strong>Indicación:</strong> mantenimiento asma (todas las etapas desde leve persistente) · EPOC con exacerbaciones frecuentes</div>
+      <div class="farma-uso">🛤️ <strong>Vía:</strong> inhalada — IDM o polvo seco</div>
+      <div class="farma-ea"><strong>EA locales:</strong> candidiasis orofaríngea · disfonía · tos</div>
+      <div class="farma-nota" style="background:#f0ebf8;border-color:var(--ci);">★ Siempre enjuague bucal tras inhalación para prevenir candidiasis</div>
+      <div class="farma-nota" style="background:var(--alarm-d);border-color:var(--alarm);">⛔ NUNCA CI solos en asma sin añadir LABA si el paciente ya lo necesita</div>
+    </div>
+  </div>
+
+  <div class="farma-card" style="border-color:var(--cs);">
+    <div class="farma-head" style="background:var(--cs-d);">
+      <span class="farma-tag" style="background:var(--cs);">CS</span>
+      <span class="farma-name" style="color:var(--cs);">Prednisona · Metilprednisolona</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol">Corticoides sistémicos — antiinflamatorio potente sistémico</div>
+      <div class="farma-uso">💊 <strong>Indicación:</strong> exacerbaciones graves de asma y EPOC · inicio acción 2–4 h (antiinflamatorio) · pleno efecto 12–24 h</div>
+      <div class="farma-uso">🛤️ <strong>Vía:</strong> oral (prednisona) · IV (metilprednisolona) en urgencias</div>
+      <div class="farma-ea"><strong>EA sistémicos:</strong> hiperglucemia · HTA · osteoporosis · inmunodepresión · supresión suprarrenal en uso prolongado</div>
+      <div class="farma-nota">Ciclos cortos (5–7 días) en agudo: menos EA sistémicos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     OTROS: TEOFILINA + MONTELUKAST + AH1
+══════════════════════ -->
+<div class="sec-div"><div></div><span>🟤 Otros broncodilatadores y coadyuvantes</span><div></div></div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;">
+
+  <!-- TEOFILINA -->
+  <div class="farma-card" style="border-color:var(--teo);">
+    <div class="farma-head" style="background:var(--teo-d);">
+      <span class="farma-tag" style="background:var(--teo);">Xantina</span>
+      <span class="farma-name" style="color:var(--teo);">Teofilina</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol" style="color:var(--teo);font-weight:700;">Inhibe PDE → ↑AMPc → broncodilatación</div>
+      <div class="farma-uso">💊 Refuerzo en asma/EPOC grave resistente. Uso cada vez menos frecuente.</div>
+      <div class="farma-ea"><strong>EA ★★★ margen estrecho:</strong> taquicardia · arritmias · convulsiones · náuseas · monitorización de niveles</div>
+      <div class="farma-nota" style="background:var(--alarm-d);border-color:var(--alarm);">⛔ Riesgo toxicidad alto — muchas interacciones (ciprofloxacino ↑ niveles)</div>
+    </div>
+  </div>
+
+  <!-- MONTELUKAST -->
+  <div class="farma-card" style="border-color:var(--mont);">
+    <div class="farma-head" style="background:var(--mont-d);">
+      <span class="farma-tag" style="background:var(--mont);">ARLT</span>
+      <span class="farma-name" style="color:var(--mont);">Montelukast</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol" style="color:var(--mont);font-weight:700;">Bloquea receptor de leucotrienos</div>
+      <div class="farma-uso">💊 Coadyuvante en asma + rinitis alérgica. Oral 1 vez/día. Útil en asma inducida por ejercicio y AAS.</div>
+      <div class="farma-ea"><strong>EA:</strong> cefalea · alteraciones del sueño · pesadillas · leves</div>
+      <div class="farma-nota">No es broncodilatador — es antiinflamatorio/antialérgico oral</div>
+    </div>
+  </div>
+
+  <!-- ANTIHISTAMÍNICOS -->
+  <div class="farma-card" style="border-color:var(--anti);">
+    <div class="farma-head" style="background:var(--anti-d);">
+      <span class="farma-tag" style="background:var(--anti);">AH1</span>
+      <span class="farma-name" style="color:var(--anti);">Antihistamínicos H1</span>
+    </div>
+    <div class="farma-body">
+      <div class="farma-mol" style="color:var(--anti);font-weight:700;">Bloquean receptor histamina H1</div>
+      <div class="farma-uso">💊 Rinitis alérgica · urticaria · anafilaxia (coadyuvante de adrenalina)</div>
+      <div class="farma-ea"><strong>1ª generación</strong> (difenhidramina, clorfenamina): <strong>sedación ★</strong> · anticolinérgicos</div>
+      <div class="farma-nota">2ª generación (cetirizina, loratadina): no sedantes · mejor perfil</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════
+     ANTIBIÓTICOS RESPIRATORIOS
+══════════════════════ -->
+<div class="sec-div"><div></div><span>🦠 Antibióticos respiratorios estrella</span><div></div></div>
+
+<div class="atb-grid">
+
+  <!-- β-LACTÁMICOS -->
+  <div class="atb-card">
+    <div class="atb-head" style="background:var(--blact-d);border-bottom-color:var(--blact);">
+      <div class="atb-icon">🔵</div>
+      <div class="atb-title" style="color:var(--blact);">β-Lactámicos</div>
+      <div class="atb-sub" style="color:var(--blact);">Amoxicilina / Amox-Clavulánico</div>
+    </div>
+    <div class="atb-body">
+      <div style="background:var(--blact-d);border:1px solid var(--blact);border-radius:6px;padding:0.45rem 0.65rem;margin-bottom:0.3rem;">
+        <div class="atb-mol" style="color:var(--blact);">Amoxicilina</div>
+        <div class="atb-uso">NAC leve sin comorbilidad · primera línea en AP</div>
+      </div>
+      <div style="background:var(--blact-d);border:1px solid var(--blact);border-radius:6px;padding:0.45rem 0.65rem;">
+        <div class="atb-mol" style="color:var(--blact);">Amoxicilina-clavulánico</div>
+        <div class="atb-uso">NAC moderada · sospecha H. influenzae · agudización infecciosa de bronquitis crónica (AEBC)</div>
+      </div>
+      <div class="atb-ea"><strong>EA:</strong> diarrea · rash · colitis pseudomembranosa en amox-clav</div>
+      <div style="background:var(--gold-dim);border:1px solid var(--gold);border-radius:4px;padding:0.3rem 0.5rem;font-size:0.68rem;margin-top:0.3rem;">
+        <strong style="color:var(--gold);">★</strong> Primera línea en NAC leve y AEBC según guías SEPAR
+      </div>
+    </div>
+  </div>
+
+  <!-- MACRÓLIDOS -->
+  <div class="atb-card">
+    <div class="atb-head" style="background:var(--macro-d);border-bottom-color:var(--macro);">
+      <div class="atb-icon">🟢</div>
+      <div class="atb-title" style="color:var(--macro);">Macrólidos</div>
+      <div class="atb-sub" style="color:var(--macro);">Azitromicina · Claritromicina</div>
+    </div>
+    <div class="atb-body">
+      <div style="background:var(--macro-d);border:1px solid var(--macro);border-radius:6px;padding:0.45rem 0.65rem;margin-bottom:0.3rem;">
+        <div class="atb-mol" style="color:var(--macro);">Azitromicina</div>
+        <div class="atb-uso">3 días (pauta corta) · buena cobertura atípicos · alta penetración tisular · buen perfil adherencia</div>
+      </div>
+      <div style="background:var(--macro-d);border:1px solid var(--macro);border-radius:6px;padding:0.45rem 0.65rem;">
+        <div class="atb-mol" style="color:var(--macro);">Claritromicina</div>
+        <div class="atb-uso">7–14 días · mejor cobertura H. influenzae · interacciones CYP3A4</div>
+      </div>
+      <div class="atb-ea"><strong>Indicaciones:</strong> alergia a penicilinas ★ · sospecha gérmenes <em>atípicos</em> (Mycoplasma, Legionella, Chlamydia)</div>
+      <div style="background:var(--gold-dim);border:1px solid var(--gold);border-radius:4px;padding:0.3rem 0.5rem;font-size:0.68rem;margin-top:0.3rem;">
+        <strong style="color:var(--gold);">★</strong> Alternativa en NAC si alérgico a PNC o sospecha atípicos
+      </div>
+    </div>
+  </div>
+
+  <!-- QUINOLONAS -->
+  <div class="atb-card">
+    <div class="atb-head" style="background:var(--quino-d);border-bottom-color:var(--quino);">
+      <div class="atb-icon">🔴</div>
+      <div class="atb-title" style="color:var(--quino);">Quinolonas respiratorias</div>
+      <div class="atb-sub" style="color:var(--quino);">Levofloxacino · Moxifloxacino</div>
+    </div>
+    <div class="atb-body">
+      <div style="background:var(--quino-d);border:1px solid var(--quino);border-radius:6px;padding:0.45rem 0.65rem;margin-bottom:0.3rem;">
+        <div class="atb-mol" style="color:var(--quino);">Levofloxacino</div>
+        <div class="atb-uso">NAC grave · hospitalización · comorbilidad (DM, EPOC, insuficiencia renal) · fallo de primer escalón</div>
+      </div>
+      <div style="background:var(--quino-d);border:1px solid var(--quino);border-radius:6px;padding:0.45rem 0.65rem;">
+        <div class="atb-mol" style="color:var(--quino);">Moxifloxacino</div>
+        <div class="atb-uso">Similar a levofloxacino · no ajustar en renal · no usar en infección urinaria · más interacciones QT</div>
+      </div>
+      <div class="atb-ea"><strong>EA ★★★:</strong> tendinopatía / rotura tendón (especialmente Aquiles) · alargamiento QT · fotosensibilidad · reservar por resistencias</div>
+      <div style="background:var(--alarm-d);border:1px solid var(--alarm);border-radius:4px;padding:0.3rem 0.5rem;font-size:0.68rem;margin-top:0.3rem;">
+        ⚠️ No combinar con AINEs (riesgo convulsiones) · precaución en corticoides (rotura tendón)
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="memo">
+  <div class="memo-label">🧠 Escalón antibiótico NAC — resumen oposición</div>
+  <div class="memo-text" style="font-size:0.76rem;">
+    <span style="color:var(--blact)">NAC leve sin comorbilidad</span> → Amoxicilina ·
+    <span style="color:var(--blact)">NAC leve con comorbilidad / AEBC</span> → Amox-clavulánico ·
+    <span style="color:var(--macro)">Alergia PNC o atípicos</span> → Macrólido ·
+    <span style="color:var(--quino)">NAC grave / comorbilidad / hospitalización</span> → Quinolona respiratoria ★
+  </div>
+</div>
+
+<!-- ══════════════════════
+     TEST
+══════════════════════ -->
+<div class="tcard" style="margin-top:1.5rem;">
+  <div class="t-head"><span style="font-size:1.1rem">🎯</span><span class="t-title">Preguntas tipo test — Farmacología respiratoria</span></div>
+  <div class="t-body"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es el mecanismo de los β2 agonistas?</div><div class="qa"><strong>↑AMPc</strong> → relajación músculo liso bronquial → broncodilatación</div></div>
+    <div class="qb"><div class="qt">¿Por qué nunca se usan los LABA solos en el asma?</div><div class="qa">Riesgo de <strong>muerte por asma</strong> — siempre asociados a corticoide inhalado</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el EA más importante de la teofilina?</div><div class="qa"><strong>Margen terapéutico estrecho</strong> → arritmias y convulsiones por toxicidad</div></div>
+    <div class="qb"><div class="qt">¿Qué EA oral requiere enjuague bucal tras los CI?</div><div class="qa"><strong>Candidiasis orofaríngea</strong> y disfonía</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el mecanismo del ipratropio?</div><div class="qa">Bloqueo <strong>M1–M3</strong> → inhibe broncoconstricción vagal</div></div>
+    <div class="qb"><div class="qt">¿Cuándo se indica montelukast?</div><div class="qa">Coadyuvante en <strong>asma + rinitis alérgica</strong> · asma por AAS · ejercicio</div></div>
+    <div class="qb"><div class="qt">¿Qué antibiótico es de elección en NAC leve en adulto sano?</div><div class="qa"><strong>Amoxicilina</strong> oral</div></div>
+    <div class="qb"><div class="qt">¿Cuándo se usan macrólidos en neumonía?</div><div class="qa">Alergia a penicilinas o <strong>sospecha de gérmenes atípicos</strong> (Mycoplasma, Legionella)</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el EA más peligroso de las quinolonas respiratorias?</div><div class="qa"><strong>Tendinopatía / rotura tendinosa</strong> (especialmente tendón de Aquiles) + alargamiento QT</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la diferencia entre antihistamínicos de 1ª y 2ª generación?</div><div class="qa">1ª gen. (difenhidramina): <strong>sedantes</strong> · 2ª gen. (cetirizina, loratadina): no sedantes</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

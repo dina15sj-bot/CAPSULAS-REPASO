@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patologías Respiratorias Restrictivas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f0f5;--surface:#fff;--border:#d4c4d4;--text:#1a141a;--muted:#7a6a7a;
+  --navy:#0d2137;
+  --res:#6a3a8a;--res-d:#6a3a8a12;
+  --fibr:#b5282a;--fibr-d:#b5282a12;
+  --atel:#1e5f8a;--atel-d:#1e5f8a12;
+  --der:#1a6a6a;--der-d:#1a6a6a12;
+  --neum:#1a6a3a;--neum-d:#1a6a3a12;
+  --sdra:#c4681a;--sdra-d:#c4681a12;
+  --neumo:#8a6a10;--neumo-d:#c49a2a18;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --warm:#f5f0f8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#d4c4d428 31px,#d4c4d428 32px);}
+header{text-align:center;margin-bottom:1.8rem;}
+.badge{display:inline-flex;align-items:center;background:var(--res);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.4rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.wrap{max-width:1100px;margin:0 auto;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.7rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.2rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.8rem;line-height:1.5;}
+.sec-divider{display:flex;align-items:center;gap:0.8rem;margin:1.5rem 0 0.8rem;}
+.sec-divider div{flex:1;height:2px;background:var(--navy);opacity:0.12;}
+.sec-divider span{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* DEFINICION BANNER */
+.def-banner{border-radius:10px;padding:1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:flex-start;gap:1rem;border:2px solid var(--res);background:var(--res-d);}
+.def-icon{font-size:2rem;flex-shrink:0;}
+.def-content{flex:1;}
+.def-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;color:var(--res);margin-bottom:0.35rem;}
+.def-text{font-size:0.82rem;line-height:1.6;color:var(--text);}
+.def-val{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;background:var(--res);color:white;margin-top:0.4rem;}
+
+/* ESPIROMETRÍA */
+.espiro-table{width:100%;border-collapse:collapse;font-size:0.77rem;}
+.espiro-table th{background:var(--res);color:white;padding:0.5rem 0.75rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;}
+.espiro-table td{padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.espiro-table tr:last-child td{border-bottom:none;}
+.espiro-table tr:hover td{background:var(--warm);}
+.val-red{color:var(--fibr);font-weight:700;}
+.val-green{color:var(--neum);font-weight:700;}
+.val-orange{color:var(--sdra);font-weight:700;}
+
+/* PATOLOGÍA CARDS */
+.pat-card{background:var(--surface);border-radius:12px;overflow:hidden;border:1px solid var(--border);border-left:5px solid;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:0.9rem;}
+.pat-head{display:flex;align-items:center;gap:0.7rem;padding:0.75rem 0.9rem;}
+.pat-icon{font-size:1.5rem;flex-shrink:0;}
+.pat-info{flex:1;}
+.pat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;line-height:1.1;}
+.pat-kw{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:20px;color:white;display:inline-block;margin-top:0.2rem;}
+.pat-body{padding:0 0.9rem 0.9rem;}
+.pat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.4rem;}
+@media(max-width:480px){.pat-grid{grid-template-columns:1fr;}}
+.pat-item{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:0.4rem 0.55rem;font-size:0.72rem;line-height:1.35;}
+.pat-item strong{display:block;font-size:0.73rem;margin-bottom:0.05rem;}
+.pat-gas{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.65rem;margin-top:0.5rem;font-size:0.73rem;line-height:1.4;border-left:3px solid;}
+
+/* VR SPLIT CARD */
+.vr-split{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;}
+.vr-item{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:0.45rem 0.6rem;font-size:0.7rem;line-height:1.35;border-left:3px solid;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.thead2{padding:0.75rem 1.1rem;border-bottom:2px solid var(--res);background:var(--res-d);display:flex;align-items:center;gap:0.6rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--res);}
+.tbody{padding:1rem 1.1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0 1.4rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.78rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--res);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.66rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🫁 Patrón Restrictivo</div>
+  <h1>Patologías Respiratorias Restrictivas</h1>
+  <p class="subtitle">Fibrosis · Atelectasia · Neumotórax · Derrame · Neumonía · SDRA · INGESA</p>
+</header>
+
+<div class="wrap">
+
+<!-- DEFINICIÓN -->
+<div class="def-banner">
+  <span class="def-icon">🫁</span>
+  <div class="def-content">
+    <div class="def-title">Patrón Restrictivo — dificultad para el LLENADO pulmonar</div>
+    <div class="def-text">Los pulmones no pueden <strong>expandirse completamente</strong>, lo que limita el aire que pueden contener. El problema es <strong>entrar</strong>, no salir.</div>
+    <span class="def-val">CPT &lt; 80% del valor teórico ★</span>
+  </div>
+</div>
+
+<!-- ESPIROMETRÍA -->
+<div class="sec-divider"><div></div><span>📊 Espirometría — valores restrictivos</span><div></div></div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:0.7rem;">
+  <div style="overflow-x:auto;">
+    <table class="espiro-table">
+      <thead><tr><th>Parámetro</th><th>Patrón Restrictivo</th><th>Significado clínico</th></tr></thead>
+      <tbody>
+        <tr><td><strong>FEV1/CVF (Tiffeneau)</strong></td><td><span class="val-green">Normal o ↑ (&gt;0,7)</span></td><td>El cociente se preserva — no hay obstrucción</td></tr>
+        <tr><td><strong>CPT (Capacidad Pulm. Total)</strong></td><td><span class="val-red">↓ &lt;80% — DEFINITORIA ★</span></td><td>El pulmón no puede llenarse completamente</td></tr>
+        <tr><td><strong>CV (Capacidad Vital)</strong></td><td><span class="val-red">↓ Disminuida</span></td><td>Reducción del volumen disponible</td></tr>
+        <tr><td><strong>VR (Volumen Residual)</strong></td><td>Variable</td><td>↓ Intraparenquimatosa (fibrosis) · ↑ Extraparenquimatosa (obesidad)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="memo-box" style="margin-bottom:1rem;">
+  <div class="memo-label">🧠 Clave sobre el VR en restrictivo</div>
+  <div class="memo-text" style="font-size:0.77rem">
+    <span style="color:var(--fibr)">Intraparenquimatosa</span> (fibrosis, neumonía…) → VR <strong>disminuido</strong> ·
+    <span style="color:var(--sdra)">Extraparenquimatosa</span> (obesidad, cifoescoliosis…) → VR puede estar <strong>aumentado</strong>
+  </div>
+</div>
+
+<!-- FIBROSIS PULMONAR + SDRA -->
+<div class="sec-divider"><div></div><span>🔴 Fibrosis Pulmonar y SDRA</span><div></div></div>
+<div class="grid2">
+
+  <div class="pat-card" style="border-color:var(--fibr);">
+    <div class="pat-head" style="background:var(--fibr-d);">
+      <span class="pat-icon">🧱</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:var(--fibr)">Fibrosis Pulmonar</div>
+        <span class="pat-kw" style="background:var(--fibr)">Patrón restrictivo · HTP</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div class="pat-grid">
+        <div class="pat-item"><strong style="color:var(--fibr)">🤒 Clínica</strong>Disnea progresiva · tos seca · crepitantes en velcro</div>
+        <div class="pat-item"><strong style="color:var(--fibr)">⚠️ Complicación</strong>Causa de <strong>hipertensión pulmonar</strong></div>
+      </div>
+      <div class="pat-gas" style="border-color:var(--fibr);background:var(--fibr-d);">
+        <strong style="color:var(--fibr)">🩸 Gasometría:</strong> <strong>Hipoxemia persistente</strong> por déficit de oxigenación alveolar · VR disminuido
+      </div>
+    </div>
+  </div>
+
+  <div class="pat-card" style="border-color:var(--sdra);">
+    <div class="pat-head" style="background:var(--sdra-d);">
+      <span class="pat-icon">🔥</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:var(--sdra)">SDRA</div>
+        <span class="pat-kw" style="background:var(--sdra)">Síndrome Distress Resp. Agudo</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div class="pat-grid">
+        <div class="pat-item"><strong style="color:var(--sdra)">🤒 Clínica ★</strong>Taquipnea + cianosis + <strong>hipoxemia refractaria a O₂</strong></div>
+        <div class="pat-item"><strong style="color:var(--sdra)">🔬 Mecanismo</strong>Daño alveolar difuso + edema inflamatorio pulmonar</div>
+      </div>
+      <div class="pat-gas" style="border-color:var(--sdra);background:var(--sdra-d);">
+        <strong style="color:var(--sdra)">🩸 Gasometría:</strong> Hipoxemia resistente a oxígeno · inicialmente <strong>alcalosis respiratoria</strong> por taquipnea compensatoria
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ATELECTASIA + NEUMOTÓRAX + DERRAME -->
+<div class="sec-divider"><div></div><span>🫁 Colapso pleural y alveolar</span><div></div></div>
+<div class="grid3">
+
+  <div class="pat-card" style="border-color:var(--atel);">
+    <div class="pat-head" style="background:var(--atel-d);">
+      <span class="pat-icon">💙</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:var(--atel)">Atelectasia</div>
+        <span class="pat-kw" style="background:var(--atel)">Colapso alveolar</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div style="display:flex;flex-direction:column;gap:0.35rem;">
+        <div class="pat-item"><strong style="color:var(--atel)">🤒 Clínica</strong>Tos · disnea · abolición murmullo vesicular <strong>localizado</strong></div>
+        <div class="pat-item"><strong style="color:var(--atel)">🔬 Mecanismo</strong>Colapso pulmonar que impide la aireación de los alveolos</div>
+      </div>
+      <div class="pat-gas" style="border-color:var(--atel);background:var(--atel-d);">
+        <strong style="color:var(--atel)">🩸 Gas:</strong> Hipoxemia por colapso alveolar que impide intercambio gaseoso
+      </div>
+    </div>
+  </div>
+
+  <div class="pat-card" style="border-color:var(--neum);">
+    <div class="pat-head" style="background:var(--neum-d);">
+      <span class="pat-icon">💨</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:var(--neum)">Neumotórax Espontáneo</div>
+        <span class="pat-kw" style="background:var(--neum)">Aire en pleura</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div style="display:flex;flex-direction:column;gap:0.35rem;">
+        <div class="pat-item"><strong style="color:var(--neum)">🤒 Clínica ★</strong><strong>Dolor súbito</strong> + disnea + <strong>timpanismo</strong> a la percusión</div>
+        <div class="pat-item"><strong style="color:var(--neum)">🔬 Mecanismo</strong>Presencia de aire en pleura → colapsa parénquima</div>
+      </div>
+      <div class="pat-gas" style="border-color:var(--neum);background:var(--neum-d);">
+        <strong style="color:var(--neum)">🩸 Gas:</strong> Hipoxemia (especialmente si neumotórax a tensión)
+      </div>
+    </div>
+  </div>
+
+  <div class="pat-card" style="border-color:var(--der);">
+    <div class="pat-head" style="background:var(--der-d);">
+      <span class="pat-icon">💧</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:var(--der)">Derrame Pleural</div>
+        <span class="pat-kw" style="background:var(--der)">Líquido comprime pulmón</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div style="display:flex;flex-direction:column;gap:0.35rem;">
+        <div class="pat-item"><strong style="color:var(--der)">🤒 Clínica ★</strong>Disnea + dolor pleurítico + <strong>matidez</strong> a la percusión</div>
+        <div class="pat-item"><strong style="color:var(--der)">🔬 Mecanismo</strong>Acumulación líquido → comprime pulmón</div>
+      </div>
+      <div class="pat-gas" style="border-color:var(--der);background:var(--der-d);">
+        <strong style="color:var(--der)">🩸 Gas:</strong> Hipoxemia proporcional a la magnitud de la compresión
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="memo-box" style="margin-bottom:0.5rem;">
+  <div class="memo-label">🧠 Percusión — diferencial pleural ★★</div>
+  <div class="memo-text" style="font-size:0.77rem">
+    <span style="color:var(--neum)">Neumotórax → Timpanismo</span> (aire) ·
+    <span style="color:var(--der)">Derrame Pleural → Matidez</span> (líquido)
+  </div>
+</div>
+
+<!-- NEUMONÍA + ABSCESO -->
+<div class="sec-divider"><div></div><span>🦠 Neumonía y Absceso Pulmonar</span><div></div></div>
+<div class="grid2">
+
+  <div class="pat-card" style="border-color:var(--neumo);">
+    <div class="pat-head" style="background:var(--neumo-d);">
+      <span class="pat-icon">🟡</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:var(--neumo)">Neumonía (NAC)</div>
+        <span class="pat-kw" style="background:var(--neumo)">Infección alveolar · efecto shunt</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div class="pat-grid">
+        <div class="pat-item"><strong style="color:var(--neumo)">🤒 Clínica ★</strong>Fiebre + tos purulenta + dolor pleurítico + taquipnea</div>
+        <div class="pat-item"><strong style="color:var(--neumo)">🔬 Mecanismo</strong>Infección ocupa espacio alveolar → dificultad para entrada de aire</div>
+      </div>
+      <div class="pat-gas" style="border-color:var(--neumo);background:var(--neumo-d);">
+        <strong style="color:var(--neumo)">🩸 Gasometría:</strong> Hipoxemia por <strong>efecto shunt</strong> — alveolos perfundidos pero NO ventilados (llenos de pus)
+      </div>
+    </div>
+  </div>
+
+  <div class="pat-card" style="border-color:#7a5a2a;">
+    <div class="pat-head" style="background:#7a5a2a12;">
+      <span class="pat-icon">🟤</span>
+      <div class="pat-info">
+        <div class="pat-name" style="color:#7a5a2a">Absceso Pulmonar</div>
+        <span class="pat-kw" style="background:#7a5a2a">Cavitación necrótica</span>
+      </div>
+    </div>
+    <div class="pat-body">
+      <div class="pat-grid">
+        <div class="pat-item"><strong style="color:#7a5a2a">🤒 Clínica ★★</strong>Tos con expectoración <strong>marronácea maloliente</strong> + fiebre + astenia</div>
+        <div class="pat-item"><strong style="color:#7a5a2a">🔬 Mecanismo</strong>Necrosis e infección pulmonar → cavidad con contenido purulento</div>
+      </div>
+      <div class="pat-gas" style="border-color:#7a5a2a;background:#7a5a2a12;">
+        <strong style="color:#7a5a2a)">🩸 Gasometría:</strong> Hipoxemia + hipercapnia según extensión. Expectoración maloliente = dato de examen ★
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TABLA RESUMEN -->
+<div class="sec-divider"><div></div><span>📋 Resumen gasométrico — restrictivas</span><div></div></div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:1.2rem;">
+  <div style="overflow-x:auto;">
+    <table class="espiro-table">
+      <thead><tr><th>Patología</th><th>pO₂</th><th>pCO₂</th><th>pH</th><th>Clave gasométrica</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--sdra)">SDRA</strong></td><td><span class="val-red">↓↓ Refractaria O₂</span></td><td>↓ inicial</td><td><span class="val-orange">↑ Alcalosis resp.</span></td><td>Hipoxemia refractaria a oxigenoterapia ★★</td></tr>
+        <tr><td><strong style="color:var(--neumo)">Neumonía</strong></td><td><span class="val-red">↓ Efecto shunt</span></td><td>Normal/↓</td><td>Variable</td><td>Alveolos perfundidos sin ventilación</td></tr>
+        <tr><td><strong style="color:var(--fibr)">Fibrosis Pulmonar</strong></td><td><span class="val-red">↓ Persistente</span></td><td>Normal/↓</td><td>Variable</td><td>Hipoxemia crónica progresiva</td></tr>
+        <tr><td><strong style="color:var(--atel)">Atelectasia</strong></td><td><span class="val-red">↓ Hipoxemia</span></td><td>Normal</td><td>Normal</td><td>Proporcional al área colapsada</td></tr>
+        <tr><td><strong style="color:var(--neum)">Neumotórax</strong></td><td><span class="val-red">↓ Hipoxemia</span></td><td>Normal/↓</td><td>Variable</td><td>Mayor si neumotórax a tensión</td></tr>
+        <tr><td><strong style="color:var(--der)">Derrame Pleural</strong></td><td><span class="val-red">↓ Hipoxemia</span></td><td>Normal</td><td>Normal</td><td>Proporcional al volumen del derrame</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="tcard">
+  <div class="thead2"><span style="font-size:1.1rem">🎯</span><span class="ttitle">Preguntas tipo test — Restrictivas</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es el valor diagnóstico del patrón restrictivo?</div><div class="qa"><strong>CPT &lt; 80%</strong> del valor teórico</div></div>
+    <div class="qb"><div class="qt">¿Cómo es el Tiffeneau (FEV1/CVF) en el patrón restrictivo?</div><div class="qa"><strong>Normal o aumentado</strong> (&gt;0,7) — no hay obstrucción</div></div>
+    <div class="qb"><div class="qt">¿Qué signo diferencia neumotórax de derrame pleural a la percusión?</div><div class="qa">Neumotórax: <strong>timpanismo</strong> (aire) · Derrame: <strong>matidez</strong> (líquido)</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la clínica característica de la neumonía (NAC)?</div><div class="qa">Fiebre + tos purulenta + dolor pleurítico + taquipnea</div></div>
+    <div class="qb"><div class="qt">¿Qué mecanismo gasométrico explica la hipoxemia en la neumonía?</div><div class="qa"><strong>Efecto shunt</strong> — alveolos perfundidos pero no ventilados (llenos de pus)</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el dato clínico más específico del absceso pulmonar?</div><div class="qa">Expectoración <strong>marronácea maloliente</strong></div></div>
+    <div class="qb"><div class="qt">¿Cómo se presenta la gasometría en el SDRA?</div><div class="qa"><strong>Hipoxemia refractaria</strong> a oxigenoterapia · inicialmente alcalosis respiratoria</div></div>
+    <div class="qb"><div class="qt">¿En qué difiere el VR entre restricción intra y extraparenquimatosa?</div><div class="qa">Intraparenquimatosa (fibrosis): VR <strong>disminuido</strong> · Extraparenquimatosa (obesidad): VR puede estar <strong>aumentado</strong></div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

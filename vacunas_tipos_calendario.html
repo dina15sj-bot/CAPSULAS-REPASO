@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vacunas — Tipos, Vías y Calendario INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f4f0;--surface:#fff;--border:#c4d4c4;--text:#141e14;--muted:#6a7a6a;
+  --navy:#0d2137;
+  --green:#1a6a3a;--green-d:#1a6a3a14;
+  --blue:#1e5f8a;--blue-d:#1e5f8a14;
+  --red:#b5282a;--red-d:#b5282a14;
+  --orange:#c4681a;--orange-d:#c4681a14;
+  --purple:#6a3a8a;--purple-d:#6a3a8a14;
+  --teal:#1a6a6a;--teal-d:#1a6a6a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --warm:#eef4ee;
+  --c-lactante:#1e5f8a;
+  --c-escolar:#1a6a3a;
+  --c-adulto:#6a3a8a;
+  --c-mayor:#c4681a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#c4d4c428 31px,#c4d4c428 32px);}
+header{text-align:center;margin-bottom:1.8rem;}
+.badge{display:inline-flex;align-items:center;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.wrap{max-width:1100px;margin:0 auto;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.7rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.2rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.8rem;line-height:1.5;}
+.sec-divider{display:flex;align-items:center;gap:0.8rem;margin:1.5rem 0 0.8rem;}
+.sec-divider div{flex:1;height:2px;background:var(--navy);opacity:0.12;}
+.sec-divider span{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;}
+@media(max-width:750px){.grid2,.grid3{grid-template-columns:1fr;}}
+.full{grid-column:1/-1;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:0.9rem 1rem;}
+
+/* TIPO VACUNA CARDS */
+.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;margin-bottom:1rem;}
+@media(max-width:700px){.tipo-grid{grid-template-columns:1fr 1fr;}}
+.tipo-card{border-radius:9px;overflow:hidden;border:1px solid;}
+.tipo-head{padding:0.65rem 0.7rem;text-align:center;}
+.tipo-icon{font-size:1.2rem;margin-bottom:0.15rem;}
+.tipo-name{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
+.tipo-body{padding:0.55rem 0.65rem;background:white;font-size:0.7rem;color:var(--muted);line-height:1.4;}
+.tipo-body strong{color:var(--text);}
+.tipo-body .ejemplos{margin-top:0.3rem;font-size:0.67rem;}
+.tipo-body .ci{color:var(--red);font-size:0.65rem;margin-top:0.25rem;}
+
+.t-viva{border-color:var(--green);}.t-viva .tipo-head{background:var(--green-d);}.t-viva .tipo-name{color:var(--green);}
+.t-inact{border-color:var(--blue);}.t-inact .tipo-head{background:var(--blue-d);}.t-inact .tipo-name{color:var(--blue);}
+.t-sub{border-color:var(--teal);}.t-sub .tipo-head{background:var(--teal-d);}.t-sub .tipo-name{color:var(--teal);}
+.t-poli{border-color:var(--orange);}.t-poli .tipo-head{background:var(--orange-d);}.t-poli .tipo-name{color:var(--orange);}
+.t-conj{border-color:var(--purple);}.t-conj .tipo-head{background:var(--purple-d);}.t-conj .tipo-name{color:var(--purple);}
+.t-tox{border-color:var(--gold);}.t-tox .tipo-head{background:var(--gold-dim);}.t-tox .tipo-name{color:#8a6a10;}
+
+/* VÍAS */
+.via-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;}
+@media(max-width:650px){.via-grid{grid-template-columns:1fr 1fr;}}
+.via-card{border-radius:8px;overflow:hidden;border:2px solid;text-align:center;}
+.via-head{padding:0.7rem 0.4rem;}
+.via-icon{font-size:1.4rem;margin-bottom:0.15rem;}
+.via-name{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;}
+.via-body{padding:0.5rem 0.55rem;background:white;font-size:0.68rem;color:var(--muted);line-height:1.35;text-align:left;}
+.via-body strong{color:var(--text);}
+.via-body .star{color:var(--gold);font-weight:700;}
+
+.v-im{border-color:var(--blue);}.v-im .via-head{background:var(--blue-d);}.v-im .via-name{color:var(--blue);}
+.v-sc{border-color:var(--green);}.v-sc .via-head{background:var(--green-d);}.v-sc .via-name{color:var(--green);}
+.v-oral{border-color:var(--orange);}.v-oral .via-head{background:var(--orange-d);}.v-oral .via-name{color:var(--orange);}
+.v-in{border-color:var(--purple);}.v-in .via-head{background:var(--purple-d);}.v-in .via-name{color:var(--purple);}
+
+/* CI TABLE */
+.ci-table{width:100%;border-collapse:collapse;font-size:0.76rem;}
+.ci-table th{background:var(--navy);color:white;padding:0.5rem 0.75rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;}
+.ci-table td{padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.ci-table tr:last-child td{border-bottom:none;}
+.ci-table tr:hover td{background:var(--warm);}
+.ci-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:3px;}
+.cp-red{background:var(--red-d);color:var(--red);border:1px solid var(--red);}
+.cp-green{background:var(--green-d);color:var(--green);border:1px solid var(--green);}
+
+/* CALENDARIO TIMELINE */
+.cal-group{margin-bottom:0.9rem;}
+.cal-group-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:900;display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;padding:0.4rem 0.7rem;border-radius:6px;}
+.timeline{display:flex;flex-direction:column;gap:0.4rem;}
+.t-row{display:flex;align-items:flex-start;gap:0.7rem;padding:0.45rem 0.6rem;background:var(--warm);border:1px solid var(--border);border-radius:6px;border-left:3px solid;}
+.t-age{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;flex-shrink:0;min-width:70px;padding-top:0.1rem;}
+.t-vacs{font-size:0.75rem;line-height:1.5;color:var(--text);}
+.t-vacs strong{color:var(--navy);}
+.t-vacs .note{font-size:0.65rem;color:var(--muted);font-style:italic;}
+.ingesa-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;padding:0.05rem 0.4rem;border-radius:3px;background:#fff3cd;border:1px solid var(--gold);color:#8a6a10;margin-left:0.3rem;}
+
+.cal1 .cal-group-title{background:var(--c-lactante);color:white;}
+.cal1 .t-row{border-color:var(--c-lactante);}
+.cal1 .t-age{color:var(--c-lactante);}
+.cal2 .cal-group-title{background:var(--c-escolar);color:white;}
+.cal2 .t-row{border-color:var(--c-escolar);}
+.cal2 .t-age{color:var(--c-escolar);}
+.cal3 .cal-group-title{background:var(--c-adulto);color:white;}
+.cal3 .t-row{border-color:var(--c-adulto);}
+.cal3 .t-age{color:var(--c-adulto);}
+.cal4 .cal-group-title{background:var(--c-mayor);color:white;}
+.cal4 .t-row{border-color:var(--c-mayor);}
+.cal4 .t-age{color:var(--c-mayor);}
+
+/* TEST */
+.tcard .card-head{background:var(--red-d);border-bottom:2px solid var(--red);}
+.tcard .card-title{color:var(--red);}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0 1.4rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.78rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--red);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.66rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">💉 Vacunología · Calendario INGESA</div>
+  <h1>Vacunas — Tipos, Vías y Calendario</h1>
+  <p class="subtitle">Ceuta y Melilla · INGESA Enfermería 2026</p>
+</header>
+
+<div class="wrap">
+
+<!-- PARTE 1: TIPOS DE VACUNAS -->
+<div class="sec-divider"><div></div><span>🧬 Tipos de vacunas</span><div></div></div>
+
+<div class="tipo-grid">
+  <div class="tipo-card t-viva">
+    <div class="tipo-head"><div class="tipo-icon">🟢</div><div class="tipo-name">Vivas atenuadas</div></div>
+    <div class="tipo-body">
+      <strong>Microorganismo vivo debilitado</strong>
+      <div class="ejemplos">SRP · Varicela · Fiebre amarilla · Rotavirus · BCG · Gripe LAIV</div>
+      <div style="margin-top:0.3rem;color:var(--green);font-size:0.67rem;">✅ Inmunidad fuerte y duradera</div>
+      <div class="ci">⚠️ CI: embarazo · inmunodeficiencia grave</div>
+    </div>
+  </div>
+  <div class="tipo-card t-inact">
+    <div class="tipo-head"><div class="tipo-icon">🔵</div><div class="tipo-name">Inactivadas</div></div>
+    <div class="tipo-body">
+      <strong>Microorganismo muerto completo</strong>
+      <div class="ejemplos">VPI · Gripe parenteral · Hepatitis A · algunas COVID</div>
+      <div style="margin-top:0.3rem;color:var(--blue);font-size:0.67rem;">✅ Más seguras en inmunodeprimidos</div>
+      <div class="ci">Requieren varias dosis y refuerzos</div>
+    </div>
+  </div>
+  <div class="tipo-card t-sub">
+    <div class="tipo-head"><div class="tipo-icon">🔷</div><div class="tipo-name">Subunidades</div></div>
+    <div class="tipo-body">
+      <strong>Solo componentes del microbio</strong>
+      <div class="ejemplos">Hepatitis B (AgHBs) · VPH · Gripe subunidades · Pertussis acelular</div>
+      <div class="ci">Precisan adyuvantes · varias dosis</div>
+    </div>
+  </div>
+  <div class="tipo-card t-poli">
+    <div class="tipo-head"><div class="tipo-icon">🟠</div><div class="tipo-name">Polisacáridas</div></div>
+    <div class="tipo-body">
+      <strong>Polisacáridos capsulares</strong>
+      <div class="ejemplos">VNP23 · Meningococo polisacárida ACWY</div>
+      <div class="ci">⚠️ Respuesta T-independiente · pobre &lt;2 años · sin memoria inmunológica</div>
+    </div>
+  </div>
+  <div class="tipo-card t-conj">
+    <div class="tipo-head"><div class="tipo-icon">🟣</div><div class="tipo-name">Conjugadas</div></div>
+    <div class="tipo-body">
+      <strong>Polisacárido + proteína → T-dependiente</strong>
+      <div class="ejemplos">VNC13/15/20 · Hib · MenC · MenACWY</div>
+      <div style="margin-top:0.3rem;color:var(--purple);font-size:0.67rem;">✅ Desde 6–8 semanas · memoria · reduce portador</div>
+    </div>
+  </div>
+  <div class="tipo-card t-tox">
+    <div class="tipo-head"><div class="tipo-icon">🟡</div><div class="tipo-name">Toxoides</div></div>
+    <div class="tipo-body">
+      <strong>Toxinas bacterianas inactivadas</strong>
+      <div class="ejemplos">Difteria · Tétanos (siempre en combinación: DTPa · dTpa · Td)</div>
+      <div class="ci">Refuerzos cada ~10 años en adultos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABREVIATURAS -->
+<div class="sec-divider"><div></div><span>🔤 Abreviaturas — qué es cada una</span><div></div></div>
+
+<div class="grid2" style="margin-bottom:1rem;">
+
+  <!-- VIRICAS -->
+  <div class="card">
+    <div class="card-head" style="background:var(--blue-d);border-bottom:2px solid var(--blue)">
+      <span class="card-icon">🦠</span>
+      <span class="card-title" style="color:var(--blue)">Vacunas víricas</span>
+    </div>
+    <div class="card-body">
+      <table style="width:100%;border-collapse:collapse;font-size:0.76rem;">
+        <thead><tr>
+          <th style="background:var(--blue);color:white;padding:0.4rem 0.6rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;border-radius:4px 0 0 0;">Abreviatura</th>
+          <th style="background:var(--blue);color:white;padding:0.4rem 0.6rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;border-radius:0 4px 0 0;">Significado</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">SRP / MMR</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Triple vírica — Sarampión, Rubéola, Parotiditis</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">VPI</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Vacuna Polio Inactivada (inyectable)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">VPO</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Vacuna Polio Oral (Sabin, histórica)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">VPH / HPV</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Virus del Papiloma Humano (bivalente/tetravalente/9v)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">HepA / HepB</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Hepatitis A / Hepatitis B</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">AgHBs</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Antígeno de superficie Hepatitis B (subunidad recombinante)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">RV1 / RV5</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Rotavirus monovalente (Rotarix) / pentavalente (RotaTeq)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">LAIV</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Live Attenuated Influenza Vaccine — gripe intranasal viva</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--blue);font-size:0.72rem;">VVZ</td><td style="padding:0.4rem 0.6rem;font-size:0.74rem;">Virus Varicela-Zóster (varicela y herpes zóster)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BACTERIANAS -->
+  <div class="card">
+    <div class="card-head" style="background:var(--green-d);border-bottom:2px solid var(--green)">
+      <span class="card-icon">🦠</span>
+      <span class="card-title" style="color:var(--green)">Vacunas bacterianas + combinadas</span>
+    </div>
+    <div class="card-body">
+      <table style="width:100%;border-collapse:collapse;font-size:0.76rem;">
+        <thead><tr>
+          <th style="background:var(--green);color:white;padding:0.4rem 0.6rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;border-radius:4px 0 0 0;">Abreviatura</th>
+          <th style="background:var(--green);color:white;padding:0.4rem 0.6rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;border-radius:0 4px 0 0;">Significado</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">DTPa</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Difteria-Tétanos-Pertussis acelular (dosis pediátrica)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">dTpa</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Difteria-Tétanos-Pertussis acelular (dosis <strong>adulto</strong>, minúscula = menos D)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">Td</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Tétanos-Difteria (adulto, sin pertussis)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">Hib</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Haemophilus influenzae tipo b (conjugada)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">VNC13/15/20</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Vacuna Neumococo Conjugada (13/15/20 serotipos)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">VNP23</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Vacuna Neumococo Polisacárida 23 (no conjugada)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">MenB</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Vacuna Meningococo B (recombinante)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">MenACWY</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Vacuna Meningococo A, C, W, Y (conjugada tetravalente)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">BCG</td><td style="padding:0.4rem 0.6rem;border-bottom:1px solid var(--border);font-size:0.74rem;">Bacillus Calmette-Guérin — tuberculosis (viva atenuada, intradérmica)</td></tr>
+          <tr><td style="padding:0.4rem 0.6rem;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:0.72rem;">Hexavalente</td><td style="padding:0.4rem 0.6rem;font-size:0.74rem;">DTPa + VPI + Hib + HepB — 6 en 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- VÍAS DE ADMINISTRACIÓN -->
+<div class="sec-divider"><div></div><span>💉 Vías de administración</span><div></div></div>
+
+<div class="via-grid">
+  <div class="via-card v-im">
+    <div class="via-head"><div class="via-icon">💪</div><div class="via-name">Intramuscular ★</div></div>
+    <div class="via-body">
+      <strong>La reina</strong><br>
+      Vasto externo (lactantes)<br>
+      Deltoides (niños/adultos)<br>
+      <div style="margin-top:0.3rem"><span class="star">★</span> Hexavalente · VNC · MenACWY · MenB · HepA/B · VPH · Gripe inact. · zóster · Td/dTpa</div>
+      <div style="margin-top:0.25rem;color:var(--red);font-size:0.65rem;">⚠️ Aluminio → solo IM, no SC/IV, no congelar</div>
+    </div>
+  </div>
+  <div class="via-card v-sc">
+    <div class="via-head"><div class="via-icon">🩸</div><div class="via-name">Subcutánea</div></div>
+    <div class="via-body">
+      SRP y varicela: SC o IM según presentación<br>
+      <div style="margin-top:0.3rem;color:var(--red);font-size:0.65rem;">⚠️ BCG → NO subcutánea → <strong>INTRADÉRMICA</strong> estricta (deltoides superior)</div>
+    </div>
+  </div>
+  <div class="via-card v-oral">
+    <div class="via-head"><div class="via-icon">👄</div><div class="via-name">Oral ★</div></div>
+    <div class="via-body">
+      <span class="star">★</span> <strong>Rotavirus</strong> — gotas orales<br>
+      VPO (polio oral, histórica)<br>
+      <div style="margin-top:0.3rem;color:var(--red);font-size:0.65rem;">⚠️ CI Rotavirus: invaginación intestinal · malform. intestinal · inmunodef. combinada severa</div>
+    </div>
+  </div>
+  <div class="via-card v-in">
+    <div class="via-head"><div class="via-icon">👃</div><div class="via-name">Intranasal</div></div>
+    <div class="via-body">
+      <strong>Gripe LAIV</strong> — aerosol nasal (viva)<br>
+      Solo niños/adolescentes<br>
+      <div style="margin-top:0.3rem;color:var(--red);font-size:0.65rem;">⚠️ CI: inmunodeprimidos · embarazo · asma grave · sibilancias recurrentes</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTRAINDICACIONES FINAS -->
+<div class="sec-divider"><div></div><span>🚫 Contraindicaciones clave</span><div></div></div>
+
+<div class="card" style="margin-bottom:1rem;">
+  <div class="card-head" style="background:var(--red-d);border-bottom:2px solid var(--red)">
+    <span class="card-icon">⚠️</span>
+    <span class="card-title" style="color:var(--red)">Contraindicaciones finas — las que más caen</span>
+  </div>
+  <div class="card-body">
+    <div style="overflow-x:auto">
+      <table class="ci-table">
+        <thead><tr><th>Vacuna</th><th>Contraindicación</th><th>Trampas de test</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ci-pill" style="background:var(--green-d);color:var(--green);border:1px solid var(--green)">SRP · Varicela · BCG · LAIV</span></td>
+            <td>Inmunodeficiencia grave · tratamiento inmunosupresor · <strong>embarazo</strong></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="ci-pill" style="background:var(--green-d);color:var(--green);border:1px solid var(--green)">Triple vírica (SRP)</span></td>
+            <td>Alergia grave a neomicina o gelatina · anafilaxia previa</td>
+            <td><strong>Alergia al huevo NO es CI</strong> ★</td>
+          </tr>
+          <tr>
+            <td><span class="ci-pill" style="background:var(--orange-d);color:var(--orange);border:1px solid var(--orange)">Fiebre amarilla</span></td>
+            <td>Alergia grave al <strong>huevo</strong> (muy rica en proteína de huevo)</td>
+            <td>Única viva con CI por huevo</td>
+          </tr>
+          <tr>
+            <td><span class="ci-pill" style="background:var(--orange-d);color:var(--orange);border:1px solid var(--orange)">Rotavirus (oral)</span></td>
+            <td>Invaginación intestinal previa · anomalías intestinales graves · inmunodef. combinada severa</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="ci-pill" style="background:var(--purple-d);color:var(--purple);border:1px solid var(--purple)">dTpa en embarazo</span></td>
+            <td style="color:var(--green)"><strong>NO contraindicada — RECOMENDADA</strong> en cada embarazo (semana 27–28)</td>
+            <td>Trampa: se dice que CI, pero es al revés ★★</td>
+          </tr>
+          <tr>
+            <td colspan="3" style="background:var(--warm);font-size:0.72rem;color:var(--muted)">
+              <strong>No son CI:</strong> lactancia · infección leve respiratoria · diarrea leve · antibióticos · prematuridad (con pauta ajustada)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDARIO INGESA CEUTA Y MELILLA -->
+<div class="sec-divider"><div></div><span>📅 Calendario vacunal INGESA — Ceuta y Melilla</span><div></div></div>
+
+<div class="grid2">
+
+  <!-- LACTANTES -->
+  <div class="cal-group cal1">
+    <div class="cal-group-title">👶 Lactantes (0–18 meses)</div>
+    <div class="timeline">
+      <div class="t-row">
+        <span class="t-age">Nacimiento</span>
+        <div class="t-vacs"><strong>Hepatitis B</strong> <span class="note">(pauta específica si madre AgHBs+)</span></div>
+      </div>
+      <div class="t-row">
+        <span class="t-age">2 y 4 meses</span>
+        <div class="t-vacs">
+          <strong>Hexavalente</strong> DTPa-VPI-Hib-HepB<br>
+          <strong>VNC20</strong> <span class="ingesa-tag">pauta 3+1</span><br>
+          <strong>Rotavirus</strong> (oral) <span class="note">RV1 en Ceuta</span><br>
+          <strong>MenB</strong> <span class="note">Melilla: 2, 4, 12m</span>
+        </div>
+      </div>
+      <div class="t-row">
+        <span class="t-age">6 meses</span>
+        <div class="t-vacs">
+          <strong>Hexavalente</strong> (3ª dosis)<br>
+          <strong>VNC20</strong> (3ª dosis)
+        </div>
+      </div>
+      <div class="t-row">
+        <span class="t-age">11–12 meses</span>
+        <div class="t-vacs">
+          <strong>VNC20</strong> refuerzo final<br>
+          <strong>MenACWY</strong> <span class="ingesa-tag">sustituye MenC</span><br>
+          <strong>MenB</strong> (3ª dosis, Melilla)
+        </div>
+      </div>
+      <div class="t-row">
+        <span class="t-age">15 meses</span>
+        <div class="t-vacs">
+          <strong>SRP</strong> (triple vírica, 1ª dosis)<br>
+          <strong>Varicela</strong> (1ª dosis)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESCOLAR + ADULTO + MAYOR -->
+  <div style="display:flex;flex-direction:column;gap:0.9rem;">
+
+    <!-- ESCOLAR -->
+    <div class="cal-group cal2">
+      <div class="cal-group-title">🏫 Edad escolar (3–14 años)</div>
+      <div class="timeline">
+        <div class="t-row">
+          <span class="t-age">3–4 años</span>
+          <div class="t-vacs"><strong>2ª SRP</strong> y <strong>2ª Varicela</strong> <span class="note">(pauta 2+2)</span></div>
+        </div>
+        <div class="t-row">
+          <span class="t-age">6 años</span>
+          <div class="t-vacs"><strong>Refuerzo DTPa/VPI</strong> o dTpa/VPI</div>
+        </div>
+        <div class="t-row">
+          <span class="t-age">12 años</span>
+          <div class="t-vacs">
+            <strong>MenACWY</strong> refuerzo adolescente<br>
+            <strong>VPH9</strong> <span class="ingesa-tag">niñas y niños</span> <span class="note">1 dosis desde 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADULTO Y EMBARAZO -->
+    <div class="cal-group cal3">
+      <div class="cal-group-title">🤰 Adultos y embarazo</div>
+      <div class="timeline">
+        <div class="t-row">
+          <span class="t-age">Adultos</span>
+          <div class="t-vacs">Completar <strong>Td</strong> hasta 5 dosis · rescate HepB · varicela · SRP si no inmunizados</div>
+        </div>
+        <div class="t-row">
+          <span class="t-age">Embarazo</span>
+          <div class="t-vacs"><strong>dTpa</strong> <span class="ingesa-tag">cada embarazo</span> semana 27–28 · Gripe + COVID según campaña</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAYORES -->
+    <div class="cal-group cal4">
+      <div class="cal-group-title">👴 Mayores y grupos de riesgo</div>
+      <div class="timeline">
+        <div class="t-row">
+          <span class="t-age">≥60–65 años</span>
+          <div class="t-vacs"><strong>Gripe anual</strong> + COVID estacional · <strong>VNC20</strong> y/o VNP · <strong>Zóster</strong> (2 dosis, cohortes 65–80)</div>
+        </div>
+        <div class="t-row">
+          <span class="t-age">Riesgo</span>
+          <div class="t-vacs"><strong>Hepatitis A</strong> (viajeros, hepatopatías) · esquemas acelerados según PDF INGESA</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="memo-box" style="margin-top:1rem;">
+  <div class="memo-label">🧠 Claves INGESA examen — Ceuta y Melilla</div>
+  <div class="memo-text" style="font-size:0.77rem">
+    <span style="color:var(--blue)">VNC20</span> pauta 3+1 ·
+    <span style="color:var(--blue)">MenACWY</span> a los 4 y 12m ·
+    <span style="color:var(--blue)">MenB</span> en lactantes (Melilla) ·
+    <span style="color:var(--green)">VPH</span> ambos sexos 12 años ·
+    <span style="color:var(--orange)">Zóster</span> 65–80 años ·
+    <span style="color:var(--purple)">dTpa</span> cada embarazo semana 27–28
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="card tcard" style="margin-top:1.2rem;">
+  <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Vacunas</span></div>
+  <div class="card-body"><div class="qgrid">
+    <div class="qb">
+      <div class="qt">¿Cuál es la vía de administración del rotavirus?</div>
+      <div class="qa"><strong>Oral</strong> — gotas</div>
+      <div class="qn">Trampa clásica: no es IM</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿Cuál es la vía correcta para BCG?</div>
+      <div class="qa"><strong>Intradérmica</strong> — deltoides superior</div>
+      <div class="qn">No subcutánea, no IM</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿La alergia al huevo contraindica la triple vírica?</div>
+      <div class="qa"><strong>No</strong> — no es CI para SRP</div>
+      <div class="qn">Sí contraindica fiebre amarilla (rica en proteína de huevo)</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿Cuál es la diferencia entre vacuna polisacárida y conjugada?</div>
+      <div class="qa">Polisacárida: respuesta T-independiente, sin memoria, pobre &lt;2 años · Conjugada: T-dependiente, genera memoria</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿Cuándo se administra la dTpa en el embarazo?</div>
+      <div class="qa">Semana <strong>27–28</strong> de cada embarazo</div>
+      <div class="qn">No es CI — está recomendada ★★</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿A qué edad se vacuna de VPH en Ceuta y Melilla?</div>
+      <div class="qa"><strong>12 años</strong> — niñas y niños, 1 dosis desde 2025</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿Qué vacuna se administra en MenACWY en el calendario de lactantes?</div>
+      <div class="qa">A los <strong>4 y 12 meses</strong> (sustituye a MenC)</div>
+    </div>
+    <div class="qb">
+      <div class="qt">¿Cuál es la CI específica del rotavirus oral?</div>
+      <div class="qa"><strong>Invaginación intestinal previa</strong> · malformaciones intestinales · inmunodef. combinada severa</div>
+    </div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

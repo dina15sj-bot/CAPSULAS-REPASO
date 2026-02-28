@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodología de Investigación — INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f0f8;--surface:#fff;--border:#ccc4dc;--text:#16101e;--muted:#7a6a8a;
+  --navy:#0d1e37;
+  --pir1:#6a0f8a;--pir1-d:#6a0f8a15;   /* metaanálisis */
+  --pir2:#8a2f6a;--pir2-d:#8a2f6a12;   /* RS */
+  --pir3:#1e5f8a;--pir3-d:#1e5f8a12;   /* ECA */
+  --pir4:#1a7a4a;--pir4-d:#1a7a4a12;   /* cohortes */
+  --pir5:#7a6a1a;--pir5-d:#c49a2a18;   /* casos-controles */
+  --pir6:#8a4a1a;--pir6-d:#8a4a1a12;   /* transversal */
+  --pir7:#6a6a6a;--pir7-d:#6a6a6a10;   /* descriptivos */
+  --pir8:#4a4a4a;--pir8-d:#4a4a4a10;   /* expertos */
+  --prob:#1e5f8a;--prob-d:#1e5f8a12;
+  --noprob:#c4681a;--noprob-d:#c4681a12;
+  --cual:#8a1a5a;--cual-d:#8a1a5a12;
+  --cuant:#1a5a8a;--cuant-d:#1a5a8a12;
+  --gold:#c49a2a;--gold-dim:#c49a2a20;
+  --warm:#f5f2fc;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ccc4dc28 31px,#ccc4dc28 32px);}
+.wrap{max-width:1100px;margin:0 auto;}
+header{text-align:center;margin-bottom:2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--pir1);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.sec-div{display:flex;align-items:center;gap:0.8rem;margin:1.8rem 0 0.9rem;}
+.sec-div div{flex:1;height:2px;background:var(--navy);opacity:0.1;}
+.sec-div span{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+.memo{border-radius:6px;padding:0.5rem 0.85rem;border:1px solid var(--gold);background:var(--gold-dim);margin-top:0.6rem;}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.18rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.78rem;line-height:1.5;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:700px){.grid2{grid-column:1fr;}}
+
+/* ── PIRÁMIDE ── */
+.piramide{display:flex;flex-direction:column;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.pir-row{display:flex;align-items:stretch;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.pir-row:last-child{border-bottom:none;}
+.pir-rank{flex-shrink:0;width:48px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;border-right:1px solid var(--border);}
+.pir-icon{flex-shrink:0;width:42px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;border-right:1px solid var(--border);}
+.pir-content{flex:1;padding:0.6rem 0.8rem;}
+.pir-name{font-weight:700;font-size:0.82rem;margin-bottom:0.08rem;}
+.pir-kw{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin-bottom:0.18rem;}
+.pir-def{font-size:0.72rem;line-height:1.4;color:var(--text);}
+.pir-right{flex-shrink:0;width:180px;padding:0.55rem 0.7rem;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:0.15rem;justify-content:center;}
+@media(max-width:650px){.pir-right{display:none;}}
+.pir-right .ex{font-size:0.65rem;color:var(--muted);line-height:1.3;}
+.pir-right .ex strong{color:var(--text);}
+.pir-right .perla{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--gold);line-height:1.3;margin-top:0.2rem;}
+.medida-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.57rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:3px;margin-left:0.35rem;vertical-align:middle;}
+
+/* ── MUESTREO ── */
+.muestreo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:700px){.muestreo-grid{grid-template-columns:1fr;}}
+.muest-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.muest-head{padding:0.65rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;}
+.muest-title{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:900;}
+.muest-body{padding:0.7rem 0.9rem;display:flex;flex-direction:column;gap:0.45rem;}
+.muest-item{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.45rem 0.65rem;border-left:3px solid;}
+.muest-name{font-weight:700;font-size:0.78rem;margin-bottom:0.07rem;}
+.muest-kw{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin-bottom:0.06rem;}
+.muest-ex{font-size:0.7rem;color:var(--muted);line-height:1.3;}
+
+/* ── VARIABLES ── */
+.var-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.8rem;}
+@media(max-width:650px){.var-grid{grid-template-columns:1fr;}}
+.var-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.var-head{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.45rem;}
+.var-icon{font-size:1.1rem;}
+.var-title{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:900;}
+.var-body{padding:0.7rem 0.9rem;display:flex;flex-direction:column;gap:0.4rem;}
+.var-item{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:0.4rem 0.6rem;border-left:3px solid;font-size:0.74rem;line-height:1.4;}
+.var-item strong{font-size:0.76rem;}
+
+/* ESCALAS TABLE */
+.escala-table{width:100%;border-collapse:collapse;font-size:0.76rem;}
+.escala-table th{background:var(--navy);color:white;padding:0.5rem 0.7rem;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.1em;}
+.escala-table td{padding:0.5rem 0.7rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.escala-table tr:last-child td{border-bottom:none;}
+.escala-table tr:hover td{background:var(--warm);}
+
+/* ERRORES + HIPÓTESIS */
+.hip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+@media(max-width:650px){.hip-grid{grid-template-columns:1fr;}}
+.hip-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.hip-head{padding:0.55rem 0.75rem;font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:900;border-bottom:1px solid var(--border);}
+.hip-body{padding:0.55rem 0.75rem;font-size:0.74rem;line-height:1.5;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.t-head{padding:0.75rem 1.1rem;border-bottom:2px solid var(--pir1);background:var(--pir1-d);display:flex;align-items:center;gap:0.6rem;}
+.t-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--pir1);}
+.t-body{padding:1rem 1.1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.77rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--pir1);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.65rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="badge">📊 Investigación · Estadística</div>
+  <h1>Metodología de Investigación</h1>
+  <p class="subtitle">Tipos de estudio · Muestreo · Variables · Escalas · INGESA 2026</p>
+</header>
+
+<!-- ══════════════════════════════════════
+     PIRÁMIDE DE EVIDENCIA
+══════════════════════════════════════ -->
+<div class="sec-div"><div></div><span>🔺 Pirámide de evidencia — de mayor a menor</span><div></div></div>
+
+<div class="piramide">
+
+  <!-- METAANÁLISIS -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir1-d);color:var(--pir1);">1</div>
+    <div class="pir-icon" style="background:var(--pir1-d);">🥇</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir1);">Metaanálisis (MA) de ensayos clínicos</div>
+      <div class="pir-kw">"suma cuantitativa" · "pooling" · "mayor evidencia"</div>
+      <div class="pir-def">Combina <strong>estadísticamente</strong> resultados de varios ECA sobre la misma pregunta. Estimación global de efecto más precisa. <strong>Cúspide</strong> de la pirámide si los estudios incluidos son de calidad.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir1-d);">
+      <div class="ex"><strong>Ej:</strong> MA sobre eficacia de nueva insulina basal frente a NPH</div>
+      <div class="perla">⚠️ "Garbage in, garbage out" — MA de estudios malos no da buena evidencia</div>
+    </div>
+  </div>
+
+  <!-- RS -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir2-d);color:var(--pir2);">2</div>
+    <div class="pir-icon" style="background:var(--pir2-d);">🔍</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir2);">Revisión Sistemática (RS)</div>
+      <div class="pir-kw">"búsqueda protocolizada" · "síntesis cualitativa"</div>
+      <div class="pir-def">Búsqueda explícita con criterios de inclusión/exclusión definidos. Puede o no incluir MA. Suele ser <strong>base de guías de práctica clínica</strong>.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir2-d);">
+      <div class="ex"><strong>Ej:</strong> RS sobre intervenciones enfermeras para prevenir UPP</div>
+      <div class="perla">★ RS sin MA sigue siendo alto nivel</div>
+    </div>
+  </div>
+
+  <!-- ECA -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir3-d);color:var(--pir3);">3</div>
+    <div class="pir-icon" style="background:var(--pir3-d);">⚗️</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir3);">Ensayo Clínico Aleatorizado (ECA)</div>
+      <div class="pir-kw">"intervención" · "grupo control" · "aleatorización"</div>
+      <div class="pir-def">Asignación <strong>aleatoria</strong> de intervención a grupos vs control/placebo. <strong>Gold standard</strong> para tratamiento/prevención. Puede ser simple, doble o triple ciego.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir3-d);">
+      <div class="ex"><strong>Ej:</strong> ECA cura húmeda vs cura tradicional en úlceras venosas</div>
+      <div class="perla">★★★ Gold standard — experimental</div>
+    </div>
+  </div>
+
+  <!-- COHORTES -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir4-d);color:var(--pir4);">4</div>
+    <div class="pir-icon" style="background:var(--pir4-d);">⏩</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir4);">Estudio de Cohortes</div>
+      <div class="pir-kw">"expuestos vs no expuestos" · "seguimiento" · "incidencia" · "RR"</div>
+      <div class="pir-def">Se seleccionan sujetos según <strong>exposición</strong> y se sigue en el tiempo hasta ver aparición de enfermedad. Calcula <strong>Riesgo Relativo (RR)</strong>. Mejor para enfermedades frecuentes y exposiciones raras.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir4-d);">
+      <div class="ex"><strong>Ej:</strong> Cohorte diabéticos vs no diabéticos → incidencia pie diabético</div>
+      <div class="perla">Medida: RR · Dirección: →</div>
+    </div>
+  </div>
+
+  <!-- CASOS-CONTROLES -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir5-d);color:var(--pir5);">5</div>
+    <div class="pir-icon" style="background:var(--pir5-d);">🔙</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir5);">Casos y Controles</div>
+      <div class="pir-kw">"casos-enfermos vs controles-sanos" · "retrospectivo" · "OR"</div>
+      <div class="pir-def">Se parte de enfermos (casos) y sanos (controles) y se mira <strong>retrospectivamente</strong> la exposición previa. Calcula <strong>Odds Ratio (OR)</strong>. Útil para <strong>enfermedades raras</strong> o con periodo de latencia largo.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir5-d);">
+      <div class="ex"><strong>Ej:</strong> Cáncer de pulmón (casos) vs sin cáncer + consumo de tabaco</div>
+      <div class="perla">⚠️ NO calcula incidencia ni RR · más sesgos (memoria, selección)</div>
+    </div>
+  </div>
+
+  <!-- TRANSVERSAL -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir6-d);color:var(--pir6);">6</div>
+    <div class="pir-icon" style="background:var(--pir6-d);">📸</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir6);">Estudio Transversal / Prevalencia</div>
+      <div class="pir-kw">"foto fija" · "un solo momento" · "prevalencia"</div>
+      <div class="pir-def">Medición simultánea de exposición y enfermedad <strong>en un punto de tiempo</strong>. Estima prevalencia; útil para planificación de recursos y generación de hipótesis.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir6-d);">
+      <div class="ex"><strong>Ej:</strong> Prevalencia de tabaquismo en enfermeras de un hospital en 2025</div>
+      <div class="perla">⚠️ NO establece causalidad</div>
+    </div>
+  </div>
+
+  <!-- SERIE DE CASOS -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir7-d);color:var(--pir7);">7</div>
+    <div class="pir-icon" style="background:var(--pir7-d);">📋</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir7);">Series de Casos / Estudios Descriptivos</div>
+      <div class="pir-kw">"describir" · "no grupo control"</div>
+      <div class="pir-def">Descripción detallada de casos clínicos, sin comparación sistemática. <strong>Generan hipótesis</strong>, no las confirman. Bajo nivel de evidencia.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir7-d);">
+      <div class="ex"><strong>Ej:</strong> Serie de casos de nueva complicación de catéter</div>
+      <div class="perla">Solo generan hipótesis</div>
+    </div>
+  </div>
+
+  <!-- EXPERTOS -->
+  <div class="pir-row">
+    <div class="pir-rank" style="background:var(--pir8-d);color:var(--pir8);">8</div>
+    <div class="pir-icon" style="background:var(--pir8-d);">💬</div>
+    <div class="pir-content">
+      <div class="pir-name" style="color:var(--pir8);">Opinión de Expertos / Consensos / Editoriales</div>
+      <div class="pir-kw">"experiencia" · "menor evidencia"</div>
+      <div class="pir-def">Orientan cuando no hay mejor evidencia disponible. <strong>Último nivel</strong> de la pirámide.</div>
+    </div>
+    <div class="pir-right" style="background:var(--pir8-d);">
+      <div class="ex">Consensos de sociedades científicas, editoriales de revistas</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- RESUMEN TABLA DISEÑOS -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-top:0.9rem;">
+  <div style="overflow-x:auto;">
+    <table class="escala-table">
+      <thead><tr><th>Diseño</th><th>Dirección</th><th>Medida asociación</th><th>Mejor para</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--pir3)">ECA</strong></td><td>Prospectivo · experimental</td><td>RR · NNT · diferencia de medias</td><td>Eficacia terapéutica ★★★</td></tr>
+        <tr><td><strong style="color:var(--pir4)">Cohortes</strong></td><td>Prospectivo (o retrospectivo)</td><td><strong>RR</strong> (Riesgo Relativo)</td><td>Enfermedades frecuentes · factores de riesgo</td></tr>
+        <tr><td><strong style="color:var(--pir5)">Casos-controles</strong></td><td>Retrospectivo</td><td><strong>OR</strong> (Odds Ratio)</td><td>Enfermedades raras · latencia larga</td></tr>
+        <tr><td><strong style="color:var(--pir6)">Transversal</strong></td><td>Punto de tiempo único</td><td>Prevalencia · PR</td><td>Planificación sanitaria · generación hipótesis</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="memo" style="margin-top:0.7rem;">
+  <div class="memo-label">🧠 Cohortes vs Casos-controles — la trampa clásica ★★</div>
+  <div class="memo-text" style="font-size:0.76rem;">
+    <span style="color:var(--pir4)">Cohortes</span> = empiezo por la EXPOSICIÓN → miro quién enferma → calculo <strong>RR</strong> →
+    <span style="color:var(--pir5)">Casos-controles</span> = empiezo por la ENFERMEDAD → miro exposición pasada → calculo <strong>OR</strong>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MUESTREO
+══════════════════════════════════════ -->
+<div class="sec-div"><div></div><span>🎯 Tipos de muestreo</span><div></div></div>
+
+<div class="muestreo-grid">
+
+  <!-- PROBABILÍSTICO -->
+  <div class="muest-block">
+    <div class="muest-head" style="background:var(--prob-d);border-bottom-color:var(--prob);">
+      <span style="font-size:1.1rem;">✅</span>
+      <div>
+        <div class="muest-title" style="color:var(--prob);">Muestreo Probabilístico</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);">Todos tienen probabilidad conocida · mayor representatividad</div>
+      </div>
+    </div>
+    <div class="muest-body">
+      <div class="muest-item" style="border-color:var(--prob);">
+        <div class="muest-name" style="color:var(--prob);">Aleatorio simple</div>
+        <div class="muest-kw">"sorteo puro" · "tabla de números aleatorios"</div>
+        <div class="muest-ex">Numerar todos los pacientes y elegir 100 al azar · ECA y cohortes con buen censo</div>
+      </div>
+      <div class="muest-item" style="border-color:var(--prob);">
+        <div class="muest-name" style="color:var(--prob);">Sistemático</div>
+        <div class="muest-kw">"1 de cada k" · "intervalo fijo"</div>
+        <div class="muest-ex">Cada 10.º paciente que entra en Urgencias · estudios transversales con listado ordenado</div>
+      </div>
+      <div class="muest-item" style="border-color:var(--prob);">
+        <div class="muest-name" style="color:var(--prob);">Estratificado</div>
+        <div class="muest-kw">"subgrupos homogéneos" · "proporción por estratos"</div>
+        <div class="muest-ex">Estratos por sexo y edad → dentro de cada estrato, aleatorio · garantiza representación de subgrupos</div>
+      </div>
+      <div class="muest-item" style="border-color:var(--prob);">
+        <div class="muest-name" style="color:var(--prob);">Por conglomerados (clusters)</div>
+        <div class="muest-kw">"grupos naturales" · "escuelas, centros de salud"</div>
+        <div class="muest-ex">Seleccionar al azar varios centros de salud y estudiar todos sus pacientes hipertensos · reduce costes en estudios poblacionales dispersos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO PROBABILÍSTICO -->
+  <div class="muest-block">
+    <div class="muest-head" style="background:var(--noprob-d);border-bottom-color:var(--noprob);">
+      <span style="font-size:1.1rem;">⚠️</span>
+      <div>
+        <div class="muest-title" style="color:var(--noprob);">Muestreo No Probabilístico</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);">Probabilidad desconocida · más sesgo · muy usado en enfermería</div>
+      </div>
+    </div>
+    <div class="muest-body">
+      <div class="muest-item" style="border-color:var(--noprob);">
+        <div class="muest-name" style="color:var(--noprob);">Conveniencia (accidental)</div>
+        <div class="muest-kw">"los que tengo a mano"</div>
+        <div class="muest-ex">Todos los pacientes que acuden a consulta durante 1 mes · TFG/TFM · investigación clínica real · MÁS USADO en enfermería ★</div>
+      </div>
+      <div class="muest-item" style="border-color:var(--noprob);">
+        <div class="muest-name" style="color:var(--noprob);">Intencional / Juicio de expertos</div>
+        <div class="muest-kw">"criterio del investigador" · "casos típicos"</div>
+        <div class="muest-ex">Seleccionar solo pacientes con buen cumplimiento para un estudio cualitativo</div>
+      </div>
+      <div class="muest-item" style="border-color:var(--noprob);">
+        <div class="muest-name" style="color:var(--noprob);">Por cuotas</div>
+        <div class="muest-kw">"cuotas por sexo/edad" · "no aleatorio dentro de cuota"</div>
+        <div class="muest-ex">Reclutar hasta completar 50% hombres, 50% mujeres, sin sorteo</div>
+      </div>
+      <div class="muest-item" style="border-color:var(--noprob);">
+        <div class="muest-name" style="color:var(--noprob);">Bola de nieve</div>
+        <div class="muest-kw">"un participante recomienda a otro"</div>
+        <div class="muest-ex">Poblaciones ocultas: consumo de drogas, violencia doméstica</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="memo" style="margin-top:0.7rem;">
+  <div class="memo-label">🧠 Probabilístico vs No probabilístico — clave de examen</div>
+  <div class="memo-text" style="font-size:0.76rem;">
+    <span style="color:var(--prob)">Probabilístico</span> → mayor representatividad · permite inferencia estadística ·
+    <span style="color:var(--noprob)">Conveniencia</span> → más usado en práctica enfermera · más sesgo · no generalizable
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     VARIABLES
+══════════════════════════════════════ -->
+<div class="sec-div"><div></div><span>📏 Tipos de variables y escalas de medida</span><div></div></div>
+
+<div class="var-grid">
+
+  <!-- CUALITATIVAS -->
+  <div class="var-card">
+    <div class="var-head" style="background:var(--cual-d);border-bottom-color:var(--cual);">
+      <span class="var-icon">🔤</span>
+      <span class="var-title" style="color:var(--cual);">Variables Cualitativas (categóricas)</span>
+    </div>
+    <div class="var-body">
+      <div class="var-item" style="border-color:var(--cual);">
+        <strong style="color:var(--cual);">Nominal</strong>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin:0.06rem 0;">"categorías sin orden"</div>
+        Sexo (hombre/mujer) · grupo sanguíneo · presencia/ausencia de HTA<br><span style="font-size:0.68rem;color:var(--muted);">→ Frecuencias y porcentajes</span>
+      </div>
+      <div class="var-item" style="border-color:var(--cual);">
+        <strong style="color:var(--cual);">Ordinal</strong>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin:0.06rem 0;">"categorías con orden · sin distancias iguales"</div>
+        Escala de disnea I–IV · estadiaje tumoral · dependencia (leve/moderada/grave) · escala Likert
+      </div>
+    </div>
+  </div>
+
+  <!-- CUANTITATIVAS -->
+  <div class="var-card">
+    <div class="var-head" style="background:var(--cuant-d);border-bottom-color:var(--cuant);">
+      <span class="var-icon">🔢</span>
+      <span class="var-title" style="color:var(--cuant);">Variables Cuantitativas (numéricas)</span>
+    </div>
+    <div class="var-body">
+      <div class="var-item" style="border-color:var(--cuant);">
+        <strong style="color:var(--cuant);">Discreta</strong>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin:0.06rem 0;">"números enteros" · "cuentas"</div>
+        Nº de ingresos al año · nº de hijos · nº de crisis asmáticas
+      </div>
+      <div class="var-item" style="border-color:var(--cuant);">
+        <strong style="color:var(--cuant);">Continua</strong>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin:0.06rem 0;">"valores en un rango" · "decimales posibles"</div>
+        TA · peso · glucemia · creatinina · temperatura corporal
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ESCALAS DE MEDIDA -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-top:0.8rem;">
+  <div style="padding:0.65rem 0.9rem;border-bottom:1px solid var(--border);background:var(--navy);display:flex;align-items:center;gap:0.5rem;">
+    <span style="font-size:1.1rem">📐</span>
+    <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:900;color:white;">Escalas de medida — muy preguntable</span>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="escala-table">
+      <thead><tr><th>Escala</th><th>Características</th><th>Ejemplo clásico</th><th>Estadística</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--cual);">Nominal</strong></td>
+          <td>Categorías sin orden · sin distancias</td>
+          <td>Sexo · grupo sanguíneo · diagnóstico</td>
+          <td>Frecuencias · moda · Chi cuadrado</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cual);">Ordinal</strong></td>
+          <td>Categorías ordenadas · distancias desiguales</td>
+          <td>Estadios tumorales · escala Likert · disnea</td>
+          <td>Mediana · percentiles · U de Mann-Whitney</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cuant);">Intervalo</strong></td>
+          <td>Distancias iguales · <strong>sin cero absoluto</strong></td>
+          <td style="color:var(--pir1);font-weight:700;">Temperatura en °C ★★ · fechas del calendario</td>
+          <td>Media · t de Student · ANOVA</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--cuant);">Razón</strong></td>
+          <td>Distancias iguales · <strong>CON cero absoluto</strong></td>
+          <td>Peso · talla · PA · glucemia · edad</td>
+          <td>Todas las pruebas paramétricas · razones</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="memo" style="margin-top:0.7rem;">
+  <div class="memo-label">🧠 Intervalo vs Razón — la trampa del cero ★★★</div>
+  <div class="memo-text" style="font-size:0.76rem;">
+    <span style="color:var(--pir1)">Temperatura en °C = escala intervalo</span> (0°C NO significa ausencia de temperatura) ·
+    <span style="color:var(--cuant)">Peso en kg = escala razón</span> (0 kg SÍ significa ausencia de peso) ·
+    El tipo de escala determina qué pruebas estadísticas se pueden aplicar ★
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     HIPÓTESIS + ERRORES + VALIDEZ
+══════════════════════════════════════ -->
+<div class="sec-div"><div></div><span>⚖️ Hipótesis · Errores · Validez</span><div></div></div>
+
+<div class="hip-grid">
+
+  <div class="hip-card">
+    <div class="hip-head" style="background:var(--pir3-d);color:var(--pir3);">🎯 Hipótesis</div>
+    <div class="hip-body">
+      <strong>H₀ (nula):</strong> "no hay diferencia / no hay relación entre variables"<br><br>
+      <strong>H₁ (alternativa):</strong> "sí hay diferencia o relación" — lo que el investigador quiere demostrar
+    </div>
+  </div>
+
+  <div class="hip-card">
+    <div class="hip-head" style="background:var(--pir1-d);color:var(--pir1);">❌ Error alfa (tipo I)</div>
+    <div class="hip-body">
+      <strong>Rechazar H₀ siendo verdadera</strong><br>
+      → Falso positivo<br><br>
+      "Creo que hay efecto cuando en realidad no lo hay"<br>
+      Controlado por el <strong>nivel de significación (p &lt; 0,05)</strong>
+    </div>
+  </div>
+
+  <div class="hip-card">
+    <div class="hip-head" style="background:var(--noprob-d);color:var(--noprob);">❌ Error beta (tipo II)</div>
+    <div class="hip-body">
+      <strong>No rechazar H₀ siendo falsa</strong><br>
+      → Falso negativo<br><br>
+      "No detecto efecto cuando en realidad sí existe"<br>
+      Relacionado con la <strong>potencia estadística (1-β)</strong>
+    </div>
+  </div>
+
+  <div class="hip-card">
+    <div class="hip-head" style="background:var(--pir4-d);color:var(--pir4);">✅ Validez interna</div>
+    <div class="hip-body">
+      El efecto observado se debe <strong>realmente a la intervención</strong> y no a sesgos o variables de confusión<br><br>
+      Pregunta: ¿es verdad lo que mido <em>en este estudio</em>?
+    </div>
+  </div>
+
+  <div class="hip-card">
+    <div class="hip-head" style="background:var(--pir5-d);color:var(--pir5);">🌍 Validez externa</div>
+    <div class="hip-body">
+      Capacidad de <strong>generalizar</strong> los resultados a otras poblaciones o contextos<br><br>
+      Pregunta: ¿puedo aplicar estos resultados a <em>mi paciente</em>?
+    </div>
+  </div>
+
+  <div class="hip-card" style="border-color:var(--gold);">
+    <div class="hip-head" style="background:var(--gold-dim);color:#8a6a00;">🧠 Resumen errores</div>
+    <div class="hip-body">
+      <div style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.74rem;">
+        <div><strong>Alfa (α):</strong> falso <span style="color:var(--pir1)">positivo</span> · "veo lo que no hay"</div>
+        <div><strong>Beta (β):</strong> falso <span style="color:var(--noprob)">negativo</span> · "no veo lo que sí hay"</div>
+        <div style="margin-top:0.2rem;padding-top:0.2rem;border-top:1px dashed var(--border);font-style:italic;color:var(--muted);">Potencia = 1-β = probabilidad de detectar un efecto real</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     TEST
+══════════════════════════════════════ -->
+<div class="tcard" style="margin-top:1.5rem;">
+  <div class="t-head"><span style="font-size:1.1rem">🎯</span><span class="t-title">Preguntas tipo test — Metodología</span></div>
+  <div class="t-body"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es el diseño de mayor evidencia en la pirámide?</div><div class="qa"><strong>Metaanálisis</strong> de ensayos clínicos</div><div class="qn">Seguido de revisión sistemática y ECA</div></div>
+    <div class="qb"><div class="qt">¿Qué medida de asociación calcula un estudio de cohortes?</div><div class="qa"><strong>Riesgo Relativo (RR)</strong></div><div class="qn">Los casos-controles calculan OR</div></div>
+    <div class="qb"><div class="qt">¿Qué diseño es de elección para estudiar enfermedades raras?</div><div class="qa"><strong>Casos y controles</strong></div><div class="qn">Parte de la enfermedad, mira exposición pasada</div></div>
+    <div class="qb"><div class="qt">¿Qué diseño es el gold standard para evaluar un tratamiento?</div><div class="qa"><strong>ECA</strong> — Ensayo Clínico Aleatorizado</div></div>
+    <div class="qb"><div class="qt">¿La temperatura en °C es escala de intervalo o de razón?</div><div class="qa"><strong>Intervalo</strong> — no tiene cero absoluto</div><div class="qn">El peso en kg SÍ es razón (0 kg = ausencia)</div></div>
+    <div class="qb"><div class="qt">¿Qué tipo de muestreo es el más usado en investigación enfermera?</div><div class="qa"><strong>Conveniencia</strong> (no probabilístico)</div><div class="qn">Más sesgo pero más práctico</div></div>
+    <div class="qb"><div class="qt">¿Qué es el error alfa (tipo I)?</div><div class="qa">Rechazar H₀ siendo verdadera → <strong>falso positivo</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué diferencia a un estudio transversal de uno de cohortes?</div><div class="qa">Transversal = "foto fija" en un momento · cohortes = seguimiento en el tiempo</div><div class="qn">Transversal NO establece causalidad</div></div>
+    <div class="qb"><div class="qt">¿Qué muestreo selecciona un sujeto de cada k?</div><div class="qa"><strong>Sistemático</strong> — "1 de cada k", intervalo fijo</div></div>
+    <div class="qb"><div class="qt">¿Para qué sirve la revisión sistemática en la pirámide?</div><div class="qa">Sintetizar toda la evidencia sobre una pregunta · <strong>base de guías de práctica clínica</strong></div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

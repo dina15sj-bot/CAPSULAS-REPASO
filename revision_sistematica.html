@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisión Sistemática — Guía Completa INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f5f2;--surface:#fff;--border:#bdd0c4;--text:#111e16;--muted:#5a7a64;
+  --navy:#0d2218;
+  --paso0:#7a4a8a;--paso0-d:#7a4a8a14;
+  --paso1:#1e6a8a;--paso1-d:#1e6a8a12;
+  --paso2:#1a7a4a;--paso2-d:#1a7a4a12;
+  --paso3:#7a6a1a;--paso3-d:#c49a2a18;
+  --paso4:#8a3a1a;--paso4-d:#8a3a1a12;
+  --paso5:#1a5a8a;--paso5-d:#1a5a8a12;
+  --paso6:#6a1a6a;--paso6-d:#6a1a6a12;
+  --paso7:#2a6a2a;--paso7-d:#2a6a2a12;
+  --paso8:#8a1a2a;--paso8-d:#8a1a2a12;
+  --paso9:#3a4a8a;--paso9-d:#3a4a8a12;
+  --paso10:#4a6a3a;--paso10-d:#4a6a3a12;
+  --gold:#c49a2a;--gold-dim:#c49a2a20;
+  --warm:#f2f8f4;
+  --check:#1a7a4a;
+  --alarm:#b5282a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#bdd0c428 31px,#bdd0c428 32px);}
+.wrap{max-width:1100px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;}
+.badge{display:inline-flex;align-items:center;background:var(--paso2);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+
+.sec-div{display:flex;align-items:center;gap:0.8rem;margin:2rem 0 1rem;}
+.sec-div div{flex:1;height:2px;background:var(--navy);opacity:0.1;}
+.sec-div span{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+
+.memo{border-radius:6px;padding:0.5rem 0.85rem;border:1px solid var(--gold);background:var(--gold-dim);margin-top:0.6rem;}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.18rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.78rem;line-height:1.5;}
+
+/* ── TIMELINE PASOS ── */
+.timeline{display:flex;flex-direction:column;gap:0;}
+.paso{display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--border);border-radius:0;border-bottom:none;position:relative;}
+.paso:first-child{border-radius:10px 10px 0 0;}
+.paso:last-child{border-radius:0 0 10px 10px;border-bottom:1px solid var(--border);}
+.paso-num{flex-shrink:0;width:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.1rem;border-right:1px solid var(--border);}
+.paso-n{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;line-height:1;}
+.paso-icon{font-size:0.9rem;}
+.paso-body{flex:1;padding:0.65rem 0.85rem;}
+.paso-title{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:900;margin-bottom:0.15rem;}
+.paso-kw{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);margin-bottom:0.25rem;}
+.paso-def{font-size:0.74rem;line-height:1.45;color:var(--text);}
+.paso-def li{margin-left:1rem;margin-top:0.1rem;}
+.paso-right{flex-shrink:0;width:210px;padding:0.6rem 0.75rem;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:0.2rem;justify-content:center;}
+@media(max-width:680px){.paso-right{display:none;}}
+.paso-perla{font-family:'JetBrains Mono',monospace;font-size:0.59rem;line-height:1.35;}
+.paso-herr{font-size:0.66rem;color:var(--muted);line-height:1.3;margin-top:0.15rem;}
+.paso-herr strong{color:var(--text);}
+.tag-opo{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.52rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;background:var(--alarm);color:white;margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.08em;}
+
+/* ── PICO BOX ── */
+.pico-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin:0.5rem 0;}
+@media(max-width:600px){.pico-grid{grid-template-columns:repeat(2,1fr);}}
+.pico-card{border-radius:6px;padding:0.5rem 0.6rem;text-align:center;border:1px solid;}
+.pico-letter{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;line-height:1;}
+.pico-word{font-size:0.65rem;font-weight:700;margin-top:0.05rem;}
+.pico-desc{font-size:0.64rem;color:var(--muted);margin-top:0.08rem;line-height:1.25;}
+
+/* ── PRISMA FLOW ── */
+.prisma-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:0.5rem 0;}
+.prisma-box{background:var(--warm);border:2px solid;border-radius:8px;padding:0.55rem 1rem;text-align:center;width:100%;max-width:400px;font-size:0.76rem;font-weight:700;}
+.prisma-arrow{font-size:1.1rem;color:var(--muted);line-height:1.2;}
+.prisma-label{font-family:'JetBrains Mono',monospace;font-size:0.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.1rem;}
+
+/* ── HERRAMIENTAS CALIDAD ── */
+.herr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+@media(max-width:600px){.herr-grid{grid-template-columns:1fr;}}
+.herr-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.55rem 0.7rem;border-left:3px solid;}
+.herr-design{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;margin-bottom:0.1rem;}
+.herr-tool{font-weight:700;font-size:0.8rem;}
+
+/* ── TFM TIPS ── */
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:650px){.tips-grid{grid-template-columns:1fr;}}
+.tip-card{background:var(--surface);border:1px solid var(--border);border-radius:9px;overflow:hidden;}
+.tip-head{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);}
+.tip-num{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;}
+.tip-title{font-family:'Playfair Display',serif;font-size:0.85rem;font-weight:900;}
+.tip-body{padding:0.6rem 0.8rem;font-size:0.73rem;line-height:1.5;}
+.tip-kw{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.1rem 0.4rem;border-radius:3px;color:white;margin-bottom:0.35rem;display:inline-block;}
+.tip-trick{background:var(--warm);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;padding:0.3rem 0.6rem;margin:0.3rem 0;font-size:0.71rem;line-height:1.35;}
+.tip-tool{font-size:0.67rem;color:var(--muted);}
+.tip-tool strong{color:var(--text);}
+
+/* ── CHECKLIST SECTION ── */
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+@media(max-width:680px){.chk-grid{grid-template-columns:1fr;}}
+.chk-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.chk-head{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);}
+.chk-title{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:900;}
+.chk-body{padding:0.7rem 0.9rem;display:flex;flex-direction:column;gap:0.25rem;}
+.chk-item{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.72rem;line-height:1.4;padding:0.2rem 0;}
+.chk-item::before{content:'☐';color:var(--check);font-size:0.85rem;flex-shrink:0;margin-top:-0.02rem;}
+.chk-sub{padding-left:1.2rem;font-size:0.67rem;color:var(--muted);margin-top:0.05rem;}
+.chk-sep{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin:0.3rem 0 0.1rem;padding-top:0.3rem;border-top:1px dashed var(--border);}
+
+/* ── GRADE ── */
+.grade-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin:0.5rem 0;}
+@media(max-width:550px){.grade-row{grid-template-columns:repeat(2,1fr);}}
+.grade-card{border-radius:7px;padding:0.55rem 0.6rem;text-align:center;border:1px solid;}
+.grade-level{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:900;}
+.grade-desc{font-size:0.64rem;color:var(--muted);margin-top:0.08rem;line-height:1.25;}
+
+/* ── TEST ── */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.t-head{padding:0.75rem 1.1rem;border-bottom:2px solid var(--paso2);background:var(--paso2-d);display:flex;align-items:center;gap:0.6rem;}
+.t-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--paso2);}
+.t-body{padding:1rem 1.1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.77rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--paso2);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.65rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="badge">🔬 EBE · Investigación</div>
+  <h1>Revisión Sistemática — Guía Completa</h1>
+  <p class="subtitle">11 pasos · Consejos TFM · Checklists · PRISMA · GRADE · INGESA 2026</p>
+</header>
+
+<!-- ══════════════════════
+     BLOQUE 1 — 11 PASOS
+══════════════════════ -->
+<div class="sec-div"><div></div><span>🪜 Los 11 pasos de una Revisión Sistemática</span><div></div></div>
+
+<!-- PICO VISUAL -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.8rem 1rem;margin-bottom:0.9rem;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--paso1);margin-bottom:0.4rem;">🎯 Marco PICO — núcleo de toda RS</div>
+  <div class="pico-grid">
+    <div class="pico-card" style="border-color:var(--paso1);background:var(--paso1-d);">
+      <div class="pico-letter" style="color:var(--paso1);">P</div>
+      <div class="pico-word" style="color:var(--paso1);">Población / Problema</div>
+      <div class="pico-desc">Diagnóstico, edad, ámbito (AP, hospital…)</div>
+    </div>
+    <div class="pico-card" style="border-color:var(--paso2);background:var(--paso2-d);">
+      <div class="pico-letter" style="color:var(--paso2);">I</div>
+      <div class="pico-word" style="color:var(--paso2);">Intervención / Exposición</div>
+      <div class="pico-desc">Técnica, cuidado, fármaco</div>
+    </div>
+    <div class="pico-card" style="border-color:var(--paso3);background:var(--paso3-d);">
+      <div class="pico-letter" style="color:var(--paso3);">C</div>
+      <div class="pico-word" style="color:var(--paso3);">Comparación</div>
+      <div class="pico-desc">Placebo, cuidados habituales, otra intervención</div>
+    </div>
+    <div class="pico-card" style="border-color:var(--paso4);background:var(--paso4-d);">
+      <div class="pico-letter" style="color:var(--paso4);">O</div>
+      <div class="pico-word" style="color:var(--paso4);">Outcome (resultado)</div>
+      <div class="pico-desc">1–2 outcomes principales bien medidos</div>
+    </div>
+  </div>
+  <div class="memo" style="margin-top:0.5rem;">
+    <div class="memo-label">🧠 Tríada INGESA más preguntable</div>
+    <div class="memo-text" style="font-size:0.76rem;"><span style="color:var(--paso1)">PICO</span> + <span style="color:var(--paso5)">PRISMA</span> + <span style="color:var(--paso7)">GRADE</span> = bloque investigación/EBE ★★★</div>
+  </div>
+</div>
+
+<div class="timeline">
+
+  <!-- PASO 0 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso0-d);">
+      <div class="paso-n" style="color:var(--paso0);">0</div>
+      <div class="paso-icon">🤔</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso0);">¿Tiene sentido hacer una RS?</div>
+      <div class="paso-kw">FINER · TREAD · "¿RS sí o no?"</div>
+      <div class="paso-def">Pregunta <strong>F</strong>easible, <strong>I</strong>nteresting, <strong>N</strong>ovel, <strong>E</strong>thical, <strong>R</strong>elevant. Revisar si ya existe una RS reciente. RS ≠ "cortar-pegar artículos".</div>
+    </div>
+    <div class="paso-right" style="background:var(--paso0-d);">
+      <div class="tag-opo">★ opo</div>
+      <div class="paso-perla" style="color:var(--paso0);">RS = diseño secundario con protocolo <em>a priori</em>, no recopilación oportunista</div>
+    </div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso1-d);">
+      <div class="paso-n" style="color:var(--paso1);">1</div>
+      <div class="paso-icon">🎯</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso1);">Formular la pregunta PICO y objetivos</div>
+      <div class="paso-kw">PICO · pregunta focalizada</div>
+      <div class="paso-def">Definir P, I, C, O con precisión. Objetivo principal y, si procede, secundarios. Sin PICO no hay búsqueda ni criterios coherentes.</div>
+    </div>
+    <div class="paso-right" style="background:var(--paso1-d);">
+      <div class="tag-opo">★★ opo</div>
+      <div class="paso-perla" style="color:var(--paso1);">PICO bien cerrado = 80% del trabajo hecho</div>
+      <div class="paso-herr">Herramientas: generadores PICO online · Zotero/Mendeley desde el minuto 0</div>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso2-d);">
+      <div class="paso-n" style="color:var(--paso2);">2</div>
+      <div class="paso-icon">📝</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso2);">Protocolo y registro previo</div>
+      <div class="paso-kw">protocolo · PROSPERO · a priori</div>
+      <div class="paso-def">Contenido mínimo: PICO · criterios de elegibilidad · bases de datos · métodos de calidad y análisis · si habrá o no metaanálisis. Registrar en PROSPERO si es posible.</div>
+    </div>
+    <div class="paso-right" style="background:var(--paso2-d);">
+      <div class="tag-opo">★ opo</div>
+      <div class="paso-perla" style="color:var(--paso2);">Protocolo previo minimiza sesgo de selección y de informe</div>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso3-d);">
+      <div class="paso-n" style="color:var(--paso3);">3</div>
+      <div class="paso-icon">✅</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso3);">Criterios de inclusión y exclusión</div>
+      <div class="paso-kw">elegibilidad · definidos antes de buscar</div>
+      <div class="paso-def">Tipo de estudio · Población · Intervención/control · Outcomes · Idioma · años · ámbito. Criterios explícitos, objetivos y reproducibles; se reportan en Métodos.</div>
+    </div>
+    <div class="paso-right" style="background:var(--paso3-d);">
+      <div class="tag-opo">★ opo</div>
+      <div class="paso-perla" style="color:var(--paso3);">Se establecen ANTES de buscar — nunca a posteriori</div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso4-d);">
+      <div class="paso-n" style="color:var(--paso4);">4</div>
+      <div class="paso-icon">🔍</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso4);">Estrategia de búsqueda</div>
+      <div class="paso-kw">bases de datos · MeSH/DeCS · operadores booleanos</div>
+      <div class="paso-def">
+        Bases: PubMed/MEDLINE · CINAHL · Cochrane · CUIDEN · Web of Science · Scopus.<br>
+        Ecuación: <strong>términos libres + descriptores MeSH/DeCS</strong> · operadores <strong>AND, OR, NOT</strong> · truncamientos <strong>(*)</strong>.<br>
+        Documentar: fecha, bases, filtros, ecuación completa.
+      </div>
+    </div>
+    <div class="paso-right" style="background:var(--paso4-d);">
+      <div class="tag-opo">★★ opo</div>
+      <div class="paso-perla" style="color:var(--paso4);">Estrategia reproducible · incluir texto literal en anexos</div>
+      <div class="paso-herr"><strong>Truco:</strong> "Search details" de PubMed muestra cómo traduce tu búsqueda</div>
+    </div>
+  </div>
+
+  <!-- PASO 5 — PRISMA -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso5-d);">
+      <div class="paso-n" style="color:var(--paso5);">5</div>
+      <div class="paso-icon">📊</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso5);">Selección de estudios (flujograma PRISMA)</div>
+      <div class="paso-kw">PRISMA · screening · doble revisor · 4 fases</div>
+      <div class="paso-def">
+        <strong style="color:var(--paso5);">4 fases obligatorias ★★★:</strong><br>
+        1. <strong>Identificación</strong> — registros en cada base + otras fuentes<br>
+        2. <strong>Cribado</strong> — eliminar duplicados, leer título y resumen<br>
+        3. <strong>Elegibilidad</strong> — lectura texto completo con criterios<br>
+        4. <strong>Inclusión</strong> — estudios finales en la síntesis<br>
+        Ideal: 2 revisores independientes con resolución de discrepancias.
+      </div>
+    </div>
+    <div class="paso-right" style="background:var(--paso5-d);">
+      <div class="tag-opo">★★★ opo</div>
+      <div class="paso-perla" style="color:var(--paso5);">Las 4 fases PRISMA son casi obligatorias en RS bien hechas y muy preguntadas</div>
+      <div class="paso-herr">Sola: repetir cribado días después = simula doble revisor</div>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso6-d);">
+      <div class="paso-n" style="color:var(--paso6);">6</div>
+      <div class="paso-icon">📋</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso6);">Extracción de datos</div>
+      <div class="paso-kw">plantilla de extracción · tabla · doble extracción</div>
+      <div class="paso-def">
+        Campos mínimos: autor/año/país/diseño · n · características población · intervención/control · outcomes (definición, tiempo, RR/OR/IC95%). Comentarios/notas. Pilotaje con 2–3 estudios antes de empezar.
+      </div>
+    </div>
+    <div class="paso-right" style="background:var(--paso6-d);">
+      <div class="tag-opo">★ opo</div>
+      <div class="paso-perla" style="color:var(--paso6);">Hoja estandarizada en Excel antes de empezar — no cambiarla salvo imprescindible</div>
+    </div>
+  </div>
+
+  <!-- PASO 7 — CALIDAD -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso7-d);">
+      <div class="paso-n" style="color:var(--paso7);">7</div>
+      <div class="paso-icon">⚖️</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso7);">Evaluación de calidad / riesgo de sesgo</div>
+      <div class="paso-kw">RoB 2 · Newcastle-Ottawa · QUADAS-2 · GRADE</div>
+      <div class="paso-def">
+        <div class="herr-grid" style="margin-top:0.3rem;">
+          <div class="herr-card" style="border-color:var(--paso1);">
+            <div class="herr-design">ECA</div>
+            <div class="herr-tool" style="color:var(--paso1);">Cochrane RoB 2</div>
+          </div>
+          <div class="herr-card" style="border-color:var(--paso4);">
+            <div class="herr-design">Cohortes · Casos-controles</div>
+            <div class="herr-tool" style="color:var(--paso4);">Newcastle-Ottawa · ROBINS-I</div>
+          </div>
+          <div class="herr-card" style="border-color:var(--paso6);">
+            <div class="herr-design">Estudios diagnóstico</div>
+            <div class="herr-tool" style="color:var(--paso6);">QUADAS-2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="paso-right" style="background:var(--paso7-d);">
+      <div class="tag-opo">★★ opo</div>
+      <div class="paso-perla" style="color:var(--paso7);">RS + GRADE = base de recomendación fuerte (A) o débil (B/C/D) en guías SIGN</div>
+    </div>
+  </div>
+
+  <!-- PASO 8 — SÍNTESIS -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso8-d);">
+      <div class="paso-n" style="color:var(--paso8);">8</div>
+      <div class="paso-icon">🔗</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso8);">Síntesis de resultados</div>
+      <div class="paso-kw">síntesis narrativa · metaanálisis · heterogeneidad I²</div>
+      <div class="paso-def">
+        <strong>Si homogéneos:</strong> metaanálisis (RR, OR, MD, SMD) + evaluar I² y Chi².<br>
+        <strong>Si heterogéneos:</strong> síntesis narrativa por tipo de intervención, outcome, calidad.<br>
+        I² &gt;50–75% = heterogeneidad alta → cuidado con interpretación. Efectos fijos vs aleatorios según I².
+      </div>
+    </div>
+    <div class="paso-right" style="background:var(--paso8-d);">
+      <div class="tag-opo">★★ opo</div>
+      <div class="paso-perla" style="color:var(--paso8);">I² alto → no fusionar a la fuerza → narrativa estructurada</div>
+      <div class="paso-herr"><strong>Herramientas MA:</strong> RevMan · Jamovi · R (metafor)</div>
+    </div>
+  </div>
+
+  <!-- PASO 9 -->
+  <div class="paso">
+    <div class="paso-num" style="background:var(--paso9-d);">
+      <div class="paso-n" style="color:var(--paso9);">9</div>
+      <div class="paso-icon">💡</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso9);">Interpretación y conclusiones</div>
+      <div class="paso-kw">calidad · consistencia · precisión · aplicabilidad</div>
+      <div class="paso-def">Interpretar teniendo en cuenta: calidad + riesgo de sesgo · consistencia · precisión (IC) · aplicabilidad al contexto. Señalar limitaciones. Implicaciones para práctica enfermera.</div>
+    </div>
+    <div class="paso-right" style="background:var(--paso9-d);">
+      <div class="tag-opo">★ opo</div>
+      <div class="paso-perla" style="color:var(--paso9);">Nivel de evidencia ≠ fuerza de recomendación (GRADE/SIGN)</div>
+    </div>
+  </div>
+
+  <!-- PASO 10 -->
+  <div class="paso" style="border-radius:0 0 10px 10px;border-bottom:1px solid var(--border);">
+    <div class="paso-num" style="background:var(--paso10-d);">
+      <div class="paso-n" style="color:var(--paso10);">10</div>
+      <div class="paso-icon">📰</div>
+    </div>
+    <div class="paso-body">
+      <div class="paso-title" style="color:var(--paso10);">Redacción y publicación (PRISMA 2020)</div>
+      <div class="paso-kw">PRISMA 2020 checklist · transparencia</div>
+      <div class="paso-def">
+        Título: indica "revisión sistemática" · Resumen estructurado · Métodos (protocolo, búsqueda, selección, extracción, sesgo, análisis) · Resultados: flujograma PRISMA + tablas · Discusión: interpretación, limitaciones, implicaciones.<br>
+        <span style="font-size:0.7rem;color:var(--muted);">PRISMA 2020 = estándar para <em>reportar</em> RS, no para diseñarla.</span>
+      </div>
+    </div>
+    <div class="paso-right" style="background:var(--paso10-d);">
+      <div class="tag-opo">★★ opo</div>
+      <div class="paso-perla" style="color:var(--paso10);">Usar checklist PRISMA 2020 como índice mientras escribes el TFM</div>
+      <div class="paso-herr"><strong>Diagramas:</strong> draw.io · Lucidchart · plantillas PRISMA Word/PPT</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- GRADE -->
+<div class="sec-div"><div></div><span>📈 GRADE — calidad global de la evidencia</span><div></div></div>
+<div class="grade-row">
+  <div class="grade-card" style="border-color:#1a7a4a;background:#1a7a4a14;">
+    <div class="grade-level" style="color:#1a7a4a;">⬆️ Alta</div>
+    <div class="grade-desc">Muy probable que el efecto real sea similar al estimado. Típico de ECA bien hechos.</div>
+  </div>
+  <div class="grade-card" style="border-color:var(--paso1);background:var(--paso1-d);">
+    <div class="grade-level" style="color:var(--paso1);">➡️ Moderada</div>
+    <div class="grade-desc">Probablemente el efecto real sea cercano al estimado, pero puede ser diferente.</div>
+  </div>
+  <div class="grade-card" style="border-color:var(--paso3);background:var(--paso3-d);">
+    <div class="grade-level" style="color:var(--paso3);">⬇️ Baja</div>
+    <div class="grade-desc">La confianza en el efecto estimado es limitada. Puede diferir sustancialmente.</div>
+  </div>
+  <div class="grade-card" style="border-color:var(--alarm);background:#b5282a12;">
+    <div class="grade-level" style="color:var(--alarm);">⬇️⬇️ Muy baja</div>
+    <div class="grade-desc">Muy poca confianza en el efecto estimado. Puede ser muy diferente al real.</div>
+  </div>
+</div>
+<div class="memo">
+  <div class="memo-label">🧠 ¿Por qué baja la calidad GRADE?</div>
+  <div class="memo-text" style="font-size:0.76rem;">Riesgo de sesgo · inconsistencia de resultados · evidencia indirecta · imprecisión (IC amplios) · sesgo de publicación · terminar cada apartado con "implicaciones para práctica enfermera" ★</div>
+</div>
+
+<!-- ══════════════════════
+     BLOQUE 2 — TFM TIPS
+══════════════════════ -->
+<div class="sec-div"><div></div><span>💡 Consejos prácticos para el TFM</span><div></div></div>
+
+<div class="tips-grid">
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso1-d);border-bottom-color:var(--paso1);">
+      <span class="tip-num" style="color:var(--paso1);">1</span>
+      <span class="tip-title" style="color:var(--paso1);">PICO y protocolo</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso1);">Clave: PICO cerrado = 80% del trabajo</span>
+      <div class="tip-trick">✏️ Escribe 2–3 versiones y pruébalas en PubMed para ver qué devuelven</div>
+      <div class="tip-tool"><strong>Herramientas:</strong> generadores PICO online · Zotero/Mendeley desde el inicio</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso4-d);border-bottom-color:var(--paso4);">
+      <span class="tip-num" style="color:var(--paso4);">2</span>
+      <span class="tip-title" style="color:var(--paso4);">Búsqueda semi-automatizada</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso4);">Clave: reproducible = términos + MeSH + operadores</span>
+      <div class="tip-trick">🔍 "Search details" de PubMed muestra cómo traduce tu ecuación</div>
+      <div class="tip-trick">💾 Exportar estrategias completas para pegar en anexos del TFM</div>
+      <div class="tip-tool"><strong>IA:</strong> traductores DeCS/MeSH · Zotero Connector (captura referencias)</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso3-d);border-bottom-color:var(--paso3);">
+      <span class="tip-num" style="color:var(--paso3);">3</span>
+      <span class="tip-title" style="color:var(--paso3);">Gestión de referencias</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso3);">Clave: gestor primero, carpetas sueltas nunca</span>
+      <div class="tip-trick">📁 Carpetas: "Encontrados" / "Incluidos" / "Excluidos – motivo"</div>
+      <div class="tip-trick">🏷️ "Find duplicates" + etiquetar exclusiones con notas</div>
+      <div class="tip-tool"><strong>Herramientas:</strong> Zotero · Mendeley + tags por PICO y diseño</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso5-d);border-bottom-color:var(--paso5);">
+      <span class="tip-num" style="color:var(--paso5);">4</span>
+      <span class="tip-title" style="color:var(--paso5);">Selección realista (PRISMA)</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso5);">Clave: doble filtro título → texto completo</span>
+      <div class="tip-trick">☑️ Check-list rápida: ¿P coincide? ¿I coincide? ¿Tipo de estudio correcto?</div>
+      <div class="tip-trick">👁️ Sola: repetir cribado días después = simula doble revisor</div>
+      <div class="tip-tool"><strong>IA:</strong> resúmenes y palabras clave, pero <em>tú mantienes el criterio</em></div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso6-d);border-bottom-color:var(--paso6);">
+      <span class="tip-num" style="color:var(--paso6);">5</span>
+      <span class="tip-title" style="color:var(--paso6);">Extracción de datos</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso6);">Clave: plantilla fija antes de empezar</span>
+      <div class="tip-trick">📊 Campos: autor, año, país, diseño, n, P, I, C, O, resultados, comentarios</div>
+      <div class="tip-trick">⚠️ No cambiar plantilla salvo imprescindible</div>
+      <div class="tip-tool"><strong>IA:</strong> extracción de tablas de PDF — siempre verificar manualmente</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso7-d);border-bottom-color:var(--paso7);">
+      <span class="tip-num" style="color:var(--paso7);">6</span>
+      <span class="tip-title" style="color:var(--paso7);">Calidad y GRADE</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso7);">Clave: herramienta específica por diseño</span>
+      <div class="tip-trick">🧪 Pilotaje 2–3 artículos para calibrar la escala antes de empezar</div>
+      <div class="tip-trick">📝 GRADE simplificado: alta/moderada/baja/muy baja + por qué baja</div>
+      <div class="tip-tool"><strong>Cierre:</strong> terminar con "implicaciones para práctica enfermera"</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso8-d);border-bottom-color:var(--paso8);">
+      <span class="tip-num" style="color:var(--paso8);">7</span>
+      <span class="tip-title" style="color:var(--paso8);">Síntesis de resultados</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso8);">Clave: tabla grande → luego decidir meta o narrativa</span>
+      <div class="tip-trick">📋 Tabla incluida: tipo, n, calidad, resultado principal — siempre primero</div>
+      <div class="tip-trick">🔢 Metaanálisis solo si: misma variable + misma medida + homogéneos (I² bajo)</div>
+      <div class="tip-tool"><strong>RevMan · Jamovi · R</strong> para MA · mapas conceptuales para narrativa</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-head" style="background:var(--paso10-d);border-bottom-color:var(--paso10);">
+      <span class="tip-num" style="color:var(--paso10);">8</span>
+      <span class="tip-title" style="color:var(--paso10);">Redacción PRISMA 2020</span>
+    </div>
+    <div class="tip-body">
+      <span class="tip-kw" style="background:var(--paso10);">Clave: checklist PRISMA 2020 = tu índice</span>
+      <div class="tip-trick">📌 Tener el checklist abierto mientras escribes, marcar ítems cumplidos</div>
+      <div class="tip-trick">📈 Crear diagrama de flujo PRISMA desde el principio (ir rellenando)</div>
+      <div class="tip-tool"><strong>draw.io · Lucidchart</strong> · gestores para bibliografía automática Vancouver/APA</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════
+     BLOQUE 3 — CHECKLISTS
+══════════════════════ -->
+<div class="sec-div"><div></div><span>☑️ Checklists por fase — RS lista para publicar</span><div></div></div>
+
+<div class="chk-grid">
+
+  <!-- CHECKLIST PICO + PROTOCOLO -->
+  <div class="chk-block">
+    <div class="chk-head" style="background:var(--paso1-d);border-bottom-color:var(--paso1);">
+      <span style="font-size:1rem;">🎯</span>
+      <span class="chk-title" style="color:var(--paso1);">Checklist PICO y protocolo</span>
+    </div>
+    <div class="chk-body">
+      <div class="chk-sep">P · I · C · O definidos</div>
+      <div class="chk-item">P (Población): diagnóstico, edad, ámbito (AP/hospital)</div>
+      <div class="chk-item">I (Intervención): técnica, cuidado, fármaco</div>
+      <div class="chk-item">C (Comparación): placebo, cuidados habituales</div>
+      <div class="chk-item">O (Outcome): 1–2 resultados principales bien medidos</div>
+      <div class="chk-item">Pregunta factible, relevante y suficientemente acotada</div>
+      <div class="chk-sep">Protocolo escrito (mínimo)</div>
+      <div class="chk-item">Pregunta PICO y objetivos por escrito</div>
+      <div class="chk-item">Criterios de inclusión/exclusión (tipo estudio, población, idioma)</div>
+      <div class="chk-item">Bases de datos y otras fuentes a usar</div>
+      <div class="chk-item">Variables/outcomes que extraeré</div>
+      <div class="chk-item">Herramienta de riesgo de sesgo elegida</div>
+      <div class="chk-item">Decisión sobre metaanálisis y medida de efecto</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST BÚSQUEDA -->
+  <div class="chk-block">
+    <div class="chk-head" style="background:var(--paso4-d);border-bottom-color:var(--paso4);">
+      <span style="font-size:1rem;">🔍</span>
+      <span class="chk-title" style="color:var(--paso4);">Checklist búsqueda</span>
+    </div>
+    <div class="chk-body">
+      <div class="chk-sep">Fuentes elegidas</div>
+      <div class="chk-item">≥2 bases biomédicas (PubMed/MEDLINE + CINAHL mínimo)</div>
+      <div class="chk-item">Si procede: Cochrane · Web of Science · Scopus · CUIDEN</div>
+      <div class="chk-item">Otras fuentes: listas de referencias, literatura gris, tesis</div>
+      <div class="chk-sep">Ecuación construida</div>
+      <div class="chk-item">Términos libres (keywords) por cada componente PICO</div>
+      <div class="chk-item">Descriptores MeSH/DeCS equivalentes</div>
+      <div class="chk-item">AND entre conceptos · OR entre sinónimos · NOT solo si imprescindible</div>
+      <div class="chk-item">Truncamientos (*) y comillas para frases exactas</div>
+      <div class="chk-sep">Documentado para TFM</div>
+      <div class="chk-item">Fecha de cada búsqueda</div>
+      <div class="chk-item">Nombre de cada base y número de resultados</div>
+      <div class="chk-item">Ecuación completa (para pegar en anexos)</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST SELECCIÓN -->
+  <div class="chk-block">
+    <div class="chk-head" style="background:var(--paso5-d);border-bottom-color:var(--paso5);">
+      <span style="font-size:1rem;">📊</span>
+      <span class="chk-title" style="color:var(--paso5);">Checklist selección PRISMA</span>
+    </div>
+    <div class="chk-body">
+      <div class="chk-sep">Fase título-resumen</div>
+      <div class="chk-item">¿Población coincide con PICO?</div>
+      <div class="chk-item">¿Intervención/Exposición es la que busco?</div>
+      <div class="chk-item">¿Estudio en humanos y rango de edad correcto?</div>
+      <div class="chk-item">¿Tipo de documento elegible? (no carta/editorial/animal)</div>
+      <div class="chk-item">¿Idioma accesible? → duda = pasar a texto completo</div>
+      <div class="chk-sep">Fase texto completo</div>
+      <div class="chk-item">Población correcta (diagnóstico, contexto, edad)</div>
+      <div class="chk-item">Intervención y comparación coinciden con definido</div>
+      <div class="chk-item">Outcome principal relevante y medido de forma clara</div>
+      <div class="chk-item">Diseño dentro de los incluidos en criterios</div>
+      <div class="chk-item">No es duplicado de otro artículo de la misma muestra</div>
+      <div class="chk-item">Motivo de exclusión anotado explícitamente</div>
+      <div class="chk-sep">Diagrama PRISMA</div>
+      <div class="chk-item">Registros identificados · duplicados · excluidos T/R · textos completos · excluidos (con motivo) · incluidos</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST EXTRACCIÓN + CALIDAD -->
+  <div class="chk-block">
+    <div class="chk-head" style="background:var(--paso7-d);border-bottom-color:var(--paso7);">
+      <span style="font-size:1rem;">⚖️</span>
+      <span class="chk-title" style="color:var(--paso7);">Checklist extracción y calidad</span>
+    </div>
+    <div class="chk-body">
+      <div class="chk-sep">Plantilla extracción (Excel/Sheets)</div>
+      <div class="chk-item">Identificación: autor, año, país, revista</div>
+      <div class="chk-item">Diseño del estudio</div>
+      <div class="chk-item">Muestra: n, edad media, % mujeres, contexto</div>
+      <div class="chk-item">Intervención: descripción, dosis, duración, quién aplica</div>
+      <div class="chk-item">Comparación: grupo control detallado</div>
+      <div class="chk-item">Outcomes: definición + tiempo de medida + RR/OR/IC95%</div>
+      <div class="chk-item">Campo de calidad/riesgo de sesgo</div>
+      <div class="chk-item">Columna de comentarios/notas</div>
+      <div class="chk-sep">Riesgo de sesgo</div>
+      <div class="chk-item">Herramienta adecuada al diseño (RoB 2 / Newcastle-Ottawa / QUADAS-2)</div>
+      <div class="chk-item">Valorado: secuencia · ocultación · cegamiento · pérdidas · confusión</div>
+      <div class="chk-item">Clasificado: bajo / incierto / alto por estudio</div>
+      <div class="chk-item">GRADE aplicado por outcome (opcional avanzado)</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST SÍNTESIS + INTERPRETACIÓN -->
+  <div class="chk-block">
+    <div class="chk-head" style="background:var(--paso8-d);border-bottom-color:var(--paso8);">
+      <span style="font-size:1rem;">🔗</span>
+      <span class="chk-title" style="color:var(--paso8);">Checklist síntesis e interpretación</span>
+    </div>
+    <div class="chk-body">
+      <div class="chk-sep">Síntesis</div>
+      <div class="chk-item">Tabla resumen: diseño, n, intervención, outcome, calidad</div>
+      <div class="chk-item">Decisión justificada: metaanálisis o síntesis narrativa</div>
+      <div class="chk-item">Si MA: efectos fijos o aleatorios + I² + Chi² calculados</div>
+      <div class="chk-item">Si narrativa: agrupada por intervención/outcome/calidad (no lista uno a uno)</div>
+      <div class="chk-sep">Interpretación</div>
+      <div class="chk-item">Respuesta clara a la pregunta PICO (sí/no/evidencia insuficiente)</div>
+      <div class="chk-item">Considerados: calidad · consistencia · precisión · aplicabilidad</div>
+      <div class="chk-item">Limitaciones de la RS señaladas</div>
+      <div class="chk-item">Implicaciones para práctica enfermera formuladas</div>
+      <div class="chk-item">Líneas de investigación futura propuestas</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST PRISMA 2020 REPORTE -->
+  <div class="chk-block">
+    <div class="chk-head" style="background:var(--paso10-d);border-bottom-color:var(--paso10);">
+      <span style="font-size:1rem;">📰</span>
+      <span class="chk-title" style="color:var(--paso10);">Checklist PRISMA 2020 reporte</span>
+    </div>
+    <div class="chk-body">
+      <div class="chk-sep">Estructura del documento</div>
+      <div class="chk-item">Título indica "revisión sistemática" y/o "metaanálisis"</div>
+      <div class="chk-item">Resumen estructurado (según PRISMA)</div>
+      <div class="chk-sep">Métodos (sección más crítica)</div>
+      <div class="chk-item">Criterios de elegibilidad descritos</div>
+      <div class="chk-item">Fuentes de información y estrategia de búsqueda</div>
+      <div class="chk-item">Proceso de selección + nº de revisores</div>
+      <div class="chk-item">Proceso de extracción + nº de revisores</div>
+      <div class="chk-item">Evaluación de sesgo + herramienta</div>
+      <div class="chk-item">Métodos de síntesis (MA o narrativa) con justificación</div>
+      <div class="chk-sep">Resultados</div>
+      <div class="chk-item">Diagrama de flujo PRISMA con todos los números</div>
+      <div class="chk-item">Características de estudios incluidos (tabla)</div>
+      <div class="chk-item">Resultados principales + evaluación riesgo de sesgo</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PERLAS FINALES -->
+<div class="memo" style="margin-top:1rem;">
+  <div class="memo-label">🧠 Perlas de examen — bloque investigación / EBE</div>
+  <div class="memo-text" style="font-size:0.76rem;">
+    RS = diseño <strong>secundario</strong> pero requiere protocolo a priori + búsqueda sistemática + PRISMA + herramienta de calidad ·
+    <span style="color:var(--paso1)">PICO</span> + <span style="color:var(--paso5)">PRISMA 4 fases</span> + <span style="color:var(--paso7)">GRADE</span> = tríada ★★★ muy preguntable ·
+    Nivel de evidencia ≠ fuerza de recomendación (GRADE/SIGN)
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="tcard" style="margin-top:1.5rem;">
+  <div class="t-head"><span style="font-size:1.1rem">🎯</span><span class="t-title">Preguntas tipo test — Revisión Sistemática</span></div>
+  <div class="t-body"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuáles son las 4 fases del flujograma PRISMA?</div><div class="qa"><strong>Identificación · Cribado · Elegibilidad · Inclusión</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué herramienta se usa para evaluar riesgo de sesgo en ECA?</div><div class="qa"><strong>Cochrane RoB 2</strong></div><div class="qn">Newcastle-Ottawa para observacionales · QUADAS-2 para diagnóstico</div></div>
+    <div class="qb"><div class="qt">¿Cuándo NO se debe hacer metaanálisis?</div><div class="qa">Cuando los estudios son <strong>heterogéneos</strong> (I² &gt;50–75%) → síntesis narrativa</div></div>
+    <div class="qb"><div class="qt">¿En qué se registra el protocolo de una RS en salud?</div><div class="qa"><strong>PROSPERO</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué significa PICO?</div><div class="qa"><strong>Población · Intervención · Comparación · Outcome</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué niveles de evidencia establece GRADE?</div><div class="qa"><strong>Alta · Moderada · Baja · Muy baja</strong></div><div class="qn">Determina la fuerza de la recomendación</div></div>
+    <div class="qb"><div class="qt">¿Qué es PRISMA 2020?</div><div class="qa">Estándar para <strong>reportar</strong> RS — no para diseñarla</div><div class="qn">Checklist de transparencia y publicabilidad</div></div>
+    <div class="qb"><div class="qt">¿Qué operadores se usan en la ecuación de búsqueda?</div><div class="qa"><strong>AND</strong> entre conceptos · <strong>OR</strong> entre sinónimos · <strong>NOT</strong> solo si imprescindible</div></div>
+    <div class="qb"><div class="qt">¿Cuáles son los descriptores usados en PubMed y en bases españolas?</div><div class="qa"><strong>MeSH</strong> (PubMed) · <strong>DeCS</strong> (bases en español/iberoamericanas)</div></div>
+    <div class="qb"><div class="qt">¿Qué herramienta evalúa la calidad global por outcome, no por estudio?</div><div class="qa"><strong>GRADE</strong></div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

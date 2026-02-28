@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Método Científico · Estadística · Ética — INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e1420;--paper:#f5f2eb;--cream:#ede9de;--border:#cfc9b8;
+  --s1:#1a4a6e;--s1d:#e8f0f7;  /* método científico — azul marino */
+  --s2:#4a1a6e;--s2d:#f0e8f7;  /* protocolo — violeta */
+  --s3:#1a6e3a;--s3d:#e8f7ee;  /* ética — verde */
+  --s4:#6e3a1a;--s4d:#f7eee8;  /* estadística descriptiva — marrón */
+  --s5:#1a5a6e;--s5d:#e8f4f7;  /* estadística inferencial — azul pizarra */
+  --gold:#b8860b;--gold-d:#f7f0d8;
+  --alarm:#a02020;--alarm-d:#faeaea;
+  --muted:#6a6456;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  padding:2.5rem 1.5rem 5rem;
+  background-image:
+    radial-gradient(ellipse at 10% 0%,#ddd6c420 0%,transparent 60%),
+    radial-gradient(ellipse at 90% 100%,#c8d8e820 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 23px,#cfc9b830 23px,#cfc9b830 24px);
+}
+.wrap{max-width:1050px;margin:0 auto;}
+
+/* HEADER */
+header{text-align:center;margin-bottom:2.5rem;padding:2rem;background:var(--cream);border:1px solid var(--border);border-radius:4px;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 20px,rgba(0,0,0,0.015) 20px,rgba(0,0,0,0.015) 21px);}
+.hbadge{display:inline-block;font-family:'Fira Code',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:0.3rem 1rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(1.7rem,4.5vw,2.8rem);color:var(--ink);line-height:1.05;margin-bottom:0.4rem;}
+h1 em{color:var(--s1);font-style:normal;}
+.sub{font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;}
+
+/* SECTION DIVIDER */
+.sdiv{display:flex;align-items:center;gap:1rem;margin:2rem 0 1.1rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--ink);white-space:nowrap;padding:0.2rem 0.6rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;}
+
+/* MEMO */
+.memo{border-radius:3px;padding:0.55rem 0.9rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.7rem;}
+.ml{font-family:'Fira Code',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.18em;color:var(--gold);margin-bottom:0.15rem;}
+.mt{color:var(--ink);font-weight:700;font-size:0.79rem;line-height:1.5;}
+
+/* ── FASES MÉTODO CIENTÍFICO ── */
+.mc-strip{display:flex;gap:0;background:var(--cream);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+@media(max-width:700px){.mc-strip{flex-direction:column;}}
+.mc-step{flex:1;padding:0.9rem 0.75rem;border-right:1px solid var(--border);position:relative;}
+.mc-step:last-child{border-right:none;}
+.mc-n{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;color:var(--border);position:absolute;top:0.5rem;right:0.6rem;}
+.mc-icon{font-size:1.3rem;margin-bottom:0.3rem;}
+.mc-title{font-family:'DM Serif Display',serif;font-size:0.82rem;color:var(--ink);margin-bottom:0.2rem;line-height:1.2;}
+.mc-desc{font-size:0.68rem;color:var(--muted);line-height:1.4;}
+
+/* ── PROTOCOLO ── */
+.proto-list{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+@media(max-width:600px){.proto-list{grid-template-columns:1fr;}}
+.proto-item{background:var(--cream);border:1px solid var(--border);border-radius:3px;padding:0.55rem 0.75rem;border-left:3px solid;}
+.proto-n{font-family:'Fira Code',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.12rem;}
+.proto-t{font-weight:600;font-size:0.79rem;color:var(--ink);margin-bottom:0.08rem;}
+.proto-d{font-size:0.69rem;color:var(--muted);line-height:1.4;}
+
+/* ── ÉTICA PRINCIPIOS ── */
+.eth-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;}
+@media(max-width:650px){.eth-grid{grid-template-columns:repeat(2,1fr);}}
+.eth-card{background:var(--cream);border:1px solid var(--border);border-radius:4px;overflow:hidden;text-align:center;}
+.eth-top{padding:0.9rem 0.6rem 0.6rem;border-bottom:1px solid var(--border);}
+.eth-icon{font-size:1.5rem;margin-bottom:0.2rem;}
+.eth-title{font-family:'DM Serif Display',serif;font-size:0.95rem;color:var(--ink);}
+.eth-body{padding:0.55rem 0.6rem;font-size:0.69rem;color:var(--muted);line-height:1.45;text-align:left;}
+
+.eth-extras{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.6rem;}
+.eth-extra{background:var(--s3d);border:1px solid var(--s3);border-radius:3px;padding:0.5rem 0.7rem;}
+.eth-extra-t{font-weight:700;font-size:0.78rem;color:var(--s3);margin-bottom:0.1rem;}
+.eth-extra-d{font-size:0.69rem;color:var(--muted);line-height:1.4;}
+
+/* ── ESTADÍSTICA ── */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+@media(max-width:600px){.stat-grid{grid-template-columns:1fr;}}
+.stat-card{background:var(--cream);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.stat-head{padding:0.55rem 0.75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.45rem;}
+.stat-icon{font-size:1.1rem;flex-shrink:0;}
+.stat-ht{font-family:'DM Serif Display',serif;font-size:0.88rem;color:var(--ink);}
+.stat-body{padding:0.6rem 0.75rem;display:flex;flex-direction:column;gap:0.3rem;}
+.stat-row{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.71rem;line-height:1.4;padding:0.25rem 0;border-bottom:1px dashed var(--border);}
+.stat-row:last-child{border-bottom:none;}
+.stat-term{font-family:'Fira Code',monospace;font-size:0.63rem;font-weight:600;flex-shrink:0;width:90px;color:var(--ink);}
+.stat-def{color:var(--muted);}
+.stat-def strong{color:var(--ink);}
+
+/* ── IC + PVALOR VISUAL ── */
+.inf-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:0.1rem;}
+@media(max-width:560px){.inf-grid{grid-template-columns:1fr;}}
+.inf-card{background:var(--cream);border:1px solid var(--border);border-radius:4px;padding:0.65rem 0.8rem;}
+.inf-title{font-family:'DM Serif Display',serif;font-size:0.9rem;color:var(--ink);margin-bottom:0.3rem;display:flex;align-items:center;gap:0.4rem;}
+.inf-body{font-size:0.71rem;color:var(--muted);line-height:1.5;}
+.inf-body strong{color:var(--ink);}
+.inf-formula{font-family:'Fira Code',monospace;font-size:0.7rem;background:var(--cream);border:1px solid var(--border);border-radius:2px;padding:0.3rem 0.6rem;margin:0.35rem 0;display:block;text-align:center;color:var(--ink);}
+
+/* ── ERRORES VISUAL ── */
+.err-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-top:0.7rem;}
+.err-card{border-radius:4px;padding:0.6rem 0.8rem;border:1px solid;}
+.err-t{font-weight:700;font-size:0.8rem;margin-bottom:0.15rem;}
+.err-d{font-size:0.71rem;color:var(--muted);line-height:1.4;}
+.err-d strong{color:var(--ink);}
+
+/* ── PRUEBAS ESTADÍSTICAS ── */
+.pruebas{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:0.7rem;}
+@media(max-width:580px){.pruebas{grid-template-columns:1fr;}}
+.prueba-card{background:var(--s5d);border:1px solid #a8c8d8;border-radius:4px;padding:0.5rem 0.65rem;text-align:center;}
+.prueba-name{font-family:'DM Serif Display',serif;font-size:0.88rem;color:var(--s5);margin-bottom:0.1rem;}
+.prueba-uso{font-size:0.67rem;color:var(--muted);line-height:1.3;}
+
+/* ── TEST PREGUNTAS ── */
+.tcard{background:var(--cream);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.t-head{padding:0.75rem 1.1rem;border-bottom:2px solid var(--s1);background:var(--s1d);display:flex;align-items:center;gap:0.6rem;}
+.t-title{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--s1);}
+.t-body{padding:1rem 1.1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.5rem;}
+.qb{padding:0.5rem 0;border-bottom:1px dashed var(--border);font-size:0.76rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.18rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--s1);display:flex;align-items:flex-start;gap:0.35rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.64rem;color:var(--muted);margin-top:0.06rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="hbadge">📐 Metodología · Estadística · Ética</div>
+  <h1>Método Científico · <em>Estadística</em> · Ética</h1>
+  <p class="sub">Fases · Protocolo · Principios bioéticos · Descriptiva · Inferencial · INGESA 2026</p>
+</header>
+
+<!-- ══════════════════════
+     1. FASES MÉTODO CIENTÍFICO
+══════════════════════ -->
+<div class="sdiv"><span>🔬 Fases del método científico</span></div>
+
+<div class="mc-strip">
+  <div class="mc-step" style="background:var(--s1d);">
+    <span class="mc-n" style="color:#c0d4e8;">1</span>
+    <div class="mc-icon">👁️</div>
+    <div class="mc-title">Observación / Planteamiento del problema</div>
+    <div class="mc-desc">Ver un fenómeno, detectar una necesidad o problema clínico</div>
+  </div>
+  <div class="mc-step">
+    <span class="mc-n">2</span>
+    <div class="mc-icon">📚</div>
+    <div class="mc-title">Revisión previa / Marco teórico</div>
+    <div class="mc-desc">Ver qué se sabe ya — búsqueda en literatura previa</div>
+  </div>
+  <div class="mc-step" style="background:var(--s2d);">
+    <span class="mc-n" style="color:#d4c0e8;">3</span>
+    <div class="mc-icon">💡</div>
+    <div class="mc-title">Formulación de hipótesis / Objetivos</div>
+    <div class="mc-desc">Pregunta concreta + explicación tentativa (hipótesis) y objetivos</div>
+  </div>
+  <div class="mc-step">
+    <span class="mc-n">4</span>
+    <div class="mc-icon">🧪</div>
+    <div class="mc-title">Diseño y experimentación</div>
+    <div class="mc-desc">Elegir diseño, variables, muestra · recoger datos con un plan</div>
+  </div>
+  <div class="mc-step" style="background:var(--s4d);">
+    <span class="mc-n" style="color:#e8d4c0;">5</span>
+    <div class="mc-icon">📊</div>
+    <div class="mc-title">Análisis de datos</div>
+    <div class="mc-desc">Estadística descriptiva e inferencial</div>
+  </div>
+  <div class="mc-step" style="background:var(--s3d);">
+    <span class="mc-n" style="color:#c0e8d4;">6</span>
+    <div class="mc-icon">📢</div>
+    <div class="mc-title">Conclusiones y difusión</div>
+    <div class="mc-desc">Aceptar/rechazar hipótesis · publicar · compartir resultados</div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     2. PROTOCOLO / PROYECTO
+══════════════════════ -->
+<div class="sdiv"><span>📋 Fases del protocolo de investigación</span></div>
+
+<div class="proto-list">
+  <div class="proto-item" style="border-color:var(--s2);">
+    <div class="proto-n" style="color:var(--s2);">01 · Encabezado</div>
+    <div class="proto-t">Título y resumen</div>
+    <div class="proto-d">Título claro · resumen estructurado · identifica a los investigadores</div>
+  </div>
+  <div class="proto-item" style="border-color:var(--s2);">
+    <div class="proto-n" style="color:var(--s2);">02 · Contextualización</div>
+    <div class="proto-t">Introducción</div>
+    <div class="proto-d">Problema · justificación · revisión breve de la literatura</div>
+  </div>
+  <div class="proto-item" style="border-color:var(--s2);">
+    <div class="proto-n" style="color:var(--s2);">03 · Preguntas</div>
+    <div class="proto-t">Objetivos e hipótesis</div>
+    <div class="proto-d">Objetivo principal + secundarios (si los hay) · hipótesis a contrastar</div>
+  </div>
+  <div class="proto-item" style="border-color:var(--s1);background:var(--s1d);">
+    <div class="proto-n" style="color:var(--s1);">04 · Núcleo ★</div>
+    <div class="proto-t">Metodología</div>
+    <div class="proto-d">Diseño · población/muestra · criterios I/E · variables e instrumentos · recogida de datos · análisis estadístico</div>
+  </div>
+  <div class="proto-item" style="border-color:var(--s3);">
+    <div class="proto-n" style="color:var(--s3);">05 · Ética</div>
+    <div class="proto-t">Aspectos éticos</div>
+    <div class="proto-d">Consentimiento informado · aprobación Comité de Ética · confidencialidad</div>
+  </div>
+  <div class="proto-item" style="border-color:var(--s4);">
+    <div class="proto-n" style="color:var(--s4);">06 · Gestión</div>
+    <div class="proto-t">Cronograma · recursos · bibliografía</div>
+    <div class="proto-d">Plan temporal · presupuesto básico · referencias según Vancouver/APA</div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     3. ÉTICA
+══════════════════════ -->
+<div class="sdiv"><span>⚖️ Ética de la investigación</span></div>
+
+<div style="background:var(--s3d);border:1px solid var(--s3);border-radius:4px;padding:0.5rem 0.85rem;margin-bottom:0.7rem;font-size:0.73rem;">
+  <strong style="color:var(--s3);">Modelo principialista (Beauchamp & Childress) + Informe Belmont</strong> — 4 principios irrenunciables
+</div>
+
+<div class="eth-grid">
+  <div class="eth-card">
+    <div class="eth-top" style="background:var(--s1d);border-bottom-color:#b0c8e0;">
+      <div class="eth-icon">🧑‍💼</div>
+      <div class="eth-title">Autonomía</div>
+    </div>
+    <div class="eth-body">Información comprensible · consentimiento informado · <strong>derecho a retirarse</strong> en cualquier momento sin consecuencias</div>
+  </div>
+  <div class="eth-card">
+    <div class="eth-top" style="background:var(--s3d);border-bottom-color:#a0c8b0;">
+      <div class="eth-icon">✅</div>
+      <div class="eth-title">Beneficencia</div>
+    </div>
+    <div class="eth-body">Maximizar beneficios para participantes y para la sociedad · hacer el bien</div>
+  </div>
+  <div class="eth-card">
+    <div class="eth-top" style="background:#fdf0e8;border-bottom-color:#d4a880;">
+      <div class="eth-icon">🛡️</div>
+      <div class="eth-title">No maleficencia</div>
+    </div>
+    <div class="eth-body">Minimizar daños · riesgo razonable · <strong>vigilancia de efectos adversos</strong> · "primum non nocere"</div>
+  </div>
+  <div class="eth-card">
+    <div class="eth-top" style="background:var(--s2d);border-bottom-color:#c0a8e0;">
+      <div class="eth-icon">⚖️</div>
+      <div class="eth-title">Justicia</div>
+    </div>
+    <div class="eth-body">Selección equitativa · <strong>no explotar grupos vulnerables</strong> · distribución justa de beneficios y cargas</div>
+  </div>
+</div>
+
+<div class="eth-extras">
+  <div class="eth-extra">
+    <div class="eth-extra-t">🏛️ Comité de Ética</div>
+    <div class="eth-extra-d">Imprescindible su aprobación previa al inicio del estudio en todo proyecto de investigación con seres humanos</div>
+  </div>
+  <div class="eth-extra">
+    <div class="eth-extra-t">🔒 Confidencialidad y datos</div>
+    <div class="eth-extra-d">Protección de datos (RGPD) · anonimización (datos no identificables) o seudonimización (sustituir datos por código)</div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     4. ESTADÍSTICA DESCRIPTIVA
+══════════════════════ -->
+<div class="sdiv"><span>📊 Estadística descriptiva — resumir datos</span></div>
+
+<div class="stat-grid">
+
+  <div class="stat-card">
+    <div class="stat-head" style="background:var(--s4d);">
+      <span class="stat-icon">📍</span>
+      <span class="stat-ht">Tendencia central</span>
+    </div>
+    <div class="stat-body">
+      <div class="stat-row">
+        <span class="stat-term">Media</span>
+        <span class="stat-def">Promedio aritmético · para variables <strong>cuantitativas simétricas</strong></span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-term">Mediana</span>
+        <span class="stat-def">Valor central · <strong>robusta ante valores extremos</strong> (outliers) ★</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-term">Moda</span>
+        <span class="stat-def">Valor más frecuente · útil en cualitativas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-head" style="background:var(--s4d);">
+      <span class="stat-icon">📏</span>
+      <span class="stat-ht">Dispersión</span>
+    </div>
+    <div class="stat-body">
+      <div class="stat-row">
+        <span class="stat-term">Rango</span>
+        <span class="stat-def">Máx − Mín · amplio si hay outliers</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-term">Varianza</span>
+        <span class="stat-def">Dispersión cuadrática media respecto a la media</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-term">Desv. típica</span>
+        <span class="stat-def">Raíz de la varianza · "cuánto se separan los datos de la media" ★</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-head" style="background:var(--s4d);">
+      <span class="stat-icon">📈</span>
+      <span class="stat-ht">Tablas y gráficos</span>
+    </div>
+    <div class="stat-body">
+      <div class="stat-row">
+        <span class="stat-term">Cualitativas</span>
+        <span class="stat-def">Tablas de frecuencia · gráficos de barras · sectores (tarta)</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-term">Cuantitativas</span>
+        <span class="stat-def">Histogramas · diagramas de caja (box-plot) ★</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-term">Box-plot</span>
+        <span class="stat-def">Mediana + cuartiles + outliers → visión rápida distribución</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="memo" style="margin-top:0.6rem;">
+  <div class="ml">🧠 Cuándo usar mediana vs media</div>
+  <div class="mt" style="font-size:0.76rem;">Distribución <span style="color:var(--s4)">simétrica → Media</span> · Distribución <span style="color:var(--s4)">asimétrica u outliers → Mediana</span> · El box-plot siempre muestra la mediana (línea central)</div>
+</div>
+
+<!-- ══════════════════════
+     5. ESTADÍSTICA INFERENCIAL
+══════════════════════ -->
+<div class="sdiv"><span>🔭 Estadística inferencial — concluir sobre la población</span></div>
+
+<div style="background:var(--s5d);border:1px solid #a0c0d0;border-radius:4px;padding:0.45rem 0.75rem;font-size:0.72rem;margin-bottom:0.7rem;color:var(--muted);">
+  <strong style="color:var(--s5);">Objetivo:</strong> extraer conclusiones sobre la <em>población</em> a partir de datos de la <em>muestra</em> · siempre con incertidumbre cuantificada
+</div>
+
+<div class="inf-grid">
+  <div class="inf-card">
+    <div class="inf-title" style="color:var(--s5);">📐 Intervalo de confianza (IC 95%)</div>
+    <div class="inf-body">
+      Rango de valores donde <strong>probablemente se encuentra</strong> el verdadero parámetro poblacional.<br><br>
+      <code class="inf-formula">IC 95% = media ± 1,96 × (DE / √n)</code>
+      Cuanto <strong>más estrecho</strong>, más precisa la estimación. Cuanto mayor el tamaño muestral (n), más estrecho el IC. Si el IC de una diferencia no incluye el 0 → diferencia significativa ★
+    </div>
+  </div>
+  <div class="inf-card">
+    <div class="inf-title" style="color:var(--s5);">📉 p-valor y contraste de hipótesis</div>
+    <div class="inf-body">
+      <strong>H₀</strong> (nula): "no hay diferencia / no hay efecto"<br>
+      <strong>H₁</strong> (alternativa): "sí hay diferencia o relación"<br><br>
+      <code class="inf-formula">p = P(datos tan extremos o más | H₀ verdadera)</code>
+      <strong>p &lt; 0,05</strong> → se rechaza H₀ · aceptamos que hay diferencia significativa (riesgo error tipo I ≈ 5%) ★★
+    </div>
+  </div>
+</div>
+
+<!-- ERRORES -->
+<div class="err-grid">
+  <div class="err-card" style="border-color:#a02020;background:var(--alarm-d);">
+    <div class="err-t" style="color:var(--alarm);">❌ Error tipo I (α) — Falso positivo</div>
+    <div class="err-d">Rechazar H₀ siendo verdadera · <strong>"veo diferencia que no existe"</strong> · Controlado por p &lt; 0,05</div>
+  </div>
+  <div class="err-card" style="border-color:var(--s1);background:var(--s1d);">
+    <div class="err-t" style="color:var(--s1);">❌ Error tipo II (β) — Falso negativo</div>
+    <div class="err-d">No rechazar H₀ siendo falsa · <strong>"no detecto diferencia que sí existe"</strong> · Relacionado con la potencia = 1 − β</div>
+  </div>
+</div>
+
+<!-- PRUEBAS ESTADÍSTICAS -->
+<div style="font-family:'Fira Code',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);margin:0.9rem 0 0.4rem;">Pruebas estadísticas principales</div>
+<div class="pruebas">
+  <div class="prueba-card">
+    <div class="prueba-name">Chi cuadrado (χ²)</div>
+    <div class="prueba-uso">Asociación entre dos variables <strong>cualitativas</strong></div>
+  </div>
+  <div class="prueba-card">
+    <div class="prueba-name">t de Student</div>
+    <div class="prueba-uso">Comparar <strong>medias</strong> entre dos grupos · cuantitativa normal</div>
+  </div>
+  <div class="prueba-card">
+    <div class="prueba-name">ANOVA</div>
+    <div class="prueba-uso">Comparar <strong>medias</strong> entre tres o más grupos</div>
+  </div>
+</div>
+
+<div class="memo" style="margin-top:0.7rem;">
+  <div class="ml">🧠 Regla rápida — ¿qué prueba usar?</div>
+  <div class="mt" style="font-size:0.75rem;">
+    <span style="color:var(--s5)">Cualitativa vs cualitativa</span> → Chi cuadrado ·
+    <span style="color:var(--s5)">Cuantitativa, 2 grupos</span> → t de Student ·
+    <span style="color:var(--s5)">Cuantitativa, ≥3 grupos</span> → ANOVA ·
+    <span style="color:var(--gold)">No paramétrica</span> → U de Mann-Whitney (alternativa t) · Kruskal-Wallis (alternativa ANOVA)
+  </div>
+</div>
+
+<!-- ══════════════════════
+     TEST
+══════════════════════ -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+
+<div class="tcard">
+  <div class="t-head"><span>🎯</span><span class="t-title">Test — Método científico · Estadística · Ética</span></div>
+  <div class="t-body"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es la primera fase del método científico?</div><div class="qa"><strong>Observación / planteamiento del problema</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué medida de tendencia central es más robusta ante valores extremos?</div><div class="qa"><strong>Mediana</strong></div><div class="qn">La media se ve muy afectada por outliers</div></div>
+    <div class="qb"><div class="qt">¿Qué significa un IC 95% más estrecho?</div><div class="qa">Mayor <strong>precisión</strong> en la estimación del parámetro</div><div class="qn">Más tamaño muestral = IC más estrecho</div></div>
+    <div class="qb"><div class="qt">¿Qué es el error tipo II (β)?</div><div class="qa">No rechazar H₀ siendo falsa → <strong>falso negativo</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué prueba se usa para asociar dos variables cualitativas?</div><div class="qa"><strong>Chi cuadrado (χ²)</strong></div></div>
+    <div class="qb"><div class="qt">¿Cuáles son los 4 principios del modelo principialista?</div><div class="qa"><strong>Autonomía · Beneficencia · No maleficencia · Justicia</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué diferencia hay entre anonimización y seudonimización?</div><div class="qa">Anonimización = datos no identificables · seudonimización = datos sustituidos por <strong>código</strong></div></div>
+    <div class="qb"><div class="qt">Si p &lt; 0,05, ¿qué decisión se toma?</div><div class="qa">Rechazar <strong>H₀</strong> — diferencia estadísticamente significativa (riesgo error α ≈ 5%)</div></div>
+    <div class="qb"><div class="qt">¿Qué sección del protocolo incluye los criterios de inclusión/exclusión?</div><div class="qa"><strong>Metodología</strong></div></div>
+    <div class="qb"><div class="qt">¿Qué gráfico es mejor para una variable cuantitativa continua?</div><div class="qa"><strong>Histograma</strong> · o diagrama de caja (box-plot)</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

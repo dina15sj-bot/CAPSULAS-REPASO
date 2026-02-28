@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabetes Mellitus — Clínica e Histología</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f4f0ec;--surface:#fff;--border:#ddd0c4;--text:#1a1410;--muted:#7a6a5a;
+  --navy:#0d2137;
+  --dm1:#8a1a1a;--dm1d:#8a1a1a14;
+  --dm2:#1a5a8a;--dm2d:#1a5a8a14;
+  --beta:#b07a10;--beta-d:#c49a2a18;
+  --green:#1a6a3a;--green-d:#1a6a3a14;
+  --purple:#6a3a8a;--purple-d:#6a3a8a14;
+  --gold:#c49a2a;--gold-dim:#c49a2a18;
+  --warm:#f5f0ea;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;background-image:repeating-linear-gradient(0deg,transparent,transparent 31px,#ddd0c428 31px,#ddd0c428 32px);}
+header{text-align:center;margin-bottom:1.8rem;}
+.badge{display:inline-flex;align-items:center;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;padding:0.35rem 1.2rem;border-radius:3px;margin-bottom:0.6rem;text-transform:uppercase;}
+h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.5rem);color:var(--navy);line-height:1.1;}
+.subtitle{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.5rem;}
+.wrap{max-width:1100px;margin:0 auto;}
+.memo-box{border-radius:6px;padding:0.55rem 0.9rem;margin-top:0.7rem;border:1px solid var(--gold);background:var(--gold-dim);}
+.memo-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.2rem;}
+.memo-text{color:var(--text);font-weight:700;font-size:0.8rem;line-height:1.5;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+@media(max-width:750px){.grid2{grid-template-columns:1fr;}}
+.full{grid-column:1/-1;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card-head{padding:0.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.card-icon{font-size:1.1rem;flex-shrink:0;}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;flex:1;}
+.card-body{padding:1rem 1.1rem;}
+
+/* DEFINICIÓN BANNER */
+.def-banner{background:var(--navy);border-radius:10px;padding:1rem 1.3rem;margin-bottom:1.2rem;display:flex;align-items:flex-start;gap:1rem;}
+.def-icon{font-size:1.8rem;flex-shrink:0;}
+.def-text{color:white;font-size:0.82rem;line-height:1.6;}
+.def-text strong{color:#ffd090;}
+
+/* DM CARDS */
+.dm-card{background:var(--surface);border-radius:12px;overflow:hidden;border:2px solid;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.dm-head{display:flex;align-items:stretch;}
+.dm-bar{width:6px;flex-shrink:0;}
+.dm-icon{padding:1.1rem 0.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;min-width:65px;font-size:2rem;}
+.dm-info{padding:0.9rem 0.9rem 0.9rem 0;flex:1;}
+.dm-type{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;margin-bottom:0.15rem;}
+.dm-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;line-height:1.1;margin-bottom:0.2rem;}
+.dm-kw{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:20px;display:inline-block;}
+.dm-body{padding:0 1rem 1rem;}
+.dm-section{margin-bottom:0.7rem;}
+.dm-sec-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:0.35rem;display:flex;align-items:center;gap:0.3rem;}
+.item-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.35rem;}
+@media(max-width:480px){.item-grid{grid-template-columns:1fr;}}
+.item{background:var(--warm);border:1px solid var(--border);border-radius:5px;padding:0.45rem 0.6rem;border-left:3px solid;font-size:0.73rem;line-height:1.35;}
+.item strong{display:block;font-size:0.75rem;margin-bottom:0.05rem;}
+
+/* DM1 */
+.dm1{border-color:var(--dm1);}
+.dm1 .dm-bar{background:var(--dm1);}
+.dm1 .dm-icon{background:var(--dm1d);}
+.dm1 .dm-type,.dm1 .dm-name{color:var(--dm1);}
+.dm1 .dm-kw{background:var(--dm1);color:white;}
+.dm1 .dm-sec-label{color:var(--dm1);}
+.dm1 .item{border-color:var(--dm1);}
+
+/* DM2 */
+.dm2{border-color:var(--dm2);}
+.dm2 .dm-bar{background:var(--dm2);}
+.dm2 .dm-icon{background:var(--dm2d);}
+.dm2 .dm-type,.dm2 .dm-name{color:var(--dm2);}
+.dm2 .dm-kw{background:var(--dm2);color:white;}
+.dm2 .dm-sec-label{color:var(--dm2);}
+.dm2 .item{border-color:var(--dm2);}
+
+/* ISLOTES HISTOLOGÍA */
+.celulas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;}
+@media(max-width:600px){.celulas-grid{grid-template-columns:1fr 1fr;}}
+.cel-card{border-radius:8px;overflow:hidden;border:1px solid;text-align:center;}
+.cel-head{padding:0.65rem 0.4rem;}
+.cel-symbol{font-size:1.4rem;margin-bottom:0.15rem;}
+.cel-name{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;}
+.cel-pct{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;}
+.cel-body{padding:0.45rem;background:white;font-size:0.68rem;color:var(--muted);line-height:1.3;}
+.cb{border-color:var(--beta);}.cb .cel-head{background:var(--beta-d);}.cb .cel-name,.cb .cel-pct{color:var(--beta);}
+.ca{border-color:var(--dm1);}.ca .cel-head{background:var(--dm1d);}.ca .cel-name,.ca .cel-pct{color:var(--dm1);}
+.cd{border-color:var(--green);}.cd .cel-head{background:var(--green-d);}.cd .cel-name,.cd .cel-pct{color:var(--green);}
+.cp{border-color:var(--purple);}.cp .cel-head{background:var(--purple-d);}.cp .cel-name,.cp .cel-pct{color:var(--purple);}
+
+/* HISTOLOGÍA FASES */
+.histo-strip{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.hs{flex:1;padding:0.6rem 0.5rem;text-align:center;border-right:1px solid var(--border);}
+.hs:last-child{border-right:none;}
+.hs-icon{font-size:1rem;margin-bottom:0.15rem;}
+.hs-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:0.1rem;}
+.hs-desc{font-size:0.62rem;color:var(--muted);line-height:1.2;}
+@media(max-width:500px){.histo-strip{flex-direction:column;}.hs{border-right:none;border-bottom:1px solid var(--border);}.hs:last-child{border-bottom:none;}}
+
+/* FÁRMACOS DM2 */
+.farma-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.4rem;}
+.farma-item{background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.65rem;border-left:3px solid;}
+.farma-name{font-weight:700;font-size:0.76rem;margin-bottom:0.1rem;}
+.farma-mec{font-size:0.68rem;color:var(--muted);line-height:1.3;}
+.farma-adv{font-size:0.65rem;color:var(--dm1);margin-top:0.1rem;font-style:italic;}
+
+/* COMPLICACIONES */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.comp-block{background:var(--warm);border:1px solid var(--border);border-radius:7px;padding:0.65rem 0.75rem;}
+.comp-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:0.35rem;}
+.comp-list{display:flex;flex-direction:column;gap:0.2rem;}
+.comp-item{font-size:0.73rem;display:flex;gap:0.35rem;line-height:1.3;}
+.comp-item::before{content:'▸';flex-shrink:0;font-size:0.65rem;margin-top:0.1rem;}
+
+/* TEST */
+.tcard .card-head{background:var(--dm1d);border-bottom:2px solid var(--dm1);}
+.tcard .card-title{color:var(--dm1);}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0 1.4rem;}
+.qb{padding:0.55rem 0;border-bottom:1px dashed var(--border);font-size:0.78rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.2rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--dm1);display:flex;align-items:flex-start;gap:0.35rem;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.66rem;color:var(--muted);margin-top:0.08rem;font-style:italic;}
+
+.sec-divider{display:flex;align-items:center;gap:0.8rem;margin:1.5rem 0 0.8rem;}
+.sec-divider div{flex:1;height:2px;background:var(--navy);opacity:0.12;}
+.sec-divider span{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--navy);white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🩸 Endocrinología · Farmacología</div>
+  <h1>Diabetes Mellitus</h1>
+  <p class="subtitle">Clínica · Farmacología · Histología · INGESA Enfermería</p>
+</header>
+
+<div class="wrap">
+
+  <!-- DEFINICIÓN -->
+  <div class="def-banner">
+    <span class="def-icon">🔬</span>
+    <div class="def-text">
+      <strong>Definición:</strong> Enfermedad metabólica crónica con <strong style="color:#ffd090">hiperglucemia sostenida</strong> por defecto de secreción de insulina, de acción de insulina o <strong style="color:#ffd090">ambos</strong>.
+    </div>
+  </div>
+
+  <!-- DM1 + DM2 -->
+  <div class="grid2">
+
+    <!-- DM TIPO 1 -->
+    <div class="dm-card dm1">
+      <div class="dm-head">
+        <div class="dm-bar"></div>
+        <div class="dm-icon">🔴</div>
+        <div class="dm-info">
+          <div class="dm-type">Tipo 1</div>
+          <div class="dm-name">Diabetes Mellitus 1</div>
+          <span class="dm-kw">Autoinmune · Insulinodependiente</span>
+        </div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-section">
+          <div class="dm-sec-label">⚙️ Fisiopatología</div>
+          <div class="item" style="grid-column:1/-1">Destrucción <strong>autoinmune</strong> de células beta → <strong>deficiencia absoluta</strong> de insulina → hiperglucemia + lipólisis + cetogénesis<br><span style="font-size:0.68rem;color:var(--muted)">Niñez, adolescencia o adultos jóvenes · genética + factores ambientales</span></div>
+        </div>
+        <div class="dm-section">
+          <div class="dm-sec-label">🤒 Clínica</div>
+          <div class="item-grid">
+            <div class="item"><strong>Inicio</strong> Agudo o subagudo (semanas)</div>
+            <div class="item"><strong>Las 4 P</strong> Poliuria · Polidipsia · Polifagia · Pérdida de peso</div>
+            <div class="item"><strong>Otros</strong> Cansancio · visión borrosa</div>
+            <div class="item" style="border-color:#8a1a1a;background:#fff0f0"><strong style="color:var(--dm1)">⚠️ CAD debut</strong> Vómitos · Kussmaul · aliento cetónico · alt. conciencia</div>
+          </div>
+        </div>
+        <div class="dm-section">
+          <div class="dm-sec-label">💉 Tratamiento</div>
+          <div class="item-grid">
+            <div class="item"><strong>Insulina obligatoria</strong> desde el diagnóstico</div>
+            <div class="item"><strong>Esquema basal-bolo</strong> Basal + rápida antes de comidas</div>
+            <div class="item" style="grid-column:1/-1"><strong>Educación:</strong> autocontrol glucémico · conteo de raciones · prevención de hipoglucemias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DM TIPO 2 -->
+    <div class="dm-card dm2">
+      <div class="dm-head">
+        <div class="dm-bar"></div>
+        <div class="dm-icon">🔵</div>
+        <div class="dm-info">
+          <div class="dm-type">Tipo 2</div>
+          <div class="dm-name">Diabetes Mellitus 2</div>
+          <span class="dm-kw">Resistencia · Déficit relativo</span>
+        </div>
+      </div>
+      <div class="dm-body">
+        <div class="dm-section">
+          <div class="dm-sec-label">⚙️ Fisiopatología</div>
+          <div class="item"><strong>Resistencia</strong> a insulina (músculo, hígado, adiposo) + <strong>deterioro progresivo</strong> secreción beta<br><span style="font-size:0.68rem;color:var(--muted)">Obesidad central · sedentarismo · edad · s. metabólico · HF+</span></div>
+        </div>
+        <div class="dm-section">
+          <div class="dm-sec-label">🤒 Clínica</div>
+          <div class="item-grid">
+            <div class="item"><strong>Inicio insidioso</strong> Años asintomática</div>
+            <div class="item"><strong>Síntomas</strong> Poliuria · polidipsia · infecciones repetición · mala cicatrización</div>
+            <div class="item" style="grid-column:1/-1"><strong>Diagnóstico frecuente por complicaciones:</strong> cardiopatía isquémica · ictus · neuropatía · retinopatía · nefropatía</div>
+          </div>
+        </div>
+        <div class="dm-section">
+          <div class="dm-sec-label">💊 Farmacología — resumen examen</div>
+          <div class="farma-grid">
+            <div class="farma-item" style="border-color:var(--green);grid-column:1/-1">
+              <div class="farma-name" style="color:var(--green)">⭐ Metformina — 1ª elección</div>
+              <div class="farma-mec">↓ producción hepática glucosa · mejora sensibilidad periférica · sin hipoglucemia · no sube peso</div>
+              <div class="farma-adv">CI: IR avanzada · acidosis láctica · IH grave · hipoxia severa</div>
+            </div>
+            <div class="farma-item" style="border-color:var(--dm1)">
+              <div class="farma-name" style="color:var(--dm1)">Sulfonilureas</div>
+              <div class="farma-mec">Secretagogos: estimulan células beta</div>
+              <div class="farma-adv">⚠️ Hipoglucemia + aumento de peso</div>
+            </div>
+            <div class="farma-item" style="border-color:var(--dm2)">
+              <div class="farma-name" style="color:var(--dm2)">iDPP-4</div>
+              <div class="farma-mec">↑ incretinas · efecto moderado · bajo riesgo hipoglucemia</div>
+            </div>
+            <div class="farma-item" style="border-color:var(--purple)">
+              <div class="farma-name" style="color:var(--purple)">aGLP-1</div>
+              <div class="farma-mec">Inyectables · ↓ peso · buena opción obesidad/alto riesgo CV</div>
+            </div>
+            <div class="farma-item" style="border-color:var(--beta)">
+              <div class="farma-name" style="color:var(--beta)">iSGLT2</div>
+              <div class="farma-mec">↑ glucosuria · beneficios CV y renales · ↓ peso</div>
+            </div>
+          </div>
+        </div>
+        <div class="memo-box" style="background:var(--dm2d);border-color:var(--dm2);">
+          <div class="memo-label" style="color:var(--dm2)">🧠 Insulina en DM2 — cuándo</div>
+          <div class="memo-text" style="font-size:0.75rem">HbA1c ≥10% · glucemia ≥300 mg/dl · fracaso ADO · situación aguda (infección grave, cirugía, embarazo) → <strong>mantener metformina</strong> al añadir insulina</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMPLICACIONES -->
+  <div class="sec-divider"><div></div><span>⚡ Complicaciones clave</span><div></div></div>
+  <div class="comp-grid" style="max-width:1100px;margin:0 auto;">
+    <div class="comp-block" style="border-left:4px solid var(--dm1)">
+      <div class="comp-label" style="color:var(--dm1)">🚨 Agudas</div>
+      <div class="comp-list">
+        <div class="comp-item" style="color:var(--muted)"><span style="color:var(--dm1)">▸</span><span><strong>Hipoglucemia:</strong> sudor frío · temblor · ansiedad · alt. conciencia</span></div>
+        <div class="comp-item" style="color:var(--muted)"><span style="color:var(--dm1)">▸</span><span><strong>CAD (DM1):</strong> hiperglucemia + acidosis metabólica + cetosis</span></div>
+        <div class="comp-item" style="color:var(--muted)"><span style="color:var(--dm2)">▸</span><span><strong>Estado hiperosmolar (DM2):</strong> hiperglucemia extrema · sin cetosis · deshidratación</span></div>
+      </div>
+    </div>
+    <div class="comp-block" style="border-left:4px solid var(--dm2)">
+      <div class="comp-label" style="color:var(--dm2)">🔄 Crónicas</div>
+      <div class="comp-list">
+        <div class="comp-item" style="color:var(--muted)"><span style="color:var(--dm2)">▸</span><span><strong>Microvasculares:</strong> retinopatía · nefropatía (proteinuria/IRC) · neuropatía periférica</span></div>
+        <div class="comp-item" style="color:var(--muted)"><span style="color:var(--dm2)">▸</span><span><strong>Macrovasculares:</strong> coronaria · cerebrovascular · arterial periférica</span></div>
+        <div class="comp-item" style="color:var(--muted)"><span style="color:var(--dm2)">▸</span><span><strong>Pie diabético:</strong> úlceras · neuropatía · infección</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTOLOGÍA -->
+  <div class="sec-divider"><div></div><span>🔬 Histología pancreática</span><div></div></div>
+
+  <!-- CÉLULAS ISLOTES -->
+  <div class="card" style="margin-bottom:1.1rem;">
+    <div class="card-head" style="background:var(--beta-d);border-bottom:2px solid var(--beta)">
+      <span class="card-icon">🟡</span>
+      <span class="card-title" style="color:var(--beta)">Islotes de Langerhans — células principales</span>
+    </div>
+    <div class="card-body">
+      <div style="font-size:0.77rem;color:var(--muted);margin-bottom:0.7rem;line-height:1.5;">Nódulos endocrinos dispersos entre acinos exocrinos · muy vascularizados · rodeados de delgado tejido conectivo</div>
+      <div class="celulas-grid">
+        <div class="cel-card cb">
+          <div class="cel-head"><div class="cel-symbol">β</div><div class="cel-name">Beta</div><div class="cel-pct">50–80%</div></div>
+          <div class="cel-body"><strong>Centro</strong> del islote<br>Producen <strong>insulina</strong> (+ amilina)</div>
+        </div>
+        <div class="cel-card ca">
+          <div class="cel-head"><div class="cel-symbol">α</div><div class="cel-name">Alfa</div><div class="cel-pct">5–20%</div></div>
+          <div class="cel-body"><strong>Periferia</strong> del islote<br>Producen <strong>glucagón</strong></div>
+        </div>
+        <div class="cel-card cd">
+          <div class="cel-head"><div class="cel-symbol">δ</div><div class="cel-name">Delta</div><div class="cel-pct">≈5%</div></div>
+          <div class="cel-body">Dispersas<br>Producen <strong>somatostatina</strong></div>
+        </div>
+        <div class="cel-card cp">
+          <div class="cel-head"><div class="cel-symbol">PP</div><div class="cel-name">PP / F</div><div class="cel-pct">≤2%</div></div>
+          <div class="cel-body">Periferia<br><strong>Polipéptido pancreático</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+
+    <!-- HISTOLOGÍA DM1 -->
+    <div class="card">
+      <div class="card-head" style="background:var(--dm1d);border-bottom:2px solid var(--dm1)">
+        <span class="card-icon">🔴</span>
+        <span class="card-title" style="color:var(--dm1)">DM1 — "Insulitis linfocitaria"</span>
+      </div>
+      <div class="card-body">
+        <div style="background:#fff0f0;border:1px solid var(--dm1);border-radius:7px;padding:0.65rem 0.8rem;margin-bottom:0.7rem;font-size:0.78rem;line-height:1.5;">
+          <strong style="color:var(--dm1)">Lesión típica:</strong> infiltrado <strong>linfocitario</strong> en islotes (linfocitos T) → destrucción progresiva células beta → islotes con <strong>pérdida casi total de β</strong>, permanecen células alfa
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--dm1);margin-bottom:0.4rem;">Fases progresivas</div>
+        <div class="histo-strip" style="border-color:var(--dm1)">
+          <div class="hs" style="background:#fff8f8"><div class="hs-icon">✅</div><div class="hs-label" style="color:var(--dm1)">Normal</div><div class="hs-desc">Islote íntegro · beta presentes</div></div>
+          <div class="hs"><div class="hs-icon">🔸</div><div class="hs-label" style="color:var(--dm1)">Peri-insular</div><div class="hs-desc">Infiltrado linfocitario alrededor</div></div>
+          <div class="hs"><div class="hs-icon">🔴</div><div class="hs-label" style="color:var(--dm1)">Intra-insular</div><div class="hs-desc">Infiltrado dentro del islote</div></div>
+          <div class="hs" style="background:#fff0f0"><div class="hs-icon">⬜</div><div class="hs-label" style="color:var(--dm1)">Atrófico</div><div class="hs-desc">Sin beta · solo alfa</div></div>
+        </div>
+        <div class="memo-box" style="background:var(--dm1d);border-color:var(--dm1);margin-top:0.7rem;">
+          <div class="memo-label" style="color:var(--dm1)">🧠 DM1 → las 3 "I"</div>
+          <div class="memo-text" style="font-size:0.77rem"><span style="color:var(--dm1)">I</span>nsulitis · <span style="color:var(--dm1)">I</span>nmunitaria · <span style="color:var(--dm1)">I</span>slote sin beta</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTOLOGÍA DM2 -->
+    <div class="card">
+      <div class="card-head" style="background:var(--dm2d);border-bottom:2px solid var(--dm2)">
+        <span class="card-icon">🔵</span>
+        <span class="card-title" style="color:var(--dm2)">DM2 — "Amiloide en islotes"</span>
+      </div>
+      <div class="card-body">
+        <div style="background:#f0f4ff;border:1px solid var(--dm2);border-radius:7px;padding:0.65rem 0.8rem;margin-bottom:0.7rem;font-size:0.78rem;line-height:1.5;">
+          <strong style="color:var(--dm2)">Lesión típica:</strong> depósitos de <strong>amiloide</strong> (amilina/hIAPP) en islotes · menos inflamación que DM1
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--dm2);margin-bottom:0.4rem;">Evolución estructural</div>
+        <div class="histo-strip" style="border-color:var(--dm2)">
+          <div class="hs" style="background:#f5f8ff"><div class="hs-icon">📈</div><div class="hs-label" style="color:var(--dm2)">Inicio</div><div class="hs-desc">Islotes <strong>aumentados</strong> de tamaño</div></div>
+          <div class="hs"><div class="hs-icon">🔷</div><div class="hs-label" style="color:var(--dm2)">Progresión</div><div class="hs-desc">Depósitos de <strong>amiloide</strong></div></div>
+          <div class="hs" style="background:#f0f4ff"><div class="hs-icon">📉</div><div class="hs-label" style="color:var(--dm2)">Tardío</div><div class="hs-desc">↓ masa beta · reemplazo amiloide</div></div>
+        </div>
+        <div style="background:var(--warm);border:1px solid var(--border);border-radius:6px;padding:0.55rem 0.75rem;margin-top:0.6rem;font-size:0.74rem;line-height:1.4;">
+          <strong>Diferencia clave con DM1:</strong> <span style="color:var(--muted)">No hay insulitis · predominan depósitos amiloides · no linfocitos</span>
+        </div>
+        <div class="memo-box" style="background:var(--dm2d);border-color:var(--dm2);margin-top:0.7rem;">
+          <div class="memo-label" style="color:var(--dm2)">🧠 DM2 → las 3 "A"</div>
+          <div class="memo-text" style="font-size:0.77rem"><span style="color:var(--dm2)">A</span>miloide · <span style="color:var(--dm2)">A</span>milina · <span style="color:var(--dm2)">A</span>umento inicial islotes</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TEST -->
+  <div class="card tcard" style="margin-top:1.2rem;">
+    <div class="card-head"><span class="card-icon">🎯</span><span class="card-title">Preguntas tipo test — Diabetes Mellitus</span></div>
+    <div class="card-body"><div class="qgrid">
+      <div class="qb">
+        <div class="qt">¿Cuál es la lesión histológica típica de la DM1?</div>
+        <div class="qa"><strong>Insulitis linfocitaria</strong> — infiltrado de linfocitos T</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuál es la lesión histológica típica de la DM2?</div>
+        <div class="qa"><strong>Depósitos de amiloide</strong> (amilina/hIAPP) en islotes</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué células del islote se destruyen en la DM1?</div>
+        <div class="qa">Células <strong>beta (β)</strong> — quedan principalmente las alfa</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuál es el fármaco de elección inicial en DM2?</div>
+        <div class="qa"><strong>Metformina</strong> — no causa hipoglucemia · no sube peso</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuál es el efecto adverso principal de las sulfonilureas?</div>
+        <div class="qa"><strong>Hipoglucemia</strong> y aumento de peso</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué complicación aguda es típica de DM1?</div>
+        <div class="qa"><strong>Cetoacidosis diabética (CAD)</strong> — hiperglucemia + acidosis + cetosis</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué células producen glucagón en el islote?</div>
+        <div class="qa">Células <strong>alfa (α)</strong> — en la periferia del islote</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuándo se indica insulina en DM2?</div>
+        <div class="qa">HbA1c ≥10% · glucemia ≥300 · fracaso ADO · situación aguda</div>
+        <div class="qn">Se mantiene metformina al añadir insulina</div>
+      </div>
+    </div></div>
+  </div>
+
+</div>
+</body>
+</html>

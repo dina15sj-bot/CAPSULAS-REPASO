@@ -8,28 +8,27 @@
 <style>
 :root {
   --bg:#f5f2ed;--surface:#fff;--border:#ddd8ce;--text:#1a1612;--muted:#7a6f63;
-  --navy:#0d2137;--accent:#c0392b;--gold:#c49a2a;--warm:#eeeae3;
+  --navy:#0d2137;--gold:#c49a2a;--warm:#eeeae3;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* SIDEBAR */
 .sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--navy);padding:1.5rem 1rem;overflow-y:auto;z-index:100;}
 .sidebar-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem;color:white;letter-spacing:0.05em;margin-bottom:0.3rem;}
 .sidebar-logo span{color:#e8a030;}
 .sidebar-sub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#90a8c0;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.5rem;}
 .cat-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:#90a8c0;margin:1rem 0 0.4rem;padding-left:0.3rem;}
 .sidebar-link{display:block;padding:0.45rem 0.7rem;border-radius:5px;font-size:0.78rem;color:#c8d8e8;text-decoration:none;margin-bottom:0.15rem;transition:background 0.15s;}
-.sidebar-link:hover,.sidebar-link.active{background:#ffffff18;color:white;}
+.sidebar-link:hover{background:#ffffff18;color:white;}
 .sidebar-count{display:inline-block;background:#ffffff20;font-family:'JetBrains Mono',monospace;font-size:0.55rem;padding:0.08rem 0.4rem;border-radius:10px;margin-left:0.3rem;vertical-align:middle;}
+.new-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e8a030;margin-left:0.4rem;vertical-align:middle;}
 
-/* MAIN */
 .main{margin-left:260px;padding:2rem;}
 .page-title{font-family:'Playfair Display',serif;font-weight:900;font-size:2rem;color:var(--navy);margin-bottom:0.3rem;}
 .page-sub{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2rem;}
+.total-badge{display:inline-block;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.2rem 0.7rem;border-radius:3px;margin-left:0.5rem;vertical-align:middle;}
 
 .section-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);margin:1.8rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:0.5rem;}
-.section-icon{font-size:1rem;}
 
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
 .resource-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--text);transition:box-shadow 0.2s,transform 0.15s;display:block;}
@@ -41,6 +40,9 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
 .card-desc{font-size:0.75rem;color:var(--muted);line-height:1.4;}
 .card-footer{padding:0.5rem 1rem;background:var(--warm);border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;}
 .card-footer::before{content:'→';color:var(--gold);}
+.card-new .card-color{position:relative;}
+.card-new .card-footer{background:#fef9ed;border-top-color:#e8c87a;}
+.card-new .card-footer::after{content:'NUEVO';background:#e8a030;color:white;font-size:0.48rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;margin-left:auto;letter-spacing:0.1em;}
 
 @media(max-width:768px){
   .sidebar{width:100%;height:auto;position:relative;}
@@ -58,221 +60,185 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   <div class="cat-label">Categorías</div>
   <a href="#legislacion" class="sidebar-link">⚖️ Legislación sanitaria <span class="sidebar-count">6</span></a>
   <a href="#derechos" class="sidebar-link">🛡️ Derechos y protección <span class="sidebar-count">3</span></a>
-  <a href="#organizacion" class="sidebar-link">🏛️ Organización SNS <span class="sidebar-count">2</span></a>
-  <a href="#prevencion" class="sidebar-link">⚠️ Prevención de riesgos <span class="sidebar-count">1</span></a>
-  <a href="#enfermeria" class="sidebar-link">🩺 Enfermería clínica <span class="sidebar-count">3</span></a>
-  <a href="#metodologia" class="sidebar-link">📋 Metodología enfermera <span class="sidebar-count">1</span></a>
+  <a href="#organizacion" class="sidebar-link">🏛️ Estatuto Marco <span class="sidebar-count">3</span></a>
+  <a href="#enfermeria" class="sidebar-link">🩺 Enfermería clínica <span class="sidebar-count">7</span><span class="new-dot"></span></a>
+  <a href="#respiratorio" class="sidebar-link">🫁 Respiratorio <span class="sidebar-count">4</span><span class="new-dot"></span></a>
+  <a href="#metodologia" class="sidebar-link">🔬 Metodología · EBE <span class="sidebar-count">3</span><span class="new-dot"></span></a>
   <a href="#teoria" class="sidebar-link">🟣 Teoría enfermera <span class="sidebar-count">1</span></a>
 </div>
 
 <div class="main">
-  <div class="page-title">Biblioteca de recursos</div>
-  <div class="page-sub">Recursos visuales · INGESA 2026</div>
+  <div class="page-title">Biblioteca de recursos <span class="total-badge">27 recursos</span></div>
+  <div class="page-sub">Recursos visuales · INGESA 2026 · Actualizado 28·02·2026</div>
 
-  <!-- LEGISLACIÓN SANITARIA -->
-  <div class="section-title" id="legislacion"><span class="section-icon">⚖️</span> Legislación sanitaria</div>
+  <!-- ── LEGISLACIÓN ── -->
+  <div class="section-title" id="legislacion">⚖️ Legislación sanitaria</div>
   <div class="cards">
-
     <a href="constitucion_española.html" class="resource-card">
       <div class="card-color" style="background:#1e5f8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1e5f8a">Constitución · 1978</div>
-        <div class="card-name">Constitución Española</div>
-        <div class="card-desc">Artículos sanitarios, derechos fundamentales, distribución competencial sanidad</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#1e5f8a">Constitución · 1978</div><div class="card-name">Constitución Española</div><div class="card-desc">Artículos sanitarios, derechos fundamentales, distribución competencial sanidad</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="ley_14_1986_general_sanidad.html" class="resource-card">
       <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1a6a3a">Ley 14/1986</div>
-        <div class="card-name">Ley General de Sanidad</div>
-        <div class="card-desc">Creación del SNS, universalidad, financiación pública, Áreas de Salud</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Ley 14/1986</div><div class="card-name">Ley General de Sanidad</div><div class="card-desc">Creación del SNS, universalidad, financiación pública, Áreas de Salud</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="ley_16_2003_cohesion_sns.html" class="resource-card">
       <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1a6a3a">Ley 16/2003</div>
-        <div class="card-name">Cohesión y Calidad del SNS</div>
-        <div class="card-desc">6 ámbitos P·F·P·I·I·C, CISNS, cartera de servicios, organismos del SNS</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Ley 16/2003</div><div class="card-name">Cohesión y Calidad del SNS</div><div class="card-desc">6 ámbitos P·F·P·I·I·C, CISNS, cartera de servicios, organismos del SNS</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="cisns_tipos_acuerdos.html" class="resource-card">
       <div class="card-color" style="background:#0d2137"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#0d2137">CISNS · Acuerdos</div>
-        <div class="card-name">Tipos de acuerdos del CISNS</div>
-        <div class="card-desc">Recomendaciones · Convenios · Actuaciones coordinadas — escala de vinculación</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#0d2137">CISNS · Acuerdos</div><div class="card-name">Tipos de acuerdos del CISNS</div><div class="card-desc">Recomendaciones · Convenios · Actuaciones coordinadas — escala de vinculación</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="art12_lo4_2000_extranjeria_sanidad.html" class="resource-card">
       <div class="card-color" style="background:#6a3a8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#6a3a8a">LO 4/2000 · Art. 12</div>
-        <div class="card-name">Extranjería y derecho a la sanidad</div>
-        <div class="card-desc">Acceso a la sanidad pública de personas extranjeras</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#6a3a8a">LO 4/2000 · Art. 12</div><div class="card-name">Extranjería y derecho a la sanidad</div><div class="card-desc">Acceso a la sanidad pública de personas extranjeras</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="ley_31_1995_prl.html" class="resource-card">
       <div class="card-color" style="background:#c4681a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#c4681a">Ley 31/1995 · PRL</div>
-        <div class="card-name">Prevención de Riesgos Laborales</div>
-        <div class="card-desc">9 principios art. 15, deberes empresario, riesgos sanitarios específicos</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#c4681a">Ley 31/1995 · PRL</div><div class="card-name">Prevención de Riesgos Laborales</div><div class="card-desc">9 principios art. 15, deberes empresario, riesgos sanitarios específicos</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
   </div>
 
-  <!-- METODOLOGÍA ENFERMERA -->
-  <div class="section-title" id="metodologia"><span class="section-icon">📋</span> Metodología enfermera</div>
+  <!-- ── DERECHOS ── -->
+  <div class="section-title" id="derechos">🛡️ Derechos y protección</div>
   <div class="cards">
-
-    <a href="proceso_enfermero.html" class="resource-card">
-      <div class="card-color" style="background:#1e5f8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1e5f8a">Proceso Enfermero</div>
-        <div class="card-name">El Proceso Enfermero — 5 Fases</div>
-        <div class="card-desc">V·D·P·E·E · NANDA-I · NOC · NIC · Formato PES · Modelo AREA</div>
-      </div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-
-  </div>
-
-  <!-- DERECHOS Y PROTECCIÓN -->
-  <div class="section-title" id="derechos"><span class="section-icon">🛡️</span> Derechos y protección</div>
-  <div class="cards">
-
     <a href="rdl_1_2013_discapacidad.html" class="resource-card">
       <div class="card-color" style="background:#5a2a8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#5a2a8a">RDL 1/2013</div>
-        <div class="card-name">Derechos Personas con Discapacidad</div>
-        <div class="card-desc">8 principios D·N·I·A·D·D·N·T, accesibilidad universal, ajustes razonables</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#5a2a8a">RDL 1/2013</div><div class="card-name">Derechos Personas con Discapacidad</div><div class="card-desc">8 principios D·N·I·A·D·D·N·T, accesibilidad universal, ajustes razonables</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="lo_1_2004_violencia_genero.html" class="resource-card">
       <div class="card-color" style="background:#9a2060"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#9a2060">LO 1/2004</div>
-        <div class="card-name">Violencia de Género</div>
-        <div class="card-desc">J·M·E funcionarias, excedencia (2m/6m/18m), tutelas institucional/penal/civil</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#9a2060">LO 1/2004</div><div class="card-name">Violencia de Género</div><div class="card-desc">J·M·E funcionarias, excedencia (2m/6m/18m), tutelas institucional/penal/civil</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="ingesa_estructura_porhi.html" class="resource-card">
       <div class="card-color" style="background:#0d2137"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#0d2137">RD 118/2023 · INGESA</div>
-        <div class="card-name">Estructura INGESA y PORHI</div>
-        <div class="card-desc">Organigrama P·D·G·A, órganos de participación, plan de ordenación RRHH</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#0d2137">RD 118/2023 · INGESA</div><div class="card-name">Estructura INGESA y PORHI</div><div class="card-desc">Organigrama P·D·G·A, órganos de participación, plan de ordenación RRHH</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
   </div>
 
-  <!-- ESTATUTO MARCO -->
-  <div class="section-title" id="organizacion"><span class="section-icon">🏛️</span> Estatuto Marco · Ley 55/2003</div>
+  <!-- ── ESTATUTO MARCO ── -->
+  <div class="section-title" id="organizacion">🏛️ Estatuto Marco · Ley 55/2003</div>
   <div class="cards">
-
     <a href="estatuto_marco_1_clasificacion.html" class="resource-card">
       <div class="card-color" style="background:#c49a2a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#8a6a10">Estatuto Marco 1/3</div>
-        <div class="card-name">Clasificación y Nombramientos</div>
-        <div class="card-desc">F·T·N criterios, F·I·E·S nombramientos, principios L·I·I·S·C·P</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#8a6a10">Estatuto Marco 1/3</div><div class="card-name">Clasificación y Nombramientos</div><div class="card-desc">F·T·N criterios, F·I·E·S nombramientos, principios L·I·I·S·C·P</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="estatuto_marco_2_planificacion_derechos.html" class="resource-card">
       <div class="card-color" style="background:#1a6a6a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1a6a6a">Estatuto Marco 2/3</div>
-        <div class="card-name">Planificación, Derechos y Deberes</div>
-        <div class="card-desc">CISNS, registros, derechos E·R·F·P·S, deberes L·P·N·S·B</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Estatuto Marco 2/3</div><div class="card-name">Planificación, Derechos y Deberes</div><div class="card-desc">CISNS, registros, derechos E·R·F·P·S, deberes L·P·N·S·B</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="estatuto_marco_3_carrera_retribuciones.html" class="resource-card">
       <div class="card-color" style="background:#6a3a8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#6a3a8a">Estatuto Marco 3/3</div>
-        <div class="card-name">Carrera Profesional y Retribuciones</div>
-        <div class="card-desc">Carrera individualizada, S·T·E básicas, D·E·P complementarias, temporal sin trienios</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#6a3a8a">Estatuto Marco 3/3</div><div class="card-name">Carrera Profesional y Retribuciones</div><div class="card-desc">Carrera individualizada, S·T·E básicas, D·E·P complementarias, temporal sin trienios</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
   </div>
 
-  <!-- ENFERMERÍA CLÍNICA -->
-  <div class="section-title" id="enfermeria"><span class="section-icon">🩺</span> Enfermería clínica</div>
+  <!-- ── ENFERMERÍA CLÍNICA ── -->
+  <div class="section-title" id="enfermeria">🩺 Enfermería clínica</div>
   <div class="cards">
-
+    <a href="proceso_enfermero.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a5a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">Metodología · PAE</div><div class="card-name">Proceso Enfermero</div><div class="card-desc">5 etapas V·D·P·E·E, taxonomías NANDA/NIC/NOC, diagnósticos enfermeros</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="marcos_valoracion_enfermera.html" class="resource-card card-new">
+      <div class="card-color" style="background:#3a6a2a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#3a6a2a">Valoración · Modelos</div><div class="card-name">Marcos de Valoración Enfermera</div><div class="card-desc">11 patrones Gordon · 14 necesidades Henderson · autocuidado Orem</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="diabetes_mellitus.html" class="resource-card card-new">
+      <div class="card-color" style="background:#8a3a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a3a1a">Clínica · Endocrinología</div><div class="card-name">Diabetes Mellitus</div><div class="card-desc">DM1 vs DM2, criterios diagnósticos, insulinas, complicaciones agudas y crónicas</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="vacunas_tipos_calendario.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a6a4a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a4a">Salud pública · Vacunas</div><div class="card-name">Vacunas: Tipos y Calendario</div><div class="card-desc">Vivas vs inactivadas, calendario vacunal 2024, contraindicaciones, cadena de frío</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
     <a href="limpieza_desinfeccion_esterilizacion.html" class="resource-card">
       <div class="card-color" style="background:#1e5f8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1e5f8a">Clínica · Procedimientos</div>
-        <div class="card-name">Limpieza, Desinfección y Esterilización</div>
-        <div class="card-desc">Niveles de desinfección, métodos de esterilización, clasificación Spaulding</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#1e5f8a">Clínica · Procedimientos</div><div class="card-name">Limpieza, Desinfección y Esterilización</div><div class="card-desc">Niveles de desinfección, métodos de esterilización, clasificación Spaulding</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="actividad_fisica_oms.html" class="resource-card">
       <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#1a6a3a">OMS · Salud pública</div>
-        <div class="card-name">Actividad Física — Recomendaciones OMS</div>
-        <div class="card-desc">Recomendaciones por grupos de edad, beneficios, sedentarismo</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">OMS · Salud pública</div><div class="card-name">Actividad Física — Recomendaciones OMS</div><div class="card-desc">Recomendaciones por grupos de edad, beneficios, sedentarismo</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
     <a href="emergencias_intraparto.html" class="resource-card">
       <div class="card-color" style="background:#b5282a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#b5282a">Urgencias · Obstétrica</div>
-        <div class="card-name">Emergencias Intraparto</div>
-        <div class="card-desc">Distocia de hombros, prolapso de cordón, desprendimiento placenta</div>
-      </div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">Urgencias · Obstétrica</div><div class="card-name">Emergencias Intraparto</div><div class="card-desc">Distocia de hombros, prolapso de cordón, desprendimiento placenta</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-
   </div>
 
-  <!-- TEORÍA ENFERMERA -->
-  <div class="section-title" id="teoria"><span class="section-icon">🟣</span> Teoría enfermera</div>
+  <!-- ── RESPIRATORIO ── -->
+  <div class="section-title" id="respiratorio">🫁 Respiratorio</div>
   <div class="cards">
-
-    <a href="peplau_relaciones_interpersonales.html" class="resource-card">
-      <div class="card-color" style="background:#5a2a8a"></div>
-      <div class="card-body">
-        <div class="card-tag" style="color:#5a2a8a">Teoría · Peplau</div>
-        <div class="card-name">Modelo de Relaciones Interpersonales</div>
-        <div class="card-desc">4 fases O·I·E·R, 6 roles E·R·D·L·C·S, enfermería psiquiátrica</div>
-      </div>
+    <a href="patologias_obstructivas.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1e6aaa"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1e6aaa">Neumología · Obstructivas</div><div class="card-name">Patologías Obstructivas</div><div class="card-desc">EPOC, asma, bronquiectasias, FQ, AOS · Tiffeneau &lt;0,7 · espirometría · dosis pediátricas asma</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
+    <a href="patologias_restrictivas.html" class="resource-card card-new">
+      <div class="card-color" style="background:#6a1a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a1a8a">Neumología · Restrictivas</div><div class="card-name">Patologías Restrictivas</div><div class="card-desc">CPT &lt;80%, fibrosis, SDRA, neumotórax, derrame, atelectasia · timpanismo vs matidez ★★</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="emergencias_respiratorias.html" class="resource-card card-new">
+      <div class="card-color" style="background:#b5282a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">Urgencias · Respiratorio</div><div class="card-name">Emergencias Respiratorias</div><div class="card-desc">TEP masivo · neumotórax tensión · anafilaxia · epiglotitis con dosis pediátrica · ABCDE</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="farmacologia_respiratoria.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a4a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a8a">Farmacología · Respiratorio</div><div class="card-name">Farmacología Respiratoria</div><div class="card-desc">SABA/LABA/SAMA/LAMA · CI/CS · teofilina · montelukast · antibióticos NAC · mecanismos · EA</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
 
+  <!-- ── METODOLOGÍA ── -->
+  <div class="section-title" id="metodologia">🔬 Metodología · EBE · Investigación</div>
+  <div class="cards">
+    <a href="metodologia_investigacion.html" class="resource-card card-new">
+      <div class="card-color" style="background:#4a1a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#4a1a6a">EBE · Diseños</div><div class="card-name">Metodología de la Investigación</div><div class="card-desc">Pirámide de evidencia · diseños observacionales · muestreo · variables · escalas · errores</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="revision_sistematica.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a5a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a3a">EBE · RS · PRISMA</div><div class="card-name">Revisión Sistemática — Guía Completa</div><div class="card-desc">11 pasos · PICO · PRISMA 4 fases · GRADE · checklists por fase · consejos TFM</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="metodo_cientifico_estadistica.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a4a6e"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a6e">Estadística · Ética</div><div class="card-name">Método Científico · Estadística · Ética</div><div class="card-desc">6 fases método · protocolo · principialismo · descriptiva · inferencial · IC · p-valor · errores α/β</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── TEORÍA ENFERMERA ── -->
+  <div class="section-title" id="teoria">🟣 Teoría enfermera</div>
+  <div class="cards">
+    <a href="peplau_relaciones_interpersonales.html" class="resource-card">
+      <div class="card-color" style="background:#5a2a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#5a2a8a">Teoría · Peplau</div><div class="card-name">Modelo de Relaciones Interpersonales</div><div class="card-desc">4 fases O·I·E·R, 6 roles E·R·D·L·C·S, enfermería psiquiátrica</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
   </div>
 
 </div>

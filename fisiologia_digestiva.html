@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fisiología Digestiva · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/*
+  PALETA basada en evidencia ergonómica visual:
+  - Fondo crema cálido (#f4efe6): menos fatiga que blanco puro, reduce halos
+  - Texto gris oscuro (#252530): no negro puro — mejor para pantalla
+  - Superficies blancas/crema para tarjetas con buen contraste texto
+  - Color solo en bordes izquierdos, etiquetas e iconos (no fondos grandes)
+  Fuente: Ocularis 2019, CONICET 2024, Oftalmólogo Vigo 2025
+*/
+:root{
+  --bg:#f4efe6;--s1:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#ddd5c5;--text:#252530;--muted:#7a7080;--dim:#a09098;
+  --esof:#1a6faa;
+  --gast:#b55e1a;
+  --higado:#8a6a10;
+  --pancr:#2a7a3a;
+  --intd:#6a3aaa;
+  --intg:#b03060;
+  --alarm:#b83030;
+  --gold:#8a6a10;--gold-d:#c8a83a18;
+  --ok:#2a7a3a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);color:var(--text);
+  padding:2rem 1.5rem 5rem;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);
+}
+.wrap{max-width:1080px;margin:0 auto;}
+
+/* HEADER */
+header{text-align:center;margin-bottom:2.5rem;padding:2rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--alarm);color:white;padding:0.3rem 1rem;border-radius:2px;margin-bottom:1rem;}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:700;line-height:1.05;letter-spacing:-0.01em;}
+h1 em{color:var(--esof);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.2em;margin-top:0.5rem;}
+
+/* DIVIDER */
+.sdiv{display:flex;align-items:center;gap:0.8rem;margin:2rem 0 1rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text);white-space:nowrap;padding:0.15rem 0.7rem;border:1px solid var(--border);background:var(--s1);border-radius:2px;}
+
+/* FUNDAMENTOS SNE */
+.sne-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;}
+@media(max-width:650px){.sne-grid{grid-template-columns:1fr;}}
+.sne-card{background:var(--s1);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.sne-head{padding:0.6rem 0.85rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;}
+.sne-icon{font-size:1.1rem;}
+.sne-ht{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;}
+.sne-body{padding:0.6rem 0.85rem;font-size:0.72rem;color:var(--muted);line-height:1.5;}
+.sne-body strong{color:var(--text);}
+.sne-fail{margin-top:0.4rem;padding:0.3rem 0.5rem;background:var(--alarm)18;border-left:2px solid var(--alarm);border-radius:2px;font-size:0.67rem;color:#8a2a2a;}
+.sne-fail::before{content:'⚠️ Fallo: ';}
+
+/* TABLA ÓRGANOS */
+.organ-table{width:100%;border-collapse:collapse;background:var(--s1);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.organ-table th{font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.12em;padding:0.55rem 0.8rem;background:var(--s3);color:var(--muted);text-align:left;border-bottom:1px solid var(--border);}
+.organ-table td{padding:0.65rem 0.8rem;border-bottom:1px solid var(--border)16;font-size:0.73rem;line-height:1.4;vertical-align:top;}
+.organ-table tr:last-child td{border-bottom:none;}
+.organ-table tr:nth-child(even) td{background:#00000005;}
+.otag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:600;padding:0.12rem 0.5rem;border-radius:3px;margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.08em;}
+.star{color:var(--gold);font-weight:700;}
+
+/* HÍGADO / BILIAR / PÁNCREAS */
+.hbp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+@media(max-width:700px){.hbp-grid{grid-template-columns:1fr;}}
+.hbp-card{background:var(--s1);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.hbp-top{padding:0.7rem 0.85rem;border-bottom:1px solid var(--border);}
+.hbp-icon-row{display:flex;align-items:center;gap:0.45rem;margin-bottom:0.2rem;}
+.hbp-icon{font-size:1.2rem;}
+.hbp-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;}
+.hbp-sub{font-size:0.67rem;color:var(--muted);}
+.hbp-body{padding:0.65rem 0.85rem;display:flex;flex-direction:column;gap:0.35rem;}
+.hbp-item{font-size:0.71rem;line-height:1.4;padding:0.3rem 0.5rem;border-radius:4px;border-left:2px solid;}
+.hbp-item strong{display:block;font-size:0.73rem;margin-bottom:0.06rem;}
+.hbp-key{font-family:'JetBrains Mono',monospace;font-size:0.62rem;margin-top:0.06rem;}
+
+/* TRÍADA / SIGNOS FLASH */
+.signs-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.5rem;margin-top:0.1rem;}
+.sign-card{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:0.55rem 0.7rem;text-align:center;}
+.sign-name{font-family:'Cormorant Garamond',serif;font-size:0.88rem;font-weight:700;margin-bottom:0.12rem;}
+.sign-desc{font-size:0.65rem;color:var(--muted);line-height:1.3;}
+
+/* ESCALAS */
+.scales-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+@media(max-width:600px){.scales-grid{grid-template-columns:1fr;}}
+
+/* BRISTOL */
+.bristol-list{display:flex;flex-direction:column;gap:0.3rem;}
+.brow{display:flex;align-items:center;gap:0.7rem;padding:0.35rem 0.7rem;background:var(--s2);border-radius:4px;border:1px solid var(--border);border-left:3px solid;}
+.bn{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;flex-shrink:0;width:18px;}
+.bdesc{font-size:0.69rem;color:var(--muted);line-height:1.3;flex:1;}
+.bdesc strong{color:var(--text);}
+.btag{font-family:'JetBrains Mono',monospace;font-size:0.52rem;padding:0.08rem 0.35rem;border-radius:2px;flex-shrink:0;}
+
+/* FORREST */
+.forrest-table{width:100%;border-collapse:collapse;background:var(--s1);border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+.forrest-table th{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.4rem 0.65rem;background:var(--s3);color:var(--muted);text-align:left;}
+.forrest-table td{padding:0.45rem 0.65rem;font-size:0.68rem;border-bottom:1px solid var(--border)18;vertical-align:top;line-height:1.35;}
+.forrest-table tr:last-child td{border-bottom:none;}
+.fg{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;}
+.risk-high{color:#b02020;}
+.risk-med{color:#8a5810;}
+.risk-low{color:#2a7a3a;}
+
+/* HORMONAS */
+.horm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.6rem;}
+.horm-card{background:var(--s1);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.8rem;border-left:3px solid;}
+.horm-name{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;margin-bottom:0.08rem;}
+.horm-origin{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.15rem;}
+.horm-body{font-size:0.7rem;color:var(--muted);line-height:1.4;}
+.horm-body strong{color:var(--text);}
+.horm-stim{font-size:0.65rem;margin-top:0.18rem;padding:0.18rem 0.4rem;background:#00000008;border-radius:3px;border:1px solid var(--border);}
+.horm-stim::before{content:'⚡ Estímulo: ';color:var(--gold);font-weight:600;}
+
+/* EMERGENCIAS */
+.emerg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:580px){.emerg-grid{grid-template-columns:1fr;}}
+.emerg-card{background:var(--s1);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.8rem;border-left:3px solid var(--alarm);}
+.emerg-title{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--alarm);margin-bottom:0.15rem;}
+.emerg-body{font-size:0.71rem;color:var(--muted);line-height:1.5;}
+.emerg-body strong{color:var(--text);}
+.emerg-key{font-family:'JetBrains Mono',monospace;font-size:0.62rem;margin-top:0.3rem;background:var(--alarm)18;border:1px solid var(--alarm)40;border-radius:3px;padding:0.2rem 0.5rem;color:#8a2a2a;}
+
+/* MEMO */
+.memo{border-radius:5px;padding:0.5rem 0.85rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.7rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.12rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.76rem;line-height:1.5;}
+
+/* TEST */
+.tcard{background:var(--s1);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:var(--alarm)18;display:flex;align-items:center;gap:0.5rem;}
+.ttitle{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--alarm);}
+.tbody{padding:1rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 1.5rem;}
+.qb{padding:0.5rem 0;border-bottom:1px dashed var(--border);font-size:0.74rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.18rem;line-height:1.4;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:600;color:var(--esof);display:flex;gap:0.35rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.62rem;color:var(--dim);margin-top:0.05rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🫁 Aparato Digestivo</div>
+  <h1>Fisiología &amp; Fisiopatología<br><em>Digestiva</em></h1>
+  <p class="hsub">SNE · Segmentos · Escalas · Hormonas · Emergencias · INGESA 2026</p>
+</header>
+
+<!-- ══════════════════════
+     I. FUNDAMENTOS SNE
+══════════════════════ -->
+<div class="sdiv"><span>🧠 I. Sistema Nervioso Entérico — "Cerebro intestinal"</span></div>
+
+<div class="sne-grid">
+  <div class="sne-card">
+    <div class="sne-head" style="background:#4a9eda18;"><span class="sne-icon">🧩</span><span class="sne-ht" style="color:var(--esof);">SNE — General</span></div>
+    <div class="sne-body">Sistema nervioso independiente que controla el tracto GI · modulado por el SNA.<br><br>
+      <strong>Parasimpático</strong> (Acetilcolina) → <strong>Estimula</strong> secreción y motilidad<br>
+      <strong>Simpático</strong> (Noradrenalina) → <strong>Inhibe</strong> secreción y motilidad
+    </div>
+  </div>
+  <div class="sne-card">
+    <div class="sne-head" style="background:#a87ad418;"><span class="sne-icon">💧</span><span class="sne-ht" style="color:var(--intd);">Plexo de Meissner</span></div>
+    <div class="sne-body">Localización: <strong>Submucoso</strong><br>Función: Controla la <strong>Secreción</strong> y el flujo sanguíneo local<br><br>Mnemotécnico: <strong>M</strong>eissner = <strong>M</strong>ucosa = <strong>M</strong>oco/Secreción
+    <div class="sne-fail">Alteraciones en barrera mucosa y secreción enzimática</div></div>
+  </div>
+  <div class="sne-card">
+    <div class="sne-head" style="background:#e07a3a18;"><span class="sne-icon">⚙️</span><span class="sne-ht" style="color:var(--gast);">Plexo de Auerbach</span></div>
+    <div class="sne-body">Localización: <strong>Mientérico</strong> (entre capas musculares)<br>Función: Controla el <strong>Movimiento</strong> (tono y frecuencia)<br><br>Mnemotécnico: <strong>A</strong>uerbach = <strong>A</strong>ctividad motora
+    <div class="sne-fail">Trastornos motores → Acalasia (falta de relajación EEI)</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     II. SEGMENTO SUPERIOR
+══════════════════════ -->
+<div class="sdiv"><span>🔴 II. Segmento Superior — Esófago y Estómago</span></div>
+
+<table class="organ-table">
+  <thead>
+    <tr>
+      <th>Órgano</th>
+      <th>Fisiología — qué hace</th>
+      <th>Fisiopatología — cómo falla</th>
+      <th>Concepto ★ preguntable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="otag" style="background:var(--esof)18;color:var(--esof);border:1px solid var(--esof)40;">Esófago</span></td>
+      <td>Transporte mediante <strong>peristaltismo</strong> (≈10 seg). EEI evita el reflujo.</td>
+      <td><strong>ERGE:</strong> incompetencia del esfínter esofágico inferior (EEI)</td>
+      <td><span class="star">★</span> <strong>Esófago de Barrett:</strong> metaplasia premaligna por reflujo crónico → riesgo adenocarcinoma</td>
+    </tr>
+    <tr>
+      <td><span class="otag" style="background:var(--gast)18;color:var(--gast);border:1px solid var(--gast)40;">Estómago<br><small style="font-size:0.6rem;color:var(--muted);">Secreción</small></span></td>
+      <td>Mezcla → <strong>quimo</strong>. Secreta <strong>HCl</strong>, <strong>Pepsinógeno</strong> y <strong>Factor Intrínseco</strong></td>
+      <td><strong>Gastritis tipo A:</strong> autoinmune, destruye células parietales</td>
+      <td><span class="star">★★</span> <strong>Anemia Perniciosa:</strong> sin Factor Intrínseco = no se absorbe B12</td>
+    </tr>
+    <tr>
+      <td><span class="otag" style="background:var(--gast)18;color:var(--gast);border:1px solid var(--gast)40;">Estómago<br><small style="font-size:0.6rem;color:var(--muted);">Barrera</small></span></td>
+      <td>Barrera defensiva mucosa: moco, bicarbonato, prostaglandinas</td>
+      <td><strong>Úlcera Péptica:</strong> desequilibrio agresores vs protectores</td>
+      <td><span class="star">★★</span> <strong>H. pylori:</strong> principal causa de úlcera y cáncer gástrico</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="memo" style="margin-top:0.7rem;">
+  <div class="ml">🧠 Células del estómago — trío imprescindible</div>
+  <div class="mt" style="font-size:0.75rem;">
+    <span style="color:var(--gast)">Parietales</span> → HCl + Factor Intrínseco (destruidas en gastritis A) ·
+    <span style="color:var(--gast)">Principales</span> → Pepsinógeno ·
+    <span style="color:var(--gast)">G (antro)</span> → Gastrina ★
+  </div>
+</div>
+
+<!-- ══════════════════════
+     III. HÍGADO / VÍA BILIAR / PÁNCREAS
+══════════════════════ -->
+<div class="sdiv"><span>🟡 III. Hígado · Vía Biliar · Páncreas</span></div>
+
+<div class="hbp-grid">
+  <div class="hbp-card">
+    <div class="hbp-top" style="background:var(--higado)12;border-bottom-color:var(--higado)30;">
+      <div class="hbp-icon-row"><span class="hbp-icon">🏭</span><span class="hbp-title" style="color:var(--higado);">Hígado</span></div>
+      <div class="hbp-sub">Unidad: Lobulillo hepático</div>
+    </div>
+    <div class="hbp-body">
+      <div class="hbp-item" style="border-color:var(--higado)40;background:var(--higado)08;">
+        <strong style="color:var(--higado);">Funciones clave</strong>
+        Metabolismo · detoxificación · síntesis de <strong>albúmina</strong> y <strong>factores de coagulación</strong>
+      </div>
+      <div class="hbp-item" style="border-color:var(--alarm)60;background:var(--alarm)08;">
+        <strong style="color:var(--alarm);">Cirrosis</strong>
+        Necrosis + fibrosis → <strong>Hipertensión Portal</strong>
+        <div class="hbp-key" style="color:#8a2a2a;">Consecuencias: Varices esofágicas ★ + Ascitis</div>
+      </div>
+    </div>
+  </div>
+  <div class="hbp-card">
+    <div class="hbp-top" style="background:var(--esof)12;border-bottom-color:var(--esof)30;">
+      <div class="hbp-icon-row"><span class="hbp-icon">🫙</span><span class="hbp-title" style="color:var(--esof);">Vía Biliar</span></div>
+      <div class="hbp-sub">Almacena y concentra bilis para digerir grasas</div>
+    </div>
+    <div class="hbp-body">
+      <div class="hbp-item" style="border-color:var(--esof)40;background:var(--esof)08;">
+        <strong style="color:var(--esof);">Colecistitis</strong>
+        Inflamación por obstrucción del cístico
+        <div class="hbp-key" style="color:#1a5a8a;">★ Signo de Murphy (+)</div>
+      </div>
+      <div class="hbp-item" style="border-color:var(--alarm)60;background:var(--alarm)08;">
+        <strong style="color:var(--alarm);">Colangitis</strong>
+        Infección de la vía biliar
+        <div class="hbp-key" style="color:#8a2a2a;">★★ Tríada de Charcot: Dolor + Ictericia + Fiebre</div>
+      </div>
+    </div>
+  </div>
+  <div class="hbp-card">
+    <div class="hbp-top" style="background:var(--pancr)12;border-bottom-color:var(--pancr)30;">
+      <div class="hbp-icon-row"><span class="hbp-icon">🔬</span><span class="hbp-title" style="color:var(--pancr);">Páncreas</span></div>
+      <div class="hbp-sub">Exocrino (enzimas) + Endocrino (hormonas)</div>
+    </div>
+    <div class="hbp-body">
+      <div class="hbp-item" style="border-color:var(--pancr)40;background:var(--pancr)08;">
+        <strong style="color:var(--pancr);">Función dual</strong>
+        Exocrino: Lipasa · Amilasa · Tripsina<br>
+        Endocrino: Insulina · Glucagón
+      </div>
+      <div class="hbp-item" style="border-color:var(--alarm)60;background:var(--alarm)08;">
+        <strong style="color:var(--alarm);">Pancreatitis Aguda</strong>
+        Autodigestión enzimática
+        <div class="hbp-key" style="color:#8a2a2a;">★★ Dolor en cinturón · Cullen (periumbilical) · Grey Turner (flancos)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     IV. SEGMENTO INFERIOR
+══════════════════════ -->
+<div class="sdiv"><span>🟣 IV. Intestino Delgado y Grueso</span></div>
+
+<table class="organ-table">
+  <thead>
+    <tr>
+      <th>Órgano</th>
+      <th>Fisiología</th>
+      <th>Fisiopatología</th>
+      <th>Diferencial clave ★</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="otag" style="background:var(--intd)18;color:var(--intd);border:1px solid var(--intd)40;">I. Delgado</span></td>
+      <td>Absorción total. <strong>Vellosidades</strong> aumentan superficie ×600</td>
+      <td><strong>Celíaca:</strong> atrofia de vellosidades por gluten</td>
+      <td><span class="star">★</span> <strong>Íleon terminal:</strong> absorbe B12 y sales biliares. Si se reseca → déficit B12</td>
+    </tr>
+    <tr>
+      <td><span class="otag" style="background:var(--intg)18;color:var(--intg);border:1px solid var(--intg)40;">I. Grueso</span></td>
+      <td>Absorción de agua/electrolitos · formación de heces</td>
+      <td><strong>EII:</strong> Crohn vs Colitis Ulcerosa</td>
+      <td><span class="star">★★</span> <strong>Crohn:</strong> transmural y segmentaria · <strong>Colitis:</strong> mucosa y continua (recto siempre)</td>
+    </tr>
+    <tr>
+      <td><span class="otag" style="background:var(--alarm)18;color:var(--alarm);border:1px solid var(--alarm)40;">Apéndice</span></td>
+      <td>Función inmunológica local (tejido linfoide)</td>
+      <td><strong>Apendicitis:</strong> obstrucción e inflamación</td>
+      <td><span class="star">★★</span> <strong>McBurney (+) · Blumberg (+) · Rovsing (+)</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- EII comparación -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:0.7rem;">
+  <div style="background:var(--s1);border:1px solid var(--intd)50;border-radius:6px;padding:0.65rem 0.8rem;border-left:3px solid var(--intd);">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--intd);margin-bottom:0.3rem;">🔵 Crohn</div>
+    <div style="font-size:0.71rem;color:var(--muted);line-height:1.5;">
+      Afectación: <strong style="color:var(--text)">transmural</strong> (todo el espesor)<br>
+      Distribución: <strong style="color:var(--text)">segmentaria</strong> ("skip lesions")<br>
+      Localización: cualquier tramo GI (boca→ano)<br>
+      Complicaciones: fístulas, estenosis, abscesos
+    </div>
+  </div>
+  <div style="background:var(--s1);border:1px solid var(--intg)50;border-radius:6px;padding:0.65rem 0.8rem;border-left:3px solid var(--intg);">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:700;color:var(--intg);margin-bottom:0.3rem;">🔴 Colitis Ulcerosa</div>
+    <div style="font-size:0.71rem;color:var(--muted);line-height:1.5;">
+      Afectación: <strong style="color:var(--text)">mucosa y submucosa</strong> solo<br>
+      Distribución: <strong style="color:var(--text)">continua</strong> · <strong style="color:var(--text)">recto siempre afectado</strong> ★<br>
+      Localización: colon y recto únicamente<br>
+      Complicaciones: megacolon tóxico, displasia
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     V. SEMIOLOGÍA Y EMERGENCIAS
+══════════════════════ -->
+<div class="sdiv"><span>🚨 V. Semiología y Emergencias</span></div>
+
+<div class="emerg-grid">
+  <div class="emerg-card">
+    <div class="emerg-title">🩸 Hemorragia Digestiva Alta (HDA)</div>
+    <div class="emerg-body">
+      Origen: <strong>proximal al ángulo de Treitz</strong> (esófago, estómago, duodeno)<br>
+      Manifestaciones: <strong>Hematemesis</strong> (vómito sangre) + <strong>Melenas</strong> (heces negras alquitranadas)
+    </div>
+    <div class="emerg-key">Ángulo de Treitz = límite entre HDA y HDB ★★</div>
+  </div>
+  <div class="emerg-card">
+    <div class="emerg-title">🩸 Hemorragia Digestiva Baja (HDB)</div>
+    <div class="emerg-body">
+      Origen: <strong>distal a la válvula ileocecal</strong><br>
+      Manifestaciones: <strong>Rectorragia</strong> (sangre roja por ano) + <strong>Hematoquecia</strong> (heces con sangre mezclada)
+    </div>
+    <div class="emerg-key">Rectorragia fresca = colon izquierdo/recto</div>
+  </div>
+  <div class="emerg-card">
+    <div class="emerg-title">⚡ Síndrome de Dumping</div>
+    <div class="emerg-body">
+      Vaciamiento gástrico rápido post-cirugía (gastrectomía)<br><br>
+      <strong>Precoz (≈1h):</strong> hipovolemia, diarrea, sudoración — por efecto osmótico<br>
+      <strong>Tardío (2–4h):</strong> hipoglucemia por exceso de insulina reactiva ★
+    </div>
+    <div class="emerg-key">Tardío → hipoglucemia reactiva = respuesta exagerada insulina</div>
+  </div>
+  <div class="emerg-card" style="border-color:var(--higado);">
+    <div class="emerg-title" style="color:var(--higado);">⚠️ Varices Esofágicas</div>
+    <div class="emerg-body">
+      Consecuencia de <strong>hipertensión portal</strong> por cirrosis<br>
+      Riesgo de <strong>hemorragia masiva</strong> → urgencia vital
+    </div>
+    <div class="emerg-key" style="border-color:var(--higado)40;background:var(--higado)18;color:var(--higado);">Cirrosis → HTP → varices esofágicas + ascitis ★★</div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     ESCALA BRISTOL
+══════════════════════ -->
+<div class="sdiv"><span>💩 Escala de Bristol — Morfología fecal</span></div>
+
+<div class="scales-grid">
+  <div>
+    <div class="bristol-list">
+      <div class="brow" style="border-color:#b07840;"><span class="bn" style="color:#b05820;">1</span><div class="bdesc"><strong>Bolas duras y separadas</strong> — difíciles de excretar</div><span class="btag" style="background:#f5e8d8;color:#8a4a10;border:1px solid #d4a870;">Estreñimiento</span></div>
+      <div class="brow" style="border-color:#b09040;"><span class="bn" style="color:#9a7820;">2</span><div class="bdesc"><strong>Salchicha grumosa</strong> — fragmentos compactos unidos</div><span class="btag" style="background:#f5f0d0;color:#7a6010;border:1px solid #c8b040;">Estreñimiento</span></div>
+      <div class="brow" style="border-color:#3a8a5a;"><span class="bn" style="color:#2a7a3a;">3</span><div class="bdesc"><strong>Salchicha con grietas</strong> en la superficie</div><span class="btag" style="background:#e0f5e8;color:#1a6a30;border:1px solid #6ab87a;">Normal</span></div>
+      <div class="brow" style="border-color:#2a7a3a;"><span class="bn" style="color:#2a7a3a;">4</span><div class="bdesc"><strong>Cilindro liso y blando</strong> — forma ideal ★</div><span class="btag" style="background:#d0f0dc;color:#1a5a28;border:1px solid #4a9a5a;font-weight:700;">Ideal ★</span></div>
+      <div class="brow" style="border-color:#2a5a9a;"><span class="bn" style="color:#1a6faa;">5</span><div class="bdesc"><strong>Trozos pastosos</strong> con bordes definidos</div><span class="btag" style="background:#e0ecf8;color:#1a4a8a;border:1px solid #6a9ad4;">Diarrea leve</span></div>
+      <div class="brow" style="border-color:#5a3a9a;"><span class="bn" style="color:#6a3aaa;">6</span><div class="bdesc"><strong>Blandos y esponjosos</strong> — bordes irregulares · inflamación</div><span class="btag" style="background:#ece0f8;color:#4a2080;border:1px solid #9a7ad4;">Diarrea</span></div>
+      <div class="brow" style="border-color:#9a2a50;"><span class="bn" style="color:#b03060;">7</span><div class="bdesc"><strong>Líquido total</strong> — sin ningún componente sólido</div><span class="btag" style="background:#f8e0e8;color:#8a1a38;border:1px solid #d47a98;">Diarrea severa</span></div>
+    </div>
+    <div class="memo" style="margin-top:0.5rem;">
+      <div class="ml">🧠 Regla rápida</div>
+      <div class="mt" style="font-size:0.72rem;"><span style="color:#9a6a10;">Tipos 1-2</span> = estreñimiento · <span style="color:#2a7a3a;">Tipos 3-4</span> = normal · <span style="color:#b03060;">Tipos 5-6-7</span> = diarrea</div>
+    </div>
+  </div>
+
+  <!-- FORREST -->
+  <div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.5rem;">Clasificación de Forrest — riesgo sangrado úlcera péptica</div>
+    <table class="forrest-table">
+      <thead>
+        <tr><th>Grado</th><th>Hallazgo endoscópico</th><th>Riesgo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="fg risk-high">Ia</span></td><td>Sangrado activo <strong>arterial en chorro</strong></td><td><span class="risk-high">MUY ALTO ★★</span></td></tr>
+        <tr><td><span class="fg risk-high">Ib</span></td><td>Sangrado activo <strong>en sábana</strong></td><td><span class="risk-high">ALTO ★★</span></td></tr>
+        <tr><td><span class="fg risk-med">IIa</span></td><td><strong>Vaso visible</strong> no sangrante</td><td><span class="risk-med">Mod-alto</span></td></tr>
+        <tr><td><span class="fg risk-med">IIb</span></td><td><strong>Coágulo adherido</strong></td><td><span class="risk-med">Moderado</span></td></tr>
+        <tr><td><span class="fg risk-low">IIc</span></td><td>Mancha de <strong>hematina</strong> (puntos oscuros)</td><td><span class="risk-low">Bajo</span></td></tr>
+        <tr><td><span class="fg risk-low">III</span></td><td>Base limpia · <strong>fibrina</strong></td><td><span class="risk-low">Mínimo ★</span></td></tr>
+      </tbody>
+    </table>
+    <div class="memo" style="margin-top:0.5rem;">
+      <div class="ml">🧠 Regla Forrest</div>
+      <div class="mt" style="font-size:0.72rem;"><span style="color:var(--alarm)">I = sangrado activo</span> → tto endoscópico + IBP perfusión · <span style="color:#2a7a3a">III = base limpia</span> → IBP oral solo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     HORMONAS DIGESTIVAS
+══════════════════════ -->
+<div class="sdiv"><span>⚗️ Hormonas Digestivas — Control neurohumoral</span></div>
+
+<div class="horm-grid">
+  <div class="horm-card" style="border-color:var(--gast);">
+    <div class="horm-name" style="color:var(--gast);">Gastrina</div>
+    <div class="horm-origin">Células G · Antro gástrico + duodeno</div>
+    <div class="horm-body">Función: ↑ secreción de <strong>HCl</strong> y regula el vaciamiento gástrico</div>
+    <div class="horm-stim">Distensión gástrica + presencia de proteínas</div>
+  </div>
+  <div class="horm-card" style="border-color:var(--esof);">
+    <div class="horm-name" style="color:var(--esof);">Secretina</div>
+    <div class="horm-origin">Duodeno y yeyuno</div>
+    <div class="horm-body">Función: estimula secreción de <strong>bicarbonato pancreático</strong> para neutralizar quimo ácido</div>
+    <div class="horm-stim">Llegada de ácido (quimo ácido) al duodeno</div>
+  </div>
+  <div class="horm-card" style="border-color:var(--higado);">
+    <div class="horm-name" style="color:var(--higado);">CCK (Colecistoquinina)</div>
+    <div class="horm-origin">Duodeno y yeyuno</div>
+    <div class="horm-body">Función: <strong>contrae vesícula biliar</strong> + relaja esfínter de Oddi → libera bilis al duodeno ★</div>
+    <div class="horm-stim">Grasas y péptidos en duodeno</div>
+  </div>
+  <div class="horm-card" style="border-color:var(--pancr);">
+    <div class="horm-name" style="color:var(--pancr);">GIP</div>
+    <div class="horm-origin">Antro e intestino delgado</div>
+    <div class="horm-body">Función: inhibe peristalsis gástrica (↓ vaciamiento) + estimula secreción de <strong>insulina</strong></div>
+    <div class="horm-stim">Glucosa y grasas en intestino</div>
+  </div>
+  <div class="horm-card" style="border-color:var(--intd);">
+    <div class="horm-name" style="color:var(--intd);">Somatostatina</div>
+    <div class="horm-origin">Estómago e intestino</div>
+    <div class="horm-body">Función: <strong>hormona inhibidora global</strong> — frena otras hormonas GI y jugos gástrico/pancreático ★</div>
+    <div class="horm-stim">Estimulada por otras hormonas (retroalimentación)</div>
+  </div>
+  <div class="horm-card" style="border-color:var(--intg);">
+    <div class="horm-name" style="color:var(--intg);">Grelina</div>
+    <div class="horm-origin">Células endocrinas del estómago</div>
+    <div class="horm-body">Función: <strong>estimula el apetito</strong> — "hormona del hambre" · aumenta antes de las comidas ★</div>
+    <div class="horm-stim">Ayuno y estómago vacío</div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     TEST
+══════════════════════ -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+
+<div class="tcard">
+  <div class="thead"><span style="font-size:1.1rem;">🎯</span><span class="ttitle">Test — Aparato Digestivo · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Qué plexo nervioso controla la secreción gástrica?</div><div class="qa"><strong>Plexo de Meissner</strong> (submucoso)</div><div class="qn">Auerbach = movimiento / Meissner = mucosa/secreción</div></div>
+    <div class="qb"><div class="qt">¿Qué es el Esófago de Barrett?</div><div class="qa"><strong>Metaplasia premaligna</strong> por reflujo crónico (ERGE) ★</div><div class="qn">Riesgo de adenocarcinoma esofágico</div></div>
+    <div class="qb"><div class="qt">Paciente con gastritis tipo A. ¿Qué anemia desarrollará?</div><div class="qa"><strong>Anemia perniciosa</strong> — déficit de Factor Intrínseco → no absorbe B12 ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué tríada caracteriza a la colangitis?</div><div class="qa"><strong>Tríada de Charcot:</strong> Dolor + Ictericia + Fiebre ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la diferencia clave entre Crohn y Colitis Ulcerosa?</div><div class="qa">Crohn: <strong>transmural y segmentaria</strong> · CU: <strong>mucosa y continua</strong>, recto siempre ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué hormona contrae la vesícula biliar?</div><div class="qa"><strong>CCK (Colecistoquinina)</strong> — estimulada por grasas y péptidos ★</div></div>
+    <div class="qb"><div class="qt">¿Qué manifesta la HDA vs HDB?</div><div class="qa">HDA: <strong>hematemesis + melenas</strong> · HDB: <strong>rectorragia + hematoquecia</strong> ★★</div><div class="qn">Límite: ángulo de Treitz</div></div>
+    <div class="qb"><div class="qt">¿Qué grado de Forrest indica mínimo riesgo de resangrado?</div><div class="qa"><strong>Forrest III</strong> — base limpia con fibrina → solo IBP oral ★</div></div>
+    <div class="qb"><div class="qt">¿Qué tipos de Bristol son normales?</div><div class="qa"><strong>Tipos 3 y 4</strong> — Tipo 4 es el ideal ★</div><div class="qn">1-2 = estreñimiento / 5-6-7 = diarrea</div></div>
+    <div class="qb"><div class="qt">Signos de Cullen y Grey Turner aparecen en...</div><div class="qa"><strong>Pancreatitis aguda</strong> — hemorragia retroperitoneal ★★</div><div class="qn">Cullen: periumbilical · Grey Turner: flancos</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la función de la somatostatina digestiva?</div><div class="qa"><strong>Inhibidora global</strong> — frena hormonas GI y jugos digestivos ★</div></div>
+    <div class="qb"><div class="qt">¿Qué hormona es la "del hambre"?</div><div class="qa"><strong>Grelina</strong> — producida en el estómago vacío ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

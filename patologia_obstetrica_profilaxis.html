@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patología Obstétrica y Profilaxis Intraparto · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#e0d5c0;--text:#252530;--muted:#7a7080;
+  --hellp:#b83030;  /* rojo HELLP */
+  --cole:#8a6a10;   /* dorado colestasis */
+  --hgae:#6a3aaa;   /* violeta HGAE */
+  --sgb:#1a6faa;    /* azul SGB */
+  --rh:#2a7a3a;     /* verde Rh */
+  --corio:#b55e1a;  /* naranja corioamnionitis */
+  --alarm:#b83030;
+  --gold:#8a6a10;--gold-d:#c8a83a15;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);}
+.wrap{max-width:1080px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--alarm);color:white;padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--hellp);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.5rem;}
+
+.sdiv{display:flex;align-items:center;gap:0.7rem;margin:1.8rem 0 0.9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text);white-space:nowrap;padding:0.12rem 0.65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* TABLA PATOLOGÍA HEPÁTICA */
+.path-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.path-table th{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 0.75rem;background:var(--s3);color:var(--muted);text-align:left;border-bottom:1px solid var(--border);}
+.path-table td{padding:0.6rem 0.75rem;border-bottom:1px solid var(--border)20;font-size:0.72rem;line-height:1.45;vertical-align:top;}
+.path-table tr:last-child td{border-bottom:none;}
+.ptag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.53rem;font-weight:700;padding:0.1rem 0.45rem;border-radius:2px;text-transform:uppercase;letter-spacing:0.08em;}
+.star{color:var(--gold);font-weight:700;}
+
+/* HELLP detalle */
+.hellp-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;border-top:4px solid var(--hellp);}
+.hellp-head{display:flex;align-items:center;gap:0.7rem;padding:0.75rem 0.9rem;border-bottom:1px solid var(--border);background:#fef0f0;}
+.hellp-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--hellp);}
+.hellp-sub{font-size:0.68rem;color:var(--muted);}
+.hellp-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;padding:0;}
+.hellp-col{padding:0.65rem 0.8rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.hellp-col:last-child{border-right:none;}
+.hellp-col:nth-last-child(-n+2){border-bottom:none;}
+@media(max-width:600px){.hellp-col{border-right:none;}}
+.hcol-t{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.2rem;}
+.hcol-v{font-size:0.74rem;color:var(--text);line-height:1.4;}
+.hcol-v strong{color:var(--hellp);}
+
+/* PROFILAXIS CARDS */
+.prof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0.7rem;}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.pcard-head{padding:0.65rem 0.85rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.pcard-label{font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.08rem;}
+.pcard-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;}
+.pcard-body{padding:0.6rem 0.85rem;display:flex;flex-direction:column;gap:0.28rem;}
+.prow{font-size:0.71rem;line-height:1.4;padding:0.22rem 0;}
+.prow strong{color:var(--text);}
+.prow-key{padding:0.2rem 0.5rem;border-radius:3px;border:1px solid;font-family:'JetBrains Mono',monospace;font-size:0.62rem;margin-top:0.15rem;display:block;}
+
+/* COOMBS explainer */
+.coombs{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;}
+@media(max-width:480px){.coombs{grid-template-columns:1fr;}}
+.coom-card{background:var(--s2);border:1px solid var(--border);border-radius:4px;padding:0.4rem 0.6rem;text-align:center;}
+.coom-t{font-size:0.7rem;font-weight:700;margin-bottom:0.08rem;}
+.coom-d{font-size:0.63rem;color:var(--muted);line-height:1.3;}
+
+.memo{border-radius:5px;padding:0.5rem 0.8rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.6rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.1rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.74rem;line-height:1.5;}
+
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;background:#fef0f0;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--hellp);}
+.tbody{padding:0.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.73rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.15rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--sgb);display:flex;align-items:flex-start;gap:0.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.61rem;color:var(--muted);margin-top:0.04rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🚨 Urgencias Obstétricas</div>
+  <h1>Patología Hepática &amp; <em>Profilaxis Intraparto</em></h1>
+  <p class="hsub">HELLP · Colestasis · HGAE · SGB · Rh · Corioamnionitis · INGESA 2026</p>
+</header>
+
+<!-- ══ I. PATOLOGÍA HEPÁTICA TERCER TRIMESTRE ══ -->
+<div class="sdiv"><span>🟡 I. Patología hepática del tercer trimestre</span></div>
+
+<!-- Tabla comparativa -->
+<table class="path-table" style="margin-bottom:0.8rem;">
+  <thead>
+    <tr>
+      <th>Entidad</th>
+      <th>Trimestre / Semanas</th>
+      <th>Clínica clave</th>
+      <th>Laboratorio / Diagnóstico ★</th>
+      <th>Complicación extrema</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="ptag" style="background:#fef0f0;color:var(--hellp);border:1px solid #e0a0a0;">HELLP ★★</span></td>
+      <td>3.er trimestre</td>
+      <td>Dolor <strong>hipocondrio derecho / epigastrio</strong> · náuseas · vómitos</td>
+      <td><strong>AST/ALT &gt;70 UI/L</strong> · hemólisis · trombopenia (&lt;100.000)</td>
+      <td style="color:var(--hellp);">Rotura hepática → hemorragia masiva ★★</td>
+    </tr>
+    <tr style="background:#faf7f2;">
+      <td><span class="ptag" style="background:#fef8e8;color:var(--cole);border:1px solid #e0c880;">Colestasis ★</span></td>
+      <td>3.er trimestre</td>
+      <td><strong>Prurito intenso en palmas y plantas</strong> ★★ · ictericia leve</td>
+      <td>Elevación ácidos biliares · bilirrubina</td>
+      <td style="color:var(--cole);">Riesgo parto prematuro / muerte fetal</td>
+    </tr>
+    <tr>
+      <td><span class="ptag" style="background:#ede8f8;color:var(--hgae);border:1px solid #c0a0e0;">HGAE ★</span></td>
+      <td>Sem 30–38</td>
+      <td>Náuseas · ictericia · <strong>hipoglucemia grave</strong> ★</td>
+      <td>Prolongación tiempos coagulación · insuf. renal</td>
+      <td style="color:var(--hgae);">Fallo multiorgánico rápido</td>
+    </tr>
+    <tr style="background:#faf7f2;">
+      <td><span class="ptag" style="background:#fef0f0;color:#8a1a30;border:1px solid #e0a0a0;">Preeclampsia grave</span></td>
+      <td>3.er trimestre</td>
+      <td><strong>Dolor epigástrico</strong> · HTA grave · proteinuria</td>
+      <td>Elevación significativa transaminasas</td>
+      <td style="color:#8a1a30;">Progresión a HELLP · eclampsia</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- HELLP detalle -->
+<div class="hellp-box">
+  <div class="hellp-head">
+    <div>
+      <div class="hellp-title">⚡ HELLP — Detalle diagnóstico ★★</div>
+      <div class="hellp-sub">Acrónimo: <strong>H</strong>emolysis · <strong>E</strong>levated <strong>L</strong>iver enzymes · <strong>L</strong>ow <strong>P</strong>latelets</div>
+    </div>
+  </div>
+  <div class="hellp-body">
+    <div class="hellp-col">
+      <div class="hcol-t">H — Hemólisis</div>
+      <div class="hcol-v">LDH elevada · esquistocitos en frotis · <strong>bilirrubina indirecta ↑</strong></div>
+    </div>
+    <div class="hellp-col">
+      <div class="hcol-t">EL — Enzimas hepáticas</div>
+      <div class="hcol-v"><strong>AST/ALT &gt;70 UI/L</strong> · necrosis periportal · congestión hepática</div>
+    </div>
+    <div class="hellp-col">
+      <div class="hcol-t">LP — Plaquetas bajas</div>
+      <div class="hcol-v"><strong>&lt;100.000/mm³</strong> · riesgo hemorragia · CID</div>
+    </div>
+    <div class="hellp-col">
+      <div class="hcol-t">Tratamiento definitivo ★</div>
+      <div class="hcol-v"><strong>Finalización inmediata del embarazo</strong> en todos los casos graves</div>
+    </div>
+  </div>
+</div>
+
+<div class="memo" style="margin-top:0.6rem;">
+  <div class="ml">🧠 Diferencial HELLP vs HGAE</div>
+  <div class="mt">HELLP = trombopenia + hemólisis + transaminasas ↑ · HGAE = hipoglucemia grave + coagulopatía + fallo multiorgánico rápido · Ambos: finalizar embarazo ★★</div>
+</div>
+
+<!-- ══ II. PROFILAXIS INTRAPARTO ══ -->
+<div class="sdiv"><span>💉 II. Profilaxis intraparto y cuidados neonatales</span></div>
+
+<div class="prof-grid">
+
+  <!-- SGB -->
+  <div class="pcard">
+    <div class="pcard-head" style="border-left-color:var(--sgb);background:#e8f2fa;">
+      <div class="pcard-label" style="color:var(--sgb);">Profilaxis más común · Semana 35–37</div>
+      <div class="pcard-title" style="color:var(--sgb);">🧫 Estreptococo Grupo B (SGB)</div>
+    </div>
+    <div class="pcard-body">
+      <div class="prow"><strong>Cribado:</strong> cultivo vagino-rectal entre <strong>semanas 35–37</strong> ★★</div>
+      <div class="prow"><strong>Indicación:</strong> cultivo <strong>positivo</strong> → antibióticos IV durante el parto</div>
+      <div class="prow" style="color:var(--muted);">SGB es causa más frecuente de: <strong style="color:var(--text);">sepsis + neumonía + meningitis neonatal</strong></div>
+      <div class="prow-key" style="border-color:var(--sgb)40;background:#e8f2fa;color:var(--sgb);">★★ Cultivo + semana 35–37 → ABX IV intraparto → protege al RN</div>
+    </div>
+  </div>
+
+  <!-- CORIOAMNIONITIS -->
+  <div class="pcard">
+    <div class="pcard-head" style="border-left-color:var(--corio);background:#fef3e8;">
+      <div class="pcard-label" style="color:var(--corio);">Infección intraamniótica</div>
+      <div class="pcard-title" style="color:var(--corio);">🔥 Corioamnionitis</div>
+    </div>
+    <div class="pcard-body">
+      <div class="prow"><strong>Diagnóstico clínico:</strong> fiebre materna &gt;<strong>38°C</strong> + taquicardia fetal &gt;<strong>160 lpm</strong> + líquido amniótico fétido ★★</div>
+      <div class="prow"><strong>Tratamiento:</strong> antibioterapia amplio espectro INMEDIATA</div>
+      <div class="prow"><strong>Fármacos de elección:</strong> <span style="color:var(--corio);font-weight:700;">Ampicilina + Gentamicina</span> ★</div>
+      <div class="prow"><strong>Conducta:</strong> finalizar parto por la vía más rápida</div>
+      <div class="prow" style="font-size:0.68rem;color:var(--muted);">RPM &gt;18 horas → riesgo infección aumentado ★</div>
+    </div>
+  </div>
+
+  <!-- Rh -->
+  <div class="pcard">
+    <div class="pcard-head" style="border-left-color:var(--rh);background:#e8f5ec;">
+      <div class="pcard-label" style="color:var(--rh);">Isoinmunización · Madre Rh negativo</div>
+      <div class="pcard-title" style="color:var(--rh);">🔵 Profilaxis anti-D (Rh)</div>
+    </div>
+    <div class="pcard-body">
+      <div class="prow"><strong>Indicación:</strong> Madre <strong>Rh negativo</strong> + Coombs indirecto <strong>negativo</strong> ★</div>
+      <div class="prow"><strong>Momento postparto:</strong> si RN es Rh positivo → administrar en las <strong>primeras 72 horas</strong> ★★</div>
+      <div class="prow" style="color:var(--muted);">También en situaciones de riesgo intraparto: hemorragia fetomaterna, amniocentesis, versión cefálica externa…</div>
+      <div class="coombs" style="margin-top:0.4rem;">
+        <div class="coom-card">
+          <div class="coom-t" style="color:var(--rh);">Coombs indirecto</div>
+          <div class="coom-d">En la madre — detecta anticuerpos anti-Rh en suero materno</div>
+        </div>
+        <div class="coom-card">
+          <div class="coom-t" style="color:var(--alarm);">Coombs directo</div>
+          <div class="coom-d">En el RN — detecta anticuerpos adheridos a hematíes fetales</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lactancia / piel con piel -->
+  <div class="pcard">
+    <div class="pcard-head" style="border-left-color:#8a3060;background:#faf0f5;">
+      <div class="pcard-label" style="color:#8a3060;">Cuidados neonatales inmediatos</div>
+      <div class="pcard-title" style="color:#8a3060;">👶 Contacto piel con piel + Lactancia precoz</div>
+    </div>
+    <div class="pcard-body">
+      <div class="prow"><strong>Piel con piel:</strong> contacto inmediato tras el parto → protección inmunológica neonatal ★</div>
+      <div class="prow"><strong>Lactancia:</strong> inicio idealmente en la <strong>primera hora de vida</strong> ★</div>
+      <div class="prow" style="color:var(--muted);">Actúan como medida de protección inmunológica y establecen el vínculo madre-RN</div>
+      <div class="prow"><strong>Vit K:</strong> previene enfermedad hemorrágica del RN (verificar protocolo local)</div>
+      <div class="prow"><strong>Profilaxis ocular:</strong> eritromicina/nitrato de plata (verificar protocolo)</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Patología Obstétrica y Profilaxis · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Qué define el HELLP en laboratorio?</div><div class="qa"><strong>AST/ALT &gt;70</strong> + hemólisis + plaquetas &lt;100.000 ★★</div></div>
+    <div class="qb"><div class="qt">Diferencia clínica clave entre HGAE y HELLP</div><div class="qa">HGAE: <strong>hipoglucemia grave</strong> + coagulopatía · HELLP: trombopenia + hemólisis ★★</div></div>
+    <div class="qb"><div class="qt">Síntoma característico de la colestasis intrahepática del embarazo</div><div class="qa"><strong>Prurito en palmas y plantas</strong> en el 3.er trimestre ★★</div></div>
+    <div class="qb"><div class="qt">¿Entre qué semanas se realiza el cultivo para SGB?</div><div class="qa"><strong>Semanas 35–37</strong> · vagino-rectal ★★</div></div>
+    <div class="qb"><div class="qt">Antibióticos de elección en corioamnionitis</div><div class="qa"><strong>Ampicilina + Gentamicina</strong> ★</div></div>
+    <div class="qb"><div class="qt">Tríada diagnóstica de corioamnionitis</div><div class="qa">Fiebre &gt;38°C + taquicardia fetal &gt;160 lpm + LA fétido ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuándo administrar inmunoglobulina anti-D postparto?</div><div class="qa">En las <strong>primeras 72 horas</strong> si RN Rh+ y madre Rh– con Coombs indirecto – ★★</div></div>
+    <div class="qb"><div class="qt">El SGB causa principalmente en el RN...</div><div class="qa"><strong>Sepsis + neumonía + meningitis neonatal</strong> (las tres) ★★</div></div>
+    <div class="qb"><div class="qt">Complicación extrema del HELLP no tratado</div><div class="qa"><strong>Rotura hepática</strong> con hemorragia masiva ★★</div></div>
+    <div class="qb"><div class="qt">Tratamiento definitivo de HELLP y HGAE</div><div class="qa"><strong>Finalización inmediata del embarazo</strong> ★★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

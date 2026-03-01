@@ -40,9 +40,10 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
 .card-desc{font-size:0.75rem;color:var(--muted);line-height:1.4;}
 .card-footer{padding:0.5rem 1rem;background:var(--warm);border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;}
 .card-footer::before{content:'→';color:var(--gold);}
-.card-new .card-color{position:relative;}
 .card-new .card-footer{background:#fef9ed;border-top-color:#e8c87a;}
 .card-new .card-footer::after{content:'NUEVO';background:#e8a030;color:white;font-size:0.48rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;margin-left:auto;letter-spacing:0.1em;}
+.card-updated .card-footer{background:#edf5fe;border-top-color:#7ab0e0;}
+.card-updated .card-footer::after{content:'ACTUALIZADO';background:#1a5a8a;color:white;font-size:0.45rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;margin-left:auto;letter-spacing:0.1em;}
 
 @media(max-width:768px){
   .sidebar{width:100%;height:auto;position:relative;}
@@ -60,16 +61,20 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   <div class="cat-label">Categorías</div>
   <a href="#legislacion" class="sidebar-link">⚖️ Legislación sanitaria <span class="sidebar-count">6</span></a>
   <a href="#derechos" class="sidebar-link">🛡️ Derechos y protección <span class="sidebar-count">3</span></a>
-  <a href="#organizacion" class="sidebar-link">🏛️ Estatuto Marco <span class="sidebar-count">3</span></a>
-  <a href="#enfermeria" class="sidebar-link">🩺 Enfermería clínica <span class="sidebar-count">7</span><span class="new-dot"></span></a>
-  <a href="#respiratorio" class="sidebar-link">🫁 Respiratorio <span class="sidebar-count">4</span><span class="new-dot"></span></a>
-  <a href="#metodologia" class="sidebar-link">🔬 Metodología · EBE <span class="sidebar-count">3</span><span class="new-dot"></span></a>
+  <a href="#estatuto" class="sidebar-link">🏛️ Estatuto Marco <span class="sidebar-count">3</span></a>
+  <a href="#ap" class="sidebar-link">🏥 AP · Salud Comunitaria <span class="sidebar-count">3</span><span class="new-dot"></span></a>
+  <a href="#urgencias" class="sidebar-link">🚨 Urgencias y Críticos <span class="sidebar-count">3</span><span class="new-dot"></span></a>
+  <a href="#ginecologia" class="sidebar-link">👩 Ginecología y Obstetricia <span class="sidebar-count">6</span></a>
+  <a href="#enfermeria" class="sidebar-link">🩺 Enfermería clínica <span class="sidebar-count">7</span></a>
+  <a href="#respiratorio" class="sidebar-link">🫁 Respiratorio <span class="sidebar-count">5</span></a>
+  <a href="#digestivo" class="sidebar-link">🫀 Digestivo <span class="sidebar-count">1</span></a>
+  <a href="#metodologia" class="sidebar-link">🔬 Metodología · EBE <span class="sidebar-count">4</span></a>
   <a href="#teoria" class="sidebar-link">🟣 Teoría enfermera <span class="sidebar-count">1</span></a>
 </div>
 
 <div class="main">
-  <div class="page-title">Biblioteca de recursos <span class="total-badge">27 recursos</span></div>
-  <div class="page-sub">Recursos visuales · INGESA 2026 · Actualizado 28·02·2026</div>
+  <div class="page-title">Biblioteca de recursos <span class="total-badge">42 recursos</span></div>
+  <div class="page-sub">Recursos visuales · INGESA 2026 · Actualizado 01·03·2026</div>
 
   <!-- ── LEGISLACIÓN ── -->
   <div class="section-title" id="legislacion">⚖️ Legislación sanitaria</div>
@@ -127,7 +132,7 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   </div>
 
   <!-- ── ESTATUTO MARCO ── -->
-  <div class="section-title" id="organizacion">🏛️ Estatuto Marco · Ley 55/2003</div>
+  <div class="section-title" id="estatuto">🏛️ Estatuto Marco · Ley 55/2003</div>
   <div class="cards">
     <a href="estatuto_marco_1_clasificacion.html" class="resource-card">
       <div class="card-color" style="background:#c49a2a"></div>
@@ -146,25 +151,100 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
     </a>
   </div>
 
+  <!-- ── AP Y SALUD COMUNITARIA ── -->
+  <div class="section-title" id="ap">🏥 Bloque 1 · Atención Primaria y Salud Comunitaria</div>
+  <div class="cards">
+    <a href="promocion_salud_educacion.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a6a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">AP · Promoción · Ottawa</div><div class="card-name">Promoción de la Salud y Educación</div><div class="card-desc">Carta de Ottawa 1986, Helsinki 2013, Dahlgren-Whitehead, Prochaska, Entrevista Motivacional</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="programas_ap_cribados.html" class="resource-card card-new">
+      <div class="card-color" style="background:#1a5a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">AP · Programas · Cribados</div><div class="card-name">Programas AP y Cribados SNS</div><div class="card-desc">Cribado colorrectal (50-69a), cervical VPH-AR, mama, niño sano, vacunas embarazo, ITU-Zero</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="epidemiologia_indicadores.html" class="resource-card card-new">
+      <div class="card-color" style="background:#6a3a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a3a8a">Epidemiología · Indicadores</div><div class="card-name">Epidemiología e Indicadores de Salud</div><div class="card-desc">RR, OR, tasa ataque secundario, incidencia/prevalencia, mortalidad infantil, DALY, Swaroop</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── URGENCIAS Y CRÍTICOS ── -->
+  <div class="section-title" id="urgencias">🚨 Bloque 2 · Urgencias, Críticos y Seguridad del Paciente</div>
+  <div class="cards">
+    <a href="svb_sva_situaciones_especiales.html" class="resource-card card-updated">
+      <div class="card-color" style="background:#b83030"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b83030">ERC 2025 · AHA 2025 · SVB/SVA</div><div class="card-name">Soporte Vital Básico y Avanzado</div><div class="card-desc">Actualizado ERC 2025: llamar 112 primero, FV fina → descarga, supraglóticos prioritarios, FV refractaria cambio vector, ETCO₂</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="shock_sepsis_sdra_vm.html" class="resource-card card-new">
+      <div class="card-color" style="background:#8a3aaa"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a3aaa">Urgencias · Críticos · SSC 2021</div><div class="card-name">Shock · Sepsis · SDRA · VM</div><div class="card-desc">Sepsis-3, Bundle Hora-1, qSOFA no único ★★, Berlín SDRA, prono ≥12h, Vt 4-6 ml/kg, Pplat &lt;30</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="trauma_quemados_zero_dispositivos.html" class="resource-card card-new">
+      <div class="card-color" style="background:#b55e1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b55e1a">Trauma · Quemados · SEMICYUC</div><div class="card-name">Trauma · Quemados · Proyectos Zero</div><div class="card-desc">ABCDE trauma, Parkland 4ml/kg/%SCQ, Wallace, ITU-Zero, Neumonía-Zero (subglótico), Bacteriemia-Zero</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── GINECOLOGÍA Y OBSTETRICIA ── -->
+  <div class="section-title" id="ginecologia">👩 Ginecología y Obstetricia</div>
+  <div class="cards">
+    <a href="ciclo_ovarico_endometrial.html" class="resource-card">
+      <div class="card-color" style="background:#9a2060"></div>
+      <div class="card-body"><div class="card-tag" style="color:#9a2060">Ginecología · Ciclo</div><div class="card-name">Ciclo Ovárico y Endometrial</div><div class="card-desc">Fases folicular/ovulación/lútea, hormonas FSH/LH/estrógenos/progesterona, cambios endometriales</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="gestacion_parto.html" class="resource-card">
+      <div class="card-color" style="background:#c4681a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c4681a">Obstetricia · Parto</div><div class="card-name">Gestación y Parto</div><div class="card-desc">Control prenatal, diagnóstico gestación, fases del parto, maniobras, signos de alarma</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="patologia_obstetrica_profilaxis.html" class="resource-card">
+      <div class="card-color" style="background:#b5282a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">Obstetricia · Patología</div><div class="card-name">Patología Obstétrica y Profilaxis</div><div class="card-desc">HTA embarazo, preeclampsia, eclampsia, DG, RCIU, GBS, profilaxis RhD</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="vacunas_embarazo.html" class="resource-card">
+      <div class="card-color" style="background:#1a6a4a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a4a">Obstetricia · Vacunas</div><div class="card-name">Vacunas en el Embarazo</div><div class="card-desc">Tdap sem 27-32, gripe, COVID, contraindicadas vivas atenuadas, calendario gestacional</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="lactancia_anticoncepcion.html" class="resource-card">
+      <div class="card-color" style="background:#6a3a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a3a8a">Ginecología · Lactancia</div><div class="card-name">Lactancia y Anticoncepción</div><div class="card-desc">Galactopoyesis, MEL, métodos anticonceptivos, criterios elegibilidad OMS, píldora postcoital</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="its_diagnostico_clasificacion.html" class="resource-card">
+      <div class="card-color" style="background:#8a3a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a3a1a">Ginecología · ITS</div><div class="card-name">ITS: Diagnóstico y Clasificación</div><div class="card-desc">VIH, sífilis, gonorrea, clamidia, VPH, herpes genital, criterios diagnósticos, tratamiento</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
   <!-- ── ENFERMERÍA CLÍNICA ── -->
   <div class="section-title" id="enfermeria">🩺 Enfermería clínica</div>
   <div class="cards">
-    <a href="proceso_enfermero.html" class="resource-card card-new">
+    <a href="proceso_enfermero.html" class="resource-card">
       <div class="card-color" style="background:#1a5a8a"></div>
       <div class="card-body"><div class="card-tag" style="color:#1a5a8a">Metodología · PAE</div><div class="card-name">Proceso Enfermero</div><div class="card-desc">5 etapas V·D·P·E·E, taxonomías NANDA/NIC/NOC, diagnósticos enfermeros</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="marcos_valoracion_enfermera.html" class="resource-card card-new">
+    <a href="marcos_valoracion_enfermera.html" class="resource-card">
       <div class="card-color" style="background:#3a6a2a"></div>
       <div class="card-body"><div class="card-tag" style="color:#3a6a2a">Valoración · Modelos</div><div class="card-name">Marcos de Valoración Enfermera</div><div class="card-desc">11 patrones Gordon · 14 necesidades Henderson · autocuidado Orem</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="diabetes_mellitus.html" class="resource-card card-new">
+    <a href="diabetes_mellitus.html" class="resource-card">
       <div class="card-color" style="background:#8a3a1a"></div>
       <div class="card-body"><div class="card-tag" style="color:#8a3a1a">Clínica · Endocrinología</div><div class="card-name">Diabetes Mellitus</div><div class="card-desc">DM1 vs DM2, criterios diagnósticos, insulinas, complicaciones agudas y crónicas</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="vacunas_tipos_calendario.html" class="resource-card card-new">
+    <a href="vacunas_tipos_calendario.html" class="resource-card">
       <div class="card-color" style="background:#1a6a4a"></div>
       <div class="card-body"><div class="card-tag" style="color:#1a6a4a">Salud pública · Vacunas</div><div class="card-name">Vacunas: Tipos y Calendario</div><div class="card-desc">Vivas vs inactivadas, calendario vacunal 2024, contraindicaciones, cadena de frío</div></div>
       <div class="card-footer">Abrir recurso</div>
@@ -176,7 +256,7 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
     </a>
     <a href="actividad_fisica_oms.html" class="resource-card">
       <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">OMS · Salud pública</div><div class="card-name">Actividad Física — Recomendaciones OMS</div><div class="card-desc">Recomendaciones por grupos de edad, beneficios, sedentarismo</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">OMS · Salud pública</div><div class="card-name">Actividad Física — OMS</div><div class="card-desc">Recomendaciones por grupos de edad, beneficios, sedentarismo</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="emergencias_intraparto.html" class="resource-card">
@@ -189,24 +269,39 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   <!-- ── RESPIRATORIO ── -->
   <div class="section-title" id="respiratorio">🫁 Respiratorio</div>
   <div class="cards">
-    <a href="patologias_obstructivas.html" class="resource-card card-new">
+    <a href="epoc_gold_2025.html" class="resource-card">
+      <div class="card-color" style="background:#1a5a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">EPOC · GOLD 2025</div><div class="card-name">EPOC — GOLD 2025</div><div class="card-desc">Estadios espirométricos GOLD I-IV, grupos ABCE, tratamiento escalonado, exacerbaciones</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="patologias_obstructivas.html" class="resource-card">
       <div class="card-color" style="background:#1e6aaa"></div>
       <div class="card-body"><div class="card-tag" style="color:#1e6aaa">Neumología · Obstructivas</div><div class="card-name">Patologías Obstructivas</div><div class="card-desc">EPOC, asma, bronquiectasias, FQ, AOS · Tiffeneau &lt;0,7 · espirometría · dosis pediátricas asma</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="patologias_restrictivas.html" class="resource-card card-new">
+    <a href="patologias_restrictivas.html" class="resource-card">
       <div class="card-color" style="background:#6a1a8a"></div>
       <div class="card-body"><div class="card-tag" style="color:#6a1a8a">Neumología · Restrictivas</div><div class="card-name">Patologías Restrictivas</div><div class="card-desc">CPT &lt;80%, fibrosis, SDRA, neumotórax, derrame, atelectasia · timpanismo vs matidez ★★</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="emergencias_respiratorias.html" class="resource-card card-new">
+    <a href="emergencias_respiratorias.html" class="resource-card">
       <div class="card-color" style="background:#b5282a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#b5282a">Urgencias · Respiratorio</div><div class="card-name">Emergencias Respiratorias</div><div class="card-desc">TEP masivo · neumotórax tensión · anafilaxia · epiglotitis con dosis pediátrica · ABCDE</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">Urgencias · Respiratorio</div><div class="card-name">Emergencias Respiratorias</div><div class="card-desc">TEP masivo, neumotórax tensión, anafilaxia, epiglotitis · dosis pediátrica · ABCDE</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="farmacologia_respiratoria.html" class="resource-card card-new">
+    <a href="farmacologia_respiratoria.html" class="resource-card">
       <div class="card-color" style="background:#1a4a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a4a8a">Farmacología · Respiratorio</div><div class="card-name">Farmacología Respiratoria</div><div class="card-desc">SABA/LABA/SAMA/LAMA · CI/CS · teofilina · montelukast · antibióticos NAC · mecanismos · EA</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a8a">Farmacología · Respiratorio</div><div class="card-name">Farmacología Respiratoria</div><div class="card-desc">SABA/LABA/SAMA/LAMA · CI/CS · teofilina · montelukast · antibióticos NAC · mecanismos</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── DIGESTIVO ── -->
+  <div class="section-title" id="digestivo">🫀 Digestivo</div>
+  <div class="cards">
+    <a href="fisiologia_digestiva.html" class="resource-card">
+      <div class="card-color" style="background:#c4681a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c4681a">Fisiología · Digestivo</div><div class="card-name">Fisiología Digestiva</div><div class="card-desc">Motilidad, secreción, digestión y absorción de nutrientes, regulación hormonal digestiva</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
@@ -214,19 +309,24 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   <!-- ── METODOLOGÍA ── -->
   <div class="section-title" id="metodologia">🔬 Metodología · EBE · Investigación</div>
   <div class="cards">
-    <a href="metodologia_investigacion.html" class="resource-card card-new">
+    <a href="metodologia_investigacion.html" class="resource-card">
       <div class="card-color" style="background:#4a1a6a"></div>
       <div class="card-body"><div class="card-tag" style="color:#4a1a6a">EBE · Diseños</div><div class="card-name">Metodología de la Investigación</div><div class="card-desc">Pirámide de evidencia · diseños observacionales · muestreo · variables · escalas · errores</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="revision_sistematica.html" class="resource-card card-new">
+    <a href="revision_sistematica.html" class="resource-card">
       <div class="card-color" style="background:#1a5a3a"></div>
       <div class="card-body"><div class="card-tag" style="color:#1a5a3a">EBE · RS · PRISMA</div><div class="card-name">Revisión Sistemática — Guía Completa</div><div class="card-desc">11 pasos · PICO · PRISMA 4 fases · GRADE · checklists por fase · consejos TFM</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="metodo_cientifico_estadistica.html" class="resource-card card-new">
+    <a href="metodo_cientifico_estadistica.html" class="resource-card">
       <div class="card-color" style="background:#1a4a6e"></div>
       <div class="card-body"><div class="card-tag" style="color:#1a4a6e">Estadística · Ética</div><div class="card-name">Método Científico · Estadística · Ética</div><div class="card-desc">6 fases método · protocolo · principialismo · descriptiva · inferencial · IC · p-valor · errores α/β</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="epidemiologia_indicadores.html" class="resource-card">
+      <div class="card-color" style="background:#6a3a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a3a8a">Epidemiología · Estadística</div><div class="card-name">Epidemiología e Indicadores</div><div class="card-desc">RR, OR, tasa ataque secundario, incidencia/prevalencia, mortalidad infantil, DALY, Swaroop</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>

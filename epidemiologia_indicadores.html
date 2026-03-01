@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Epidemiología e Indicadores · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  --epi:#1a5a8a;       /* azul epidemiología */
+  --rr:#2a7a3a;        /* verde — RR */
+  --or:#8a3aaa;        /* violeta — OR */
+  --ra:#b55e1a;        /* naranja — RA */
+  --inc:#1a6faa;       /* azul incidencia */
+  --prev:#7a5500;      /* marrón prevalencia */
+  --alarm:#b83030;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--epi);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--epi);font-style:italic;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;}
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--text);white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* ═══ TABLA 2x2 ═══ */
+.t2x2-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.t2x2-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:var(--s3);}
+.t2x2-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
+.t2x2-sub{font-size:.65rem;color:var(--muted);}
+.t2x2-body{padding:.7rem .9rem;}
+.t2x2-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:1rem;align-items:start;}
+@media(max-width:640px){.t2x2-layout{grid-template-columns:1fr;}}
+
+/* tabla 2x2 visual */
+.conting{display:grid;grid-template-columns:auto 1fr 1fr;gap:0;max-width:320px;}
+.ct-corner{background:transparent;width:2.2rem;}
+.ct-hcell{padding:.35rem .5rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;background:var(--s3);border:1px solid var(--border);}
+.ct-rcell{padding:.35rem .5rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;background:var(--s3);border:1px solid var(--border);writing-mode:horizontal-tb;}
+.ct-vcell{padding:.5rem .45rem;text-align:center;border:1px solid var(--border);background:var(--s2);font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;}
+.ct-a{color:var(--rr);}
+.ct-b{color:var(--or);}
+.ct-c{color:var(--ra);}
+.ct-d{color:var(--epi);}
+
+/* formulas */
+.formula-grid{display:flex;flex-direction:column;gap:.4rem;}
+.formula-box{padding:.4rem .6rem;border-radius:5px;border:1px solid;}
+.formula-label{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.08rem;}
+.formula-math{font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:700;margin-bottom:.05rem;}
+.formula-def{font-size:.65rem;color:var(--muted);line-height:1.35;}
+.formula-interp{font-size:.63rem;font-style:italic;line-height:1.3;border-top:1px dashed var(--border);margin-top:.12rem;padding-top:.1rem;}
+
+/* ═══ MEDIDAS DE RIESGO ═══ */
+.med-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.7rem;}
+@media(max-width:580px){.med-grid{grid-template-columns:1fr;}}
+
+.med-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.med-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.med-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;padding:.05rem .35rem;border-radius:2px;margin-bottom:.06rem;}
+.med-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.med-body{padding:.6rem .8rem;display:flex;flex-direction:column;gap:.2rem;}
+.med-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.35rem;align-items:flex-start;}
+.med-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:.04rem;}
+.med-row strong{color:var(--text);}
+
+/* ═══ INTERPRETACIÓN RR ═══ */
+.rr-scale{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:.4rem;}
+.rr-box{padding:.35rem .5rem;border-radius:5px;border:1px solid;text-align:center;}
+.rr-val{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;}
+.rr-text{font-size:.63rem;color:var(--muted);margin-top:.05rem;}
+
+/* ═══ TASA ATAQUE ═══ */
+.ta-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.ta-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);border-left:6px solid var(--alarm);background:#fef0f0;}
+.ta-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--alarm);}
+.ta-body{padding:.7rem .9rem;display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+@media(max-width:580px){.ta-body{grid-template-columns:1fr;}}
+
+.def-box{background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:.45rem .65rem;}
+.def-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.15rem;}
+.def-formula{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:var(--alarm);line-height:1.3;margin-bottom:.12rem;}
+.def-text{font-size:.68rem;color:var(--muted);line-height:1.4;} .def-text strong{color:var(--text);}
+
+/* ═══ INDICADORES ═══ */
+.ind-table{width:100%;border-collapse:collapse;font-size:.71rem;margin-bottom:.5rem;}
+.ind-table th{padding:.42rem .6rem;background:var(--s3);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;text-align:left;color:var(--muted);}
+.ind-table td{padding:.42rem .6rem;border:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.ind-table tr:nth-child(even){background:var(--s2);}
+
+/* TIPOS DE ESTUDIO */
+.estudio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem;margin-bottom:.7rem;}
+.est-card{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.est-head{padding:.45rem .7rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.est-name{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;}
+.est-type{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.est-body{padding:.45rem .7rem;display:flex;flex-direction:column;gap:.18rem;}
+.est-row{font-size:.68rem;color:var(--muted);line-height:1.35;display:flex;gap:.3rem;}
+.est-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;}
+.est-row strong{color:var(--text);}
+
+/* MEMO + TEST */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.72rem;color:var(--text);font-weight:600;line-height:1.55;}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#e8f0fa;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--epi);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;} .qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--epi);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">📊 Epidemiología · Bloque 1</div>
+  <h1>Epidemiología e <em>Indicadores</em></h1>
+  <p class="hsub">RR · OR · Riesgo Atribuible · Tasa de Ataque · Indicadores de Salud · Tipos de Estudio</p>
+</header>
+
+<!-- ═══ I. TABLA DE CONTINGENCIA 2×2 ═══ -->
+<div class="sdiv"><span>📋 I. Tabla de contingencia 2×2 — base de todos los cálculos ★★</span></div>
+
+<div class="t2x2-wrap">
+  <div class="t2x2-head">
+    <div class="t2x2-title">Tabla 2×2: Exposición vs. Enfermedad</div>
+    <div class="t2x2-sub">Herramienta fundamental en epidemiología analítica · a, b, c, d son frecuencias observadas en el estudio</div>
+  </div>
+  <div class="t2x2-body">
+    <div class="t2x2-layout">
+      <!-- Tabla visual -->
+      <div>
+        <div class="conting">
+          <div class="ct-corner"></div>
+          <div class="ct-hcell" style="background:#fef8e8;color:var(--alarm);">Enfermo (+)</div>
+          <div class="ct-hcell" style="background:#eef7f0;color:var(--rr);">Sano (−)</div>
+          <div class="ct-rcell" style="background:#fef3e8;color:var(--ra);writing-mode:vertical-rl;transform:rotate(180deg);font-size:.52rem;padding:.3rem;">Expuesto (+)</div>
+          <div class="ct-vcell ct-a" style="background:#fef8e8;">a</div>
+          <div class="ct-vcell ct-b">b</div>
+          <div class="ct-rcell" style="background:#e8f2fa;color:var(--epi);writing-mode:vertical-rl;transform:rotate(180deg);font-size:.52rem;padding:.3rem;">No expuesto (−)</div>
+          <div class="ct-vcell ct-c">c</div>
+          <div class="ct-vcell ct-d" style="background:#f5eefa;">d</div>
+        </div>
+        <div style="font-size:.65rem;color:var(--muted);margin-top:.5rem;line-height:1.55;">
+          <span style="color:var(--rr);font-weight:700;">a</span> = expuesto + enfermo &nbsp;·&nbsp;
+          <span style="font-weight:700;">b</span> = expuesto + sano<br>
+          <span style="color:var(--ra);font-weight:700;">c</span> = no expuesto + enfermo &nbsp;·&nbsp;
+          <span style="color:var(--epi);font-weight:700;">d</span> = no expuesto + sano<br><br>
+          <strong>Ie</strong> = Incidencia en expuestos = <span style="font-family:'JetBrains Mono',monospace;">a / (a+b)</span><br>
+          <strong>Io</strong> = Incidencia en no expuestos = <span style="font-family:'JetBrains Mono',monospace;">c / (c+d)</span>
+        </div>
+      </div>
+
+      <!-- Fórmulas derivadas -->
+      <div class="formula-grid">
+        <div class="formula-box" style="background:#eef7f0;border-color:#80c090;">
+          <div class="formula-label" style="color:var(--rr);">Riesgo Relativo ★★</div>
+          <div class="formula-math" style="color:var(--rr);">RR = Ie / Io</div>
+          <div class="formula-def">RR = [a/(a+b)] / [c/(c+d)] · Cociente de incidencias expuestos/no expuestos</div>
+          <div class="formula-interp">Solo calculable en estudios con seguimiento (cohortes, ECA). RR=1 → sin asociación</div>
+        </div>
+        <div class="formula-box" style="background:#f5eefa;border-color:#c090e0;">
+          <div class="formula-label" style="color:var(--or);">Odds Ratio ★★</div>
+          <div class="formula-math" style="color:var(--or);">OR = (a×d) / (b×c)</div>
+          <div class="formula-def">Cociente de odds de enfermedad. Calculable en cualquier diseño (incluido casos-controles)</div>
+          <div class="formula-interp">En enfermedades raras (&lt;10%) OR ≈ RR. En enfermedades frecuentes OR sobrestima RR</div>
+        </div>
+        <div class="formula-box" style="background:#fef3e8;border-color:#d09060;">
+          <div class="formula-label" style="color:var(--ra);">Riesgo Atribuible ★</div>
+          <div class="formula-math" style="color:var(--ra);">RA = Ie − Io</div>
+          <div class="formula-def">Diferencia de incidencias. Exceso de riesgo atribuible a la exposición en expuestos</div>
+          <div class="formula-interp">Medida de impacto absoluto. RA=0 → sin asociación. Asume relación causal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ II. RR Y OR EN PROFUNDIDAD ═══ -->
+<div class="sdiv"><span>📐 II. RR y OR — cálculo e interpretación ★★</span></div>
+
+<div class="med-grid">
+  <div class="med-card">
+    <div class="med-head" style="border-left-color:var(--rr);background:#eef7f0;">
+      <div class="med-badge" style="background:#eef7f0;color:var(--rr);">Estudios de cohortes y ECA</div>
+      <div class="med-title" style="color:var(--rr);">Riesgo Relativo (RR)</div>
+    </div>
+    <div class="med-body">
+      <div class="med-row"><strong>Definición:</strong> razón de la incidencia en expuestos / incidencia en no expuestos. Mide la fuerza de asociación</div>
+      <div class="med-row"><strong>Fórmula:</strong> RR = Ie / Io = [a/(a+b)] / [c/(c+d)] ★★</div>
+      <div class="med-row"><strong>Cuándo usarlo:</strong> estudios prospectivos con seguimiento (cohortes, ECA). NO calculable en casos-controles</div>
+      <div class="med-row"><strong>Valores:</strong>
+        <div style="margin-top:.15rem;display:flex;flex-direction:column;gap:.1rem;">
+          <span style="font-size:.65rem;"><strong style="color:var(--alarm);">RR &gt; 1</strong> → factor de RIESGO (expuestos enferman más)</span>
+          <span style="font-size:.65rem;"><strong style="color:var(--muted);">RR = 1</strong> → sin asociación (H₀)</span>
+          <span style="font-size:.65rem;"><strong style="color:var(--rr);">RR &lt; 1</strong> → factor PROTECTOR (expuestos enferman menos)</span>
+        </div>
+      </div>
+      <div class="med-row"><strong>Ejemplo INGESA:</strong> RR=3 → los expuestos tienen 3 veces más riesgo de enfermar que los no expuestos ★★</div>
+      <div class="med-row"><strong>Intervalo de confianza:</strong> siempre debe acompañar al RR. Si el IC 95% incluye el 1, el resultado NO es estadísticamente significativo</div>
+    </div>
+  </div>
+
+  <div class="med-card">
+    <div class="med-head" style="border-left-color:var(--or);background:#f5eefa;">
+      <div class="med-badge" style="background:#f5eefa;color:var(--or);">Casos-controles y cualquier diseño</div>
+      <div class="med-title" style="color:var(--or);">Odds Ratio (OR)</div>
+    </div>
+    <div class="med-body">
+      <div class="med-row"><strong>Definición:</strong> razón de la probabilidad de estar expuesto en enfermos vs. sanos. Estimación del RR en estudios retrospectivos</div>
+      <div class="med-row"><strong>Fórmula:</strong> OR = (a×d) / (b×c) ★★</div>
+      <div class="med-row"><strong>Cuándo usarlo:</strong> estudios de casos y controles (retrospectivos). También en transversales y prospectivos</div>
+      <div class="med-row"><strong>Relación con RR:</strong> en enfermedades RARAS (&lt;10% incidencia) → OR ≈ RR. En enfermedades frecuentes OR sobrestima RR si OR&gt;1 y lo subestima si OR&lt;1 ★</div>
+      <div class="med-row"><strong>Interpretación:</strong> igual que RR — OR=1 sin asociación, &gt;1 riesgo, &lt;1 protección</div>
+      <div class="med-row"><strong>Regresión logística:</strong> el OR es la medida de efecto que produce automáticamente este análisis estadístico ★</div>
+    </div>
+  </div>
+</div>
+
+<!-- Escala interpretativa RR -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.6rem .85rem;margin-bottom:.7rem;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.4rem;">Escala de interpretación RR/OR ★</div>
+  <div class="rr-scale">
+    <div class="rr-box" style="background:#fef0f0;border-color:#e09090;">
+      <div class="rr-val" style="color:var(--alarm);">RR &gt; 1</div>
+      <div class="rr-text">Factor de <strong>riesgo</strong><br>Expuestos enferman <strong>más</strong></div>
+    </div>
+    <div class="rr-box" style="background:var(--s2);border-color:var(--border);">
+      <div class="rr-val" style="color:var(--muted);">RR = 1</div>
+      <div class="rr-text">Sin asociación<br>H₀ nula</div>
+    </div>
+    <div class="rr-box" style="background:#eef7f0;border-color:#80c090;">
+      <div class="rr-val" style="color:var(--rr);">RR &lt; 1</div>
+      <div class="rr-text">Factor <strong>protector</strong><br>Expuestos enferman <strong>menos</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ III. MEDIDAS COMPLEMENTARIAS ═══ -->
+<div class="sdiv"><span>📊 III. Riesgo Atribuible y variantes ★</span></div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.6rem .9rem;border-bottom:1px solid var(--border);background:var(--s3);">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;">Medidas de impacto — efecto absoluto de la exposición</div>
+  </div>
+  <div style="padding:.7rem .9rem;overflow-x:auto;">
+    <table class="ind-table" style="font-size:.7rem;">
+      <thead>
+        <tr>
+          <th>Medida</th>
+          <th>Fórmula</th>
+          <th>Interpretación</th>
+          <th>Uso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--ra);">RA en expuestos</strong><br><span style="font-size:.63rem;color:var(--muted);">(Diferencia de riesgos)</span></td>
+          <td style="font-family:'JetBrains Mono',monospace;color:var(--ra);">Ie − Io</td>
+          <td>Exceso de riesgo de enfermar en expuestos atribuible a la exposición</td>
+          <td>Evaluación causal en cohortes</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ra);">Fracción atribuible (%)</strong><br><span style="font-size:.63rem;color:var(--muted);">(en expuestos)</span></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--ra);">(RR−1)/RR × 100</td>
+          <td>% de la incidencia en expuestos atribuible al factor</td>
+          <td>Prevención en expuestos</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--epi);">RA poblacional</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--epi);">It − Io</td>
+          <td>Reducción de incidencia si se elimina el factor en la población general</td>
+          <td>Salud pública — priorización</td>
+        </tr>
+        <tr>
+          <td><strong>NNT</strong><br><span style="font-size:.63rem;color:var(--muted);">(Número necesario tratar)</span></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.63rem;">1 / RA</td>
+          <td>N.º de pacientes a tratar para evitar 1 caso adicional</td>
+          <td>Eficacia terapéutica — decisión clínica</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ IV. TASA DE ATAQUE ═══ -->
+<div class="sdiv"><span>⚡ IV. Tasa de Ataque — Epidemiología de brotes ★★</span></div>
+
+<div class="ta-card">
+  <div class="ta-head">
+    <div class="ta-title">Tasa de Ataque — perla literal INGESA ★★</div>
+    <div style="font-size:.63rem;color:var(--muted);margin-top:.05rem;">Uso en brotes epidémicos y enfermedades transmisibles</div>
+  </div>
+  <div class="ta-body">
+    <div>
+      <div class="def-box" style="margin-bottom:.5rem;">
+        <div class="def-title">Tasa de Ataque (TA)</div>
+        <div class="def-formula">TA = (N.º casos / N.º expuestos) × 100</div>
+        <div class="def-text">Proporción de personas expuestas que desarrollan la enfermedad en un brote o epidemia. Forma especial de <strong>incidencia acumulada</strong> aplicada a brotes de corta duración.</div>
+      </div>
+      <div class="def-box">
+        <div class="def-title" style="color:var(--alarm);">Tasa de Ataque SECUNDARIA ★★ — definición INGESA</div>
+        <div class="def-formula" style="color:var(--alarm);">TAS = (casos secundarios / contactos susceptibles) × 100</div>
+        <div class="def-text"><strong>Número de casos que aparecen en el periodo de incubación entre los contactos susceptibles del caso primario</strong> ★★<br>Mide la transmisibilidad del agente (contagiosidad) en el entorno doméstico o de convivencia.</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.3rem;">Indicadores de transmisibilidad</div>
+      <table class="ind-table" style="margin-bottom:.4rem;">
+        <thead><tr><th>Indicador</th><th>Definición</th><th>Relevancia</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--alarm);">R₀</strong><br><span style="font-size:.63rem;color:var(--muted);">Nro. reproducción básica</span></td>
+            <td style="font-size:.67rem;color:var(--muted);">N.º de casos secundarios que genera 1 caso primario en población totalmente susceptible</td>
+            <td style="font-size:.67rem;">R₀ &gt; 1 = epidemia. R₀ &lt; 1 = fin de epidemia</td>
+          </tr>
+          <tr>
+            <td><strong>Periodo de incubación</strong></td>
+            <td style="font-size:.67rem;color:var(--muted);">Tiempo entre exposición al agente y aparición de síntomas</td>
+            <td style="font-size:.67rem;">Define el tiempo de vigilancia de contactos ★</td>
+          </tr>
+          <tr>
+            <td><strong>Periodo de transmisibilidad</strong></td>
+            <td style="font-size:.67rem;color:var(--muted);">Periodo en que el enfermo puede transmitir el agente</td>
+            <td style="font-size:.67rem;">Base de las medidas de aislamiento</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="background:#fef0f0;border:1px solid #e09090;border-radius:5px;padding:.4rem .6rem;font-size:.68rem;color:var(--muted);line-height:1.4;">
+        <strong style="color:var(--alarm);">★★ INGESA:</strong> Tasa de ataque secundaria = <em>"número de casos en el periodo de incubación entre contactos susceptibles"</em> — preguntado literalmente en exámenes estatales y INGESA.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ V. FRECUENCIA: INCIDENCIA Y PREVALENCIA ═══ -->
+<div class="sdiv"><span>📈 V. Medidas de frecuencia — Incidencia y Prevalencia ★★</span></div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.6rem .9rem;border-bottom:1px solid var(--border);background:var(--s3);">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;">Incidencia vs Prevalencia — diferencias clave</div>
+  </div>
+  <div style="padding:.7rem .9rem;overflow-x:auto;">
+    <table class="ind-table">
+      <thead><tr><th>Medida</th><th>Definición</th><th>Numerador</th><th>Denominador</th><th>Tipo de estudio</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--inc);">Incidencia acumulada (IA)</strong></td>
+          <td style="font-size:.67rem;color:var(--muted);">Proporción de nuevos casos en un periodo</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">Nuevos casos</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">Población en riesgo al inicio</td>
+          <td style="font-size:.67rem;">Cohortes ★</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--inc);">Densidad de incidencia (DI)</strong></td>
+          <td style="font-size:.67rem;color:var(--muted);">Tasa de nuevos casos por unidad de tiempo-persona</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">Nuevos casos</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">Personas-tiempo en riesgo</td>
+          <td style="font-size:.67rem;">Seguimiento heterogéneo</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--prev);">Prevalencia puntual (P)</strong></td>
+          <td style="font-size:.67rem;color:var(--muted);">Proporción de casos existentes en un momento dado</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">Casos totales (nuevos + antiguos)</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">Población total en ese momento</td>
+          <td style="font-size:.67rem;">Transversales ★</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="background:var(--goldbg);border:1px solid var(--gold);border-radius:4px;padding:.4rem .65rem;font-size:.7rem;margin-top:.4rem;">
+      <strong style="color:var(--gold);">Relación P = I × D</strong> (Prevalencia ≈ Incidencia × Duración media de la enfermedad) ★ · Una enfermedad de larga duración puede tener alta prevalencia con baja incidencia (ej. DM2) · Una enfermedad de alta mortalidad rápida puede tener baja prevalencia aunque su incidencia sea alta
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VI. INDICADORES DE SALUD ═══ -->
+<div class="sdiv"><span>🌍 VI. Indicadores de salud en población ★</span></div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.6rem .9rem;border-bottom:1px solid var(--border);background:var(--s3);">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;">Indicadores básicos de mortalidad y morbilidad</div>
+  </div>
+  <div style="padding:.7rem .9rem;overflow-x:auto;">
+    <table class="ind-table">
+      <thead><tr><th>Indicador</th><th>Fórmula</th><th>Significado / Uso</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Tasa de mortalidad bruta</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">(Total muertes / Población) × 1.000</td>
+          <td style="font-size:.67rem;color:var(--muted);">Muertes por 1.000 hab. Indicador global simple</td>
+        </tr>
+        <tr>
+          <td><strong>Tasa de mortalidad infantil ★</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">(Muertes &lt;1 año / Nacidos vivos) × 1.000</td>
+          <td style="font-size:.67rem;color:var(--muted);"><strong style="color:var(--text);">Mejor indicador del nivel de salud de un país</strong> ★. Sensible a condiciones socioeconómicas</td>
+        </tr>
+        <tr>
+          <td><strong>Tasa de mortalidad neonatal</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">(Muertes 0–28 días / Nacidos vivos) × 1.000</td>
+          <td style="font-size:.67rem;color:var(--muted);">Primeros 28 días de vida. Refleja calidad atención perinatal</td>
+        </tr>
+        <tr>
+          <td><strong>Esperanza de vida al nacer ★</strong></td>
+          <td style="font-size:.67rem;color:var(--muted);">Años esperados de vida según tabla de mortalidad actual</td>
+          <td style="font-size:.67rem;color:var(--muted);">Resumen del nivel de salud de la población. España ≈ 83,5 años (2024)</td>
+        </tr>
+        <tr>
+          <td><strong>AVAD (DALY)</strong></td>
+          <td style="font-size:.67rem;color:var(--muted);">Años de vida ajustados por discapacidad</td>
+          <td style="font-size:.67rem;color:var(--muted);">Combina años perdidos por muerte prematura + años vividos con discapacidad. Usado por OMS ★</td>
+        </tr>
+        <tr>
+          <td><strong>Tasa de fecundidad</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">(Nacimientos / Mujeres 15–49 años) × 1.000</td>
+          <td style="font-size:.67rem;color:var(--muted);">Capacidad reproductora de la población femenina en edad fértil</td>
+        </tr>
+        <tr>
+          <td><strong>Índice de Swaroop ★</strong></td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:.65rem;">(Muertes ≥50 años / Total muertes) × 100</td>
+          <td style="font-size:.67rem;color:var(--muted);"><strong style="color:var(--text);">Desarrollo sanitario</strong>: países con alto índice son los más desarrollados (la mayoría muere de vejez)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ VII. TIPOS DE ESTUDIO ═══ -->
+<div class="sdiv"><span>🔬 VII. Tipos de diseño epidemiológico — ¿cuándo usar cada uno? ★★</span></div>
+<div class="estudio-grid">
+  <div class="est-card">
+    <div class="est-head" style="border-left-color:var(--rr);background:#eef7f0;">
+      <div class="est-type" style="color:var(--rr);">Observacional prospectivo</div>
+      <div class="est-name" style="color:var(--rr);">Cohorte</div>
+    </div>
+    <div class="est-body">
+      <div class="est-row"><strong>Dirección:</strong> expuesto → enfermedad (hacia adelante)</div>
+      <div class="est-row"><strong>Medida:</strong> calcula RR ★★</div>
+      <div class="est-row"><strong>Ventaja:</strong> puede calcular incidencias, secuencia temporal clara</div>
+      <div class="est-row"><strong>Desventaja:</strong> caro, largo, no útil en enfermedades raras</div>
+    </div>
+  </div>
+  <div class="est-card">
+    <div class="est-head" style="border-left-color:var(--or);background:#f5eefa;">
+      <div class="est-type" style="color:var(--or);">Observacional retrospectivo</div>
+      <div class="est-name" style="color:var(--or);">Casos y Controles</div>
+    </div>
+    <div class="est-body">
+      <div class="est-row"><strong>Dirección:</strong> enfermedad → exposición (hacia atrás)</div>
+      <div class="est-row"><strong>Medida:</strong> calcula OR ★★ (no RR)</div>
+      <div class="est-row"><strong>Ventaja:</strong> ideal para enfermedades raras o de larga latencia</div>
+      <div class="est-row"><strong>Desventaja:</strong> sesgos de memoria, no permite incidencias reales</div>
+    </div>
+  </div>
+  <div class="est-card">
+    <div class="est-head" style="border-left-color:var(--prev);background:#fef8e8;">
+      <div class="est-type" style="color:var(--prev);">Observacional descriptivo</div>
+      <div class="est-name" style="color:var(--prev);">Transversal (encuesta)</div>
+    </div>
+    <div class="est-body">
+      <div class="est-row"><strong>Dirección:</strong> exposición y enfermedad simultáneas</div>
+      <div class="est-row"><strong>Medida:</strong> Razón de Prevalencias (RP) o OR</div>
+      <div class="est-row"><strong>Ventaja:</strong> rápido, barato, bueno para prevalencia</div>
+      <div class="est-row"><strong>Desventaja:</strong> no establece causalidad, sesgos de supervivencia</div>
+    </div>
+  </div>
+  <div class="est-card">
+    <div class="est-head" style="border-left-color:var(--epi);background:#e8f0fa;">
+      <div class="est-type" style="color:var(--epi);">Experimental</div>
+      <div class="est-name" style="color:var(--epi);">ECA (Ensayo Clínico)</div>
+    </div>
+    <div class="est-body">
+      <div class="est-row"><strong>Dirección:</strong> intervención → resultado</div>
+      <div class="est-row"><strong>Medida:</strong> RR, NNT, RRA ★★</div>
+      <div class="est-row"><strong>Ventaja:</strong> mayor nivel de evidencia, causalidad establecida</div>
+      <div class="est-row"><strong>Desventaja:</strong> costoso, cuestiones éticas, difícil en salud pública</div>
+    </div>
+  </div>
+</div>
+
+<!-- PIRAMIDE EVIDENCIA -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.6rem .85rem;margin-bottom:.7rem;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.3rem;">Pirámide de evidencia (de mayor a menor nivel) ★</div>
+  <div style="display:flex;flex-direction:column;gap:.18rem;">
+    <div style="background:#1a5a8a;color:white;padding:.22rem .6rem;border-radius:3px;font-size:.7rem;text-align:center;font-weight:700;">1 — Metaanálisis y Revisiones sistemáticas</div>
+    <div style="background:#2a7a5a;color:white;padding:.22rem .6rem;border-radius:3px;font-size:.7rem;text-align:center;margin:0 5%;">2 — Ensayos Clínicos Aleatorizados (ECA)</div>
+    <div style="background:#5a7a2a;color:white;padding:.22rem .6rem;border-radius:3px;font-size:.7rem;text-align:center;margin:0 10%;">3 — Cohortes (prospectivos)</div>
+    <div style="background:#8a7a1a;color:white;padding:.22rem .6rem;border-radius:3px;font-size:.7rem;text-align:center;margin:0 15%;">4 — Casos y controles (retrospectivos)</div>
+    <div style="background:#8a5a1a;color:white;padding:.22rem .6rem;border-radius:3px;font-size:.7rem;text-align:center;margin:0 20%;">5 — Transversales / Estudios descriptivos</div>
+    <div style="background:#7a7080;color:white;padding:.22rem .6rem;border-radius:3px;font-size:.7rem;text-align:center;margin:0 25%;">6 — Opiniones de expertos / Serie de casos</div>
+  </div>
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Resumen para el examen — perlas INGESA epidemiología</div>
+  <div class="memo-t">
+    <strong>RR = Ie / Io</strong> ★★ · Sólo en cohortes y ECA ·
+    <strong>OR = ad/bc</strong> ★★ · Casos-controles y cualquier diseño ·
+    Enfermedad rara → OR ≈ RR ·
+    <strong>Tasa ataque secundaria</strong> = casos en periodo incubación / contactos susceptibles ★★ ·
+    Mejor indicador nivel de salud = <strong>mortalidad infantil</strong> ★ ·
+    RR &gt; 1 = riesgo · RR &lt; 1 = protección · RR = 1 = sin asociación ★★
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Epidemiología · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es la fórmula del Riesgo Relativo?</div><div class="qa"><strong>RR = Ie / Io</strong> (incidencia en expuestos / incidencia en no expuestos) ★★</div></div>
+    <div class="qb"><div class="qt">¿En qué tipo de estudio se calcula el OR pero NO el RR?</div><div class="qa"><strong>Estudios de casos y controles</strong> (retrospectivos) — no se puede calcular incidencia real ★★</div></div>
+    <div class="qb"><div class="qt">Define la Tasa de Ataque Secundaria</div><div class="qa"><strong>Número de casos que aparecen en el periodo de incubación entre los contactos susceptibles</strong> del caso primario ★★</div></div>
+    <div class="qb"><div class="qt">Un estudio encuentra RR = 0,3. ¿Cómo se interpreta?</div><div class="qa">Factor <strong>protector</strong> — los expuestos tienen 70% menos riesgo que los no expuestos ★</div></div>
+    <div class="qb"><div class="qt">¿Cuándo OR ≈ RR?</div><div class="qa">Cuando la enfermedad es <strong>poco frecuente (rara)</strong> — incidencia &lt;10% ★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el mejor indicador del nivel de salud de un país?</div><div class="qa"><strong>Tasa de mortalidad infantil</strong> ★</div></div>
+    <div class="qb"><div class="qt">¿Qué mide la prevalencia?</div><div class="qa">Proporción de casos existentes (nuevos + antiguos) en un <strong>momento dado</strong> en la población ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué fórmula tiene el OR en una tabla 2×2?</div><div class="qa"><strong>OR = (a × d) / (b × c)</strong> ★★</div></div>
+    <div class="qb"><div class="qt">Un IC 95% del RR = [0,8 – 2,3]. ¿Es estadísticamente significativo?</div><div class="qa"><strong>No</strong> — el IC incluye el 1 (valor nulo), por lo tanto no hay significación estadística ★</div></div>
+    <div class="qb"><div class="qt">¿Qué mide el Índice de Swaroop?</div><div class="qa">Porcentaje de muertes de ≥50 años / total de muertes — indicador del <strong>nivel de desarrollo sanitario</strong> ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

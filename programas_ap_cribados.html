@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programas AP y Cribados · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  --niño:#2a7a3a;     /* verde — programa niño */
+  --mujer:#8a3aaa;    /* violeta — programa mujer */
+  --ccr:#1a6faa;      /* azul — cribado colorrectal */
+  --vph:#b55e1a;      /* naranja — VPH */
+  --alarm:#b83030;    /* rojo — alertas */
+  --rabia:#7a5500;    /* marrón — rabia */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--ccr);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--ccr);font-style:italic;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;}
+.hdef{font-size:.73rem;color:var(--muted);max-width:700px;margin:.5rem auto 0;line-height:1.55;}
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--text);white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* ═══ LAYOUT GENERAL ═══ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+@media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:.7rem;}
+@media(max-width:700px){.three-col{grid-template-columns:1fr 1fr;}}
+@media(max-width:450px){.three-col{grid-template-columns:1fr;}}
+
+/* ═══ PROGRAMA CARD BASE ═══ */
+.prog-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.prog-head{padding:.6rem .85rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.prog-ht{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.04rem;}
+.prog-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.15;}
+.prog-body{padding:.6rem .85rem;display:flex;flex-direction:column;gap:.22rem;}
+.prog-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.35rem;align-items:flex-start;}
+.prog-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:.05rem;}
+.prog-row strong{color:var(--text);}
+
+/* ═══ CRIBADO ESPECIAL ═══ */
+.crib-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.crib-top{padding:.65rem .9rem;border-bottom:1px solid var(--border);border-left:6px solid;}
+.crib-badge{display:inline-flex;align-items:center;gap:.3rem;font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.12em;padding:.08rem .5rem;border-radius:2px;margin-bottom:.18rem;}
+.crib-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}
+.crib-meta{font-size:.65rem;color:var(--muted);margin-top:.05rem;}
+.crib-body{padding:.7rem .9rem;}
+
+/* DATOS CLAVE en caja de parámetros */
+.params{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.45rem;margin-bottom:.55rem;}
+.param-box{padding:.4rem .6rem;border-radius:5px;border:1px solid;text-align:center;}
+.param-label{font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.05rem;}
+.param-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.1;}
+.param-note{font-size:.6rem;color:var(--muted);line-height:1.3;}
+
+/* FLUJO / ALGORITMO */
+.algo{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.5rem;}
+.algo-step{display:flex;align-items:stretch;gap:.5rem;}
+.algo-num{flex-shrink:0;width:1.4rem;height:1.4rem;display:flex;align-items:center;justify-content:center;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;margin-top:.05rem;}
+.algo-content{flex:1;padding:.35rem .6rem;border-radius:5px;border:1px solid;font-size:.71rem;line-height:1.4;}
+.algo-content strong{display:block;margin-bottom:.05rem;}
+.algo-arrow{font-size:.8rem;color:var(--muted);text-align:center;margin:.05rem 0 .05rem 1.45rem;}
+
+/* VPH flujo con bifurcación */
+.vph-algo{background:var(--s2);border:1px solid var(--border);border-radius:7px;padding:.6rem .8rem;margin-bottom:.5rem;}
+.vph-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--vph);margin-bottom:.35rem;}
+.vph-flow{display:flex;flex-direction:column;gap:.2rem;}
+.vph-row{display:flex;gap:.35rem;align-items:flex-start;font-size:.7rem;}
+.vph-icon{font-size:.9rem;flex-shrink:0;margin-top:.05rem;}
+.vph-text{line-height:1.4;color:var(--muted);} .vph-text strong{color:var(--text);}
+.vph-branch{margin-left:1.2rem;border-left:2px dashed var(--border);padding-left:.7rem;display:flex;flex-direction:column;gap:.18rem;margin-bottom:.1rem;}
+
+/* TABLA INTERVALOS */
+.int-table{width:100%;border-collapse:collapse;font-size:.71rem;margin-bottom:.5rem;}
+.int-table th{padding:.38rem .6rem;background:var(--s3);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;text-align:left;color:var(--muted);}
+.int-table td{padding:.38rem .6rem;border:1px solid var(--border);vertical-align:top;}
+.int-table tr:nth-child(even){background:var(--s2);}
+
+/* VACUNAS ESPECIALES */
+.vac-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.7rem;}
+@media(max-width:580px){.vac-wrap{grid-template-columns:1fr;}}
+.vac-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.vac-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.vac-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.vac-body{padding:.6rem .8rem;display:flex;flex-direction:column;gap:.25rem;}
+.vac-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.35rem;align-items:flex-start;}
+.vac-row::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.vac-row strong{color:var(--text);}
+.pauta{display:inline-flex;gap:.2rem;align-items:center;background:var(--goldbg);border:1px solid var(--gold);border-radius:4px;padding:.1rem .5rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;color:var(--gold);}
+
+/* MEMO + TEST */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.72rem;color:var(--text);font-weight:600;line-height:1.55;}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#e8f2fa;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ccr);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;} .qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--ccr);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🏥 Atención Primaria · Bloque 1</div>
+  <h1>Programas AP y <em>Cribados</em></h1>
+  <p class="hsub">Niño Sano · Mujer · Cribados SNS · Vacunaciones especiales</p>
+  <p class="hdef">Actividades preventivas y de detección precoz integradas en la Atención Primaria del SNS. Incluye los programas de seguimiento del desarrollo, cribados oncológicos y vacunaciones en situaciones específicas.</p>
+</header>
+
+<!-- ═══ I. PROGRAMAS BÁSICOS AP ═══ -->
+<div class="sdiv"><span>👶 I. Programa del Niño Sano y 🚺 Programa de Atención a la Mujer</span></div>
+
+<div class="two-col">
+  <div class="prog-card">
+    <div class="prog-head" style="border-left-color:var(--niño);background:#eef7f0;">
+      <div class="prog-ht" style="color:var(--niño);">Programa del Niño Sano — revisiones periódicas</div>
+      <div class="prog-title" style="color:var(--niño);">Seguimiento del Desarrollo Infantil</div>
+    </div>
+    <div class="prog-body">
+      <div class="prog-row"><strong>Objetivo:</strong> detección precoz de alteraciones del desarrollo físico, psicomotor, sensorial y social</div>
+      <div class="prog-row"><strong>Controles recomendados:</strong> al nacer, 1 mes, 2 m, 4 m, 6 m, 9 m, 12 m, 15 m, 18 m, 2 años, 3 a, 4 a, 5–6 a, 10–12 a, 14 a</div>
+      <div class="prog-row"><strong>Actividades:</strong> medición peso/talla, perímetro cefálico (lactantes), desarrollo psicomotor, hitos del lenguaje, cribado auditivo y visual, cribado de displasia cadera (Ortolani/Barlow), vacunación según calendario</div>
+      <div class="prog-row"><strong>Cribado metabólico neonatal (Guthrie)</strong> — muestra en papel de filtro al 3.º–5.º día: hipotiroidismo, fenilcetonuria, FQ, déficit biotinidasa, hemoglobinopatías (en algunas CCAA) ★</div>
+      <div class="prog-row"><strong>OAE (otoemisiones acústicas)</strong> — cribado auditivo universal neonatal antes del alta ★</div>
+      <div class="prog-row"><strong>Cribado visual:</strong> agudeza visual con optotipos a partir de los 3–4 años; estrabismo evaluado desde los 6 meses</div>
+    </div>
+  </div>
+
+  <div class="prog-card">
+    <div class="prog-head" style="border-left-color:var(--mujer);background:#f5eefa;">
+      <div class="prog-ht" style="color:var(--mujer);">Programa de Atención a la Mujer — ciclo vital completo</div>
+      <div class="prog-title" style="color:var(--mujer);">Salud Reproductiva y Preventiva</div>
+    </div>
+    <div class="prog-body">
+      <div class="prog-row"><strong>Planificación familiar:</strong> consejo anticonceptivo, métodos, salud reproductiva</div>
+      <div class="prog-row"><strong>Control prenatal (embarazo de bajo riesgo):</strong> 1ª visita antes de semana 10, controles cada 4–6 semanas hasta semana 36, luego semanal. Mínimo 6 visitas ★</div>
+      <div class="prog-row"><strong>Cribado cérvix:</strong> incluido (ver sección VPH-AR)</div>
+      <div class="prog-row"><strong>Cribado mama:</strong> mamografía bilateral bienal en mujeres 50–69 años ★★</div>
+      <div class="prog-row"><strong>Climaterio y menopausia:</strong> educación, calidad de vida, prevención de osteoporosis (DEXA si factores de riesgo)</div>
+      <div class="prog-row"><strong>Vacunación:</strong> tos ferina en cada embarazo (ver sección vacunas)</div>
+      <div class="prog-row"><strong>Detección VG (violencia de género):</strong> cribado oportunista en consultas de AP ★</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ II. CRIBADO COLORRECTAL ═══ -->
+<div class="sdiv"><span>🔬 II. Cribado de Cáncer Colorrectal SNS ★★</span></div>
+
+<div class="crib-wrap">
+  <div class="crib-top" style="border-left-color:var(--ccr);background:#e8f2fa;">
+    <div class="crib-badge" style="background:#1a6faa20;color:var(--ccr);">SNS · Ministerio de Sanidad · Orden SCB/480/2019 actualizada</div>
+    <div class="crib-title" style="color:var(--ccr);">Programa de Detección Precoz de Cáncer Colorrectal</div>
+    <div class="crib-meta">Población de riesgo medio (sin antecedentes personales ni familiares de CCR)</div>
+  </div>
+  <div class="crib-body">
+    <!-- PARÁMETROS CLAVE -->
+    <div class="params">
+      <div class="param-box" style="background:#e8f2fa;border-color:#90b8e0;">
+        <div class="param-label" style="color:var(--ccr);">Población diana ★★</div>
+        <div class="param-value" style="color:var(--ccr);">50–69 años</div>
+        <div class="param-note">Hombres y mujeres sin síntomas ni antecedentes</div>
+      </div>
+      <div class="param-box" style="background:#eef7f0;border-color:#90c8a0;">
+        <div class="param-label" style="color:var(--niño);">Prueba de cribado ★★</div>
+        <div class="param-value" style="color:var(--niño);">TSOH</div>
+        <div class="param-note">Test de Sangre Oculta en Heces (inmunológico)</div>
+      </div>
+      <div class="param-box" style="background:#fef8e8;border-color:#d0a840;">
+        <div class="param-label" style="color:var(--gold);">Periodicidad ★★</div>
+        <div class="param-value" style="color:var(--gold);">Bienal</div>
+        <div class="param-note">Cada 2 años si resultado negativo</div>
+      </div>
+      <div class="param-box" style="background:#fef0f0;border-color:#e09090;">
+        <div class="param-label" style="color:var(--alarm);">TSOH positivo →</div>
+        <div class="param-value" style="color:var(--alarm);">Colonoscopia</div>
+        <div class="param-note">Confirmar/descartar CCR o adenomas</div>
+      </div>
+    </div>
+
+    <!-- ALGORITMO -->
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.35rem;">Algoritmo de cribado ★★</div>
+    <div class="algo">
+      <div class="algo-step">
+        <div class="algo-num" style="background:#e8f2fa;color:var(--ccr);">1</div>
+        <div class="algo-content" style="background:#e8f2fa;border-color:#a0c0e0;">
+          <strong>Invitación por carta a población 50–69 años</strong>
+          Captación poblacional activa (no oportunista). Bienal.
+        </div>
+      </div>
+      <div class="algo-arrow">▼</div>
+      <div class="algo-step">
+        <div class="algo-num" style="background:#eef7f0;color:var(--niño);">2</div>
+        <div class="algo-content" style="background:#eef7f0;border-color:#90c8a0;">
+          <strong>TSOH en domicilio — recogida de muestra de heces</strong>
+          Prueba inmunológica (FIT) cuantitativa o cualitativa ★ · Punto de corte variable según programa (ej. 20 µg Hb/g heces en Euskadi)
+        </div>
+      </div>
+      <div class="algo-arrow">▼</div>
+      <div class="algo-step">
+        <div class="algo-num" style="background:#f5eefa;color:var(--mujer);">3a</div>
+        <div class="algo-content" style="background:#f5eefa;border-color:#c090e0;">
+          <strong>TSOH Negativo</strong> → Repetir en 2 años (próxima ronda de cribado)
+        </div>
+      </div>
+      <div class="algo-step" style="margin-top:.15rem;">
+        <div class="algo-num" style="background:#fef0f0;color:var(--alarm);">3b</div>
+        <div class="algo-content" style="background:#fef0f0;border-color:#e09090;">
+          <strong>TSOH Positivo</strong> → Colonoscopia diagnóstica con sedación
+          <span style="font-size:.62rem;display:block;margin-top:.1rem;color:var(--muted);">Positivo NO significa cáncer — hemorroides y pólipos benignos también dan + ★ (importante informar al paciente)</span>
+        </div>
+      </div>
+      <div class="algo-arrow">▼</div>
+      <div class="algo-step">
+        <div class="algo-num" style="background:#fef8e8;color:var(--gold);">4</div>
+        <div class="algo-content" style="background:#fef8e8;border-color:#d0a840;">
+          <strong>Colonoscopia:</strong> Normal/pólipos benignos → seguimiento según hallazgo · Adenomas de alto riesgo o CCR → tratamiento y seguimiento específico
+        </div>
+      </div>
+    </div>
+
+    <!-- EXCLUSIONES -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.69rem;">
+      <div style="background:#fef0f0;border:1px solid #e09090;border-radius:5px;padding:.45rem .65rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:var(--alarm);margin-bottom:.15rem;">Exclusión DEFINITIVA</div>
+        <div style="color:var(--muted);line-height:1.45;">
+          • Antecedentes personales de CCR<br>
+          • ≥2 familiares 1.er grado con CCR, o 1 familiar con CCR &lt;60 años (→ protocolo alto riesgo)<br>
+          • Diagnóstico actual de CCR
+        </div>
+      </div>
+      <div style="background:#fef8e8;border:1px solid #d0a840;border-radius:5px;padding:.45rem .65rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem;">Exclusión TEMPORAL</div>
+        <div style="color:var(--muted);line-height:1.45;">
+          • Síntomas sospechosos (rectorragia, cambio hábito intestinal &gt;6 semanas, pérdida de peso) → derivar a médico de familia<br>
+          • Adenomas o colitis en seguimiento activo
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ III. CRIBADO VPH-AR ═══ -->
+<div class="sdiv"><span>🔬 III. Cribado de Cáncer de Cérvix — VPH-AR ★★</span></div>
+
+<div class="crib-wrap">
+  <div class="crib-top" style="border-left-color:var(--vph);background:#fef3e8;">
+    <div class="crib-badge" style="background:#b55e1a20;color:var(--vph);">SNS · Orden SCB/480/2019 + SND/454/2025 (modificación) · Poblacional desde 2019</div>
+    <div class="crib-title" style="color:var(--vph);">Programa de Cribado de Cáncer de Cérvix</div>
+    <div class="crib-meta">Cambio histórico 2019: de citología oportunista a programa poblacional con VPH-AR como prueba primaria</div>
+  </div>
+  <div class="crib-body">
+    <!-- PARÁMETROS -->
+    <div class="params">
+      <div class="param-box" style="background:#fef3e8;border-color:#d0a060;">
+        <div class="param-label" style="color:var(--vph);">Población diana</div>
+        <div class="param-value" style="color:var(--vph);">25–65 años</div>
+        <div class="param-note">Mujeres con o sin vacunación VPH</div>
+      </div>
+      <div class="param-box" style="background:#e8f2fa;border-color:#90b8e0;">
+        <div class="param-label" style="color:var(--ccr);">25–34 años ★★</div>
+        <div class="param-value" style="color:var(--ccr);font-size:.8rem;">Citología</div>
+        <div class="param-note">Cada 3 años (si vacunadas, puede diferirse a 30 a.)</div>
+      </div>
+      <div class="param-box" style="background:#fef0f0;border-color:#e09090;">
+        <div class="param-label" style="color:var(--alarm);">30–65 años ★★</div>
+        <div class="param-value" style="color:var(--alarm);font-size:.8rem;">VPH-AR</div>
+        <div class="param-note">Cada 5 años — independientemente del estado vacunal</div>
+      </div>
+    </div>
+
+    <!-- FLUJO VPH -->
+    <div class="vph-algo">
+      <div class="vph-title">Algoritmo VPH-AR positivo ★★ — el más preguntado en exámenes</div>
+      <div class="vph-flow">
+        <div class="vph-row">
+          <div class="vph-icon">🔴</div>
+          <div class="vph-text"><strong>VPH-AR positivo</strong> → Triaje con <strong>citología</strong></div>
+        </div>
+        <div class="vph-branch">
+          <div class="vph-row">
+            <div class="vph-icon">⚠️</div>
+            <div class="vph-text"><strong>VPH-AR positivo + citología positiva (ASC-US o mayor)</strong> → <strong>Colposcopia</strong> inmediata</div>
+          </div>
+          <div class="vph-row">
+            <div class="vph-icon">✅</div>
+            <div class="vph-text"><strong>VPH-AR positivo + citología NEGATIVA</strong> → <strong>Repetir VPH-AR al año</strong> ★★</div>
+          </div>
+          <div style="margin-left:1.1rem;border-left:2px dashed #d0a060;padding-left:.6rem;font-size:.67rem;color:var(--muted);line-height:1.4;display:flex;flex-direction:column;gap:.12rem;">
+            <span>Si al año VPH-AR persiste positivo → <strong>colposcopia</strong></span>
+            <span>Si al año VPH-AR negativo → <strong>volver al cribado rutinario</strong> (cada 5 años)</span>
+          </div>
+        </div>
+        <div class="vph-row" style="margin-top:.15rem;">
+          <div class="vph-icon">🟢</div>
+          <div class="vph-text"><strong>VPH-AR negativo</strong> → Próximo cribado en 5 años</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA INTERVALOS -->
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.3rem;">Tabla resumen por edad y estado vacunal ★</div>
+    <table class="int-table">
+      <thead>
+        <tr>
+          <th>Edad</th>
+          <th>Estado vacunal VPH</th>
+          <th>Prueba primaria</th>
+          <th>Intervalo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>25–29 años</strong></td>
+          <td style="font-size:.68rem;">Sin protección adecuada</td>
+          <td><span style="color:var(--ccr);font-weight:700;">Citología</span></td>
+          <td>Cada <strong>3 años</strong></td>
+        </tr>
+        <tr>
+          <td><strong>25–29 años</strong></td>
+          <td style="font-size:.68rem;">Con protección adecuada por vacunación</td>
+          <td><span style="color:var(--ccr);font-weight:700;">Citología</span> (puede diferirse a 30 a.)</td>
+          <td>Cada 3 años o inicio a 30</td>
+        </tr>
+        <tr>
+          <td><strong>30–65 años ★★</strong></td>
+          <td style="font-size:.68rem;">Independientemente del estado vacunal</td>
+          <td><span style="color:var(--vph);font-weight:700;">VPH-AR</span></td>
+          <td>Cada <strong>5 años</strong></td>
+        </tr>
+        <tr>
+          <td><strong>&gt;65 años</strong></td>
+          <td style="font-size:.68rem;">Con cribados previos adecuados y negativos</td>
+          <td colspan="2" style="font-size:.68rem;">Fin del cribado</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background:#fef0f0;border:1px solid #e09090;border-radius:5px;padding:.4rem .65rem;font-size:.69rem;color:var(--muted);">
+      <strong style="color:var(--alarm);">★★ Perla INGESA:</strong> VPH-AR positivo → siempre hacer citología de triaje. Si citología negativa → repetir VPH-AR al año (no colposcopia directa). Si citología positiva (cualquier grado ASC-US o mayor) → colposcopia.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ IV. CRIBADO MAMA ═══ -->
+<div class="sdiv"><span>🩺 IV. Cribado de Cáncer de Mama</span></div>
+<div class="prog-card" style="margin-bottom:.7rem;">
+  <div class="prog-head" style="border-left-color:var(--mujer);background:#f5eefa;">
+    <div class="prog-ht" style="color:var(--mujer);">Programa SNS</div>
+    <div class="prog-title" style="color:var(--mujer);">Mamografía de Screening</div>
+  </div>
+  <div class="prog-body" style="flex-direction:row;flex-wrap:wrap;gap:.5rem;">
+    <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:.22rem;">
+      <div class="prog-row"><strong>Población diana:</strong> mujeres 50–69 años ★★</div>
+      <div class="prog-row"><strong>Prueba:</strong> mamografía bilateral</div>
+      <div class="prog-row"><strong>Intervalo:</strong> cada 2 años ★★ (bienal)</div>
+    </div>
+    <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:.22rem;">
+      <div class="prog-row"><strong>Resultado positivo →</strong> mamografía adicional ± ecografía ± biopsia</div>
+      <div class="prog-row"><strong>Alto riesgo (BRCA1/2, antecedente familiar):</strong> inicio a los 30–40 años, RM mamaria anual según protocolo específico</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ V. VACUNAS ESPECIALES ═══ -->
+<div class="sdiv"><span>💉 V. Vacunaciones especiales ★★</span></div>
+
+<div class="vac-wrap">
+  <div class="vac-card">
+    <div class="vac-head" style="border-left-color:var(--alarm);background:#fef0f0;">
+      <div class="vac-title" style="color:var(--alarm);">🐺 Pauta rabia preexposición ★★</div>
+      <div style="font-size:.62rem;color:var(--muted);">Recomendación Ministerio de Sanidad · personas de riesgo</div>
+    </div>
+    <div class="vac-body">
+      <div class="vac-row"><strong>Pauta:</strong> <span class="pauta">Días 0 – 7 – 21 ó 28</span> — 3 dosis ★★</div>
+      <div class="vac-row"><strong>Vía:</strong> intramuscular (deltoides en adultos)</div>
+      <div class="vac-row"><strong>Indicada en:</strong> veterinarios, trabajadores de laboratorio con virus rábico, personal de refugios de animales, espeleólogos, viajeros a zonas endémicas con estancia &gt;1 mes</div>
+      <div class="vac-row"><strong>★★ INGESA:</strong> murciélagos = riesgo de rabia en España (único vector animal terrestre activo). Exposición con murciélagos → valorar profilaxis</div>
+      <div class="vac-row"><strong>Postexposición (sin previa):</strong> días 0–3–7–14–28 (5 dosis) + inmunoglobulina antirrábica en heridas de categoría III</div>
+      <div style="background:#fef0f0;border:1px solid #e09090;border-radius:4px;padding:.3rem .5rem;font-size:.67rem;color:var(--alarm);margin-top:.1rem;">
+        <strong>Regla mnemotécnica:</strong> PRE = 0–7–21/28 · POST (sin vacuna previa) = 0–3–7–14–28 ★★
+      </div>
+    </div>
+  </div>
+
+  <div class="vac-card">
+    <div class="vac-head" style="border-left-color:var(--mujer);background:#f5eefa;">
+      <div class="vac-title" style="color:var(--mujer);">🤰 Tos ferina en embarazo ★★</div>
+      <div style="font-size:.62rem;color:var(--muted);">Tdap · Ministerio de Sanidad · Calendario vacunal oficial</div>
+    </div>
+    <div class="vac-body">
+      <div class="vac-row"><strong>Pauta:</strong> <span class="pauta" style="background:#f5eefa;color:var(--mujer);border-color:var(--mujer);">1 dosis Tdap en CADA embarazo</span> ★★</div>
+      <div class="vac-row"><strong>Independientemente del estado vacunal previo</strong> de la madre — incluso si tuvo Tdap hace menos de 1 año</div>
+      <div class="vac-row"><strong>Semana óptima:</strong> 27–36 de gestación (preferiblemente semana 27–32)</div>
+      <div class="vac-row"><strong>Objetivo:</strong> transferencia de anticuerpos maternos al recién nacido antes de que pueda recibir sus propias vacunas (protege en primeros meses de vida)</div>
+      <div class="vac-row"><strong>Embarazo actual = nueva indicación</strong> aunque ya tenga historia vacunal completa ★★</div>
+      <div style="background:#f5eefa;border:1px solid #c090e0;border-radius:4px;padding:.3rem .5rem;font-size:.67rem;color:var(--mujer);margin-top:.1rem;">
+        Recuerda también: gripe (cualquier trimestre) y COVID-19 se recomiendan en embarazo
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRAMAS CRÓNICOS -->
+<div class="sdiv"><span>📋 VI. Programa de Crónicos en AP — actividades clave</span></div>
+<div class="two-col">
+  <div class="prog-card">
+    <div class="prog-head" style="border-left-color:var(--gold);background:#fef8e8;">
+      <div class="prog-ht" style="color:var(--gold);">Actividades preventivas — PAPPS</div>
+      <div class="prog-title" style="color:var(--gold);">Programa de Actividades Preventivas y PS</div>
+    </div>
+    <div class="prog-body">
+      <div class="prog-row"><strong>HTA:</strong> determinación PA en adultos ≥18 años cada 4–5 años si normal (&lt;140/90); anual si PA normal-alta o factores de riesgo</div>
+      <div class="prog-row"><strong>DM2:</strong> glucemia basal en ≥45 años o con factores de riesgo; repetir cada 3 años si normal</div>
+      <div class="prog-row"><strong>Colesterol:</strong> determinación periódica en adultos, especialmente con factores de riesgo cardiovascular</div>
+      <div class="prog-row"><strong>Consumo tabaco:</strong> consejo breve en cada visita — las 5 A (Ask, Advise, Assess, Assist, Arrange) ★</div>
+      <div class="prog-row"><strong>IMC y perímetro abdominal:</strong> en cada visita programada</div>
+    </div>
+  </div>
+  <div class="prog-card">
+    <div class="prog-head" style="border-left-color:var(--ccr);background:#e8f2fa;">
+      <div class="prog-ht" style="color:var(--ccr);">Seguimiento de crónicos en AP</div>
+      <div class="prog-title" style="color:var(--ccr);">Modelos de Atención a la Cronicidad</div>
+    </div>
+    <div class="prog-body">
+      <div class="prog-row"><strong>Modelo de Atención a Enfermedades Crónicas (MacColl):</strong> base del modelo de AP para crónicos en España</div>
+      <div class="prog-row"><strong>Estratificación de riesgo:</strong> pirámide Kaiser Permanente — 3 niveles (autocuidado, gestión de enfermedad, gestión de casos)</div>
+      <div class="prog-row"><strong>Rol enfermero:</strong> educación terapéutica, revisión de inhaladores, adherencia farmacológica, cribado de complicaciones</div>
+      <div class="prog-row"><strong>Plan de cuidados personalizado:</strong> objetivos pactados, automanejo, seguimiento telefónico / telemedicina</div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Resumen para el examen — perlas INGESA Bloque 1</div>
+  <div class="memo-t">
+    CCR: <strong>50–69 años</strong>, TSOH bienal, positivo → colonoscopia ★★ ·
+    Cérvix: 25–34 → citología c/3 años; <strong>30–65 → VPH-AR c/5 años</strong> ★★ ·
+    VPH+ cito-: <strong>repetir VPH al año</strong> (no colonoscopia directa) ★★ ·
+    Mama: <strong>50–69 años mamografía bienal</strong> ★★ ·
+    Rabia preexposición: <strong>0–7–21/28</strong> ★★ ·
+    Tos ferina: <strong>1 dosis Tdap en CADA embarazo</strong>, independientemente de vacuna previa ★★
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Programas AP y Cribados · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es la edad diana y periodicidad del cribado de CCR en el SNS?</div><div class="qa"><strong>50–69 años</strong>, test sangre oculta en heces cada <strong>2 años</strong> (bienal) ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué prueba primaria de cribado usa el programa de cérvix en mujeres de 30–65 años?</div><div class="qa"><strong>VPH de alto riesgo (VPH-AR)</strong>, cada 5 años ★★</div></div>
+    <div class="qb"><div class="qt">Una mujer de 42 años tiene VPH-AR positivo y citología negativa. ¿Qué se hace?</div><div class="qa"><strong>Repetir VPH-AR al año</strong> — citología negativa no implica colposcopia directa ★★</div></div>
+    <div class="qb"><div class="qt">Una mujer de 35 años tiene VPH-AR positivo y citología con ASC-US. ¿Qué se hace?</div><div class="qa"><strong>Colposcopia</strong> — citología positiva (ASC-US o mayor) = derivar a colposcopia ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuántas dosis de Tdap necesita una embarazada que ya fue vacunada hace 6 meses?</div><div class="qa"><strong>1 dosis Tdap en cada embarazo</strong>, independientemente del estado vacunal previo ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la pauta de vacuna antirrábica preexposición?</div><div class="qa"><strong>Días 0–7–21/28</strong> (3 dosis) ★★</div></div>
+    <div class="qb"><div class="qt">¿En qué semana de gestación se recomienda la Tdap en embarazo?</div><div class="qa"><strong>Semana 27–36</strong>, preferiblemente 27–32 ★</div></div>
+    <div class="qb"><div class="qt">Un resultado de TSOH positivo en el cribado CCR, ¿qué significa necesariamente?</div><div class="qa"><strong>No significa cáncer</strong> — hemorroides y pólipos benignos también dan positivo. Requiere colonoscopia confirmatoria ★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la edad de inicio del cribado mamográfico de la población general en España?</div><div class="qa"><strong>50 años</strong> — mamografía bilateral cada 2 años hasta los 69 ★★</div></div>
+    <div class="qb"><div class="qt">¿En qué consiste el cribado metabólico neonatal (Guthrie)?</div><div class="qa">Muestra de sangre en papel al <strong>3.º–5.º día</strong> de vida — cribado de hipotiroidismo, fenilcetonuria, FQ y otras metabolopatías ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

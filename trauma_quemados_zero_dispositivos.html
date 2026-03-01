@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trauma · Quemados · Proyectos Zero · Dispositivos · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  --trauma:#8a3aaa;   /* violeta — trauma */
+  --quem:#b55e1a;     /* naranja — quemados */
+  --bact:#1a5a8a;     /* azul — bacteriemia */
+  --navm:#2a7a3a;     /* verde — neumonía */
+  --itu:#b83030;      /* rojo — ITU */
+  --disp:#7a5500;     /* marrón — dispositivos */
+  --alarm:#b83030;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--trauma);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--quem);font-style:italic;}
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+@media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+
+/* TARJETA GENERAL */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.c-head{padding:.55rem .85rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.c-ht{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.05rem;}
+.c-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.c-body{padding:.6rem .85rem;display:flex;flex-direction:column;gap:.22rem;}
+.c-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.35rem;align-items:flex-start;}
+.c-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:.05rem;}
+.c-row strong{color:var(--text);}
+.star2{display:inline-block;background:#fef0f0;border:1px solid #e09090;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:.45rem;color:var(--alarm);padding:.02rem .3rem;font-weight:700;vertical-align:middle;margin-left:.2rem;}
+
+/* ABCDE */
+.abcde{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.6rem;}
+.abcde-row{display:flex;gap:.5rem;align-items:stretch;}
+.abcde-letter{width:1.8rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:4px;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;}
+.abcde-content{flex:1;padding:.35rem .6rem;border-radius:5px;border:1px solid;font-size:.7rem;line-height:1.4;}
+.abcde-content strong{display:block;margin-bottom:.04rem;}
+
+/* WALLACE */
+.wallace-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.wallace-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);}
+.wallace-body{padding:.7rem .9rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem;align-items:start;}
+@media(max-width:580px){.wallace-body{grid-template-columns:1fr;}}
+
+.body-figure{display:grid;grid-template-columns:1fr;gap:.25rem;max-width:280px;}
+.bf-row{display:flex;gap:.4rem;align-items:center;font-size:.69rem;}
+.bf-zone{min-width:120px;padding:.2rem .5rem;border-radius:3px;border:1px solid;font-weight:700;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.63rem;}
+.bf-pct{font-weight:700;color:var(--quem);min-width:2.5rem;text-align:right;}
+.bf-note{color:var(--muted);}
+
+.parkland-box{background:#fef3e8;border:2px solid var(--quem);border-radius:8px;padding:.6rem .85rem;margin-bottom:.5rem;}
+.pk-lbl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.15em;color:var(--quem);margin-bottom:.1rem;}
+.pk-formula{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:700;color:var(--quem);margin-bottom:.1rem;}
+.pk-text{font-size:.7rem;color:var(--text);line-height:1.5;}
+
+/* PROYECTOS ZERO */
+.zero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-bottom:.7rem;}
+@media(max-width:700px){.zero-grid{grid-template-columns:1fr;}}
+
+.zero-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.z-head{padding:.55rem .85rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.z-ht{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.05rem;}
+.z-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.z-body{padding:.6rem .85rem;display:flex;flex-direction:column;gap:.22rem;}
+.z-row{font-size:.69rem;color:var(--muted);line-height:1.35;display:flex;gap:.3rem;align-items:flex-start;}
+.z-row::before{content:'✓';color:var(--navm);font-weight:900;flex-shrink:0;}
+.z-row.no::before{content:'✗';color:var(--alarm);}
+.z-row strong{color:var(--text);}
+.z-alert{background:#fef0f0;border:1px solid #e09090;border-radius:4px;padding:.28rem .5rem;font-size:.64rem;color:var(--alarm);line-height:1.35;margin-top:.08rem;}
+.z-good{background:#eef7f0;border:1px solid #90c8a0;border-radius:4px;padding:.28rem .5rem;font-size:.64rem;color:var(--navm);line-height:1.35;margin-top:.08rem;}
+
+/* TABLA */
+.etab{width:100%;border-collapse:collapse;font-size:.69rem;margin-bottom:.5rem;}
+.etab th{padding:.38rem .6rem;background:var(--s3);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;letter-spacing:.1em;text-align:left;color:var(--muted);}
+.etab td{padding:.38rem .6rem;border:1px solid var(--border);vertical-align:top;line-height:1.35;}
+.etab tr:nth-child(even){background:var(--s2);}
+
+/* MEMO + TEST */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.72rem;color:var(--text);font-weight:600;line-height:1.6;}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#f5eefa;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--trauma);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;} .qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--trauma);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🚨 Urgencias · Bloque 2</div>
+  <h1>Trauma · <em>Quemados</em> · Proyectos Zero · Dispositivos</h1>
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;">ATLS · Parkland · SEMICYUC · Bacteriemia/Neumonía/ITU Zero</p>
+</header>
+
+<!-- ═══ I. TRAUMA GRAVE — ABCDE ═══ -->
+<div class="sdiv"><span>🚑 I. Trauma grave — evaluación ABCDE (ATLS/PHTLS) ★★</span></div>
+
+<div class="abcde" style="max-width:700px;margin:0 auto .7rem;">
+  <div class="abcde-row">
+    <div class="abcde-letter" style="background:#fef0f0;color:var(--alarm);">A</div>
+    <div class="abcde-content" style="background:#fef0f0;border-color:#e09090;">
+      <strong style="color:var(--alarm);">Airway — Vía Aérea con control cervical ★★</strong>
+      Permeabilizar VA (tracción mandibular NO hiperextensión en trauma) · Inmovilización cervical manual → collarín cervical · Intubación si imposible mantener VA · Cricotiroidotomía si VA imposible
+    </div>
+  </div>
+  <div class="abcde-row">
+    <div class="abcde-letter" style="background:#e8f0fa;color:var(--bact);">B</div>
+    <div class="abcde-content" style="background:#e8f0fa;border-color:#a0c0e0;">
+      <strong style="color:var(--bact);">Breathing — Ventilación y oxigenación ★★</strong>
+      Examinar tórax bilateralmente · Descartar: neumotórax a tensión (↓ MV + desviación traquea + IY) · neumotórax abierto · volet costal · hemotórax masivo · O₂ alto flujo en todos los traumatismos graves
+    </div>
+  </div>
+  <div class="abcde-row">
+    <div class="abcde-letter" style="background:#fef0f0;color:var(--trauma);">C</div>
+    <div class="abcde-content" style="background:#f5eefa;border-color:#c090e0;">
+      <strong style="color:var(--trauma);">Circulation — Control de la hemorragia ★★</strong>
+      Compresión directa de hemorragias externas · 2 accesos IV gruesos (≥16G) · 1 L cristaloides (no sobrefluidificar en hemorragia activa — hemostasia permisiva) · Hemoderivados: 1:1:1 (plaquetas:plasma:hematíes) en hemorragia masiva ★ · TXA si &lt;3 h del trauma
+    </div>
+  </div>
+  <div class="abcde-row">
+    <div class="abcde-letter" style="background:#eef7f0;color:var(--navm);">D</div>
+    <div class="abcde-content" style="background:#eef7f0;border-color:#90c8a0;">
+      <strong style="color:var(--navm);">Disability — Estado neurológico ★★</strong>
+      GCS (Escala de Glasgow, max 15) · Pupilas (isocoria, midriasis, anisocoria) · Glucemia capilar · AVPU: Alert-Voice-Pain-Unresponsive (evaluación rápida)
+    </div>
+  </div>
+  <div class="abcde-row">
+    <div class="abcde-letter" style="background:#fef8e8;color:var(--gold);">E</div>
+    <div class="abcde-content" style="background:#fef8e8;border-color:#d0a840;">
+      <strong style="color:var(--gold);">Exposure — Exposición y entorno ★</strong>
+      Desnudar al paciente para exploración completa · Prevenir hipotermia (mantas térmicas, sueros calientes) · Temperatura ambiental adecuada
+    </div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="card">
+    <div class="c-head" style="border-left-color:var(--trauma);background:#f5eefa;">
+      <div class="c-ht" style="color:var(--trauma);">Triada letal del trauma ★★</div>
+      <div class="c-title" style="color:var(--trauma);">Hipotermia · Acidosis · Coagulopatía</div>
+    </div>
+    <div class="c-body">
+      <div class="c-row"><strong>Hipotermia</strong> (&lt;35 °C) → altera función plaquetaria y factores de coagulación → más sangrado</div>
+      <div class="c-row"><strong>Acidosis</strong> (pH &lt;7,35) → disfunción enzimática de los factores de coagulación</div>
+      <div class="c-row"><strong>Coagulopatía</strong> → hemorragia incontrolable → más hipotermia y acidosis → círculo vicioso</div>
+      <div class="c-row"><strong>Control de daños (Damage Control Surgery):</strong> hemostasia quirúrgica rápida + UCI para corregir triada + cirugía definitiva tardía</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="c-head" style="border-left-color:var(--alarm);background:#fef0f0;">
+      <div class="c-ht" style="color:var(--alarm);">Traumatismo craneoencefálico (TCE)</div>
+      <div class="c-title" style="color:var(--alarm);">Monitorización y cuidados UCI ★</div>
+    </div>
+    <div class="c-body">
+      <div class="c-row"><strong>PIC normal:</strong> &lt;20 mmHg · <strong>PPC objetivo:</strong> 60-70 mmHg (PPC = PAM – PIC) ★</div>
+      <div class="c-row"><strong>Posición:</strong> cabecero 30° · cabeza en posición neutra (evitar rotación/flexión)</div>
+      <div class="c-row"><strong>Hiperventilación:</strong> solo en herniación inminente (PaCO₂ 35-40 mmHg objetivo)</div>
+      <div class="c-row"><strong>Manitol o SSH hipertónica:</strong> en hipertensión intracraneal con herniación ★</div>
+      <div class="c-row"><strong>Normoglucemia, normotermia:</strong> la hiperglucemia e hiperpirexia agravan el daño secundario</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ II. QUEMADURAS ═══ -->
+<div class="sdiv"><span>🔥 II. Quemaduras — Wallace y Parkland ★★</span></div>
+
+<div class="wallace-wrap">
+  <div class="wallace-head" style="border-left:5px solid var(--quem);background:#fef3e8;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--quem);">Regla de los 9 de Wallace — Cálculo de la SCQ ★★</div>
+    <div style="font-size:.63rem;color:var(--muted);">SCQ = Superficie Corporal Quemada · No incluir quemaduras de 1.º grado (solo eritema)</div>
+  </div>
+  <div class="wallace-body">
+    <div>
+      <div class="body-figure">
+        <div class="bf-row"><div class="bf-zone" style="background:#fef0f0;border-color:#e09090;color:var(--alarm);">Cabeza y cuello</div><div class="bf-pct">9%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:#fef3e8;border-color:#d0a060;color:var(--quem);">Tronco anterior</div><div class="bf-pct">18%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:#fef3e8;border-color:#d0a060;color:var(--quem);">Tronco posterior</div><div class="bf-pct">18%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:#e8f0fa;border-color:#a0c0e0;color:var(--bact);">Brazo derecho completo</div><div class="bf-pct">9%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:#e8f0fa;border-color:#a0c0e0;color:var(--bact);">Brazo izquierdo completo</div><div class="bf-pct">9%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:#eef7f0;border-color:#90c8a0;color:var(--navm);">Pierna derecha completa</div><div class="bf-pct">18%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:#eef7f0;border-color:#90c8a0;color:var(--navm);">Pierna izquierda completa</div><div class="bf-pct">18%</div></div>
+        <div class="bf-row"><div class="bf-zone" style="background:var(--s2);border-color:var(--border);">Periné / genitales</div><div class="bf-pct">1%</div></div>
+        <div class="bf-row" style="margin-top:.3rem;"><div class="bf-zone" style="background:var(--goldbg);border-color:var(--gold);color:var(--gold);">TOTAL</div><div class="bf-pct" style="color:var(--gold);">100%</div></div>
+      </div>
+      <div style="font-size:.62rem;color:var(--muted);margin-top:.3rem;line-height:1.35;">
+        <strong>Lactante:</strong> cabeza=18%, piernas 13,5% cada una (regla de los 9 modificada Lund-Browder) ★
+      </div>
+    </div>
+    <div>
+      <div class="parkland-box">
+        <div class="pk-lbl">Fórmula de Parkland — reposición de líquidos ★★</div>
+        <div class="pk-formula">4 ml × kg × %SCQ</div>
+        <div class="pk-text">
+          Suero Ringer Lactato en las primeras <strong>24 horas</strong> · Sin incluir quemaduras de 1.º grado ·
+          <strong style="color:var(--quem);">50%</strong> en las primeras 8 h desde el momento de la quemadura (no del ingreso) ·
+          <strong style="color:var(--quem);">50%</strong> restante en las siguientes 16 h
+        </div>
+      </div>
+      <div style="background:#fef8e8;border:1px solid var(--gold);border-radius:5px;padding:.4rem .65rem;font-size:.69rem;margin-bottom:.4rem;">
+        <strong style="color:var(--gold);">Ejemplo tipo INGESA ★★:</strong> varón 70 kg con tronco anterior + ambos brazos + genitales quemados (2.º-3.º grado)<br>
+        SCQ = 18% (tronco ant.) + 9% + 9% (brazos) + 1% (genitales) = <strong>37%</strong><br>
+        Volumen = 4 × 70 × 37 = <strong>10.360 ml en 24 h</strong><br>
+        1.ª mitad (8 h) = 5.180 ml · 2.ª mitad (16 h) = 5.180 ml
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.2rem;font-size:.69rem;">
+        <div style="display:flex;gap:.3rem;align-items:flex-start;"><span style="color:var(--quem);font-weight:900;flex-shrink:0;">★</span><span style="color:var(--muted);"><strong>Indicación de unidad de quemados:</strong> SCQ ≥20% (adulto), ≥15% (niño/anciano), quemaduras de cara/manos/periné, quemadura circular, química/eléctrica, TCE asociado</span></div>
+        <div style="display:flex;gap:.3rem;align-items:flex-start;"><span style="color:var(--quem);font-weight:900;flex-shrink:0;">★</span><span style="color:var(--muted);"><strong>Quemadura de vía aérea:</strong> intubación precoz antes del edema (estridor, disfonía, vibrisas chamuscadas)</span></div>
+        <div style="display:flex;gap:.3rem;align-items:flex-start;"><span style="color:var(--quem);font-weight:900;flex-shrink:0;">★</span><span style="color:var(--muted);"><strong>Monitorización:</strong> diuresis 0,5-1 ml/kg/h = objetivo de reposición ★</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ III. PROYECTOS ZERO ═══ -->
+<div class="sdiv"><span>🛡️ III. Proyectos Zero UCI — SEMICYUC · Ministerio de Sanidad ★★</span></div>
+
+<div class="zero-grid">
+  <!-- BACTERIEMIA ZERO -->
+  <div class="zero-card">
+    <div class="z-head" style="border-left-color:var(--bact);background:#e8f0fa;">
+      <div class="z-ht" style="color:var(--bact);">CVC · Catéter venoso central</div>
+      <div class="z-title" style="color:var(--bact);">🩸 Bacteriemia Zero</div>
+    </div>
+    <div class="z-body">
+      <div style="font-size:.63rem;color:var(--muted);margin-bottom:.15rem;">Objetivo: &lt;3 episodios bacteriemia/1.000 días CVC</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--bact);margin:.1rem 0 .08rem;">Medidas básicas (OBLIGATORIAS)</div>
+      <div class="z-row"><strong>Higiene de manos</strong> antes y después de manipular el catéter</div>
+      <div class="z-row"><strong>Máximas barreras estériles</strong> en inserción (bata, guantes, gorro, mascarilla, campo amplio)</div>
+      <div class="z-row"><strong>Clorhexidina alcohólica 2%</strong> para antisepsia de piel en inserción ★★</div>
+      <div class="z-row"><strong>Vía subclavia</strong> preferida (menor tasa de infección) frente a femoral ★</div>
+      <div class="z-row"><strong>Revisar diariamente</strong> la necesidad del catéter → retirar en cuanto no sea necesario</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--bact);margin:.15rem 0 .08rem;">Medida opcional ★★</div>
+      <div class="z-row"><strong>Baño diario con clorhexidina</strong> 2% en paciente UCI</div>
+      <div class="z-good"><strong>★★ INGESA:</strong> baño con clorhexidina = medida OPCIONAL (no obligatoria) del Bacteriemia Zero</div>
+    </div>
+  </div>
+
+  <!-- NEUMONIA ZERO -->
+  <div class="zero-card">
+    <div class="z-head" style="border-left-color:var(--navm);background:#eef7f0;">
+      <div class="z-ht" style="color:var(--navm);">VM · NAVM · Actualización 2022</div>
+      <div class="z-title" style="color:var(--navm);">🫁 Neumonía Zero</div>
+    </div>
+    <div class="z-body">
+      <div style="font-size:.63rem;color:var(--muted);margin-bottom:.15rem;">Objetivo: &lt;7 episodios NAVM/1.000 días VM</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--navm);margin:.1rem 0 .08rem;">Medidas fuertemente recomendadas ★★</div>
+      <div class="z-row"><strong>Posición semisentada</strong> 30-45° cabecero ★★</div>
+      <div class="z-row"><strong>Higiene de manos estricta</strong> antes de manipular VA</div>
+      <div class="z-row"><strong>Higiene oral con clorhexidina 0,12-0,2%</strong> ★★</div>
+      <div class="z-row"><strong>Tubos traqueales con aspiración subglótica continua</strong> a baja presión ★★ — revisar funcionamiento cada 8 h</div>
+      <div class="z-row"><strong>Control presión neumotaponamiento</strong> 20-30 cmH₂O — control continuo preferible; en su defecto cada 8 h y tras cambios posturales ★★</div>
+      <div class="z-row"><strong>No cambio programado</strong> de tubuladuras del respirador (&lt;7 días) ★</div>
+      <div class="z-row"><strong>Valoración diaria de extubación</strong> + protocolo de destete</div>
+      <div class="z-good"><strong>★★ Perla INGESA:</strong> aspiración subglótica CONTINUA + control neumotaponamiento cada 8 h = las más preguntadas</div>
+    </div>
+  </div>
+
+  <!-- ITU ZERO -->
+  <div class="zero-card">
+    <div class="z-head" style="border-left-color:var(--itu);background:#fef0f0;">
+      <div class="z-ht" style="color:var(--itu);">SV · Sondaje vesical · ITU-ITUAC</div>
+      <div class="z-title" style="color:var(--itu);">🚿 ITU Zero</div>
+    </div>
+    <div class="z-body">
+      <div style="font-size:.63rem;color:var(--muted);margin-bottom:.15rem;">ITU asociada a catéter urinario (ITUAC)</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--itu);margin:.1rem 0 .08rem;">Medidas ★★</div>
+      <div class="z-row"><strong>Técnica estéril</strong> en inserción del sondaje vesical ★★</div>
+      <div class="z-row"><strong>Sistema de drenaje cerrado</strong> siempre ★★</div>
+      <div class="z-row"><strong>Flujo libre de orina</strong> — bolsa siempre por debajo de la vejiga, sin acodamientos ★★</div>
+      <div class="z-row"><strong>Higiene del meato uretral</strong> con agua y jabón (no antisépticos, no cremas)</div>
+      <div class="z-row"><strong>Revisar diariamente</strong> la necesidad de la sonda → retirar lo antes posible</div>
+      <div class="z-row"><strong>Indicaciones correctas</strong> de sondaje (no usar para incontinencia sin causa justificada)</div>
+      <div class="z-alert"><strong>★★ NO hacer en ITU-Zero:</strong> lavados vesicales (irrigación intravesical) — aumentan riesgo de infección y contaminan el sistema cerrado ★★</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ IV. DISPOSITIVOS INVASIVOS ═══ -->
+<div class="sdiv"><span>🔌 IV. Seguridad en dispositivos invasivos ★★</span></div>
+
+<div class="two-col">
+  <!-- CATÉTERES -->
+  <div class="card">
+    <div class="c-head" style="border-left-color:var(--bact);background:#e8f0fa;">
+      <div class="c-ht" style="color:var(--bact);">Accesos vasculares centrales</div>
+      <div class="c-title" style="color:var(--bact);">Catéteres: CVC · PICC · PVC ★★</div>
+    </div>
+    <div class="c-body">
+      <div class="c-row"><strong>Verificación posición CVC:</strong> Rx tórax post-inserción — punta en unión aurículo-cava (no en aurícula) ★</div>
+      <div class="c-row"><strong>Cura:</strong> apósito transparente semipermeable, renovar cada 7 días o antes si está mojado/despegado · apósito con clorhexidina si alto riesgo ★</div>
+      <div class="c-row"><strong>Bioconectores/conectores sin aguja:</strong> desinfectar con clorhexidina o alcohol 70% antes de cada uso ("scrub the hub") ★★</div>
+      <div class="c-row"><strong>Cambio de sistemas de infusión:</strong> cada 96 h en infusiones estándar · cada 24 h en lípidos/NP/hemoderivados ★</div>
+      <div class="c-row"><strong>PICC:</strong> no manipular la vía sin necesidad · cambio de bioconectores cada 7 días según protocolos habituales <span class="star2">★ probable INGESA</span></div>
+      <div class="c-row"><strong>Complicaciones CVC:</strong> neumotórax (inserción), trombosis, embolismo aéreo, bacteriemia relacionada con catéter (BRC)</div>
+    </div>
+  </div>
+
+  <!-- SONDA VESICAL -->
+  <div class="card">
+    <div class="c-head" style="border-left-color:var(--itu);background:#fef0f0;">
+      <div class="c-ht" style="color:var(--itu);">Sondaje uretrovesical</div>
+      <div class="c-title" style="color:var(--itu);">Sonda Foley — cuidados y alarmas ★★</div>
+    </div>
+    <div class="c-body">
+      <div class="c-row"><strong>Inserción:</strong> técnica estéril + lubricante + maniobra suave (no forzar) ★★</div>
+      <div class="c-row"><strong>Sistema cerrado siempre:</strong> no desconectar bolsa excepto cambio programado ★★</div>
+      <div class="c-row"><strong>Posición bolsa:</strong> siempre por debajo vejiga y suelo · nunca en suelo directamente ★★</div>
+      <div class="c-row"><strong>Vaciado bolsa:</strong> antes de que llegue al 75% de su capacidad · usar recipiente limpio diferente para cada paciente</div>
+      <div class="c-row"><strong>Higiene:</strong> zona perineal con agua y jabón cada 8 h · no antisépticos ni cremas habituales</div>
+      <div class="c-row"><strong>Alarmas:</strong> hematuria intensa, orina turbia/maloliente + fiebre, anuria, bypass urinario (pérdida por fuera de la sonda) → valorar</div>
+    </div>
+  </div>
+</div>
+
+<div class="two-col">
+  <!-- DRENAJE PLEURAL -->
+  <div class="card">
+    <div class="c-head" style="border-left-color:var(--disp);background:#fef8e8;">
+      <div class="c-ht" style="color:var(--disp);">Drenaje torácico</div>
+      <div class="c-title" style="color:var(--disp);">Drenaje pleural — manejo y alarmas ★★</div>
+    </div>
+    <div class="c-body">
+      <div class="c-row"><strong>Indicaciones:</strong> neumotórax &gt;20%, hemotórax, derrame pleural sintomático, quilotórax, empiema</div>
+      <div class="c-row"><strong>Sistema de drenaje:</strong> trampa de agua (cámara de sello de agua) o aspiración activa · sistema cerrado estéril</div>
+      <div class="c-row"><strong>Cuidados normales:</strong> verificar fluctuación (oscilación respiratoria) y burbujeo (si hay fuga aérea activa) ★</div>
+      <div class="c-row"><strong>NO pinzar sistemáticamente:</strong> solo en indicaciones específicas (traslado corto, neumotórax resuelto) ★</div>
+      <div class="c-row"><strong>Cambio de apósito:</strong> técnica estéril con vigilancia de punto de inserción</div>
+      <div style="background:#fef0f0;border:1px solid #e09090;border-radius:4px;padding:.3rem .5rem;font-size:.66rem;color:var(--alarm);line-height:1.35;margin-top:.1rem;">
+        <strong>★★ Signos de alarma — evaluar SISTEMA:</strong><br>
+        • Fiebre + purulencia → infección del tracto / empiema<br>
+        • Disnea súbita → obstrucción del drenaje / neumotórax residual<br>
+        • Enfisema subcutáneo progresivo → fuga aérea o mala posición<br>
+        • Quilotórax (líquido lechoso blanco) → lesión de ducto torácico<br>
+        • Sangrado &gt;200 ml/h → hemotórax activo → valorar cirugía
+      </div>
+    </div>
+  </div>
+
+  <!-- SNG/SNE Y OTROS -->
+  <div class="card">
+    <div class="c-head" style="border-left-color:var(--navm);background:#eef7f0;">
+      <div class="c-ht" style="color:var(--navm);">Accesos digestivos y otros</div>
+      <div class="c-title" style="color:var(--navm);">SNG · SNE · TET · Traqueostomía ★</div>
+    </div>
+    <div class="c-body">
+      <div class="c-row"><strong>Verificación SNG:</strong> aspirado gástrico (pH &lt;5) o Rx para confirmar posición antes de iniciar alimentación ★★</div>
+      <div class="c-row"><strong>Nutrición enteral precoz:</strong> iniciar dentro de las primeras 24-48 h en paciente crítico · postpilórica si intolerancia gástrica</div>
+      <div class="c-row"><strong>TET — fijación:</strong> verificar posición con auscultación + capnografía · anotar cm en labio ★</div>
+      <div class="c-row"><strong>Traqueostomía precoz:</strong> si se prevé VM &gt;14 días según Neumonía Zero · facilita higiene oral y movilización</div>
+      <div class="c-row"><strong>Cambio cánula traqueostomía:</strong> no antes de 5-7 días del estoma (riesgo de decanulación accidental) ★</div>
+      <div class="c-row"><strong>Monitorización:</strong> SpO₂ continua en todo paciente con VA artificial · alarmas de desconexión siempre activas</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUMEN PROYECTOS ZERO TABLA -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.55rem .85rem;border-bottom:1px solid var(--border);background:var(--s3);">
+    <div style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;">Resumen comparativo — Proyectos Zero ★★</div>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="etab">
+      <thead><tr><th>Proyecto</th><th>Infección objetivo</th><th>NO hacer ★★</th><th>SÍ hacer ★★</th><th>Medida opcional ★★</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--bact);">Bacteriemia Zero</strong></td>
+          <td>BRC (CVC)</td>
+          <td>—</td>
+          <td>Clorhexidina 2% en piel · Máximas barreras · Vía subclavia preferida · Retirada precoz</td>
+          <td style="color:var(--bact);font-weight:600;">Baño diario con clorhexidina UCI ★★</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--navm);">Neumonía Zero</strong></td>
+          <td>NAVM (VM)</td>
+          <td>Cambio programado de tubuladuras</td>
+          <td>Semisentado 30-45° · Aspiración subglótica continua ★★ · Control neumotaponamiento 20-30 cmH₂O cada 8 h ★★ · Higiene oral clorhexidina</td>
+          <td>DSD (descontaminación selectiva digestiva)</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--itu);">ITU Zero</strong></td>
+          <td>ITUAC (sonda)</td>
+          <td style="color:var(--alarm);font-weight:600;">Lavados vesicales ★★</td>
+          <td>Sistema cerrado ★★ · Flujo libre ★★ · Técnica estéril inserción ★★ · Retirada precoz</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Perlas INGESA — Trauma · Quemados · Zero · Dispositivos</div>
+  <div class="memo-t">
+    ABCDE trauma: <strong>A=VA + control cervical (sin hiperextensión)</strong> ★★ ·
+    Parkland: <strong>4 ml × kg × %SCQ en 24 h</strong>, 50% en primeras 8 h ★★ ·
+    Wallace: tronco ant=18%, tronco post=18%, cada brazo=9%, cada pierna=18%, cabeza=9%, periné=1% ★★ ·
+    ITU-Zero: <strong>NO lavados vesicales</strong> · SÍ sistema cerrado + flujo libre + técnica estéril ★★ ·
+    Neumonía-Zero: <strong>aspiración subglótica continua + neumotaponamiento 20-30 cmH₂O cada 8 h</strong> ★★ ·
+    Bacteriemia-Zero opcional: <strong>baño diario con clorhexidina en UCI</strong> ★★ ·
+    Drenaje pleural alarmas: <strong>fiebre + disnea + enfisema subcutáneo + quilotórax</strong> ★★
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Trauma · Quemados · Zero · Dispositivos · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es la fórmula de Parkland para reposición de líquidos en quemados?</div><div class="qa"><strong>4 ml × kg × %SCQ</strong> en las primeras 24 h (50% en las 1.ª 8 h) ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuánto representa el tronco anterior en la regla de Wallace?</div><div class="qa"><strong>18%</strong> de la SCQ (igual que tronco posterior) ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué medida está específicamente PROHIBIDA en el ITU-Zero?</div><div class="qa"><strong>Lavados vesicales</strong> (irrigación intravesical) — contaminan el sistema cerrado ★★</div></div>
+    <div class="qb"><div class="qt">¿Con qué frecuencia se debe controlar la presión del neumotaponamiento según Neumonía-Zero 2022?</div><div class="qa">Al menos cada <strong>8 horas y tras cambios posturales</strong> · óptimo: control continuo ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué tipo de aspiración recomienda fuertemente el Neumonía-Zero para los tubos traqueales?</div><div class="qa"><strong>Aspiración subglótica continua</strong> a baja presión ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la medida OPCIONAL (no obligatoria) del Bacteriemia-Zero?</div><div class="qa"><strong>Baño diario con clorhexidina</strong> en UCI ★★</div></div>
+    <div class="qb"><div class="qt">Un paciente quemado de 80 kg tiene el tronco posterior y ambas piernas afectadas (2.º grado). ¿Cuántos ml de Ringer Lactato en 24 h?</div><div class="qa">SCQ = 18+18+18 = 54% · Volumen = 4×80×54 = <strong>17.280 ml</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué signo en un drenaje pleural obliga a evaluar si hay lesión del conducto torácico?</div><div class="qa"><strong>Quilotórax</strong> (líquido lechoso de aspecto lechoso) ★★</div></div>
+    <div class="qb"><div class="qt">En el ABCDE del trauma grave, ¿cómo se abre la vía aérea?</div><div class="qa"><strong>Tracción mandibular</strong> (NO hiperextensión) — control cervical en todo trauma ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuáles son los tres componentes de la triada letal del trauma?</div><div class="qa"><strong>Hipotermia · Acidosis · Coagulopatía</strong> ★★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

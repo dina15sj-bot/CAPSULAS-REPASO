@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vacunación en el Embarazo · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#e0d5c0;--text:#252530;--muted:#7a7080;
+  --ok:#2a7a3a;--ok-d:#2a7a3a12;
+  --no:#b83030;--no-d:#b8303012;
+  --pre:#1a6faa;--pre-d:#1a6faa12;
+  --gold:#8a6a10;--gold-d:#c8a83a15;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);}
+.wrap{max-width:900px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--ok);color:white;padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.4rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--no);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.5rem;}
+
+.sdiv{display:flex;align-items:center;gap:0.7rem;margin:1.8rem 0 0.9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text);white-space:nowrap;padding:0.12rem 0.65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* LEYENDA */
+.legend{display:flex;gap:0.7rem;flex-wrap:wrap;margin-bottom:0.8rem;}
+.leg{display:inline-flex;align-items:center;gap:0.35rem;font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.2rem 0.6rem;border-radius:12px;border:1px solid;}
+.leg-ok{background:var(--ok-d);color:var(--ok);border-color:var(--ok)40;}
+.leg-no{background:var(--no-d);color:var(--no);border-color:var(--no)40;}
+.leg-pre{background:var(--pre-d);color:var(--pre);border-color:var(--pre)40;}
+
+/* GRID VACUNAS */
+.vac-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:580px){.vac-grid{grid-template-columns:1fr;}}
+.vsec{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.vsec-head{padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.vsec-label{font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.06rem;}
+.vsec-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;}
+.vsec-body{padding:0.55rem 0;display:flex;flex-direction:column;}
+.vrow{display:flex;align-items:flex-start;gap:0.7rem;padding:0.5rem 0.8rem;border-bottom:1px solid var(--border)18;font-size:0.73rem;line-height:1.4;}
+.vrow:last-child{border-bottom:none;}
+.vbadge{font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;padding:0.1rem 0.4rem;border-radius:2px;flex-shrink:0;margin-top:0.12rem;text-transform:uppercase;}
+.badge-ok{background:var(--ok-d);color:var(--ok);border:1px solid var(--ok)40;}
+.badge-no{background:var(--no-d);color:var(--no);border:1px solid var(--no)40;}
+.vname{font-weight:700;font-size:0.74rem;}
+.vnote{color:var(--muted);font-size:0.69rem;line-height:1.35;margin-top:0.04rem;}
+.vnote strong{color:var(--text);}
+.star-mark{color:var(--gold);}
+
+/* CLAVE */
+.clave-box{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:0.7rem 0.85rem;margin-top:0.6rem;}
+.clave-t{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;margin-bottom:0.45rem;}
+.clave-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;}
+@media(max-width:480px){.clave-grid{grid-template-columns:1fr;}}
+.ci{background:var(--s2);border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.55rem;font-size:0.7rem;line-height:1.4;}
+.ci strong{color:var(--text);}
+
+/* PRE-CONCEPCIONAL */
+.pre-box{background:var(--pre-d);border:1px solid var(--pre)40;border-radius:7px;padding:0.65rem 0.85rem;border-left:4px solid var(--pre);}
+.pre-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--pre);margin-bottom:0.3rem;}
+.pre-body{font-size:0.72rem;color:var(--muted);line-height:1.5;}
+.pre-body strong{color:var(--text);}
+
+.memo{border-radius:5px;padding:0.5rem 0.8rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.6rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.1rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.74rem;line-height:1.5;}
+
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;background:#e8f5ec;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--ok);}
+.tbody{padding:0.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.73rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.15rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--ok);display:flex;align-items:flex-start;gap:0.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.61rem;color:var(--muted);margin-top:0.04rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">💉 Obstetricia preventiva</div>
+  <h1>Vacunación <em>segura</em> durante el embarazo</h1>
+  <p class="hsub">Recomendadas · Contraindicadas · Preconcepcional · INGESA 2026</p>
+</header>
+
+<div class="sdiv"><span>📋 Regla clave: virus vivos atenuados = contraindicados</span></div>
+
+<div class="legend">
+  <span class="leg leg-ok">✅ Recomendada en embarazo</span>
+  <span class="leg leg-no">🚫 Contraindicada en embarazo</span>
+  <span class="leg leg-pre">🕐 Dar antes del embarazo</span>
+</div>
+
+<div class="vac-grid">
+  <!-- RECOMENDADAS -->
+  <div class="vsec">
+    <div class="vsec-head" style="border-left-color:var(--ok);background:var(--ok-d);">
+      <div class="vsec-label" style="color:var(--ok);">Seguras — inactivadas o subunidades</div>
+      <div class="vsec-title" style="color:var(--ok);">✅ Vacunas Recomendadas</div>
+    </div>
+    <div class="vsec-body">
+      <div class="vrow">
+        <span class="vbadge badge-ok">✓</span>
+        <div>
+          <div class="vname">Gripe (Influenza)</div>
+          <div class="vnote">Segura en <strong>cualquier trimestre</strong> ★★ · recomendada si coincide con campaña de vacunación ★</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-ok">✓</span>
+        <div>
+          <div class="vname">Tos ferina — Tdap <span class="star-mark">★★</span></div>
+          <div class="vnote">Administrar entre <strong>semanas 27–36</strong> ★★ · transfiere inmunidad pasiva al RN para protegerlo en las primeras semanas de vida</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-ok">✓</span>
+        <div>
+          <div class="vname">Hepatitis B</div>
+          <div class="vnote">Indicada en mujeres <strong>no inmunizadas previamente</strong></div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-ok">✓</span>
+        <div>
+          <div class="vname">COVID-19</div>
+          <div class="vnote">Administrable según <strong>valoración clínica individual</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTRAINDICADAS -->
+  <div class="vsec">
+    <div class="vsec-head" style="border-left-color:var(--no);background:var(--no-d);">
+      <div class="vsec-label" style="color:var(--no);">Todas contienen virus vivos atenuados</div>
+      <div class="vsec-title" style="color:var(--no);">🚫 Vacunas Contraindicadas</div>
+    </div>
+    <div class="vsec-body">
+      <div class="vrow">
+        <span class="vbadge badge-no">✗</span>
+        <div>
+          <div class="vname">Triple vírica (SRP) <span class="star-mark">★★</span></div>
+          <div class="vnote">Sarampión + rubeola + paperas · virus <strong>atenuados</strong> → riesgo teórico para el feto ★★</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-no">✗</span>
+        <div>
+          <div class="vname">Varicela <span class="star-mark">★★</span></div>
+          <div class="vnote">Virus vivos atenuados — <strong>no administrar en ningún trimestre</strong> ★★</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-no">✗</span>
+        <div>
+          <div class="vname">VPH <span class="star-mark">★★</span></div>
+          <div class="vnote">Contraindicada durante la gestación · dar en consulta <strong>preconcepcional</strong> ★★</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-no">✗</span>
+        <div>
+          <div class="vname">Fiebre amarilla</div>
+          <div class="vnote">Virus atenuado peligroso para el desarrollo fetal</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-no">✗</span>
+        <div>
+          <div class="vname">Polio Sabin (oral)</div>
+          <div class="vnote">Variante de virus vivos — la Salk (inyectable) puede valorarse ★</div>
+        </div>
+      </div>
+      <div class="vrow">
+        <span class="vbadge badge-no">✗</span>
+        <div>
+          <div class="vname">Tifoidea oral</div>
+          <div class="vnote">Restringida en todo el periodo gestacional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POR QUÉ -->
+<div class="clave-box" style="margin-top:0.7rem;">
+  <div class="clave-t">🔑 ¿Por qué están contraindicadas las de virus vivos?</div>
+  <div class="clave-grid">
+    <div class="ci">Los virus <strong>vivos atenuados</strong> pueden <strong>atravesar la placenta</strong> y potencialmente afectar al feto en desarrollo ★★</div>
+    <div class="ci">Las vacunas <strong>inactivadas, toxoides o de subunidades</strong> no contienen partículas vivas → son seguras ★</div>
+    <div class="ci">Recomendación: <strong>Tdap semanas 27–36</strong> para transferir anticuerpos al RN antes del parto ★★</div>
+    <div class="ci">La gripe es especialmente prioritaria durante la campaña estacional por riesgo de complicaciones respiratorias graves maternas</div>
+  </div>
+</div>
+
+<!-- PRECONCEPCIONAL -->
+<div class="sdiv"><span>🕐 Vacunación preconcepcional — antes de quedar embarazada</span></div>
+
+<div class="pre-box">
+  <div class="pre-title">Consulta preconcepcional: vacunas a revisar ★★</div>
+  <div class="pre-body">
+    Si la mujer <strong>no está inmunizada</strong> contra rubeola o varicela, debe recibir las vacunas <strong>ANTES de iniciar la gestación</strong>.<br><br>
+    · <strong>Triple vírica (SRP)</strong> → confirmar inmunidad · si negativa, vacunar y esperar 1 mes antes de concebir ★★<br>
+    · <strong>Varicela</strong> → vacunar y esperar 1 mes antes de concebir ★★<br>
+    · <strong>VPH</strong> → idealmente administrar en la consulta preconcepcional ★<br><br>
+    <strong>Principio general:</strong> vacunas vivas atenuadas contraindicadas en el embarazo → administrar siempre <em>antes</em> y respetar intervalo.
+  </div>
+</div>
+
+<div class="memo">
+  <div class="ml">🧠 Regla mnemotécnica para el examen</div>
+  <div class="mt">RECOMENDADAS = <span style="color:var(--ok);">Gripe</span> (cualquier trimestre) + <span style="color:var(--ok);">Tdap 27–36 sem</span> + <span style="color:var(--ok);">Hep B</span> + <span style="color:var(--ok);">COVID</span> · CONTRAINDICADAS = todo lo vivo atenuado: <span style="color:var(--no);">SRP · Varicela · VPH · Fiebre amarilla · Sabin · Tifoidea oral</span> ★★</div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Vacunación en Embarazo · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿En qué semanas se administra la Tdap en el embarazo?</div><div class="qa"><strong>Semanas 27–36</strong> ★★</div><div class="qn">Objetivo: transferir inmunidad pasiva al RN</div></div>
+    <div class="qb"><div class="qt">¿Por qué está contraindicada la triple vírica?</div><div class="qa">Contiene <strong>virus vivos atenuados</strong> que pueden atravesar la placenta ★★</div></div>
+    <div class="qb"><div class="qt">¿En qué trimestre se puede poner la gripe?</div><div class="qa">En <strong>cualquier trimestre</strong> — es segura ★★</div></div>
+    <div class="qb"><div class="qt">Vacuna contraindicada: ¿cuándo se puede dar?</div><div class="qa">En la <strong>consulta preconcepcional</strong> — antes de embarazarse ★★</div></div>
+    <div class="qb"><div class="qt">¿La vacuna de la polio Sabin está contraindicada?</div><div class="qa"><strong>Sí</strong> — es de virus vivos orales · la Salk inyectable puede valorarse ★</div></div>
+    <div class="qb"><div class="qt">¿La VPH está contraindicada en el embarazo?</div><div class="qa"><strong>Sí</strong> — contraindicada · dar antes de quedar embarazada ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué objetivo tiene la Tdap en el embarazo?</div><div class="qa">Transferir <strong>inmunidad pasiva al RN</strong> para protegerlo en sus primeras semanas ★★</div></div>
+    <div class="qb"><div class="qt">Nombre las 4 vacunas recomendadas en el embarazo</div><div class="qa">Gripe · <strong>Tdap</strong> · Hepatitis B · COVID-19 ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

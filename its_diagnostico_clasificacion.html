@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITS — Diagnóstico y Clasificación · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans 3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#e0d5c0;--text:#252530;--muted:#7a7080;
+  --bact:#1a6faa;
+  --viral:#b55e1a;
+  --para:#2a7a3a;
+  --fungi:#8a6a10;
+  --alarm:#b83030;
+  --gold:#8a6a10;--gold-d:#c8a83a15;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--bact);color:white;padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--viral);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.5rem;}
+
+.sdiv{display:flex;align-items:center;gap:0.7rem;margin:1.8rem 0 0.9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text);white-space:nowrap;padding:0.12rem 0.65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* TABLA ITS */
+.its-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.its-table th{font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 0.65rem;background:var(--s3);color:var(--muted);text-align:left;border-bottom:1px solid var(--border);}
+.its-table td{padding:0.55rem 0.65rem;border-bottom:1px solid var(--border)18;font-size:0.71rem;line-height:1.4;vertical-align:top;}
+.its-table tr:last-child td{border-bottom:none;}
+.its-table .cat-row td{background:var(--s3);font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;padding:0.3rem 0.65rem;border-bottom:1px solid var(--border);}
+.ctag{display:inline-block;font-size:0.65rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;vertical-align:middle;}
+.star{color:var(--gold);font-weight:700;}
+.its-table tr:nth-child(even) td{background:#00000003;}
+.path-name{font-weight:700;font-size:0.74rem;}
+.path-agent{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin-top:0.05rem;}
+
+/* MNEMOTÉCNICOS */
+.mnemo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.6rem;margin-top:0.7rem;}
+.mcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.8rem;border-left:3px solid;}
+.mcard-title{font-weight:700;font-size:0.78rem;margin-bottom:0.12rem;}
+.mcard-body{font-size:0.7rem;color:var(--muted);line-height:1.5;}
+.mcard-body strong{color:var(--text);}
+.mcard-key{font-family:'JetBrains Mono',monospace;font-size:0.62rem;margin-top:0.3rem;padding:0.18rem 0.45rem;border-radius:3px;display:inline-block;}
+
+/* VPH especial */
+.vph-box{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;border-top:3px solid var(--viral);margin-top:0.6rem;}
+.vph-head{padding:0.5rem 0.8rem;border-bottom:1px solid var(--border);background:#fef3e8;}
+.vph-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--viral);}
+.vph-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.vph-col{padding:0.55rem 0.8rem;font-size:0.72rem;border-right:1px solid var(--border);}
+.vph-col:last-child{border-right:none;}
+.vph-col-t{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.18rem;}
+@media(max-width:460px){.vph-grid{grid-template-columns:1fr;}.vph-col{border-right:none;border-bottom:1px solid var(--border);}}
+
+.memo{border-radius:5px;padding:0.5rem 0.8rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.6rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.1rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.74rem;line-height:1.5;}
+
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;background:#e8f2fa;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--bact);}
+.tbody{padding:0.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.73rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.15rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--bact);display:flex;align-items:flex-start;gap:0.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.61rem;color:var(--muted);margin-top:0.04rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🔬 Ginecología</div>
+  <h1>ITS — <em>Diagnóstico y Clasificación</em></h1>
+  <p class="hsub">Bacterianas · Víricas · Parasitarias · Fúngicas · Diagnóstico diferencial · INGESA 2026</p>
+</header>
+
+<!-- TABLA PRINCIPAL -->
+<div class="sdiv"><span>📊 Tabla comparativa de ITS — agente y clínica diferenciadora</span></div>
+
+<table class="its-table">
+  <thead>
+    <tr>
+      <th>Infección</th>
+      <th>Patógeno (agente causal)</th>
+      <th>Clínica diferenciadora ★</th>
+      <th>Dato clave examen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- BACTERIANAS -->
+    <tr class="cat-row"><td colspan="4"><span class="ctag" style="background:#e8f2fa;color:var(--bact);">🦠 Bacterianas</span></td></tr>
+    <tr>
+      <td><div class="path-name">Sífilis ★★</div><div class="path-agent">Treponema pallidum (espiroqueta)</div></td>
+      <td><em>T. pallidum</em> — espiroqueta, gram variable</td>
+      <td><strong>Primaria:</strong> chancro duro e <strong>indoloro</strong><br><strong>Secundaria:</strong> exantema en <strong>palmas y plantas</strong> ★★</td>
+      <td style="color:var(--bact);">Exantema palmo-plantar = sífilis 2.ª ★★</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Gonorrea ★</div><div class="path-agent">Neisseria gonorrhoeae</div></td>
+      <td>Diplococo <strong>gramnegativo</strong></td>
+      <td>Secreción purulenta <strong>espesa</strong> · puede causar <strong>artritis séptica</strong> por diseminación ★</td>
+      <td style="color:var(--bact);">Complicación: artritis séptica gonocócica</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Clamidia ★★</div><div class="path-agent">Chlamydia trachomatis</div></td>
+      <td>Bacteria <strong>intracelular obligada</strong></td>
+      <td>Causa más frecuente de <strong>cervicitis mucopurulenta</strong> · Linfogranuloma venéreo (bubones inguinales) ★</td>
+      <td style="color:var(--bact);">ITS más frecuente en jóvenes · Asintomática en 70%</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Chancro blando</div><div class="path-agent">Haemophilus ducreyi</div></td>
+      <td>Haemophilus ducreyi</td>
+      <td>Úlceras <strong>muy dolorosas</strong>, bordes irregulares, fondo purulento ★<br><em>(vs sífilis: indoloro)</em></td>
+      <td style="color:var(--bact);">Diferencial: dolor = chancro blando · Indoloro = sífilis</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Donovanosis</div><div class="path-agent">Klebsiella granulomatis</div></td>
+      <td>Klebsiella granulomatis</td>
+      <td>Nódulos <strong>indoloros</strong> · diagnóstico: cuerpos de Donovan ★</td>
+      <td style="color:var(--bact);">Cuerpos de Donovan en biopsia = patognomónico</td>
+    </tr>
+    <!-- VÍRICAS -->
+    <tr class="cat-row"><td colspan="4"><span class="ctag" style="background:#fef3e8;color:var(--viral);">🧬 Víricas</span></td></tr>
+    <tr>
+      <td><div class="path-name">VPH ★★</div><div class="path-agent">Virus del Papiloma Humano</div></td>
+      <td>VPH tipos 6,11 (bajo riesgo) y 16,18 (alto riesgo)</td>
+      <td><strong>Bajo riesgo (6,11):</strong> condilomas (verrugas)<br><strong>Alto riesgo (16,18):</strong> cáncer de cérvix ★★</td>
+      <td style="color:var(--viral);">VPH 16 y 18 → cáncer cérvix. Vacuna contraindicada en embarazo</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Herpes genital ★</div><div class="path-agent">HSV-1 y HSV-2</div></td>
+      <td>Herpes simplex virus (HSV-1 y HSV-2)</td>
+      <td><strong>Vesículas dolorosas agrupadas</strong> → úlceras costrosas ★<br>Recurrente (latencia ganglionar)</td>
+      <td style="color:var(--viral);">Vesículas agrupadas dolorosas = herpes · ★ En parto: riesgo neonatal</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">VIH ★★</div><div class="path-agent">Retrovirus (VIH-1/VIH-2)</div></td>
+      <td>Retrovirus · afecta <strong>linfocitos CD4+</strong></td>
+      <td>SIDA: <strong>CD4 &lt;200/mm³</strong> o infecciones oportunistas ★★<br>Transmisión vertical en embarazo</td>
+      <td style="color:var(--viral);">CD4 &lt;200 = SIDA definitivo ★★ · Lactancia contraindicada</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Molusco contagioso</div><div class="path-agent">Poxvirus</div></td>
+      <td>Poxvirus</td>
+      <td>Pápulas <strong>umbilicadas</strong> (hoyuelo central), color perlado ★</td>
+      <td style="color:var(--viral);">Hoyuelo central (umbilicada) = molusco</td>
+    </tr>
+    <!-- PARASITARIAS -->
+    <tr class="cat-row"><td colspan="4"><span class="ctag" style="background:#e8f5ec;color:var(--para);">🦟 Parasitarias</span></td></tr>
+    <tr>
+      <td><div class="path-name">Tricomoniasis ★★</div><div class="path-agent">Trichomonas vaginalis</div></td>
+      <td>Protozoo flagelado</td>
+      <td>Flujo <strong>espumoso amarillo-verdoso</strong> maloliente · <strong>cérvix en fresa</strong> ★★ (puntillado hemorrágico)</td>
+      <td style="color:var(--para);">Cérvix en fresa + flujo espumoso = tricomoniasis ★★</td>
+    </tr>
+    <tr>
+      <td><div class="path-name">Ladillas (Ftiriasis)</div><div class="path-agent">Pthirus pubis</div></td>
+      <td>Pthirus pubis (ectoparásito)</td>
+      <td><strong>Prurito intenso</strong> en vello púbico · liendres o parásitos visibles</td>
+      <td style="color:var(--para);">Parásito visible + prurito púbico = ladillas</td>
+    </tr>
+    <!-- FÚNGICAS -->
+    <tr class="cat-row"><td colspan="4"><span class="ctag" style="background:#fef8e8;color:var(--fungi);">🍄 Fúngicas</span></td></tr>
+    <tr>
+      <td><div class="path-name">Candidiasis ★★</div><div class="path-agent">Candida albicans</div></td>
+      <td>Hongo comensal oportunista</td>
+      <td>Flujo <strong>blanco grumoso "queso cottage"</strong> ★★ · prurito vulvar muy intenso</td>
+      <td style="color:var(--fungi);">Más frecuente en embarazo (medio ácido favorece) ★</td>
+    </tr>
+    <!-- DIAGNÓSTICO DIFERENCIAL VAGINOSIS -->
+    <tr class="cat-row"><td colspan="4"><span class="ctag" style="background:#f5f0f8;color:#6a3a9a;">⚖️ Diagnóstico diferencial — flujos vaginales</span></td></tr>
+    <tr>
+      <td><div class="path-name">Vaginosis bacteriana</div><div class="path-agent">Gardnerella vaginalis</div></td>
+      <td>Desequilibrio de la microbiota (no ITS clásica)</td>
+      <td>Flujo <strong>blanco-grisáceo</strong> con <strong>olor a pescado</strong> · test de aminas positivo (KOH) ★★</td>
+      <td style="color:#6a3a9a;">Olor a pescado + test aminas + = Gardnerella ★★</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- VPH detalle -->
+<div class="vph-box">
+  <div class="vph-head">
+    <div class="vph-title">🦠 VPH — Los serotipos más preguntables ★★</div>
+  </div>
+  <div class="vph-grid">
+    <div class="vph-col">
+      <div class="vph-col-t" style="color:var(--para);">Bajo riesgo oncogénico</div>
+      <div style="font-size:0.73rem;line-height:1.45;"><strong style="color:var(--para);">Serotipos 6 y 11</strong><br>→ Condilomas acuminados (verrugas genitales)<br>→ Papilomatosis laríngea recurrente</div>
+    </div>
+    <div class="vph-col">
+      <div class="vph-col-t" style="color:var(--alarm);">Alto riesgo oncogénico ★★</div>
+      <div style="font-size:0.73rem;line-height:1.45;"><strong style="color:var(--alarm);">Serotipos 16 y 18</strong><br>→ Cáncer de cérvix (causa principal)<br>→ Cáncer vulva, vagina, ano, orofaringe</div>
+    </div>
+  </div>
+</div>
+
+<!-- Diagnóstico diferencial úlceras -->
+<div class="sdiv"><span>🔍 Diagnóstico diferencial rápido — úlceras y flujos</span></div>
+<div class="mnemo-grid">
+  <div class="mcard" style="border-color:var(--bact);">
+    <div class="mcard-title" style="color:var(--bact);">Úlceras — diferencial clave</div>
+    <div class="mcard-body">
+      <strong>Indolora</strong> → Sífilis (chancro duro) ★★<br>
+      <strong>Muy dolorosa + bordes irregulares</strong> → Chancro blando ★<br>
+      <strong>Vesículas agrupadas dolorosas</strong> → Herpes genital ★<br>
+      <strong>Nódulos indoloros + cuerpos Donovan</strong> → Donovanosis
+    </div>
+  </div>
+  <div class="mcard" style="border-color:var(--fungi);">
+    <div class="mcard-title" style="color:var(--fungi);">Flujos vaginales — diferencial clave ★★</div>
+    <div class="mcard-body">
+      <strong>Blanco grumoso "queso"</strong> → Candidiasis (prurito intenso) ★★<br>
+      <strong>Amarillo-verdoso espumoso</strong> → Tricomoniasis (cérvix en fresa) ★★<br>
+      <strong>Blanco-grisáceo olor pescado</strong> → Vaginosis (Gardnerella) ★★<br>
+      <strong>Purulento espeso</strong> → Gonorrea
+    </div>
+  </div>
+  <div class="mcard" style="border-color:var(--viral);">
+    <div class="mcard-title" style="color:var(--viral);">Datos patognomónicos ★</div>
+    <div class="mcard-body">
+      <strong>Exantema palmo-plantar</strong> → Sífilis 2.ª ★★<br>
+      <strong>Pápulas umbilicadas perladas</strong> → Molusco contagioso ★<br>
+      <strong>Cérvix en fresa</strong> → Tricomoniasis ★★<br>
+      <strong>Cuerpos de Donovan</strong> → Donovanosis ★<br>
+      <strong>Bubones inguinales</strong> → Clamidia (LGV) ★
+    </div>
+  </div>
+</div>
+
+<div class="memo">
+  <div class="ml">🧠 Prevención</div>
+  <div class="mt">Preservativo → previene casi todas las ITS ★ · Vacuna VPH → previene cáncer cérvix (contraindicada en embarazo) ★★ · Vacuna VPH no en embarazo pero sí en preconcepcional</div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — ITS · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Qué hallazgo es patognomónico de sífilis secundaria?</div><div class="qa"><strong>Exantema en palmas y plantas</strong> ★★</div></div>
+    <div class="qb"><div class="qt">Flujo espumoso amarillo-verdoso con cérvix en fresa</div><div class="qa"><strong>Tricomoniasis</strong> (Trichomonas vaginalis) ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué serotipos del VPH causan cáncer de cérvix?</div><div class="qa"><strong>16 y 18</strong> (alto riesgo) ★★</div><div class="qn">6 y 11 = condilomas (bajo riesgo)</div></div>
+    <div class="qb"><div class="qt">¿Cuándo se define el SIDA?</div><div class="qa"><strong>CD4 &lt;200/mm³</strong> o infecciones oportunistas ★★</div></div>
+    <div class="qb"><div class="qt">Agente de la gonorrea y característica</div><div class="qa"><strong>Neisseria gonorrhoeae</strong> — diplococo gramnegativo ★</div></div>
+    <div class="qb"><div class="qt">Diferencia entre chancro sifilítico y blando</div><div class="qa">Sífilis: <strong>indoloro</strong> · Chancro blando (H. ducreyi): <strong>muy doloroso</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué ITS causa con más frecuencia cervicitis mucopurulenta?</div><div class="qa"><strong>Clamidia</strong> (Chlamydia trachomatis) ★</div></div>
+    <div class="qb"><div class="qt">Flujo blanco-grisáceo con olor a pescado y test de aminas +</div><div class="qa"><strong>Vaginosis bacteriana</strong> (Gardnerella vaginalis) ★★</div></div>
+    <div class="qb"><div class="qt">¿Por qué la candidiasis es más frecuente en el embarazo?</div><div class="qa">El medio ácido vaginal gestacional <strong>favorece el crecimiento</strong> de Candida ★</div></div>
+    <div class="qb"><div class="qt">Pápulas umbilicadas de color perlado</div><div class="qa"><strong>Molusco contagioso</strong> (Poxvirus) ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

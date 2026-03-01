@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVB · SVA · ERC 2025 · AHA 2025 · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  --svb:#1a5a8a;     /* azul SVB */
+  --sva:#2a7a3a;     /* verde SVA */
+  --fv:#b83030;      /* rojo FV/TSP desfibrilable */
+  --aesp:#8a3aaa;    /* violeta AESP/asistolia */
+  --pediat:#b55e1a;  /* naranja pediátrico */
+  --esp:#1a6faa;     /* azul especiales */
+  --alarm:#b83030;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--fv);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--svb);font-style:italic;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;}
+.hdef{font-size:.73rem;color:var(--muted);max-width:700px;margin:.5rem auto 0;line-height:1.55;}
+
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--text);white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* CADENA SUPERVIVENCIA */
+.chain{display:flex;align-items:stretch;gap:0;margin-bottom:.7rem;overflow-x:auto;}
+.chain-link{flex:1;min-width:140px;padding:.55rem .7rem;border:1px solid var(--border);border-right:none;background:var(--surface);position:relative;}
+.chain-link:last-child{border-right:1px solid var(--border);}
+.chain-link::after{content:'▶';position:absolute;right:-.6rem;top:50%;transform:translateY(-50%);color:var(--gold);font-size:.65rem;z-index:1;background:var(--bg);padding:.1rem;}
+.chain-link:last-child::after{display:none;}
+.cl-num{font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.08rem;}
+.cl-name{font-weight:700;font-size:.75rem;line-height:1.15;margin-bottom:.1rem;}
+.cl-desc{font-size:.63rem;color:var(--muted);line-height:1.3;}
+
+/* PARÁMETROS SVB */
+.params{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.45rem;margin-bottom:.55rem;}
+.param-box{padding:.4rem .6rem;border-radius:5px;border:1px solid;text-align:center;}
+.param-label{font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.05rem;color:var(--muted);}
+.param-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.1;}
+.param-note{font-size:.6rem;color:var(--muted);line-height:1.3;}
+
+/* SVA ALGORITMO - TABLA DOS RAMAS */
+.sva-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.sva-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:var(--s3);}
+.sva-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+.sva-sub{font-size:.63rem;color:var(--muted);}
+.sva-body{padding:.7rem .9rem;}
+
+.sva-cols{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+@media(max-width:600px){.sva-cols{grid-template-columns:1fr;}}
+
+.rama{border-radius:7px;overflow:hidden;border:1px solid;}
+.rama-head{padding:.5rem .75rem;border-bottom:1px solid rgba(0,0,0,.08);}
+.rama-title{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;}
+.rama-sub{font-size:.6rem;margin-top:.04rem;}
+.rama-body{padding:.5rem .75rem;display:flex;flex-direction:column;gap:.22rem;}
+.step{font-size:.7rem;color:var(--muted);line-height:1.35;display:flex;gap:.3rem;align-items:flex-start;padding:.18rem 0;border-bottom:1px dashed #e8e0d010;}
+.step:last-child{border-bottom:none;}
+.step::before{content:'→';flex-shrink:0;font-weight:900;margin-top:.04rem;}
+.step strong{color:var(--text);}
+
+/* 4H4T */
+.ht-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.4rem;}
+.ht-box{border-radius:5px;padding:.4rem .6rem;border:1px solid;}
+.ht-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.15rem;font-weight:700;}
+.ht-list{font-size:.67rem;color:var(--muted);line-height:1.5;}
+
+/* COMPARATIVA SVB ADULTO vs PEDIÁTRICO */
+.comp-table{width:100%;border-collapse:collapse;font-size:.7rem;margin-bottom:.5rem;}
+.comp-table th{padding:.4rem .65rem;background:var(--s3);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;text-align:left;color:var(--muted);}
+.comp-table td{padding:.4rem .65rem;border:1px solid var(--border);vertical-align:top;line-height:1.35;}
+.comp-table tr:nth-child(even){background:var(--s2);}
+
+/* SITUACIONES ESPECIALES */
+.esp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.65rem;margin-bottom:.7rem;}
+.esp-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.esp-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.esp-ht{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.05rem;}
+.esp-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.esp-body{padding:.55rem .8rem;display:flex;flex-direction:column;gap:.2rem;}
+.esp-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.35rem;align-items:flex-start;}
+.esp-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:.05rem;}
+.esp-row strong{color:var(--text);}
+.star2{display:inline-block;background:#fef0f0;border:1px solid #e09090;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:.45rem;color:var(--alarm);padding:.02rem .3rem;font-weight:700;vertical-align:middle;margin-left:.2rem;}
+
+/* MEMO + TEST */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.72rem;color:var(--text);font-weight:600;line-height:1.6;}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#fef0f0;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--fv);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;} .qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--fv);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🚨 Urgencias · Bloque 2 · ACTUALIZADO 2025</div>
+  <h1>Soporte Vital <em>Básico y Avanzado</em></h1>
+  <p class="hsub">ERC 2025 · AHA 2025 · ILCOR 2025 · SVB Adulto · SVA · SVP · Situaciones Especiales</p>
+  <p class="hdef">Guías publicadas el 23 octubre 2025 (ERC) y actualización AHA 2025. Sustituyen a las ERC 2021. Basadas en consenso ILCOR 2025. Referencia vigente para INGESA 2026.</p>
+  <div style="display:inline-flex;align-items:center;gap:.5rem;background:#fef0f0;border:1px solid #e09090;border-radius:5px;padding:.35rem .8rem;font-size:.68rem;margin-top:.5rem;">
+    <span style="font-size:1rem;">⚠️</span>
+    <span style="color:var(--alarm);font-weight:600;">ERC 2025 publicadas el 23/10/2025 — referencia más actual para cualquier convocatoria desde 2026</span>
+  </div>
+</header>
+
+<!-- ═══ I. CADENA DE SUPERVIVENCIA ═══ -->
+<div class="sdiv"><span>⛓️ I. Cadena de supervivencia — ERC 2025 ★★</span></div>
+
+<!-- Banner novedad ERC 2025 -->
+<div style="background:#e8f0fa;border:1px solid var(--svb);border-radius:7px;padding:.5rem .85rem;margin-bottom:.7rem;font-size:.71rem;color:var(--text);line-height:1.55;">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.12em;color:var(--svb);display:block;margin-bottom:.15rem;">🆕 NOVEDAD ERC 2025 — cambio conceptual clave en el algoritmo del lego ★★</span>
+  <strong>ERC 2025 simplifica el SVB para el ciudadano:</strong> si la persona NO RESPONDE → <strong>llamar al 112 INMEDIATAMENTE</strong> (antes de evaluar respiración) → el operador guía la comprobación de respiración y coordina la RCP desde el primer segundo. El atragantamiento se ha trasladado a las guías de primeros auxilios (ya no está en el SVB) para que el algoritmo de parada sea más claro.
+</div>
+
+<div class="chain">
+  <div class="chain-link" style="border-left:3px solid var(--svb);">
+    <div class="cl-num" style="color:var(--svb);">Eslabón 1</div>
+    <div class="cl-name">Reconocimiento precoz y activación emergencias</div>
+    <div class="cl-desc">No responde → llamar 112 inmediatamente · Operador 112 guía la evaluación de respiración <span style="color:var(--svb);font-weight:700;">(novedad 2025)</span></div>
+  </div>
+  <div class="chain-link" style="border-left:3px solid var(--sva);">
+    <div class="cl-num" style="color:var(--sva);">Eslabón 2</div>
+    <div class="cl-name">RCP precoz de alta calidad</div>
+    <div class="cl-desc">100-120/min · 5-6 cm · 30:2 · mínimas interrupciones · rotación frecuente de reanimadores <span style="color:var(--sva);font-weight:700;">(énfasis 2025)</span></div>
+  </div>
+  <div class="chain-link" style="border-left:3px solid var(--fv);">
+    <div class="cl-num" style="color:var(--fv);">Eslabón 3</div>
+    <div class="cl-name">Desfibrilación precoz</div>
+    <div class="cl-desc">DEA accesible 24/7, visible, señalizado · cada min sin desfibrilar → -10% supervivencia · intentar FV fina (novedad 2025)</div>
+  </div>
+  <div class="chain-link" style="border-left:3px solid var(--aesp);">
+    <div class="cl-num" style="color:var(--aesp);">Eslabón 4</div>
+    <div class="cl-name">SVA y cuidados post-resucitación</div>
+    <div class="cl-desc">ETCO₂, dispositivos supraglóticos prioritarios · PRIC, neuroprotección <span style="color:var(--aesp);font-weight:700;">(énfasis 2025)</span></div>
+  </div>
+</div>
+
+<!-- ═══ II. SVB ADULTO ═══ -->
+<div class="sdiv"><span>💪 II. SVB Adulto — secuencia ERC 2025 ★★</span></div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.6rem .9rem;border-bottom:1px solid var(--border);border-left:5px solid var(--svb);background:#e8f0fa;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--svb);">Secuencia SVB Adulto ERC 2025 — simplificada para el lego</div>
+    <div style="font-size:.62rem;color:var(--muted);">ERC 2025 publicado 23/10/2025 · Algoritmo simplificado: la llamada al 112 es el primer paso ante cualquier persona inconsciente</div>
+  </div>
+  <div style="padding:.7rem .9rem;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem;margin-bottom:.6rem;">
+      <div style="padding:.45rem .7rem;background:#e8f0fa;border:1px solid #a0c0e0;border-radius:5px;border-left:3px solid var(--svb);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--svb);font-weight:700;margin-bottom:.1rem;">PASO 1 · PRIORIDAD ABSOLUTA</div>
+        <div style="font-size:.71rem;font-weight:700;">🔒 SEGURIDAD</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;">Asegurar que reanimador, víctima y testigos estén en un entorno seguro</div>
+      </div>
+      <div style="padding:.45rem .7rem;background:#e8f0fa;border:1px solid #a0c0e0;border-radius:5px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--svb);font-weight:700;margin-bottom:.1rem;">PASO 2</div>
+        <div style="font-size:.71rem;font-weight:700;">👋 RESPUESTA</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;">Sacudir hombros + llamar. Si no responde → paso 3</div>
+      </div>
+      <div style="padding:.45rem .7rem;background:#fef0f0;border:2px solid var(--fv);border-radius:5px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--fv);font-weight:700;margin-bottom:.1rem;">PASO 3 · 🆕 PRIMER PASO en lego ERC 2025 ★★</div>
+        <div style="font-size:.71rem;font-weight:700;">📞 LLAMAR AL 112 INMEDIATAMENTE</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;"><strong style="color:var(--alarm);">Antes de evaluar respiración</strong> · El operador guía la comprobación y coordina la RCP · Activar altavoz/manos libres · Pedir DEA</div>
+      </div>
+      <div style="padding:.45rem .7rem;background:#eef7f0;border:1px solid #90c8a0;border-radius:5px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--sva);font-weight:700;margin-bottom:.1rem;">PASO 4</div>
+        <div style="font-size:.71rem;font-weight:700;">🫁 COMPROBAR RESPIRACIÓN (con operador)</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;">Abrir VA (frente-mentón). <strong style="color:var(--text);">Ver si se mueve o si se eleva el tórax ≤10 seg.</strong> Respiración anormal o ausente = PCR · El operador confirma la parada</div>
+      </div>
+      <div style="padding:.45rem .7rem;background:#fef0f0;border:1px solid #e09090;border-radius:5px;border-left:3px solid var(--fv);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--fv);font-weight:700;margin-bottom:.1rem;">PASO 5 · COMENZAR YA</div>
+        <div style="font-size:.71rem;font-weight:700;">❤️ COMPRESIONES 30:2</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;">Centro del tórax · manos entrelazadas · brazos rectos · 5-6 cm · 100-120/min · liberar completamente · <strong style="color:var(--fv);">rotación de reanimadores frecuente (énfasis 2025)</strong></div>
+      </div>
+      <div style="padding:.45rem .7rem;background:#fef3e8;border:1px solid #d0a060;border-radius:5px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--gold);font-weight:700;margin-bottom:.1rem;">PASO 6</div>
+        <div style="font-size:.71rem;font-weight:700;">⚡ DEA en cuanto esté disponible</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;">Encender → electrodos en pecho desnudo → analizar → descarga si indicado → RCP 2 min inmediata · <strong style="color:var(--gold);">FV fina: intentar desfibrilación siempre (novedad 2025) ★★</strong></div>
+      </div>
+      <div style="padding:.45rem .7rem;background:var(--s2);border:1px solid var(--border);border-radius:5px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--muted);font-weight:700;margin-bottom:.1rem;">PASO 7</div>
+        <div style="font-size:.71rem;font-weight:700;">🔄 CONTINUAR hasta RCE, SVA o decisión retirada</div>
+        <div style="font-size:.67rem;color:var(--muted);line-height:1.3;">Ciclos 30:2 · Sin DEA ni capacidad ventilar: compresiones continuas · dispositivos mecánicos solo en situaciones especiales (AHA/ERC 2025)</div>
+      </div>
+    </div>
+
+    <div class="params">
+      <div class="param-box" style="background:#fef0f0;border-color:#e09090;">
+        <div class="param-label" style="color:var(--fv);">Frecuencia ★★</div>
+        <div class="param-value" style="color:var(--fv);">100–120</div>
+        <div class="param-note">compresiones/min (sin cambio)</div>
+      </div>
+      <div class="param-box" style="background:#fef3e8;border-color:#d0a060;">
+        <div class="param-label">Profundidad ★★</div>
+        <div class="param-value" style="color:var(--gold);">5–6 cm</div>
+        <div class="param-note">adulto (sin cambio)</div>
+      </div>
+      <div class="param-box" style="background:#e8f0fa;border-color:#a0c0e0;">
+        <div class="param-label">Relación ★★</div>
+        <div class="param-value" style="color:var(--svb);">30 : 2</div>
+        <div class="param-note">compresiones : ventilaciones</div>
+      </div>
+      <div class="param-box" style="background:#eef7f0;border-color:#90c8a0;">
+        <div class="param-label">Ciclo SVA ★★</div>
+        <div class="param-value" style="color:var(--sva);font-size:.85rem;">2 min</div>
+        <div class="param-note">entre análisis de ritmo</div>
+      </div>
+    </div>
+
+    <!-- NOVEDADES ERC 2025 destacadas -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+      <div style="background:#fef0f0;border:1px solid #e09090;border-radius:5px;padding:.45rem .65rem;font-size:.68rem;color:var(--muted);line-height:1.4;">
+        <strong style="color:var(--alarm);">🆕 Novedad ERC 2025 — Lego ★★</strong><br>
+        Llamar al 112 ANTES de evaluar respiración · El operador confirma la parada y guía la RCP · Elimina el "ver–escuchar–sentir" autónomo del lego · OVACE trasladada a primeros auxilios (fuera del SVB)
+      </div>
+      <div style="background:#eef7f0;border:1px solid #90c8a0;border-radius:5px;padding:.45rem .65rem;font-size:.68rem;color:var(--muted);line-height:1.4;">
+        <strong style="color:var(--sva);">🆕 Novedad ERC 2025 — SVA ★★</strong><br>
+        Dispositivos supraglóticos prioritarios sobre intubación (especialmente extrahospitalario) · Mayor monitorización ETCO₂ · FV fina: intentar desfibrilación aunque sea de baja amplitud · Rotación reanimadores frecuente enfatizada
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ III. SVA - DOS RAMAS ═══ -->
+<div class="sdiv"><span>⚡ III. SVA Adulto — algoritmo ERC 2025 / AHA 2025 ★★</span></div>
+
+<div class="sva-wrap">
+  <div class="sva-head">
+    <div class="sva-title">Algoritmo SVA — ritmos desfibrilables vs no desfibrilables · ERC 2025</div>
+    <div class="sva-sub">Monitor/desfibrilador conectado · <strong>Dispositivos supraglóticos PRIORITARIOS</strong> sobre intubación (novedad 2025) · ETCO₂ monitorizar siempre</div>
+  </div>
+  <div class="sva-body">
+    <div class="sva-cols">
+      <!-- RAMA DESFIBRILABLE -->
+      <div class="rama" style="border-color:#e09090;">
+        <div class="rama-head" style="background:#fef0f0;">
+          <div class="rama-title" style="color:var(--fv);">⚡ Ritmos DESFIBRILABLES ★★</div>
+          <div class="rama-sub" style="color:var(--fv);">FV · TVsp · incluida FV fina → intentar siempre descarga (🆕 2025)</div>
+        </div>
+        <div class="rama-body">
+          <div class="step"><span style="color:var(--fv);">→</span><span><strong>DESCARGA</strong> bifásica · Reiniciar RCP 2 min inmediatamente sin pausa</span></div>
+          <div class="step"><span style="color:var(--fv);">→</span><span>Evaluar ritmo a los 2 min · Si persiste FV/TV → 2.ª descarga</span></div>
+          <div class="step"><span style="color:var(--fv);">→</span><span>Tras 3.ª descarga sin éxito → <strong>Adrenalina 1 mg IV/IO + Amiodarona 300 mg IV/IO</strong> ★★ (ERC 2025)</span></div>
+          <div class="step"><span style="color:var(--fv);">→</span><span>Adrenalina cada 3-5 min · Amiodarona 150 mg 2.ª dosis si persiste · Lidocaína si no hay amiodarona</span></div>
+          <div class="step"><span style="color:var(--fv);">→</span><span><strong>FV refractaria (&gt;3 descargas):</strong> cambiar posición parches a antero-posterior ★★ · considerar doble desfibrilación secuencial (🆕 2025)</span></div>
+          <div style="background:#fef8e8;border:1px solid #d0a840;border-radius:4px;padding:.3rem .5rem;font-size:.67rem;color:var(--gold);margin-top:.1rem;line-height:1.4;">
+            <strong>★★ ERC 2025 vs AHA 2025:</strong> ERC → Adrenalina tras 3.ª descarga ·
+            AHA 2025 → razonable tras 2.ª descarga · En España: referencia ERC ★★
+          </div>
+        </div>
+      </div>
+
+      <!-- RAMA NO DESFIBRILABLE -->
+      <div class="rama" style="border-color:#c090e0;">
+        <div class="rama-head" style="background:#f5eefa;">
+          <div class="rama-title" style="color:var(--aesp);">💔 Ritmos NO desfibrilables ★★</div>
+          <div class="rama-sub" style="color:var(--aesp);">Asistolia · AESP (Actividad Eléctrica Sin Pulso)</div>
+        </div>
+        <div class="rama-body">
+          <div class="step"><span style="color:var(--aesp);">→</span><span><strong>RCP 2 min</strong> · Buscar y tratar causas reversibles (4H4T)</span></div>
+          <div class="step"><span style="color:var(--aesp);">→</span><span><strong>Adrenalina 1 mg IV/IO inmediatamente</strong> + cada 3-5 min ★★</span></div>
+          <div class="step"><span style="color:var(--aesp);">→</span><span><strong>NO amiodarona</strong> en ritmo no desfibrilable ★★</span></div>
+          <div class="step"><span style="color:var(--aesp);">→</span><span>Evaluar ritmo cada 2 min · Si pasa a FV/TV → cambiar a rama desfibrilable</span></div>
+          <div style="background:#fef0f0;border:1px solid #e09090;border-radius:4px;padding:.3rem .5rem;font-size:.67rem;color:var(--alarm);margin-top:.1rem;line-height:1.35;">
+            <strong>🆕 ERC 2025:</strong> FV fina → intentar siempre descarga (no esperar a FV gruesa) ·
+            Asistolia dudosa: cambiar derivación antes de descartar FV fina
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOVEDADES SVA 2025 BOX -->
+    <div style="background:#e8f0fa;border:1px solid var(--svb);border-radius:6px;padding:.55rem .8rem;margin-top:.6rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--svb);margin-bottom:.2rem;">🆕 Novedades SVA ERC 2025 + ILCOR 2025 — para INGESA ★★</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.7rem;color:var(--muted);line-height:1.45;">
+        <div><strong style="color:var(--text);">Vía aérea:</strong> dispositivos supraglóticos (i-gel, ML) prioritarios sobre intubación en entornos extrahospitalarios con baja tasa de éxito ★★ · Intubación solo si &gt;95% éxito en ≤2 intentos y pausa &lt;5 s</div>
+        <div><strong style="color:var(--text);">ETCO₂:</strong> monitorizar siempre · confirma VA, evalúa calidad RCP (objetivo &gt;10 mmHg), detecta ROSC (↑ brusco de ETCO₂) ★★</div>
+        <div><strong style="color:var(--text);">FV refractaria:</strong> definida como FV continua tras 3 descargas consecutivas · cambiar vector (antero-posterior) ★★ · doble desfibrilación secuencial como opción adicional</div>
+        <div><strong style="color:var(--text);">Dispositivos mecánicos:</strong> AHA+ERC 2025 — <strong>NO recomendado uso rutinario</strong> · solo en situaciones donde RCP manual es imposible o insegura (ej. helicoide, ambulancia) ★★</div>
+      </div>
+    </div>
+
+    <!-- 4H4T -->
+    <div style="margin-top:.7rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.35rem;">Causas reversibles — 4H + 4T ★★</div>
+      <div class="ht-grid">
+        <div class="ht-box" style="background:#e8f0fa;border-color:#a0c0e0;">
+          <div class="ht-title" style="color:var(--svb);">4H</div>
+          <div class="ht-list">
+            <strong>H</strong>ipoxia → O₂ máximo, vía aérea<br>
+            <strong>H</strong>ipovolemia → fluidos IV<br>
+            <strong>H</strong>iper/hipo K⁺ + trastornos metabólicos<br>
+            <strong>H</strong>ipotermia → recalentamiento
+          </div>
+        </div>
+        <div class="ht-box" style="background:#fef0f0;border-color:#e09090;">
+          <div class="ht-title" style="color:var(--fv);">4T</div>
+          <div class="ht-list">
+            <strong>T</strong>rombosis coronaria → ACTP urgente<br>
+            <strong>T</strong>romboembolismo pulmonar → fibrinólisis<br>
+            <strong>T</strong>ensión (neumotórax) → punción 2.º EIC<br>
+            <strong>T</strong>amponamiento → pericardiocentesis
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIC -->
+    <div style="background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.55rem .8rem;margin-top:.6rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.2rem;">Cuidados post-resucitación (PRIC) ★</div>
+      <div style="font-size:.7rem;color:var(--muted);line-height:1.5;">
+        <strong style="color:var(--text);">CTD:</strong> 32-36 °C durante 24 h en comatosos post-PCR ·
+        <strong style="color:var(--text);">SpO₂:</strong> 94-98% (evitar hiperoxia) ·
+        <strong style="color:var(--text);">PaCO₂:</strong> 35-45 mmHg ·
+        <strong style="color:var(--text);">SCA:</strong> angiografía urgente si causa isquémica probable
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ IV. SVB PEDIÁTRICO ═══ -->
+<div class="sdiv"><span>👶 IV. SVB Pediátrico — diferencias clave ERC 2025 ★★</span></div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.6rem .9rem;border-bottom:1px solid var(--border);border-left:5px solid var(--pediat);background:#fef3e8;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--pediat);">Diferencias SVB Pediátrico vs Adulto — ERC 2025</div>
+    <div style="font-size:.62rem;color:var(--muted);">🆕 Pediátrico 2025: relación 30:2 también para reanimadores NO entrenados específicamente en SVB pediátrico · 15:2 solo si entrenado en curso ERC-SVBP o equivalente</div>
+  </div>
+  <div style="padding:.7rem .9rem;overflow-x:auto;">
+    <table class="comp-table">
+      <thead><tr><th>Parámetro</th><th>Adulto</th><th>Pediátrico (&gt;1 año)</th><th>Lactante (&lt;1 año)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Inicio RCP ★★</strong></td>
+          <td>Compresiones primero (solo si sin DEA cerca)</td>
+          <td style="background:#fef3e8;"><strong style="color:var(--pediat);">5 ventilaciones de rescate primero ★★</strong></td>
+          <td style="background:#fef3e8;"><strong style="color:var(--pediat);">5 ventilaciones de rescate primero ★★</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Relación ★★</strong></td>
+          <td>30:2 (todos)</td>
+          <td><strong style="color:var(--pediat);">15:2</strong> si entrenado en SVB pediátrico ·
+          <span style="color:var(--fv);font-weight:700;">30:2 si NO entrenado específicamente (🆕 ERC 2025) ★★</span></td>
+          <td>Mismo que pediátrico · 15:2 si entrenado · 30:2 si no</td>
+        </tr>
+        <tr>
+          <td><strong>Profundidad</strong></td>
+          <td>5-6 cm</td>
+          <td style="color:var(--pediat);font-weight:700;">≥1/3 del diámetro AP del tórax</td>
+          <td style="color:var(--pediat);font-weight:700;">≈ 4 cm (≥1/3 diámetro AP)</td>
+        </tr>
+        <tr>
+          <td><strong>Técnica compresiones</strong></td>
+          <td>2 manos entrelazadas</td>
+          <td>1 ó 2 manos (según tamaño)</td>
+          <td style="color:var(--pediat);font-weight:700;">Técnica 2 pulgares (2 reanimadores) ó 2 dedos</td>
+        </tr>
+        <tr>
+          <td><strong>Descarga DEA ★</strong></td>
+          <td>150-360 J bifásico</td>
+          <td>4 J/kg (pediátrico si &lt;8 años)</td>
+          <td>4 J/kg · parches pediátricos preferibles</td>
+        </tr>
+        <tr>
+          <td><strong>Adrenalina SVA ★★</strong></td>
+          <td>1 mg IV/IO</td>
+          <td style="color:var(--pediat);font-weight:700;">10 µg/kg IV/IO</td>
+          <td style="color:var(--pediat);font-weight:700;">10 µg/kg IV/IO</td>
+        </tr>
+        <tr>
+          <td><strong>Pedir ayuda (1 reanimador)</strong></td>
+          <td>Antes de iniciar RCP si posible</td>
+          <td style="color:var(--pediat);font-weight:700;">Tras 1 min de RCP ★★</td>
+          <td style="color:var(--pediat);font-weight:700;">Tras 1 min de RCP ★★</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ V. SITUACIONES ESPECIALES ═══ -->
+<div class="sdiv"><span>⚠️ V. Situaciones especiales — RCP modificada ★★</span></div>
+
+<div class="esp-grid">
+  <!-- HIPOTERMIA / AVALANCHA -->
+  <div class="esp-card">
+    <div class="esp-head" style="border-left-color:var(--svb);background:#e8f0fa;">
+      <div class="esp-ht" style="color:var(--svb);">ERC 2021 — preguntado en INGESA</div>
+      <div class="esp-title" style="color:var(--svb);">🧊 Hipotermia / Avalancha de nieve <span class="star2">★★ INGESA</span></div>
+    </div>
+    <div class="esp-body">
+      <div class="esp-row"><strong>Diagnóstico PCR:</strong> verificar pulso hasta 1 minuto en hipotermia grave (bradicardia extrema puede simular ausencia de pulso)</div>
+      <div class="esp-row"><strong>RCP completa:</strong> sepultado en avalancha &gt;60 min + sin obstrucción de vía aérea + sin lesiones letales → iniciar RCP completa + recalentamiento <span class="star2">★★</span></div>
+      <div class="esp-row"><strong>Recalentamiento:</strong> preferiblemente con soporte extracorpóreo (ECMO/bypass) — máxima evidencia de recuperación neurológica <span class="star2">★★</span></div>
+      <div class="esp-row"><strong>Regla:</strong> "nadie está muerto hasta que está <strong>caliente</strong> y muerto" — temp. core &lt;30 °C: ritmo cardíaco puede reaparecer con recalentamiento</div>
+      <div class="esp-row"><strong>Letal:</strong> temperatura core &lt;20 °C + K⁺ sérico &gt;12 mmol/L → pronóstico muy desfavorable (indicador de daño tisular irreversible)</div>
+      <div class="esp-row"><strong>Compresiones:</strong> pueden reducirse a 5/min si hay rigidez de caja torácica por hipotermia grave</div>
+    </div>
+  </div>
+
+  <!-- AHOGAMIENTO -->
+  <div class="esp-card">
+    <div class="esp-head" style="border-left-color:var(--esp);background:#e8f2fa;">
+      <div class="esp-ht" style="color:var(--esp);">Drowning · ERC 2021</div>
+      <div class="esp-title" style="color:var(--esp);">🌊 Ahogamiento</div>
+    </div>
+    <div class="esp-body">
+      <div class="esp-row"><strong>Causa principal PCR:</strong> hipoxia (no arritmia) → la ventilación es prioritaria ★★</div>
+      <div class="esp-row"><strong>RCP en agua:</strong> solo si reanimador entrenado puede mantener la vía aérea; en agua profunda empezar por 5 ventilaciones de rescate</div>
+      <div class="esp-row"><strong>En tierra:</strong> 5 ventilaciones de rescate → 30:2. No esperar a DEA para iniciar RCP</div>
+      <div class="esp-row"><strong>Inmovilización cervical:</strong> NO sistemática excepto si hay evidencia clara de traumatismo (caída en trampolín, buceo)</div>
+      <div class="esp-row"><strong>Hipotermia asociada:</strong> frecuente → protocolo hipotermia + RCP prolongada justificada</div>
+      <div class="esp-row"><strong>Pronóstico:</strong> sumersión &lt;10 min en agua fría puede recuperarse incluso con RCP prolongada</div>
+    </div>
+  </div>
+
+  <!-- EMBARAZADA -->
+  <div class="esp-card">
+    <div class="esp-head" style="border-left-color:var(--aesp);background:#f5eefa;">
+      <div class="esp-ht" style="color:var(--aesp);">Modificaciones ERC 2021</div>
+      <div class="esp-title" style="color:var(--aesp);">🤰 PCR en embarazada ★★</div>
+    </div>
+    <div class="esp-body">
+      <div class="esp-row"><strong>Desplazamiento uterino:</strong> desplazar manualmente el útero hacia la izquierda ★ (reducir compresión aortocava). Si no funciona: decúbito lateral izquierdo 15-30° con tabla inclinada</div>
+      <div class="esp-row"><strong>Posición manos:</strong> compresiones en mismo lugar (centro del esternón) — NO más arriba</div>
+      <div class="esp-row"><strong>Cesárea de reanimación:</strong> si no RCE en 4 min → cesárea urgente en el lugar → objetivo: extracción fetal a los 5 min del inicio de la PCR ★★</div>
+      <div class="esp-row"><strong>Razón:</strong> la extracción fetal mejora el gasto cardíaco materno al eliminar la compresión aortocava</div>
+      <div class="esp-row"><strong>Desfibrilación:</strong> sin contraindicación. Retirar monitorización fetal pero no retrasar descarga</div>
+      <div class="esp-row"><strong>Causas específicas 4H:</strong> hemorragia obstétrica, eclampsia, embolia de líquido amniótico, TEP</div>
+    </div>
+  </div>
+
+  <!-- OBSTRUCCIÓN VA -->
+  <div class="esp-card">
+    <div class="esp-head" style="border-left-color:var(--pediat);background:#fef3e8;">
+      <div class="esp-ht" style="color:var(--pediat);">OVACE · ERC 2021</div>
+      <div class="esp-title" style="color:var(--pediat);">🍽️ Obstrucción VA por cuerpo extraño (OVACE) ★★</div>
+    </div>
+    <div class="esp-body">
+      <div class="esp-row"><strong>Tos efectiva:</strong> animarle a toser fuertemente → NO intervenir</div>
+      <div class="esp-row"><strong>Tos inefectiva consciente:</strong> 5 golpes interescapulares → 5 compresiones abdominales (Heimlich) ★★ · Alternar hasta expulsión o pérdida consciencia</div>
+      <div class="esp-row"><strong>Inconsciente:</strong> activar SEM → RCP 30:2 · Antes de cada ventilación ver boca y retirar CE visible</div>
+      <div class="esp-row"><strong>Lactante (&lt;1 año):</strong> 5 golpes interescapulares + 5 compresiones torácicas (NO abdominales) ★★</div>
+      <div class="esp-row"><strong>Obeso/embarazada:</strong> compresiones torácicas en lugar de abdominales ★</div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Resumen — perlas INGESA SVB/SVA · ERC 2025 actualizado</div>
+  <div class="memo-t">
+    SVB parámetros: <strong>30:2 · 100-120/min · 5-6 cm</strong> (sin cambio) ★★ ·
+    <strong>🆕 ERC 2025 lego: llamar al 112 PRIMERO, antes de evaluar respiración</strong> ★★ ·
+    <strong>🆕 FV fina: intentar siempre la descarga</strong> ★★ ·
+    <strong>🆕 FV refractaria (&gt;3 descargas): cambiar parches a posición antero-posterior</strong> ★★ ·
+    <strong>🆕 Dispositivos supraglóticos prioritarios sobre intubación</strong> (extrahospitalario) ★★ ·
+    <strong>🆕 ETCO₂: monitorización prioritaria para calidad RCP y detección ROSC</strong> ★★ ·
+    <strong>Dispositivos mecánicos: NO rutinarios</strong> (AHA+ERC 2025) ★★ ·
+    SVA FV: Adrenalina+Amiodarona tras 3.ª descarga ★★ ·
+    SVA AESP/Asistolia: Adrenalina inmediata, NO amiodarona ★★ ·
+    Pediátrico: 5 ventilaciones primero + pedir ayuda tras 1 min + <strong>30:2 si no entrenado en SVB-P (🆕 2025)</strong> ★★ ·
+    Avalancha &gt;60 min: RCP + recalentamiento ECMO ★★ ·
+    Embarazada: desplazar útero izquierda + cesárea si no RCE en 4 min ★★ ·
+    OVACE adulto: <strong>5 golpes interescapulares + 5 compresiones abdominales</strong> (AHA 2025 incorpora golpes espalda en adulto ★★)
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test · ERC/AHA 2025</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test · SVB/SVA · ERC 2025 · AHA 2025 · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es la frecuencia y profundidad de compresiones en SVB adulto (ERC 2025)?</div><div class="qa"><strong>100-120/min · 5-6 cm</strong> — sin cambio respecto a 2021 ★★</div></div>
+    <div class="qb"><div class="qt">🆕 ERC 2025: en el algoritmo del lego, ¿cuándo se llama al 112?</div><div class="qa"><strong>Inmediatamente cuando la persona no responde</strong>, ANTES de evaluar la respiración ★★</div></div>
+    <div class="qb"><div class="qt">🆕 ERC 2025: ante una FV fina en el monitor, ¿se debe intentar la desfibrilación?</div><div class="qa"><strong>Sí — intentar desfibrilación de FV de cualquier amplitud</strong>, incluso fina ★★</div></div>
+    <div class="qb"><div class="qt">🆕 ERC 2025: ¿qué hacer si la FV persiste tras más de 3 descargas?</div><div class="qa"><strong>Cambiar posición de parches a antero-posterior</strong> (cambio de vector) ★★ · También puede considerarse doble desfibrilación secuencial</div></div>
+    <div class="qb"><div class="qt">🆕 ERC+AHA 2025: ¿se recomienda el uso rutinario de dispositivos mecánicos de RCP?</div><div class="qa"><strong>No</strong> — no recomendado de forma rutinaria · solo cuando RCP manual es imposible o insegura ★★</div></div>
+    <div class="qb"><div class="qt">🆕 ERC 2025: ¿qué dispositivo de vía aérea tiene prioridad sobre la intubación?</div><div class="qa"><strong>Dispositivos supraglóticos</strong> (i-gel, ML) — prioritarios, especialmente en entorno extrahospitalario ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué fármacos se administran tras la 3.ª descarga sin éxito en FV (ERC 2025)?</div><div class="qa"><strong>Adrenalina 1 mg IV/IO + Amiodarona 300 mg IV/IO</strong> simultáneamente ★★</div></div>
+    <div class="qb"><div class="qt">🆕 ERC 2025 pediátrico: ¿qué relación usar si el reanimador NO está entrenado específicamente en SVB pediátrico?</div><div class="qa"><strong>30:2</strong> — el 15:2 solo si entrenado en curso ERC-SVBP o equivalente ★★</div></div>
+    <div class="qb"><div class="qt">Paciente sepultado en avalancha &gt;60 min, sin obstrucción VA ni lesiones letales. ¿Qué hacer?</div><div class="qa"><strong>RCP completa + recalentamiento</strong> preferiblemente con soporte extracorpóreo (ECMO) ★★</div></div>
+    <div class="qb"><div class="qt">🆕 AHA 2025 (se alinea con ERC): OVACE grave en adulto consciente. ¿Cuál es la secuencia?</div><div class="qa"><strong>5 golpes interescapulares + 5 compresiones abdominales</strong> en ciclos alternos (AHA 2025 añade golpes en espalda en adulto) ★★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

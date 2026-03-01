@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shock · Sepsis · SDRA · VM · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  --shock:#b83030;   /* rojo */
+  --sepsis:#8a3aaa;  /* violeta */
+  --sdra:#1a5a8a;    /* azul */
+  --vm:#2a7a3a;      /* verde */
+  --alarm:#b83030;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--shock);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--sepsis);font-style:italic;}
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* GRID LAYOUTS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-bottom:.7rem;}
+@media(max-width:700px){.two-col{grid-template-columns:1fr;}.four-col{grid-template-columns:1fr 1fr;}}
+@media(max-width:450px){.four-col{grid-template-columns:1fr;}}
+
+/* TARJETAS SHOCK */
+.shock-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.shock-head{padding:.5rem .8rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.sh-badge{font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.06rem;}
+.sh-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.sh-body{padding:.55rem .8rem;display:flex;flex-direction:column;gap:.2rem;}
+.sh-row{font-size:.69rem;color:var(--muted);line-height:1.35;display:flex;gap:.3rem;align-items:flex-start;}
+.sh-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:.04rem;}
+.sh-row strong{color:var(--text);}
+
+/* PARÁMETROS */
+.params{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.4rem;margin-bottom:.55rem;}
+.p-box{padding:.38rem .55rem;border-radius:5px;border:1px solid;text-align:center;}
+.p-lbl{font-family:'JetBrains Mono',monospace;font-size:.47rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.04rem;}
+.p-val{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;line-height:1.1;}
+.p-note{font-size:.58rem;color:var(--muted);line-height:1.25;}
+
+/* TABLA */
+.etab{width:100%;border-collapse:collapse;font-size:.7rem;margin-bottom:.5rem;}
+.etab th{padding:.38rem .6rem;background:var(--s3);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;letter-spacing:.1em;text-align:left;color:var(--muted);}
+.etab td{padding:.38rem .6rem;border:1px solid var(--border);vertical-align:top;line-height:1.35;}
+.etab tr:nth-child(even){background:var(--s2);}
+
+/* ESCALAS SEPSIS */
+.scale-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.6rem;margin-bottom:.7rem;}
+.scale-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.sc-head{padding:.5rem .8rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.sc-title{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;}
+.sc-body{padding:.5rem .8rem;display:flex;flex-direction:column;gap:.2rem;}
+.sc-row{font-size:.68rem;color:var(--muted);line-height:1.35;display:flex;gap:.3rem;align-items:flex-start;}
+.sc-row::before{content:'•';color:var(--gold);font-weight:900;flex-shrink:0;}
+.sc-row strong{color:var(--text);}
+.sc-alert{background:#fef0f0;border:1px solid #e09090;border-radius:4px;padding:.28rem .5rem;font-size:.66rem;color:var(--alarm);margin-top:.1rem;line-height:1.35;}
+
+/* BUNDLE HORA-1 */
+.bundle{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.bun-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);}
+.bun-body{padding:.7rem .9rem;}
+.bun-steps{display:flex;flex-direction:column;gap:.3rem;}
+.bun-step{display:flex;align-items:stretch;gap:.5rem;}
+.bun-num{flex-shrink:0;width:1.6rem;height:1.6rem;display:flex;align-items:center;justify-content:center;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;}
+.bun-content{flex:1;padding:.35rem .65rem;border-radius:5px;border:1px solid;font-size:.7rem;line-height:1.4;}
+.bun-content strong{display:block;margin-bottom:.04rem;}
+
+/* SDRA BERLIN */
+.berlin{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.ber-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);}
+.ber-body{padding:.7rem .9rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;}
+@media(max-width:600px){.ber-body{grid-template-columns:1fr;}}
+.ber-col{border-radius:7px;padding:.5rem .7rem;border:1px solid;}
+.ber-title{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;margin-bottom:.12rem;}
+.ber-val{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;margin-bottom:.1rem;}
+.ber-text{font-size:.67rem;color:var(--muted);line-height:1.35;}
+.ber-recoms{margin-top:.1rem;font-size:.63rem;font-style:italic;color:var(--muted);border-top:1px dashed var(--border);padding-top:.1rem;}
+
+/* VM PARÁMETROS */
+.vm-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.vm-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);}
+.vm-body{padding:.7rem .9rem;}
+.vm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.5rem;margin-bottom:.5rem;}
+.vm-box{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.45rem .65rem;}
+.vm-lbl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.1rem;}
+.vm-val{font-size:.78rem;font-weight:700;color:var(--vm);margin-bottom:.06rem;}
+.vm-note{font-size:.65rem;color:var(--muted);line-height:1.3;}
+
+/* PRONO */
+.prono-box{background:#e8f0fa;border:2px solid var(--sdra);border-radius:8px;padding:.6rem .85rem;margin-bottom:.6rem;}
+.prono-lbl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.15em;color:var(--sdra);margin-bottom:.12rem;}
+.prono-val{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--sdra);margin-bottom:.08rem;}
+.prono-text{font-size:.71rem;color:var(--text);font-weight:600;line-height:1.5;}
+
+/* MEMO + TEST */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.72rem;color:var(--text);font-weight:600;line-height:1.6;}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#f5eefa;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--sepsis);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;} .qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--sepsis);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🚨 Urgencias · Bloque 2</div>
+  <h1>Shock · <em>Sepsis</em> · SDRA · VM</h1>
+  <p style="font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;">Surviving Sepsis 2021 · Berlín SDRA · ERC · SEMICYUC</p>
+</header>
+
+<!-- ═══ I. TIPOS DE SHOCK ═══ -->
+<div class="sdiv"><span>💢 I. Tipos de Shock — clasificación y manejo ★★</span></div>
+
+<div class="four-col">
+  <div class="shock-card">
+    <div class="shock-head" style="border-left-color:#b83030;background:#fef0f0;">
+      <div class="sh-badge" style="color:#b83030;">Hipovolémico</div>
+      <div class="sh-title" style="color:#b83030;">Shock por pérdida de volumen</div>
+    </div>
+    <div class="sh-body">
+      <div class="sh-row"><strong>Causas:</strong> hemorragia, deshidratación, quemaduras, 3.er espacio</div>
+      <div class="sh-row"><strong>Fisiopatología:</strong> ↓ precarga → ↓ GC → hipoperfusión</div>
+      <div class="sh-row"><strong>Clínica:</strong> piel fría, PVC baja, colapso yugular, diuresis &lt;0,5 ml/kg/h ★</div>
+      <div class="sh-row"><strong>Tratamiento:</strong> restaurar volemia (cristaloides, hemoderivados según causa)</div>
+    </div>
+  </div>
+  <div class="shock-card">
+    <div class="shock-head" style="border-left-color:#1a6faa;background:#e8f2fa;">
+      <div class="sh-badge" style="color:#1a6faa;">Cardiogénico</div>
+      <div class="sh-title" style="color:#1a6faa;">Fallo de bomba</div>
+    </div>
+    <div class="sh-body">
+      <div class="sh-row"><strong>Causas:</strong> IAM, IC descompensada, arritmias, valvulopatía</div>
+      <div class="sh-row"><strong>Fisiopatología:</strong> ↓ contractilidad → ↓ GC, ↑ precarga, edema pulmonar</div>
+      <div class="sh-row"><strong>Clínica:</strong> PVC alta, IY, crepitantes, corazón agrandado</div>
+      <div class="sh-row"><strong>Tratamiento:</strong> inotrópicos, diuréticos, revascularización si SCA</div>
+    </div>
+  </div>
+  <div class="shock-card">
+    <div class="shock-head" style="border-left-color:var(--sepsis);background:#f5eefa;">
+      <div class="sh-badge" style="color:var(--sepsis);">Distributivo</div>
+      <div class="sh-title" style="color:var(--sepsis);">Vasodilatación patológica</div>
+    </div>
+    <div class="sh-body">
+      <div class="sh-row"><strong>Causas:</strong> séptico (más frecuente), anafiláctico, neurógeno</div>
+      <div class="sh-row"><strong>Fisiopatología:</strong> ↓ RVS → maldistribución del flujo → hipoperfusión tisular</div>
+      <div class="sh-row"><strong>Clínica séptico:</strong> piel caliente y eritematosa, PVC baja, taquicardia ★</div>
+      <div class="sh-row"><strong>Tratamiento:</strong> vasopresores (noradrenalina 1.ª línea ★★), antibióticos, volumen</div>
+    </div>
+  </div>
+  <div class="shock-card">
+    <div class="shock-head" style="border-left-color:var(--vm);background:#eef7f0;">
+      <div class="sh-badge" style="color:var(--vm);">Obstructivo</div>
+      <div class="sh-title" style="color:var(--vm);">Obstrucción al flujo</div>
+    </div>
+    <div class="sh-body">
+      <div class="sh-row"><strong>Causas:</strong> TEP masivo, neumotórax a tensión, taponamiento cardíaco</div>
+      <div class="sh-row"><strong>Fisiopatología:</strong> obstáculo mecánico → ↓ GC, ↑ precarga</div>
+      <div class="sh-row"><strong>Clínica TEP:</strong> IY, taquicardia, hipoxemia, ECG S1Q3T3 ★</div>
+      <div class="sh-row"><strong>Tratamiento:</strong> causa específica (ACTP, drenaje, fibrinólisis)</div>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.55rem .85rem;margin-bottom:.7rem;overflow-x:auto;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.35rem;">Parámetros hemodinámicos comparativos ★</div>
+  <table class="etab">
+    <thead><tr><th>Tipo</th><th>GC</th><th>PVC/PCP</th><th>RVS</th><th>Piel</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:#b83030;">Hipovolémico</strong></td><td>↓↓</td><td>↓↓</td><td>↑↑</td><td>Fría, pálida, sudorosa</td></tr>
+      <tr><td><strong style="color:#1a6faa;">Cardiogénico</strong></td><td>↓↓</td><td>↑↑</td><td>↑↑</td><td>Fría, pálida, sudorosa</td></tr>
+      <tr><td><strong style="color:var(--sepsis);">Distributivo/séptico</strong></td><td>↑ (fase precoz)</td><td>↓</td><td>↓↓</td><td><strong>Caliente</strong>, eritematosa</td></tr>
+      <tr><td><strong style="color:var(--vm);">Obstructivo</strong></td><td>↓↓</td><td>↑</td><td>↑</td><td>Fría, ingurgitación yugular</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ II. SEPSIS — DEFINICIÓN Y ESCALAS ═══ -->
+<div class="sdiv"><span>🦠 II. Sepsis — Sepsis-3, escalas y diagnóstico ★★</span></div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;">
+  <div style="padding:.6rem .9rem;border-bottom:1px solid var(--border);border-left:6px solid var(--sepsis);background:#f5eefa;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--sepsis);">Definición Sepsis-3 (2016) vigente ★★</div>
+  </div>
+  <div style="padding:.7rem .9rem;">
+    <div class="params">
+      <div class="p-box" style="background:#f5eefa;border-color:#c090e0;">
+        <div class="p-lbl" style="color:var(--sepsis);">Sepsis ★★</div>
+        <div class="p-val" style="color:var(--sepsis);font-size:.8rem;">Disfunción orgánica</div>
+        <div class="p-note">amenazante para la vida secundaria a respuesta desregulada del huésped a la infección · SOFA ≥2 puntos</div>
+      </div>
+      <div class="p-box" style="background:#fef0f0;border-color:#e09090;">
+        <div class="p-lbl" style="color:var(--alarm);">Shock séptico ★★</div>
+        <div class="p-val" style="color:var(--alarm);font-size:.75rem;">Sepsis + hipotensión</div>
+        <div class="p-note">PAM &lt;65 mmHg que requiere vasopresores + lactato &gt;2 mmol/L tras resucitación adecuada</div>
+      </div>
+      <div class="p-box" style="background:#fef8e8;border-color:#d0a840;">
+        <div class="p-lbl">Mortalidad hospitalaria</div>
+        <div class="p-val" style="color:var(--gold);">&gt;10%</div>
+        <div class="p-note">Sepsis: ~10-15% · Shock séptico: ~40%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="scale-grid">
+  <div class="scale-card">
+    <div class="sc-head" style="border-left-color:var(--alarm);background:#fef0f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--alarm);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.04rem;">Escala de alerta</div>
+      <div class="sc-title" style="color:var(--alarm);">qSOFA ★★</div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row"><strong>3 variables:</strong> GCS &lt;15 · FR ≥22 rpm · PAS ≤100 mmHg</div>
+      <div class="sc-row">qSOFA positivo: ≥2 puntos → sospecha de sepsis</div>
+      <div class="sc-row">Rápido, a pie de cama, sin analítica</div>
+      <div class="sc-alert"><strong>SSC 2021 ★★:</strong> RECOMIENDA EN CONTRA de usar qSOFA como herramienta ÚNICA de screening — baja sensibilidad. Solo qSOFA negativo NO descarta sepsis.</div>
+    </div>
+  </div>
+  <div class="scale-card">
+    <div class="sc-head" style="border-left-color:var(--sepsis);background:#f5eefa;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--sepsis);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.04rem;">Disfunción orgánica</div>
+      <div class="sc-title" style="color:var(--sepsis);">SOFA ★★</div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">6 sistemas: respiratorio (PaO₂/FiO₂), coagulación, hepático, cardiovascular, SNC (GCS), renal (creatinina)</div>
+      <div class="sc-row">Cada sistema 0-4 puntos · SOFA ≥2 = disfunción orgánica = criterio Sepsis-3</div>
+      <div class="sc-row"><strong>Criterio diagnóstico oficial de sepsis</strong> según Sepsis-3 ★★</div>
+    </div>
+  </div>
+  <div class="scale-card">
+    <div class="sc-head" style="border-left-color:#7a5500;background:#fef8e8;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:#7a5500;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.04rem;">Criterios clásicos (obsoletos)</div>
+      <div class="sc-title" style="color:#7a5500;">SIRS ★★</div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">Temperatura &gt;38 °C o &lt;36 °C · FC &gt;90 lpm · FR &gt;20 rpm o PaCO₂ &lt;32 · Leucos &gt;12.000 o &lt;4.000 o &gt;10% bandas</div>
+      <div class="sc-row">SIRS positivo: ≥2 criterios + causa infecciosa = antes "sepsis"</div>
+      <div class="sc-alert"><strong>SSC 2021 ★★:</strong> SIRS NO recomendado como herramienta de screening. Sustituido por Sepsis-3/SOFA. SIRS también positivo en condiciones no infecciosas.</div>
+    </div>
+  </div>
+  <div class="scale-card">
+    <div class="sc-head" style="border-left-color:var(--sdra);background:#e8f0fa;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--sdra);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.04rem;">Escalas de alerta precoz</div>
+      <div class="sc-title" style="color:var(--sdra);">NEWS / MEWS ★★</div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row"><strong>NEWS</strong> (National Early Warning Score): FC, FR, SpO₂, temperatura, PAS, consciencia + O₂ suplementario</div>
+      <div class="sc-row"><strong>MEWS</strong> (Modified EWS): similar, más sencillo</div>
+      <div class="sc-alert"><strong>SSC 2021 ★★:</strong> NEWS y MEWS TAMPOCO recomendados como herramienta única. Ninguna escala (SIRS, qSOFA, NEWS, MEWS) es suficiente sola — usar juicio clínico.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ III. BUNDLE HORA-1 ═══ -->
+<div class="sdiv"><span>⏱️ III. Bundle Hora-1 Sepsis (SSC 2021) ★★</span></div>
+
+<div class="bundle">
+  <div class="bun-head" style="border-left:5px solid var(--sepsis);background:#f5eefa;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--sepsis);">Paquete de medidas de la 1.ª hora — iniciar INMEDIATAMENTE ante sospecha de sepsis o shock séptico</div>
+    <div style="font-size:.63rem;color:var(--muted);">Surviving Sepsis Campaign 2021 · 5 acciones en paralelo, no secuenciales</div>
+  </div>
+  <div class="bun-body">
+    <div class="bun-steps">
+      <div class="bun-step">
+        <div class="bun-num" style="background:#f5eefa;color:var(--sepsis);">1</div>
+        <div class="bun-content" style="background:#f5eefa;border-color:#c090e0;">
+          <strong>Medir lactato sérico ★★</strong>
+          Si lactato &gt;2 mmol/L (18 mg/dL) → repetir a las 2 h para confirmar aclaramiento. Lactato &gt;4 mmol/L = marcador de gravedad
+        </div>
+      </div>
+      <div class="bun-step">
+        <div class="bun-num" style="background:#fef0f0;color:var(--alarm);">2</div>
+        <div class="bun-content" style="background:#fef0f0;border-color:#e09090;">
+          <strong>Hemocultivos antes de antibióticos ★★</strong>
+          Al menos 2 sets (1 aerobio + 1 anaerobio) de sitios distintos · NO retrasar antibióticos &gt;45 min para obtenerlos
+        </div>
+      </div>
+      <div class="bun-step">
+        <div class="bun-num" style="background:#eef7f0;color:var(--vm);">3</div>
+        <div class="bun-content" style="background:#eef7f0;border-color:#90c8a0;">
+          <strong>Antibioterapia de amplio espectro ★★</strong>
+          Iniciar en la 1.ª hora tras reconocimiento · Escalación posterior según cultivos
+        </div>
+      </div>
+      <div class="bun-step">
+        <div class="bun-num" style="background:#e8f0fa;color:var(--sdra);">4</div>
+        <div class="bun-content" style="background:#e8f0fa;border-color:#a0c0e0;">
+          <strong>Cristaloides IV 30 ml/kg ★★</strong>
+          En hipotensión inducida por sepsis o lactato ≥4 mmol/L · Completar en primeras 3 h · Usar medidas dinámicas para guiar posterior fluidoterapia
+        </div>
+      </div>
+      <div class="bun-step">
+        <div class="bun-num" style="background:#fef8e8;color:var(--gold);">5</div>
+        <div class="bun-content" style="background:#fef8e8;border-color:#d0a840;">
+          <strong>Vasopresores si hipotensión persiste ★★</strong>
+          PAM objetivo ≥65 mmHg · <strong>Noradrenalina 1.ª línea</strong> ★★ · Vasopresina 2.ª línea si se necesita escalar
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ IV. SDRA — BERLÍN 2012 ═══ -->
+<div class="sdiv"><span>🫁 IV. SDRA — Definición de Berlín 2012 ★★</span></div>
+
+<div class="berlin">
+  <div class="ber-head" style="border-left:5px solid var(--sdra);background:#e8f0fa;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--sdra);">Síndrome de Dificultad Respiratoria Aguda — Clasificación de Berlín</div>
+    <div style="font-size:.63rem;color:var(--muted);">Criterios generales: inicio agudo (&lt;7 días) · bilateral difuso en Rx/TC · no explicado completamente por fallo cardíaco · FiO₂ con PEEP ≥5 cmH₂O</div>
+  </div>
+  <div class="ber-body">
+    <div class="ber-col" style="background:#fef8e8;border-color:#d0a840;">
+      <div class="ber-title" style="color:var(--gold);">SDRA Leve</div>
+      <div class="ber-val" style="color:var(--gold);">PaO₂/FiO₂: 201–300 mmHg</div>
+      <div class="ber-text">Con PEEP o CPAP ≥5 cmH₂O</div>
+      <div class="ber-recoms">Sin indicación de prono</div>
+    </div>
+    <div class="ber-col" style="background:#fef3e8;border-color:#d07030;">
+      <div class="ber-title" style="color:#b05020;">SDRA Moderado ★★</div>
+      <div class="ber-val" style="color:#b05020;">PaO₂/FiO₂: 101–200 mmHg</div>
+      <div class="ber-text">Con PEEP ≥5 cmH₂O · mortalidad ~25-40%</div>
+      <div class="ber-recoms" style="color:#b05020;"><strong>Considerar decúbito prono ≥12 h/día ★★</strong></div>
+    </div>
+    <div class="ber-col" style="background:#fef0f0;border-color:#e09090;">
+      <div class="ber-title" style="color:var(--alarm);">SDRA Grave ★★</div>
+      <div class="ber-val" style="color:var(--alarm);">PaO₂/FiO₂: ≤100 mmHg</div>
+      <div class="ber-text">Con PEEP ≥5 cmH₂O · mortalidad ~40-50%</div>
+      <div class="ber-recoms" style="color:var(--alarm);"><strong>RECOMENDAR decúbito prono ≥12 h/día ★★</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- DECÚBITO PRONO -->
+<div class="prono-box">
+  <div class="prono-lbl">Surviving Sepsis Campaign 2021 — RECOMENDACIÓN FUERTE ★★ literal INGESA</div>
+  <div class="prono-val">Decúbito prono ≥ 12 horas/día</div>
+  <div class="prono-text">
+    En SDRA moderado-grave (PaO₂/FiO₂ &lt;150 mmHg) asociado a sepsis · Mejora oxigenación al redistribuir la perfusión y reducir la atelectasia en zonas dependientes · 
+    El estudio PROSEVA (2013) demostró reducción de mortalidad a 28 días del 32,8% → 16% en SDRA grave con prono precoz ·
+    <strong>Cuidados de enfermería en prono:</strong> prevención de UPP (frente, nariz, rodillas, mamas), ojos ocluidos, tubo aéreo seguro, accesos vasculares accesibles, valorar lesión plexo braquial
+  </div>
+</div>
+
+<!-- ═══ V. VENTILACIÓN MECÁNICA PROTECTORA ═══ -->
+<div class="sdiv"><span>⚙️ V. Ventilación Mecánica Protectora en SDRA ★★</span></div>
+
+<div class="vm-wrap">
+  <div class="vm-head" style="border-left:5px solid var(--vm);background:#eef7f0;">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--vm);">Estrategia ventilatoria protectora — objetivo: evitar volutrauma y barotrauma</div>
+    <div style="font-size:.63rem;color:var(--muted);">ARDSnet + SSC 2021</div>
+  </div>
+  <div class="vm-body">
+    <div class="vm-grid">
+      <div class="vm-box">
+        <div class="vm-lbl">Volumen tidal (Vt) ★★</div>
+        <div class="vm-val">4–6 ml/kg peso ideal</div>
+        <div class="vm-note">Reducción del Vt convencional (12 ml/kg). Peso ideal, no real.</div>
+      </div>
+      <div class="vm-box">
+        <div class="vm-lbl">Presión plateau ★★</div>
+        <div class="vm-val">&lt; 30 cmH₂O</div>
+        <div class="vm-note">Límite superior de presión teleinspiratoria para evitar barotrauma</div>
+      </div>
+      <div class="vm-box">
+        <div class="vm-lbl">PEEP ★</div>
+        <div class="vm-val">≥ 5 cmH₂O</div>
+        <div class="vm-note">En SDRA moderado-grave: PEEP ≥10-15 cmH₂O titulado para FiO₂</div>
+      </div>
+      <div class="vm-box">
+        <div class="vm-lbl">Driving pressure ★</div>
+        <div class="vm-val">&lt; 15 cmH₂O</div>
+        <div class="vm-note">Pplat – PEEP. El mejor predictor de mortalidad en SDRA</div>
+      </div>
+      <div class="vm-box">
+        <div class="vm-lbl">FiO₂</div>
+        <div class="vm-val">Mínima eficaz</div>
+        <div class="vm-note">Objetivo SpO₂ 92-96%. Evitar hiperoxia (toxicidad O₂)</div>
+      </div>
+      <div class="vm-box">
+        <div class="vm-lbl">Sedación/analgesia</div>
+        <div class="vm-val">Mínima necesaria</div>
+        <div class="vm-note">Analgesia primero (analgosedación). Valorar despertar diario ★</div>
+      </div>
+    </div>
+    <div style="background:#eef7f0;border:1px solid #80c090;border-radius:5px;padding:.4rem .65rem;font-size:.7rem;color:var(--text);line-height:1.5;">
+      <strong style="color:var(--vm);">Modos ventilatorios habituales:</strong> VCP (Ventilación Controlada por Presión) o VCV (por Volumen) · La monitorización de curvas de flujo-volumen y presión-volumen es responsabilidad de enfermería de UCI ·
+      <strong>Alarmas críticas:</strong> apnea, desconexión, presión pico elevada, FiO₂ baja → actuación inmediata
+    </div>
+  </div>
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Perlas INGESA — Shock · Sepsis · SDRA</div>
+  <div class="memo-t">
+    Shock séptico: PAM &lt;65 mmHg + vasopresores + lactato &gt;2 mmol/L ★★ ·
+    Bundle hora-1: <strong>lactato + hemocultivos + antibióticos + 30 ml/kg + noradrenalina</strong> ★★ ·
+    Noradrenalina = vasopresor de 1.ª línea en shock séptico ★★ ·
+    <strong>qSOFA, SIRS, NEWS, MEWS: ninguno recomendado como herramienta ÚNICA de screening</strong> ★★ ·
+    SDRA: <strong>Vt 4-6 ml/kg · Pplat &lt;30 cmH₂O</strong> ★★ ·
+    SDRA moderado-grave: <strong>decúbito prono ≥12 h/día</strong> ★★ (SSC 2021 recomendación fuerte) ·
+    Berlín SDRA: leve 201-300 · moderado 101-200 · grave ≤100 mmHg PaO₂/FiO₂ ★★
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Shock · Sepsis · SDRA · VM · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es el vasopresor de primera línea en el shock séptico según SSC 2021?</div><div class="qa"><strong>Noradrenalina</strong> — objetivo PAM ≥65 mmHg ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué dice la SSC 2021 sobre el qSOFA como herramienta de screening de sepsis?</div><div class="qa"><strong>Recomienda en contra</strong> de usarlo como herramienta única — baja sensibilidad ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuánto tiempo debe mantenerse el decúbito prono en SDRA moderado-grave?</div><div class="qa"><strong>≥12 horas/día</strong> — recomendación fuerte SSC 2021 ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el volumen tidal recomendado en ventilación protectora del SDRA?</div><div class="qa"><strong>4-6 ml/kg</strong> de peso ideal ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuáles son los criterios de shock séptico según Sepsis-3?</div><div class="qa">Sepsis + <strong>PAM &lt;65 mmHg que requiere vasopresores + lactato &gt;2 mmol/L</strong> tras resucitación ★★</div></div>
+    <div class="qb"><div class="qt">¿En qué rango de PaO₂/FiO₂ se clasifica el SDRA grave?</div><div class="qa"><strong>≤100 mmHg</strong> con PEEP ≥5 cmH₂O — Definición de Berlín ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la acción más urgente del bundle hora-1 antes de iniciar antibióticos?</div><div class="qa">Extraer <strong>hemocultivos</strong> (al menos 2 sets) ANTES de iniciar antibióticos ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuántos ml/kg de cristaloides recomienda la SSC 2021 en la primera hora?</div><div class="qa"><strong>30 ml/kg</strong> IV en hipotensión o lactato ≥4 mmol/L ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es la presión plateau máxima en ventilación protectora?</div><div class="qa"><strong>&lt;30 cmH₂O</strong> para evitar barotrauma ★★</div></div>
+    <div class="qb"><div class="qt">En shock cardiogénico, ¿cómo está la PVC/PCP y las resistencias?</div><div class="qa">PVC <strong>elevada</strong> + GC <strong>bajo</strong> + RVS <strong>elevadas</strong> (diferencia clave vs shock distributivo) ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPOC · Escala GOLD 2025 · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#e0d5c0;--text:#252530;--muted:#7a7080;
+  /* Grados espirométricos */
+  --g1:#2a7a3a;   /* GOLD 1 verde leve */
+  --g2:#8a6a10;   /* GOLD 2 dorado moderado */
+  --g3:#b55e1a;   /* GOLD 3 naranja grave */
+  --g4:#b83030;   /* GOLD 4 rojo muy grave */
+  /* Grupos ABE */
+  --ga:#1a6faa;   /* A azul */
+  --gb:#8a3aaa;   /* B violeta */
+  --ge:#b83030;   /* E rojo */
+  /* Otros */
+  --gold:#8a6a10;--gold-d:#c8a83a15;
+  --alarm:#b83030;
+  --eos:#2a7a6a;  /* verde eosinófilos */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);}
+.wrap{max-width:1080px;margin:0 auto;}
+
+/* HEADER */
+header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--alarm);color:white;padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;line-height:1.05;letter-spacing:-0.01em;}
+h1 em{color:var(--alarm);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.5rem;}
+.hdef{font-size:0.74rem;color:var(--muted);max-width:680px;margin:0.6rem auto 0;line-height:1.5;}
+.hdef strong{color:var(--text);}
+
+/* DIVIDER */
+.sdiv{display:flex;align-items:center;gap:0.7rem;margin:1.8rem 0 0.9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text);white-space:nowrap;padding:0.12rem 0.65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* ═══════════════════════════════
+   I. GRADOS ESPIROMÉTRICOS GOLD 1–4
+═══════════════════════════════ */
+.diag-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:0.6rem;}
+.diag-head{padding:0.55rem 0.85rem;border-bottom:1px solid var(--border);background:var(--s3);display:flex;align-items:center;gap:0.5rem;}
+.diag-ht{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);}
+.diag-ht strong{color:var(--text);}
+
+/* Barra de grados */
+.grades-bar{display:flex;gap:0;border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:0.7rem;}
+.grade{flex:1;padding:0.85rem 0.5rem 0.75rem;text-align:center;border-right:1px solid var(--border);position:relative;}
+.grade:last-child{border-right:none;}
+.grade-label{font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.18rem;}
+.grade-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;line-height:1;}
+.grade-fev{font-family:'JetBrains Mono',monospace;font-size:0.65rem;margin-top:0.2rem;font-weight:600;}
+.grade-note{font-size:0.62rem;color:var(--muted);margin-top:0.12rem;line-height:1.3;}
+.g1s{background:#e8f5ec;border-top:4px solid var(--g1);}
+.g1s .grade-label,.g1s .grade-name,.g1s .grade-fev{color:var(--g1);}
+.g2s{background:#fef8e8;border-top:4px solid var(--g2);}
+.g2s .grade-label,.g2s .grade-name,.g2s .grade-fev{color:var(--g2);}
+.g3s{background:#fef3e8;border-top:4px solid var(--g3);}
+.g3s .grade-label,.g3s .grade-name,.g3s .grade-fev{color:var(--g3);}
+.g4s{background:#fef0f0;border-top:4px solid var(--g4);}
+.g4s .grade-label,.g4s .grade-name,.g4s .grade-fev{color:var(--g4);}
+@media(max-width:520px){.grades-bar{flex-wrap:wrap;}.grade{flex:0 0 50%;border-bottom:1px solid var(--border);}}
+
+/* Condición diagnóstica */
+.dx-note{background:#e8f2fa;border:1px solid var(--ga)30;border-radius:5px;padding:0.4rem 0.7rem;margin-bottom:0.7rem;font-size:0.72rem;line-height:1.4;}
+.dx-note strong{color:var(--ga);}
+
+/* ═══════════════════════════════
+   II. ESCALAS DE SÍNTOMAS
+═══════════════════════════════ */
+.scales-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:0.7rem;}
+@media(max-width:600px){.scales-wrap{grid-template-columns:1fr;}}
+
+.scale-card{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.scale-head{padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);}
+.scale-label{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.05rem;}
+.scale-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;}
+.scale-body{padding:0.5rem 0;}
+
+/* mMRC rows */
+.mmrc-row{display:flex;align-items:flex-start;gap:0.6rem;padding:0.38rem 0.75rem;border-bottom:1px solid var(--border)10;font-size:0.7rem;line-height:1.35;}
+.mmrc-row:last-child{border-bottom:none;}
+.mmrc-n{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;flex-shrink:0;min-width:16px;padding-top:0.05rem;}
+.mmrc-t{color:var(--muted);}
+.mmrc-t strong{color:var(--text);}
+.mmrc-cut{background:#fef0f0;border-left:3px solid var(--alarm);}
+.mmrc-cut .mmrc-n,.mmrc-cut .mmrc-t{color:var(--alarm);}
+
+/* CAT scale */
+.cat-body{padding:0.55rem 0.75rem;}
+.cat-row{display:flex;align-items:center;gap:0.55rem;padding:0.28rem 0;font-size:0.7rem;border-bottom:1px solid var(--border)12;}
+.cat-row:last-child{border-bottom:none;}
+.cat-score{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;flex-shrink:0;padding:0.08rem 0.4rem;border-radius:3px;}
+.cat-desc{color:var(--muted);line-height:1.3;}
+.cat-desc strong{color:var(--text);}
+.cat-cut-low{background:var(--g1);color:white;}
+.cat-cut-high{background:var(--alarm);color:white;}
+
+/* EOS */
+.eos-card{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;border-top:3px solid var(--eos);}
+.eos-head{padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);background:#e8f5f2;}
+.eos-title{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;color:var(--eos);}
+.eos-sub{font-size:0.66rem;color:var(--muted);}
+.eos-rows{display:grid;grid-template-columns:repeat(3,1fr);}
+.eos-col{padding:0.5rem 0.65rem;border-right:1px solid var(--border);text-align:center;}
+.eos-col:last-child{border-right:none;}
+.eos-val{font-family:'JetBrains Mono',monospace;font-size:0.88rem;font-weight:700;line-height:1;}
+.eos-lbl{font-size:0.62rem;color:var(--muted);margin-top:0.08rem;line-height:1.3;}
+.eos-lbl strong{color:var(--text);}
+
+/* ═══════════════════════════════
+   III. GRUPOS ABE — núcleo del recurso
+═══════════════════════════════ */
+.abe-intro{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:0.6rem 0.85rem;margin-bottom:0.7rem;display:flex;align-items:center;gap:0.7rem;}
+.abe-intro-txt{font-size:0.72rem;color:var(--muted);line-height:1.5;}
+.abe-intro-txt strong{color:var(--text);}
+
+/* Matriz ABE */
+.abe-matrix{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;margin-bottom:0.7rem;}
+@media(max-width:620px){.abe-matrix{grid-template-columns:1fr;}}
+
+.abe-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.abe-top{padding:0.75rem 0.9rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.abe-letter{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;line-height:1;display:inline-block;margin-right:0.4rem;}
+.abe-name{font-size:0.72rem;font-weight:700;margin-bottom:0.12rem;}
+.abe-crit{font-size:0.67rem;color:var(--muted);line-height:1.4;}
+.abe-crit strong{color:var(--text);}
+.abe-body{padding:0.65rem 0.9rem;}
+.abe-sect{margin-bottom:0.4rem;}
+.abe-sect:last-child{margin-bottom:0;}
+.abe-sect-t{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.15rem;}
+.abe-drug{display:flex;flex-direction:column;gap:0.18rem;}
+.drug-pill{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.68rem;font-weight:600;padding:0.18rem 0.5rem;border-radius:12px;border:1px solid;}
+.drug-pill-sub{font-size:0.62rem;color:var(--muted);padding:0 0.2rem;}
+.abe-note{font-size:0.67rem;color:var(--muted);margin-top:0.3rem;line-height:1.35;padding:0.25rem 0.45rem;background:var(--s2);border-radius:3px;border:1px solid var(--border);}
+.abe-note strong{color:var(--text);}
+
+/* Colores A */
+.card-a .abe-top{border-left-color:var(--ga);background:#e8f2fa;}
+.card-a .abe-letter{color:var(--ga);}
+.card-a .abe-name{color:var(--ga);}
+.card-a .abe-sect-t{color:var(--ga);}
+.pill-a{background:#e8f2fa;color:var(--ga);border-color:var(--ga)40;}
+
+/* Colores B */
+.card-b .abe-top{border-left-color:var(--gb);background:#ede8f8;}
+.card-b .abe-letter{color:var(--gb);}
+.card-b .abe-name{color:var(--gb);}
+.card-b .abe-sect-t{color:var(--gb);}
+.pill-b{background:#ede8f8;color:var(--gb);border-color:var(--gb)40;}
+
+/* Colores E */
+.card-e .abe-top{border-left-color:var(--ge);background:#fef0f0;}
+.card-e .abe-letter{color:var(--ge);}
+.card-e .abe-name{color:var(--ge);}
+.card-e .abe-sect-t{color:var(--ge);}
+.pill-e{background:#fef0f0;color:var(--ge);border-color:var(--ge)40;}
+.pill-e-triple{background:#fce8e8;color:#8a1010;border-color:#e0808040;font-weight:700;}
+
+/* ═══════════════════════════════
+   IV. SEGUIMIENTO — ALGORITMO
+═══════════════════════════════ */
+.follow-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:600px){.follow-grid{grid-template-columns:1fr;}}
+
+.follow-card{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.follow-head{padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.follow-ht{font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.05rem;}
+.follow-title{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;}
+.follow-body{padding:0.55rem 0.8rem;display:flex;flex-direction:column;gap:0.22rem;}
+.frow{font-size:0.71rem;line-height:1.4;padding:0.2rem 0;}
+.frow strong{color:var(--text);}
+.frow-arrow{display:flex;gap:0.35rem;align-items:flex-start;}
+.frow-arrow::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:0.05rem;}
+
+/* ═══════════════════════════════
+   TRATAMIENTO NO FARMACOLÓGICO
+═══════════════════════════════ */
+.nofarm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.5rem;}
+.nofcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.55rem 0.7rem;border-left:3px solid var(--gold);}
+.nofcard-t{font-weight:700;font-size:0.75rem;margin-bottom:0.1rem;color:var(--gold);}
+.nofcard-d{font-size:0.69rem;color:var(--muted);line-height:1.4;}
+.nofcard-d strong{color:var(--text);}
+
+/* MEMO */
+.memo{border-radius:5px;padding:0.5rem 0.8rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.6rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.1rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.74rem;line-height:1.5;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;background:#fef0f0;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--alarm);}
+.tbody{padding:0.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.73rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.15rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--alarm);display:flex;align-items:flex-start;gap:0.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.61rem;color:var(--muted);margin-top:0.04rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div class="htag">🫁 Patología Obstructiva</div>
+  <h1>EPOC · Escala <em>GOLD 2025</em></h1>
+  <p class="hsub">Grados 1–4 · Grupos ABE · Escalas mMRC/CAT · Eosinófilos · Tratamiento</p>
+  <p class="hdef">Enfermedad pulmonar heterogénea con <strong>síntomas respiratorios crónicos</strong> (disnea, tos, esputo, exacerbaciones) por anomalías de vías respiratorias y/o alveolos que provocan <strong>obstrucción persistente del flujo aéreo</strong>. Diagnóstico: <strong>FEV1/FVC post-BD &lt;0,7</strong></p>
+</header>
+
+<!-- ══════════════════════════════
+     I. DIAGNÓSTICO ESPIROMÉTRICO
+══════════════════════════════ -->
+<div class="sdiv"><span>🌬️ I. Diagnóstico y clasificación espirométrica</span></div>
+
+<div class="dx-note">
+  <strong>Criterio diagnóstico obligatorio:</strong> FEV1/FVC postbroncodilatador &lt;0,7 · Confirma la presencia de obstrucción persistente del flujo aéreo ★★ · Repetir si está en el límite
+</div>
+
+<!-- Grados 1–4 -->
+<div class="grades-bar">
+  <div class="grade g1s">
+    <div class="grade-label">GOLD 1</div>
+    <div class="grade-name">Leve</div>
+    <div class="grade-fev">FEV1 ≥ 80%</div>
+    <div class="grade-note">Síntomas presentes<br>pero función casi normal</div>
+  </div>
+  <div class="grade g2s">
+    <div class="grade-label">GOLD 2</div>
+    <div class="grade-name">Moderado</div>
+    <div class="grade-fev">50% ≤ FEV1 &lt; 80%</div>
+    <div class="grade-note">Disnea de esfuerzo<br>Diagnóstico más frecuente</div>
+  </div>
+  <div class="grade g3s">
+    <div class="grade-label">GOLD 3</div>
+    <div class="grade-name">Grave</div>
+    <div class="grade-fev">30% ≤ FEV1 &lt; 50%</div>
+    <div class="grade-note">Exacerbaciones frecuentes<br>Impacto en calidad de vida</div>
+  </div>
+  <div class="grade g4s">
+    <div class="grade-label">GOLD 4</div>
+    <div class="grade-name">Muy grave</div>
+    <div class="grade-fev">FEV1 &lt; 30%</div>
+    <div class="grade-note">O &lt;50% + insuf. respiratoria crónica<br>Riesgo vital</div>
+  </div>
+</div>
+
+<div class="memo" style="margin-bottom:0.7rem;">
+  <div class="ml">🧠 Mnemotécnico FEV1</div>
+  <div class="mt">GOLD 1 ≥ 80% · GOLD 2 = 50–79% · GOLD 3 = 30–49% · GOLD 4 &lt;30% · <span style="color:var(--alarm)">Todos con FEV1/FVC &lt;0,7 post-BD ★★</span></div>
+</div>
+
+<!-- ══════════════════════════════
+     II. ESCALAS DE SÍNTOMAS
+══════════════════════════════ -->
+<div class="sdiv"><span>📋 II. Evaluación de síntomas — mMRC y CAT</span></div>
+
+<div class="scales-wrap">
+  <!-- mMRC -->
+  <div class="scale-card">
+    <div class="scale-head" style="background:#fef3e8;border-left:4px solid var(--g3);">
+      <div class="scale-label" style="color:var(--g3);">Escala de disnea · Punto de corte: ≥2</div>
+      <div class="scale-title" style="color:var(--g3);">mMRC — Modified MRC ★★</div>
+    </div>
+    <div class="scale-body">
+      <div class="mmrc-row"><span class="mmrc-n" style="color:var(--g1);">0</span><span class="mmrc-t">Disnea solo con ejercicio <strong>muy intenso</strong></span></div>
+      <div class="mmrc-row"><span class="mmrc-n" style="color:var(--g2);">1</span><span class="mmrc-t">Disnea al andar <strong>deprisa</strong> o subir una cuesta poco pronunciada</span></div>
+      <div class="mmrc-row mmrc-cut"><span class="mmrc-n">2 ★</span><span class="mmrc-t"><strong>No puede mantener el paso</strong> de personas de su edad en llano, o para a descansar</span></div>
+      <div class="mmrc-row mmrc-cut"><span class="mmrc-n">3</span><span class="mmrc-t">Para a descansar tras andar <strong>unos 100 m</strong> o a los pocos minutos en llano</span></div>
+      <div class="mmrc-row mmrc-cut"><span class="mmrc-n">4</span><span class="mmrc-t">La disnea <strong>impide salir de casa</strong> o aparece con vestirse/desvestirse</span></div>
+    </div>
+    <div style="padding:0.3rem 0.75rem 0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--alarm);background:#fef0f0;border-top:1px solid var(--border);">
+      ★★ mMRC ≥ 2 = disnea significativa → Grupos B o E
+    </div>
+  </div>
+
+  <!-- CAT -->
+  <div class="scale-card">
+    <div class="scale-head" style="background:#e8f2fa;border-left:4px solid var(--ga);">
+      <div class="scale-label" style="color:var(--ga);">COPD Assessment Test · 8 ítems · 0–40 pts · Punto de corte: 10</div>
+      <div class="scale-title" style="color:var(--ga);">CAT — Test de Evaluación EPOC ★★</div>
+    </div>
+    <div class="cat-body">
+      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:0.4rem;">8 preguntas con escala 0–5 cada una (tos, esputo, opresión, disnea, actividades, seguridad, sueño, energía)</div>
+      <div class="cat-row">
+        <span class="cat-score cat-cut-low">&lt;10</span>
+        <span class="cat-desc"><strong>Impacto bajo</strong> — la mayoría de días son buenos · tos varios días a la semana</span>
+      </div>
+      <div class="cat-row" style="margin-top:0.25rem;">
+        <span class="cat-score cat-cut-high">≥10</span>
+        <span class="cat-desc"><strong>Impacto medio-alto</strong> — síntomas con repercusión en calidad de vida</span>
+      </div>
+      <div style="margin-top:0.45rem;padding:0.28rem 0.5rem;background:var(--s2);border-radius:4px;border:1px solid var(--border);font-size:0.68rem;color:var(--muted);">
+        CAT ≥10 → sintomático → Grupos <strong>B</strong> o <strong>E</strong><br>
+        CAT &lt;10 → poco sintomático → Grupo <strong>A</strong>
+      </div>
+    </div>
+    <div style="padding:0.3rem 0.75rem 0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--ga);background:#e8f2fa;border-top:1px solid var(--border);">
+      ★★ CAT ≥10 = impacto significativo EPOC
+    </div>
+  </div>
+</div>
+
+<!-- Eosinófilos -->
+<div class="eos-card">
+  <div class="eos-head">
+    <div class="eos-title">🧪 Eosinófilos en sangre — biomarcador para ICS ★★</div>
+    <div class="eos-sub">Guía la adición de corticoides inhalados (ICS) al tratamiento broncodilatador en el Grupo E</div>
+  </div>
+  <div class="eos-rows">
+    <div class="eos-col">
+      <div class="eos-val" style="color:var(--g1);">&lt;100</div>
+      <div class="eos-lbl"><strong style="color:var(--g1);">No añadir ICS</strong><br>Respuesta preventiva improbable</div>
+    </div>
+    <div class="eos-col">
+      <div class="eos-val" style="color:var(--g2);">100–300</div>
+      <div class="eos-lbl"><strong>Considerar</strong> según contexto clínico<br>y exacerbaciones previas</div>
+    </div>
+    <div class="eos-col">
+      <div class="eos-val" style="color:var(--alarm);">≥300 ★★</div>
+      <div class="eos-lbl"><strong style="color:var(--alarm);">Considerar LABA+LAMA+ICS</strong><br>Triple terapia en Grupo E</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     III. GRUPOS ABE — CLASIFICACIÓN
+══════════════════════════════ -->
+<div class="sdiv"><span>🗂️ III. Clasificación ABE — evaluación combinada GOLD 2025</span></div>
+
+<div class="abe-intro">
+  <div style="font-size:2rem;">📊</div>
+  <div class="abe-intro-txt">
+    La evaluación ABE combina <strong>síntomas</strong> (mMRC/CAT) con <strong>historial de exacerbaciones</strong>.
+    GOLD 2023–2025 fusionó los antiguos grupos C y D en un único <strong>Grupo E</strong>, priorizando las exacerbaciones como criterio de tratamiento.
+    Los grados espirométricos (1–4) son independientes de los grupos ABE.
+  </div>
+</div>
+
+<div class="abe-matrix">
+
+  <!-- GRUPO A -->
+  <div class="abe-card card-a">
+    <div class="abe-top">
+      <span class="abe-letter">A</span>
+      <div class="abe-name">Poco sintomático · Bajo riesgo</div>
+      <div class="abe-crit">
+        <strong>Síntomas:</strong> mMRC 0–1 <em>o</em> CAT &lt;10<br>
+        <strong>Exacerbaciones:</strong> 0 o 1 moderada (sin ingreso)
+      </div>
+    </div>
+    <div class="abe-body">
+      <div class="abe-sect">
+        <div class="abe-sect-t">Tratamiento inicial ★★</div>
+        <div class="abe-drug">
+          <span class="drug-pill pill-a">💊 Un broncodilatador</span>
+          <span class="drug-pill-sub">SABA o SAMA (corta duración) o LABA o LAMA (larga duración)</span>
+        </div>
+      </div>
+      <div class="abe-note">Preferir LABA o LAMA si disponibles, salvo disnea muy ocasional. Objetivo: alivio sintomático</div>
+    </div>
+  </div>
+
+  <!-- GRUPO B -->
+  <div class="abe-card card-b">
+    <div class="abe-top">
+      <span class="abe-letter">B</span>
+      <div class="abe-name">Muy sintomático · Bajo riesgo exacerbaciones</div>
+      <div class="abe-crit">
+        <strong>Síntomas:</strong> mMRC ≥2 <em>o</em> CAT ≥10<br>
+        <strong>Exacerbaciones:</strong> 0 o 1 moderada (sin ingreso) ★
+      </div>
+    </div>
+    <div class="abe-body">
+      <div class="abe-sect">
+        <div class="abe-sect-t">Tratamiento inicial ★★</div>
+        <div class="abe-drug">
+          <span class="drug-pill pill-b">💊 LABA + LAMA</span>
+          <span class="drug-pill-sub">Doble broncodilatación de larga duración (inhalador único si posible)</span>
+        </div>
+      </div>
+      <div class="abe-note"><strong>LABA+LAMA</strong> es superior a monoterapia en pacientes del grupo B con ≥1 exacerbación y CAT ≥10 ★</div>
+    </div>
+  </div>
+
+  <!-- GRUPO E -->
+  <div class="abe-card card-e">
+    <div class="abe-top">
+      <span class="abe-letter">E</span>
+      <div class="abe-name">Exacerbador — Alto riesgo ★★</div>
+      <div class="abe-crit">
+        <strong>≥2 exacerbaciones moderadas</strong> en el año previo<br>
+        <em>o</em> <strong>≥1 exacerbación con ingreso hospitalario</strong>
+        <span style="display:block;margin-top:0.15rem;font-style:italic;font-size:0.62rem;">Independientemente del nivel de síntomas</span>
+      </div>
+    </div>
+    <div class="abe-body">
+      <div class="abe-sect">
+        <div class="abe-sect-t">Tratamiento inicial ★★</div>
+        <div class="abe-drug">
+          <span class="drug-pill pill-e">💊 LABA + LAMA</span>
+          <span class="drug-pill-sub">Tratamiento base en todos los grupo E</span>
+          <span class="drug-pill pill-e-triple">💊★ LABA + LAMA + ICS</span>
+          <span class="drug-pill-sub">Si eosinófilos ≥300 cél/µL ★★</span>
+        </div>
+      </div>
+      <div class="abe-note"><strong>No se recomienda LABA+ICS solo</strong> en EPOC. Si hay indicación de ICS, preferir siempre triple terapia LABA+LAMA+ICS ★</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Tabla resumen ABE -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:0.7rem;">
+  <div style="padding:0.45rem 0.8rem;background:var(--s3);border-bottom:1px solid var(--border);">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);">Tabla resumen ABE GOLD 2025</span>
+  </div>
+  <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.72rem;">
+      <thead>
+        <tr style="background:var(--s2);">
+          <th style="padding:0.4rem 0.7rem;text-align:left;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);">Grupo</th>
+          <th style="padding:0.4rem 0.7rem;text-align:left;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);">Síntomas</th>
+          <th style="padding:0.4rem 0.7rem;text-align:left;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);">Exacerbaciones/año</th>
+          <th style="padding:0.4rem 0.7rem;text-align:left;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);">Tratamiento inicial ★★</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--ga);">A</span></td>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;">mMRC 0–1 · CAT &lt;10</td>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;">0 o 1 moderada (sin ingreso)</td>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;"><strong style="color:var(--ga);">1 broncodilatador</strong> (SABA/SAMA o LABA/LAMA)</td>
+        </tr>
+        <tr style="background:#faf7f2;">
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--gb);">B</span></td>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;">mMRC ≥2 · CAT ≥10</td>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;">0 o 1 moderada (sin ingreso)</td>
+          <td style="padding:0.45rem 0.7rem;border-bottom:1px solid var(--border)18;"><strong style="color:var(--gb);">LABA + LAMA</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:0.45rem 0.7rem;"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--ge);">E</span></td>
+          <td style="padding:0.45rem 0.7rem;">Cualquier nivel de síntomas</td>
+          <td style="padding:0.45rem 0.7rem;"><strong>≥2 moderadas</strong> o <strong>≥1 con ingreso</strong> ★★</td>
+          <td style="padding:0.45rem 0.7rem;"><strong style="color:var(--ge);">LABA + LAMA</strong> · o <strong>LABA+LAMA+ICS</strong> si eos ≥300 ★★</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     IV. SEGUIMIENTO Y ESCALADO
+══════════════════════════════ -->
+<div class="sdiv"><span>🔄 IV. Seguimiento — escalado terapéutico</span></div>
+
+<div class="follow-grid">
+  <div class="follow-card">
+    <div class="follow-head" style="border-left-color:var(--g3);background:#fef3e8;">
+      <div class="follow-ht" style="color:var(--g3);">Si persiste DISNEA</div>
+      <div class="follow-title" style="color:var(--g3);">💨 Escalado por síntomas</div>
+    </div>
+    <div class="follow-body">
+      <div class="frow frow-arrow">Con <strong>monoterapia</strong>: añadir segundo broncodilatador → LABA+LAMA ★</div>
+      <div class="frow frow-arrow">Con <strong>LABA+LAMA</strong>: verificar técnica inhaladora, adherencia, otras causas de disnea</div>
+      <div class="frow frow-arrow">Cambiar dispositivo/molécula si no mejora</div>
+      <div class="frow frow-arrow"><strong>No indicado añadir ICS</strong> solo por disnea (sin exacerbaciones)</div>
+    </div>
+  </div>
+  <div class="follow-card">
+    <div class="follow-head" style="border-left-color:var(--ge);background:#fef0f0;">
+      <div class="follow-ht" style="color:var(--ge);">Si persisten EXACERBACIONES</div>
+      <div class="follow-title" style="color:var(--ge);">🔁 Escalado por exacerbaciones</div>
+    </div>
+    <div class="follow-body">
+      <div class="frow frow-arrow">En <strong>LABA+LAMA</strong>: añadir ICS si eos ≥300 → triple terapia ★★</div>
+      <div class="frow frow-arrow">En <strong>LABA+ICS</strong>: cambiar a LABA+LAMA <em>o</em> LABA+LAMA+ICS (GOLD 2025) ★</div>
+      <div class="frow frow-arrow">Triple terapia <strong>LABA+LAMA+ICS superior a LABA+ICS</strong> si indicación de ICS ★★</div>
+      <div class="frow frow-arrow">Considerar azitromicina o roflumilast en casos seleccionados</div>
+      <div class="frow frow-arrow"><strong>Nuevo GOLD 2025:</strong> terapia biológica (dupilumab) en exacerbadores con eos ≥300 bajo triple terapia ★</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     V. TRATAMIENTO NO FARMACOLÓGICO
+══════════════════════════════ -->
+<div class="sdiv"><span>🏃 V. Tratamiento no farmacológico — para TODOS los grupos</span></div>
+
+<div class="nofarm-grid">
+  <div class="nofcard">
+    <div class="nofcard-t">🚭 Cese tabáquico — prioridad A</div>
+    <div class="nofcard-d">Una de las pocas intervenciones que <strong>reduce mortalidad</strong> en EPOC (Evidencia A). Incluir tratamiento farmacológico si precisa.</div>
+  </div>
+  <div class="nofcard">
+    <div class="nofcard-t">💉 Vacunación</div>
+    <div class="nofcard-d"><strong>Gripe</strong> anual (B) · <strong>Neumococo</strong> PCV-20/21 (B) · <strong>COVID-19</strong> (B) · <strong>VRS</strong> ≥60 años (A) · <strong>Tdap</strong> si no vacunado · <strong>Herpes zóster</strong> ≥50 años (B)</div>
+  </div>
+  <div class="nofcard">
+    <div class="nofcard-t">🏋️ Rehabilitación pulmonar</div>
+    <div class="nofcard-d">Mejora <strong>capacidad de ejercicio, síntomas y calidad de vida</strong> en todos los grados de gravedad</div>
+  </div>
+  <div class="nofcard">
+    <div class="nofcard-t">💧 Oxigenoterapia a largo plazo</div>
+    <div class="nofcard-d">Indicada si <strong>PaO₂ ≤55 mmHg</strong> o &lt;60 mmHg con cor pulmonale o policitemia → mejora supervivencia (Evidencia A)</div>
+  </div>
+  <div class="nofcard">
+    <div class="nofcard-t">🌬️ VNI a largo plazo</div>
+    <div class="nofcard-d">En hipercapnia crónica grave + hospitalización por IRA → puede reducir mortalidad y rehospitalización</div>
+  </div>
+  <div class="nofcard">
+    <div class="nofcard-t">🔍 Alfa-1 Antitripsina</div>
+    <div class="nofcard-d"><strong>Screening obligatorio</strong> al menos una vez en la vida en todo paciente con EPOC ★</div>
+  </div>
+</div>
+
+<div class="memo">
+  <div class="ml">🧠 Resumen GOLD 2025 — lo más preguntado</div>
+  <div class="mt">
+    Dx: FEV1/FVC post-BD &lt;0,7 ★★ · Grados: 1(≥80%) 2(50–79%) 3(30–49%) 4(&lt;30%) ★★ ·
+    Grupo A = 1 BD · Grupo B = LABA+LAMA · Grupo E = ≥2 exac. o ≥1 ingreso → LABA+LAMA (±ICS si eos≥300) ★★ ·
+    mMRC≥2 o CAT≥10 = sintomático · EOS≥300 → triple terapia ★★
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — EPOC GOLD 2025 · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuál es el criterio diagnóstico espirométrico de la EPOC?</div><div class="qa"><strong>FEV1/FVC post-broncodilatador &lt;0,7</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué FEV1 define el GOLD 3 (grave)?</div><div class="qa"><strong>30% ≤ FEV1 &lt; 50%</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué criterio define al Grupo E en la clasificación ABE?</div><div class="qa"><strong>≥2 exacerbaciones moderadas</strong> o <strong>≥1 con ingreso</strong> en el año previo ★★</div></div>
+    <div class="qb"><div class="qt">Tratamiento inicial del Grupo A</div><div class="qa"><strong>Un broncodilatador</strong> (SABA/SAMA o LABA/LAMA) ★★</div></div>
+    <div class="qb"><div class="qt">Tratamiento inicial del Grupo B</div><div class="qa"><strong>LABA + LAMA</strong> (doble broncodilatación de larga duración) ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuándo se añade ICS en el Grupo E?</div><div class="qa">Eosinófilos <strong>≥300 cél/µL</strong> → LABA+LAMA+ICS (triple terapia) ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el punto de corte del CAT para síntomas significativos?</div><div class="qa"><strong>CAT ≥10</strong> = impacto medio-alto ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el punto de corte del mMRC para disnea significativa?</div><div class="qa"><strong>mMRC ≥2</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Por qué se fusionaron los grupos C y D en el grupo E?</div><div class="qa">Para priorizar las <strong>exacerbaciones</strong> sobre los síntomas como criterio de tratamiento ★</div></div>
+    <div class="qb"><div class="qt">¿Qué valores de PaO₂ indican oxigenoterapia a largo plazo?</div><div class="qa"><strong>PaO₂ ≤55 mmHg</strong> o &lt;60 mmHg si hay cor pulmonale/policitemia (Evidencia A) ★</div></div>
+    <div class="qb"><div class="qt">¿Se recomienda LABA+ICS sin LAMA en EPOC?</div><div class="qa"><strong>No</strong> — si indicación de ICS, preferir siempre triple LABA+LAMA+ICS ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué prueba debe hacerse al menos una vez en todo paciente con EPOC?</div><div class="qa"><strong>Screening de alfa-1 antitripsina</strong> ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestación y Parto · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#e0d5c0;--text:#252530;--muted:#7a7080;
+  --c1:#1a6faa;   /* azul pretérmino */
+  --c2:#2a7a3a;   /* verde término */
+  --c3:#b55e1a;   /* naranja postérmino */
+  --c4:#8a3aaa;   /* violeta parto */
+  --c5:#b03060;   /* rosa alumbramiento */
+  --alarm:#b83030;
+  --gold:#8a6a10;--gold-d:#c8a83a15;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);}
+.wrap{max-width:1080px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--c2);color:white;padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;line-height:1.05;letter-spacing:-0.01em;}
+h1 em{color:var(--c4);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.5rem;}
+
+/* DIVIDER */
+.sdiv{display:flex;align-items:center;gap:0.7rem;margin:1.8rem 0 0.9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text);white-space:nowrap;padding:0.12rem 0.65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* LÍNEA DE TIEMPO SEMANAS */
+.timeline{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:0.8rem;}
+.tl-seg{flex:1;padding:0.8rem 0.5rem 0.7rem;text-align:center;border-right:1px solid var(--border);position:relative;}
+.tl-seg:last-child{border-right:none;}
+.tl-label{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25rem;}
+.tl-weeks{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;line-height:1;}
+.tl-name{font-size:0.68rem;font-weight:600;margin-top:0.15rem;}
+.tl-key{font-size:0.62rem;color:var(--muted);margin-top:0.12rem;line-height:1.3;}
+.tl-aborto{background:#f8f0f5;border-top:4px solid #8a3060;}
+.tl-aborto .tl-label{color:#8a3060;}
+.tl-aborto .tl-weeks{color:#8a3060;}
+.tl-pre{background:#e8f2fa;border-top:4px solid var(--c1);}
+.tl-pre .tl-label,.tl-pre .tl-weeks,.tl-pre .tl-name{color:var(--c1);}
+.tl-term{background:#e8f5ec;border-top:4px solid var(--c2);}
+.tl-term .tl-label,.tl-term .tl-weeks,.tl-term .tl-name{color:var(--c2);}
+.tl-post{background:#fef0e4;border-top:4px solid var(--c3);}
+.tl-post .tl-label,.tl-post .tl-weeks,.tl-post .tl-name{color:var(--c3);}
+@media(max-width:560px){.timeline{flex-wrap:wrap;}.tl-seg{flex:0 0 50%;border-bottom:1px solid var(--border);}}
+
+/* TARJETAS DE RIESGOS */
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.6rem;margin-bottom:0.8rem;}
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.8rem;border-left:3px solid;}
+.rcard-title{font-weight:700;font-size:0.8rem;margin-bottom:0.2rem;}
+.rcard-body{font-size:0.71rem;color:var(--muted);line-height:1.5;}
+.rcard-body strong{color:var(--text);}
+.rcard-key{font-family:'JetBrains Mono',monospace;font-size:0.6rem;margin-top:0.3rem;padding:0.18rem 0.45rem;border-radius:3px;display:inline-block;}
+
+/* FASES DEL PARTO */
+.fases{display:flex;flex-direction:column;gap:0.5rem;}
+.fase{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.fase-head{display:flex;align-items:stretch;}
+.fase-num{width:58px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0.9rem 0.4rem;border-right:1px solid var(--border);}
+.fase-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;line-height:1;}
+.fase-icon{font-size:0.95rem;margin-top:0.1rem;}
+.fase-info{padding:0.75rem 0.9rem;flex:1;}
+.fase-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.12rem;}
+.fase-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:0.2rem;}
+.fase-desc{font-size:0.73rem;color:var(--muted);line-height:1.45;}
+.fase-desc strong{color:var(--text);}
+.fase-body{padding:0.1rem 0.9rem 0.75rem 0.9rem;}
+.sub-fases{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-top:0.4rem;}
+@media(max-width:480px){.sub-fases{grid-template-columns:1fr;}}
+.sf{background:var(--s2);border:1px solid var(--border);border-radius:4px;padding:0.4rem 0.6rem;font-size:0.7rem;line-height:1.4;}
+.sf-t{font-weight:700;margin-bottom:0.05rem;font-size:0.72rem;}
+.sf-d{color:var(--muted);}
+.sf-d strong{color:var(--text);}
+.movs{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.4rem;}
+.mov{background:var(--c4);color:white;font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.15rem 0.5rem;border-radius:12px;}
+
+.fase-0 .fase-num{background:#faf0f5;} .fase-0 .fase-n,.fase-0 .fase-label,.fase-0 .fase-title{color:#8a3060;}
+.fase-1 .fase-num{background:#e8f2fa;} .fase-1 .fase-n,.fase-1 .fase-label,.fase-1 .fase-title{color:var(--c1);}
+.fase-2 .fase-num{background:#ede8f8;} .fase-2 .fase-n,.fase-2 .fase-label,.fase-2 .fase-title{color:var(--c4);}
+.fase-3 .fase-num{background:#fce8f0;} .fase-3 .fase-n,.fase-3 .fase-label,.fase-3 .fase-title{color:var(--c5);}
+
+/* SIGNOS ALUMBRAMIENTO */
+.signos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:0.4rem;}
+@media(max-width:500px){.signos-grid{grid-template-columns:1fr;}}
+.signo{background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:0.45rem 0.6rem;text-align:center;}
+.signo-n{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:700;color:var(--c5);margin-bottom:0.1rem;}
+.signo-d{font-size:0.66rem;color:var(--muted);line-height:1.3;}
+
+/* MEMO */
+.memo{border-radius:5px;padding:0.5rem 0.8rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.6rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.1rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.74rem;line-height:1.5;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;background:#e8f5ec;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--c2);}
+.tbody{padding:0.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.73rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.15rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--c1);display:flex;align-items:flex-start;gap:0.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.61rem;color:var(--muted);margin-top:0.04rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🤰 Ginecología y Obstetricia</div>
+  <h1>Gestación &amp; <em>Proceso del Parto</em></h1>
+  <p class="hsub">Clasificación por semanas · Fases del parto · Alumbramiento · INGESA 2026</p>
+</header>
+
+<!-- ══ I. CLASIFICACIÓN GESTACIÓN ══ -->
+<div class="sdiv"><span>📅 I. Clasificación de la gestación por semanas</span></div>
+
+<div class="timeline">
+  <div class="tl-seg tl-aborto">
+    <div class="tl-label">Aborto</div>
+    <div class="tl-weeks">&lt;22</div>
+    <div class="tl-name">semanas / &lt;500g</div>
+    <div class="tl-key">No viable</div>
+  </div>
+  <div class="tl-seg tl-pre">
+    <div class="tl-label">Pretérmino</div>
+    <div class="tl-weeks">22–36+6</div>
+    <div class="tl-name">Prematuro</div>
+    <div class="tl-key">Viabilidad: 22–24 sem · Riesgo inmadurez pulmonar</div>
+  </div>
+  <div class="tl-seg tl-term" style="flex:1.2;">
+    <div class="tl-label">A término ★</div>
+    <div class="tl-weeks">37–41+6</div>
+    <div class="tl-name">Periodo óptimo</div>
+    <div class="tl-key">Promedio 40 sem (280 días) · Surfactante desde sem 34</div>
+  </div>
+  <div class="tl-seg tl-post">
+    <div class="tl-label">Postérmino</div>
+    <div class="tl-weeks">≥42</div>
+    <div class="tl-name">Prolongado</div>
+    <div class="tl-key">Insuficiencia placentaria · Oligohidramnios</div>
+  </div>
+</div>
+
+<!-- Riesgos por período -->
+<div class="risk-grid">
+  <div class="rcard" style="border-color:var(--c1);">
+    <div class="rcard-title" style="color:var(--c1);">⚠️ Pretérmino — factores de riesgo</div>
+    <div class="rcard-body">
+      <strong>Tabaquismo</strong> · <strong>Polihidramnios</strong> (distensión uterina) · <strong>RPM antes sem 37</strong> (riesgo corioamnionitis) · <strong>Oligoamnios</strong> → hipoplasia pulmonar
+    </div>
+    <div class="rcard-key" style="background:#e8f2fa;color:var(--c1);">Meconio en parto a término: 10–15% (maduración digestiva)</div>
+  </div>
+  <div class="rcard" style="border-color:var(--c3);">
+    <div class="rcard-title" style="color:var(--c3);">⚠️ Postérmino — riesgos específicos</div>
+    <div class="rcard-body">
+      <strong>Oligohidramnios</strong> por envejecimiento placentario · <strong>Meconio</strong> en 30–40% · Sufrimiento fetal por compresión de cordón · Líquido amarillento (descamación vérnix)
+    </div>
+    <div class="rcard-key" style="background:#fef0e4;color:var(--c3);">Meconio postérmino: 30–40% vs 10–15% a término ★</div>
+  </div>
+</div>
+
+<!-- ══ II. PRÓDROMOS ══ -->
+<div class="sdiv"><span>🔄 II. Fases del parto</span></div>
+
+<div class="fases">
+
+  <!-- FASE 0 -->
+  <div class="fase fase-0">
+    <div class="fase-head">
+      <div class="fase-num"><span class="fase-n">0</span><span class="fase-icon">🌅</span></div>
+      <div class="fase-info">
+        <div class="fase-label">Pródromos</div>
+        <div class="fase-title">Preparación previa al parto</div>
+        <div class="fase-desc">No se considera trabajo de parto activo. <strong>Contracciones irregulares</strong> · <strong>Reblandecimiento y borramiento cervical</strong> progresivo (maduración cervical)</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.2rem;">
+        <div class="sf" style="flex:1;min-width:160px;border-color:#d4a0b8;">
+          <div class="sf-t" style="color:#8a3060;">Encajamiento</div>
+          <div class="sf-d">Feto desciende y se encaja en la pelvis</div>
+        </div>
+        <div class="sf" style="flex:1;min-width:160px;border-color:#d4a0b8;">
+          <div class="sf-t" style="color:#8a3060;">Tapón mucoso ★</div>
+          <div class="sf-d">Expulsión de secreción gelatinosa, puede tener restos de sangre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 1 -->
+  <div class="fase fase-1">
+    <div class="fase-head">
+      <div class="fase-num"><span class="fase-n">1</span><span class="fase-icon">📏</span></div>
+      <div class="fase-info">
+        <div class="fase-label">Dilatación — más larga</div>
+        <div class="fase-title">Apertura del cuello hasta 10 cm</div>
+        <div class="fase-desc">Contracciones progresivamente más intensas y frecuentes hasta alcanzar <strong>dilatación completa (10 cm)</strong></div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="sub-fases">
+        <div class="sf" style="border-color:#a0c4e0;">
+          <div class="sf-t" style="color:var(--c1);">Fase latente</div>
+          <div class="sf-d">Inicio contracciones regulares → <strong>3–5 cm</strong><br>Contracciones crecen en intensidad y frecuencia</div>
+        </div>
+        <div class="sf" style="border-color:#a0c4e0;background:#e8f2fa;">
+          <div class="sf-t" style="color:var(--c1);">Fase activa ★★</div>
+          <div class="sf-d"><strong>3–5 cm → 10 cm</strong><br>Requiere: dinámica uterina regular + cuello borrado &gt;80% + dilatación &gt;3–5 cm<br>Rotura de membranas habitual en esta fase</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="fase fase-2">
+    <div class="fase-head">
+      <div class="fase-num"><span class="fase-n">2</span><span class="fase-icon">👶</span></div>
+      <div class="fase-info">
+        <div class="fase-label">Expulsivo</div>
+        <div class="fase-title">Dilatación completa → salida del feto</div>
+        <div class="fase-desc">Desde los 10 cm hasta la <strong>salida total del bebé</strong></div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="sub-fases">
+        <div class="sf" style="border-color:#c0a8e8;">
+          <div class="sf-t" style="color:var(--c4);">Expulsivo pasivo</div>
+          <div class="sf-d">Feto desciende por contracciones · <strong>aún no hay pujos voluntarios</strong></div>
+        </div>
+        <div class="sf" style="border-color:#c0a8e8;background:#ede8f8;">
+          <div class="sf-t" style="color:var(--c4);">Expulsivo activo ★</div>
+          <div class="sf-d">Madre con <strong>pujos voluntarios</strong> sincronizados con contracciones</div>
+        </div>
+      </div>
+      <div style="margin-top:0.5rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.3rem;">7 Movimientos cardinales del feto ★★</div>
+        <div class="movs">
+          <span class="mov">1 · Encajamiento</span>
+          <span class="mov">2 · Descenso</span>
+          <span class="mov">3 · Flexión</span>
+          <span class="mov">4 · Rotación interna</span>
+          <span class="mov">5 · Extensión</span>
+          <span class="mov">6 · Rotación externa</span>
+          <span class="mov">7 · Expulsión</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="fase fase-3">
+    <div class="fase-head">
+      <div class="fase-num"><span class="fase-n">3</span><span class="fase-icon">🫀</span></div>
+      <div class="fase-info">
+        <div class="fase-label">Alumbramiento</div>
+        <div class="fase-title">Expulsión de placenta y membranas</div>
+        <div class="fase-desc">4 tiempos: desprendimiento · descenso · expulsión · <strong>hemostasia uterina</strong>. Las <strong>ligaduras vivientes de Pinard</strong> comprimen vasos y evitan hemorragia postparto</div>
+      </div>
+    </div>
+    <div class="fase-body">
+      <div class="sub-fases">
+        <div class="sf" style="border-color:#e0a0b8;">
+          <div class="sf-t" style="color:var(--c5);">Baudelocque-Schultze ★ (80%)</div>
+          <div class="sf-d">Desprendimiento por <strong>cara fetal</strong> (centro primero). El más frecuente.</div>
+        </div>
+        <div class="sf" style="border-color:#e0a0b8;">
+          <div class="sf-t" style="color:var(--c5);">Duncan (20%)</div>
+          <div class="sf-d">Desprendimiento por <strong>cara materna</strong> (borde primero)</div>
+        </div>
+      </div>
+      <div style="margin-top:0.5rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.3rem;">Signos de desprendimiento placentario ★★</div>
+        <div class="signos-grid">
+          <div class="signo">
+            <div class="signo-n">Küstner ★</div>
+            <div class="signo-d">Al presionar el pubis el cordón <strong>no se retrae</strong> = placenta desprendida</div>
+          </div>
+          <div class="signo">
+            <div class="signo-n">Ahlfeld</div>
+            <div class="signo-d">El cordón se <strong>alarga externamente</strong> al descender la placenta</div>
+          </div>
+          <div class="signo">
+            <div class="signo-n">Pescador</div>
+            <div class="signo-d">Tracción suave del cordón con rebote al soltar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /fases -->
+
+<div class="memo" style="margin-top:0.8rem;">
+  <div class="ml">🧠 Resumen mnemotécnico — fases del parto</div>
+  <div class="mt">0 Pródromos · 1 Dilatación (latente 0→3cm / activa 3→10cm) · 2 Expulsivo (pasivo→activo + 7 movimientos) · 3 Alumbramiento (4 tiempos · Baudelocque 80%)</div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Gestación y Parto · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Entre qué semanas se define el parto pretérmino?</div><div class="qa"><strong>Semana 22 y 36+6</strong></div><div class="qn">Viabilidad fetal: semana 22–24</div></div>
+    <div class="qb"><div class="qt">¿A partir de qué semana los pulmones suelen tener suficiente surfactante?</div><div class="qa"><strong>Semana 34</strong> ★</div></div>
+    <div class="qb"><div class="qt">¿Qué porcentaje de partos postérmino tienen líquido meconial?</div><div class="qa"><strong>30–40%</strong> (vs 10–15% a término) ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué 3 requisitos definen la fase activa del parto?</div><div class="qa">Dinámica uterina regular + cuello borrado &gt;80% + dilatación &gt;3–5 cm ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuántos movimientos cardinales realiza el feto en el expulsivo?</div><div class="qa"><strong>7 movimientos</strong>: encaj.·desc.·flex.·rot.int.·ext.·rot.ext.·expuls. ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el tipo más frecuente de desprendimiento placentario?</div><div class="qa"><strong>Baudelocque-Schultze</strong> (cara fetal, 80%) ★</div></div>
+    <div class="qb"><div class="qt">¿Qué son las ligaduras vivientes de Pinard?</div><div class="qa">Contracción del miometrio que comprime vasos → <strong>hemostasia postparto</strong> ★</div></div>
+    <div class="qb"><div class="qt">Signo de Küstner positivo: ¿qué indica?</div><div class="qa">Al presionar el pubis el cordón <strong>no se retrae</strong> → placenta desprendida ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué ocurre con el meconio en postérmino?</div><div class="qa"><strong>Riesgo aumenta 30–40%</strong> por envejecimiento placentario + oligohidramnios ★</div></div>
+    <div class="qb"><div class="qt">Diferencia entre expulsivo pasivo y activo</div><div class="qa">Pasivo: feto desciende sin pujos · Activo: <strong>pujos voluntarios maternos</strong> sincronizados ★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

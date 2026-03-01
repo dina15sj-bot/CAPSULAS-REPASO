@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lactancia Materna y Anticoncepción · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#ffffff;--s2:#faf7f2;--s3:#f0ece3;
+  --border:#e0d5c0;--text:#252530;--muted:#7a7080;
+  --lact:#8a3060;   /* rosa lactancia */
+  --mela:#2a7a3a;   /* verde MELA */
+  --nat:#8a6a10;    /* dorado naturales */
+  --barr:#1a6faa;   /* azul barrera */
+  --horm:#6a3aaa;   /* violeta hormonales */
+  --diu:#b55e1a;    /* naranja DIU */
+  --qx:#b83030;     /* rojo quirúrgico */
+  --emer:#2a7a6a;   /* verde emergencia */
+  --alarm:#b83030;
+  --gold:#8a6a10;--gold-d:#c8a83a15;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 39px,#c8b89810 40px);}
+.wrap{max-width:1080px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;padding:1.5rem 1rem;}
+.htag{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;background:var(--lact);color:white;padding:0.25rem 0.9rem;border-radius:2px;margin-bottom:0.8rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--mela);font-style:normal;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.5rem;}
+
+.sdiv{display:flex;align-items:center;gap:0.7rem;margin:1.8rem 0 0.9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--text);white-space:nowrap;padding:0.12rem 0.65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* BLOQUES LACTANCIA */
+.lact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.65rem;}
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;border-top:3px solid;}
+.lcard-head{padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);}
+.lcard-label{font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.08rem;}
+.lcard-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;}
+.lcard-body{padding:0.6rem 0.8rem;font-size:0.72rem;color:var(--muted);line-height:1.5;}
+.lcard-body strong{color:var(--text);}
+.lcard-key{font-family:'JetBrains Mono',monospace;font-size:0.61rem;margin-top:0.3rem;padding:0.18rem 0.5rem;border-radius:3px;display:block;}
+
+/* CONTRAINDICACIONES TABLA */
+.ci-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:0.6rem;}
+.ci-table th{font-family:'JetBrains Mono',monospace;font-size:0.54rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.45rem 0.7rem;background:var(--s3);color:var(--muted);text-align:left;border-bottom:1px solid var(--border);}
+.ci-table td{padding:0.55rem 0.7rem;font-size:0.72rem;line-height:1.4;border-bottom:1px solid var(--border)18;vertical-align:top;}
+.ci-table tr:last-child td{border-bottom:none;}
+.ci-abs{font-weight:700;color:var(--alarm);}
+.ci-rel{font-weight:700;color:var(--diu);}
+.ctag{display:inline-block;font-size:0.6rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;}
+
+/* MELA BOX */
+.mela-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;border-left:4px solid var(--mela);margin-bottom:0.6rem;}
+.mela-head{padding:0.6rem 0.85rem;border-bottom:1px solid var(--border);background:#e8f5ec;display:flex;align-items:center;gap:0.6rem;}
+.mela-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--mela);}
+.mela-body{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+@media(max-width:560px){.mela-body{grid-template-columns:1fr 1fr;}}
+.mela-req{padding:0.55rem 0.7rem;border-right:1px solid var(--border);text-align:center;}
+.mela-req:last-child{border-right:none;}
+.mela-n{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--mela);line-height:1;}
+.mela-txt{font-size:0.66rem;color:var(--muted);margin-top:0.1rem;line-height:1.3;}
+.mela-txt strong{color:var(--text);}
+
+/* MÉTODO INDEX PEARL */
+.pearl-note{background:#ede8f8;border:1px solid #c0a8e8;border-radius:5px;padding:0.5rem 0.8rem;margin-bottom:0.7rem;font-size:0.72rem;line-height:1.4;}
+.pearl-note strong{color:var(--horm);}
+
+/* ANTICONCEPTIVOS */
+.ac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.6rem;}
+.accard{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.accard-head{padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.accard-cat{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.06rem;}
+.accard-title{font-family:'Playfair Display',serif;font-size:0.92rem;font-weight:700;}
+.accard-body{padding:0.55rem 0.8rem;}
+.acrow{font-size:0.71rem;line-height:1.4;padding:0.22rem 0;border-bottom:1px dashed var(--border);}
+.acrow:last-child{border-bottom:none;}
+.acrow strong{color:var(--text);}
+.ip{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.05rem 0.3rem;border-radius:2px;margin-left:0.25rem;vertical-align:middle;}
+
+/* EMERGENCIA BOX */
+.emer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:0.5rem;}
+@media(max-width:500px){.emer-grid{grid-template-columns:1fr;}}
+.ecol{background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:0.5rem 0.65rem;border-left:3px solid var(--emer);}
+.ecol-n{font-weight:700;font-size:0.76rem;color:var(--emer);margin-bottom:0.1rem;}
+.ecol-d{font-size:0.68rem;color:var(--muted);line-height:1.35;}
+.ecol-d strong{color:var(--text);}
+
+.memo{border-radius:5px;padding:0.5rem 0.8rem;border:1px solid var(--gold);background:var(--gold-d);margin-top:0.6rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);margin-bottom:0.1rem;}
+.mt{color:var(--text);font-weight:600;font-size:0.74rem;line-height:1.5;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:0.5rem;}
+.thead{padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.5rem;background:#faf0f5;}
+.ttitle{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--lact);}
+.tbody{padding:0.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:0.45rem 0;border-bottom:1px dashed var(--border);font-size:0.73rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:0.15rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--lact);display:flex;align-items:flex-start;gap:0.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:0.61rem;color:var(--muted);margin-top:0.04rem;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🤱 Lactancia &amp; Anticoncepción</div>
+  <h1>Lactancia Materna &amp; <em>Métodos Anticonceptivos</em></h1>
+  <p class="hsub">Contraindicaciones · MELA · Índice de Pearl · Emergencia · INGESA 2026</p>
+</header>
+
+<!-- ══ I. LACTANCIA ══ -->
+<div class="sdiv"><span>🤱 I. Lactancia materna — recomendaciones y manejo</span></div>
+
+<div class="lact-grid">
+  <div class="lcard" style="border-top-color:var(--lact);">
+    <div class="lcard-head" style="background:#faf0f5;">
+      <div class="lcard-label" style="color:var(--lact);">Duración recomendada · OMS</div>
+      <div class="lcard-title" style="color:var(--lact);">🍼 Duración y factores de éxito</div>
+    </div>
+    <div class="lcard-body">
+      <strong>Exclusiva los primeros 6 meses</strong> de vida ★★<br>
+      Continuar hasta los <strong>2 años o más</strong> con alimentación complementaria<br><br>
+      <strong>Factores de éxito:</strong><br>
+      · Contacto <strong>piel con piel</strong> inmediato ★<br>
+      · Inicio en la <strong>primera hora</strong> de vida ★<br>
+      · Evitar tetinas/chupetes en las primeras semanas
+    </div>
+  </div>
+  <div class="lcard" style="border-top-color:var(--mela);">
+    <div class="lcard-head" style="background:#e8f5ec;">
+      <div class="lcard-label" style="color:var(--mela);">Composición esencial</div>
+      <div class="lcard-title" style="color:var(--mela);">🌡️ Calostro y leche madura</div>
+    </div>
+    <div class="lcard-body">
+      <strong>Calostro</strong> (primeros días): alta concentración de <strong>IgA</strong> y factores de crecimiento ★★<br><br>
+      <strong>Leche madura:</strong><br>
+      · Inicio de toma: acuosa, rica en <strong>lactosa</strong><br>
+      · Final de toma: rica en <strong>grasas</strong> (mayor contenido calórico) ★
+    </div>
+  </div>
+  <div class="lcard" style="border-top-color:var(--diu);">
+    <div class="lcard-head" style="background:#fef3e8;">
+      <div class="lcard-label" style="color:var(--diu);">Manejo de complicaciones</div>
+      <div class="lcard-title" style="color:var(--diu);">⚕️ Ingurgitación · Mastitis · Grietas</div>
+    </div>
+    <div class="lcard-body">
+      <strong>Ingurgitación:</strong> compresas <strong>frías</strong> tras la toma (el calor aumenta edema) ★<br><br>
+      <strong>Mastitis aguda:</strong> <span style="color:var(--mela);font-weight:700;">NO suspender lactancia</span> — vaciar el pecho con más frecuencia ★★<br><br>
+      <strong>Grietas:</strong> corregir agarre · aplicar propia leche o aceite de oliva
+    </div>
+  </div>
+</div>
+
+<!-- Contraindicaciones -->
+<div class="sdiv" style="margin-top:1.2rem;"><span>🚫 Contraindicaciones de la lactancia</span></div>
+
+<table class="ci-table">
+  <thead>
+    <tr><th>Tipo</th><th>Quién / Qué</th><th>Motivo / Condición</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="ctag" style="background:#fef0f0;color:var(--alarm);border:1px solid #e0a0a0;">Absoluta</span></td>
+        <td><span class="ci-abs">RN con galactosemia clásica</span></td>
+        <td>No puede metabolizar la lactosa/galactosa de la leche ★★</td></tr>
+    <tr style="background:#faf7f2;"><td><span class="ctag" style="background:#fef0f0;color:var(--alarm);border:1px solid #e0a0a0;">Absoluta</span></td>
+        <td><span class="ci-abs">Madre con VIH</span></td>
+        <td>Riesgo transmisión vertical (en entornos con acceso a fórmula segura) ★★</td></tr>
+    <tr><td><span class="ctag" style="background:#fef0f0;color:var(--alarm);border:1px solid #e0a0a0;">Absoluta</span></td>
+        <td><span class="ci-abs">Quimioterapia · Litio · Inmunosupresores incompatibles</span></td>
+        <td>Fármacos pasan a la leche y son tóxicos para el lactante ★</td></tr>
+    <tr style="background:#faf7f2;"><td><span class="ctag" style="background:#fef8e8;color:var(--diu);border:1px solid #e0c880;">Relativa</span></td>
+        <td><span class="ci-rel">Infección HTLV I/II</span></td>
+        <td>Posible transmisión del virus a través de la leche</td></tr>
+    <tr><td><span class="ctag" style="background:#fef8e8;color:var(--diu);border:1px solid #e0c880;">Relativa</span></td>
+        <td><span class="ci-rel">Varicela o TB activa no tratada</span></td>
+        <td>Puede mantenerse con precauciones específicas tras inicio de tratamiento materno</td></tr>
+  </tbody>
+</table>
+
+<!-- MELA -->
+<div class="sdiv"><span>🔗 Nexo — MELA: el puente entre lactancia y anticoncepción</span></div>
+
+<div class="mela-box">
+  <div class="mela-head">
+    <div>
+      <div class="mela-title">MELA — Método de Amenorrea de la Lactancia ★★</div>
+      <div style="font-size:0.67rem;color:var(--muted);margin-top:0.05rem;">Los 4 requisitos deben cumplirse simultáneamente — si falla uno, falla el método</div>
+    </div>
+  </div>
+  <div class="mela-body">
+    <div class="mela-req">
+      <div class="mela-n">1</div>
+      <div class="mela-txt"><strong>Bebé &lt;6 meses</strong><br>Solo eficaz en los primeros 6 meses</div>
+    </div>
+    <div class="mela-req">
+      <div class="mela-n">2</div>
+      <div class="mela-txt"><strong>Lactancia exclusiva</strong><br>Sin complementos ni tetina</div>
+    </div>
+    <div class="mela-req">
+      <div class="mela-n">3</div>
+      <div class="mela-txt"><strong>Amenorrea</strong><br>Madre sin menstruación desde el parto</div>
+    </div>
+    <div class="mela-req" style="border-right:none;">
+      <div class="mela-n">4</div>
+      <div class="mela-txt"><strong>Tomas nocturnas</strong><br>No &gt;6 h sin mamar de noche ★</div>
+    </div>
+  </div>
+</div>
+
+<div style="font-size:0.71rem;color:var(--muted);background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:0.45rem 0.7rem;margin-bottom:0.4rem;">
+  <strong style="color:var(--mela);">Mecanismo:</strong> la succión del bebé → ↑ prolactina → inhibe GnRH → inhibe ovulación. Si cesa la succión, puede retornar la fertilidad.
+</div>
+
+<!-- ══ II. ANTICONCEPCIÓN ══ -->
+<div class="sdiv"><span>💊 II. Métodos anticonceptivos — Clasificación completa</span></div>
+
+<div class="pearl-note">
+  <strong>Índice de Pearl (IP):</strong> n.º de embarazos no deseados por cada 100 mujeres/año · Distingue <strong>uso perfecto</strong> (teórico) vs <strong>uso típico</strong> (real, incluye errores humanos) ★
+</div>
+
+<div class="ac-grid">
+
+  <!-- NATURALES -->
+  <div class="accard">
+    <div class="accard-head" style="border-left-color:var(--nat);background:#fef8e8;">
+      <div class="accard-cat" style="color:var(--nat);">Grupo 1 · Baja eficacia</div>
+      <div class="accard-title" style="color:var(--nat);">🌿 Métodos Naturales</div>
+    </div>
+    <div class="accard-body">
+      <div class="acrow"><strong>Coitus interruptus</strong> <span class="ip" style="background:#fef8e8;color:var(--nat);border:1px solid #c8b040;">IP 22%</span> — muy poco fiable ★</div>
+      <div class="acrow"><strong>Ogino-Knaus</strong> (calendario) — cálculo días fértiles</div>
+      <div class="acrow"><strong>Temperatura basal</strong> — sube <strong>0,3–0,5ºC</strong> tras ovulación (progesterona) ★★</div>
+      <div class="acrow"><strong>Billings</strong> (moco cervical) — moco elástico y transparente = máxima fertilidad ★★</div>
+      <div class="acrow"><strong>Sintotérmico</strong> — combina temperatura + moco + cuello · <strong>el más preciso</strong> de los naturales ★</div>
+      <div class="acrow"><strong>MELA</strong> — ver sección anterior (4 requisitos) ★★</div>
+      <div style="font-size:0.66rem;color:var(--muted);margin-top:0.3rem;">⚠️ No protegen contra ITS</div>
+    </div>
+  </div>
+
+  <!-- BARRERA -->
+  <div class="accard">
+    <div class="accard-head" style="border-left-color:var(--barr);background:#e8f2fa;">
+      <div class="accard-cat" style="color:var(--barr);">Grupo 2</div>
+      <div class="accard-title" style="color:var(--barr);">🛡️ Métodos de Barrera</div>
+    </div>
+    <div class="accard-body">
+      <div class="acrow"><strong>Preservativo masculino y femenino</strong> — único método que protege contra <strong>ITS</strong> ★★</div>
+      <div class="acrow"><strong>Diafragma / Capuchón cervical</strong> — siempre con <strong>espermicida</strong> ★</div>
+      <div class="acrow"><strong>Esponja y geles espermicidas</strong> — inactivan espermatozoides</div>
+      <div style="font-size:0.66rem;background:#e8f2fa;border-radius:3px;padding:0.2rem 0.45rem;margin-top:0.35rem;color:var(--barr);font-weight:600;">★ Solo el preservativo protege de ITS</div>
+    </div>
+  </div>
+
+  <!-- HORMONALES COMBINADOS -->
+  <div class="accard">
+    <div class="accard-head" style="border-left-color:var(--horm);background:#ede8f8;">
+      <div class="accard-cat" style="color:var(--horm);">Grupo 3A · Estrógeno + Gestágeno</div>
+      <div class="accard-title" style="color:var(--horm);">💊 Hormonales Combinados</div>
+    </div>
+    <div class="accard-body">
+      <div class="acrow"><strong>Píldora oral</strong> — toma diaria</div>
+      <div class="acrow"><strong>Parche transdérmico</strong> — cambio semanal (3 semanas + 1 descanso)</div>
+      <div class="acrow"><strong>Anillo vaginal</strong> — 3 semanas puesto + 1 descanso ★</div>
+      <div style="font-size:0.66rem;color:var(--muted);margin-top:0.3rem;">⚠️ Contraindicados en lactancia (estrógenos)</div>
+    </div>
+  </div>
+
+  <!-- HORMONALES SOLO GESTÁGENO -->
+  <div class="accard">
+    <div class="accard-head" style="border-left-color:var(--horm);background:#f5f0fc;">
+      <div class="accard-cat" style="color:var(--horm);">Grupo 3B · Solo Gestágeno ★★ Lactancia</div>
+      <div class="accard-title" style="color:var(--horm);">💉 Solo Gestágeno</div>
+    </div>
+    <div class="accard-body">
+      <div class="acrow"><strong>Minipíldora</strong> — <span style="color:var(--mela);font-weight:600;">indicada en lactancia</span> ★★ · gestágeno solo</div>
+      <div class="acrow"><strong>Implante subdérmico</strong> — varilla en brazo · hasta <strong>3 años</strong> · eficacia <strong>&gt;99,9%</strong> ★★</div>
+      <div class="acrow"><strong>Inyección trimestral</strong> — acetato de medroxiprogesterona</div>
+      <div class="acrow"><strong>DIU hormonal</strong> — levonorgestrel · <strong>3–8 años</strong> ★</div>
+      <div style="font-size:0.66rem;background:#e8f5ec;border-radius:3px;padding:0.2rem 0.45rem;margin-top:0.35rem;color:var(--mela);font-weight:600;">★★ Compatible con lactancia: sin estrógenos</div>
+    </div>
+  </div>
+
+  <!-- DIU COBRE -->
+  <div class="accard">
+    <div class="accard-head" style="border-left-color:var(--diu);background:#fef3e8;">
+      <div class="accard-cat" style="color:var(--diu);">Grupo 4</div>
+      <div class="accard-title" style="color:var(--diu);">🔩 DIU de Cobre</div>
+    </div>
+    <div class="accard-body">
+      <div class="acrow">Inflamación estéril uterina → inactiva espermatozoides · <strong>sin hormonas</strong></div>
+      <div class="acrow">Duración: hasta <strong>10 años</strong> · alta eficacia</div>
+      <div class="acrow">Compatible con lactancia (no hormonal) ★</div>
+      <div style="font-size:0.66rem;background:#fef0e4;border-radius:3px;padding:0.2rem 0.45rem;margin-top:0.35rem;color:var(--diu);font-weight:600;">Mejor método de emergencia (ver abajo)</div>
+    </div>
+  </div>
+
+  <!-- QUIRÚRGICOS -->
+  <div class="accard">
+    <div class="accard-head" style="border-left-color:var(--qx);background:#fef0f0;">
+      <div class="accard-cat" style="color:var(--qx);">Grupo 5 · Definitivo</div>
+      <div class="accard-title" style="color:var(--qx);">✂️ Métodos Quirúrgicos</div>
+    </div>
+    <div class="accard-body">
+      <div class="acrow"><strong>Vasectomía</strong> — sección conductos deferentes · confirmar azoospermia a las <strong>8–12 semanas</strong> ★★</div>
+      <div class="acrow"><strong>Ligadura de trompas</strong> — obstrucción trompas de Falopio · <strong>no altera función hormonal ni ciclo</strong> ★</div>
+      <div style="font-size:0.66rem;color:var(--muted);margin-top:0.3rem;">Ambos son considerados <strong>irreversibles</strong> en la práctica</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- EMERGENCIA -->
+<div class="sdiv"><span>🚨 Anticoncepción de emergencia — no abortivos</span></div>
+
+<div style="font-size:0.71rem;background:#e8f5ec;border:1px solid #9ad4b0;border-radius:5px;padding:0.4rem 0.7rem;margin-bottom:0.55rem;">
+  <strong style="color:var(--emer);">Importante:</strong> actúan antes de la implantación → <strong>no son abortivos</strong> ★★
+</div>
+
+<div class="emer-grid">
+  <div class="ecol">
+    <div class="ecol-n">💊 Levonorgestrel</div>
+    <div class="ecol-d">"Píldora del día después"<br>Eficaz hasta las <strong>72 horas</strong> (3 días) ★★</div>
+  </div>
+  <div class="ecol">
+    <div class="ecol-n">💊 Ulipristal (Ellaone)</div>
+    <div class="ecol-d">Más potente<br>Eficaz hasta las <strong>120 horas</strong> (5 días) ★★</div>
+  </div>
+  <div class="ecol" style="border-left-color:var(--diu);">
+    <div class="ecol-n" style="color:var(--diu);">🔩 DIU de Cobre ★★</div>
+    <div class="ecol-d">El más eficaz de emergencia<br>Fallo <strong>&lt;0,1%</strong> ★★ · también definitivo</div>
+  </div>
+</div>
+
+<div class="memo">
+  <div class="ml">🧠 Regla de oro — anticoncepción en lactancia</div>
+  <div class="mt">SIN estrógenos: minipíldora · implante · inyección gestágeno · DIU hormonal · DIU cobre. CON estrógenos → contraindicados hasta 6 meses postparto o fin lactancia ★★</div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Lactancia y Anticoncepción · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿Cuánto tiempo se recomienda la lactancia exclusiva?</div><div class="qa"><strong>6 meses</strong>, luego complementaria hasta 2 años o más ★★</div></div>
+    <div class="qb"><div class="qt">Contraindicación absoluta de lactancia en el RN</div><div class="qa"><strong>Galactosemia clásica</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Se suspende la lactancia en mastitis aguda?</div><div class="qa"><strong>No</strong> — aumentar frecuencia de vaciado ★★</div></div>
+    <div class="qb"><div class="qt">¿Compresas frías o calientes en ingurgitación?</div><div class="qa"><strong>Frías</strong> tras la toma · el calor aumenta el edema ★</div></div>
+    <div class="qb"><div class="qt">¿Qué componente del calostro es clave inmunológicamente?</div><div class="qa"><strong>IgA secretora</strong> ★★</div></div>
+    <div class="qb"><div class="qt">Los 4 requisitos del MELA</div><div class="qa">Bebé &lt;6 meses + lactancia exclusiva + amenorrea + tomas nocturnas &lt;6h ★★</div></div>
+    <div class="qb"><div class="qt">Anticonceptivo hormonal compatible con lactancia</div><div class="qa"><strong>Minipíldora</strong> (solo gestágeno) · implante · inyección · DIU hormonal ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué método anticonceptivo protege contra ITS?</div><div class="qa">Solo el <strong>preservativo</strong> (masculino o femenino) ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué confirma la eficacia de la vasectomía?</div><div class="qa"><strong>Azoospermia</strong> a las 8–12 semanas ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el método de emergencia más eficaz?</div><div class="qa"><strong>DIU de cobre</strong> — fallo &lt;0,1% ★★</div></div>
+    <div class="qb"><div class="qt">¿Hasta cuándo es eficaz el ulipristal?</div><div class="qa"><strong>120 horas</strong> (5 días) — más que levonorgestrel (72h) ★★</div></div>
+    <div class="qb"><div class="qt">Temperatura basal: ¿cuánto sube tras la ovulación?</div><div class="qa"><strong>0,3–0,5ºC</strong> por efecto de la progesterona ★★</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

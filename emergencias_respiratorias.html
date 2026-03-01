@@ -6,20 +6,31 @@
 <title>Emergencias Respiratorias</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
+/*
+  PALETA basada en evidencia ergonómica visual:
+  - Fondo crema cálido (#f5f0e8): reduce contraste global, menos fatiga que blanco puro
+  - Texto gris oscuro (#2a2a35): evita negro puro que maximiza halos en pantalla
+  - Superficies blanco suave (#ffffff / #faf8f4): buen contraste texto sin deslumbramiento
+  - Color reservado a bordes, etiquetas e iconos — nunca como fondo de texto largo
+  Fuente: Ocularis 2019, CONICET 2024, Oftalmólogo Vigo 2025
+*/
 :root {
-  --bg:#0f1015;--surface:#1a1c22;--surface2:#22252e;--border:#2e3340;--text:#e8eaf0;--muted:#8892a4;
-  --tep:#e05a2b;--tep-d:#e05a2b20;--tep-b:#e05a2b40;
-  --neut:#2b8ae0;--neut-d:#2b8ae020;--neut-b:#2b8ae040;
-  --anaf:#e0b02b;--anaf-d:#e0b02b20;--anaf-b:#e0b02b40;
-  --epig:#6ad45a;--epig-d:#6ad45a20;--epig-b:#6ad45a40;
-  --alarm:#ff4444;--alarm-d:#ff444420;
-  --gold:#c49a2a;--gold-dim:#c49a2a25;
+  --bg:#f5f0e8;--surface:#ffffff;--surface2:#faf8f4;--border:#e0d8cc;
+  --text:#2a2a35;--muted:#7a7085;
+  --tep:#c94f20;--tep-d:#c94f2012;--tep-b:#c94f2030;
+  --neut:#1a6fbb;--neut-d:#1a6fbb12;--neut-b:#1a6fbb30;
+  --anaf:#b07820;--anaf-d:#b0782012;--anaf-b:#b0782030;
+  --epig:#2a8a48;--epig-d:#2a8a4812;--epig-b:#2a8a4830;
+  --alarm:#c0392b;--alarm-d:#c0392b10;
+  --gold:#8a6a18;--gold-dim:#c49a2a20;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:2rem 1.5rem 4rem;min-height:100vh;}
 
-/* FONDO SUTIL */
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,#e05a2b08 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,#2b8ae008 0%,transparent 50%);pointer-events:none;z-index:0;}
+/* Textura de papel muy sutil — da calidez sin distraer */
+body::before{content:'';position:fixed;inset:0;background:
+  repeating-linear-gradient(0deg,transparent,transparent 29px,#c8b89808 29px,#c8b89808 30px);
+  pointer-events:none;z-index:0;}
 .wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
 
 header{text-align:center;margin-bottom:2.5rem;}

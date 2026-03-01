@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciclo Ovárico-Endometrial · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  /* fases */
+  --menses:#c04040;     /* menstruación */
+  --prolife:#2a7a3a;    /* proliferativa */
+  --ovul:#1a6faa;       /* ovulación */
+  --secretora:#8a3aaa;  /* secretora/lútea */
+  --isquemia:#b55e1a;   /* isquémica */
+  /* hormonas */
+  --fsh:#1a6faa;
+  --lh:#2a7a3a;
+  --e2:#c04040;
+  --prog:#8a3aaa;
+  --gnrh:#b55e1a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Source Sans 3',sans-serif;
+  background:var(--bg);color:var(--text);
+  padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);
+}
+.wrap{max-width:1100px;margin:0 auto;}
+
+/* HEADER */
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--secretora);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;letter-spacing:-.01em;}
+h1 em{color:var(--secretora);font-style:italic;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;}
+.hdef{font-size:.74rem;color:var(--muted);max-width:700px;margin:.5rem auto 0;line-height:1.55;}
+.hdef strong{color:var(--text);}
+
+/* DIVIDERS */
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--text);white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* ═══════════════════════════════
+   I. LÍNEA TEMPORAL 28 DÍAS
+═══════════════════════════════ */
+.timeline-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.tl-head{padding:.55rem .85rem;background:var(--s3);border-bottom:1px solid var(--border);}
+.tl-ht{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);}
+.tl-body{padding:.9rem .85rem 1rem;}
+
+/* segmentos del ciclo */
+.tl-row{display:flex;height:38px;border-radius:5px;overflow:hidden;margin-bottom:.55rem;gap:2px;}
+.seg{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.52rem;font-weight:600;color:#fff;text-align:center;line-height:1.2;position:relative;transition:.2s;}
+.seg-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;}
+
+/* Días */
+.tl-days{display:flex;margin-bottom:.4rem;}
+.day-num{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--muted);text-align:center;flex:1;}
+.day-num.marker{color:var(--text);font-weight:700;}
+
+/* Leyenda de fases */
+.tl-legend{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin-top:.55rem;}
+.leg-item{display:flex;align-items:center;gap:.28rem;font-size:.68rem;color:var(--muted);}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* OVARIO / ENDOMETRIO filas */
+.tl-dual{display:grid;grid-template-columns:90px 1fr;gap:0;margin-bottom:.5rem;}
+.tl-label{font-family:'JetBrains Mono',monospace;font-size:.53rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;padding-right:.5rem;}
+
+/* ═══════════════════════════════
+   II. FASES EN DETALLE
+═══════════════════════════════ */
+.phases-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:.7rem;}
+@media(max-width:700px){.phases-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:420px){.phases-grid{grid-template-columns:1fr;}}
+
+.phase-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.phase-top{padding:.6rem .75rem;border-bottom:1px solid var(--border);border-top:5px solid;}
+.phase-days{font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.1rem;}
+.phase-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;line-height:1.05;}
+.phase-sub{font-size:.63rem;margin-top:.08rem;opacity:.8;}
+.phase-body{padding:.6rem .75rem;display:flex;flex-direction:column;gap:.22rem;}
+
+/* Barras hormonales */
+.hbar-row{display:flex;align-items:center;gap:.35rem;font-size:.67rem;}
+.hbar-name{font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:600;min-width:26px;}
+.hbar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;position:relative;}
+.hbar-fill{height:100%;border-radius:3px;transition:width .3s;}
+.hbar-val{font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--muted);min-width:30px;text-align:right;}
+
+/* perlas */
+.pearl{font-size:.66rem;color:var(--muted);line-height:1.4;padding:.2rem .4rem;background:var(--s2);border-left:2px solid var(--gold);border-radius:0 3px 3px 0;margin-top:.1rem;}
+.pearl strong{color:var(--text);}
+
+/* endometrio mini */
+.endo-badge{display:inline-flex;align-items:center;gap:.2rem;font-size:.6rem;font-weight:700;padding:.1rem .45rem;border-radius:10px;margin-top:.15rem;}
+
+/* colores por fase */
+.c-menses{border-top-color:var(--menses);background:#fef8f8;}
+.c-menses .phase-days,.c-menses .phase-sub{color:var(--menses);}
+.c-menses .phase-name{color:var(--menses);}
+
+.c-prolife{border-top-color:var(--prolife);background:#f0f8f2;}
+.c-prolife .phase-days,.c-prolife .phase-sub{color:var(--prolife);}
+.c-prolife .phase-name{color:var(--prolife);}
+
+.c-ovul{border-top-color:var(--ovul);background:#eaf3fc;}
+.c-ovul .phase-days,.c-ovul .phase-sub{color:var(--ovul);}
+.c-ovul .phase-name{color:var(--ovul);}
+
+.c-lutea{border-top-color:var(--secretora);background:#f5eefa;}
+.c-lutea .phase-days,.c-lutea .phase-sub{color:var(--secretora);}
+.c-lutea .phase-name{color:var(--secretora);}
+
+.c-isquemia{border-top-color:var(--isquemia);background:#fef3ec;}
+.c-isquemia .phase-days,.c-isquemia .phase-sub{color:var(--isquemia);}
+.c-isquemia .phase-name{color:var(--isquemia);}
+
+/* ═══════════════════════════════
+   III. PERFILES HORMONALES
+═══════════════════════════════ */
+.hprofile{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:.7rem;}
+.hprofile-head{padding:.55rem .85rem;background:var(--s3);border-bottom:1px solid var(--border);}
+.hprofile-ht{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);}
+.hprofile-body{overflow-x:auto;}
+
+table.htable{width:100%;border-collapse:collapse;font-size:.71rem;}
+table.htable thead tr{background:var(--s2);}
+table.htable th{padding:.5rem .7rem;text-align:left;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);white-space:nowrap;}
+table.htable td{padding:.5rem .7rem;border-bottom:1px solid var(--border)10;vertical-align:top;}
+table.htable tr:last-child td{border-bottom:none;}
+table.htable tr:nth-child(even){background:var(--s2);}
+
+.hormone-name{display:flex;align-items:center;gap:.3rem;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:.62rem;}
+.h-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+.level{display:inline-flex;align-items:center;gap:.2rem;font-size:.63rem;font-weight:700;padding:.1rem .45rem;border-radius:3px;}
+.level-bajo{background:#e8f5ec;color:#2a7a3a;}
+.level-medio{background:#fef8e8;color:#8a6a10;}
+.level-alto{background:#fef3e8;color:#b55e1a;}
+.level-pico{background:#fef0f0;color:#b83030;border:1px solid #e0a0a020;}
+.level-muyb{background:#f0f0f8;color:#5050a0;}
+.level-sube{background:#e8f2fa;color:#1a6faa;}
+.level-baja{background:#f5eefa;color:#8a3aaa;}
+
+.arrow-up::before{content:'↑ ';}
+.arrow-down::before{content:'↓ ';}
+.arrow-peak::before{content:'⚡ ';}
+
+/* ═══════════════════════════════
+   IV. EJE HIPOTÁLAMO→HIPÓFISIS→OVARIO
+═══════════════════════════════ */
+.eje-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+@media(max-width:600px){.eje-wrap{grid-template-columns:1fr;}}
+
+.eje-flow{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.eje-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:4px solid var(--gnrh);}
+.eje-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--gnrh);}
+.eje-sub{font-size:.62rem;color:var(--muted);}
+.eje-body{padding:.65rem .8rem;display:flex;flex-direction:column;gap:.3rem;}
+
+.eje-step{display:flex;flex-direction:column;gap:.05rem;}
+.eje-organ{font-weight:700;font-size:.72rem;font-family:'JetBrains Mono',monospace;}
+.eje-hormone{font-size:.68rem;color:var(--muted);line-height:1.4;}
+.eje-hormone strong{color:var(--text);}
+.eje-arrow{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);padding-left:.2rem;}
+
+/* Feedback */
+.feedback-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.fb-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:4px solid var(--e2);}
+.fb-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--e2);}
+.fb-body{padding:.65rem .8rem;display:flex;flex-direction:column;gap:.35rem;}
+.fb-row{font-size:.7rem;line-height:1.4;padding:.28rem .5rem;border-radius:4px;display:flex;gap:.35rem;align-items:flex-start;}
+.fb-neg{background:#fef0f0;border-left:3px solid var(--menses);}
+.fb-pos{background:#eaf3fc;border-left:3px solid var(--ovul);}
+.fb-prog{background:#f5eefa;border-left:3px solid var(--secretora);}
+.fb-icon{flex-shrink:0;font-size:.85rem;margin-top:.05rem;}
+.fb-text strong{color:var(--text);}
+.fb-text{color:var(--muted);}
+
+/* GnRH pulsatilidad */
+.gnrh-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:.7rem;}
+.gnrh-head{padding:.55rem .85rem;background:var(--s3);border-bottom:1px solid var(--border);}
+.gnrh-ht{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);}
+.gnrh-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:500px){.gnrh-body{grid-template-columns:1fr;}}
+.gnrh-col{padding:.6rem .85rem;border-right:1px solid var(--border);}
+.gnrh-col:last-child{border-right:none;}
+.gnrh-type{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.08rem;}
+.gnrh-effect{font-size:.68rem;color:var(--muted);line-height:1.4;}
+.gnrh-effect strong{color:var(--text);}
+.gnrh-waves{display:flex;align-items:flex-end;gap:3px;height:22px;margin:.45rem 0 .3rem;}
+.wave{background:var(--gnrh);border-radius:2px 2px 0 0;width:7px;opacity:.75;}
+.gnrh-note{font-size:.64rem;color:var(--muted);font-style:italic;line-height:1.35;padding:.2rem .4rem;background:var(--s2);border-radius:3px;border:1px solid var(--border);}
+.gnrh-note strong{color:var(--text);font-style:normal;}
+
+/* ═══════════════════════════════
+   V. SANGRADO UTERINO
+═══════════════════════════════ */
+.sangrado-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+@media(max-width:600px){.sangrado-grid{grid-template-columns:1fr;}}
+
+.sangrado-group{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.sg-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.sg-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.sg-sub{font-size:.62rem;color:var(--muted);}
+.sg-body{padding:.6rem .8rem;display:flex;flex-direction:column;gap:.4rem;}
+
+.stype{display:grid;grid-template-columns:130px 1fr;gap:.35rem;align-items:start;padding:.32rem 0;border-bottom:1px dashed var(--border);}
+.stype:last-child{border-bottom:none;}
+.stype-name{font-weight:700;font-size:.72rem;display:flex;align-items:center;gap:.25rem;}
+.stype-def{font-size:.68rem;color:var(--muted);line-height:1.4;}
+.stype-def strong{color:var(--text);}
+
+.sg-ciclico{border-left-color:var(--prolife);}
+.sg-ciclico .sg-title{color:var(--prolife);}
+.sg-aciclico{border-left-color:var(--menses);}
+.sg-aciclico .sg-title{color:var(--menses);}
+
+/* Normal de referencia */
+.normal-ref{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:.7rem;}
+.nref-item{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:.45rem .6rem;text-align:center;}
+.nref-val{font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--prolife);}
+.nref-lbl{font-size:.6rem;color:var(--muted);margin-top:.06rem;}
+
+/* MEMO */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.73rem;color:var(--text);font-weight:600;line-height:1.55;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#fef0f0;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--menses);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--menses);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+.qn{font-size:.6rem;color:var(--muted);margin-top:.03rem;font-style:italic;}
+
+/* ═══ Utility ═══ */
+.star{color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div class="htag">♀️ Ginecología · Ciclo Sexual Femenino</div>
+  <h1>Ciclo Ovárico–<em>Endometrial</em></h1>
+  <p class="hsub">Fases · Hormonas · Feedback · Tipos de Sangrado</p>
+  <p class="hdef">Ciclo de <strong>~28 días</strong> regulado por el eje <strong>hipotálamo→hipófisis→ovario</strong>. Proceso simultáneo: ciclo ovárico (maduración ovocitaria) y ciclo endometrial (preparación uterina para implantación). Inicio: <strong>día 1 del sangrado.</strong></p>
+</header>
+
+<!-- ═══════════════════════════════
+     I. LÍNEA TEMPORAL VISUAL
+═══════════════════════════════ -->
+<div class="sdiv"><span>📅 I. Ciclo de 28 días — visión global</span></div>
+
+<div class="timeline-wrap">
+  <div class="tl-head">
+    <div class="tl-ht">Fases del ciclo · representación proporcional en días</div>
+  </div>
+  <div class="tl-body">
+
+    <!-- Días numéricos -->
+    <div class="tl-dual">
+      <div class="tl-label"></div>
+      <div>
+        <div class="tl-days" style="margin-bottom:.25rem;">
+          <div class="day-num marker" style="flex:0 0 calc(100%/28*1)">1</div>
+          <div class="day-num" style="flex:0 0 calc(100%/28*3)"></div>
+          <div class="day-num marker" style="flex:0 0 calc(100%/28*1)">5</div>
+          <div class="day-num" style="flex:0 0 calc(100%/28*8)"></div>
+          <div class="day-num marker" style="flex:0 0 calc(100%/28*1)">14</div>
+          <div class="day-num" style="flex:0 0 calc(100%/28*5)"></div>
+          <div class="day-num marker" style="flex:0 0 calc(100%/28*1)">21</div>
+          <div class="day-num" style="flex:0 0 calc(100%/28*5)"></div>
+          <div class="day-num marker" style="flex:0 0 calc(100%/28*1)">26</div>
+          <div class="day-num" style="flex:0 0 calc(100%/28*2)"></div>
+          <div class="day-num marker" style="flex:0 0 calc(100%/28*1)">28</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OVARIO -->
+    <div class="tl-dual">
+      <div class="tl-label">🥚 Ovario</div>
+      <div class="tl-row">
+        <div class="seg" style="flex:14;background:var(--prolife);opacity:.85;">
+          <span class="seg-label">Fase Folicular</span>
+        </div>
+        <div class="seg" style="flex:1;background:var(--ovul);">
+          <span class="seg-label">Ovul.</span>
+        </div>
+        <div class="seg" style="flex:13;background:var(--secretora);opacity:.9;">
+          <span class="seg-label">Fase Lútea ≈14 días (fija)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENDOMETRIO -->
+    <div class="tl-dual">
+      <div class="tl-label">🏠 Endometrio</div>
+      <div class="tl-row">
+        <div class="seg" style="flex:4;background:var(--menses);">
+          <span class="seg-label">Menst.</span>
+        </div>
+        <div class="seg" style="flex:9;background:var(--prolife);opacity:.8;">
+          <span class="seg-label">Proliferativa</span>
+        </div>
+        <div class="seg" style="flex:1;background:var(--ovul);opacity:.9;">
+          <span></span>
+        </div>
+        <div class="seg" style="flex:11;background:var(--secretora);opacity:.9;">
+          <span class="seg-label">Secretora / Lútea</span>
+        </div>
+        <div class="seg" style="flex:3;background:var(--isquemia);">
+          <span class="seg-label">Isquémica</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HORMONAS — curva simplificada como barras de color -->
+    <div style="margin-top:.65rem;display:grid;grid-template-columns:90px 1fr;gap:0;">
+      <div class="tl-label">📊 Hormonas</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <!-- FSH -->
+        <div style="display:flex;align-items:center;gap:4px;height:12px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--fsh);min-width:28px;text-align:right;font-weight:700;">FSH</span>
+          <!-- d1-5 alto, d6-13 medio, d14 pico, d15-28 bajo -->
+          <div style="flex:5;height:10px;background:var(--fsh);opacity:.75;border-radius:2px;position:relative;">
+            <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.38rem;color:#fff;font-weight:700;white-space:nowrap;">Alto→↓</span>
+          </div>
+          <div style="flex:8;height:6px;background:var(--fsh);opacity:.4;border-radius:2px;"></div>
+          <div style="flex:1;height:10px;background:var(--fsh);opacity:.9;border-radius:2px;"></div><!-- pico ovul -->
+          <div style="flex:13;height:4px;background:var(--fsh);opacity:.25;border-radius:2px;"></div>
+          <div style="flex:1;height:6px;background:var(--fsh);opacity:.55;border-radius:2px;"></div><!-- sube al final -->
+        </div>
+        <!-- LH -->
+        <div style="display:flex;align-items:center;gap:4px;height:12px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--lh);min-width:28px;text-align:right;font-weight:700;">LH</span>
+          <div style="flex:5;height:5px;background:var(--lh);opacity:.3;border-radius:2px;"></div>
+          <div style="flex:8;height:7px;background:var(--lh);opacity:.55;border-radius:2px;"></div>
+          <div style="flex:1;height:13px;background:var(--lh);opacity:1;border-radius:3px;margin-top:-3px;position:relative;">
+            <span style="position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:.38rem;color:var(--lh);font-weight:900;white-space:nowrap;">⚡</span>
+          </div><!-- pico LH -->
+          <div style="flex:13;height:5px;background:var(--lh);opacity:.3;border-radius:2px;"></div>
+          <div style="flex:1;height:3px;background:var(--lh);opacity:.2;border-radius:2px;"></div>
+        </div>
+        <!-- E2 -->
+        <div style="display:flex;align-items:center;gap:4px;height:12px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--e2);min-width:28px;text-align:right;font-weight:700;">E2</span>
+          <div style="flex:4;height:3px;background:var(--e2);opacity:.2;border-radius:2px;"></div>
+          <div style="flex:9;height:9px;background:var(--e2);opacity:.65;border-radius:2px;position:relative;">
+            <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.38rem;color:#fff;font-weight:700;white-space:nowrap;">↑ Sube</span>
+          </div>
+          <div style="flex:1;height:12px;background:var(--e2);opacity:.95;border-radius:2px;position:relative;">
+            <span style="position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:.38rem;color:var(--e2);font-weight:900;white-space:nowrap;">★</span>
+          </div><!-- pico pre-ovulatorio -->
+          <div style="flex:7;height:6px;background:var(--e2);opacity:.45;border-radius:2px;"></div>
+          <div style="flex:3;height:3px;background:var(--e2);opacity:.15;border-radius:2px;"></div>
+          <div style="flex:3;height:3px;background:var(--e2);opacity:.15;border-radius:2px;"></div>
+        </div>
+        <!-- Progesterona -->
+        <div style="display:flex;align-items:center;gap:4px;height:12px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--prog);min-width:28px;text-align:right;font-weight:700;">Prog</span>
+          <div style="flex:14;height:3px;background:var(--prog);opacity:.15;border-radius:2px;"></div><!-- baja toda fase folicular -->
+          <div style="flex:11;height:11px;background:var(--prog);opacity:.85;border-radius:2px;position:relative;">
+            <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.38rem;color:#fff;font-weight:700;white-space:nowrap;">Alta fase lútea</span>
+          </div>
+          <div style="flex:3;height:3px;background:var(--prog);opacity:.15;border-radius:2px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-legend" style="margin-top:.7rem;">
+      <div class="leg-item"><div class="leg-dot" style="background:var(--menses);"></div>Menstruación (días 1–4)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--prolife);"></div>Proliferativa / Folicular (días 5–13)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--ovul);"></div>Ovulación (≈día 14)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--secretora);"></div>Secretora / Lútea (días 15–25)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--isquemia);"></div>Isquémica (días 26–28)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     II. FASES EN DETALLE — 4+1 tarjetas
+═══════════════════════════════ -->
+<div class="sdiv"><span>🔬 II. Fases en detalle — hormonas y endometrio</span></div>
+
+<div class="phases-grid">
+
+  <!-- MENSTRUACIÓN + FOLICULAR TEMPRANA -->
+  <div class="phase-card c-menses">
+    <div class="phase-top">
+      <div class="phase-days">Días 1–4</div>
+      <div class="phase-name">Menstruación</div>
+      <div class="phase-sub">Folicular temprana</div>
+    </div>
+    <div class="phase-body">
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--fsh)">FSH</span><div class="hbar-track"><div class="hbar-fill" style="width:65%;background:var(--fsh);"></div></div><span class="hbar-val">Medio↑</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--lh)">LH</span><div class="hbar-track"><div class="hbar-fill" style="width:25%;background:var(--lh);"></div></div><span class="hbar-val">Bajo</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--e2)">E2</span><div class="hbar-track"><div class="hbar-fill" style="width:15%;background:var(--e2);"></div></div><span class="hbar-val">Muy bajo</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--prog)">Prog</span><div class="hbar-track"><div class="hbar-fill" style="width:5%;background:var(--prog);"></div></div><span class="hbar-val">Muy bajo</span></div>
+      <div class="pearl"><strong>Causa:</strong> Caída brusca de E2 y progesterona → vasoconstricción → isquemia → descamación endometrial</div>
+      <div class="pearl"><strong>FSH sube</strong> para reclutar nuevos folículos. GnRH: pulsos lentos.</div>
+      <span class="endo-badge" style="background:#fde8e8;color:var(--menses);">🩸 Descamación endometrial</span>
+    </div>
+  </div>
+
+  <!-- FOLICULAR MEDIA-TARDÍA / PROLIFERATIVA -->
+  <div class="phase-card c-prolife">
+    <div class="phase-top">
+      <div class="phase-days">Días 5–13</div>
+      <div class="phase-name">Proliferativa</div>
+      <div class="phase-sub">Folicular media–tardía</div>
+    </div>
+    <div class="phase-body">
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--fsh)">FSH</span><div class="hbar-track"><div class="hbar-fill" style="width:45%;background:var(--fsh);"></div></div><span class="hbar-val">Medio↓</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--lh)">LH</span><div class="hbar-track"><div class="hbar-fill" style="width:55%;background:var(--lh);"></div></div><span class="hbar-val">Medio↑</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--e2)">E2</span><div class="hbar-track"><div class="hbar-fill" style="width:75%;background:var(--e2);"></div></div><span class="hbar-val">Alto↑↑</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--prog)">Prog</span><div class="hbar-track"><div class="hbar-fill" style="width:5%;background:var(--prog);"></div></div><span class="hbar-val">Bajo</span></div>
+      <div class="pearl"><strong>Folículo de Graaf</strong> produce E2 → endometrio prolifera (mitosis)</div>
+      <div class="pearl"><strong>Feedback negativo:</strong> E2 moderado → inhibe FSH → selecciona 1 folículo dominante ★★</div>
+      <span class="endo-badge" style="background:#e8f5ec;color:var(--prolife);">🌱 Endometrio proliferativo — mitosis</span>
+    </div>
+  </div>
+
+  <!-- OVULACIÓN -->
+  <div class="phase-card c-ovul">
+    <div class="phase-top">
+      <div class="phase-days">≈ Día 14</div>
+      <div class="phase-name">Ovulación</div>
+      <div class="phase-sub">Pico de LH y FSH</div>
+    </div>
+    <div class="phase-body">
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--fsh)">FSH</span><div class="hbar-track"><div class="hbar-fill" style="width:70%;background:var(--fsh);"></div></div><span class="hbar-val">⚡ Pico</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--lh)">LH</span><div class="hbar-track"><div class="hbar-fill" style="width:100%;background:var(--lh);"></div></div><span class="hbar-val">⚡⚡ PICO</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--e2)">E2</span><div class="hbar-track"><div class="hbar-fill" style="width:90%;background:var(--e2);"></div></div><span class="hbar-val">⚡ Pico</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--prog)">Prog</span><div class="hbar-track"><div class="hbar-fill" style="width:18%;background:var(--prog);"></div></div><span class="hbar-val">Inicio↑</span></div>
+      <div class="pearl"><strong>Feedback positivo ★★:</strong> E2 muy alto y mantenido → invierte el feedback → pico de LH → rotura del folículo</div>
+      <div class="pearl">Ovulación ocurre <strong>12–36 h tras el pico de LH</strong> ★★</div>
+      <div class="pearl">Tª basal sube unas décimas post-ovulación (efecto progesterona)</div>
+      <span class="endo-badge" style="background:#eaf3fc;color:var(--ovul);">📏 Endometrio máximo grosor</span>
+    </div>
+  </div>
+
+  <!-- LÚTEA / SECRETORA -->
+  <div class="phase-card c-lutea">
+    <div class="phase-top">
+      <div class="phase-days">Días 15–25</div>
+      <div class="phase-name">Secretora</div>
+      <div class="phase-sub">Fase lútea · Cuerpo lúteo ≈14 días (fija)</div>
+    </div>
+    <div class="phase-body">
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--fsh)">FSH</span><div class="hbar-track"><div class="hbar-fill" style="width:15%;background:var(--fsh);"></div></div><span class="hbar-val">Bajo</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--lh)">LH</span><div class="hbar-track"><div class="hbar-fill" style="width:30%;background:var(--lh);"></div></div><span class="hbar-val">Medio↓</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--e2)">E2</span><div class="hbar-track"><div class="hbar-fill" style="width:40%;background:var(--e2);"></div></div><span class="hbar-val">Medio</span></div>
+      <div class="hbar-row"><span class="hbar-name" style="color:var(--prog)">Prog</span><div class="hbar-track"><div class="hbar-fill" style="width:95%;background:var(--prog);"></div></div><span class="hbar-val">⚡ Alta</span></div>
+      <div class="pearl"><strong>Cuerpo lúteo</strong> (restos del folículo) → produce progesterona y algo de E2</div>
+      <div class="pearl">Endometrio secretor: glándulas tortuosas, <strong>glucógeno</strong>, arterias espirales ★</div>
+      <div class="pearl"><strong>Duración fija ~14 días</strong> — la variable es la fase folicular ★★</div>
+      <span class="endo-badge" style="background:#f5eefa;color:var(--secretora);">🌀 Glándulas tortuosas · glucógeno</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Isquémica — tarjeta aparte horizontal -->
+<div class="phase-card c-isquemia" style="margin-bottom:.7rem;">
+  <div style="display:grid;grid-template-columns:220px 1fr;gap:0;overflow:hidden;">
+    <div class="phase-top" style="border-right:1px solid var(--border);border-top:none;border-top:5px solid var(--isquemia);">
+      <div class="phase-days">Días 26–28</div>
+      <div class="phase-name">Fase Isquémica</div>
+      <div class="phase-sub">Cuerpo lúteo → cuerpo albicans</div>
+    </div>
+    <div style="padding:.6rem .85rem;display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:flex-start;">
+      <div style="flex:1;min-width:220px;">
+        <div class="hbar-row" style="margin-bottom:.2rem;"><span class="hbar-name" style="color:var(--e2)">E2 + Prog</span><div class="hbar-track" style="flex:1;"><div class="hbar-fill" style="width:8%;background:var(--isquemia);"></div></div><span class="hbar-val" style="color:var(--isquemia);">Caída brusca ★★</span></div>
+        <div class="hbar-row"><span class="hbar-name" style="color:var(--fsh)">FSH</span><div class="hbar-track"><div class="hbar-fill" style="width:50%;background:var(--fsh);"></div></div><span class="hbar-val">Empieza a ↑</span></div>
+      </div>
+      <div style="flex:2;min-width:260px;display:flex;flex-direction:column;gap:.2rem;">
+        <div class="pearl"><strong>Degeneración del cuerpo lúteo</strong> → caída brusca de E2 y progesterona ★★</div>
+        <div class="pearl">Vasoconstricción de <strong>arterias espirales</strong> → isquemia → necrosis → descamación = nueva menstruación</div>
+        <div class="pearl">GnRH vuelve a aumentar frecuencia al caer los esteroides → FSH empieza a subir → nuevo ciclo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     III. EJE HORMONAL + FEEDBACKS
+═══════════════════════════════ -->
+<div class="sdiv"><span>⚙️ III. Eje hipotálamo–hipófisis–ovario y retroalimentación</span></div>
+
+<div class="eje-wrap">
+  <!-- Cascada -->
+  <div class="eje-flow">
+    <div class="eje-head">
+      <div class="eje-title">Cascada hormonal</div>
+      <div class="eje-sub">Hipotálamo → Hipófisis → Ovario</div>
+    </div>
+    <div class="eje-body">
+      <div class="eje-step">
+        <div class="eje-organ" style="color:var(--gnrh);">🧠 Hipotálamo</div>
+        <div class="eje-hormone">Secreta <strong>GnRH</strong> pulsátil → controla FSH y LH según frecuencia del pulso</div>
+      </div>
+      <div class="eje-arrow">↓</div>
+      <div class="eje-step">
+        <div class="eje-organ" style="color:var(--fsh);">🫀 Hipófisis anterior</div>
+        <div class="eje-hormone"><strong>FSH</strong> → madura folículos, estimula producción de estrógenos<br><strong>LH</strong> → provoca ovulación + luteinización (forma cuerpo lúteo → progesterona)</div>
+      </div>
+      <div class="eje-arrow">↓</div>
+      <div class="eje-step">
+        <div class="eje-organ" style="color:var(--e2);">🥚 Ovario</div>
+        <div class="eje-hormone"><strong>Estrógenos (E2)</strong> → proliferación endometrial; feedback negativo (moderado) y positivo (muy alto) ★★<br><strong>Progesterona</strong> → endometrio secretor; feedback negativo sobre GnRH/FSH/LH</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedbacks -->
+  <div class="feedback-card">
+    <div class="fb-head">
+      <div class="fb-title">Retroalimentación — puntos clave de examen</div>
+    </div>
+    <div class="fb-body">
+      <div class="fb-row fb-neg">
+        <span class="fb-icon">🔴</span>
+        <div class="fb-text"><strong>Feedback NEGATIVO de E2 moderado</strong> → inhibe FSH → permite selección del folículo dominante (días 5–13) ★★</div>
+      </div>
+      <div class="fb-row fb-pos">
+        <span class="fb-icon">🔵</span>
+        <div class="fb-text"><strong>Feedback POSITIVO de E2 muy alto</strong> → activa el pico de LH → desencadena ovulación ★★ — único momento de feedback positivo en el ciclo</div>
+      </div>
+      <div class="fb-row fb-prog">
+        <span class="fb-icon">🟣</span>
+        <div class="fb-text"><strong>Progesterona</strong> → feedback negativo sobre GnRH/FSH/LH en la fase lútea → mantiene la quiescencia hasta que el cuerpo lúteo degenera ★</div>
+      </div>
+      <div class="fb-row" style="background:#fef8e8;border-left:3px solid var(--gold);">
+        <span class="fb-icon">⚠️</span>
+        <div class="fb-text"><strong>GnRH continuo (no pulsátil)</strong> → suprime FSH/LH (desensibilización hipofisaria) → base de los agonistas de GnRH en endometriosis, miomas, etc. ★★</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pulsatilidad GnRH -->
+<div class="gnrh-card">
+  <div class="gnrh-head">
+    <div class="gnrh-ht">GnRH pulsátil — frecuencia del pulso determina FSH vs LH ★★</div>
+  </div>
+  <div class="gnrh-body">
+    <div class="gnrh-col">
+      <div class="gnrh-type" style="color:var(--prolife);">Pulsos LENTOS</div>
+      <div class="gnrh-waves">
+        <div class="wave" style="height:12px;"></div>
+        <div class="wave" style="height:4px;width:18px;background:transparent;"></div>
+        <div class="wave" style="height:12px;"></div>
+        <div class="wave" style="height:4px;width:18px;background:transparent;"></div>
+        <div class="wave" style="height:12px;"></div>
+      </div>
+      <div class="gnrh-effect">Favorecen la secreción de <strong>FSH</strong><br>→ fase folicular, fase lútea</div>
+    </div>
+    <div class="gnrh-col">
+      <div class="gnrh-type" style="color:var(--secretora);">Pulsos RÁPIDOS</div>
+      <div class="gnrh-waves">
+        <div class="wave" style="height:14px;"></div>
+        <div class="wave" style="height:3px;width:4px;background:transparent;"></div>
+        <div class="wave" style="height:14px;"></div>
+        <div class="wave" style="height:3px;width:4px;background:transparent;"></div>
+        <div class="wave" style="height:14px;"></div>
+        <div class="wave" style="height:3px;width:4px;background:transparent;"></div>
+        <div class="wave" style="height:14px;"></div>
+        <div class="wave" style="height:3px;width:4px;background:transparent;"></div>
+        <div class="wave" style="height:14px;"></div>
+      </div>
+      <div class="gnrh-effect">Favorecen la secreción de <strong>LH</strong><br>→ periovulatorio, pico de LH</div>
+    </div>
+  </div>
+  <div style="padding:.4rem .85rem .6rem;">
+    <div class="gnrh-note">💊 <strong>Agonistas GnRH en uso terapéutico:</strong> administración continua → desensibilización hipofisaria → supresión de FSH/LH → base del tratamiento en endometriosis, miomas, estimulación ovárica controlada ★★</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     IV. TIPOS DE SANGRADO UTERINO
+═══════════════════════════════ -->
+<div class="sdiv"><span>🩸 IV. Tipos de sangrado uterino — clasificación</span></div>
+
+<!-- Ciclo normal de referencia -->
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:.6rem;">
+  <div style="padding:.45rem .8rem;background:var(--s3);border-bottom:1px solid var(--border);">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.54rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);">Ciclo menstrual normal — valores de referencia ★★</span>
+  </div>
+  <div class="normal-ref" style="padding:.5rem .8rem;">
+    <div class="nref-item">
+      <div class="nref-val">21–35 días</div>
+      <div class="nref-lbl">Duración del ciclo</div>
+    </div>
+    <div class="nref-item">
+      <div class="nref-val">2–7 días</div>
+      <div class="nref-lbl">Duración del sangrado</div>
+    </div>
+    <div class="nref-item">
+      <div class="nref-val">30–80 ml</div>
+      <div class="nref-lbl">Volumen aproximado</div>
+    </div>
+  </div>
+</div>
+
+<div class="sangrado-grid">
+
+  <!-- CÍCLICOS -->
+  <div class="sangrado-group sg-ciclico">
+    <div class="sg-head" style="border-left-color:var(--prolife);background:#f0f8f2;">
+      <div class="sg-title" style="color:var(--prolife);">🔄 Sangrado CÍCLICO</div>
+      <div class="sg-sub">Dentro de la menstruación — patrón alterado pero rítmico</div>
+    </div>
+    <div class="sg-body">
+      <div class="stype">
+        <div class="stype-name" style="color:var(--menses);">🔴 Menorragia <span style="font-size:.6rem;font-weight:400;color:var(--muted);">(hipermenorrea)</span></div>
+        <div class="stype-def">Sangrado <strong>abundante (&gt;80 ml) y/o prolongado (&gt;7 días)</strong> pero a intervalos regulares</div>
+      </div>
+      <div class="stype">
+        <div class="stype-name" style="color:var(--ovul);">⚡ Polimenorrea</div>
+        <div class="stype-def">Ciclos <strong>cortos (&lt;21 días)</strong> — reglas demasiado frecuentes. Se asocia a <strong>fase lútea corta</strong> ★</div>
+      </div>
+      <div class="stype">
+        <div class="stype-name" style="color:var(--isquemia);">🐢 Oligomenorrea</div>
+        <div class="stype-def">Ciclos <strong>largos (&gt;35 días)</strong> — sangrado escaso o espaciado. Se asocia a <strong>fase folicular prolongada</strong> ★</div>
+      </div>
+      <div class="stype">
+        <div class="stype-name" style="color:var(--gnrh);">💧 Hipomenorrea</div>
+        <div class="stype-def">Menstruación <strong>muy escasa</strong> pero periódica y rítmica</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACÍCLICOS -->
+  <div class="sangrado-group sg-aciclico">
+    <div class="sg-head" style="border-left-color:var(--menses);background:#fef8f8;">
+      <div class="sg-title" style="color:var(--menses);">🔀 Sangrado ACÍCLICO / No cíclico</div>
+      <div class="sg-sub">Fuera de la menstruación — no rítmico</div>
+    </div>
+    <div class="sg-body">
+      <div class="stype">
+        <div class="stype-name" style="color:var(--menses);">⚠️ Metrorragia ★★</div>
+        <div class="stype-def">Sangrado vaginal <strong>fuera de la menstruación</strong> — irregular, no rítmico, intermenstrual</div>
+      </div>
+      <div class="stype">
+        <div class="stype-name" style="color:var(--gnrh);">🔸 Spotting intermenstrual</div>
+        <div class="stype-def">Manchado ligero entre reglas — por bajos niveles de estrógenos o cambios hormonales</div>
+      </div>
+      <div class="stype">
+        <div class="stype-name" style="color:var(--isquemia);">📋 SUA — Sangrado Uterino Anómalo</div>
+        <div class="stype-def">Término paraguas: sangrado fuera de la pauta normal en <strong>frecuencia, duración o cantidad</strong> sin causa orgánica clara (antes "disfuncional")</div>
+      </div>
+      <div class="stype">
+        <div class="stype-name" style="color:var(--alarm,#b83030);">🚨 Sangrado postmenopáusico ★★</div>
+        <div class="stype-def"><strong>Siempre patológico</strong> hasta demostrar lo contrario — cualquier sangrado &gt;1 año tras la última regla</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Resumen para el examen</div>
+  <div class="memo-t">
+    <span style="color:var(--prolife);">Cíclicos</span>: menorragia (cantidad↑), polimenorrea (&lt;21d), oligomenorrea (&gt;35d), hipomenorrea (cantidad↓) ·
+    <span style="color:var(--menses);">Acíclico</span>: metrorragia ★★ ·
+    <span style="color:var(--secretora);">Fase lútea fija ~14d</span> — la variabilidad del ciclo está en la fase folicular ★★ ·
+    Pico de LH → ovulación en 12–36h ★★ ·
+    Feedback positivo de E2 muy alto → único momento del ciclo ★★ ·
+    Sangrado postmenopáusico = siempre patológico ★★
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     TEST
+═══════════════════════════════ -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Ciclo Ovárico–Endometrial · INGESA 2026</span></div>
+  <div class="tbody">
+    <div class="qgrid">
+      <div class="qb">
+        <div class="qt">¿Qué hormona desencadena la ovulación?</div>
+        <div class="qa"><strong>El pico brusco de LH</strong> (LH-surge). La ovulación ocurre 12–36h después ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuánto dura la fase lútea y por qué es importante?</div>
+        <div class="qa"><strong>~14 días, siempre fija</strong> — la variabilidad del ciclo se debe a la fase folicular ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué es el feedback positivo del estrógeno?</div>
+        <div class="qa">E2 muy alto y mantenido <strong>invierte el feedback → activa el pico de LH</strong> → rotura folicular ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuál es la causa de la menstruación?</div>
+        <div class="qa">Caída brusca de E2 y progesterona por degeneración del cuerpo lúteo → vasoconstricción → isquemia → descamación ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué estructura produce la progesterona en la fase lútea?</div>
+        <div class="qa">El <strong>cuerpo lúteo</strong> (restos del folículo de Graaf tras la ovulación) ★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué pulsos de GnRH favorecen la secreción de LH?</div>
+        <div class="qa">Pulsos <strong>rápidos</strong> → LH · Pulsos lentos → FSH ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué ocurre al administrar GnRH en continuo?</div>
+        <div class="qa"><strong>Supresión de FSH/LH</strong> por desensibilización hipofisaria — base de los agonistas de GnRH ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué es la polimenorrea y a qué se asocia?</div>
+        <div class="qa">Ciclos cortos <strong>&lt;21 días</strong>, asociada a <strong>fase lútea corta</strong> ★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Cuál es la diferencia entre menorragia y metrorragia?</div>
+        <div class="qa">Menorragia = regla abundante/prolongada pero <strong>cíclica</strong> · Metrorragia = sangrado <strong>fuera de la menstruación</strong> ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué caracteriza al endometrio en la fase secretora?</div>
+        <div class="qa">Glándulas tortuosas, secreción de <strong>glucógeno</strong>, arterias espirales — efecto de la progesterona ★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">Sangrado postmenopáusico: ¿siempre patológico?</div>
+        <div class="qa"><strong>Sí, siempre patológico</strong> hasta demostrar lo contrario (&gt;1 año tras la última regla) ★★</div>
+      </div>
+      <div class="qb">
+        <div class="qt">¿Qué hormona es la dominante de la fase secretora?</div>
+        <div class="qa"><strong>Progesterona</strong> — secretada por el cuerpo lúteo ★★</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

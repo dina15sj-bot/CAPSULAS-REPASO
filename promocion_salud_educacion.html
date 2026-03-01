@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promoción de la Salud y Educación Sanitaria · INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e8;--surface:#fff;--s2:#faf7f2;--s3:#f0ece3;--border:#e0d5c0;
+  --text:#252530;--muted:#7a7080;--gold:#8a6a10;--goldbg:#c8a83a12;
+  /* colores temáticos */
+  --ottawa:#2a7a3a;    /* verde — Ottawa 1986 */
+  --helsinki:#1a6faa;  /* azul — Helsinki 2013 */
+  --almata:#8a3aaa;    /* violeta — Alma Ata 1978 */
+  --bangkok:#b55e1a;   /* naranja — Bangkok 2005 */
+  --alarm:#b83030;
+  /* modelo transteórico */
+  --pc:#7a7080;        /* precontemplación gris */
+  --cont:#1a6faa;      /* contemplación azul */
+  --prep:#8a6a10;      /* preparación dorado */
+  --acc:#2a7a3a;       /* acción verde */
+  --mant:#8a3aaa;      /* mantenimiento violeta */
+  --rec:#b83030;       /* recaída rojo */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);padding:1.5rem 1.2rem 4rem;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#c8b89810 40px);}
+.wrap{max-width:1100px;margin:0 auto;}
+
+header{text-align:center;margin-bottom:2rem;}
+.htag{display:inline-flex;align-items:center;gap:.4rem;font-family:'JetBrains Mono',monospace;font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;background:var(--ottawa);color:#fff;padding:.22rem .9rem;border-radius:2px;margin-bottom:.7rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,4vw,2.7rem);font-weight:900;line-height:1.05;}
+h1 em{color:var(--ottawa);font-style:italic;}
+.hsub{font-family:'JetBrains Mono',monospace;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.18em;margin-top:.45rem;}
+.hdef{font-size:.73rem;color:var(--muted);max-width:700px;margin:.5rem auto 0;line-height:1.55;}
+.hdef strong{color:var(--text);}
+
+.sdiv{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+.sdiv span{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--text);white-space:nowrap;padding:.12rem .65rem;border:1px solid var(--border);background:var(--surface);border-radius:2px;}
+
+/* ═══════ CONFERENCIAS ═══════ */
+.conf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.6rem;margin-bottom:.7rem;}
+
+.conf-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.conf-top{padding:.6rem .8rem;border-bottom:1px solid var(--border);border-left:5px solid;}
+.conf-year{font-family:'JetBrains Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.05rem;}
+.conf-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.1;}
+.conf-lema{font-size:.65rem;font-style:italic;margin-top:.06rem;opacity:.8;}
+.conf-body{padding:.55rem .8rem;display:flex;flex-direction:column;gap:.2rem;}
+.conf-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.3rem;align-items:flex-start;}
+.conf-row::before{content:'›';color:var(--gold);font-weight:900;flex-shrink:0;margin-top:.05rem;}
+.conf-row strong{color:var(--text);}
+
+/* CARTA OTTAWA especial — más grande */
+.ottawa-special{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.ott-head{padding:.7rem .9rem;border-bottom:1px solid var(--border);border-left:6px solid var(--ottawa);background:#eef7f0;}
+.ott-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--ottawa);}
+.ott-meta{font-size:.65rem;color:var(--muted);margin-top:.06rem;}
+.ott-body{padding:.7rem .9rem;}
+
+/* 5 áreas de acción */
+.areas-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-bottom:.6rem;}
+@media(max-width:700px){.areas-grid{grid-template-columns:repeat(2,1fr) 1fr;}}
+@media(max-width:450px){.areas-grid{grid-template-columns:1fr;}}
+
+.area-box{border-radius:6px;padding:.5rem .55rem;text-align:center;border:1px solid;display:flex;flex-direction:column;align-items:center;gap:.15rem;}
+.area-icon{font-size:1.2rem;}
+.area-num{font-family:'JetBrains Mono',monospace;font-size:.45rem;text-transform:uppercase;letter-spacing:.1em;}
+.area-name{font-size:.68rem;font-weight:700;line-height:1.2;}
+.area-desc{font-size:.6rem;color:var(--muted);line-height:1.3;}
+
+/* DETERMINANTES */
+.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+@media(max-width:600px){.det-grid{grid-template-columns:1fr;}}
+.det-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.det-head{padding:.5rem .8rem;border-bottom:1px solid var(--border);border-left:4px solid;}
+.det-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.det-body{padding:.55rem .8rem;display:flex;flex-direction:column;gap:.22rem;}
+.det-row{font-size:.7rem;color:var(--muted);line-height:1.4;display:flex;gap:.35rem;align-items:flex-start;}
+.det-row::before{content:'→';color:var(--gold);flex-shrink:0;font-weight:900;margin-top:.04rem;}
+.det-row strong{color:var(--text);}
+
+/* ═══════ MODELO TRANSTEÓRICO ═══════ */
+.tt-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:.7rem;}
+.tt-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:var(--s3);}
+.tt-ht{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);}
+.tt-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+.tt-body{padding:.7rem .9rem;}
+
+/* Rueda de estadios */
+.tt-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-bottom:.7rem;}
+@media(max-width:500px){.tt-stages{grid-template-columns:1fr 1fr;}}
+
+.stage-card{border-radius:7px;padding:.55rem .65rem;border:1px solid;position:relative;}
+.stage-num{font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:700;position:absolute;top:.35rem;right:.5rem;opacity:.6;}
+.stage-name{font-weight:700;font-size:.75rem;margin-bottom:.1rem;}
+.stage-def{font-size:.67rem;line-height:1.35;}
+.stage-example{font-size:.62rem;font-style:italic;margin-top:.15rem;line-height:1.3;}
+.stage-tip{font-size:.62rem;margin-top:.12rem;font-weight:600;}
+
+.s-pc{background:#f0f0f8;border-color:#c0c0e0;} .s-pc .stage-name{color:var(--pc);}
+.s-cont{background:#e8f2fa;border-color:#a0c0e0;} .s-cont .stage-name{color:var(--cont);}
+.s-prep{background:#fef8e8;border-color:#d0a840;} .s-prep .stage-name{color:var(--prep);}
+.s-acc{background:#e8f5ec;border-color:#80c090;} .s-acc .stage-name{color:var(--acc);}
+.s-mant{background:#f5eefa;border-color:#c090e0;} .s-mant .stage-name{color:var(--mant);}
+.s-rec{background:#fef0f0;border-color:#e09090;} .s-rec .stage-name{color:var(--rec);}
+
+/* Flecha circular indicativa */
+.tt-cycle{font-size:.68rem;color:var(--muted);line-height:1.4;padding:.3rem .5rem;background:var(--s2);border-radius:5px;border:1px solid var(--border);margin-bottom:.5rem;}
+.tt-cycle strong{color:var(--text);}
+
+/* ═══════ ENTREVISTA MOTIVACIONAL ═══════ */
+.em-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem;}
+@media(max-width:600px){.em-wrap{grid-template-columns:1fr;}}
+
+.em-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.em-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:4px solid var(--helsinki);}
+.em-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--helsinki);}
+.em-sub{font-size:.63rem;color:var(--muted);}
+.em-body{padding:.6rem .8rem;display:flex;flex-direction:column;gap:.25rem;}
+
+.em-princip{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;}
+.em-p{padding:.3rem .5rem;border-radius:4px;border:1px solid var(--border);background:var(--s2);font-size:.67rem;text-align:center;}
+.em-p-name{font-weight:700;font-size:.68rem;margin-bottom:.05rem;}
+
+/* obstáculos EM */
+.obst-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.obst-head{padding:.55rem .8rem;border-bottom:1px solid var(--border);border-left:4px solid var(--alarm);background:#fef0f0;}
+.obst-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--alarm);}
+.obst-body{padding:.6rem .8rem;display:flex;flex-direction:column;gap:.2rem;}
+.obst-row{font-size:.7rem;display:flex;gap:.4rem;align-items:flex-start;padding:.18rem 0;border-bottom:1px dashed var(--border)10;}
+.obst-row:last-child{border-bottom:none;}
+.obst-tag{font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:700;padding:.05rem .35rem;border-radius:2px;flex-shrink:0;background:#fde8e8;color:var(--alarm);}
+.obst-def{color:var(--muted);line-height:1.35;} .obst-def strong{color:var(--text);}
+
+/* ═══════ TABLA CONFERENCIAS ═══════ */
+.conf-table{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:.7rem;}
+.ct-head{padding:.5rem .85rem;background:var(--s3);border-bottom:1px solid var(--border);}
+.ct-ht{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);}
+.ct-body{overflow-x:auto;}
+table.ctable{width:100%;border-collapse:collapse;font-size:.71rem;}
+table.ctable thead tr{background:var(--s2);}
+table.ctable th{padding:.42rem .7rem;text-align:left;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+table.ctable td{padding:.42rem .7rem;border-bottom:1px solid var(--border)10;vertical-align:top;}
+table.ctable tr:nth-child(even){background:var(--s2);}
+table.ctable tr:last-child td{border-bottom:none;}
+.year-badge{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;padding:.08rem .4rem;border-radius:3px;}
+
+/* MEMO */
+.memo{background:var(--goldbg);border:1px solid var(--gold);border-radius:5px;padding:.5rem .8rem;margin-bottom:.6rem;}
+.memo-l{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.1rem;}
+.memo-t{font-size:.72rem;color:var(--text);font-weight:600;line-height:1.55;}
+
+/* TEST */
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.thead{padding:.6rem .9rem;border-bottom:1px solid var(--border);background:#eef7f0;display:flex;align-items:center;gap:.5rem;}
+.ttitle{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ottawa);}
+.tbody{padding:.9rem;}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 1.4rem;}
+.qb{padding:.42rem 0;border-bottom:1px dashed var(--border);font-size:.72rem;}
+.qb:last-child{border-bottom:none;}
+.qt{color:var(--muted);margin-bottom:.13rem;line-height:1.35;}
+.qt::before{content:'❓ ';}
+.qa{font-weight:700;color:var(--ottawa);display:flex;align-items:flex-start;gap:.3rem;line-height:1.4;}
+.qa::before{content:'→';color:var(--gold);font-weight:900;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="htag">🏥 Atención Primaria · Bloque 1</div>
+  <h1>Promoción de la Salud<br>y <em>Educación Sanitaria</em></h1>
+  <p class="hsub">Conferencias OMS · Determinantes · Modelo Transteórico · Entrevista Motivacional</p>
+  <p class="hdef">Proceso que permite a las personas <strong>incrementar el control sobre su salud</strong> para mejorarla. No es solo ausencia de enfermedad. La Carta de Ottawa (1986) define el marco moderno de la Promoción de la Salud.</p>
+</header>
+
+<!-- ═══ I. CARTA OTTAWA + ÁREAS DE ACCIÓN ═══ -->
+<div class="sdiv"><span>🍁 I. Carta de Ottawa 1986 — primera conferencia internacional ★★</span></div>
+
+<div class="ottawa-special">
+  <div class="ott-head">
+    <div class="ott-title">Carta de Ottawa para la Promoción de la Salud</div>
+    <div class="ott-meta">21 noviembre 1986 · Ottawa, Canadá · OMS + Asociación Canadiense de Salud Pública · Lema: <strong>"Hacia un nuevo concepto de Salud Pública"</strong> / "Salud para todos en el año 2000"</div>
+  </div>
+  <div class="ott-body">
+    <div style="font-size:.71rem;color:var(--muted);margin-bottom:.65rem;line-height:1.5;">
+      Primera respuesta a la demanda de una <strong style="color:var(--text);">nueva concepción de salud pública</strong> a nivel mundial. Toma como punto de partida los avances de Alma Ata (1978) y define 3 estrategias básicas: <strong style="color:var(--text);">abogar, capacitar y mediar</strong>. Establece 5 <em>prerrequisitos para la salud</em>: paz, vivienda, educación, alimentación, renta, ecosistema estable, recursos sostenibles, justicia social y equidad.
+    </div>
+
+    <!-- 5 ÁREAS DE ACCIÓN -->
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.4rem;">5 Áreas de acción ★★ — las más preguntadas</div>
+    <div class="areas-grid">
+      <div class="area-box" style="background:#eef7f0;border-color:#90c8a0;">
+        <div class="area-icon">🏛️</div>
+        <div class="area-num" style="color:var(--ottawa);">Área 1</div>
+        <div class="area-name" style="color:var(--ottawa);">Construir políticas públicas saludables</div>
+        <div class="area-desc">Opciones saludables más fáciles de tomar. Más allá del sector sanitario.</div>
+      </div>
+      <div class="area-box" style="background:#e8f2fa;border-color:#90b8e0;">
+        <div class="area-icon">🌿</div>
+        <div class="area-num" style="color:var(--helsinki);">Área 2</div>
+        <div class="area-name" style="color:var(--helsinki);">Crear ambientes favorables</div>
+        <div class="area-desc">Entornos físicos y sociales que apoyen la salud. Recursos naturales.</div>
+      </div>
+      <div class="area-box" style="background:#f5eefa;border-color:#c090e0;">
+        <div class="area-icon">🤝</div>
+        <div class="area-num" style="color:var(--almata);">Área 3</div>
+        <div class="area-name" style="color:var(--almata);">Reforzar la acción comunitaria</div>
+        <div class="area-desc">Participación efectiva en toma de decisiones sobre salud.</div>
+      </div>
+      <div class="area-box" style="background:#fef8e8;border-color:#d0a840;">
+        <div class="area-icon">💡</div>
+        <div class="area-num" style="color:var(--gold);">Área 4</div>
+        <div class="area-name" style="color:var(--gold);">Desarrollar aptitudes personales</div>
+        <div class="area-desc">Información, educación sanitaria y mejora de aptitudes para la vida.</div>
+      </div>
+      <div class="area-box" style="background:#fef3e8;border-color:#d09060;">
+        <div class="area-icon">🔄</div>
+        <div class="area-num" style="color:var(--bangkok);">Área 5</div>
+        <div class="area-name" style="color:var(--bangkok);">Reorientar los servicios sanitarios</div>
+        <div class="area-desc">Del modelo curativo a uno integral con énfasis en la salud.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ II. TABLA HISTÓRICA DE CONFERENCIAS ═══ -->
+<div class="sdiv"><span>🌍 II. Cronología conferencias mundiales de promoción de salud</span></div>
+
+<div class="conf-table">
+  <div class="ct-head"><div class="ct-ht">Todas las conferencias OMS — lema y aportación clave ★★ (Ottawa y Helsinki son las más preguntadas)</div></div>
+  <div class="ct-body">
+    <table class="ctable">
+      <thead>
+        <tr>
+          <th>Año · Lugar</th>
+          <th>Lema / Enfoque</th>
+          <th>Aportación clave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="year-badge" style="background:#eef7f0;color:var(--ottawa);">1978</span><br><small style="color:var(--muted);">Alma Ata (URSS)</small></td>
+          <td><strong>Salud para Todos en 2000</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">Atención Primaria como eje del sistema sanitario. <strong style="color:var(--text);">No es conferencia de PS, pero es su antecedente directo</strong></td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#eef7f0;color:var(--ottawa);">1986 ★★</span><br><small style="color:var(--muted);">Ottawa, Canadá</small></td>
+          <td><strong style="color:var(--ottawa);">Hacia un nuevo concepto de Salud Pública</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);"><strong style="color:var(--text);">Carta de Ottawa</strong> — 5 áreas de acción, 3 estrategias. Primera conferencia internacional de PS</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#e8f2fa;color:var(--helsinki);">1988</span><br><small style="color:var(--muted);">Adelaida, Australia</small></td>
+          <td><strong>Políticas Públicas Saludables</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">Refuerza la política pública sana; alianza por la salud pública</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#f5eefa;color:var(--almata);">1991</span><br><small style="color:var(--muted);">Sundsvall, Suecia</small></td>
+          <td><strong>Ambientes favorables a la salud</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">Importancia del entorno físico y social sobre la salud</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#fef8e8;color:var(--gold);">1997</span><br><small style="color:var(--muted);">Yakarta, Indonesia</small></td>
+          <td><strong>Nuevos representantes para una nueva era</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">PS hacia el siglo XXI; sector privado como actor</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#fef3e8;color:var(--bangkok);">2000</span><br><small style="color:var(--muted);">México</small></td>
+          <td><strong>Hacia mayor equidad</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">PS como prioridad política en la agenda de desarrollo</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#fef3e8;color:var(--bangkok);">2005</span><br><small style="color:var(--muted);">Bangkok</small></td>
+          <td><strong>Factores determinantes en mundo globalizado</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">Carta de Bangkok — compromisos en era de globalización</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#fef3e8;color:var(--bangkok);">2009</span><br><small style="color:var(--muted);">Nairobi</small></td>
+          <td><strong>Cerrar la brecha de implementación</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">+70 acciones para subsanar déficits en PS</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#fef0f0;color:var(--alarm);">2013 ★★</span><br><small style="color:var(--muted);">Helsinki, Finlandia</small></td>
+          <td><strong style="color:var(--alarm);">"Salud en Todas las Políticas"</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);"><strong style="color:var(--text);">Declaración de Helsinki</strong> — salud como derecho fundamental. Políticas saludables en TODOS los sectores (educación, comercio, nutrición, medioambiente). Equidad = justicia social</td>
+        </tr>
+        <tr>
+          <td><span class="year-badge" style="background:#f5eefa;color:var(--almata);">2016</span><br><small style="color:var(--muted);">Shanghái, China</small></td>
+          <td><strong>PS en los ODS</strong></td>
+          <td style="font-size:.68rem;color:var(--muted);">Alineación con Agenda 2030 y Objetivos de Desarrollo Sostenible</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Helsinki destacado -->
+<div style="background:#fef0f0;border:2px solid var(--alarm);border-radius:7px;padding:.6rem .85rem;margin-bottom:.7rem;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--alarm);margin-bottom:.12rem;">★★ HELSINKI 2013 — punto de examen frecuente</div>
+  <div style="font-size:.72rem;color:var(--text);line-height:1.5;"><strong>8ª Conferencia Mundial de PS</strong> (10–14 junio 2013, Finlandia). Lema: <strong>"Salud en Todas las Políticas" (Health in All Policies)</strong>. La salud está determinada por demografía, cambio climático, urbanización, consumismo → los gobiernos deben crear políticas saludables en <em>todos los sectores</em>, no solo el sanitario. La salud y la equidad deben ser prioridades en comercio, educación, nutrición, medioambiente e investigación.</div>
+</div>
+
+<!-- ═══ III. DETERMINANTES DE SALUD ═══ -->
+<div class="sdiv"><span>⚖️ III. Determinantes de salud</span></div>
+
+<div class="det-grid">
+  <div class="det-card">
+    <div class="det-head" style="border-left-color:var(--ottawa);background:#eef7f0;">
+      <div class="det-title" style="color:var(--ottawa);">🏗️ Modelo de Dahlgren y Whitehead</div>
+      <div style="font-size:.62rem;color:var(--muted);">"Arco iris de la salud" — capas de determinantes</div>
+    </div>
+    <div class="det-body">
+      <div class="det-row"><strong>Centro:</strong> factores biológicos individuales (edad, sexo, factores hereditarios) — no modificables</div>
+      <div class="det-row"><strong>Capa 2:</strong> conductas y estilos de vida individuales (tabaco, dieta, actividad física)</div>
+      <div class="det-row"><strong>Capa 3:</strong> redes sociales y comunitarias (apoyo social, cohesión)</div>
+      <div class="det-row"><strong>Capa 4:</strong> condiciones de vida y trabajo (educación, trabajo, vivienda, sanidad, agricultura)</div>
+      <div class="det-row"><strong>Capa exterior:</strong> condiciones socioeconómicas, culturales y ambientales generales</div>
+    </div>
+  </div>
+  <div class="det-card">
+    <div class="det-head" style="border-left-color:var(--helsinki);background:#e8f2fa;">
+      <div class="det-title" style="color:var(--helsinki);">📊 Determinantes sociales OMS (Comisión 2008)</div>
+      <div style="font-size:.62rem;color:var(--muted);">Informe Marmot — causas de las causas</div>
+    </div>
+    <div class="det-body">
+      <div class="det-row"><strong>Mejorar las condiciones de vida</strong> cotidianas desde el inicio de la vida</div>
+      <div class="det-row"><strong>Luchar contra la distribución desigual</strong> del poder, dinero y recursos</div>
+      <div class="det-row"><strong>Medir y analizar el problema</strong> — sistemas de información en salud</div>
+      <div class="det-row" style="background:#e8f2fa;border-left:2px solid var(--helsinki);padding:.2rem .4rem;border-radius:0 3px 3px 0;font-style:italic;">La equidad en salud es una expresión de justicia social — Helsinki 2013 ★</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ IV. MODELO TRANSTEÓRICO ═══ -->
+<div class="sdiv"><span>🔄 IV. Modelo Transteórico del Cambio — Prochaska y DiClemente ★★</span></div>
+
+<div class="tt-wrap">
+  <div class="tt-head">
+    <div class="tt-ht">Prochaska & DiClemente (1982–1984) · Aplicado a conductas de salud · Miller & Rollnick → Entrevista Motivacional</div>
+    <div class="tt-title">Estadios del Proceso de Cambio</div>
+  </div>
+  <div class="tt-body">
+    <div class="tt-cycle">
+      <strong>Concepto clave:</strong> el cambio no es lineal sino un proceso <strong>cíclico</strong> — las personas pueden avanzar, retroceder o recaer. La recaída NO es fracaso: es aprendizaje para retomar el proceso. El modelo determina qué técnica de intervención aplicar en cada estadio. ★
+    </div>
+
+    <div class="tt-stages">
+      <div class="stage-card s-pc">
+        <div class="stage-num">1</div>
+        <div class="stage-name">Precontemplación</div>
+        <div class="stage-def">No reconoce el problema o no tiene intención de cambiar en los próximos 6 meses. Puede haber negación o racionalización.</div>
+        <div class="stage-example">★★ "Mi hijo ya adelgazará en la pubertad, ahora no es momento de dieta" = <strong>PRECONTEMPLACIÓN</strong></div>
+        <div class="stage-tip" style="color:var(--pc);">Técnica: aumento de conciencia, debate pros/contras</div>
+      </div>
+      <div class="stage-card s-cont">
+        <div class="stage-num">2</div>
+        <div class="stage-name">Contemplación</div>
+        <div class="stage-def">Consciente del problema, considera cambiar pero no ha tomado decisión firme. Ambivalencia típica: pros y contras a la vez.</div>
+        <div class="stage-example">"Sé que fumar es malo pero no me veo dejándolo ahora mismo"</div>
+        <div class="stage-tip" style="color:var(--cont);">Técnica: EM para resolver ambivalencia</div>
+      </div>
+      <div class="stage-card s-prep">
+        <div class="stage-num">3</div>
+        <div class="stage-name">Preparación</div>
+        <div class="stage-def">Ha decidido cambiar y comienza a planificar (próximo mes). Pequeños pasos iniciales.</div>
+        <div class="stage-example">"Me he comprado zapatillas para empezar a correr la semana que viene"</div>
+        <div class="stage-tip" style="color:var(--prep);">Técnica: plan realista con previsión de obstáculos</div>
+      </div>
+      <div class="stage-card s-acc">
+        <div class="stage-num">4</div>
+        <div class="stage-name">Acción</div>
+        <div class="stage-def">Cambio conductual observable (últimos 6 meses). Fase activa y vulnerable → requiere refuerzo constante.</div>
+        <div class="stage-example">"Llevo 3 meses sin fumar" → en acción</div>
+        <div class="stage-tip" style="color:var(--acc);">Técnica: apoyo psicosocial, refuerzo, gestión estrés</div>
+      </div>
+      <div class="stage-card s-mant">
+        <div class="stage-num">5</div>
+        <div class="stage-name">Mantenimiento</div>
+        <div class="stage-def">Mantiene el cambio +6 meses. Trabaja para prevenir la recaída. Puede alcanzar "terminación" (hábito consolidado).</div>
+        <div class="stage-example">"Llevo 1 año sin fumar y ya no me cuesta resistir"</div>
+        <div class="stage-tip" style="color:var(--mant);">Técnica: prevención de recaída, autoeficacia</div>
+      </div>
+      <div class="stage-card s-rec">
+        <div class="stage-num">↺</div>
+        <div class="stage-name">Recaída</div>
+        <div class="stage-def">Retorno a la conducta previa. Posible en cualquier etapa. No supone volver al inicio — se retoma el proceso con más aprendizaje.</div>
+        <div class="stage-example">Parte normal del proceso cíclico — no es fracaso ★</div>
+        <div class="stage-tip" style="color:var(--rec);">No es obligatoria — analizar causas y reiniciar</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ V. ENTREVISTA MOTIVACIONAL ═══ -->
+<div class="sdiv"><span>🗣️ V. Entrevista Motivacional — Miller y Rollnick ★★</span></div>
+
+<div class="em-wrap">
+  <div class="em-card">
+    <div class="em-head">
+      <div class="em-title">Entrevista Motivacional (EM)</div>
+      <div class="em-sub">Miller & Rollnick (1991, 2002, 2013) · Estilo colaborativo centrado en la persona</div>
+    </div>
+    <div class="em-body">
+      <div style="font-size:.7rem;color:var(--muted);line-height:1.45;margin-bottom:.35rem;">Estilo comunicativo que <strong style="color:var(--text);">guía</strong> (no dirige ni sigue). Evoca y fortalece la <strong style="color:var(--text);">motivación intrínseca</strong> hacia el cambio. Resuelve la ambivalencia. Especialmente útil en precontemplación y contemplación.</div>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.2rem;">4 principios OARS ★</div>
+      <div class="em-princip">
+        <div class="em-p" style="background:#e8f2fa;border-color:#a0c0e0;">
+          <div class="em-p-name" style="color:var(--helsinki);">O — Preguntas Abiertas</div>
+          <div style="font-size:.62rem;color:var(--muted);">Abrir la conversación, explorar perspectiva del paciente</div>
+        </div>
+        <div class="em-p" style="background:#eef7f0;border-color:#90c8a0;">
+          <div class="em-p-name" style="color:var(--ottawa);">A — Afirmaciones</div>
+          <div style="font-size:.62rem;color:var(--muted);">Reconocer las fortalezas, aumentar autoeficacia</div>
+        </div>
+        <div class="em-p" style="background:#f5eefa;border-color:#c090e0;">
+          <div class="em-p-name" style="color:var(--almata);">R — Escucha Reflexiva</div>
+          <div style="font-size:.62rem;color:var(--muted);">Técnica central. Devolver lo escuchado sin interpretar</div>
+        </div>
+        <div class="em-p" style="background:#fef8e8;border-color:#d0a840;">
+          <div class="em-p-name" style="color:var(--gold);">S — Resúmenes</div>
+          <div style="font-size:.62rem;color:var(--muted);">Consolidar la conversación, reforzar el discurso de cambio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="obst-card">
+    <div class="obst-head">
+      <div class="obst-title">🚫 Obstáculos a la escucha reflexiva ★★</div>
+      <div style="font-size:.62rem;color:var(--muted);">"Las 12 trampas" del profesional que bloquean la EM</div>
+    </div>
+    <div class="obst-body">
+      <div class="obst-row">
+        <span class="obst-tag">★★ INGESA</span>
+        <div class="obst-def"><strong>Interpretar / Analizar</strong> — dar etiquetas explicativas al paciente en lugar de reflejar. Ej: "Lo que te pasa es que tienes miedo al cambio" → bloquea la EM ★★</div>
+      </div>
+      <div class="obst-row">
+        <span class="obst-tag">Obstáculo</span>
+        <div class="obst-def"><strong>Ordenar / Dirigir / Mandar</strong> — impone la decisión del profesional</div>
+      </div>
+      <div class="obst-row">
+        <span class="obst-tag">Obstáculo</span>
+        <div class="obst-def"><strong>Avisar / Amenazar</strong> — genera resistencia y defensividad</div>
+      </div>
+      <div class="obst-row">
+        <span class="obst-tag">Obstáculo</span>
+        <div class="obst-def"><strong>Dar consejo / soluciones no pedidas</strong> — paternalismo experto</div>
+      </div>
+      <div class="obst-row">
+        <span class="obst-tag">Obstáculo</span>
+        <div class="obst-def"><strong>Persuadir / Convencer / Moralizar</strong> — aumenta la ambivalencia</div>
+      </div>
+      <div class="obst-row">
+        <span class="obst-tag">Obstáculo</span>
+        <div class="obst-def"><strong>Juzgar / Criticar / Culpabilizar</strong> — destruye la alianza terapéutica</div>
+      </div>
+      <div class="obst-row">
+        <span class="obst-tag">Obstáculo</span>
+        <div class="obst-def"><strong>Cuestionar / Interrogar</strong> — preguntas cerradas en serie que generan respuestas defensivas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO -->
+<div class="memo">
+  <div class="memo-l">🧠 Resumen para el examen — lo más preguntado en INGESA</div>
+  <div class="memo-t">
+    Carta Ottawa = <strong>1986</strong>, 1ª Conferencia Internacional PS, 5 áreas de acción ★★ ·
+    Helsinki = <strong>2013</strong>, "Salud en Todas las Políticas" ★★ ·
+    Alma Ata = 1978 (AP, no PS) ·
+    Modelo transteórico = Prochaska & DiClemente, 6 estadios, proceso cíclico ·
+    "Mi hijo ya adelgazará..." = <strong>PRECONTEMPLACIÓN</strong> ★★ ·
+    Obstáculo EM = <strong>interpretar</strong> (dar etiquetas en lugar de reflejar) ★★
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sdiv"><span>🎯 Preguntas tipo test</span></div>
+<div class="tcard">
+  <div class="thead"><span>🎯</span><span class="ttitle">Test — Promoción Salud · Bloque 1 · INGESA 2026</span></div>
+  <div class="tbody"><div class="qgrid">
+    <div class="qb"><div class="qt">¿En qué año y lugar se celebró la 1ª Conferencia Internacional de Promoción de la Salud?</div><div class="qa"><strong>1986, Ottawa (Canadá)</strong> — Carta de Ottawa ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuál es el lema de la Conferencia de Helsinki 2013?</div><div class="qa"><strong>"Salud en Todas las Políticas"</strong> ★★</div></div>
+    <div class="qb"><div class="qt">Enumera las 5 áreas de acción de la Carta de Ottawa</div><div class="qa">Políticas públicas · Ambientes favorables · Acción comunitaria · Aptitudes personales · Reorientación servicios ★★</div></div>
+    <div class="qb"><div class="qt">Un paciente dice: "Mi hijo ya adelgazará solo en la pubertad, ahora no necesita dieta". ¿En qué estadio del modelo transteórico está?</div><div class="qa"><strong>Precontemplación</strong> — no reconoce el problema ★★</div></div>
+    <div class="qb"><div class="qt">¿Qué estadio sigue a la Contemplación en el modelo transteórico?</div><div class="qa"><strong>Preparación</strong> (decisión tomada, planifica el cambio) ★</div></div>
+    <div class="qb"><div class="qt">¿Qué obstáculo de la EM consiste en dar etiquetas explicativas al paciente?</div><div class="qa"><strong>Interpretar / Analizar</strong> ★★</div></div>
+    <div class="qb"><div class="qt">¿Cuáles son los 4 principios OARS de la Entrevista Motivacional?</div><div class="qa">Preguntas <strong>O</strong>biertas · <strong>A</strong>firmaciones · Escucha <strong>R</strong>eflexiva · <strong>R</strong>esúmenes ★</div></div>
+    <div class="qb"><div class="qt">¿Qué conferencia estableció la importancia del entorno físico para la salud?</div><div class="qa"><strong>Sundsvall 1991</strong> — "Ambientes favorables a la salud"</div></div>
+    <div class="qb"><div class="qt">¿La recaída en el modelo transteórico significa fracaso del tratamiento?</div><div class="qa"><strong>No</strong> — es parte normal del proceso cíclico de cambio. Oportunidad de aprendizaje ★</div></div>
+    <div class="qb"><div class="qt">¿Qué es la "salutogénesis" (Antonovsky)?</div><div class="qa">Enfoque que estudia los <strong>factores que generan salud</strong> (no los que generan enfermedad)</div></div>
+  </div></div>
+</div>
+
+</div>
+</body>
+</html>

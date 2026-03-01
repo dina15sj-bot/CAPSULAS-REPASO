@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nefrología · IRC · Hemodiálisis · DP · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0a1a;--surface:#151228;--border:#2a2040;--text:#e0d8f0;--muted:#8a80a8;--gold:#e8c030;--purple:#a070e0;--blue:#4090e0;--teal:#30c0b0;--red:#e84040;--orange:#e08030;--white:#f5f0ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem;}
+
+.header{max-width:1100px;margin:0 auto 2.5rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--purple);margin-bottom:0.4rem;}
+.title{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--white);line-height:1.1;margin-bottom:0.4rem;}
+.subtitle{font-size:0.85rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.evidence-pill{display:inline-block;background:#201a30;border:1px solid var(--purple);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.7rem;border-radius:3px;color:var(--purple);margin-top:0.5rem;margin-right:0.4rem;}
+
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.full{grid-column:1/-1;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.card-title::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--purple);}
+.card-title.blue::before{background:var(--blue);}
+.card-title.teal::before{background:var(--teal);}
+.card-title.gold::before{background:var(--gold);}
+.card-title.red::before{background:var(--red);}
+
+/* Estadios ERC */
+.erc-table{width:100%;border-collapse:collapse;}
+.erc-table th{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--muted);padding:0.3rem 0.5rem;border-bottom:1px solid var(--border);text-align:left;}
+.erc-table td{font-size:0.74rem;padding:0.3rem 0.5rem;border-bottom:1px solid #1a1830;}
+.g1{color:#40c060;}.g2{color:#80d040;}.g3a{color:#e0c040;}.g3b{color:#e09030;}.g4{color:#e05030;}.g5{color:#e03030;}
+.erc-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.55rem;padding:0.1rem 0.4rem;border-radius:2px;color:#fff;}
+
+/* Albuminuria */
+.alb-row{display:flex;gap:0.5rem;margin-top:0.8rem;}
+.alb-item{flex:1;background:#0a0815;border-radius:6px;padding:0.5rem;text-align:center;}
+.alb-val{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:600;}
+.alb-cat{font-size:0.65rem;color:var(--muted);}
+
+/* HD vs DP */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+.compare-col{background:#0a0815;border-radius:8px;padding:0.9rem;}
+.compare-header{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.6rem;}
+.hd-color{color:var(--blue);}
+.dp-color{color:var(--teal);}
+.compare-row{font-size:0.72rem;padding:0.22rem 0;border-bottom:1px solid #1a1830;display:flex;gap:0.4rem;}
+.compare-key{color:var(--muted);width:80px;flex-shrink:0;font-size:0.68rem;}
+
+/* Acceso vascular */
+.access-box{background:#0a0815;border-left:3px solid var(--blue);padding:0.6rem 1rem;border-radius:0 6px 6px 0;margin-bottom:0.5rem;}
+.access-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--blue);margin-bottom:0.15rem;}
+.access-text{font-size:0.76rem;}
+.access-text strong{color:var(--gold);}
+
+/* Perlas */
+.pearl{background:linear-gradient(135deg,#1a1030,#0a0820);border:1px solid #3a2060;border-radius:8px;padding:0.8rem 1rem;margin-bottom:0.6rem;}
+.pearl-tag{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--purple);margin-bottom:0.3rem;}
+.pearl-text{font-size:0.78rem;line-height:1.5;}
+.pearl-text strong{color:#c090f0;}
+
+/* Urolitiasis */
+.litia-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.litia-item{background:#0a0815;border-radius:6px;padding:0.6rem;}
+.litia-type{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--teal);}
+
+@media(max-width:700px){.grid{grid-template-columns:1fr;}.compare{grid-template-columns:1fr;}.alb-row{flex-direction:column;}.litia-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Bloque 3 · Crónicos prevalentes</div>
+  <div class="title">Nefrología: IRC, Hemodiálisis,<br>Diálisis Peritoneal y Urolitiasis</div>
+  <div class="subtitle">KDIGO 2024 CKD · KDIGO 2012 clasificación mantenida · Hemodiálisis expandida</div>
+  <span class="evidence-pill">KDIGO 2024 ERC</span>
+  <span class="evidence-pill">KDIGO 2022 DM-CKD</span>
+</div>
+
+<div class="grid">
+
+  <!-- Estadios ERC KDIGO 2024 -->
+  <div class="card full">
+    <div class="card-title gold">Clasificación ERC · KDIGO 2024 (Estadios G + A)</div>
+    <table class="erc-table">
+      <tr>
+        <th>Estadio G</th>
+        <th>TFGe (mL/min/1,73m²)</th>
+        <th>Descripción</th>
+        <th>Albuminuria A1-A2-A3</th>
+        <th>Frecuencia seguimiento</th>
+      </tr>
+      <tr>
+        <td><span class="g1">G1</span></td>
+        <td>≥90</td>
+        <td>Normal o alta — con marcadores daño renal</td>
+        <td rowspan="5" style="font-size:0.68rem;color:var(--muted);vertical-align:top;padding-top:0.5rem;">
+          <strong style="color:var(--teal)">A1</strong>: &lt;30 mg/g<br>
+          <strong style="color:var(--gold)">A2</strong>: 30-299 mg/g<br>
+          <strong style="color:var(--red)">A3</strong>: ≥300 mg/g<br><br>
+          <span style="font-size:0.6rem">KDIGO 2024: No usar raza en cálculo TFGe (CKD-EPI 2021 race-free)</span>
+        </td>
+        <td>Anual si A1; 2x/año si A2-A3</td>
+      </tr>
+      <tr>
+        <td><span class="g2">G2</span></td>
+        <td>60-89</td>
+        <td>Levemente reducida</td>
+        <td>Anual-semestral</td>
+      </tr>
+      <tr>
+        <td><span class="g3a">G3a</span></td>
+        <td>45-59</td>
+        <td>Leve-moderada reducción</td>
+        <td>Semestral</td>
+      </tr>
+      <tr>
+        <td><span class="g3b">G3b</span></td>
+        <td>30-44</td>
+        <td>Moderada-severa</td>
+        <td>Trimestral</td>
+      </tr>
+      <tr>
+        <td><span class="g4">G4</span></td>
+        <td>15-29</td>
+        <td>Severamente reducida · Preparar TRS</td>
+        <td>Trimestral + preparar acceso</td>
+      </tr>
+      <tr>
+        <td><span class="g5">G5</span></td>
+        <td>&lt;15</td>
+        <td>Fallo renal (con/sin TRS)</td>
+        <td>—</td>
+        <td>TRS o cuidados conservadores</td>
+      </tr>
+    </table>
+    <div style="margin-top:0.8rem;font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">
+      ⚡ KDIGO 2024 NOVEDADES: (1) Añadir urato sérico y ácido úrico a marcadores de riesgo. (2) iSGLT2 recomendación fuerte (1A) si albuminuria &gt;200 mg/g o IC. (3) Finerenona en ERC diabética. (4) GLP-1 RA si DM + ERC. (5) CKD-EPI 2021 sin raza.
+    </div>
+  </div>
+
+  <!-- Tratamiento ERC conservador -->
+  <div class="card">
+    <div class="card-title blue">Tratamiento Conservador ERC · KDIGO 2024</div>
+    <div class="access-box">
+      <div class="access-label">Nefroprotección · 1ª Línea</div>
+      <div class="access-text"><strong>IECA/ARA-II</strong>: recomendación 1A con proteinuria. Reducen progresión ERC y ECV.</div>
+    </div>
+    <div class="access-box" style="border-color:var(--teal);">
+      <div class="access-label" style="color:var(--teal);">iSGLT2 · KDIGO 2024 ★★</div>
+      <div class="access-text"><strong>Dapagliflozina / empagliflozina</strong>: Clase 1A si TFGe ≥20 + albuminuria &gt;200 mg/g o IC. Continuar incluso si TFGe cae &lt;20 si tolerado. Suspender en cirugía/ayuno prolongado.</div>
+    </div>
+    <div class="access-box" style="border-color:var(--purple);">
+      <div class="access-label" style="color:var(--purple);">Finerenona · ERC Diabética</div>
+      <div class="access-text"><strong>Finerenona</strong> (ARM no esteroideo): DM + ERC + albuminuria elevada. Reduce ECV y progresión renal. Menor hiperpotasemia que espironolactona.</div>
+    </div>
+    <div class="access-box" style="border-color:var(--orange);">
+      <div class="access-label" style="color:var(--orange);">Dieta y estilos de vida</div>
+      <div class="access-text">Proteínas 0,6-0,8 g/kg/día · Restricción Na &lt;2 g/día · Dieta mediterránea (plant-based) · Restricción K y P si necesario · PA &lt;120/80 mmHg (objetivo estricto KDIGO 2024)</div>
+    </div>
+  </div>
+
+  <!-- Complicaciones ERC -->
+  <div class="card">
+    <div class="card-title red">Complicaciones ERC Crónica</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+      <div style="background:#0a0815;border-left:2px solid var(--red);padding:0.5rem 0.8rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--red);text-transform:uppercase;">Anemia renal</div>
+        <div style="font-size:0.72rem;">↓ EPO + ↓ Fe + ↓ supervivencia hematíes. Tx: EPO/darbepoetina + Fe IV si ferritina &lt;200. Objetivo Hb 10-12 g/dL.</div>
+      </div>
+      <div style="background:#0a0815;border-left:2px solid var(--orange);padding:0.5rem 0.8rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--orange);text-transform:uppercase;">Osteodistrofia renal (CKD-MBD)</div>
+        <div style="font-size:0.72rem;">↑ PTH + ↓ Ca + ↑ P + ↓ VitD. Tx: ↓P dietético + quelantes (acetato Ca, sevelamer) + VitD activa + calcimiméticos (cinacalcet).</div>
+      </div>
+      <div style="background:#0a0815;border-left:2px solid var(--gold);padding:0.5rem 0.8rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--gold);text-transform:uppercase;">Hiperpotasemia</div>
+        <div style="font-size:0.72rem;">ERC G4-G5: frecuente. Tx: dieta + resinas ★★ <strong style="color:var(--gold)">ciclosilicato de sodio y zirconio</strong> (ZS-9) o patiromer. Agudas: gluconato Ca + insulina + dextrosa + salbutamol.</div>
+      </div>
+      <div style="background:#0a0815;border-left:2px solid var(--teal);padding:0.5rem 0.8rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--teal);text-transform:uppercase;">Acidosis metabólica</div>
+        <div style="font-size:0.72rem;">HCO₃ &lt;22 → bicarbonato oral. KDIGO 2024: tratar si &lt;18 mEq/L, objetivo 22-26 mEq/L. Acelera pérdida masa ósea y muscular.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HD vs DP -->
+  <div class="card full">
+    <div class="card-title">Técnicas de Diálisis · HD vs DP · Hemodiálisis Expandida ★</div>
+    <div class="compare">
+      <div class="compare-col">
+        <div class="compare-header hd-color">💉 Hemodiálisis (HD)</div>
+        <div class="compare-row"><span class="compare-key">Frecuencia</span><span>3 sesiones/semana, 4h cada una</span></div>
+        <div class="compare-row"><span class="compare-key">Acceso</span><span>FAVI (1ª elección) → prótesis → catéter (último recurso)</span></div>
+        <div class="compare-row"><span class="compare-key">Mecanismo</span><span>Difusión principalmente (moléculas pequeñas)</span></div>
+        <div class="compare-row"><span class="compare-key">HD expandida ★★</span><span>Dializadores MCO (medium cut-off): difusión + convección → elimina moléculas medianas</span></div>
+        <div class="compare-row"><span class="compare-key">HDF online</span><span>Hemodiafiltración: máximo volumen convectivo, mejor elimina β₂-microglobulina</span></div>
+        <div class="compare-row"><span class="compare-key">Monitor.</span><span>Presión arterial, peso seco, acceso vascular, anticoagulación</span></div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-header dp-color">🫧 Diálisis Peritoneal (DP)</div>
+        <div class="compare-row"><span class="compare-key">Frecuencia</span><span>DPCA: 4 intercambios/día · DPA: nocturna automatizada</span></div>
+        <div class="compare-row"><span class="compare-key">Acceso</span><span>Catéter Tenckhoff intraperitoneal (requiere 2-4 semanas cicatrización)</span></div>
+        <div class="compare-row"><span class="compare-key">Mecanismo</span><span>Peritoneo como membrana: difusión + osmosis (glucosa como osmótico)</span></div>
+        <div class="compare-row"><span class="compare-key">Ventajas</span><span>Domiciliaria, autonomía, mejor función renal residual, hemodinámicamente mejor tolerada</span></div>
+        <div class="compare-row"><span class="compare-key">Complicación</span><span>Peritonitis (causa más frecuente de fracaso técnica DP)</span></div>
+        <div class="compare-row"><span class="compare-key">Contraindicación</span><span>Cirugía abdominal previa extensa, hernias no reparadas, colostomía</span></div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;background:#151228;border:1px solid var(--purple);border-radius:6px;padding:0.7rem 1rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--purple);margin-bottom:0.3rem;">ACCESO VASCULAR · ORDEN DE PREFERENCIA (Guía SEN/EDTA)</div>
+      <div style="font-size:0.75rem;line-height:1.6;">
+        1️⃣ <strong style="color:var(--gold)">FAVI radiocefálica</strong> (antebrazo no dominante, Brescia-Cimino) — 1ª elección absoluta.<br>
+        2️⃣ FAVI braquiocefálica o braquiobasílica.<br>
+        3️⃣ <strong>Injerto/prótesis</strong> arteriovenosa (PTFE).<br>
+        4️⃣ <strong>Catéter tunelizado</strong> (jugular interna dcha → solo si no viable FAV). Mayor tasa infección.<br>
+        ⚠️ Catéter no tunelizado = solo emergencia temporal.
+      </div>
+    </div>
+  </div>
+
+  <!-- Urolitiasis -->
+  <div class="card">
+    <div class="card-title teal">Urolitiasis · Tipos de Cálculos</div>
+    <div class="litia-grid">
+      <div class="litia-item">
+        <div class="litia-type">Oxalato Ca · 75%</div>
+        <div style="font-size:0.72rem;margin-top:0.2rem;">Más frecuente. Radio-opaco. Espiculado. Idiopático o hiperoxaluria.</div>
+      </div>
+      <div class="litia-item">
+        <div class="litia-type">Estruvita · 10-15%</div>
+        <div style="font-size:0.72rem;margin-top:0.2rem;">Infección (Proteus, Klebsiella). Coraliformes. Radiopaco. Mujeres >hombres.</div>
+      </div>
+      <div class="litia-item">
+        <div class="litia-type">Úrico · 5-10%</div>
+        <div style="font-size:0.72rem;margin-top:0.2rem;">Radio-LUCENTES (no visibles en Rx). Gota, deshidratación, pH ácido. Tx: alcalinizar orina.</div>
+      </div>
+      <div class="litia-item">
+        <div class="litia-type">Cistina · &lt;1%</div>
+        <div style="font-size:0.72rem;margin-top:0.2rem;">Cistinuria hereditaria. Parcialmente radiopaco. Aspecto hexagonal en sedimento urinario.</div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;">
+      <div style="background:#0a0815;border-left:3px solid var(--teal);padding:0.6rem 1rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--teal);">Tratamiento expulsivo</div>
+        <div style="font-size:0.73rem;">&lt;10mm: tratamiento conservador · analgesia (AINE/opioides) · hidratación · tamsulosina (alfa-bloqueante). ≥10mm o obstrucción: LEOC / ureteroscopia / nefrostomía percutánea.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Perlas INGESA -->
+  <div class="card full">
+    <div class="card-title gold">⭐ Perlas tipo INGESA — Nefrología</div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ HD Expandida · Medium cut-off</div>
+      <div class="pearl-text"><strong>Hemodiálisis expandida (HDx)</strong>: usa dializadores de membrana "medium cut-off" (MCO) que combinan difusión y convección para eliminar moléculas de tamaño medio (500 Da - 60 kDa), como β₂-microglobulina, interleucinas. A diferencia de la HD convencional que solo elimina bien moléculas pequeñas. Esta definición se ha utilizado en preguntas de OPE.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Ciclosilicato de sodio y zirconio (ZS-9) · Hiperpotasemia</div>
+      <div class="pearl-text"><strong>Ciclosilicato de sodio y zirconio (Lokelma®)</strong> y <strong>patiromer</strong>: son los quelantes de potasio de nueva generación para hiperpotasemia crónica en pacientes en HD o con ERC avanzada. Actúan intercambiando K⁺ por Na⁺/H⁺ en el intestino. Figura en guías y ya se ha preguntado en OPE. Ventaja sobre resinas antiguas (poliestirensulfonato): más selectivos, mejor tolerados, sin estreñimiento severo.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ KDIGO 2024 · TA objetivo</div>
+      <div class="pearl-text">KDIGO 2024 recomienda objetivo de TA sistólica <strong>&lt;120 mmHg</strong> en ERC con alto riesgo cardiovascular o renal. Más estricto que las guías anteriores (&lt;130). Validado con medición estandarizada tipo SPRINT.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Peritonitis en DP · Criterio diagnóstico</div>
+      <div class="pearl-text">Peritonitis en DP: al menos 2 de 3: (1) síntomas/signos abdominales; (2) líquido peritoneal turbio con PMN ≥100/mm³; (3) cultivo positivo. Germen más frecuente: <strong>Staphylococcus epidermidis</strong>. Tratamiento: antibióticos IP (intraperitoneal) empíricos.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

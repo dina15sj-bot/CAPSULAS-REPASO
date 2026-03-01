@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabetes Mellitus y Riesgo Vascular · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1a0a;--surface:#122012;--border:#1e3a1e;--text:#e0f0e0;--muted:#80a880;--gold:#e8c030;--green:#40c060;--teal:#20d0a0;--red:#e84040;--orange:#e08030;--warm:#182818;--white:#f0faf0;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem;}
+
+.header{max-width:1100px;margin:0 auto 2.5rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--green);margin-bottom:0.4rem;}
+.title{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--white);line-height:1.1;margin-bottom:0.4rem;}
+.subtitle{font-size:0.85rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.evidence-pill{display:inline-block;background:#1e3a1e;border:1px solid var(--green);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.7rem;border-radius:3px;color:var(--green);margin-top:0.5rem;}
+
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.full{grid-column:1/-1;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.card-title::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--green);}
+.card-title.gold::before{background:var(--gold);}
+.card-title.red::before{background:var(--red);}
+.card-title.teal::before{background:var(--teal);}
+.card-title.orange::before{background:var(--orange);}
+
+/* Criterios diagnósticos */
+.dx-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;}
+.dx-item{background:#0a140a;border:1px solid var(--border);border-radius:8px;padding:0.8rem;text-align:center;}
+.dx-val{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);}
+.dx-unit{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);}
+.dx-name{font-size:0.68rem;color:var(--text);margin-top:0.2rem;}
+
+/* Comparativa DM1 vs DM2 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.compare-col{background:#0a140a;border-radius:8px;padding:0.9rem;}
+.compare-header{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.6rem;}
+.compare-header.dm1{color:#e040e0;}
+.compare-header.dm2{color:var(--green);}
+.compare-row{font-size:0.73rem;padding:0.25rem 0;border-bottom:1px solid #1e2e1e;display:flex;gap:0.5rem;}
+.compare-key{color:var(--muted);width:90px;flex-shrink:0;}
+
+/* Tratamiento farmacológico */
+.drug-line{background:#0a140a;border-left:3px solid var(--green);padding:0.6rem 1rem;border-radius:0 6px 6px 0;margin-bottom:0.5rem;}
+.drug-line-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--green);margin-bottom:0.2rem;}
+.drug-text{font-size:0.76rem;}
+.drug-text strong{color:var(--gold);}
+.drug-note{font-size:0.65rem;color:var(--muted);margin-top:0.15rem;}
+
+/* Complicaciones */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.comp-item{background:#0a140a;border-radius:6px;padding:0.6rem 0.9rem;}
+.comp-type{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;color:var(--teal);}
+.comp-name{font-size:0.75rem;color:var(--white);margin:0.1rem 0;}
+.comp-detail{font-size:0.65rem;color:var(--muted);}
+
+/* Objetivos */
+.obj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.obj-item{background:#0a140a;border-radius:8px;padding:0.7rem;text-align:center;}
+.obj-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--gold);}
+.obj-name{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--muted);}
+.obj-detail{font-size:0.66rem;color:var(--text);margin-top:0.15rem;}
+
+/* Perlas */
+.pearl{background:linear-gradient(135deg,#1a2a0a,#0a1a0a);border:1px solid #2a4a10;border-radius:8px;padding:0.8rem 1rem;margin-bottom:0.6rem;}
+.pearl-tag{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;color:#60b030;margin-bottom:0.3rem;}
+.pearl-text{font-size:0.78rem;line-height:1.5;}
+.pearl-text strong{color:#a0e040;}
+
+@media(max-width:700px){.grid{grid-template-columns:1fr;}.dx-grid{grid-template-columns:1fr 1fr;}.compare{grid-template-columns:1fr;}.comp-grid{grid-template-columns:1fr;}.obj-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Bloque 3 · Crónicos prevalentes</div>
+  <div class="title">Diabetes Mellitus<br>y Riesgo Vascular</div>
+  <div class="subtitle">ADA Standards of Care 2026 · ESC 2023 Cardiovascular Risk in Diabetes</div>
+  <span class="evidence-pill">ADA 2026 · KDIGO 2022 DM-CKD · ESC 2023 DM-CV</span>
+</div>
+
+<div class="grid">
+
+  <!-- Criterios diagnósticos -->
+  <div class="card full">
+    <div class="card-title gold">Criterios Diagnósticos (ADA 2026 / OMS)</div>
+    <div class="dx-grid">
+      <div class="dx-item">
+        <div class="dx-val">≥126</div>
+        <div class="dx-unit">mg/dL</div>
+        <div class="dx-name">Glucemia basal ayunas (≥8h). Confirmar en ≥2 ocasiones.</div>
+      </div>
+      <div class="dx-item">
+        <div class="dx-val">≥200</div>
+        <div class="dx-unit">mg/dL · SOG 2h</div>
+        <div class="dx-name">Sobrecarga oral glucosa 75g. Test de elección en GDM.</div>
+      </div>
+      <div class="dx-item">
+        <div class="dx-val">≥6,5%</div>
+        <div class="dx-unit">HbA1c</div>
+        <div class="dx-name">Método certificado NGSP/IFCC. No válido en hemoglobinopatías.</div>
+      </div>
+      <div class="dx-item">
+        <div class="dx-val">≥200</div>
+        <div class="dx-unit">mg/dL · síntomas</div>
+        <div class="dx-name">Glucemia aleatoria con síntomas clásicos (poliuria, polidipsia, adelgazamiento).</div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+      <div style="background:#0a140a;border-radius:6px;padding:0.6rem 0.9rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--orange);">Prediabetes</div>
+        <div style="font-size:0.75rem;margin-top:0.2rem;">GBA: 100-125 mg/dL · ITG: SOG 140-199 mg/dL · HbA1c: 5,7-6,4%</div>
+      </div>
+      <div style="background:#0a140a;border-radius:6px;padding:0.6rem 0.9rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--teal);">GDM (Gestacional)</div>
+        <div style="font-size:0.75rem;margin-top:0.2rem;">O'Sullivan: ≥140 mg/dL 1h (cribado). Diagnóstico: SOG 100g (Carpenter-Coustan) o SOG 75g.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DM1 vs DM2 -->
+  <div class="card">
+    <div class="card-title">DM1 vs DM2 · Diferencias clave</div>
+    <div class="compare">
+      <div class="compare-col">
+        <div class="compare-header dm1">DM Tipo 1</div>
+        <div class="compare-row"><span class="compare-key">Mecanismo</span><span>Autoinmune (anti-GAD, anti-IA2, anti-ZnT8)</span></div>
+        <div class="compare-row"><span class="compare-key">Inicio</span><span>Infancia/juv. (puede ser adulto)</span></div>
+        <div class="compare-row"><span class="compare-key">Insulina</span><span>Dependiente SIEMPRE</span></div>
+        <div class="compare-row"><span class="compare-key">Peso</span><span>Normopeso/delgado</span></div>
+        <div class="compare-row"><span class="compare-key">Complicación</span><span>CAD (cetoacidosis)</span></div>
+        <div class="compare-row"><span class="compare-key">ADA 2026 nuevo</span><span>Teplizumab retrasa estadio 1→3 en ≥8 años</span></div>
+      </div>
+      <div class="compare-col">
+        <div class="compare-header dm2">DM Tipo 2</div>
+        <div class="compare-row"><span class="compare-key">Mecanismo</span><span>Resistencia insulínica + déficit progresivo</span></div>
+        <div class="compare-row"><span class="compare-key">Inicio</span><span>Adulto (creciente en jóvenes)</span></div>
+        <div class="compare-row"><span class="compare-key">Insulina</span><span>No siempre; puede necesitar</span></div>
+        <div class="compare-row"><span class="compare-key">Peso</span><span>Sobrepeso/obesidad frecuente</span></div>
+        <div class="compare-row"><span class="compare-key">Complicación</span><span>SHH (síndrome hiperosmolar)</span></div>
+        <div class="compare-row"><span class="compare-key">ADA 2026</span><span>iSGLT2/GLP-1 RA: 1ª línea con CV/renal</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tratamiento DM2 -->
+  <div class="card">
+    <div class="card-title teal">Tratamiento Farmacológico DM2 · ADA 2026</div>
+    <div class="drug-line">
+      <div class="drug-line-label">1ª Línea · Todos</div>
+      <div class="drug-text"><strong>Metformina</strong> si tolerada y TFGe ≥30. Base del tratamiento. + Cambios estilo de vida.</div>
+    </div>
+    <div class="drug-line" style="border-color:var(--teal);">
+      <div class="drug-line-label" style="color:var(--teal);">1ª Línea · Con ECV establecida / Alto riesgo CV / ERC</div>
+      <div class="drug-text"><strong>iSGLT2</strong> (dapagliflozina, empagliflozina) o <strong>GLP-1 RA</strong> (semaglutida, liraglutida) — beneficio CV y renal demostrado. Independiente del control glucémico. <strong>★★ ADA 2026</strong></div>
+      <div class="drug-note">Semaglutida oral o sc. Tirzepatida (doble GIP+GLP-1): mejor reducción peso + HbA1c.</div>
+    </div>
+    <div class="drug-line" style="border-color:var(--orange);">
+      <div class="drug-line-label" style="color:var(--orange);">Con Obesidad</div>
+      <div class="drug-text"><strong>GLP-1 RA</strong> (semaglutida 2,4mg sc semana / tirzepatida) — pérdida peso 10-20%</div>
+    </div>
+    <div class="drug-line" style="border-color:#9040a0;">
+      <div class="drug-line-label" style="color:#c070e0;">Escalada</div>
+      <div class="drug-text">Sulfonilureas (glibenclamida, gliclazida) · iDPP-4 (alogliptina, sitagliptina) · Insulina si HbA1c muy elevada</div>
+    </div>
+  </div>
+
+  <!-- Objetivos control -->
+  <div class="card">
+    <div class="card-title gold">Objetivos de Control (ADA 2026)</div>
+    <div class="obj-grid">
+      <div class="obj-item">
+        <div class="obj-val">&lt;7%</div>
+        <div class="obj-name">HbA1c · General</div>
+        <div class="obj-detail">Meta estándar adultos no frágiles</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-val">&lt;8%</div>
+        <div class="obj-name">HbA1c · Frágil/Anciano</div>
+        <div class="obj-detail">Evitar hipoglucemia. Mayor tolerancia.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-val">&lt;130/80</div>
+        <div class="obj-name">TA · mmHg</div>
+        <div class="obj-detail">Si alto riesgo CV: &lt;120 mmHg sistólica (ADA 2026)</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-val">&lt;70</div>
+        <div class="obj-name">LDL · mg/dL</div>
+        <div class="obj-detail">ECV establecida: &lt;55 mg/dL (muy alto riesgo)</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-val">70-180</div>
+        <div class="obj-name">Glucosa preprandial</div>
+        <div class="obj-detail">mg/dL. Posprandial &lt;180 mg/dL.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-val">&gt;70%</div>
+        <div class="obj-name">TIR (CGM)</div>
+        <div class="obj-detail">Tiempo en rango 70-180 mg/dL. ADA 2026: recomendado también en DM2 con insulina.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Complicaciones -->
+  <div class="card">
+    <div class="card-title red">Complicaciones Agudas</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+      <div style="background:#1a0808;border:1px solid #3a1010;border-radius:8px;padding:0.8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;color:var(--red);margin-bottom:0.4rem;">CAD · Cetoacidosis DM1</div>
+        <div style="font-size:0.72rem;line-height:1.5;">Glucosa &gt;250 · pH &lt;7,3 · HCO₃ &lt;18 · Cetonemia. Triada: hiperglucemia + acidosis + cetonemia. Tx: fluidos + insulina IV + K⁺ (vigilar).</div>
+      </div>
+      <div style="background:#1a0a08;border:1px solid #3a2010;border-radius:8px;padding:0.8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;color:var(--orange);margin-bottom:0.4rem;">SHH · Hiperosmolar DM2</div>
+        <div style="font-size:0.72rem;line-height:1.5;">Glucosa &gt;600 · Osmolaridad &gt;320 mOsm/kg · Sin cetoacidosis significativa. Deshidratación severa. Mortalidad más alta que CAD.</div>
+      </div>
+      <div style="background:#081a08;border:1px solid #103010;border-radius:8px;padding:0.8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;color:var(--green);margin-bottom:0.4rem;">Hipoglucemia</div>
+        <div style="font-size:0.72rem;line-height:1.5;">&lt;70 mg/dL (alerta) / &lt;54 mg/dL (clínica) / &lt;40 mg/dL (grave). Regla 15-15. Glucagón si inconsciente.</div>
+      </div>
+      <div style="background:#0a0a1a;border:1px solid #10103a;border-radius:8px;padding:0.8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;color:#7090e0;margin-bottom:0.4rem;">Sommogyi · Dawn</div>
+        <div style="font-size:0.72rem;line-height:1.5;">Efecto Somogyi: hipoglucemia nocturna → hiperglucemia rebote. Efecto Dawn: hiperglucemia matutina por GH/cortisol.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Complicaciones crónicas -->
+  <div class="card">
+    <div class="card-title orange">Complicaciones Crónicas</div>
+    <div class="comp-grid">
+      <div class="comp-item">
+        <div class="comp-type">Microangiopática</div>
+        <div class="comp-name">Retinopatía diabética</div>
+        <div class="comp-detail">1ª causa ceguera en adultos activos. Fondo de ojo anual. No proliferativa → proliferativa.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-type">Microangiopática</div>
+        <div class="comp-name">Nefropatía diabética</div>
+        <div class="comp-detail">Microalbuminuria (30-300 mg/g) → macroalbuminuria. IECA/ARA-II nefroprotectores.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-type">Microangiopática</div>
+        <div class="comp-name">Neuropatía diabética</div>
+        <div class="comp-detail">Periférica (más frecuente) · autonómica · focal. Pie diabético: Wagner 0-5.</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-type">Macroangiopática</div>
+        <div class="comp-name">ECV, IAM, ACV, EAP</div>
+        <div class="comp-detail">Principal causa de mortalidad. iSGLT2/GLP-1 RA: beneficio CV demostrado (EMPA-REG, LEADER, SUSTAIN-6).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educación terapéutica -->
+  <div class="card full">
+    <div class="card-title gold">⭐ Perlas tipo INGESA — DM y Educación Terapéutica</div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Muy preguntado · Educación DM2 y HbA1c</div>
+      <div class="pearl-text"><strong>Programas de educación terapéutica con >10 horas totales se asocian a reducción significativa de HbA1c en DM2.</strong> Dato que proviene de revisiones sistemáticas usadas en guías españolas y ha aparecido de forma casi literal en exámenes. Recordar que la educación debe ser estructurada, grupal/individual, con objetivos medibles.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Modelo educativo · Empoderamiento vs Paternalismo</div>
+      <div class="pearl-text"><strong>Los programas educativos basados en empoderamiento del paciente tienen mejores resultados que el modelo paternalista.</strong> Cuando INGESA contrasta ambos modelos, el paternalista suele ser la opción INCORRECTA. El paciente que toma decisiones activas sobre su autocuidado obtiene mejor control glucémico y calidad de vida. ADA 2026 enfatiza decisiones compartidas (shared decision making).</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ ADA 2026 · Sueño como pilar del tratamiento</div>
+      <div class="pearl-text">Novedad ADA 2026: el <strong>sueño</strong> se incorpora como componente central del tratamiento, al mismo nivel que la alimentación y el ejercicio físico. Se recomienda cribado de apnea del sueño en DM2 con obesidad.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Ramadán y Diabetes · ADA 2026</div>
+      <div class="pearl-text">ADA 2026 incluye guía específica de <strong>estratificación de riesgo pre-ayuno</strong> en diabetes (Diabetes and Ramadan International Alliance). Los pacientes con DM1 o DM2 con insulinoterapia compleja son alto riesgo y requieren supervisión médica previa al ayuno.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ CGM · Monitorización Continua Glucosa</div>
+      <div class="pearl-text">ADA 2026 recomienda <strong>CGM para adultos con DM2 con insulina basal</strong> (no solo DM1). Objetivo TIR &gt;70% en 70-180 mg/dL. TAR &lt;25% (&gt;180), TBR &lt;4% (&lt;70 mg/dL).</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

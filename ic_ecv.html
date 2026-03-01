@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insuficiencia Cardiaca y ECV · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1b2a;--surface:#132338;--border:#1e3a5a;--text:#e8f0f8;--muted:#8aabcc;--gold:#e8b030;--red:#e84040;--blue:#4090e0;--teal:#30c0a0;--warm:#1a3050;--white:#f0f5ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem;}
+
+.header{max-width:1100px;margin:0 auto 2.5rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--red);margin-bottom:0.4rem;}
+.title{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--white);line-height:1.1;margin-bottom:0.4rem;}
+.subtitle{font-size:0.85rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.evidence-pill{display:inline-block;background:#1e3a5a;border:1px solid var(--blue);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.7rem;border-radius:3px;color:var(--blue);margin-top:0.5rem;}
+
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.full{grid-column:1/-1;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.card-title::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--red);}
+.card-title.blue::before{background:var(--blue);}
+.card-title.teal::before{background:var(--teal);}
+.card-title.gold::before{background:var(--gold);}
+
+/* Tipos IC */
+.ic-tipos{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;}
+.ic-tipo{background:#0a1520;border:1px solid var(--border);border-radius:8px;padding:0.9rem;text-align:center;}
+.ic-tipo-val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--gold);}
+.ic-tipo-name{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;color:var(--muted);margin:0.2rem 0;}
+.ic-tipo-desc{font-size:0.72rem;color:var(--text);}
+
+/* Tratamiento escalonado IC-FEVir */
+.step-box{background:#0a1520;border-left:3px solid var(--blue);padding:0.7rem 1rem;border-radius:0 6px 6px 0;margin-bottom:0.5rem;}
+.step-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.2rem;}
+.step-drugs{font-size:0.78rem;color:var(--text);}
+.step-drugs strong{color:var(--gold);}
+.step-drugs .note{font-size:0.68rem;color:var(--muted);margin-top:0.2rem;}
+
+/* NYHA */
+.nyha-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;}
+.nyha-item{background:#0a1520;border-radius:6px;padding:0.7rem;text-align:center;}
+.nyha-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--red);}
+.nyha-desc{font-size:0.68rem;color:var(--muted);}
+
+/* Alarmas */
+.alarm-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.alarm-item{background:#1a0808;border:1px solid #3a1010;border-radius:6px;padding:0.6rem 0.9rem;font-size:0.78rem;display:flex;align-items:flex-start;gap:0.5rem;}
+.alarm-icon{color:var(--red);font-size:0.9rem;flex-shrink:0;}
+.alarm-item strong{color:var(--white);}
+
+/* Diagnóstico */
+.dx-flow{display:flex;flex-direction:column;gap:0.5rem;}
+.dx-step{display:flex;align-items:center;gap:0.8rem;}
+.dx-num{width:26px;height:26px;border-radius:50%;background:var(--blue);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dx-text{font-size:0.78rem;}
+.dx-text strong{color:var(--gold);}
+.dx-arrow{color:var(--border);font-size:1.2rem;margin-left:12px;}
+
+/* Fármacos clave ESC 2023 */
+.drug-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.drug-item{background:#0a1520;border-radius:6px;padding:0.6rem 0.9rem;}
+.drug-class{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);}
+.drug-name{font-size:0.78rem;color:var(--white);margin:0.15rem 0;}
+.drug-note{font-size:0.65rem;color:var(--muted);}
+.drug-rec{font-family:'JetBrains Mono',monospace;font-size:0.52rem;background:#1a3050;padding:0.12rem 0.4rem;border-radius:2px;color:var(--blue);margin-top:0.2rem;display:inline-block;}
+
+/* Perlas INGESA */
+.pearl{background:linear-gradient(135deg,#1a2a0a,#0a1a0a);border:1px solid #2a4a10;border-radius:8px;padding:0.8rem 1rem;margin-bottom:0.6rem;}
+.pearl-tag{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;color:#60b030;margin-bottom:0.3rem;}
+.pearl-text{font-size:0.78rem;line-height:1.5;}
+.pearl-text strong{color:#a0e040;}
+.star{color:var(--gold);}
+
+@media(max-width:700px){.grid{grid-template-columns:1fr;}.ic-tipos{grid-template-columns:1fr;}.nyha-grid{grid-template-columns:1fr 1fr;}.drug-grid{grid-template-columns:1fr;}.alarm-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Bloque 3 · Crónicos prevalentes</div>
+  <div class="title">Insuficiencia Cardiaca<br>y Enfermedad Cardiovascular</div>
+  <div class="subtitle">ESC 2021 + Actualización focalizada 2023 · AHA/ACC 2022</div>
+  <span class="evidence-pill">Guía ESC 2023 Update · IC aguda y crónica</span>
+</div>
+
+<div class="grid">
+
+  <!-- Clasificación IC por FEVI -->
+  <div class="card full">
+    <div class="card-title gold">Clasificación IC por Fracción de Eyección (FEVI)</div>
+    <div class="ic-tipos">
+      <div class="ic-tipo">
+        <div class="ic-tipo-val">≤40%</div>
+        <div class="ic-tipo-name">IC-FEVir</div>
+        <div class="ic-tipo-desc">IC con FEVI <strong>reducida</strong>. La que tiene más evidencia terapéutica. Tratamiento con los 4 pilares.</div>
+      </div>
+      <div class="ic-tipo">
+        <div class="ic-tipo-val">41–49%</div>
+        <div class="ic-tipo-name">IC-FEVilr</div>
+        <div class="ic-tipo-desc">IC con FEVI <strong>ligeramente reducida</strong>. Actualización ESC 2023: iSGLT2 recomendación Clase I.</div>
+      </div>
+      <div class="ic-tipo">
+        <div class="ic-tipo-val">≥50%</div>
+        <div class="ic-tipo-name">IC-FEVip</div>
+        <div class="ic-tipo-desc">IC con FEVI <strong>preservada</strong>. Actualización ESC 2023: iSGLT2 recomendación Clase IIa; finerenona nueva opción.</div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">
+      ⚡ NOVEDAD ESC 2023: iSGLT2 (dapagliflozina/empagliflozina) amplían su indicación a IC-FEVilr y IC-FEVip. Finerenona: nuevo ARM no esteroideo para IC-FEVip con ERC diabética.
+    </div>
+  </div>
+
+  <!-- Tratamiento escalonado IC-FEVir -->
+  <div class="card">
+    <div class="card-title blue">Tratamiento IC-FEVir — 4 Pilares (Clase I)</div>
+    <div class="step-box">
+      <div class="step-label">Pilar 1 · Bloqueante SRAA</div>
+      <div class="step-drugs"><strong>IECA</strong> (enalapril, ramipril) o si intolerante → <strong>ARA-II</strong> (valsartán) o mejor → <strong>INRA</strong> (sacubitrilo/valsartán = Entresto)</div>
+      <div class="step-drugs note">INRA: reduce mortalidad CV vs enalapril ↓20% (PARADIGM-HF). 1ª línea si tolera.</div>
+    </div>
+    <div class="step-box">
+      <div class="step-label">Pilar 2 · Betabloqueante</div>
+      <div class="step-drugs"><strong>Bisoprolol / Carvedilol / Metoprolol-succinato</strong> (únicos con evidencia Clase I en IC)</div>
+    </div>
+    <div class="step-box">
+      <div class="step-label">Pilar 3 · ARM (antagonista aldosterona)</div>
+      <div class="step-drugs"><strong>Espironolactona / Eplerenona</strong> · Vigilar hiperpotasemia + creatinina</div>
+    </div>
+    <div class="step-box">
+      <div class="step-label">Pilar 4 · iSGLT2 ★★ (ESC 2023)</div>
+      <div class="step-drugs"><strong>Dapagliflozina / Empagliflozina</strong> — Clase I para IC-FEVir, IIa para IC-FEVip</div>
+      <div class="step-drugs note">Reducen hospitalización por IC y mortalidad CV. Iniciar precoz sin esperar NYHA avanzado.</div>
+    </div>
+  </div>
+
+  <!-- NYHA -->
+  <div class="card">
+    <div class="card-title">Clasificación NYHA</div>
+    <div class="nyha-grid">
+      <div class="nyha-item">
+        <div class="nyha-num">I</div>
+        <div class="nyha-desc">Sin limitación. Actividad ordinaria sin síntomas.</div>
+      </div>
+      <div class="nyha-item">
+        <div class="nyha-num">II</div>
+        <div class="nyha-desc">Ligera limitación. Síntomas con esfuerzo moderado.</div>
+      </div>
+      <div class="nyha-item">
+        <div class="nyha-num">III</div>
+        <div class="nyha-desc">Notable limitación. Síntomas con mínimo esfuerzo. Asintomático en reposo.</div>
+      </div>
+      <div class="nyha-item">
+        <div class="nyha-num">IV</div>
+        <div class="nyha-desc">Síntomas en reposo. Incapacidad total. Síntomas en cama.</div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;">
+      <div class="step-box" style="border-color:var(--teal);">
+        <div class="step-label" style="color:var(--teal);">IC Avanzada · Indicadores</div>
+        <div class="step-drugs">NYHA III-IV persistente · >2 hospitalizaciones/año · NT-proBNP muy elevado · Bajo gasto cardíaco crónico. Valorar DAVI, trasplante, cuidados paliativos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diagnóstico -->
+  <div class="card">
+    <div class="card-title blue">Algoritmo Diagnóstico ESC 2021</div>
+    <div class="dx-flow">
+      <div class="dx-step"><div class="dx-num">1</div><div class="dx-text"><strong>Clínica:</strong> Síntomas + signos (disnea, edemas, crepitantes, RHY, S3)</div></div>
+      <div class="dx-arrow">↓</div>
+      <div class="dx-step"><div class="dx-num">2</div><div class="dx-text"><strong>Péptidos natriuréticos:</strong> NT-proBNP >125 pg/mL (no aguda) o BNP >35 pg/mL → IC probable</div></div>
+      <div class="dx-arrow">↓</div>
+      <div class="dx-step"><div class="dx-num">3</div><div class="dx-text"><strong>ECG:</strong> Si completamente normal → diagnóstico IC improbable</div></div>
+      <div class="dx-arrow">↓</div>
+      <div class="dx-step"><div class="dx-num">4</div><div class="dx-text"><strong>Ecocardiografía:</strong> Confirma diagnóstico y clasifica FEVI. Prueba de elección.</div></div>
+    </div>
+  </div>
+
+  <!-- Signos de alarma -->
+  <div class="card">
+    <div class="card-title">Signos de Alarma y Educación Paciente</div>
+    <div class="alarm-grid">
+      <div class="alarm-item"><span class="alarm-icon">🔴</span><div><strong>Ortopnea progresiva</strong> — necesitar más almohadas al dormir = signo de alarma precoz ★★ INGESA</div></div>
+      <div class="alarm-item"><span class="alarm-icon">🔴</span><div><strong>DPN</strong> — disnea paroxística nocturna, despertar por falta de aire</div></div>
+      <div class="alarm-item"><span class="alarm-icon">🟡</span><div><strong>Aumento de peso</strong> >2 kg en 3 días o >3-5 kg en 1 semana → motivo de consulta</div></div>
+      <div class="alarm-item"><span class="alarm-icon">🟡</span><div><strong>Edemas maleolares</strong> progresivos o nuevo inicio de edema maleolar bilateral</div></div>
+      <div class="alarm-item"><span class="alarm-icon">🟡</span><div><strong>Tos seca persistente</strong> (puede ser EAP en evolución o EAS por IECA)</div></div>
+      <div class="alarm-item"><span class="alarm-icon">🔴</span><div><strong>Presíncope/síncope</strong> — descartar arritmia grave, estenosis aórtica severa</div></div>
+    </div>
+    <div style="margin-top:0.8rem;background:#1a1a0a;border:1px solid #3a3a10;border-radius:6px;padding:0.6rem 0.9rem;font-size:0.72rem;color:var(--muted);">
+      ⚠️ <strong style="color:#e8d040">Autoajuste de diuréticos:</strong> Solo en casos MUY seleccionados con protocolo claro. Cuando INGESA lo plantea como opción suele ser DISTRACTORA. El mensaje es: no autoajustar sin supervisión.
+    </div>
+  </div>
+
+  <!-- Fármacos adicionales -->
+  <div class="card">
+    <div class="card-title teal">Fármacos Adicionales IC-FEVir</div>
+    <div class="drug-grid">
+      <div class="drug-item">
+        <div class="drug-class">Diuréticos</div>
+        <div class="drug-name">Furosemida · Torasemida</div>
+        <div class="drug-note">Alivio síntomas congestión. No reducen mortalidad. Ajuste según diuresis y peso.</div>
+        <span class="drug-rec">Clase I síntomas</span>
+      </div>
+      <div class="drug-item">
+        <div class="drug-class">Ivabradina</div>
+        <div class="drug-name">Ivabradina</div>
+        <div class="drug-note">FC ≥70lpm en RS, máxima dosis betabloqueante o contraindicado. Inhibe canal If.</div>
+        <span class="drug-rec">Clase IIa</span>
+      </div>
+      <div class="drug-item">
+        <div class="drug-class">Vericiguat</div>
+        <div class="drug-name">Vericiguat (estimulador sGC)</div>
+        <div class="drug-note">IC avanzada deteriorante. Nuevo mecanismo. ESC 2021 Clase IIb.</div>
+        <span class="drug-rec">Clase IIb avanzada</span>
+      </div>
+      <div class="drug-item">
+        <div class="drug-class">Digoxina</div>
+        <div class="drug-name">Digoxina</div>
+        <div class="drug-note">RS con síntomas persistentes a pesar de trat. óptimo. FA con respuesta ventricular rápida.</div>
+        <span class="drug-rec">Clase IIb</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dispositivos -->
+  <div class="card">
+    <div class="card-title gold">Dispositivos Implantables IC</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+      <div class="step-box" style="border-color:var(--gold);">
+        <div class="step-label" style="color:var(--gold);">DAI (Desfibrilador)</div>
+        <div class="step-drugs">NYHA II-III + FEVI ≤35% tras ≥3 meses trat. óptimo. Prevención muerte súbita. Clase I IC-FEVir.</div>
+      </div>
+      <div class="step-box" style="border-color:var(--teal);">
+        <div class="step-label" style="color:var(--teal);">TRC/TRC-D (Resincronización)</div>
+        <div class="step-drugs">FEVI ≤35% + BRIHH + QRS ≥150ms + NYHA II-III-IV ambulatorio. Clase I. Mejora síntomas y mortalidad.</div>
+      </div>
+      <div class="step-box" style="border-color:#7a40a0;">
+        <div class="step-label" style="color:#a060c0;">MitraClip (Tricúspide/Mitral)</div>
+        <div class="step-drugs">Actualización ESC 2023: reparación valvular transcatéter mitral funcional (COAPT). Clase IIa seleccionados.</div>
+      </div>
+      <div class="step-box" style="border-color:#a04020;">
+        <div class="step-label" style="color:#e06030;">DAVI · Trasplante</div>
+        <div class="step-drugs">IC avanzada (estadio D). DAVI puente o destino. Trasplante: edad <70a, sin contraindicaciones.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Perlas INGESA -->
+  <div class="card full">
+    <div class="card-title gold">⭐ Perlas tipo INGESA — Insuficiencia Cardiaca</div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Muy preguntado · Ortopnea</div>
+      <div class="pearl-text"><strong>Necesitar más almohadas al dormir = ortopnea progresiva = signo de alarma de IC.</strong> El paciente debe identificarlo como motivo de consulta precoz. Aparece de forma casi literal en exámenes recientes. La presión venosa pulmonar aumenta en decúbito → disnea → paciente eleva cabecero/almohadas para compensar.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Cuidado con el autoajuste</div>
+      <div class="pearl-text"><strong>Autoajuste de diuréticos solo en casos muy seleccionados con protocolo muy claro.</strong> Cuando INGESA plantea la opción de que el paciente autoajuste diuréticos sin supervisión → suele ser OPCIÓN DISTRACTORA (incorrecta). La educación al paciente incluye vigilar peso, pero no modificar dosis autónomamente sin criterios establecidos.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Péptidos natriuréticos · Punto de corte</div>
+      <div class="pearl-text">NT-proBNP: <strong>&gt;125 pg/mL</strong> (IC crónica estable) / <strong>&gt;300 pg/mL</strong> (IC aguda). BNP: <strong>&gt;35 pg/mL</strong> (crónica) / <strong>&gt;100 pg/mL</strong> (aguda). Un NT-proBNP normal prácticamente descarta IC.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ ESC 2023 · Novedad iSGLT2</div>
+      <div class="pearl-text">La principal novedad de la actualización ESC 2023 fue ampliar la recomendación de <strong>iSGLT2 (Clase I) a IC-FEVilr</strong> y <strong>Clase IIa a IC-FEVip</strong>, además de IC-FEVir que ya tenían. También se incorporó <strong>finerenona</strong> como nuevo ARM para IC-FEVip con ERC diabética.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

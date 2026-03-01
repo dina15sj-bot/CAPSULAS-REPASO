@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPOC · Asma · Respiratorio Crónico · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1520;--surface:#0f2030;--border:#1a3050;--text:#d8e8f8;--muted:#7090b0;--gold:#e8c030;--blue:#4090e0;--cyan:#30c0e0;--teal:#20d0a0;--red:#e84040;--orange:#e07030;--white:#eef5ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem;}
+
+.header{max-width:1100px;margin:0 auto 2.5rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--cyan);margin-bottom:0.4rem;}
+.title{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--white);line-height:1.1;margin-bottom:0.4rem;}
+.subtitle{font-size:0.85rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.evidence-pill{display:inline-block;background:#1a3050;border:1px solid var(--blue);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.7rem;border-radius:3px;color:var(--blue);margin-top:0.5rem;margin-right:0.3rem;}
+
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.full{grid-column:1/-1;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.card-title::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--blue);}
+.card-title.gold::before{background:var(--gold);}
+.card-title.teal::before{background:var(--teal);}
+.card-title.red::before{background:var(--red);}
+.card-title.cyan::before{background:var(--cyan);}
+
+/* GOLD estadios */
+.gold-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:0.8rem;}
+.gold-item{background:#0a1520;border-radius:8px;padding:0.7rem;text-align:center;}
+.gold-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;}
+.gold-g1{color:#40c060;}.gold-g2{color:#e0c040;}.gold-g3{color:#e09030;}.gold-g4{color:#e03030;}
+.gold-fev{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);}
+.gold-desc{font-size:0.68rem;color:var(--text);margin-top:0.15rem;}
+
+/* Grupos ABCE */
+.abce-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;}
+.abce-item{background:#0a1520;border-radius:8px;padding:0.7rem;text-align:center;}
+.abce-letter{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);}
+.abce-desc{font-size:0.65rem;color:var(--muted);}
+.abce-tx{font-size:0.68rem;color:var(--text);margin-top:0.2rem;}
+
+/* Asma control */
+.asma-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;}
+.asma-item{background:#0a1520;border-radius:8px;padding:0.7rem;text-align:center;}
+.asma-val{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;}
+.asma-controlled{color:var(--teal);}
+.asma-partial{color:var(--gold);}
+.asma-poor{color:var(--red);}
+
+/* Escalon tratamiento */
+.step-box{background:#0a1520;border-left:3px solid var(--blue);padding:0.6rem 1rem;border-radius:0 5px 5px 0;margin-bottom:0.4rem;}
+.step-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--blue);margin-bottom:0.15rem;}
+.step-text{font-size:0.74rem;}
+.step-text strong{color:var(--gold);}
+
+/* Perlas */
+.pearl{background:linear-gradient(135deg,#0a1828,#080f18);border:1px solid #1a3a5a;border-radius:8px;padding:0.8rem 1rem;margin-bottom:0.6rem;}
+.pearl-tag{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--cyan);margin-bottom:0.3rem;}
+.pearl-text{font-size:0.78rem;line-height:1.5;}
+.pearl-text strong{color:#a0d0f0;}
+
+@media(max-width:700px){.grid{grid-template-columns:1fr;}.gold-grid{grid-template-columns:1fr 1fr;}.abce-grid{grid-template-columns:1fr 1fr;}.asma-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Bloque 3 · Crónicos prevalentes</div>
+  <div class="title">EPOC, Asma y Respiratorio<br>Crónico</div>
+  <div class="subtitle">GOLD 2025 · GINA 2024 · GesEPOC 2021 · ATS/ERS</div>
+  <span class="evidence-pill">GOLD 2025</span>
+  <span class="evidence-pill">GINA 2024</span>
+  <span class="evidence-pill">GesEPOC 2021</span>
+</div>
+
+<div class="grid">
+
+  <!-- GOLD estadios espirométricos -->
+  <div class="card full">
+    <div class="card-title gold">EPOC · Clasificación GOLD 2025</div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.8rem;font-family:'JetBrains Mono',monospace;">Estadios espirométricos (FEV₁/FVC &lt;0,70 post-broncodilatador)</div>
+    <div class="gold-grid">
+      <div class="gold-item">
+        <div class="gold-num gold-g1">I</div>
+        <div class="gold-fev">FEV₁ ≥80%</div>
+        <div class="gold-desc">LEVE. Síntomas mínimos o ninguno.</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-num gold-g2">II</div>
+        <div class="gold-fev">FEV₁ 50-79%</div>
+        <div class="gold-desc">MODERADO. Disnea esfuerzo. Inicio sintomático.</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-num gold-g3">III</div>
+        <div class="gold-fev">FEV₁ 30-49%</div>
+        <div class="gold-desc">GRAVE. Disnea actividades cotidianas.</div>
+      </div>
+      <div class="gold-item">
+        <div class="gold-num gold-g4">IV</div>
+        <div class="gold-fev">FEV₁ &lt;30%</div>
+        <div class="gold-desc">MUY GRAVE. Disnea reposo. Cor pulmonale.</div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;">
+      <div style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace;">Grupos sintomáticos GOLD 2025 (síntomas + exacerbaciones — grupos A, B, E)</div>
+      <div class="abce-grid">
+        <div class="abce-item">
+          <div class="abce-letter">A</div>
+          <div class="abce-desc">Pocos síntomas 0-1 exacerbaciones leves</div>
+          <div class="abce-tx">SABA a demanda (rescate)</div>
+        </div>
+        <div class="abce-item">
+          <div class="abce-letter">B</div>
+          <div class="abce-desc">Más síntomas 0-1 exacerbaciones leves</div>
+          <div class="abce-tx">LAMA o LABA (mantenimiento)</div>
+        </div>
+        <div class="abce-item">
+          <div class="abce-letter" style="color:var(--red);">E</div>
+          <div class="abce-desc">≥2 exacer. moderadas o ≥1 hospitalización</div>
+          <div class="abce-tx">LAMA + LABA ± CI (si eos ≥300)</div>
+        </div>
+        <div class="abce-item">
+          <div class="abce-letter" style="color:var(--muted);font-size:0.9rem;">★</div>
+          <div class="abce-desc">GOLD 2025: Se eliminó grupo C-D. Ahora A-B-E.</div>
+          <div class="abce-tx">Eosinófilos &gt;300: añadir CI. Azitromicina mantenimiento si fumador activo.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.7rem;font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">
+      ⚡ GOLD 2025 NOVEDADES: (1) Grupos C y D fusionados en E (Exacerbadores). (2) Triple terapia (LAMA+LABA+CI) = beneficio mortalidad (IMPACT trial). (3) Dupilumab aprobado en EPOC con tipo2 (eos ≥300). (4) Osteoporosis: cribado DEXA en EPOC grave.
+    </div>
+  </div>
+
+  <!-- Asma GINA 2024 -->
+  <div class="card">
+    <div class="card-title cyan">Asma · GINA 2024 · Control y Tratamiento</div>
+    <div style="margin-bottom:0.7rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--cyan);margin-bottom:0.4rem;">ACT (Asthma Control Test) ★★</div>
+      <div class="asma-grid">
+        <div class="asma-item">
+          <div class="asma-val asma-controlled">20-25</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--teal);">Controlado</div>
+          <div style="font-size:0.65rem;">Asma bien controlada</div>
+        </div>
+        <div class="asma-item">
+          <div class="asma-val asma-partial">16-19</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--gold);">Parcialmente<br>controlado</div>
+          <div style="font-size:0.65rem;">Subir escalón</div>
+        </div>
+        <div class="asma-item">
+          <div class="asma-val asma-poor">≤15</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--red);">No controlado</div>
+          <div style="font-size:0.65rem;">Subir escalón</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--cyan);margin:0.6rem 0 0.4rem;">Escalones GINA 2024</div>
+    <div class="step-box">
+      <div class="step-label">Escalón 1 · Rescate</div>
+      <div class="step-text"><strong>Formoterol+budesónida</strong> a demanda (AIR). Alternativa: SABA a demanda. GINA 2024: prefiere formoterol+CI sobre SABA solo.</div>
+    </div>
+    <div class="step-box">
+      <div class="step-label">Escalón 2 · Mantenimiento bajo</div>
+      <div class="step-text"><strong>CI bajas dosis + formoterol a demanda</strong> o CI diarias bajas + SABA rescate.</div>
+    </div>
+    <div class="step-box">
+      <div class="step-label">Escalón 3-4 · Moderado-alto</div>
+      <div class="step-text"><strong>CI dosis medias/altas + LABA</strong>. ± LAMA (tiotropio). ± Montelukast.</div>
+    </div>
+    <div class="step-box" style="border-color:var(--orange);">
+      <div class="step-label" style="color:var(--orange);">Escalón 5 · Severo / Biológicos</div>
+      <div class="step-text"><strong>Anti-IgE</strong> (omalizumab) · <strong>Anti-IL5/5R</strong> (mepolizumab, benralizumab) · <strong>Anti-IL4/13</strong> (dupilumab). ± Azitromicina.</div>
+    </div>
+  </div>
+
+  <!-- Crisis asmática -->
+  <div class="card">
+    <div class="card-title red">Crisis Asmática · Clasificación y Manejo</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.8rem;">
+      <div style="background:#0a0a15;border-left:2px solid var(--teal);padding:0.5rem 0.8rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--teal);text-transform:uppercase;">Leve-Moderada</div>
+        <div style="font-size:0.72rem;">SatO₂ ≥90% · Habla frases · FR &lt;30 · FEM &gt;50%. Tx: SABA nebulizado + O₂.</div>
+      </div>
+      <div style="background:#0a0a15;border-left:2px solid var(--red);padding:0.5rem 0.8rem;border-radius:0 5px 5px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--red);text-transform:uppercase;">Grave · Riesgo Vital</div>
+        <div style="font-size:0.72rem;">SatO₂ &lt;90% · Solo palabras · FR &gt;30 · FEM &lt;33%. Tx: SABA+ipratropio + MgSO₄ IV + O₂ alto flujo.</div>
+      </div>
+    </div>
+    <div style="background:#0a0a15;border-radius:6px;padding:0.7rem 0.9rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Signos de peligro inmediato · "Asma silente"</div>
+      <div style="font-size:0.73rem;line-height:1.5;">Tórax silente (sin sibilancias = obstrucción total) · Cianosis · Bradicardia · Confusión · SpO₂ &lt;92% · pCO₂ normal o alta (no hipocapnia = fatiga muscular). → Intubación inminente.</div>
+    </div>
+    <div style="margin-top:0.6rem;">
+      <div class="step-box" style="border-color:var(--orange);">
+        <div class="step-label" style="color:var(--orange);">Salbutamol pediátrico ★</div>
+        <div class="step-text">0,15 mg/kg/dosis (máx 5 mg) cada 20 min × 3. Solución 0,5% = 5mg/mL. No &lt;0,1 mg/kg/dosis.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bronquiectasias + FQ -->
+  <div class="card">
+    <div class="card-title teal">Bronquiectasias y Fibrosis Quística</div>
+    <div style="background:#0a1520;border-radius:8px;padding:0.8rem;margin-bottom:0.6rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--teal);margin-bottom:0.3rem;">Bronquiectasias</div>
+      <div style="font-size:0.73rem;line-height:1.5;">Dilatación irreversible bronquios (Db/Da &gt;1). <strong>TC tórax HR</strong>: diagnóstico gold standard. Clasificación: cilíndricas (más frecuentes) / varicosas / quísticas (peor pronóstico). Causa: post-infecciosa (más frecuente en España, post-TB), FQ, DPOC, déficit α1-AT.</div>
+    </div>
+    <div style="background:#0a1520;border-radius:8px;padding:0.8rem;margin-bottom:0.6rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--cyan);margin-bottom:0.3rem;">Fisioterapia Respiratoria · Clave</div>
+      <div style="font-size:0.73rem;">Drenaje autógeno · ACBT · Flutter/Cornet. Fundamental en bronquiectasias y FQ. 2x/día mínimo.</div>
+    </div>
+    <div style="background:#0a1520;border-radius:8px;padding:0.8rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;">Fibrosis Quística · Tx moduladores 2024</div>
+      <div style="font-size:0.73rem;">Ivacaftor (potenciador) + lumacaftor/tezacaftor/elexacaftor (correctores). <strong>Kaftrio® (elexacaftor/tezacaftor/ivacaftor)</strong>: aprobado &gt;5 años con al menos 1 alelo F508del. Mejora FEV₁ +14% y reduce exacerbaciones.</div>
+    </div>
+  </div>
+
+  <!-- Perlas INGESA -->
+  <div class="card full">
+    <div class="card-title gold">⭐ Perlas tipo INGESA — EPOC y Asma</div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ ACT · Puntos de corte Asma</div>
+      <div class="pearl-text"><strong>Asthma Control Test (ACT):</strong> 20-25 = controlado · 16-19 = parcialmente controlado · ≤15 = mal controlado. En exámenes que conocemos: <strong>20–25 = controlado, 16-19 = parcial</strong>. Importante: el valor ≤19 indica que el asma NO está bien controlado → subir escalón terapéutico.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ GOLD 2025 · Grupos A-B-E (ya no C-D)</div>
+      <div class="pearl-text">La actualización GOLD 2025 fusionó los grupos C y D en un único grupo <strong>E (Exacerbadores)</strong>. Ahora son 3 grupos: A (pocos síntomas, pocas exacerbaciones), B (más síntomas, pocas exacerbaciones), E (muchas exacerbaciones). El tratamiento del grupo E incluye LAMA+LABA; añadir CI si eosinófilos ≥300/μL.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ EPOC · Diferencia con asma</div>
+      <div class="pearl-text">EPOC: FEV₁/FVC &lt;0,70 <strong>post-broncodilatador</strong> (fijo). Asma: obstrucción reversible, prueba broncodilatadora positiva si FEV₁ mejora ≥12% y ≥200 mL. EPOC: exposición tabáquica/tóxica, mayores de 40a. Asma: inicio joven, atopia, variabilidad.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Triple terapia EPOC · Beneficio mortalidad</div>
+      <div class="pearl-text">El estudio IMPACT demostró que la triple terapia inhalada (LAMA + LABA + CI: fluticasona/umeclidinio/vilanterol) reduce la mortalidad por todas las causas en EPOC grave frente a la doble terapia. GOLD 2025 la incluye como opción en grupo E con eosinófilos elevados.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Exacerbación EPOC · Antibioticoterapia</div>
+      <div class="pearl-text">Antibióticos en exacerbación EPOC si: purulencia esputo (Criterio Anthonisen) + 2 criterios mayor (↑disnea + ↑esputo + esputo purulento) o si precisa VM. <strong>Primera elección: amoxicilina-clavulánico</strong>. Si Pseudomonas sospechada (FEV₁ &lt;50%, bronquiectasias): ciprofloxacino.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

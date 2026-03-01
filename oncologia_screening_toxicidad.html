@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oncología · Screening · Toxicidad · Sarcopenia · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a0d0d;--surface:#281515;--border:#3a2020;--text:#f0e0e0;--muted:#a08080;--gold:#e8c030;--red:#e84040;--pink:#e05080;--orange:#e07030;--teal:#30c0a0;--blue:#4090e0;--green:#40c060;--white:#fff5f5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem;}
+
+.header{max-width:1100px;margin:0 auto 2.5rem;border-bottom:1px solid var(--border);padding-bottom:1.5rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--pink);margin-bottom:0.4rem;}
+.title{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--white);line-height:1.1;margin-bottom:0.4rem;}
+.subtitle{font-size:0.85rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.evidence-pill{display:inline-block;background:#281515;border:1px solid var(--red);font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.7rem;border-radius:3px;color:var(--red);margin-top:0.5rem;margin-right:0.3rem;}
+
+.grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.full{grid-column:1/-1;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.card-title::before{content:'';display:block;width:3px;height:14px;border-radius:2px;background:var(--red);}
+.card-title.gold::before{background:var(--gold);}
+.card-title.teal::before{background:var(--teal);}
+.card-title.green::before{background:var(--green);}
+.card-title.blue::before{background:var(--blue);}
+.card-title.orange::before{background:var(--orange);}
+
+/* Cribados */
+.screen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;}
+.screen-item{background:#180a0a;border-radius:8px;padding:0.8rem;}
+.screen-tumor{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;margin-bottom:0.25rem;}
+.screen-test{font-size:0.75rem;color:var(--white);}
+.screen-pop{font-size:0.65rem;color:var(--muted);margin-top:0.2rem;}
+
+/* Toxicidad QT */
+.tox-row{background:#180a0a;border-left:3px solid var(--red);padding:0.5rem 0.9rem;border-radius:0 5px 5px 0;margin-bottom:0.4rem;}
+.tox-type{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--red);margin-bottom:0.15rem;}
+.tox-text{font-size:0.74rem;line-height:1.4;}
+.tox-text strong{color:var(--gold);}
+.tox-grade{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.5rem;background:#3a1010;padding:0.08rem 0.35rem;border-radius:2px;color:#e08080;margin-top:0.2rem;}
+
+/* Sarcopenia */
+.sarco-cols{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+.sarco-col{background:#180a0a;border-radius:8px;padding:0.8rem;}
+.sarco-header{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;}
+.criteria-item{display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem;font-size:0.74rem;}
+.criteria-num{width:22px;height:22px;border-radius:50%;background:var(--orange);color:#180a0a;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* Inmunoterapia irAEs */
+.irae-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.irae-item{background:#180a0a;border-radius:6px;padding:0.6rem;}
+.irae-organ{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--pink);}
+.irae-name{font-size:0.73rem;color:var(--white);margin:0.1rem 0;}
+.irae-grade{font-size:0.65rem;color:var(--muted);}
+
+/* Perlas */
+.pearl{background:linear-gradient(135deg,#1a0808,#100508);border:1px solid #3a1020;border-radius:8px;padding:0.8rem 1rem;margin-bottom:0.6rem;}
+.pearl-tag{font-family:'JetBrains Mono',monospace;font-size:0.52rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--pink);margin-bottom:0.3rem;}
+.pearl-text{font-size:0.78rem;line-height:1.5;}
+.pearl-text strong{color:#f090a0;}
+
+/* Estadificación TNM simplificada */
+.tnm-box{background:#180a0a;border-radius:8px;padding:0.9rem;}
+.tnm-row{display:grid;grid-template-columns:40px 1fr;gap:0.5rem;padding:0.2rem 0;font-size:0.73rem;border-bottom:1px solid #2a1010;}
+.tnm-key{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--gold);}
+
+@media(max-width:700px){.grid{grid-template-columns:1fr;}.screen-grid{grid-template-columns:1fr;}.sarco-cols{grid-template-columns:1fr;}.irae-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Bloque 3 · Crónicos prevalentes</div>
+  <div class="title">Oncología: Screening,<br>Toxicidad y Sarcopenia</div>
+  <div class="subtitle">SEOM · SEEO 2024 · EWGSOP2 · ASCO · Cribados SNS España</div>
+  <span class="evidence-pill">Cribados SNS 2024</span>
+  <span class="evidence-pill">EWGSOP2 Sarcopenia</span>
+  <span class="evidence-pill">SEEO Inmunoterapia</span>
+</div>
+
+<div class="grid">
+
+  <!-- Cribados poblacionales SNS España -->
+  <div class="card full">
+    <div class="card-title gold">Cribados Oncológicos del SNS España (Vigentes 2024)</div>
+    <div class="screen-grid">
+      <div class="screen-item">
+        <div class="screen-tumor" style="color:var(--red);">Cáncer Colorrectal ★★</div>
+        <div class="screen-test">Sangre oculta en heces (SOH) bienal → colonoscopia si positivo</div>
+        <div class="screen-pop">50-69 años (ampliado 45-74 en algunas CCAA). Reducción mortalidad 15-25%.</div>
+      </div>
+      <div class="screen-item">
+        <div class="screen-tumor" style="color:var(--pink);">Cáncer de Mama ★★</div>
+        <div class="screen-test">Mamografía bilateral cada 2 años</div>
+        <div class="screen-pop">50-69 años (ampliado 45-74). Sensibilidad ~75-85%. Cribado precisa consentimiento informado.</div>
+      </div>
+      <div class="screen-item">
+        <div class="screen-tumor" style="color:var(--orange);">Cáncer Cervical ★★</div>
+        <div class="screen-test">Citología (Papanicolaou) + test VPH-AR (genotipado)</div>
+        <div class="screen-pop">25-65 años. Inicio: citología 25a. Desde 30-65: co-test o VPH solo cada 5a. Nueva estrategia 2024.</div>
+      </div>
+      <div class="screen-item">
+        <div class="screen-tumor" style="color:var(--blue);">Cáncer de Pulmón</div>
+        <div class="screen-test">TC torácico baja dosis (LDCT) · No incluido en SNS aún</div>
+        <div class="screen-pop">50-80 años, fumadores ≥20 paq/año. NLST: ↓mortalidad 20%. En debate implantación SNS.</div>
+      </div>
+      <div class="screen-item">
+        <div class="screen-tumor" style="color:var(--teal);">Cáncer de Próstata</div>
+        <div class="screen-test">PSA · No recomendado cribado poblacional SNS</div>
+        <div class="screen-pop">Decisión individualizada. Cribado oportunista puede plantearse 50-70a. Alto riesgo (BRCA2, antecedentes): desde 40a.</div>
+      </div>
+      <div class="screen-item">
+        <div class="screen-tumor" style="color:var(--green);">Cáncer Oral / Piel</div>
+        <div class="screen-test">No cribado poblacional SNS. Detección oportunista.</div>
+        <div class="screen-pop">ABCDE melanoma: Asimetría, Borde, Color, Diámetro &gt;6mm, Evolución. Consejería solar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toxicidades quimioterapia -->
+  <div class="card">
+    <div class="card-title">Toxicidades Quimioterapia (CTCAE)</div>
+    <div class="tox-row">
+      <div class="tox-type">Hematológica</div>
+      <div class="tox-text"><strong>Neutropenia febril</strong>: T &gt;38,5°C + PMN &lt;500/mm³. Urgencia oncológica. Cultivos + ATB empíricos inmediatos. G-CSF profilaxis si riesgo &gt;20%.</div>
+      <span class="tox-grade">Grado 3-4: &lt;1.000-500/mm³</span>
+    </div>
+    <div class="tox-row" style="border-color:var(--orange);">
+      <div class="tox-type" style="color:var(--orange);">Gastrointestinal</div>
+      <div class="tox-text"><strong>Mucositis</strong>: escala OMS 0-4. Crioprotección (hielo oral). <strong>Náuseas/vómitos</strong>: ondansetrón + dexametasona ± aprepitant (NK1). <strong>Diarrea</strong>: loperamida Gr.1-2; corregir hidratación Gr.3-4.</div>
+    </div>
+    <div class="tox-row" style="border-color:var(--gold);">
+      <div class="tox-type" style="color:var(--gold);">Cardiotoxicidad · Antraciclinas</div>
+      <div class="tox-text"><strong>Doxorubicina</strong>: dosis acumulada &gt;450 mg/m² → riesgo miocardiopatía. <strong>FEVI basal</strong> antes de iniciar. ECO de seguimiento. Dexrazoxano cardioprotector. Trastuzumab: monitorizar FEVI.</div>
+    </div>
+    <div class="tox-row" style="border-color:var(--teal);">
+      <div class="tox-type" style="color:var(--teal);">Nefrotoxicidad · Cisplatino</div>
+      <div class="tox-text"><strong>Cisplatino</strong>: hiperhydratación obligatoria (SF 1L previa + 1L posterior) + manitol. Monitorizar creatinina + electrolitos. <strong>Oxaliplatino</strong>: neuropatía acumulativa.</div>
+    </div>
+  </div>
+
+  <!-- Inmunoterapia irAEs -->
+  <div class="card">
+    <div class="card-title orange">Toxicidades Inmunoterapia (irAEs) · Guía SEEO-SEOM</div>
+    <div class="irae-grid">
+      <div class="irae-item">
+        <div class="irae-organ">Dermatológico · Más frecuente</div>
+        <div class="irae-name">Rash, prurito, vitíligo</div>
+        <div class="irae-grade">Gr.1-2: corticoides tópicos. Gr.3-4: suspender IO + corticoides IV sistémicos.</div>
+      </div>
+      <div class="irae-item">
+        <div class="irae-organ">Endocrino</div>
+        <div class="irae-name">Hipotiroidismo / Tiroiditis / Adrenalitis</div>
+        <div class="irae-grade">TSH y función suprarrenal basal. Hipotiroidismo: levotiroxina. Insuficiencia suprarrenal: urgencia.</div>
+      </div>
+      <div class="irae-item">
+        <div class="irae-organ">Pulmonar · Grave</div>
+        <div class="irae-name">Neumonitis por inmuno</div>
+        <div class="irae-grade">Gr.2: suspender IO. Gr.3-4: suspender definitivo + metilprednisolona 1-2 mg/kg/d. TC diagnóstico.</div>
+      </div>
+      <div class="irae-item">
+        <div class="irae-organ">Digestivo</div>
+        <div class="irae-name">Colitis inmunomediada</div>
+        <div class="irae-grade">Gr.2: suspender IO + corticoides. Refractaria: infliximab o vedolizumab.</div>
+      </div>
+      <div class="irae-item">
+        <div class="irae-organ">Hepático</div>
+        <div class="irae-name">Hepatitis inmunomediada</div>
+        <div class="irae-grade">Monitorizar transaminasas. Gr.3-4 (&gt;5x LSN): suspender + corticoides IV.</div>
+      </div>
+      <div class="irae-item">
+        <div class="irae-organ">Articular/Musculoesq.</div>
+        <div class="irae-name">Artritis, miositis, fascitis</div>
+        <div class="irae-grade">Artritis: AINE/corticoides. Miositis: vigilar CPK + función respiratoria (riesgo grave).</div>
+      </div>
+    </div>
+    <div style="margin-top:0.6rem;background:#180a0a;border-radius:6px;padding:0.6rem 0.9rem;font-size:0.72rem;color:var(--muted);">
+      💊 <strong style="color:var(--white)">Principio general irAEs</strong>: Grado 1 → continuar IO con vigilancia. Grado 2 → suspender temporalmente + corticoides. Grado 3-4 → suspender permanentemente + corticoides sistémicos ± inmunosupresor 2ª línea.
+    </div>
+  </div>
+
+  <!-- Sarcopenia oncológica -->
+  <div class="card full">
+    <div class="card-title green">Sarcopenia Oncológica · EWGSOP2 + Guías SEOM</div>
+    <div class="sarco-cols">
+      <div class="sarco-col">
+        <div class="sarco-header">Criterios Diagnósticos EWGSOP2</div>
+        <div class="criteria-item"><span class="criteria-num">1</span><span>↓ <strong>Fuerza muscular</strong> (handgrip: &lt;16 kg mujeres / &lt;27 kg hombres) = CRITERIO PRIMARIO</span></div>
+        <div class="criteria-item"><span class="criteria-num">2</span><span>↓ <strong>Cantidad/calidad muscular</strong> (DEXA, BIA, TC/RM): confirma sarcopenia</span></div>
+        <div class="criteria-item"><span class="criteria-num">3</span><span>↓ <strong>Rendimiento físico</strong> (SPPB ≤8 ptos / velocidad marcha &lt;0,8 m/s) = severidad</span></div>
+        <div style="margin-top:0.8rem;background:#0a0805;border-radius:6px;padding:0.5rem 0.8rem;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--gold);margin-bottom:0.2rem;">DEFINICIÓN SEVERA ★★ INGESA</div>
+          <div style="font-size:0.74rem;">Criterios 1+2+3 = <strong style="color:var(--gold)">Sarcopenia severa</strong>: fuerza baja + masa baja + rendimiento físico bajo.</div>
+        </div>
+      </div>
+      <div class="sarco-col">
+        <div class="sarco-header">Tratamiento Multimodal · SEOM</div>
+        <div style="background:#0a0805;border-left:3px solid var(--green);padding:0.6rem 0.9rem;border-radius:0 5px 5px 0;margin-bottom:0.5rem;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--green);">Ejercicio ★★</div>
+          <div style="font-size:0.73rem;"><strong>Combinación aeróbico + resistencia + actividad diaria</strong>. Estrategia más eficaz según guías SEOM de nutrición oncológica. Mínimo 150 min/sem moderado.</div>
+        </div>
+        <div style="background:#0a0805;border-left:3px solid var(--teal);padding:0.6rem 0.9rem;border-radius:0 5px 5px 0;margin-bottom:0.5rem;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--teal);">Nutrición</div>
+          <div style="font-size:0.73rem;">Proteínas ≥1,2-1,5 g/kg/día. Suplementación oral si ingesta insuficiente. Leucina 3g/comida. Vitamina D si déficit.</div>
+        </div>
+        <div style="background:#0a0805;border-left:3px solid var(--orange);padding:0.6rem 0.9rem;border-radius:0 5px 5px 0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--orange);">Farmacológico</div>
+          <div style="font-size:0.73rem;">Grelina/anamorelina (aprobada en algunos países). Progestágenos (acetato megestrol). No sustituto de ejercicio + nutrición.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.8rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;">
+      <div style="background:#180a0a;border-radius:6px;padding:0.6rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem;">Cribado · Herramientas</div>
+        <div style="font-size:0.72rem;">SARC-F (cuestionario 5 preguntas ≥4 puntos → riesgo). Velocidad marcha &lt;0,8 m/s. Fuerza prensil.</div>
+      </div>
+      <div style="background:#180a0a;border-radius:6px;padding:0.6rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem;">Caquexia vs Sarcopenia</div>
+        <div style="font-size:0.72rem;">Caquexia: pérdida peso &gt;5% en 6m + inflamación sistémica + anorexia. Puede coexistir con sarcopenia.</div>
+      </div>
+      <div style="background:#180a0a;border-radius:6px;padding:0.6rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;color:var(--muted);margin-bottom:0.2rem;">Impacto clínico</div>
+        <div style="font-size:0.72rem;">Sarcopenia oncológica → ↑ toxicidad QT, ↓ respuesta tratamiento, ↑ estancia hospitalaria, ↓ supervivencia.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Perlas INGESA -->
+  <div class="card full">
+    <div class="card-title gold">⭐ Perlas tipo INGESA — Oncología y Sarcopenia</div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Sarcopenia severa · Tríada EWGSOP2</div>
+      <div class="pearl-text"><strong>Sarcopenia severa = fuerza baja + masa muscular baja + rendimiento físico bajo.</strong> Esta tríada se ha planteado en casos clínicos INGESA. Recordar que el criterio PRIMARIO es la fuerza (dinamometría). Si solo hay baja masa sin baja fuerza → no es sarcopenia.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★★ Ejercicio en sarcopenia oncológica · SEOM</div>
+      <div class="pearl-text"><strong>Las guías SEOM de nutrición oncológica recomiendan la combinación de ejercicio aeróbico + resistencia + actividad diaria como estrategia más eficaz frente a la sarcopenia oncológica.</strong> Ninguno de los tres componentes por separado tiene el mismo efecto que la combinación.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Cribado colorrectal · Datos concretos</div>
+      <div class="pearl-text">Cribado CCR en España: <strong>sangre oculta en heces bienal entre 50-69 años</strong>. Colonoscopia si positivo. Si colonoscopia normal: repetir a los 10 años. SOH cuantitativa (FIT): umbral positivo 100-150 ng Hb/mL. Reduce mortalidad CCR 15-25%.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Cribado cervical · Nueva estrategia 2024</div>
+      <div class="pearl-text">Nueva estrategia de cribado cervical SNS: <strong>test VPH de alto riesgo cada 5 años desde los 30 hasta los 65 años</strong>. Antes de los 30: citología convencional (VPH-AR menos discriminativo en jóvenes). Genotipos 16 y 18: mayor riesgo → colposcopia directa.</div>
+    </div>
+    <div class="pearl">
+      <div class="pearl-tag">★ Neutropenia febril · Urgencia oncológica</div>
+      <div class="pearl-text">Neutropenia febril: temperatura &gt;38,5°C (o &gt;38°C en dos tomas) + PMN &lt;500/mm³ (o &lt;1.000 con tendencia a bajar). <strong>Inicio ATB en ≤1 hora</strong> (objetivo &lt;60 min en urgencias). Escala MASCC ≥21: bajo riesgo (tratamiento oral ambulatorio posible).</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

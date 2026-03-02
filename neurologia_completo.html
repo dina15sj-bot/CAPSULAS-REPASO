@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurología · Cápsulas de Repaso INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ac: #1a6a6a;
+    --ac2: #2a9090;
+    --ac3: #e0f2f2;
+    --fondo: #f5f7f5;
+    --sup: #ffffff;
+    --txt: #1a1a1a;
+    --soft: #5a6a6a;
+    --rojo: #c04020;
+    --verde: #1a7a3a;
+    --azul: #1a5a8a;
+    --morado: #6a1a8a;
+    --naranja: #c47a10;
+    --perla: #fffce6;
+    --pb: #e0c020;
+    --ph: #c09010;
+    --ant: #f0e8ff;
+    --antb: #7040c0;
+    --warn: #fff8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--fondo); color: var(--txt); font-size: 14.5px; line-height: 1.55; }
+
+  /* HEADER */
+  .ph { background: #0d2e2e; padding: 20px 32px 16px; }
+  .ph h1 { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 900; color: #fff; }
+  .ph .sub { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #80c0c0; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
+  .pills { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 9px; }
+  .pill { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 3px 9px; border-radius: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .p1 { background: var(--ac); color: #fff; }
+  .p2 { background: rgba(255,255,255,0.12); color: #ccc; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px; }
+
+  /* NAV ÍNDICE */
+  .nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; padding: 14px 16px; background: var(--sup); border-radius: 10px; border: 1px solid #d0e4e4; }
+  .nav a { font-family: 'JetBrains Mono', monospace; font-size: 0.63rem; font-weight: 700; text-decoration: none; color: var(--ac); letter-spacing: 0.5px; padding: 4px 10px; border-radius: 6px; background: var(--ac3); }
+  .nav a:hover { background: var(--ac); color: #fff; }
+
+  /* SEC HEADER */
+  .sh { display: flex; align-items: center; gap: 11px; margin: 30px 0 13px; }
+  .sb { width: 5px; height: 34px; border-radius: 3px; background: var(--ac); flex-shrink: 0; }
+  .sn { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; color: var(--ac); letter-spacing: 2px; text-transform: uppercase; display: block; }
+  .st { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #0d2e2e; }
+
+  /* GRIDS */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 13px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+
+  /* TABLA GENERAL */
+  .tw { overflow-x: auto; margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; background: var(--sup); border-radius: 9px; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,0.05); }
+  thead tr { background: #0d2e2e; }
+  thead th { font-family: 'JetBrains Mono', monospace; font-size: 0.63rem; letter-spacing: 1.5px; text-transform: uppercase; color: #9ad4d4; padding: 10px 13px; text-align: left; }
+  tbody tr:nth-child(odd) { background: #f5fafa; }
+  tbody tr:nth-child(even) { background: var(--sup); }
+  tbody td { padding: 9px 13px; border-bottom: 1px solid #e8f0f0; vertical-align: top; }
+  td strong { color: #0d2e2e; }
+
+  /* CARD BÁSICA */
+  .card { background: var(--sup); border-radius: 9px; padding: 14px; border: 1px solid #d8e8e8; border-top: 3px solid var(--ac); }
+  .ctit { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ac); margin-bottom: 7px; }
+
+  /* AFASIA CARDS */
+  .afasia-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .af-card { background: var(--sup); border-radius: 8px; border: 1px solid #d8e8e8; overflow: hidden; }
+  .af-head { padding: 7px 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.63rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #fff; }
+  .af-body { padding: 10px 12px; font-size: 0.83rem; }
+  .af-body .af-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid #f0f0f0; }
+  .af-body .af-row:last-child { border-bottom: none; }
+  .af-lbl { color: var(--soft); font-size: 0.78rem; }
+  .af-val { font-weight: 700; font-size: 0.82rem; }
+  .ok { color: var(--verde); }
+  .no { color: var(--rojo); }
+  .ok2 { color: var(--azul); }
+
+  /* VÍA VISUAL */
+  .vv-row { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 0; padding: 9px 13px; border-bottom: 1px solid #e8f0f0; background: var(--sup); align-items: center; }
+  .vv-row:nth-child(odd) { background: #f5fafa; }
+  .vv-nivel { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; color: var(--ac); }
+  .vv-fn { font-size: 0.83rem; }
+  .vv-lesion { font-size: 0.82rem; color: var(--rojo); font-weight: 600; }
+
+  /* GLAUCOMA COMPARE */
+  .glau-grid { display: grid; grid-template-columns: 140px 1fr 1fr; border-radius: 9px; overflow: hidden; border: 1px solid #d8e8e8; background: var(--sup); }
+  .gl-head { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 9px 13px; }
+  .gl-row-lbl { font-size: 0.82rem; font-weight: 700; padding: 9px 13px; border-top: 1px solid #e8f0f0; color: #0d2e2e; }
+  .gl-cell { font-size: 0.82rem; padding: 9px 13px; border-top: 1px solid #e8f0f0; border-left: 1px solid #e8f0f0; }
+  .h-agudo { background: #fff0f0; }
+  .h-cronico { background: #f0f8ff; }
+
+  /* OJO ROJO DX */
+  .or-grid { display: grid; grid-template-columns: 130px repeat(5,1fr); border-radius: 9px; overflow: hidden; border: 1px solid #d8e8e8; }
+  .or-head { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 10px; background: #0d2e2e; color: #9ad4d4; }
+  .or-lbl { font-size: 0.82rem; font-weight: 700; padding: 8px 10px; border-top: 1px solid #e8f0f0; background: #f5fafa; color: #0d2e2e; }
+  .or-cell { font-size: 0.81rem; padding: 8px 10px; border-top: 1px solid #e8f0f0; border-left: 1px solid #e8f0f0; }
+
+  /* SÍNDROMES MEDULARES */
+  .sind-card { background: var(--sup); border-radius: 8px; border: 1px solid #d8e8e8; border-left: 5px solid var(--ac); padding: 12px 14px; margin-bottom: 8px; }
+  .sind-tit { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.98rem; color: #0d2e2e; margin-bottom: 5px; }
+  .sind-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.63rem; color: var(--soft); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+  .sind-body { font-size: 0.83rem; color: var(--soft); }
+
+  /* VÍAS MOTORAS/SENSITIVAS */
+  .via-row { display: grid; grid-template-columns: 180px 1fr 1fr 1fr; gap: 0; padding: 9px 13px; border-bottom: 1px solid #e8f0f0; }
+  .via-row:nth-child(odd) { background: #f5fafa; }
+
+  /* CEFALEA */
+  .cef-grid { display: grid; grid-template-columns: 120px 130px 1fr 1fr; border-radius: 9px; overflow: hidden; border: 1px solid #d8e8e8; background: var(--sup); }
+  .cef-head { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 11px; background: #0d2e2e; color: #9ad4d4; }
+  .cef-lbl { font-size: 0.84rem; font-weight: 700; padding: 9px 11px; border-top: 1px solid #e8f0f0; background: #f5fafa; color: #0d2e2e; }
+  .cef-cell { font-size: 0.82rem; padding: 9px 11px; border-top: 1px solid #e8f0f0; border-left: 1px solid #e8f0f0; }
+
+  /* BADGES ALARMA */
+  .alarm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .alarm-item { background: var(--sup); border-radius: 7px; border-left: 4px solid var(--rojo); padding: 9px 12px; font-size: 0.83rem; }
+  .alarm-item .a-sig { font-weight: 700; color: #0d2e2e; margin-bottom: 3px; }
+  .alarm-item .a-causa { font-size: 0.78rem; color: var(--soft); }
+
+  /* MOTONEURONA */
+  .mn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mn-card { background: var(--sup); border-radius: 8px; border: 1px solid #d8e8e8; overflow: hidden; }
+  .mn-head { padding: 9px 14px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
+  .mn-body { padding: 10px 14px; font-size: 0.83rem; }
+  .mn-body li { padding: 3px 0 3px 14px; position: relative; list-style: none; border-bottom: 1px solid #f0f0f0; }
+  .mn-body li:last-child { border-bottom: none; }
+  .mn-body li::before { content: "▸"; position: absolute; left: 0; color: var(--ac); font-size: 0.68rem; top: 4px; }
+
+  /* WARN / ANTÍDOTO */
+  .warn { background: var(--warn); border-left: 4px solid var(--rojo); border-radius: 0 7px 7px 0; padding: 10px 13px; margin: 8px 0; font-size: 0.84rem; }
+  .warn strong { color: var(--rojo); }
+  .ant { background: var(--ant); border: 1px solid var(--antb); border-radius: 7px; padding: 10px 13px; margin: 8px 0; font-size: 0.84rem; }
+  .ant .at { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--antb); margin-bottom: 4px; }
+
+  /* NIVEL LESIÓN MEDULAR */
+  .niv-grid { display: grid; grid-template-columns: 130px 1fr; border-radius: 9px; overflow: hidden; border: 1px solid #d8e8e8; background: var(--sup); }
+  .niv-head { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; padding: 9px 13px; background: #0d2e2e; color: #9ad4d4; letter-spacing: 1px; text-transform: uppercase; }
+  .niv-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 700; color: var(--rojo); padding: 9px 13px; border-top: 1px solid #e8f0f0; background: #fff5f5; }
+  .niv-cell { font-size: 0.83rem; padding: 9px 13px; border-top: 1px solid #e8f0f0; border-left: 1px solid #e8f0f0; }
+
+  /* OÍDO */
+  .oido-tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .oido-tab { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 6px; border: 2px solid var(--ac); color: var(--ac); background: transparent; }
+
+  /* PERLAS */
+  .perlas { background: var(--perla); border: 1px solid var(--pb); border-radius: 11px; overflow: hidden; margin: 30px 0 14px; }
+  .perlas-h { background: var(--ph); color: #fff; padding: 11px 18px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .perlas-g { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 14px 16px; }
+  .pe { padding: 8px 10px; border-bottom: 1px solid #f0e8b0; font-size: 0.84rem; line-height: 1.5; }
+  .pe:nth-child(odd) { border-right: 1px solid #f0e8b0; }
+  .pe .s { color: var(--ph); margin-right: 3px; }
+  .pe strong { color: #2a1800; }
+
+  /* DIVISOR */
+  .div { height: 1px; background: linear-gradient(to right, var(--ac), transparent); margin: 26px 0; opacity: 0.2; }
+
+  /* GLOSARIO */
+  .glos { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .gi { background: var(--sup); border-radius: 7px; padding: 8px 11px; border: 1px solid #d8e8e8; }
+  .ga { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; color: var(--ac); display: block; margin-bottom: 2px; }
+  .gd { font-size: 0.76rem; color: var(--soft); }
+
+  /* RINNE/WEBER */
+  .rw-grid { display: grid; grid-template-columns: 100px 1fr 1fr; border-radius: 9px; overflow: hidden; border: 1px solid #d8e8e8; background: var(--sup); }
+  .rw-h { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; padding: 8px 12px; background: #0d2e2e; color: #9ad4d4; letter-spacing: 1px; text-transform: uppercase; }
+  .rw-l { font-size: 0.82rem; font-weight: 700; padding: 8px 12px; border-top: 1px solid #e8f0f0; background: #f5fafa; color: #0d2e2e; }
+  .rw-c { font-size: 0.82rem; padding: 8px 12px; border-top: 1px solid #e8f0f0; border-left: 1px solid #e8f0f0; }
+
+  /* DEMENCIAS */
+  .dem-grid { display: grid; grid-template-columns: 130px repeat(3,1fr); border-radius: 9px; overflow: hidden; border: 1px solid #d8e8e8; background: var(--sup); }
+  .dem-h { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; padding: 9px 12px; background: #0d2e2e; color: #9ad4d4; letter-spacing: 1px; text-transform: uppercase; }
+  .dem-lbl { font-size: 0.82rem; font-weight: 700; padding: 9px 12px; border-top: 1px solid #e8f0f0; background: #f5fafa; color: #0d2e2e; }
+  .dem-c { font-size: 0.81rem; padding: 9px 12px; border-top: 1px solid #e8f0f0; border-left: 1px solid #e8f0f0; }
+
+  @media (max-width: 800px) {
+    .g2,.g3,.afasia-grid,.mn-grid,.alarm-grid,.glau-grid,.dem-grid { grid-template-columns: 1fr; }
+    .g4,.glos { grid-template-columns: repeat(2,1fr); }
+    .via-row,.vv-row,.cef-grid,.or-grid,.niv-grid,.rw-grid { grid-template-columns: 1fr; }
+    .perlas-g { grid-template-columns: 1fr; }
+    .pe:nth-child(odd) { border-right: none; }
+    .ph h1 { font-size: 1.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#3a9898;margin-bottom:5px;">BLOQUE 3 · NEUROLOGÍA + ORL + OFTALMOLOGÍA</div>
+  <h1>Neurología, Sentidos & ORL</h1>
+  <div class="sub">AFASIAS · VÍA VISUAL · MÉDULA · CEFALEAS · DEMENCIAS · OJO · OÍDO</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span>
+    <span class="pill p2">OPE Militar</span>
+    <span class="pill p2">11 temas integrados</span>
+    <span class="pill p1">★ 12 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ÍNDICE RÁPIDO -->
+<div class="nav">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--soft);letter-spacing:1px;text-transform:uppercase;align-self:center;">IR A →</span>
+  <a href="#afasias">Afasias</a>
+  <a href="#viavisual">Vía Visual</a>
+  <a href="#ojo">Ojo Rojo</a>
+  <a href="#glaucoma">Glaucoma</a>
+  <a href="#retino">Retinopatía</a>
+  <a href="#medula">Médula</a>
+  <a href="#sindromes">Síndromes Medulares</a>
+  <a href="#cefaleas">Cefaleas</a>
+  <a href="#demencias">Demencias</a>
+  <a href="#oido">Oído</a>
+  <a href="#perlas">⭐ Perlas</a>
+</div>
+
+<!-- ═══════════════ AFASIAS ═══════════════ -->
+<div id="afasias">
+  <div class="sh"><div class="sb"></div><div><span class="sn">01 · Lenguaje</span><div class="st">Afasias — Clasificación Completa</div></div></div>
+</div>
+
+<div class="ant" style="margin-bottom:12px;">
+  <div class="at">🔑 Regla mnemotécnica</div>
+  <strong>Broca = Boca bloqueada</strong> (no habla) · comprensión conservada · repetición mala<br>
+  <strong>Wernicke = Palabras sin sentido</strong> (habla fluida pero incomprensible) · comprensión mala · repetición mala<br>
+  <strong>Conducción = Conducto cortado</strong> (fascículo arqueado) · fluida, comprende bien → NO repite<br>
+  <strong>Transcorticales = Todo igual pero repite bien</strong>
+</div>
+
+<div class="afasia-grid">
+  <div class="af-card">
+    <div class="af-head" style="background:#9a1a40;">BROCA — No fluida</div>
+    <div class="af-body">
+      <div class="af-row"><span class="af-lbl">Área</span><span class="af-val">Lóbulo frontal (Broca)</span></div>
+      <div class="af-row"><span class="af-lbl">Fluencia</span><span class="af-val no">✗ No fluida</span></div>
+      <div class="af-row"><span class="af-lbl">Comprensión</span><span class="af-val ok">✓ Conservada</span></div>
+      <div class="af-row"><span class="af-lbl">Repetición</span><span class="af-val no">✗ Mala</span></div>
+      <div class="af-row"><span class="af-lbl">Expresión</span><span class="af-val">Telegráfica, agramatical</span></div>
+    </div>
+  </div>
+  <div class="af-card">
+    <div class="af-head" style="background:#1a5a8a;">WERNICKE — Fluida sin sentido</div>
+    <div class="af-body">
+      <div class="af-row"><span class="af-lbl">Área</span><span class="af-val">Lóbulo temporal (Wernicke)</span></div>
+      <div class="af-row"><span class="af-lbl">Fluencia</span><span class="af-val ok">✓ Fluida</span></div>
+      <div class="af-row"><span class="af-lbl">Comprensión</span><span class="af-val no">✗ Muy mala</span></div>
+      <div class="af-row"><span class="af-lbl">Repetición</span><span class="af-val no">✗ Mala</span></div>
+      <div class="af-row"><span class="af-lbl">Expresión</span><span class="af-val">Parafasias, jergafasia</span></div>
+    </div>
+  </div>
+  <div class="af-card">
+    <div class="af-head" style="background:#1a6a6a;">CONDUCCIÓN — Repite fatal</div>
+    <div class="af-body">
+      <div class="af-row"><span class="af-lbl">Área</span><span class="af-val">Fascículo arqueado</span></div>
+      <div class="af-row"><span class="af-lbl">Fluencia</span><span class="af-val ok">✓ Fluida</span></div>
+      <div class="af-row"><span class="af-lbl">Comprensión</span><span class="af-val ok">✓ Buena</span></div>
+      <div class="af-row"><span class="af-lbl">Repetición</span><span class="af-val no">✗✗ Muy mala</span></div>
+      <div class="af-row"><span class="af-lbl">Expresión</span><span class="af-val">Parafasias fonémicas</span></div>
+    </div>
+  </div>
+  <div class="af-card">
+    <div class="af-head" style="background:#6a1a8a;">TRANSCORTICAL MOTORA</div>
+    <div class="af-body">
+      <div class="af-row"><span class="af-lbl">Área</span><span class="af-val">Corteza prefrontal</span></div>
+      <div class="af-row"><span class="af-lbl">Fluencia</span><span class="af-val no">✗ No fluida</span></div>
+      <div class="af-row"><span class="af-lbl">Comprensión</span><span class="af-val ok">✓ Conservada</span></div>
+      <div class="af-row"><span class="af-lbl">Repetición</span><span class="af-val ok">✓ Buena</span></div>
+      <div class="af-row"><span class="af-lbl">Expresión</span><span class="af-val">Como Broca pero repite</span></div>
+    </div>
+  </div>
+  <div class="af-card">
+    <div class="af-head" style="background:#5a6a1a;">TRANSCORTICAL SENSORIAL</div>
+    <div class="af-body">
+      <div class="af-row"><span class="af-lbl">Área</span><span class="af-val">Temporoparietales</span></div>
+      <div class="af-row"><span class="af-lbl">Fluencia</span><span class="af-val ok">✓ Fluida</span></div>
+      <div class="af-row"><span class="af-lbl">Comprensión</span><span class="af-val no">✗ Mala</span></div>
+      <div class="af-row"><span class="af-lbl">Repetición</span><span class="af-val ok">✓ Buena</span></div>
+      <div class="af-row"><span class="af-lbl">Expresión</span><span class="af-val">Como Wernicke pero repite</span></div>
+    </div>
+  </div>
+  <div class="af-card">
+    <div class="af-head" style="background:#3a3a3a;">GLOBAL (la peor)</div>
+    <div class="af-body">
+      <div class="af-row"><span class="af-lbl">Área</span><span class="af-val">Extensa frontal+temporal</span></div>
+      <div class="af-row"><span class="af-lbl">Fluencia</span><span class="af-val no">✗ No fluida</span></div>
+      <div class="af-row"><span class="af-lbl">Comprensión</span><span class="af-val no">✗ Mala</span></div>
+      <div class="af-row"><span class="af-lbl">Repetición</span><span class="af-val no">✗ Mala</span></div>
+      <div class="af-row"><span class="af-lbl">Causa típica</span><span class="af-val">ACV arteria cerebral media</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ VÍA VISUAL ═══════════════ -->
+<div id="viavisual">
+  <div class="sh"><div class="sb"></div><div><span class="sn">02 · Oftalmología</span><div class="st">Vía Visual — Anatomía y Lesiones</div></div></div>
+</div>
+
+<div style="background:var(--sup);border-radius:9px;border:1px solid #d8e8e8;overflow:hidden;margin-bottom:10px;">
+  <div style="display:grid;grid-template-columns:200px 1fr 1fr;background:#0d2e2e;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ad4d4;padding:10px 13px;">NIVEL</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ad4d4;padding:10px 13px;">FUNCIÓN / ANATOMÍA</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ad4d4;padding:10px 13px;border-left:1px solid #1a5a5a;">LESIÓN → DEFECTO VISUAL</div>
+  </div>
+  <div class="vv-row"><span class="vv-nivel">Nervio óptico (II)</span><span class="vv-fn">Fibras monoculares, sin cruce. Agudeza visual.</span><span class="vv-lesion">Ceguera monocular ipsilateral</span></div>
+  <div class="vv-row"><span class="vv-nivel">Quiasma óptico</span><span class="vv-fn">Cruzan fibras nasales (temporales no). Ej: adenoma hipófisis comprime el centro.</span><span class="vv-lesion">Hemianopsia bitemporal ("en antiparras")</span></div>
+  <div class="vv-row"><span class="vv-nivel">Tracto óptico</span><span class="vv-fn">Fibras homónimas contralaterales ya agrupadas.</span><span class="vv-lesion">Hemianopsia homónima contralateral</span></div>
+  <div class="vv-row"><span class="vv-nivel">Radiaciones ópticas — Lóbulo temporal (Meyer)</span><span class="vv-fn">División inferior de radiaciones ópticas. Loop temporal.</span><span class="vv-lesion">Cuadrantanopsia homónima <strong>superior</strong> contralateral ("pie en el cielo")</span></div>
+  <div class="vv-row"><span class="vv-nivel">Radiaciones ópticas — Lóbulo parietal</span><span class="vv-fn">División superior de radiaciones ópticas.</span><span class="vv-lesion">Cuadrantanopsia homónima <strong>inferior</strong> contralateral ("pie en el suelo")</span></div>
+  <div class="vv-row"><span class="vv-nivel">Corteza occipital (V1)</span><span class="vv-fn">Percepción visual consciente. Representación macular bilateral.</span><span class="vv-lesion">Hemianopsia homónima con <strong>respeto macular</strong></span></div>
+</div>
+
+<div class="warn"><strong>⭐ Perla clave:</strong> "Pie en el cielo" = lóbulo temporal (bucles de Meyer). "Pie en el suelo" = lóbulo parietal. El respeto macular → lesión occipital.</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ OJO ROJO DIAGNÓSTICO DIFERENCIAL ═══════════════ -->
+<div id="ojo">
+  <div class="sh"><div class="sb"></div><div><span class="sn">03 · Dx Diferencial</span><div class="st">Ojo Rojo — Diagnóstico Diferencial</div></div></div>
+</div>
+
+<div style="background:var(--sup);border-radius:9px;border:1px solid #d8e8e8;overflow:hidden;margin-bottom:10px;">
+  <div style="display:grid;grid-template-columns:130px 80px 80px 80px 100px 1fr;background:#0d2e2e;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ad4d4;padding:9px 11px;"></div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ad4d4;padding:9px 11px;">DOLOR</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ad4d4;padding:9px 11px;">VISIÓN</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ad4d4;padding:9px 11px;">PUPILA</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ad4d4;padding:9px 11px;">URGENCIA</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ad4d4;padding:9px 11px;border-left:1px solid #1a5a5a;">SIGNO CLAVE</div>
+  </div>
+  <!-- filas -->
+  <div style="display:grid;grid-template-columns:130px 80px 80px 80px 100px 1fr;border-bottom:1px solid #e8f0f0;">
+    <div style="font-size:0.84rem;font-weight:700;padding:9px 11px;background:#f5fafa;color:#0d2e2e;">Conjuntivitis</div>
+    <div style="font-size:0.82rem;padding:9px 11px;color:var(--verde);">No / leve</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Normal</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Normal</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--verde);">No urgente</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Inyección conjuntival, exudado. Prurito si alérgica.</div>
+  </div>
+  <div style="display:grid;grid-template-columns:130px 80px 80px 80px 100px 1fr;border-bottom:1px solid #e8f0f0;background:#f9f9f9;">
+    <div style="font-size:0.84rem;font-weight:700;padding:9px 11px;background:#f5fafa;color:#0d2e2e;">Queratitis</div>
+    <div style="font-size:0.82rem;padding:9px 11px;color:var(--rojo);font-weight:700;">Intenso</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--rojo);">↓</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Normal</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--naranja);">Sí</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Fotofobia intensa. Fluoresceína + (úlcera corneal).</div>
+  </div>
+  <div style="display:grid;grid-template-columns:130px 80px 80px 80px 100px 1fr;border-bottom:1px solid #e8f0f0;">
+    <div style="font-size:0.84rem;font-weight:700;padding:9px 11px;background:#f5fafa;color:#0d2e2e;">Uveítis anterior</div>
+    <div style="font-size:0.82rem;padding:9px 11px;color:var(--naranja);">Moderado</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--rojo);">↓</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;font-weight:700;color:var(--morado);">Miótica arreactiva</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--naranja);">Sí</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Inyección ciliar, Tyndall, sinequias.</div>
+  </div>
+  <div style="display:grid;grid-template-columns:130px 80px 80px 80px 100px 1fr;border-bottom:1px solid #e8f0f0;background:#fff0f0;">
+    <div style="font-size:0.84rem;font-weight:700;padding:9px 11px;background:#ffeeee;color:var(--rojo);">⚠ Glaucoma agudo</div>
+    <div style="font-size:0.82rem;padding:9px 11px;color:var(--rojo);font-weight:700;">Muy severo</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--rojo);font-weight:700;">Muy ↓</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;font-weight:700;color:var(--rojo);">Midriática arreactiva</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--rojo);font-weight:700;">URGENCIA</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;font-weight:700;">Ojo duro como piedra, halos, náuseas/vómitos, PIO 40-60 mmHg.</div>
+  </div>
+  <div style="display:grid;grid-template-columns:130px 80px 80px 80px 100px 1fr;">
+    <div style="font-size:0.84rem;font-weight:700;padding:9px 11px;background:#f5fafa;color:#0d2e2e;">Escleritis</div>
+    <div style="font-size:0.82rem;padding:9px 11px;color:var(--rojo);font-weight:700;">Muy dolorosa</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Variable</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Normal</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;color:var(--naranja);">Sí</div>
+    <div style="font-size:0.82rem;padding:9px 11px;border-left:1px solid #e8f0f0;">Dolor profundo nocturno. Color violáceo. No blanquea con fenilefrina.</div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ GLAUCOMA ═══════════════ -->
+<div id="glaucoma">
+  <div class="sh"><div class="sb"></div><div><span class="sn">04 · Glaucoma</span><div class="st">Tipos de Glaucoma — Comparativa</div></div></div>
+</div>
+
+<div class="g2">
+  <div style="background:#fff0f0;border-radius:9px;border:2px solid var(--rojo);padding:14px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rojo);margin-bottom:10px;">⚠ ÁNGULO ESTRECHO — AGUDO</div>
+    <div style="font-size:0.84rem;line-height:1.7;">
+      <strong>Inicio:</strong> Súbito<br>
+      <strong>PIO:</strong> 40–60 mmHg<br>
+      <strong>Pupila:</strong> Midriática, arreactiva<br>
+      <strong>Clínica:</strong> Ojo rojo + dolor + visión borrosa + halos + náuseas<br>
+      <strong>Ojo predispuesto:</strong> Hipermétrope (ojo corto = ángulo estrecho)<br>
+      <strong>Tto:</strong> Manitol IV + acetazolamida + pilocarpina + iridotomía láser
+    </div>
+  </div>
+  <div style="background:#f0f8ff;border-radius:9px;border:2px solid var(--azul);padding:14px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--azul);margin-bottom:10px;">ÁNGULO ABIERTO — CRÓNICO</div>
+    <div style="font-size:0.84rem;line-height:1.7;">
+      <strong>Inicio:</strong> Insidioso, asintomático<br>
+      <strong>PIO:</strong> Moderadamente elevada<br>
+      <strong>Pupila:</strong> Normal<br>
+      <strong>Clínica:</strong> Pérdida visual periférica silente → "ladrón silencioso de la visión"<br>
+      <strong>Ojo predispuesto:</strong> Miopía / edad avanzada<br>
+      <strong>Tto:</strong> Hipotensores tópicos: prostaglandinas (1.ª línea), betabloqueantes, inhibidores ACC
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ RETINOPATÍA DIABÉTICA ═══════════════ -->
+<div id="retino">
+  <div class="sh"><div class="sb"></div><div><span class="sn">05 · Complicación DM</span><div class="st">Retinopatía Diabética</div></div></div>
+</div>
+
+<div style="background:var(--sup);border-radius:9px;border:1px solid #d8e8e8;overflow:hidden;margin-bottom:10px;">
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;background:#0d2e2e;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:#9ad4d4;padding:9px 13px;letter-spacing:1px;text-transform:uppercase;"></div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:#4ad4a0;padding:9px 13px;letter-spacing:1px;text-transform:uppercase;">NO PROLIFERATIVA (NPDR)</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:#ff9090;padding:9px 13px;letter-spacing:1px;text-transform:uppercase;border-left:1px solid #1a5a5a;">PROLIFERATIVA (PDR)</div>
+  </div>
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;border-bottom:1px solid #e8f0f0;">
+    <div style="font-size:0.82rem;font-weight:700;padding:9px 13px;background:#f5fafa;">Fisiopatología</div>
+    <div style="font-size:0.82rem;padding:9px 13px;">Daño microvascular + isquemia</div>
+    <div style="font-size:0.82rem;padding:9px 13px;border-left:1px solid #e8f0f0;">Isquemia severa → ↑ VEGF → neovasos anormales</div>
+  </div>
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;border-bottom:1px solid #e8f0f0;background:#f9f9f9;">
+    <div style="font-size:0.82rem;font-weight:700;padding:9px 13px;background:#f5fafa;">Lesión clave</div>
+    <div style="font-size:0.82rem;padding:9px 13px;"><strong>Microaneurismas</strong> (1.ª lesión), hemorragias, exudados duros, edema macular</div>
+    <div style="font-size:0.82rem;padding:9px 13px;border-left:1px solid #e8f0f0;"><strong style="color:var(--rojo);">Neovascularización</strong>, hemorragia vítrea, fibrosis, DR traccional</div>
+  </div>
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;border-bottom:1px solid #e8f0f0;">
+    <div style="font-size:0.82rem;font-weight:700;padding:9px 13px;background:#f5fafa;">Riesgo ceguera</div>
+    <div style="font-size:0.82rem;padding:9px 13px;color:var(--naranja);">Moderado (edema macular)</div>
+    <div style="font-size:0.82rem;padding:9px 13px;border-left:1px solid #e8f0f0;color:var(--rojo);font-weight:700;">Alto</div>
+  </div>
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;">
+    <div style="font-size:0.82rem;font-weight:700;padding:9px 13px;background:#f5fafa;">Tratamiento</div>
+    <div style="font-size:0.82rem;padding:9px 13px;">Control metabólico ± anti-VEGF intravítreo</div>
+    <div style="font-size:0.82rem;padding:9px 13px;border-left:1px solid #e8f0f0;">Láser panfotocoagulador + anti-VEGF ± vitrectomía</div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ MÉDULA — VÍAS ═══════════════ -->
+<div id="medula">
+  <div class="sh"><div class="sb"></div><div><span class="sn">06 · Médula Espinal</span><div class="st">Anatomía Funcional — Vías Motoras y Sensitivas</div></div></div>
+</div>
+
+<div class="g2" style="margin-bottom:13px;">
+  <!-- MOTONEURONA -->
+  <div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">MOTONEURONA 1.ª vs 2.ª</div>
+    <div class="mn-grid">
+      <div class="mn-card">
+        <div class="mn-head" style="background:#9a1a40;">1.ª MOTONEURONA (Central)</div>
+        <div class="mn-body">
+          <li>Corteza motora → tracto corticoespinal</li>
+          <li><strong>Hiperreflexia / espasticidad</strong></li>
+          <li>Signo de Babinski +</li>
+          <li>Clonus</li>
+          <li>Sin atrofia precoz</li>
+        </div>
+      </div>
+      <div class="mn-card">
+        <div class="mn-head" style="background:#1a5a8a;">2.ª MOTONEURONA (Periférica)</div>
+        <div class="mn-body">
+          <li>Médula espinal / tronco encefálico</li>
+          <li><strong>Hiporreflexia / arreflexia</strong></li>
+          <li>Atrofia muscular</li>
+          <li>Fasciculaciones</li>
+          <li>Debilidad flácida</li>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- VÍA PIRAMIDAL DECUSACIÓN -->
+  <div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">VÍA PIRAMIDAL — DECUSACIÓN</div>
+    <div class="card">
+      <div style="font-size:0.84rem;line-height:1.8;">
+        <strong>Decusación piramidal</strong> → en las pirámides bulbares<br>
+        <span style="color:var(--rojo);">85–90% fibras cruzan</span> → tracto corticoespinal lateral → <em>movimientos finos de extremidades</em><br>
+        <span style="color:var(--azul);">10–15% no cruzan</span> → tracto corticoespinal anterior → <em>control troncal y proximal</em>
+      </div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e0e8e8;">
+        <strong>Ruta completa:</strong> Corteza motora → Corona radiada → Cápsula interna (brazo posterior) → Pedúnculos cerebrales → Protuberancia → Pirámides bulbares → <em>decusación</em> → médula
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VÍAS SENSITIVAS -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">VÍAS SENSITIVAS PRINCIPALES</div>
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Vía sensitiva</th><th>Tipo sensibilidad</th><th>Cruce (decusación)</th><th>Clave examen</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cordones posteriores (lemnisco medial)</strong></td>
+        <td>Epicrítica: tacto fino, vibración, <strong>propiocepción</strong></td>
+        <td>En el <strong>bulbo raquídeo</strong> (decusación alta)</td>
+        <td>Conservada en sínd. medular anterior</td>
+      </tr>
+      <tr>
+        <td><strong>Espinotalámica lateral</strong></td>
+        <td>Termoalgésica: <strong>dolor y temperatura</strong></td>
+        <td>En médula, a <strong>nivel de entrada</strong> (decusación baja)</td>
+        <td>Afectada en Brown-Séquard contralateral</td>
+      </tr>
+      <tr>
+        <td><strong>Espinotalámica anterior</strong></td>
+        <td>Protopática: tacto grosero y presión</td>
+        <td>En médula espinal</td>
+        <td>Raramente afectada de forma aislada</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ SÍNDROMES MEDULARES ═══════════════ -->
+<div id="sindromes">
+  <div class="sh"><div class="sb"></div><div><span class="sn">07 · Lesiones Medulares</span><div class="st">Síndromes Medulares y Nivel de Lesión</div></div></div>
+</div>
+
+<!-- NIVEL -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">NIVEL DE LESIÓN → CONSECUENCIAS</div>
+<div class="niv-grid" style="margin-bottom:13px;">
+  <div class="niv-head">NIVEL</div><div class="niv-head" style="border-left:1px solid #1a5a5a;">CUADRO CLÍNICO</div>
+  <div class="niv-lbl">Por encima de C3</div><div class="niv-cell"><strong style="color:var(--rojo);">Tetraplejía + paro respiratorio</strong> (afecta nervio frénico → diafragma). Riesgo vital inmediato.</div>
+  <div class="niv-lbl">Por encima de C5</div><div class="niv-cell">Tetraplejía pero <strong>respiración conservada</strong> (diafragma funcional, nervio frénico C3-C5 parcialmente intacto).</div>
+  <div class="niv-lbl">Por debajo de D1</div><div class="niv-cell">Paraplejía + afectación autonómica.</div>
+  <div class="niv-lbl">Por debajo de L1-L2</div><div class="niv-cell"><strong>Síndrome de cauda equina:</strong> Anestesia "en silla de montar" + arreflexia + retención/incontinencia urinaria + paresia flácida MMII (LMN).</div>
+</div>
+
+<!-- SÍNDROMES -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">SÍNDROMES MEDULARES CLÁSICOS</div>
+<div class="g2">
+  <div>
+    <div class="sind-card" style="border-left-color:var(--rojo);">
+      <div class="sind-tit">Síndrome Medular Anterior</div>
+      <div class="sind-sub">Arteria espinal anterior · 2/3 anteriores médula</div>
+      <div class="sind-body">
+        ✗ Parálisis motora bilateral (vía piramidal)<br>
+        ✗ Pérdida termoalgésica bilateral (espinotalámica lateral)<br>
+        <strong style="color:var(--verde);">✓ CONSERVACIÓN: vibración y propiocepción</strong> (cordones posteriores intactos)
+      </div>
+    </div>
+    <div class="sind-card" style="border-left-color:var(--azul);">
+      <div class="sind-tit">Síndrome Medular Posterior</div>
+      <div class="sind-sub">Cordones posteriores</div>
+      <div class="sind-body">
+        ✗ Pérdida propiocepción y vibración<br>
+        ✗ Ataxia sensitiva (Romberg +)<br>
+        <strong style="color:var(--verde);">✓ CONSERVACIÓN: fuerza y sensibilidad termoalgésica</strong>
+      </div>
+    </div>
+    <div class="sind-card" style="border-left-color:var(--morado);">
+      <div class="sind-tit">Síndrome del Cono Medular</div>
+      <div class="sind-sub">Segmentos sacros S3-S5</div>
+      <div class="sind-body">
+        Anestesia en "silla de montar"<br>
+        Incontinencia esfinteriana precoz<br>
+        Disfunción sexual · Déficit motor leve o ausente
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="sind-card" style="border-left-color:var(--naranja);">
+      <div class="sind-tit">Síndrome de Brown-Séquard ⭐</div>
+      <div class="sind-sub">Hemisección medular (hemicordotomía)</div>
+      <div class="sind-body">
+        <strong>Ipsilateral:</strong> Parálisis motora (1.ª MN) + pérdida de vibración/propiocepción (cord. post.)<br>
+        <strong>Contralateral:</strong> Pérdida termoalgésica (espinotalámica cruza en médula)<br>
+        <span style="color:var(--soft);font-size:0.8rem;">Típico: hemisección por herida penetrante</span>
+      </div>
+    </div>
+    <div class="sind-card" style="border-left-color:#3a3a3a;">
+      <div class="sind-tit">Síndrome de la Cauda Equina</div>
+      <div class="sind-sub">Raíces lumbares y sacras (por debajo de L1-L2)</div>
+      <div class="sind-body">
+        Parálisis flácida MMII (2.ª MN) · Arreflexia<br>
+        Anestesia en silla de montar asimétrica<br>
+        Retención urinaria · Dolor radicular
+      </div>
+    </div>
+    <div class="sind-card" style="border-left-color:var(--rojo);">
+      <div class="sind-tit">⚠ Disreflexia Autónoma</div>
+      <div class="sind-sub">Lesiones por encima de T6</div>
+      <div class="sind-body">
+        <strong>HTA severa (>180 mmHg) + bradicardia refleja</strong><br>
+        Cefalea pulsátil, sudoración/rubor por encima de la lesión<br>
+        Piel fría y pálida por debajo · Causa: estímulo nociceptivo (vejiga llena, fecaloma)<br>
+        <strong style="color:var(--rojo);">Urgencia: retirar estímulo desencadenante</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ CEFALEAS ═══════════════ -->
+<div id="cefaleas">
+  <div class="sh"><div class="sb"></div><div><span class="sn">08 · Neurología</span><div class="st">Cefaleas Primarias vs Señales de Alarma</div></div></div>
+</div>
+
+<div class="g2" style="margin-bottom:14px;">
+  <div style="background:#f5f5ff;border-radius:9px;border:2px solid var(--azul);padding:14px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--azul);margin-bottom:9px;">MIGRAÑA</div>
+    <div style="font-size:0.83rem;line-height:1.8;">
+      <strong>Localización:</strong> Hemicraneal (puede bilateral)<br>
+      <strong>Dolor:</strong> Pulsátil, moderada-severa, empeora actividad física<br>
+      <strong>Síntomas:</strong> Náuseas, vómitos, fotofobia, fonofobia ± aura<br>
+      <strong>Duración:</strong> 4-72 h<br>
+      <strong>Tto agudo:</strong> Triptanes (1.ª línea), AINEs<br>
+      <strong>Profilaxis:</strong> Topiramato, propranolol, amitriptilina
+    </div>
+  </div>
+  <div style="background:var(--sup);border-radius:9px;border:1px solid #d8e8e8;padding:14px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--soft);margin-bottom:9px;">CEFALEA TENSIONAL</div>
+    <div style="font-size:0.83rem;line-height:1.8;">
+      <strong>Localización:</strong> Bilateral, en banda (casco)<br>
+      <strong>Dolor:</strong> Opresivo, leve-moderado, <strong>NO empeora con actividad</strong><br>
+      <strong>Síntomas:</strong> Sin náuseas ni fotofobia intensa<br>
+      <strong>La más frecuente</strong> de las cefaleas primarias<br>
+      <strong>Tto:</strong> Paracetamol/AINEs, amitriptilina profilaxis
+    </div>
+  </div>
+</div>
+<div style="background:#fff0f8;border-radius:9px;border:2px solid var(--morado);padding:14px;margin-bottom:14px;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--morado);margin-bottom:9px;">CEFALEA EN RACIMOS (Cluster)</div>
+  <div style="font-size:0.83rem;line-height:1.8;">
+    <strong>Localización:</strong> Periorbitaria / temporal unilateral<br>
+    <strong>Dolor:</strong> Intensísimo, punzante/taladrante · 15–180 min · en racimos (semanas/meses activos)<br>
+    <strong>Síntomas autonómicos ipsilaterales:</strong> Lagrimeo, rinorrea, inyección conjuntival, ptosis, miosis (sínd. de Horner parcial)<br>
+    <strong>Comportamiento:</strong> Inquietud extrema (no puede estar quieto, al contrario que en migraña)<br>
+    <strong>Tto agudo:</strong> O₂ al 100% + sumatriptán SC
+  </div>
+</div>
+
+<!-- SEÑALES DE ALARMA -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rojo);margin-bottom:9px;">⚠ SEÑALES DE ALARMA — CEFALEA SECUNDARIA</div>
+<div class="alarm-grid">
+  <div class="alarm-item"><div class="a-sig">Inicio súbito e intenso ("trueno")</div><div class="a-causa">→ Hemorragia subaracnoidea</div></div>
+  <div class="alarm-item"><div class="a-sig">Fiebre + rigidez de nuca + fotofobia</div><div class="a-causa">→ Meningitis / encefalitis</div></div>
+  <div class="alarm-item"><div class="a-sig">Déficit neurológico focal / alteración consciencia</div><div class="a-causa">→ ACV, masa intracraneal, absceso</div></div>
+  <div class="alarm-item"><div class="a-sig">Presencia de papiledema</div><div class="a-causa">→ Hipertensión intracraneal (tumor, pseudotumor)</div></div>
+  <div class="alarm-item"><div class="a-sig">Nueva cefalea en >50 años</div><div class="a-causa">→ Arteritis células gigantes, neoplasias</div></div>
+  <div class="alarm-item"><div class="a-sig">Desencadenada por Valsalva</div><div class="a-causa">→ Malformación de Chiari, HIC</div></div>
+  <div class="alarm-item"><div class="a-sig">Cefalea que despierta por la noche</div><div class="a-causa">→ HIC, tumor cerebral</div></div>
+  <div class="alarm-item"><div class="a-sig">Inmunosupresión / cáncer conocido</div><div class="a-causa">→ Infección oportunista, metástasis</div></div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ DEMENCIAS ═══════════════ -->
+<div id="demencias">
+  <div class="sh"><div class="sb"></div><div><span class="sn">09 · Deterioro Cognitivo</span><div class="st">Tipos de Demencia y Alzheimer</div></div></div>
+</div>
+
+<div class="tw" style="margin-bottom:13px;">
+  <div class="dem-grid">
+    <div class="dem-h"></div><div class="dem-h" style="border-left:1px solid #1a5a5a;">CORTICAL (Alzheimer, Lewy)</div>
+    <div class="dem-h" style="border-left:1px solid #1a5a5a;">SUBCORTICAL (Parkinson, Huntington)</div>
+    <div class="dem-h" style="border-left:1px solid #1a5a5a;">AXIAL/AMNÉSICA (Korsakoff)</div>
+    <div class="dem-lbl">Memoria</div>
+    <div class="dem-c"><strong>Fijación muy alterada</strong>, olvido rápido, no mejora con pistas</div>
+    <div class="dem-c">Recuperación lenta, mejora con pistas; enlentecimiento ejecutivo</div>
+    <div class="dem-c"><strong>Amnesia anterógrada + retrógrada</strong> grave, confabulaciones</div>
+    <div class="dem-lbl">Otros signos</div>
+    <div class="dem-c">Afasia, apraxia, agnosia, acalculia</div>
+    <div class="dem-c">Bradifrenia, apatía, marcha y motor, parkinsonismo</div>
+    <div class="dem-c">Preservación relativa lenguaje y praxis; confabulaciones</div>
+    <div class="dem-lbl">Ejemplos</div>
+    <div class="dem-c">Alzheimer (60-70%), Lewy, DFT (Pick)</div>
+    <div class="dem-c">Parkinson con demencia, PSP, Huntington</div>
+    <div class="dem-c">Korsakoff, encefalitis límbica</div>
+  </div>
+</div>
+
+<div class="card" style="border-top-color:#9a1a40;">
+  <div class="ctit" style="color:#9a1a40;">ALZHEIMER — Datos Clave Examen</div>
+  <div class="g2" style="font-size:0.84rem;line-height:1.7;">
+    <div>
+      <strong>Patología:</strong> β-amiloide (placas seniles) + tau hiperfosforilada (ovillos neurofibrilares) + atrofia hipocampal<br>
+      <strong>Clínica inicial:</strong> Amnesia episódica reciente + anomia<br>
+      <strong>Diagnóstico:</strong> Clínico + tests cognitivos + RM (atrofia hipocampal) ± biomarcadores LCR
+    </div>
+    <div>
+      <strong>Tratamiento:</strong> IAChE: donepezilo, rivastigmina, galantamina (leve-moderado) + Memantina (moderado-grave)<br>
+      <strong>Pronóstico:</strong> Progresivo, 8-10 años hasta dependencia total<br>
+      <strong>Supone:</strong> 60-70% de todas las demencias
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══════════════ OÍDO ═══════════════ -->
+<div id="oido">
+  <div class="sh"><div class="sb"></div><div><span class="sn">10 · ORL</span><div class="st">Patología del Oído — Acumetría, Externo, Medio e Interno</div></div></div>
+</div>
+
+<!-- RINNE Y WEBER -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">ACUMETRÍA — RINNE Y WEBER</div>
+<div class="g2" style="margin-bottom:13px;">
+  <div class="rw-grid">
+    <div class="rw-h">RINNE</div><div class="rw-h" style="border-left:1px solid #1a5a5a;">RESULTADO</div><div class="rw-h" style="border-left:1px solid #1a5a5a;">INTERPRETACIÓN</div>
+    <div class="rw-l">Técnica</div><div class="rw-c">Mastoides (ósea) vs CAE (aérea), oído por oído</div><div class="rw-c">—</div>
+    <div class="rw-l">Rinne +</div><div class="rw-c">Aire > hueso (normal)</div><div class="rw-c" style="color:var(--verde);">Normal o hipoacusia neurosensorial</div>
+    <div class="rw-l">Rinne −</div><div class="rw-c" style="font-weight:700;">Hueso > aire</div><div class="rw-c" style="color:var(--rojo);font-weight:700;">Hipoacusia de transmisión</div>
+  </div>
+  <div class="rw-grid">
+    <div class="rw-h">WEBER</div><div class="rw-h" style="border-left:1px solid #1a5a5a;">LATERALIZACIÓN</div><div class="rw-h" style="border-left:1px solid #1a5a5a;">INTERPRETACIÓN</div>
+    <div class="rw-l">Técnica</div><div class="rw-c">Diapasón en vértex/frente, ambos oídos</div><div class="rw-c">—</div>
+    <div class="rw-l">No lateraliza</div><div class="rw-c">Igual en ambos</div><div class="rw-c" style="color:var(--verde);">Normal o hipoacusia simétrica</div>
+    <div class="rw-l">→ Oído enfermo</div><div class="rw-c">Lateraliza al lado enfermo</div><div class="rw-c" style="color:var(--rojo);font-weight:700;">Hipoacusia de transmisión</div>
+    <div class="rw-l">→ Oído sano</div><div class="rw-c">Lateraliza al lado sano</div><div class="rw-c" style="color:var(--morado);font-weight:700;">Hipoacusia neurosensorial contralateral</div>
+  </div>
+</div>
+
+<!-- OÍDO INTERNO -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">PATOLOGÍA OÍDO INTERNO</div>
+<div class="tw" style="margin-bottom:13px;">
+  <table>
+    <thead>
+      <tr><th>Patología</th><th>Tipo hipoacusia</th><th>Clínica clave</th><th>Tto / Dato OPE</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Presbiacusia</strong></td>
+        <td>Neurosensorial bilateral</td>
+        <td>Tonos agudos afectados primero. >60 años. Dificultad en ambientes ruidosos.</td>
+        <td>Rehabilitación auditiva + audífonos</td>
+      </tr>
+      <tr>
+        <td><strong>Enf. de Ménière ⭐</strong></td>
+        <td>Neurosensorial fluctuante</td>
+        <td><strong>Tríada:</strong> Vértigo rotatorio recurrente + hipoacusia fluctuante + acúfenos ± plenitud ótica</td>
+        <td>Agudo: sedantes vestibulares. Mantenimiento: dieta hiposódica, diuréticos</td>
+      </tr>
+      <tr>
+        <td><strong>Laberintitis / otitis interna</strong></td>
+        <td>Neurosensorial</td>
+        <td>Vértigo intenso, hipoacusia, náuseas, vómitos. Suele seguir a otitis media o meningitis.</td>
+        <td>ATB sistémicos ± corticoides. Reposo.</td>
+      </tr>
+      <tr>
+        <td><strong>Neurinoma del acústico</strong></td>
+        <td>Neurosensorial unilateral progresiva</td>
+        <td>Hipoacusia + acúfenos unilaterales. Fases avanzadas: afectación otros pares craneales.</td>
+        <td>RM con contraste. Tto: observación / radiocirugía / cirugía según tamaño</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- OTITIS MEDIA -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;">PATOLOGÍA OÍDO MEDIO</div>
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Patología</th><th>Clínica clave</th><th>Dato OPE</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OMA (otitis media aguda)</strong></td>
+        <td>Otalgia creciente + fiebre (fase 1) → perforación timpánica + otorrea (fase 2, disminuye dolor)</td>
+        <td>Más frecuente en niños. ATB según guías.</td>
+      </tr>
+      <tr>
+        <td><strong>Colesteatoma ⭐</strong></td>
+        <td><em>Seco:</em> hipoacusia transmisión silente. <em>Húmedo:</em> otorrea fétida crónica + vértigo + parálisis facial</td>
+        <td>Masa de epitelio escamoso destructivo. Conducta quirúrgica.</td>
+      </tr>
+      <tr>
+        <td><strong>Otosclerosis ⭐</strong></td>
+        <td>Hipoacusia transmisión en adulto joven, más frecuente en mujeres, empeora en embarazo</td>
+        <td>Signo de Schwartz (tímpano rojizo). Tto: <strong>estapedectomía / estapedotomía</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · NEUROLOGÍA + ORL + OFTALMOLOGÍA</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>Afasia de conducción: qué falla</strong> → repetición (muy mala), pero habla fluida y comprende bien. Lesión en fascículo arqueado. La que "no puede repetir".</div>
+    <div class="pe"><span class="s">★</span><strong>Hemianopsia bitemporal</strong> → lesión en quiasma óptico. Causa típica: adenoma hipofisario. Pierden el campo temporal de ambos ojos.</div>
+    <div class="pe"><span class="s">★</span><strong>Respeto macular en hemianopsia</strong> → lesión en corteza occipital (V1). La mácula tiene representación bilateral en occipital.</div>
+    <div class="pe"><span class="s">★</span><strong>Cuadrantanopsia "pie en el cielo"</strong> → bucles de Meyer / lóbulo temporal. "Pie en el suelo" → lóbulo parietal.</div>
+    <div class="pe"><span class="s">★</span><strong>Glaucoma agudo: pupila diagnóstica</strong> → midriática arreactiva (vs uveítis: miótica arreactiva). Ojo duro como piedra. Urgencia.</div>
+    <div class="pe"><span class="s">★</span><strong>Síndrome medular anterior: qué SE CONSERVA</strong> → vibración y propiocepción (cordones posteriores intactos). Se pierde motor y termoalgesia.</div>
+    <div class="pe"><span class="s">★</span><strong>Brown-Séquard: regla hemisección</strong> → motor e ipsilateral · temperatura contralateral (espinotalámica cruza en médula misma).</div>
+    <div class="pe"><span class="s">★</span><strong>Lesión medular por encima de C3</strong> → fallo respiratorio (nervio frénico C3-C4-C5). Regla: "C3-C4-C5 keeps the diaphragm alive".</div>
+    <div class="pe"><span class="s">★</span><strong>Disreflexia autónoma: causa + tto</strong> → por encima de T6. Retirar estímulo (globo vesical, fecaloma). HTA + bradicardia = típica.</div>
+    <div class="pe"><span class="s">★</span><strong>Cefalea en trueno = urgencia</strong> → hemorragia subaracnoidea hasta demostrar lo contrario. TAC urgente + PL si TAC normal.</div>
+    <div class="pe"><span class="s">★</span><strong>Weber lateraliza al oído sano</strong> → hipoacusia neurosensorial del lado contrario. Si lateraliza al enfermo → transmisión.</div>
+    <div class="pe"><span class="s">★</span><strong>Ménière: tríada canónica</strong> → vértigo + hipoacusia fluctuante + acúfenos. Causa: hidrops endolinfático. Dieta hiposódica + diuréticos en mantenimiento.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">ACV</span><span class="gd">Accidente cerebrovascular</span></div>
+  <div class="gi"><span class="ga">ACM</span><span class="gd">Arteria cerebral media</span></div>
+  <div class="gi"><span class="ga">IAChE</span><span class="gd">Inhibidor acetilcolinesterasa</span></div>
+  <div class="gi"><span class="ga">VEGF</span><span class="gd">Factor crecimiento endotelial vascular</span></div>
+  <div class="gi"><span class="ga">PIO</span><span class="gd">Presión intraocular</span></div>
+  <div class="gi"><span class="ga">NPDR</span><span class="gd">Retinopatía no proliferativa</span></div>
+  <div class="gi"><span class="ga">PDR</span><span class="gd">Retinopatía proliferativa</span></div>
+  <div class="gi"><span class="ga">DR</span><span class="gd">Desprendimiento de retina</span></div>
+  <div class="gi"><span class="ga">CAE</span><span class="gd">Conducto auditivo externo</span></div>
+  <div class="gi"><span class="ga">OMA</span><span class="gd">Otitis media aguda</span></div>
+  <div class="gi"><span class="ga">OED</span><span class="gd">Otitis externa difusa</span></div>
+  <div class="gi"><span class="ga">HIC</span><span class="gd">Hipertensión intracraneal</span></div>
+  <div class="gi"><span class="ga">LMN</span><span class="gd">Lesión motoneurona inferior</span></div>
+  <div class="gi"><span class="ga">DLCO</span><span class="gd">Difusión pulmonar CO</span></div>
+  <div class="gi"><span class="ga">PSP</span><span class="gd">Parálisis supranuclear progresiva</span></div>
+  <div class="gi"><span class="ga">DFT</span><span class="gd">Demencia frontotemporal</span></div>
+</div>
+
+<div style="text-align:center;margin-top:26px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;color:#7aacac;">
+  CÁPSULAS DE REPASO · NEUROLOGÍA + ORL + OFTALMOLOGÍA · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+
+</div>
+</body>
+</html>

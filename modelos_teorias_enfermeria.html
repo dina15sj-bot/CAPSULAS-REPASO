@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelos y Teorías de Enfermería · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f4ef;
+  --surface: #fff;
+  --border: #e2dbd0;
+  --text: #1c160d;
+  --muted: #7a6e5f;
+  --warm: #f0ebe2;
+
+  /* Paradigmas */
+  --p1: #1a5c38; --p1-bg: #eaf4ee; --p1-border: #a8d8b8;
+  --p2: #1a4a7a; --p2-bg: #eaf0fa; --p2-border: #a8c4e8;
+  --p3: #6a1a5a; --p3-bg: #f4eaf2; --p3-border: #d8a8d0;
+
+  /* Escuelas */
+  --s1: #2a6a2a; --s2: #1a5a8a; --s3: #8a4a1a;
+  --s4: #1a6a5a; --s5: #5a1a7a; --s6: #7a1a3a;
+
+  --gold: #c49a18;
+  --pearl: #fffbe6;
+  --pearl-border: #e0c020;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── HEADER ── */
+.header {
+  background: #1c160d;
+  padding: 2rem 2.5rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-48deg, transparent, transparent 22px, rgba(255,255,255,0.02) 22px, rgba(255,255,255,0.02) 23px);
+}
+.header-inner { max-width: 1120px; margin: 0 auto; position: relative; }
+.h-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.22em; color: #c0b080; margin-bottom: 0.4rem; }
+.h-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 0.35rem; }
+.h-title em { color: #e8c030; font-style: italic; }
+.h-sub { font-size: 0.8rem; color: #9a8a70; font-family: 'JetBrains Mono', monospace; }
+.h-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.7rem; }
+.h-pill {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 3px; padding: 0.2rem 0.65rem; color: #c0b080;
+}
+
+/* ── LAYOUT ── */
+.main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+/* ── SECTION TITLES ── */
+.sec {
+  display: flex; align-items: center; gap: 0.8rem;
+  margin: 2rem 0 1rem;
+}
+.sec-num {
+  font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--border); line-height: 1;
+}
+.sec-info {}
+.sec-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--text); }
+
+/* ── METAPARADIGMA ── */
+.meta-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.meta-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.1rem 1rem; text-align: center; position: relative; overflow: hidden;
+}
+.meta-item::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.meta-1::before { background: #2a8a5a; }
+.meta-2::before { background: #1a6aaa; }
+.meta-3::before { background: #aa6a1a; }
+.meta-4::before { background: #8a1a5a; }
+.meta-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.meta-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+.meta-1 .meta-name { color: #1a6a3a; }
+.meta-2 .meta-name { color: #1a4a8a; }
+.meta-3 .meta-name { color: #8a5a1a; }
+.meta-4 .meta-name { color: #7a1a4a; }
+.meta-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+.meta-badge {
+  display: inline-block; margin-top: 0.5rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0.1rem 0.5rem; border-radius: 2px; color: #fff;
+}
+.meta-1 .meta-badge { background: #2a8a5a; }
+.meta-2 .meta-badge { background: #1a6aaa; }
+.meta-3 .meta-badge { background: #aa6a1a; }
+.meta-4 .meta-badge { background: #8a1a5a; }
+
+/* ── PARADIGMAS ── */
+.paradigmas-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.paradigma-card {
+  border-radius: 10px; overflow: hidden; border: 1px solid;
+}
+.paradigma-card.p1 { border-color: var(--p1-border); }
+.paradigma-card.p2 { border-color: var(--p2-border); }
+.paradigma-card.p3 { border-color: var(--p3-border); }
+
+.paradigma-head { padding: 0.8rem 1rem; }
+.p1 .paradigma-head { background: var(--p1); }
+.p2 .paradigma-head { background: var(--p2); }
+.p3 .paradigma-head { background: var(--p3); }
+
+.paradigma-num { font-family: 'Playfair Display', serif; font-size: 0.75rem; color: rgba(255,255,255,0.6); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.paradigma-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: #fff; }
+.paradigma-orient { font-family: 'JetBrains Mono', monospace; font-size: 0.57rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); margin-top: 0.15rem; }
+
+.paradigma-body { padding: 0.9rem 1rem; }
+.p1 .paradigma-body { background: var(--p1-bg); }
+.p2 .paradigma-body { background: var(--p2-bg); }
+.p3 .paradigma-body { background: var(--p3-bg); }
+
+.paradigma-rep { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+.paradigma-rep strong { color: var(--text); }
+.paradigma-escuelas { font-size: 0.7rem; line-height: 1.5; }
+.p1 .paradigma-escuelas { color: var(--p1); }
+.p2 .paradigma-escuelas { color: var(--p2); }
+.p3 .paradigma-escuelas { color: var(--p3); }
+
+/* ── ESCUELAS ── */
+.escuelas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.escuela-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+}
+.escuela-head {
+  padding: 0.65rem 1rem; display: flex; align-items: center; gap: 0.6rem;
+}
+.escuela-question {
+  font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 900; color: #fff; flex: 1;
+}
+.escuela-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.15); padding: 0.15rem 0.5rem; border-radius: 2px; color: rgba(255,255,255,0.8);
+}
+.es1 .escuela-head { background: var(--s1); }
+.es2 .escuela-head { background: var(--s2); }
+.es3 .escuela-head { background: var(--s3); }
+.es4 .escuela-head { background: var(--s4); }
+.es5 .escuela-head { background: var(--s5); }
+.es6 .escuela-head { background: var(--s6); }
+
+.escuela-body { padding: 0.8rem 1rem; }
+.escuela-autoras { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.autora-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.2rem 0.6rem;
+  border-radius: 4px; font-weight: 600;
+}
+.es1 .autora-chip { background: #eaf4ea; color: var(--s1); border: 1px solid #b8dbb8; }
+.es2 .autora-chip { background: #eaf0fa; color: var(--s2); border: 1px solid #a8c4e8; }
+.es3 .autora-chip { background: #f4ecea; color: var(--s3); border: 1px solid #d8b8a8; }
+.es4 .autora-chip { background: #eaf4f0; color: var(--s4); border: 1px solid #a8d8c8; }
+.es5 .autora-chip { background: #f0eaf4; color: var(--s5); border: 1px solid #c8a8d8; }
+.es6 .autora-chip { background: #f4eaee; color: var(--s6); border: 1px solid #d8a8b8; }
+
+/* ── TABLA AUTORAS ── */
+.tabla-wrap {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.tabla-header-bar {
+  background: #1c160d; padding: 0.8rem 1.2rem;
+  font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #e8c030;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+table.autoras-tbl { width: 100%; border-collapse: collapse; }
+table.autoras-tbl thead th {
+  background: var(--warm); font-family: 'JetBrains Mono', monospace; font-size: 0.55rem;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+  padding: 0.45rem 1rem; text-align: left; border-bottom: 2px solid var(--border);
+}
+table.autoras-tbl tbody td {
+  padding: 0.42rem 1rem; border-bottom: 1px solid #f0ece4; font-size: 0.76rem; vertical-align: middle;
+}
+table.autoras-tbl tbody tr:last-child td { border-bottom: none; }
+table.autoras-tbl tbody tr:hover td { background: #fafaf5; }
+.tbl-autora { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.82rem; }
+.tbl-modelo { font-size: 0.76rem; }
+.kw-badge {
+  display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.54rem;
+  padding: 0.12rem 0.5rem; border-radius: 3px; font-weight: 600;
+}
+.tbl-escuela-dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.35rem; vertical-align: middle;
+}
+
+/* ── MARRINER TOMEY ── */
+.marriner-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-bottom: 1.5rem; }
+.marriner-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.marriner-head { padding: 0.6rem 0.8rem; }
+.m1 .marriner-head { background: #2a5a8a; }
+.m2 .marriner-head { background: #2a7a4a; }
+.m3 .marriner-head { background: #8a5a2a; }
+.m4 .marriner-head { background: #5a2a8a; }
+.marriner-level { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.6); }
+.marriner-type { font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; color: #fff; }
+.marriner-body { padding: 0.7rem 0.8rem; }
+.marriner-def { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.5rem; line-height: 1.4; }
+.marriner-ex { font-size: 0.68rem; line-height: 1.4; }
+.m1 .marriner-ex { color: #1a4a7a; }
+.m2 .marriner-ex { color: #1a5a3a; }
+.m3 .marriner-ex { color: #6a3a1a; }
+.m4 .marriner-ex { color: #3a1a6a; }
+
+/* ── CRITERIOS ANÁLISIS ── */
+.criterios-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+.criterio-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.8rem 0.7rem; text-align: center;
+}
+.criterio-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+.criterio-name { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.2rem; }
+.criterio-desc { font-size: 0.68rem; color: var(--text); line-height: 1.3; }
+
+/* ── PROCESO ENFERMERO ── */
+.pe-bar {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.pe-head {
+  background: #1c160d; padding: 0.7rem 1.2rem; display: flex; align-items: center; gap: 0.6rem;
+  font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #e8c030;
+}
+.pe-steps { display: flex; }
+.pe-step {
+  flex: 1; padding: 1rem 0.8rem; text-align: center; border-right: 1px solid var(--border);
+}
+.pe-step:last-child { border-right: none; }
+.pe-step-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--border); line-height: 1; margin-bottom: 0.2rem; }
+.pe-step-name { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.2rem; }
+.pe-step-desc { font-size: 0.68rem; color: var(--text); line-height: 1.3; }
+.pe-step:nth-child(1) .pe-step-num { color: #2a8a5a; }
+.pe-step:nth-child(2) .pe-step-num { color: #2a6aaa; }
+.pe-step:nth-child(3) .pe-step-num { color: #aa6a1a; }
+.pe-step:nth-child(4) .pe-step-num { color: #8a1a6a; }
+.pe-step:nth-child(5) .pe-step-num { color: #1a6a8a; }
+.pe-models { background: var(--warm); padding: 0.7rem 1.2rem; display: flex; gap: 1.5rem; align-items: center; border-top: 1px solid var(--border); }
+.pe-models-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); white-space: nowrap; }
+.pe-model-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; padding: 0.2rem 0.6rem;
+  border-radius: 4px; background: var(--surface); border: 1px solid var(--border); color: var(--text);
+}
+
+/* ── QUOTE ── */
+.quote-bar {
+  background: #1c160d; border-radius: 8px; padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+}
+.quote-mark { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); line-height: 0.8; flex-shrink: 0; margin-top: 0.5rem; }
+.quote-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.9); line-height: 1.5; }
+.quote-author { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.12em; }
+
+/* ── PERLAS ── */
+.perlas-wrap {
+  background: var(--pearl); border: 1px solid var(--pearl-border); border-radius: 10px; overflow: hidden;
+}
+.perlas-head-bar {
+  background: #c09010; padding: 0.65rem 1rem;
+  font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff;
+}
+.perlas-body { padding: 0.8rem 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.perla-row {
+  padding: 0.5rem 0.5rem; border-bottom: 1px solid #f0e8a0; border-right: 1px solid #f0e8a0;
+  font-size: 0.74rem; line-height: 1.5; color: #4a3a08; display: flex; gap: 0.4rem; align-items: flex-start;
+}
+.perla-row:nth-child(even) { border-right: none; }
+.perla-row:nth-last-child(-n+2) { border-bottom: none; }
+.perla-row::before { content: '★'; color: #c09010; font-size: 0.7rem; flex-shrink: 0; margin-top: 0.15rem; }
+.perla-row strong { color: #2a1a04; }
+
+@media (max-width: 800px) {
+  .meta-grid { grid-template-columns: 1fr 1fr; }
+  .paradigmas-grid { grid-template-columns: 1fr; }
+  .escuelas-grid { grid-template-columns: 1fr; }
+  .marriner-grid { grid-template-columns: 1fr 1fr; }
+  .criterios-grid { grid-template-columns: 1fr 1fr; }
+  .pe-steps { flex-direction: column; }
+  .pe-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .perlas-body { grid-template-columns: 1fr; }
+  .perla-row { border-right: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="h-tag">Teoría Enfermera · Bloque Conceptual</div>
+    <div class="h-title">Modelos y Teorías<br>de <em>Enfermería</em></div>
+    <div class="h-sub">Metaparadigma · Escuelas · Autoras · Proceso Enfermero · INGESA</div>
+    <div class="h-pills">
+      <span class="h-pill">Kérouac · Paradigmas</span>
+      <span class="h-pill">Marriner Tomey · Clasificación</span>
+      <span class="h-pill">NANDA · Gordon · Henderson</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- QUOTE -->
+  <div class="quote-bar">
+    <div class="quote-mark">"</div>
+    <div>
+      <div class="quote-text">La teoría sin la práctica está vacía y la práctica sin la teoría, ciega.</div>
+      <div class="quote-author">Cross · Dimensiones de la Enfermería</div>
+    </div>
+  </div>
+
+  <!-- 1. METAPARADIGMA -->
+  <div class="sec">
+    <div class="sec-num">1</div>
+    <div class="sec-info">
+      <div class="sec-label">Concepto más global y abstracto</div>
+      <div class="sec-title">Metaparadigma Enfermero — 4 elementos</div>
+    </div>
+  </div>
+  <div class="meta-grid">
+    <div class="meta-item meta-1">
+      <div class="meta-icon">🧑</div>
+      <div class="meta-name">Persona</div>
+      <div class="meta-desc">Receptor de los cuidados. Centro del proceso enfermero.</div>
+      <div><span class="meta-badge">Receptor</span></div>
+    </div>
+    <div class="meta-item meta-2">
+      <div class="meta-icon">🌍</div>
+      <div class="meta-name">Entorno</div>
+      <div class="meta-desc">Condiciones externas que influyen en la persona. Contexto vital.</div>
+      <div><span class="meta-badge">Contexto</span></div>
+    </div>
+    <div class="meta-item meta-3">
+      <div class="meta-icon">🌿</div>
+      <div class="meta-name">Salud</div>
+      <div class="meta-desc">Grado de bienestar o ausencia de enfermedad. Objetivo del cuidado.</div>
+      <div><span class="meta-badge">Objetivo</span></div>
+    </div>
+    <div class="meta-item meta-4">
+      <div class="meta-icon">💙</div>
+      <div class="meta-name">Cuidado / Enfermería</div>
+      <div class="meta-desc">Núcleo de estudio y acción profesional. Razón de ser de la disciplina.</div>
+      <div><span class="meta-badge">Núcleo</span></div>
+    </div>
+  </div>
+
+  <!-- 2. PARADIGMAS KÉROUAC -->
+  <div class="sec">
+    <div class="sec-num">2</div>
+    <div class="sec-info">
+      <div class="sec-label">Clasificación según S. Kérouac</div>
+      <div class="sec-title">Paradigmas Enfermeros — 3 grandes corrientes</div>
+    </div>
+  </div>
+  <div class="paradigmas-grid">
+    <div class="paradigma-card p1">
+      <div class="paradigma-head">
+        <div class="paradigma-num">Paradigma I</div>
+        <div class="paradigma-name">Categorización</div>
+        <div class="paradigma-orient">Orientado a la salud pública y la enfermedad</div>
+      </div>
+      <div class="paradigma-body">
+        <div class="paradigma-rep">Representante clave: <strong>Florence Nightingale</strong></div>
+        <div class="paradigma-escuelas">Precursor de la enfermería moderna. Higiene, ventilación y entorno como base del cuidado. Datos estadísticos de mortalidad en Crimea.</div>
+      </div>
+    </div>
+    <div class="paradigma-card p2">
+      <div class="paradigma-head">
+        <div class="paradigma-num">Paradigma II</div>
+        <div class="paradigma-name">Integración</div>
+        <div class="paradigma-orient">Orientado hacia la persona</div>
+      </div>
+      <div class="paradigma-body">
+        <div class="paradigma-rep">Escuelas de <strong>Necesidades</strong> y <strong>Efectos Deseables</strong></div>
+        <div class="paradigma-escuelas">La persona como ser bio-psico-social. Las necesidades como guía de la práctica enfermera. Henderson, Orem, Roy, Neuman…</div>
+      </div>
+    </div>
+    <div class="paradigma-card p3">
+      <div class="paradigma-head">
+        <div class="paradigma-num">Paradigma III</div>
+        <div class="paradigma-name">Transformación</div>
+        <div class="paradigma-orient">Orientado al entorno y al "Caring"</div>
+      </div>
+      <div class="paradigma-body">
+        <div class="paradigma-rep">Escuelas de <strong>Ser Humano Unitario</strong> y <strong>Caring</strong></div>
+        <div class="paradigma-escuelas">Visión holística, espiritual y cultural. La persona como ser unitario, más que la suma de sus partes. Rogers, Parse, Newman, Watson, Leininger.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ESCUELAS DE PENSAMIENTO -->
+  <div class="sec">
+    <div class="sec-num">3</div>
+    <div class="sec-info">
+      <div class="sec-label">Kérouac · 6 escuelas</div>
+      <div class="sec-title">Escuelas de Pensamiento Enfermero</div>
+    </div>
+  </div>
+  <div class="escuelas-grid">
+    <div class="escuela-card es1">
+      <div class="escuela-head">
+        <div class="escuela-question">¿Qué hacen las enfermeras?</div>
+        <div class="escuela-tag">Necesidades</div>
+      </div>
+      <div class="escuela-body">
+        <div class="escuela-autoras">
+          <span class="autora-chip">Henderson</span>
+          <span class="autora-chip">Orem</span>
+          <span class="autora-chip">Abdellah</span>
+        </div>
+        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted);">Se centran en identificar y satisfacer las necesidades del paciente. Base del PAE clásico.</div>
+      </div>
+    </div>
+    <div class="escuela-card es2">
+      <div class="escuela-head">
+        <div class="escuela-question">¿Cómo actúan?</div>
+        <div class="escuela-tag">Interacción</div>
+      </div>
+      <div class="escuela-body">
+        <div class="escuela-autoras">
+          <span class="autora-chip">Peplau</span>
+          <span class="autora-chip">Orlando</span>
+          <span class="autora-chip">King</span>
+          <span class="autora-chip">Travelbee</span>
+        </div>
+        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted);">La relación terapéutica y la comunicación como eje de la práctica enfermera.</div>
+      </div>
+    </div>
+    <div class="escuela-card es3">
+      <div class="escuela-head">
+        <div class="escuela-question">¿Por qué hacen lo que hacen?</div>
+        <div class="escuela-tag">Efectos Deseables</div>
+      </div>
+      <div class="escuela-body">
+        <div class="escuela-autoras">
+          <span class="autora-chip">Roy</span>
+          <span class="autora-chip">Johnson</span>
+          <span class="autora-chip">Levine</span>
+          <span class="autora-chip">Neuman</span>
+          <span class="autora-chip">Hall</span>
+        </div>
+        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted);">El objetivo es lograr resultados concretos: adaptación, equilibrio o estabilidad en el sistema.</div>
+      </div>
+    </div>
+    <div class="escuela-card es4">
+      <div class="escuela-head">
+        <div class="escuela-question">Promoción de la Salud</div>
+        <div class="escuela-tag">Salud activa</div>
+      </div>
+      <div class="escuela-body">
+        <div class="escuela-autoras">
+          <span class="autora-chip">Moyra Allen</span>
+          <span class="autora-chip">Nola Pender</span>
+        </div>
+        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted);">La enfermería potencia la salud como proceso activo. El paciente aprende y toma decisiones.</div>
+      </div>
+    </div>
+    <div class="escuela-card es5">
+      <div class="escuela-head">
+        <div class="escuela-question">¿A quién va el cuidado?</div>
+        <div class="escuela-tag">Ser Humano Unitario</div>
+      </div>
+      <div class="escuela-body">
+        <div class="escuela-autoras">
+          <span class="autora-chip">Rogers</span>
+          <span class="autora-chip">Parse</span>
+          <span class="autora-chip">Newman</span>
+        </div>
+        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted);">La persona como ser unitario, inseparable del universo. Campos de energía. Visión holística radical.</div>
+      </div>
+    </div>
+    <div class="escuela-card es6">
+      <div class="escuela-head">
+        <div class="escuela-question">Dimensión espiritual y cultural</div>
+        <div class="escuela-tag">Caring</div>
+      </div>
+      <div class="escuela-body">
+        <div class="escuela-autoras">
+          <span class="autora-chip">Watson</span>
+          <span class="autora-chip">Leininger</span>
+        </div>
+        <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--muted);">El cuidado como esencia transpersonal. Diversidad cultural como variable central de la práctica.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MARRINER TOMEY -->
+  <div class="sec">
+    <div class="sec-num">4</div>
+    <div class="sec-info">
+      <div class="sec-label">Clasificación según Marriner Tomey</div>
+      <div class="sec-title">Niveles de abstracción teórica</div>
+    </div>
+  </div>
+  <div class="marriner-grid">
+    <div class="marriner-item m1">
+      <div class="marriner-head">
+        <div class="marriner-level">Nivel I · Mayor abstracción</div>
+        <div class="marriner-type">Filosofías</div>
+      </div>
+      <div class="marriner-body">
+        <div class="marriner-def">Análisis lógico del significado de los fenómenos enfermeros.</div>
+        <div class="marriner-ex">Nightingale · Henderson · Watson · Benner</div>
+      </div>
+    </div>
+    <div class="marriner-item m2">
+      <div class="marriner-head">
+        <div class="marriner-level">Nivel II · Grandes teorías</div>
+        <div class="marriner-type">Modelos Conceptuales</div>
+      </div>
+      <div class="marriner-body">
+        <div class="marriner-def">Grandes teorías pioneras. Amplio alcance y menor concreción.</div>
+        <div class="marriner-ex">Rogers · Orem · King · Roy</div>
+      </div>
+    </div>
+    <div class="marriner-item m3">
+      <div class="marriner-head">
+        <div class="marriner-level">Nivel III</div>
+        <div class="marriner-type">Teorías de Enfermería</div>
+      </div>
+      <div class="marriner-body">
+        <div class="marriner-def">Relaciones concretas para solucionar problemas reales de la práctica.</div>
+        <div class="marriner-ex">Leininger</div>
+      </div>
+    </div>
+    <div class="marriner-item m4">
+      <div class="marriner-head">
+        <div class="marriner-level">Nivel IV · Más concreto</div>
+        <div class="marriner-type">Teorías Intermedias</div>
+      </div>
+      <div class="marriner-body">
+        <div class="marriner-def">Más concretas, responden directamente a la práctica clínica.</div>
+        <div class="marriner-ex">Peplau · Orlando</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. TABLA AUTORAS -->
+  <div class="sec">
+    <div class="sec-num">5</div>
+    <div class="sec-info">
+      <div class="sec-label">Tabla de repaso rápido</div>
+      <div class="sec-title">Principales Autoras, Modelos y Palabras Clave</div>
+    </div>
+  </div>
+  <div class="tabla-wrap">
+    <div class="tabla-header-bar">📋 Autora → Modelo → Palabra clave → Escuela</div>
+    <table class="autoras-tbl">
+      <thead>
+        <tr>
+          <th>Autora</th>
+          <th>Modelo / Teoría</th>
+          <th>Palabra clave</th>
+          <th>Escuela</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tbl-autora">F. Nightingale</td>
+          <td class="tbl-modelo">Modelo del Entorno</td>
+          <td><span class="kw-badge" style="background:#eaf4ee;color:#1a5c38;border:1px solid #a8d8b8;">Higiene · Ventilación</span></td>
+          <td><span style="font-size:0.7rem;color:var(--p1);">Categorización</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">V. Henderson</td>
+          <td class="tbl-modelo">14 Necesidades Básicas</td>
+          <td><span class="kw-badge" style="background:#eaf4ee;color:#1a5c38;border:1px solid #a8d8b8;">Independencia</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s1);">Necesidades</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">D. Orem</td>
+          <td class="tbl-modelo">Déficit de Autocuidado</td>
+          <td><span class="kw-badge" style="background:#eaf4ee;color:#1a5c38;border:1px solid #a8d8b8;">Autocuidado</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s1);">Necesidades</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">H. Peplau</td>
+          <td class="tbl-modelo">Relaciones Interpersonales</td>
+          <td><span class="kw-badge" style="background:#eaf0fa;color:#1a4a7a;border:1px solid #a8c4e8;">Psicodinámica · Roles</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s2);">Interacción</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">I. Orlando</td>
+          <td class="tbl-modelo">Proceso Deliberativo</td>
+          <td><span class="kw-badge" style="background:#eaf0fa;color:#1a4a7a;border:1px solid #a8c4e8;">Necesidad inmediata</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s2);">Interacción</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">C. Roy</td>
+          <td class="tbl-modelo">Modelo de Adaptación</td>
+          <td><span class="kw-badge" style="background:#f4ecea;color:#6a2a1a;border:1px solid #d8b8a8;">Adaptación del sistema</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s3);">Efectos Deseables</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">B. Neuman</td>
+          <td class="tbl-modelo">Modelo de Sistemas</td>
+          <td><span class="kw-badge" style="background:#f4ecea;color:#6a2a1a;border:1px solid #d8b8a8;">Estrés · Líneas de defensa</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s3);">Efectos Deseables</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">D. Johnson</td>
+          <td class="tbl-modelo">Sistema Conductual</td>
+          <td><span class="kw-badge" style="background:#f4ecea;color:#6a2a1a;border:1px solid #d8b8a8;">Equilibrio y afecto</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s3);">Efectos Deseables</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">L. Hall</td>
+          <td class="tbl-modelo">Core, Care, Cure</td>
+          <td><span class="kw-badge" style="background:#f4ecea;color:#6a2a1a;border:1px solid #d8b8a8;">Esencia · Cuidado · Curación</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s3);">Efectos Deseables</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">M. Rogers</td>
+          <td class="tbl-modelo">Seres Humanos Unitarios</td>
+          <td><span class="kw-badge" style="background:#f0eaf4;color:#4a1a6a;border:1px solid #c8a8d8;">Campos de energía</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s5);">Ser Humano Unitario</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">M. Leininger</td>
+          <td class="tbl-modelo">Cuidados Transculturales</td>
+          <td><span class="kw-badge" style="background:#f4eaee;color:#6a1a3a;border:1px solid #d8a8b8;">Cultura · Modelo Sunrise</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s6);">Caring</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">J. Watson</td>
+          <td class="tbl-modelo">Teoría del Caring</td>
+          <td><span class="kw-badge" style="background:#f4eaee;color:#6a1a3a;border:1px solid #d8a8b8;">Cuidado transpersonal</span></td>
+          <td><span style="font-size:0.7rem;color:var(--s6);">Caring</span></td>
+        </tr>
+        <tr>
+          <td class="tbl-autora">P. Benner</td>
+          <td class="tbl-modelo">De principiante a experto</td>
+          <td><span class="kw-badge" style="background:#f4ece8;color:#5a2a10;border:1px solid #d8b8a0;">Adquisición habilidades</span></td>
+          <td><span style="font-size:0.7rem;color:var(--muted);">Filosofía</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 6. CRITERIOS ANÁLISIS -->
+  <div class="sec">
+    <div class="sec-num">6</div>
+    <div class="sec-info">
+      <div class="sec-label">Marriner y Raile</div>
+      <div class="sec-title">Criterios de Análisis Teórico</div>
+    </div>
+  </div>
+  <div class="criterios-grid">
+    <div class="criterio-item">
+      <div class="criterio-icon">💎</div>
+      <div class="criterio-name">Claridad</div>
+      <div class="criterio-desc">Consistencia semántica y sintáctica. Los términos se usan de forma coherente.</div>
+    </div>
+    <div class="criterio-item">
+      <div class="criterio-icon">⚖️</div>
+      <div class="criterio-name">Sencillez</div>
+      <div class="criterio-desc">Mínima cantidad de conceptos para explicar el fenómeno.</div>
+    </div>
+    <div class="criterio-item">
+      <div class="criterio-icon">🌐</div>
+      <div class="criterio-name">Generalidad</div>
+      <div class="criterio-desc">Alcance de las metas. Cuántas situaciones puede abarcar.</div>
+    </div>
+    <div class="criterio-item">
+      <div class="criterio-icon">🔬</div>
+      <div class="criterio-name">Precisión empírica</div>
+      <div class="criterio-desc">Capacidad de ser verificado en la práctica clínica real.</div>
+    </div>
+    <div class="criterio-item">
+      <div class="criterio-icon">⚙️</div>
+      <div class="criterio-name">Consecuencias deducibles</div>
+      <div class="criterio-desc">Utilidad práctica: qué acciones o conclusiones se derivan.</div>
+    </div>
+  </div>
+
+  <!-- 7. PROCESO ENFERMERO -->
+  <div class="sec">
+    <div class="sec-num">7</div>
+    <div class="sec-info">
+      <div class="sec-label">Aplicación práctica</div>
+      <div class="sec-title">El Proceso Enfermero — 5 etapas</div>
+    </div>
+  </div>
+  <div class="pe-bar">
+    <div class="pe-head">📋 PAE — Proceso de Atención Enfermero (Método científico aplicado)</div>
+    <div class="pe-steps">
+      <div class="pe-step">
+        <div class="pe-step-num">V</div>
+        <div class="pe-step-name">Valoración</div>
+        <div class="pe-step-desc">Recogida sistemática de datos sobre la persona.</div>
+      </div>
+      <div class="pe-step">
+        <div class="pe-step-num">D</div>
+        <div class="pe-step-name">Diagnóstico</div>
+        <div class="pe-step-desc">Identificación de problemas reales o potenciales (NANDA).</div>
+      </div>
+      <div class="pe-step">
+        <div class="pe-step-num">P</div>
+        <div class="pe-step-name">Planificación</div>
+        <div class="pe-step-desc">Objetivos (NOC) y selección de intervenciones (NIC).</div>
+      </div>
+      <div class="pe-step">
+        <div class="pe-step-num">E</div>
+        <div class="pe-step-name">Ejecución</div>
+        <div class="pe-step-desc">Puesta en práctica de las intervenciones planificadas.</div>
+      </div>
+      <div class="pe-step">
+        <div class="pe-step-num">E</div>
+        <div class="pe-step-name">Evaluación</div>
+        <div class="pe-step-desc">Comprobación de los resultados obtenidos. Revisión del plan.</div>
+      </div>
+    </div>
+    <div class="pe-models">
+      <div class="pe-models-label">Marcos de valoración:</div>
+      <span class="pe-model-tag">11 Patrones de M. Gordon (recomendado NANDA)</span>
+      <span class="pe-model-tag">14 Necesidades de Henderson</span>
+      <span class="pe-model-tag">Autocuidado de Orem</span>
+    </div>
+  </div>
+
+  <!-- PERLAS DE EXAMEN -->
+  <div class="perlas-wrap">
+    <div class="perlas-head-bar">⭐ Perlas de Examen — Teoría Enfermera INGESA</div>
+    <div class="perlas-body">
+      <div class="perla-row">El <strong>metaparadigma enfermero</strong> tiene 4 elementos: Persona, Entorno, Salud y Cuidado/Enfermería. El más "abstracto" y global de todos los conceptos teóricos.</div>
+      <div class="perla-row"><strong>Kérouac clasifica 3 paradigmas</strong>: Categorización (Nightingale) → Integración (Henderson, Orem) → Transformación (Rogers, Watson). Siempre en ese orden evolutivo.</div>
+      <div class="perla-row"><strong>Henderson = 14 necesidades + independencia</strong>. Orem = déficit de autocuidado. Las dos están en la escuela de Necesidades. Son las más preguntadas.</div>
+      <div class="perla-row"><strong>Peplau = Psicodinámica + 4 fases + 6 roles</strong>. Única en vincular enfermería con psiquiatría. Escuela de Interacción. Teoría intermedia de Marriner.</div>
+      <div class="perla-row"><strong>Roy = Adaptación</strong>. Neuman = Líneas de defensa + estrés. Johnson = Sistema conductual. Las tres están en la Escuela de Efectos Deseables.</div>
+      <div class="perla-row"><strong>Leininger = Transcultural + Modelo Sunrise</strong>. Watson = Caring transpersonal. Las dos en la escuela del Caring (Paradigma Transformación).</div>
+      <div class="perla-row"><strong>Hall = Core + Care + Cure</strong> (esencia de la persona, cuidado enfermero, curación médica). Las tres "C" definen su modelo.</div>
+      <div class="perla-row"><strong>Marriner clasifica en 4 niveles</strong>: Filosofías → Modelos conceptuales → Teorías → Teorías intermedias. De mayor a menor abstracción.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

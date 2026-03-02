@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inmunología · Vacunas · Hepatitis B — INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --header-bg: #0d2137;
+    --accent: #2980b9;
+    --accent2: #1a6090;
+    --accent3: #27ae60;
+    --accent4: #e67e22;
+    --card-bg: #ffffff;
+    --card-border: #d4e3f0;
+    --text: #1e2d3e;
+    --text-muted: #4a6080;
+    --text-dim: #8090a8;
+    --pearl-bg: #fffce6;
+    --pearl-border: #d4a010;
+    --danger-bg: #fff0f0;
+    --danger-border: #e05555;
+    --danger-text: #8b1a1a;
+    --table-stripe: rgba(41,128,185,0.05);
+    --sep: #d4e3f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: 15px; line-height: 1.6; }
+
+  .header { background: var(--header-bg); border-bottom: 3px solid var(--accent3); padding: 40px 32px 32px; position: relative; overflow: hidden; }
+  .header::before { content: '🧬'; position: absolute; right: 60px; top: 50%; transform: translateY(-50%); font-size: 120px; opacity: 0.06; pointer-events: none; }
+  .header-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .pill { background: rgba(41,128,185,0.2); border: 1px solid rgba(41,128,185,0.35); color: #80c0f0; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+  .pill.green { background: rgba(39,174,96,0.2); border-color: rgba(39,174,96,0.35); color: #80d8a8; }
+  .pill.orange { background: rgba(230,126,34,0.2); border-color: rgba(230,126,34,0.35); color: #f0b878; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+  .header h1 span { color: #80d8a8; }
+  .header .subtitle { font-size: 16px; color: #6090b8; font-weight: 300; }
+  .header .meta { margin-top: 16px; display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-item { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #507090; }
+  .meta-item strong { color: #80c0f0; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  .section { margin-bottom: 48px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--sep); }
+  .sec-num { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 900; color: rgba(41,128,185,0.1); line-height: 1; min-width: 60px; text-align: right; }
+  .section-title-wrap h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--accent2); }
+  .section-title-wrap p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  /* IG TABLE */
+  .ig-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .ig-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; text-align: center; transition: box-shadow 0.2s; }
+  .ig-card:hover { box-shadow: 0 4px 16px rgba(41,128,185,0.12); }
+  .ig-letter { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+  .ig-g .ig-letter { color: #2980b9; }
+  .ig-m .ig-letter { color: #e74c3c; }
+  .ig-a .ig-letter { color: #27ae60; }
+  .ig-e .ig-letter { color: #f39c12; }
+  .ig-d .ig-letter { color: #8e44ad; }
+  .ig-percent { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .ig-g .ig-percent { color: #1a5a8a; }
+  .ig-m .ig-percent { color: #a03030; }
+  .ig-a .ig-percent { color: #1a7a3a; }
+  .ig-e .ig-percent { color: #b06010; }
+  .ig-d .ig-percent { color: #602080; }
+  .ig-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; display: inline-block; }
+  .ig-g .ig-badge { background: #e8f4ff; color: #1a5a8a; border: 1px solid #b0d0f0; }
+  .ig-m .ig-badge { background: #fff0f0; color: #a03030; border: 1px solid #f0b0b0; }
+  .ig-a .ig-badge { background: #f0fff4; color: #1a7a3a; border: 1px solid #a0d8b0; }
+  .ig-e .ig-badge { background: #fffbf0; color: #b06010; border: 1px solid #f0d080; }
+  .ig-d .ig-badge { background: #f8f0ff; color: #602080; border: 1px solid #d0a0f0; }
+  .ig-features { text-align: left; margin-top: 10px; }
+  .ig-feat { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .ig-feat::before { content: '• '; color: var(--accent); }
+  .ig-feat strong { color: var(--text); }
+
+  /* IMMUNITY TABLE */
+  .imm-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--card-border); }
+  .imm-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .imm-table thead th { background: #e8f0f8; color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; padding: 9px 12px; border-bottom: 2px solid var(--card-border); text-align: left; }
+  .imm-table tbody td { padding: 10px 12px; border-bottom: 1px solid #e8f0f8; vertical-align: top; }
+  .imm-table tbody tr:nth-child(odd) td { background: rgba(41,128,185,0.04); }
+  .imm-table .type { font-weight: 700; color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .imm-table .subtype { font-weight: 700; color: var(--text); }
+  .imm-table .origin { background: rgba(39,174,96,0.1); color: #145a32; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  .imm-table .example { font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+  /* VACCINE TABLE */
+  .vac-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--card-border); }
+  .vac-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .vac-table thead th { background: #e8f0f8; color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; padding: 9px 12px; border-bottom: 2px solid var(--card-border); text-align: left; }
+  .vac-table tbody td { padding: 9px 12px; border-bottom: 1px solid #e8f0f8; vertical-align: top; line-height: 1.5; }
+  .vac-table tbody tr:nth-child(odd) td { background: rgba(41,128,185,0.04); }
+  .vac-badge { display: inline-block; font-size: 11px; font-family: 'JetBrains Mono', monospace; padding: 2px 8px; border-radius: 4px; margin: 1px; }
+  .vb-viva { background: #e8fff0; color: #145a32; border: 1px solid #80d0a0; }
+  .vb-inact { background: #e8f0ff; color: #1a3a7a; border: 1px solid #80a8e0; }
+  .vb-ci { background: #fff0f0; color: #8b1a1a; border: 1px solid #e08080; }
+
+  /* HBV TABLE */
+  .hbv-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--card-border); }
+  .hbv-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .hbv-table thead th { background: var(--header-bg); color: #80c0f0; font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; border-bottom: 2px solid var(--accent); text-align: center; }
+  .hbv-table tbody td { padding: 12px 14px; border-bottom: 1px solid #e8f0f8; vertical-align: middle; text-align: center; font-size: 14px; }
+  .hbv-table tbody tr:nth-child(odd) td { background: rgba(41,128,185,0.04); }
+  .hbv-table .situation { font-weight: 700; color: var(--accent2); text-align: left; font-size: 14px; }
+  .pos { color: #c04020; font-weight: 900; font-size: 18px; font-family: 'JetBrains Mono', monospace; }
+  .neg { color: #1a7a3a; font-weight: 900; font-size: 18px; font-family: 'JetBrains Mono', monospace; }
+  .hbv-row-vac { background: rgba(39,174,96,0.06) !important; }
+  .hbv-row-cured { background: rgba(41,128,185,0.06) !important; }
+  .hbv-row-chronic { background: rgba(224,85,85,0.06) !important; }
+  .hbv-row-window { background: rgba(230,126,34,0.06) !important; }
+
+  /* PROTOCOL STEPS */
+  .proto-steps { }
+  .proto-step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 14px; }
+  .ps-num { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ps-num.green { background: #27ae60; }
+  .ps-num.orange { background: #e67e22; }
+  .ps-content { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px 16px; }
+  .ps-title { font-weight: 700; color: var(--text); margin-bottom: 4px; font-size: 14px; }
+  .ps-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .ps-pearl { font-size: 12px; color: #8a5010; margin-top:6px; background: rgba(224,160,30,0.1); padding: 4px 8px; border-radius: 4px; display: block; }
+  .ps-pearl::before { content: '★ '; }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--accent2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+  .card h3 span { color: var(--accent4); }
+  .row-item { display: flex; gap: 10px; margin-bottom: 8px; align-items: baseline; font-size: 13px; }
+  .rl { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); min-width: 110px; flex-shrink: 0; }
+  .rv strong { color: var(--accent2); }
+  .rv .red { color: #8b1a1a; font-weight: 700; }
+
+  /* MNEMO */
+  .mnemo-box { background: #f0f8ff; border: 1px solid #b0d0f0; border-radius: 10px; padding: 16px 20px; }
+  .mnemo-box h4 { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .mnemo-items { display: flex; gap: 8px; flex-wrap: wrap; }
+  .mnemo-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 14px; text-align: center; min-width: 80px; }
+  .mnemo-letter { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--accent); line-height: 1; }
+  .mnemo-word { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+  /* SECTION DIVIDER */
+  .section-divider { background: var(--header-bg); color: #80c0f0; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; padding: 14px 24px; margin: 40px 0 32px; border-radius: 10px; border-left: 5px solid var(--accent3); }
+
+  /* ALERT / KEY */
+  .alert-box { border-left: 4px solid var(--danger-border); background: var(--danger-bg); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 13px; color: var(--danger-text); }
+  .alert-box::before { content: '⚠ '; font-weight: 700; }
+  .key-box { background: #f0f8ff; border: 1px solid #b0d0f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--accent2); }
+  .key-box::before { content: '🔑 '; }
+
+  /* PEARL GRID */
+  .pearl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pearl-item { background: var(--pearl-bg); border: 1px solid var(--pearl-border); border-radius: 8px; padding: 14px 16px; color: #3a3010; font-size: 13.5px; line-height: 1.5; }
+  .pearl-item::before { content: '★ '; color: #b08010; font-weight: 700; }
+  .pearl-item strong { color: #7a4a00; }
+
+  .sep { height: 1px; background: linear-gradient(to right, transparent, var(--sep), transparent); margin: 32px 0; }
+  .footer { background: var(--header-bg); border-top: 1px solid rgba(41,128,185,0.3); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #507090; font-family: 'JetBrains Mono', monospace; }
+  .footer strong { color: #80c0f0; }
+
+  @media (max-width: 800px) {
+    .header h1 { font-size: 26px; }
+    .ig-grid { grid-template-columns: 1fr 1fr; }
+    .two-col, .pearl-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-pills">
+    <span class="pill">Inmunología</span>
+    <span class="pill green">Vacunología</span>
+    <span class="pill orange">Hepatitis B</span>
+    <span class="pill green">OPE INGESA 2026</span>
+  </div>
+  <h1>Inmunología · Vacunas · <span>Hepatitis B</span></h1>
+  <div class="subtitle">Inmunoglobulinas · Tipos de inmunidad · Serología Hepatitis B · Protocolo neonatal</div>
+  <div class="meta">
+    <span class="meta-item"><strong>Fuentes:</strong> Manual Vacunaciones MinSanidad España · AEP · OMS</span>
+    <span class="meta-item"><strong>Bloque:</strong> Microbiología / Salud Pública / AP</span>
+    <span class="meta-item"><strong>Nº:</strong> 53</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- S1: INMUNOGLOBULINAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">01</div>
+      <div class="section-title-wrap">
+        <h2>Inmunoglobulinas (Ig) — Características Clave</h2>
+        <p>Cada Ig tiene una "etiqueta" que define la pregunta — orden GAMED de mayor a menor concentración sérica</p>
+      </div>
+    </div>
+
+    <div class="ig-grid">
+      <div class="ig-card ig-g">
+        <div class="ig-letter">G</div>
+        <div class="ig-percent">~80%</div>
+        <div class="ig-badge">La que Pasa</div>
+        <div class="ig-features">
+          <div class="ig-feat">Más abundante en suero</div>
+          <div class="ig-feat"><strong>Atraviesa la placenta</strong> → inmunidad pasiva natural neonatal</div>
+          <div class="ig-feat">Indica memoria (infección pasada o vacunación)</div>
+          <div class="ig-feat">4 subclases (IgG1–4)</div>
+          <div class="ig-feat">Monómero</div>
+        </div>
+      </div>
+      <div class="ig-card ig-m">
+        <div class="ig-letter">M</div>
+        <div class="ig-percent">~10%</div>
+        <div class="ig-badge">La Primera</div>
+        <div class="ig-features">
+          <div class="ig-feat"><strong>Primera en aparecer</strong> ante infección aguda</div>
+          <div class="ig-feat">IgM(+) = infección activa/reciente</div>
+          <div class="ig-feat"><strong>Pentámero</strong> — mayor peso molecular</div>
+          <div class="ig-feat">No atraviesa placenta (demasiado grande)</div>
+          <div class="ig-feat">Activa el complemento eficientemente</div>
+        </div>
+      </div>
+      <div class="ig-card ig-a">
+        <div class="ig-letter">A</div>
+        <div class="ig-percent">~15%</div>
+        <div class="ig-badge">Las Secreciones</div>
+        <div class="ig-features">
+          <div class="ig-feat"><strong>Saliva, lágrimas, leche materna/calostro</strong></div>
+          <div class="ig-feat">Protege mucosas (barrera de entrada)</div>
+          <div class="ig-feat">Dímero en secreciones</div>
+          <div class="ig-feat">La del lactante: se recibe por <strong>lactancia</strong></div>
+          <div class="ig-feat">Monómero en suero</div>
+        </div>
+      </div>
+      <div class="ig-card ig-e">
+        <div class="ig-letter">E</div>
+        <div class="ig-percent">&lt;0,01%</div>
+        <div class="ig-badge">La Alérgica</div>
+        <div class="ig-features">
+          <div class="ig-feat"><strong>↑ en procesos alérgicos</strong> (asma, rinitis, urticaria)</div>
+          <div class="ig-feat"><strong>↑ en infecciones por helmintos</strong> (parásitos)</div>
+          <div class="ig-feat">Se une a mastocitos y basófilos</div>
+          <div class="ig-feat">Concentración sérica más baja</div>
+          <div class="ig-feat">Provoca desgranulación de mastocitos</div>
+        </div>
+      </div>
+      <div class="ig-card ig-d">
+        <div class="ig-letter">D</div>
+        <div class="ig-percent">&lt;1%</div>
+        <div class="ig-badge">El Receptor</div>
+        <div class="ig-features">
+          <div class="ig-feat">Función poco conocida</div>
+          <div class="ig-feat"><strong>Receptor de antígenos</strong> en superficie de linfocitos B maduros</div>
+          <div class="ig-feat">Raramente preguntada individualmente</div>
+          <div class="ig-feat">Monómero</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mnemo-box" style="margin-top:20px;">
+      <h4>Mnemotecnia: Orden GAMED (de mayor a menor concentración sérica)</h4>
+      <div class="mnemo-items">
+        <div class="mnemo-item"><div class="mnemo-letter" style="color:#2980b9;">G</div><div class="mnemo-word">Grande en cantidad</div></div>
+        <div class="mnemo-item"><div class="mnemo-letter" style="color:#27ae60;">A</div><div class="mnemo-word">Abundante en mucosas</div></div>
+        <div class="mnemo-item"><div class="mnemo-letter" style="color:#e74c3c;">M</div><div class="mnemo-word">Muy temprana</div></div>
+        <div class="mnemo-item"><div class="mnemo-letter" style="color:#f39c12;">E</div><div class="mnemo-word">Espanto/Alergia</div></div>
+        <div class="mnemo-item"><div class="mnemo-letter" style="color:#8e44ad;">D</div><div class="mnemo-word">Desconocida/Dif.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S2: TIPOS DE INMUNIDAD -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">02</div>
+      <div class="section-title-wrap">
+        <h2>Tipos de Inmunidad Adquirida</h2>
+        <p>La tabla que más confunde en examen: activa vs pasiva, natural vs artificial</p>
+      </div>
+    </div>
+
+    <div class="imm-table-wrap">
+      <table class="imm-table">
+        <thead>
+          <tr>
+            <th>Tipo Principal</th>
+            <th>Subtipo</th>
+            <th>Origen (La Clave)</th>
+            <th>¿Genera Memoria?</th>
+            <th>Duración</th>
+            <th>Ejemplo Claro de Examen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="type" rowspan="2">ACTIVA<br><small style="color:var(--text-muted);font-family:sans-serif;font-size:11px;">El cuerpo fabrica sus propios Ac</small></td>
+            <td class="subtype">Natural</td>
+            <td><span class="origin">Pasar la enfermedad</span></td>
+            <td style="color:#1a7a3a;font-weight:700;">✔ Sí (duradera)</td>
+            <td>Larga (a veces de por vida)</td>
+            <td class="example">Inmunidad tras pasar la varicela o sarampión</td>
+          </tr>
+          <tr>
+            <td class="subtype">Artificial</td>
+            <td><span class="origin">Vacunas</span></td>
+            <td style="color:#1a7a3a;font-weight:700;">✔ Sí (duradera)</td>
+            <td>Larga (con refuerzos)</td>
+            <td class="example">Vacunación del sarampión, triple vírica, hepatitis B</td>
+          </tr>
+          <tr>
+            <td class="type" rowspan="2">PASIVA<br><small style="color:var(--text-muted);font-family:sans-serif;font-size:11px;">Se reciben Ac ya fabricados</small></td>
+            <td class="subtype">Natural</td>
+            <td><span class="origin">Placenta (IgG) / Lactancia (IgA)</span></td>
+            <td style="color:#e05555;font-weight:700;">✘ No</td>
+            <td>Corta (semanas-meses)</td>
+            <td class="example">IgG materna al neonato por placenta. IgA por lactancia</td>
+          </tr>
+          <tr>
+            <td class="subtype">Artificial</td>
+            <td><span class="origin">Inmunoglobulinas / Sueros</span></td>
+            <td style="color:#e05555;font-weight:700;">✘ No</td>
+            <td>Corta (semanas)</td>
+            <td class="example">Gammaglobulina anti-HBs tras pinchazo accidental</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="key-box" style="margin-top:14px;">Regla fundamental: Solo la inmunidad <strong>ACTIVA</strong> genera memoria inmunológica. La pasiva es inmediata pero temporal (se degradan los anticuerpos prestados)</div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S3: VACUNAS VIVAS vs INACTIVADAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">03</div>
+      <div class="section-title-wrap">
+        <h2>Vacunas Vivas Atenuadas vs. Inactivadas</h2>
+        <p>Una de las clasificaciones más preguntadas en OPEs de enfermería</p>
+      </div>
+    </div>
+
+    <div class="vac-table-wrap">
+      <table class="vac-table">
+        <thead>
+          <tr>
+            <th>Característica</th>
+            <th>Vivas Atenuadas</th>
+            <th>Inactivadas (Muertas / Subunidades)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--accent2);">Microorganismo</td>
+            <td>Patógeno vivo de baja virulencia</td>
+            <td>Patógeno muerto, fragmentos o proteínas</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--accent2);">Respuesta inmune</td>
+            <td>Muy potente. Similar a infección natural. Suele requerir menos dosis</td>
+            <td>Más débil. Generalmente necesita refuerzos o adyuvantes</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--accent2);">Contraindicaciones</td>
+            <td><span class="vb-ci">Embarazo</span> <span class="vb-ci">Inmunodepresión</span> <span class="vb-ci">Inmunodeficiencia grave</span></td>
+            <td>Pueden administrarse en inmunodeprimidos y embarazadas (valorar)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--accent2);">Ejemplos vacunas vivas</td>
+            <td>
+              <span class="vb-viva">Triple Vírica (SRP)</span>
+              <span class="vb-viva">Varicela</span>
+              <span class="vb-viva">Fiebre Amarilla</span>
+              <span class="vb-viva">Rotavirus (oral)</span>
+              <span class="vb-viva">Polio oral Sabin (VPO)</span>
+              <span class="vb-viva">BCG</span>
+            </td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--accent2);">Ejemplos inactivadas</td>
+            <td>—</td>
+            <td>
+              <span class="vb-inact">Gripe (parenteral)</span>
+              <span class="vb-inact">Hepatitis A</span>
+              <span class="vb-inact">Hepatitis B</span>
+              <span class="vb-inact">Polio Salk (VPI)</span>
+              <span class="vb-inact">Tosferina (acelular)</span>
+              <span class="vb-inact">Neumococo</span>
+              <span class="vb-inact">Meningococo</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col" style="margin-top:16px;">
+      <div class="card">
+        <h3>Cadena de Frío — <span>Regla Obligatoria</span></h3>
+        <div class="row-item"><span class="rl">Temperatura:</span><span class="rv">Conservar entre <strong>+2°C y +8°C</strong></span></div>
+        <div class="row-item"><span class="rl">Congelación:</span><span class="rv"><span class="red">NUNCA congelar</span> — especialmente vacunas con adyuvantes de aluminio</span></div>
+        <div class="row-item"><span class="rl">Luz:</span><span class="rv">Proteger de la luz (fotosensibles)</span></div>
+        <div class="row-item"><span class="rl">Control:</span><span class="rv">Registro de temperaturas mínima y máxima diario</span></div>
+        <div class="alert-box" style="margin-top:10px;">La congelación destruye las vacunas adyuvadas (precipita el aluminio). La temperatura &gt;8°C las inactiva</div>
+      </div>
+      <div class="card">
+        <h3>Vacunas CI en <span>Embarazo e Inmunodepresión</span></h3>
+        <div class="key-box">Contraindicadas en embarazo e inmunodeprimidos: <strong>todas las vacunas vivas</strong> (Triple Vírica, Varicela, Fiebre Amarilla, BCG...)</div>
+        <div class="row-item"><span class="rl">Permitidas embarazo:</span><span class="rv">Gripe (inactivada), Tdpa (tosferina adultos), Hepatitis B si riesgo</span></div>
+        <div class="row-item"><span class="rl">Triple vírica:</span><span class="rv">Evitar embarazo durante <strong>28 días</strong> tras la vacuna</span></div>
+        <div class="row-item"><span class="rl">Varicela:</span><span class="rv">Evitar embarazo durante <strong>28 días</strong> tras la vacuna</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S4: SEROLOGÍA HEPATITIS B -->
+  <div class="section-divider">PARTE B — Serología de Hepatitis B</div>
+
+  <div class="section" style="margin-top:0;">
+    <div class="section-header">
+      <div class="sec-num">04</div>
+      <div class="section-title-wrap">
+        <h2>Marcadores Serológicos de Hepatitis B</h2>
+        <p>Los 3 escenarios que siempre aparecen en examen — interpretar sin fallar</p>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px;">
+      <div class="card">
+        <h3>Los 3 Marcadores Fundamentales</h3>
+        <div class="row-item"><span class="rl">HBsAg:</span><span class="rv"><strong>Antígeno de Superficie</strong> — el virus está presente. Infección activa</span></div>
+        <div class="row-item"><span class="rl">Anti-HBs:</span><span class="rv"><strong>Anticuerpo de Superficie</strong> — indica <strong>protección</strong> (vacunación o curación)</span></div>
+        <div class="row-item"><span class="rl">Anti-HBc:</span><span class="rv"><strong>Anticuerpo del Core/Núcleo</strong> — indica <strong>contacto real con el virus</strong>. "Cicatriz biológica"</span></div>
+        <div class="alert-box" style="margin-top:12px;">La vacuna de hepatitis B solo contiene <strong>HBsAg recombinante</strong>. Un vacunado solo tendrá Anti-HBs(+). <strong>NUNCA Anti-HBc(+)</strong> si solo fue vacunado (no infectado)</div>
+      </div>
+      <div class="card">
+        <h3>Anti-HBc IgM vs IgG</h3>
+        <div class="row-item"><span class="rl">Anti-HBc IgM:</span><span class="rv">Infección <strong>aguda/reciente</strong> — aparece primero</span></div>
+        <div class="row-item"><span class="rl">Anti-HBc IgG:</span><span class="rv">Infección <strong>pasada o crónica</strong></span></div>
+        <div class="row-item"><span class="rl">Título protección:</span><span class="rv">Anti-HBs &gt; <strong>10 mUI/mL</strong> → inmunización correcta</span></div>
+        <div class="key-box" style="margin-top:12px;"><strong>Período ventana:</strong> HBsAg ya desaparece pero Anti-HBs aún no ha aparecido. En esta ventana, el único marcador positivo es <strong>Anti-HBc IgM</strong></div>
+      </div>
+    </div>
+
+    <div class="hbv-table-wrap">
+      <table class="hbv-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;">Situación Clínica</th>
+            <th>HBsAg</th>
+            <th>Anti-HBc (Total)</th>
+            <th>Anti-HBs</th>
+            <th style="text-align:left;">Interpretación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hbv-row-vac">
+            <td class="situation">Vacunado (sin infección)</td>
+            <td><span class="neg">−</span></td>
+            <td><span class="neg">−</span></td>
+            <td><span class="pos">+</span></td>
+            <td style="font-size:13px;text-align:left;color:var(--text-muted);">Solo Anti-HBs. Nunca Anti-HBc en el vacunado sin infección</td>
+          </tr>
+          <tr class="hbv-row-cured">
+            <td class="situation">Infección Pasada (Curado)</td>
+            <td><span class="neg">−</span></td>
+            <td><span class="pos">+</span></td>
+            <td><span class="pos">+</span></td>
+            <td style="font-size:13px;text-align:left;color:var(--text-muted);">Anti-HBc confirma que el virus entró en el cuerpo. Anti-HBs indica curación</td>
+          </tr>
+          <tr class="hbv-row-chronic">
+            <td class="situation">Infección Crónica (Portador)</td>
+            <td><span class="pos">+</span></td>
+            <td><span class="pos">+</span></td>
+            <td><span class="neg">−</span></td>
+            <td style="font-size:13px;text-align:left;color:var(--text-muted);">HBsAg(+) más de 6 meses = infección crónica. No ha habido seroconversión</td>
+          </tr>
+          <tr class="hbv-row-window">
+            <td class="situation">Período Ventana</td>
+            <td><span class="neg">−</span></td>
+            <td><span class="pos">+ (IgM)</span></td>
+            <td><span class="neg">−</span></td>
+            <td style="font-size:13px;text-align:left;color:var(--text-muted);">HBsAg desaparece antes de que Anti-HBs aparezca. Solo Anti-HBc IgM es positivo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S5: PROTOCOLO NEONATAL HBV -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">05</div>
+      <div class="section-title-wrap">
+        <h2>Protocolo Neonatal — Madre HBsAg(+)</h2>
+        <p>Inmunoprofilaxis post-exposición en las primeras horas de vida</p>
+      </div>
+    </div>
+
+    <div class="proto-steps">
+      <div class="proto-step">
+        <div class="ps-num">1</div>
+        <div class="ps-content">
+          <div class="ps-title">Dentro de las primeras 12 horas de vida — Doble actuación simultánea</div>
+          <div class="ps-text"><strong>Inmunoglobulina específica anti-HBs (HBIG)</strong>: inyección IM (muslo). Protección inmediata y temporal. Actúa como "escudo de choque" mientras el neonato responde.<br>
+          <strong>Primera dosis de vacuna hepatitis B</strong>: inyección IM contralateral. Inicia la producción de anticuerpos a largo plazo.</div>
+          <span class="ps-pearl">Ambas en sitios de inyección distintos (muslos diferentes). Administración simultánea no interfiere en la eficacia</span>
+        </div>
+      </div>
+      <div class="proto-step">
+        <div class="ps-num green">2</div>
+        <div class="ps-content">
+          <div class="ps-title">Higiene inmediata — Nada más nacer</div>
+          <div class="ps-text">Baño del recién nacido para eliminar restos de sangre y fluidos maternos (reducir carga viral). Antes de cualquier procedimiento invasivo.</div>
+        </div>
+      </div>
+      <div class="proto-step">
+        <div class="ps-num">3</div>
+        <div class="ps-content">
+          <div class="ps-title">Completar pauta de vacunación</div>
+          <div class="ps-text">Dosis posteriores según calendario vacunal (habitualmente a los 2 meses y 6 meses). Completar la serie de 3 dosis.</div>
+        </div>
+      </div>
+      <div class="proto-step">
+        <div class="ps-num orange">4</div>
+        <div class="ps-content">
+          <div class="ps-title">Serología de control — Entre los 9 y 15 meses de edad</div>
+          <div class="ps-text">Analítica para comprobar: <strong>(1)</strong> Que el neonato NO se ha infectado (HBsAg negativo) y <strong>(2)</strong> que tiene niveles protectores de Anti-HBs (&gt;10 mUI/mL)</div>
+          <span class="ps-pearl">No realizar la serología antes de los 9 meses para evitar falsos positivos por la HBIG recibida</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:20px;">
+      <div class="card">
+        <h3>¿Puede lactar la madre con HBV?</h3>
+        <div class="key-box">La lactancia materna <strong>NO está contraindicada</strong> si el neonato ha recibido correctamente la HBIG y la vacuna al nacer</div>
+        <div class="row-item"><span class="rl">Transmisión leche:</span><span class="rv">El virus no se transmite por la leche materna en condiciones normales</span></div>
+        <div class="row-item"><span class="rl">Precaución:</span><span class="rv">Vigilar grietas o sangrado en el pezón (el virus sí está en sangre)</span></div>
+      </div>
+      <div class="card">
+        <h3>¿Es necesaria la <span>cesárea</span>?</h3>
+        <div class="alert-box">La cesárea <strong>NO reduce el riesgo de transmisión vertical</strong> de hepatitis B respecto al parto vaginal</div>
+        <div class="row-item"><span class="rl">Evidencia:</span><span class="rv">El protocolo de HBIG + vacuna es suficiente para prevenir la transmisión. El modo de parto no modifica el riesgo si el protocolo se cumple</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S6: PERLAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">06</div>
+      <div class="section-title-wrap">
+        <h2>⭐ Perlas Tipo Examen INGESA</h2>
+        <p>Las asociaciones y trampas más frecuentes sobre inmunología y vacunas</p>
+      </div>
+    </div>
+    <div class="pearl-grid">
+      <div class="pearl-item">IgG: la más abundante (~80%). <strong>Única que atraviesa la placenta</strong> → inmunidad pasiva natural del neonato</div>
+      <div class="pearl-item">IgM: la más grande (pentámero). <strong>Primera en aparecer</strong> en infección aguda. IgM(+) = infección activa/reciente</div>
+      <div class="pearl-item">IgA: estrella de las <strong>secreciones</strong> (saliva, lágrimas, calostro). La que recibe el lactante por la lactancia materna</div>
+      <div class="pearl-item">IgE: ↑ en <strong>alergias</strong> y en infecciones por <strong>parásitos (helmintos)</strong>. Se une a mastocitos y basófilos → liberación histamina</div>
+      <div class="pearl-item">Solo la inmunidad <strong>ACTIVA</strong> genera memoria inmunológica. La inmunidad pasiva es rápida pero temporal (no genera memoria)</div>
+      <div class="pearl-item">Vacunas vivas atenuadas: <strong>CI en embarazadas e inmunodeprimidos</strong>. Recordar: Triple Vírica, Varicela, BCG, Rotavirus, Fiebre Amarilla, Sabin (VPO)</div>
+      <div class="pearl-item">Cadena de frío: conservar entre <strong>+2°C y +8°C</strong>. <strong>Nunca congelar</strong> (destruye las vacunas adyuvadas con aluminio)</div>
+      <div class="pearl-item"><strong>Vacunado contra HBV ≠ infectado:</strong> el vacunado solo tiene Anti-HBs(+). Tener Anti-HBc(+) indica que el virus entró en el organismo</div>
+      <div class="pearl-item"><strong>Período ventana hepatitis B:</strong> HBsAg(−) + Anti-HBs(−) + <strong>Anti-HBc IgM(+)</strong>. Es el único marcador positivo en esa fase</div>
+      <div class="pearl-item">Título protector de Anti-HBs: <strong>&gt;10 mUI/mL</strong>. Por debajo → revacunar</div>
+      <div class="pearl-item">Protocolo neonato de madre HBsAg(+): <strong>HBIG + vacuna hepatitis B en las primeras 12 horas</strong>. No se precisa cesárea</div>
+      <div class="pearl-item">Serología de control del neonato: entre <strong>9 y 15 meses</strong> (no antes: interfiere la HBIG). Objetivo: HBsAg(−) + Anti-HBs &gt;10 mUI/mL</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span><strong>CÁPSULAS DE REPASO INGESA</strong> — Recurso Nº 53</span>
+  <span>Inmunología · Vacunas · Hepatitis B · Manual Vacunaciones MinSanidad · AEP</span>
+  <span>dina15sj-bot.github.io/CAPSULAS-REPASO</span>
+</div>
+</body>
+</html>

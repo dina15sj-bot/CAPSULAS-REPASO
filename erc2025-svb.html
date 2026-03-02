@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCP / ERC 2025 — INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1e2e;
+    --header-bg: #141828;
+    --accent: #5b9cf6;
+    --accent2: #a3c4fd;
+    --accent3: #38d9a9;
+    --danger: #e05555;
+    --warn: #e0a030;
+    --card-bg: #1f2540;
+    --card-border: #2d3556;
+    --text: #dce6f5;
+    --text-muted: #8fa8d0;
+    --text-dim: #506080;
+    --pearl-bg: #fffce6;
+    --pearl-border: #d4a010;
+    --high: #c04020;
+    --low: #1a7a3a;
+    --normal: #1a5a8a;
+    --table-stripe: rgba(91,156,246,0.06);
+    --table-stripe2: rgba(91,156,246,0.02);
+    --sep: #2d3556;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: 15px; line-height: 1.6; }
+
+  /* HEADER */
+  .header {
+    background: var(--header-bg);
+    border-bottom: 3px solid var(--accent);
+    padding: 40px 32px 32px;
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: '♥';
+    position: absolute; right: 50px; top: 50%; transform: translateY(-50%);
+    font-size: 180px; opacity: 0.04; color: var(--accent); pointer-events: none;
+  }
+  .header-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .pill { background: rgba(91,156,246,0.15); border: 1px solid rgba(91,156,246,0.3); color: var(--accent); padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+  .pill.red { background: rgba(224,85,85,0.15); border-color: rgba(224,85,85,0.3); color: #e08080; }
+  .pill.green { background: rgba(56,217,169,0.15); border-color: rgba(56,217,169,0.3); color: #38d9a9; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { font-size: 16px; color: var(--text-muted); font-weight: 300; }
+  .header .meta { margin-top: 16px; display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-item { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); }
+  .meta-item strong { color: var(--accent); }
+
+  /* LAYOUT */
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+  /* SECTION */
+  .section { margin-bottom: 48px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--sep); }
+  .sec-num { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 900; color: rgba(91,156,246,0.12); line-height: 1; min-width: 60px; text-align: right; }
+  .section-title-wrap h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1.2; }
+  .section-title-wrap p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  /* CADENA SUPERVIVENCIA */
+  .chain { display: flex; align-items: stretch; gap: 0; margin: 24px 0; overflow-x: auto; }
+  .chain-link {
+    flex: 1; min-width: 180px;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    padding: 18px 16px; text-align: center; position: relative;
+  }
+  .chain-link:first-child { border-radius: 10px 0 0 10px; }
+  .chain-link:last-child { border-radius: 0 10px 10px 0; }
+  .chain-link::after {
+    content: '›';
+    position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+    font-size: 28px; color: var(--accent); z-index: 2;
+  }
+  .chain-link:last-child::after { display: none; }
+  .chain-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); margin-bottom: 6px; }
+  .chain-icon { font-size: 28px; margin-bottom: 8px; }
+  .chain-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .chain-text { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+  /* DATA PILLS GRID */
+  .epi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .epi-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; text-align: center; }
+  .epi-val { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--accent2); line-height: 1; margin-bottom: 6px; }
+  .epi-label { font-size: 12px; color: var(--text-muted); line-height: 1.3; }
+  .epi-card.warn .epi-val { color: var(--warn); }
+  .epi-card.danger .epi-val { color: var(--danger); }
+  .epi-card.green .epi-val { color: var(--accent3); }
+
+  /* ALGORITHM BOX */
+  .algo-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; }
+  .algo-header { background: rgba(91,156,246,0.12); padding: 12px 20px; border-bottom: 1px solid var(--card-border); }
+  .algo-header h3 { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: #fff; }
+  .algo-header p { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .algo-steps { padding: 20px; }
+  .algo-step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+  .algo-step:last-child { margin-bottom: 0; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-num.red { background: var(--danger); }
+  .step-num.green { background: #1a8a4a; }
+  .step-content { flex: 1; }
+  .step-title { font-weight: 700; color: #fff; font-size: 14px; margin-bottom: 3px; }
+  .step-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .step-pearl { display: inline-block; background: rgba(224,160,48,0.15); border: 1px solid rgba(224,160,48,0.3); color: #e0b860; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
+
+  /* COMPARISON GRID */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .compare-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; }
+  .compare-head { padding: 14px 18px; border-bottom: 1px solid var(--card-border); }
+  .compare-head h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff; }
+  .compare-head .sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .compare-body { padding: 16px 18px; }
+  .cr { display: flex; gap: 10px; margin-bottom: 10px; align-items: baseline; }
+  .cr-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); min-width: 130px; flex-shrink: 0; }
+  .cr-val { font-size: 13.5px; color: var(--text); }
+  .cr-val strong { color: var(--accent2); }
+  .cr-val .alert { color: var(--danger); font-weight: 700; }
+  .cr-val .ok { color: var(--accent3); }
+
+  /* DIFF TABLE */
+  .diff-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  .diff-table thead th { background: rgba(91,156,246,0.1); color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--card-border); }
+  .diff-table tbody td { padding: 8px 12px; border-bottom: 1px solid rgba(45,53,86,0.6); vertical-align: top; }
+  .diff-table tbody tr:nth-child(odd) td { background: var(--table-stripe); }
+  .diff-table .cat { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent2); }
+  .diff-table .adult { color: #a0c0f0; }
+  .diff-table .ped { color: #a0e0c0; }
+
+  /* SPECIAL CIRCUMSTANCES */
+  .spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .spec-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; }
+  .spec-card-title { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .spec-icon { font-size: 22px; }
+  .spec-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #fff; }
+  .spec-item { font-size: 13px; color: var(--text-muted); margin-bottom: 5px; }
+  .spec-item::before { content: '• '; color: var(--accent); }
+  .spec-pearl { margin-top: 10px; background: rgba(91,156,246,0.08); border-left: 3px solid var(--accent); padding: 6px 10px; border-radius: 0 6px 6px 0; font-size: 12px; color: var(--accent2); }
+
+  /* ETHICS */
+  .ethics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .ethics-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 16px; }
+  .ethics-card h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; }
+  .ethics-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ALERT */
+  .alert-box { border-left: 4px solid var(--danger); background: rgba(224,85,85,0.08); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 13px; }
+  .alert-box::before { content: '⚠ '; color: var(--danger); font-weight: 700; }
+  .alert-box strong { color: #e09090; }
+
+  /* KEY */
+  .key-box { background: rgba(91,156,246,0.08); border: 1px solid rgba(91,156,246,0.25); border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--accent2); }
+  .key-box::before { content: '🔑 '; }
+
+  /* PEARL GRID */
+  .pearl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pearl-item { background: var(--pearl-bg); border: 1px solid var(--pearl-border); border-radius: 8px; padding: 14px 16px; color: #3a3010; font-size: 13.5px; line-height: 1.5; }
+  .pearl-item::before { content: '★ '; color: #b08010; font-weight: 700; }
+  .pearl-item strong { color: #7a4a00; }
+
+  /* SEPARATOR */
+  .sep { height: 1px; background: linear-gradient(to right, transparent, var(--card-border), transparent); margin: 32px 0; }
+
+  /* FOOTER */
+  .footer { background: var(--header-bg); border-top: 1px solid var(--card-border); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+  .footer strong { color: var(--accent); }
+
+  @media (max-width: 800px) {
+    .header h1 { font-size: 26px; }
+    .pearl-grid, .compare-grid, .special-grid { grid-template-columns: 1fr; }
+    .chain { flex-direction: column; }
+    .chain-link { border-radius: 8px !important; }
+    .chain-link::after { content: '↓'; right: auto; left: 50%; transform: translateX(-50%); bottom: -18px; top: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-pills">
+    <span class="pill">Urgencias</span>
+    <span class="pill">SVB / SVA</span>
+    <span class="pill green">ERC 2025</span>
+    <span class="pill red">Alta frecuencia examen</span>
+  </div>
+  <h1>Reanimación Cardiopulmonar <span>ERC 2025</span></h1>
+  <div class="subtitle">Cadena de supervivencia · SVB adulto y pediátrico · Circunstancias especiales · Ética</div>
+  <div class="meta">
+    <span class="meta-item"><strong>Fuente:</strong> Guías ERC 2025 (European Resuscitation Council)</span>
+    <span class="meta-item"><strong>Bloque:</strong> Urgencias y Emergencias</span>
+    <span class="meta-item"><strong>Nº:</strong> 51</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- S1: EPIDEMIOLOGÍA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">01</div>
+      <div class="section-title-wrap">
+        <h2>Epidemiología — Datos Clave</h2>
+        <p>Cifras exactas con alta probabilidad de examen</p>
+      </div>
+    </div>
+    <div class="epi-grid">
+      <div class="epi-card">
+        <div class="epi-val">55</div>
+        <div class="epi-label">casos por 100.000 hab/año en Europa</div>
+      </div>
+      <div class="epi-card warn">
+        <div class="epi-val">67,2</div>
+        <div class="epi-label">años, edad media de la víctima</div>
+      </div>
+      <div class="epi-card">
+        <div class="epi-val">65%</div>
+        <div class="epi-label">de los casos son hombres</div>
+      </div>
+      <div class="epi-card danger">
+        <div class="epi-val">70%</div>
+        <div class="epi-label">de los paros ocurren en <strong style="color:#e08080">domicilio privado</strong></div>
+      </div>
+      <div class="epi-card warn">
+        <div class="epi-val">20%</div>
+        <div class="epi-label">presenta ritmo desfibrilable inicial (FV/TVSP)</div>
+      </div>
+      <div class="epi-card">
+        <div class="epi-val">90%</div>
+        <div class="epi-label">de las causas son <strong style="color:var(--accent2)">médicas</strong> (no traumáticas)</div>
+      </div>
+      <div class="epi-card green">
+        <div class="epi-val">25%</div>
+        <div class="epi-label">causas genéticas en menores de 50 años → recomendar autopsia y análisis genético</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S2: CADENA SUPERVIVENCIA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">02</div>
+      <div class="section-title-wrap">
+        <h2>Cadena de Supervivencia 2025</h2>
+        <p>4 eslabones actualizados — cada eslabón es examinable</p>
+      </div>
+    </div>
+    <div class="chain">
+      <div class="chain-link">
+        <div class="chain-num">ESLABÓN 1</div>
+        <div class="chain-icon">🛡️</div>
+        <div class="chain-title">Prevención y Reconocimiento</div>
+        <div class="chain-text">Reconocimiento rápido de la emergencia. Prevención del paro cardíaco.</div>
+      </div>
+      <div class="chain-link">
+        <div class="chain-num">ESLABÓN 2</div>
+        <div class="chain-icon">🤲</div>
+        <div class="chain-title">RCP Temprana + DEA</div>
+        <div class="chain-text">RCP precoz por testigos. Desfibrilación temprana para reiniciar circulación.</div>
+      </div>
+      <div class="chain-link">
+        <div class="chain-num">ESLABÓN 3</div>
+        <div class="chain-icon">🏥</div>
+        <div class="chain-title">Cuidados Especializados</div>
+        <div class="chain-text">Estabilización del paciente. Protección de funciones cerebrales y cardíacas.</div>
+      </div>
+      <div class="chain-link">
+        <div class="chain-num">ESLABÓN 4</div>
+        <div class="chain-icon">🌱</div>
+        <div class="chain-title">Recuperación a Largo Plazo</div>
+        <div class="chain-text">Apoyo al superviviente y sus cuidadores. Mejora de calidad de vida. <em>Novedad 2025.</em></div>
+      </div>
+    </div>
+    <div class="key-box" style="margin-top:12px;">Fórmula de supervivencia ERC 2025: <strong>Supervivencia = Ciencia Médica × Eficiencia Educativa × Implementación Local</strong></div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S3: SVB ADULTO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">03</div>
+      <div class="section-title-wrap">
+        <h2>SVB Adulto — Las 3 "C"</h2>
+        <p>Algoritmo paso a paso con cifras examinables</p>
+      </div>
+    </div>
+    <div class="algo-box">
+      <div class="algo-header">
+        <h3>Algoritmo CHECK → CALL → CPR</h3>
+        <p>Secuencia para el reanimador lego ante adulto inconsciente</p>
+      </div>
+      <div class="algo-steps">
+        <div class="algo-step">
+          <div class="step-num">C1</div>
+          <div class="step-content">
+            <div class="step-title">CHECK — Comprobar seguridad y respuesta</div>
+            <div class="step-text">Asegurar la escena. Sacudir hombros y llamar al oído. Si no responde y <strong>no respira normalmente</strong> → activar protocolo.</div>
+            <span class="step-pearl">⚠ Respiración agonal (boqueos, ruidos guturales) = NO es respiración normal → iniciar RCP</span>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num">C2</div>
+          <div class="step-content">
+            <div class="step-title">CALL — Llamar al 112</div>
+            <div class="step-text">Activar altavoz del teléfono para seguir instrucciones del operador sin interrumpir la RCP. El operador puede guiar las compresiones.</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num">C3</div>
+          <div class="step-content">
+            <div class="step-title">CPR — Iniciar RCP 30:2</div>
+            <div class="step-text">
+              <strong>Compresiones:</strong> centro del pecho (mitad inferior del esternón). Frecuencia <strong>100-120/min</strong>. Profundidad <strong>5-6 cm</strong>. Descompresión torácica completa entre compresiones.<br>
+              <strong>Ventilaciones:</strong> relación <strong>30:2</strong>. Mínima interrupción de compresiones (&lt;10 seg para ventilar).<br>
+              <strong>Alternativa:</strong> solo compresiones si el reanimador no puede/no quiere dar ventilaciones.
+            </div>
+            <span class="step-pearl">Profundidad máxima 6 cm — no comprimir más de 6 cm (lesión)</span>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num green">DEA</div>
+          <div class="step-content">
+            <div class="step-title">DEA — Usar en cuanto esté disponible</div>
+            <div class="step-text">Encender y seguir instrucciones. <strong>No interrumpir compresiones</strong> hasta que el DEA analice. Si DEA indica choque → administrar y reanudar RCP inmediatamente. Modo pediátrico si disponible para &lt;8 años o &lt;25 kg.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S4: ADULTO vs PEDIÁTRICO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">04</div>
+      <div class="section-title-wrap">
+        <h2>SVB Adulto vs. Pediátrico — Diferencias Clave</h2>
+        <p>La tabla de diferencias más preguntada en OPEs</p>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto; border-radius:10px; border:1px solid var(--card-border);">
+      <table class="diff-table">
+        <thead>
+          <tr>
+            <th>Parámetro</th>
+            <th>Adulto</th>
+            <th>Niño (1-12 años)</th>
+            <th>Lactante (&lt;1 año)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cat">Insuflaciones iniciales</td>
+            <td class="adult">No (empezar compresiones)</td>
+            <td class="ped">5 insuflaciones de rescate</td>
+            <td class="ped">5 insuflaciones de rescate</td>
+          </tr>
+          <tr>
+            <td class="cat">Relación compr:ventil (lego)</td>
+            <td class="adult">30:2</td>
+            <td class="ped">30:2</td>
+            <td class="ped">30:2</td>
+          </tr>
+          <tr>
+            <td class="cat">Relación (profesional)</td>
+            <td class="adult">30:2</td>
+            <td class="ped">15:2 (si se prefiere)</td>
+            <td class="ped">15:2 (si se prefiere)</td>
+          </tr>
+          <tr>
+            <td class="cat">Profundidad compresión</td>
+            <td class="adult">5–6 cm</td>
+            <td class="ped">1/3 del diámetro torácico</td>
+            <td class="ped">1/3 del diámetro torácico</td>
+          </tr>
+          <tr>
+            <td class="cat">Técnica de compresión</td>
+            <td class="adult">2 manos, talón</td>
+            <td class="ped">1–2 manos según tamaño</td>
+            <td class="ped">2 pulgares rodeando tórax (técnica preferida)</td>
+          </tr>
+          <tr>
+            <td class="cat">Posición cabeza</td>
+            <td class="adult">Extensión moderada</td>
+            <td class="ped">Ligera extensión</td>
+            <td class="ped">Posición <strong>neutra</strong> (no hiperextender)</td>
+          </tr>
+          <tr>
+            <td class="cat">DEA pediátrico</td>
+            <td class="adult">Modo adulto estándar</td>
+            <td class="ped">Modo pediátrico &lt;25 kg (~8 años)</td>
+            <td class="ped">Modo pediátrico si disponible</td>
+          </tr>
+          <tr>
+            <td class="cat">Si no hay modo pediátrico</td>
+            <td class="adult">—</td>
+            <td class="ped" colspan="2">Usar modo adulto estándar igualmente</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="compare-grid" style="margin-top:16px;">
+      <div class="compare-card">
+        <div class="compare-head" style="border-left:4px solid var(--accent);">
+          <h3>Apertura de vía aérea — ERC 2025</h3>
+          <div class="sub">Según sospecha de trauma y edad</div>
+        </div>
+        <div class="compare-body">
+          <div class="cr"><span class="cr-label">Sin trauma, todos:</span><span class="cr-val"><strong>Frente-mentón</strong> (head tilt–chin lift) — maniobra de elección</span></div>
+          <div class="cr"><span class="cr-label">Con trauma cervical:</span><span class="cr-val"><strong>Tracción mandibular</strong> (jaw thrust) sin extensión</span></div>
+          <div class="cr"><span class="cr-label">Si jaw thrust falla:</span><span class="cr-val"><span class="ok">Permitido frente-mentón</span> — la vía aérea tiene prioridad sobre la columna</span></div>
+          <div class="cr"><span class="cr-label">Lactante:</span><span class="cr-val"><span class="alert">Posición NEUTRA</span> — nunca hiperextender</span></div>
+          <div class="cr"><span class="cr-label">Barrido digital ciego:</span><span class="cr-val"><span class="alert">CONTRAINDICADO</span> en todos los grupos de edad</span></div>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-head" style="border-left:4px solid var(--accent3);">
+          <h3>Dispositivos de vía aérea avanzada</h3>
+          <div class="sub">SVA — por nivel de entrenamiento</div>
+        </div>
+        <div class="compare-body">
+          <div class="cr"><span class="cr-label">Cánula OPA:</span><span class="cr-val">Inconsciente sin reflejo tusígeno. Todos los grupos.</span></div>
+          <div class="cr"><span class="cr-label">Cánula NPA:</span><span class="cr-val"><span class="alert">CI</span> en fractura base de cráneo y coagulopatía grave</span></div>
+          <div class="cr"><span class="cr-label">Supraglótico (SGA):</span><span class="cr-val"><strong>Opción preferida</strong> cuando bolsa-mascarilla no es suficiente</span></div>
+          <div class="cr"><span class="cr-label">Intubación OT:</span><span class="cr-val">Personal muy entrenado. <span class="alert">No retrasar compresiones</span> ni DEA por intubar</span></div>
+          <div class="cr"><span class="cr-label">ERC 2025:</span><span class="cr-val">Supraglótico precoz &gt; múltiples intentos fallidos de intubación</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S5: CIRCUNSTANCIAS ESPECIALES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">05</div>
+      <div class="section-title-wrap">
+        <h2>Circunstancias Especiales</h2>
+        <p>Modificaciones al algoritmo estándar — fuente de preguntas de examen</p>
+      </div>
+    </div>
+
+    <div class="spec-grid">
+
+      <div class="spec-card">
+        <div class="spec-card-title">
+          <div class="spec-icon">🌊</div>
+          <div class="spec-name">Ahogamiento</div>
+        </div>
+        <div class="spec-item"><strong>Prioridad:</strong> oxigenación antes que nada</div>
+        <div class="spec-item">Dar <strong>5 insuflaciones iniciales</strong> antes de comenzar compresiones</div>
+        <div class="spec-item">Si hay sospecha de trauma cervical → tracción mandibular</div>
+        <div class="spec-item">Trasladar siempre al hospital incluso si recupera consciencia</div>
+        <div class="spec-pearl">La causa del paro en ahogamiento es la hipoxia → ventilación es el paso 1</div>
+      </div>
+
+      <div class="spec-card">
+        <div class="spec-card-title">
+          <div class="spec-icon">🍖</div>
+          <div class="spec-name">Obstrucción vía aérea (OVACE)</div>
+        </div>
+        <div class="spec-item">Consciente con tos eficaz: <strong>animar a toser</strong>, no intervenir</div>
+        <div class="spec-item">Tos ineficaz: <strong>5 golpes interescapulares</strong> → 5 compresiones abdominales (Heimlich)</div>
+        <div class="spec-item">Inconsciente → RCP</div>
+        <div class="spec-item">En lactantes: <strong>nunca Heimlich</strong> → 5 golpes espalda + 5 compresiones torácicas</div>
+        <div class="spec-pearl">Barrido digital ciego: CONTRAINDICADO en todos. Solo retirar cuerpo extraño visible</div>
+      </div>
+
+      <div class="spec-card">
+        <div class="spec-card-title">
+          <div class="spec-icon">💊</div>
+          <div class="spec-name">Sobredosis de Opioides</div>
+        </div>
+        <div class="spec-item">Si no respira normalmente → iniciar RCP</div>
+        <div class="spec-item">Administrar <strong>naloxona</strong> si está disponible (IN o IM)</div>
+        <div class="spec-item">Naloxona intranasal: muy extendida en programas comunitarios</div>
+        <div class="spec-item">No demorar RCP por búsqueda de naloxona</div>
+        <div class="spec-pearl">ERC 2025 incluye naloxona en el algoritmo de primeros auxilios</div>
+      </div>
+
+      <div class="spec-card">
+        <div class="spec-card-title">
+          <div class="spec-icon">🫀</div>
+          <div class="spec-name">Dolor Torácico</div>
+        </div>
+        <div class="spec-item">Ayudar a sentarse en posición cómoda</div>
+        <div class="spec-item">Llamar al 112 inmediatamente</div>
+        <div class="spec-item">Si adulto, no alérgico y capaz de tragar: <strong>aspirina masticable 150-300 mg</strong></div>
+        <div class="spec-item">No administrar si ya está anticoagulado o contraindicada</div>
+        <div class="spec-pearl">En primeros auxilios: AAS masticable (no tragada entera) para absorción rápida</div>
+      </div>
+
+      <div class="spec-card">
+        <div class="spec-card-title">
+          <div class="spec-icon">🧠</div>
+          <div class="spec-name">Pronóstico Post-RCE</div>
+        </div>
+        <div class="spec-item">RCE = Retorno de Circulación Espontánea</div>
+        <div class="spec-item">Pronóstico neurológico: <strong>no realizar antes de 72h</strong> tras el paro</div>
+        <div class="spec-item">Control de temperatura objetivo (TTM): evitar fiebre (&gt;37,7°C)</div>
+        <div class="spec-item">Coronariografía: valorar precoz en SCACEST</div>
+        <div class="spec-pearl">No anticipar pronóstico neurológico en las primeras 72h — puede ser reversible</div>
+      </div>
+
+      <div class="spec-card">
+        <div class="spec-card-title">
+          <div class="spec-icon">🏫</div>
+          <div class="spec-name">Educación en RCP</div>
+        </div>
+        <div class="spec-item">Formación escolar obligatoria desde los <strong>4 años</strong> (llamar al 112)</div>
+        <div class="spec-item">Uso de DEA: enseñar a partir de <strong>13-16 años</strong></div>
+        <div class="spec-item">Aprendizaje espaciado: sesiones cortas distribuidas en el tiempo</div>
+        <div class="spec-item">Gamificación y maniquíes con retroalimentación en tiempo real</div>
+        <div class="spec-pearl">ERC 2025 insiste en IA para detección y apps para movilizar primeros intervinientes</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S6: ÉTICA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">06</div>
+      <div class="section-title-wrap">
+        <h2>Ética en la Reanimación</h2>
+        <p>Aspectos ético-legales con alta frecuencia en preguntas de OPE</p>
+      </div>
+    </div>
+
+    <div class="ethics-grid">
+      <div class="ethics-card">
+        <h4>Decisiones de RCP</h4>
+        <p>Deben respetar siempre los <strong>valores y deseos del paciente</strong>, especialmente si están recogidos en voluntades anticipadas o directrices previas.</p>
+      </div>
+      <div class="ethics-card">
+        <h4>Planificación Anticipada</h4>
+        <p>Estrategia <strong>Think–Talk–Share</strong> (Pensar, Hablar, Compartir) sobre órdenes de no iniciar RCP. Debe documentarse correctamente.</p>
+      </div>
+      <div class="ethics-card">
+        <h4>Presencia Familiar</h4>
+        <p>Se <strong>recomienda permitir</strong> la presencia de la familia durante la RCP si lo desean. Siempre con un miembro del equipo asignado para apoyarles.</p>
+      </div>
+      <div class="ethics-card">
+        <h4>Ley del "Buen Samaritano"</h4>
+        <p>Protege legalmente a los ciudadanos que ayudan de buena fe. Previene la inhibición de actuación por miedo a consecuencias legales.</p>
+      </div>
+      <div class="ethics-card">
+        <h4>Donación de Órganos</h4>
+        <p>Los fallecidos tras paro cardíaco deben considerarse <strong>posibles donantes</strong>. Tratarlo con la familia con compasión y sin precipitación.</p>
+      </div>
+      <div class="ethics-card">
+        <h4>Centros de Paro Cardíaco</h4>
+        <p>Hospitales especializados con laboratorios de angiografía <strong>24/7</strong> y equipos multidisciplinarios. Mejor supervivencia en estos centros.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S7: PERLAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">07</div>
+      <div class="section-title-wrap">
+        <h2>⭐ Perlas Tipo Examen INGESA</h2>
+        <p>Las trampas más frecuentes en preguntas tipo test sobre RCP</p>
+      </div>
+    </div>
+    <div class="pearl-grid">
+      <div class="pearl-item">La respiración agonal (boqueos, ruidos guturales) <strong>NO es respiración normal</strong> → debe iniciarse RCP inmediatamente</div>
+      <div class="pearl-item">Frecuencia de compresiones: <strong>100-120/min</strong>. Por debajo de 100 o por encima de 120 son igualmente incorrectas</div>
+      <div class="pearl-item">Profundidad de compresión en adulto: <strong>5-6 cm</strong>. Nunca más de 6 cm (riesgo de lesión) ni menos de 5 cm (ineficaz)</div>
+      <div class="pearl-item">En ahogamiento: <strong>5 insuflaciones antes</strong> de iniciar compresiones. La causa es hipoxia, no paro cardíaco primario</div>
+      <div class="pearl-item">Lactante: técnica de <strong>dos pulgares rodeando tórax</strong> es la preferida. Posición de cabeza <strong>neutra</strong> (no hiperextender)</div>
+      <div class="pearl-item">DEA en niños: modo pediátrico si &lt;<strong>25 kg (~ 8 años)</strong>. Si no hay modo pediátrico → usar modo adulto igualmente</div>
+      <div class="pearl-item">Pediátrico: <strong>5 insuflaciones iniciales</strong> antes de comenzar compresiones (a diferencia del adulto)</div>
+      <div class="pearl-item">Relación lego pediátrico: <strong>30:2</strong>. Profesional puede usar 15:2. En adulto: siempre 30:2</div>
+      <div class="pearl-item"><strong>Barrido digital ciego</strong>: CONTRAINDICADO en todos los grupos. Solo retirar lo que sea claramente visible</div>
+      <div class="pearl-item">Cánula nasofaríngea (NPA): <strong>contraindicada</strong> en fractura de base de cráneo. Usar OPA en su lugar</div>
+      <div class="pearl-item">Pronóstico neurológico post-RCE: <strong>no antes de 72 horas</strong> tras el paro cardíaco</div>
+      <div class="pearl-item">La cadena de supervivencia 2025 añade como 4º eslabón la <strong>recuperación a largo plazo</strong> del superviviente y sus cuidadores</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span><strong>CÁPSULAS DE REPASO INGESA</strong> — Recurso Nº 51</span>
+  <span>RCP · ERC 2025 · European Resuscitation Council</span>
+  <span>dina15sj-bot.github.io/CAPSULAS-REPASO</span>
+</div>
+</body>
+</html>

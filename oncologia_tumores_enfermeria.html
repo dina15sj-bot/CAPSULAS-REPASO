@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oncología · Tumores, TNM y Cuidados Enfermería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --acento: #9a1a40;
+    --acento2: #c43060;
+    --acento3: #f0e0e8;
+    --fondo: #f8f5f0;
+    --superficie: #ffffff;
+    --texto: #1a1a1a;
+    --texto-suave: #5a5a5a;
+    --rojo-alto: #c04020;
+    --verde-bajo: #1a7a3a;
+    --azul-normal: #1a5a8a;
+    --perla-fondo: #fffce6;
+    --perla-borde: #e0c020;
+    --perla-header: #c09010;
+    --antidoto-fondo: #f0e8ff;
+    --antidoto-borde: #7040c0;
+    --warn-fondo: #fff8f0;
+    --badge-nuevo: #e07020;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: #2a0818;
+    padding: 22px 32px 18px;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .page-header .subtitulo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #e0b0c0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .pill-granate { background: var(--acento); color: #fff; }
+  .pill-dark { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* WRAPPER */
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
+
+  /* SECTION HEADERS */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 14px;
+  }
+  .sec-bar {
+    width: 6px;
+    height: 36px;
+    border-radius: 3px;
+    background: var(--acento);
+    flex-shrink: 0;
+  }
+  .sec-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--acento);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #2a0818;
+  }
+
+  /* CARDS GRID */
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+
+  .card {
+    background: var(--superficie);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #e8e0e4;
+    border-top: 4px solid var(--acento);
+  }
+  .card-tit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin-bottom: 7px;
+  }
+  .card p { font-size: 0.88rem; color: var(--texto-suave); }
+
+  /* CONTEXTO GRID */
+  .ctx-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .ctx-card {
+    background: var(--superficie);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 5px solid var(--acento);
+    box-shadow: 0 1px 5px rgba(154,26,64,0.07);
+  }
+  .ctx-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin-bottom: 5px;
+  }
+  .ctx-card .val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2a0818;
+    line-height: 1.2;
+  }
+  .ctx-card .desc { font-size: 0.82rem; color: var(--texto-suave); margin-top: 3px; }
+
+  /* TNM TABLE */
+  .tabla-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    background: var(--superficie);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  thead tr { background: #2a0818; color: #fff; }
+  thead th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 11px 14px;
+    text-align: left;
+  }
+  tbody tr:nth-child(odd) { background: #fdf9fb; }
+  tbody tr:nth-child(even) { background: var(--superficie); }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid #f0e8ec; vertical-align: top; }
+  .td-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .cat-T { color: #9a1a40; }
+  .cat-N { color: #1a5a8a; }
+  .cat-M { color: #1a7a3a; }
+
+  /* TUMORES ORGANO */
+  .organo-section { margin-bottom: 22px; }
+  .organo-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 6px 6px 0 0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .organo-body {
+    background: var(--superficie);
+    border: 1px solid #e8e0e4;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  .tumor-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid #f0eaea;
+    padding: 10px 14px;
+    align-items: start;
+  }
+  .tumor-row:last-child { border-bottom: none; }
+  .tumor-nombre {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #2a0818;
+  }
+  .tumor-dato { font-size: 0.83rem; color: var(--texto-suave); }
+  .badge-ope {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 6px;
+    vertical-align: middle;
+    background: var(--badge-nuevo);
+    color: #fff;
+  }
+
+  /* FARMACO TÓXICO */
+  .farm-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 12px;
+  }
+  .farm-card {
+    background: var(--superficie);
+    border-radius: 8px;
+    border: 1px solid #e8e0e4;
+    overflow: hidden;
+  }
+  .farm-header {
+    padding: 8px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .farm-body { padding: 12px 14px; }
+  .farm-item { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+  .farm-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--texto-suave);
+    flex-shrink: 0;
+    width: 100px;
+  }
+  .farm-val { font-size: 0.84rem; font-weight: 600; }
+
+  /* WARN */
+  .warn {
+    background: var(--warn-fondo);
+    border-left: 4px solid var(--rojo-alto);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 0.86rem;
+  }
+  .warn strong { color: var(--rojo-alto); }
+
+  /* ANTIDOTO */
+  .antidoto {
+    background: var(--antidoto-fondo);
+    border: 1px solid var(--antidoto-borde);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 0.86rem;
+  }
+  .antidoto .ant-tit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #7040c0;
+    margin-bottom: 5px;
+  }
+
+  /* URGENCIAS ONCO */
+  .urgencia-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+  }
+  .urgencia-card {
+    background: var(--superficie);
+    border-radius: 8px;
+    border: 1px solid #e8e0e4;
+    border-top: 4px solid var(--rojo-alto);
+    padding: 14px;
+  }
+  .urgencia-card .u-tit {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--rojo-alto);
+    margin-bottom: 7px;
+  }
+  .urgencia-card ul { list-style: none; padding: 0; }
+  .urgencia-card ul li { font-size: 0.83rem; color: var(--texto-suave); padding: 2px 0; padding-left: 14px; position: relative; }
+  .urgencia-card ul li::before { content: "▸"; position: absolute; left: 0; color: var(--acento); font-size: 0.7rem; top: 3px; }
+
+  /* MUCOSITIS */
+  .escala-row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 0;
+    border-bottom: 1px solid #f0e8ec;
+    padding: 9px 14px;
+    align-items: center;
+    background: var(--superficie);
+  }
+  .escala-row:last-child { border-bottom: none; }
+  .escala-grado {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  /* CUIDADOS GENERALES */
+  .cuid-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+  }
+  .cuid-card {
+    background: var(--superficie);
+    border-radius: 8px;
+    border: 1px solid #e8e0e4;
+    overflow: hidden;
+  }
+  .cuid-icon {
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cuid-body { padding: 10px 14px; font-size: 0.84rem; color: var(--texto-suave); }
+  .cuid-body strong { color: var(--texto); }
+
+  /* PERLAS */
+  .perlas-section {
+    background: var(--perla-fondo);
+    border: 1px solid var(--perla-borde);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 32px 0 16px;
+  }
+  .perlas-header {
+    background: var(--perla-header);
+    color: #fff;
+    padding: 12px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .perlas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 16px 18px;
+  }
+  .perla-item {
+    padding: 9px 12px;
+    border-bottom: 1px solid #f0e8b0;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .perla-item:nth-child(odd) { border-right: 1px solid #f0e8b0; }
+  .perla-item .pe-star { color: var(--perla-header); margin-right: 4px; }
+  .perla-item strong { color: #2a0818; }
+
+  /* GLOSARIO */
+  .glos-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+  }
+  .glos-item {
+    background: var(--superficie);
+    border-radius: 7px;
+    padding: 9px 12px;
+    border: 1px solid #e8e0e4;
+  }
+  .glos-item .g-abr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--acento);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .glos-item .g-def { font-size: 0.78rem; color: var(--texto-suave); }
+
+  /* INDICADORES */
+  .ind { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.9rem; }
+  .ind-alto { color: var(--rojo-alto); }
+  .ind-bajo { color: var(--verde-bajo); }
+  .ind-normal { color: var(--azul-normal); }
+
+  /* DIVISOR */
+  .divisor {
+    height: 1px;
+    background: linear-gradient(to right, var(--acento), transparent);
+    margin: 28px 0;
+    opacity: 0.25;
+  }
+
+  @media (max-width: 800px) {
+    .grid-3, .ctx-grid, .urgencia-grid, .cuid-grid { grid-template-columns: 1fr; }
+    .grid-2, .farm-grid, .perlas-grid { grid-template-columns: 1fr; }
+    .grid-4, .glos-grid { grid-template-columns: repeat(2,1fr); }
+    .tumor-row { grid-template-columns: 1fr; gap: 4px; }
+    .page-header h1 { font-size: 1.6rem; }
+    .perla-item:nth-child(odd) { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:#c080a0;margin-bottom:6px;">BLOQUE 3 · ONCOLOGÍA</div>
+  <h1>Oncología & Tumores</h1>
+  <div class="subtitulo">CLASIFICACIÓN TNM · TUMORES POR ÓRGANO · FARMACOLOGÍA · CUIDADOS ENFERMERÍA</div>
+  <div class="pills">
+    <span class="pill pill-granate">INGESA 2026</span>
+    <span class="pill pill-dark">OPE Militar</span>
+    <span class="pill pill-dark">Plan Oncología SNS 2024</span>
+    <span class="pill pill-dark">SEOM 2024</span>
+    <span class="pill pill-dark" style="background:var(--acento);opacity:0.8;">★ 12 Perlas</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECCIÓN 1: CONTEXTO -->
+  <div class="sec-header">
+    <div class="sec-bar"></div>
+    <div>
+      <span class="sec-num">01 · Datos Clave España</span>
+      <div class="sec-title">Epidemiología Oncológica</div>
+    </div>
+  </div>
+
+  <div class="ctx-grid">
+    <div class="ctx-card">
+      <div class="label">Incidencia 1.º España</div>
+      <div class="val">Colorrectal</div>
+      <div class="desc">Mayor incidencia sumando ambos sexos. En hombres: próstata. En mujeres: mama.</div>
+    </div>
+    <div class="ctx-card" style="border-left-color:#1a5a8a;">
+      <div class="label">Mortalidad 1.ª España</div>
+      <div class="val">Pulmón</div>
+      <div class="desc">Principal causa de muerte por cáncer en ambos sexos (en hombres superado por colorrectal en incidencia).</div>
+    </div>
+    <div class="ctx-card" style="border-left-color:#1a7a3a;">
+      <div class="label">Supervivencia Mama</div>
+      <div class="val">>90%</div>
+      <div class="desc">A 5 años si diagnóstico en estadio I-II. El diagnóstico precoz es la clave.</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: TNM -->
+  <div class="sec-header">
+    <div class="sec-bar"></div>
+    <div>
+      <span class="sec-num">02 · Sistema AJCC/UICC</span>
+      <div class="sec-title">Clasificación TNM</div>
+    </div>
+  </div>
+
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Sigla</th>
+          <th>Significado</th>
+          <th>Estadios</th>
+          <th>Clave examen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="td-cat cat-T">T</span></td>
+          <td><strong>Tumor primario</strong></td>
+          <td>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">Tx</span> No evaluable &nbsp;|&nbsp;
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">T0</span> Sin evidencia &nbsp;|&nbsp;
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">Tis</span> In situ<br>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">T1–T4</span> ↑ tamaño/extensión
+          </td>
+          <td style="font-size:0.82rem;color:#9a1a40;">Tis = confinado al epitelio, aún no invasivo</td>
+        </tr>
+        <tr>
+          <td><span class="td-cat cat-N">N</span></td>
+          <td><strong>Nódulos linfáticos</strong></td>
+          <td>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">Nx</span> No evaluable &nbsp;|&nbsp;
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">N0</span> Sin afectación<br>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">N1–N3</span> ↑ nº/localización ganglios
+          </td>
+          <td style="font-size:0.82rem;color:#1a5a8a;">N0 = sin ganglios · Peor pronóstico con N+</td>
+        </tr>
+        <tr>
+          <td><span class="td-cat cat-M">M</span></td>
+          <td><strong>Metástasis a distancia</strong></td>
+          <td>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">M0</span> Ausentes &nbsp;|&nbsp;
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;">M1</span> Presentes
+          </td>
+          <td style="font-size:0.82rem;color:#1a7a3a;">M1 = estadio IV = tto. sistémico/paliativo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn" style="margin-top:12px;">
+    <strong>⚠ Trampa examen:</strong> El CEA <strong>no sirve para diagnóstico</strong> del cáncer colorrectal. Se usa para seguimiento y detección de recidivas. El diagnóstico es histopatológico.
+  </div>
+
+  <!-- SECCIÓN 3: TUMORES POR ÓRGANO -->
+  <div class="sec-header">
+    <div class="sec-bar"></div>
+    <div>
+      <span class="sec-num">03 · Perlas por Localización</span>
+      <div class="sec-title">Tumores por Órgano/Aparato</div>
+    </div>
+  </div>
+
+  <!-- RESPIRATORIO -->
+  <div class="organo-section">
+    <div class="organo-header" style="background:#9a1a40;">🫁 APARATO RESPIRATORIO</div>
+    <div class="organo-body">
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Microcítico (cel. pequeña) <span class="badge-ope">OPE</span></div>
+          <div class="tumor-dato" style="margin-top:4px;"><span class="ind ind-alto">Más agresivo</span></div>
+        </div>
+        <div class="tumor-dato">
+          <strong>Siempre asociado al tabaco.</strong><br>
+          Síndromes paraneoplásicos: <em>SIADH</em> (el más clásico), sínd. Cushing ectópico (ACTH).<br>
+          Suele ser central. <strong>NO quirúrgico</strong> al diagnóstico (ya es sistémico).
+        </div>
+        <div class="tumor-dato">
+          Tto: QT + RT (no cirugía).<br>
+          Complicación más frecuente del cáncer central → <strong>atelectasia</strong>.
+        </div>
+      </div>
+      <div class="tumor-row" style="background:#fdf9fb;">
+        <div>
+          <div class="tumor-nombre">Adenocarcinoma</div>
+          <div class="tumor-dato" style="margin-top:4px;"><span class="ind ind-normal">Más común en no fumadores</span></div>
+        </div>
+        <div class="tumor-dato">
+          Localización <strong>periférica</strong>.<br>
+          Más frecuente en <strong>mujeres</strong> y no fumadores.<br>
+          Mutaciones EGFR → diana terapéutica.
+        </div>
+        <div class="tumor-dato">
+          Screening: TAC baja dosis en fumadores >30 paq/año (Plan SNS 2024).
+        </div>
+      </div>
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Carcinoma epidermoide</div>
+        </div>
+        <div class="tumor-dato">
+          Localización <strong>central/hiliar</strong>. Tabaco.<br>
+          Cavitación frecuente. Hipercalcemia paraneoplásica (PTHrP).
+        </div>
+        <div class="tumor-dato">
+          Hemoptisis más frecuente en este tipo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIGESTIVO -->
+  <div class="organo-section">
+    <div class="organo-header" style="background:#7a3a10;">🫀 APARATO DIGESTIVO</div>
+    <div class="organo-body">
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Colorrectal <span class="badge-ope">OPE</span></div>
+          <div class="tumor-dato" style="margin-top:4px;">1.º incidencia España</div>
+        </div>
+        <div class="tumor-dato">
+          <strong>70% adenocarcinomas.</strong> Asociado a pólipos adenomatosos.<br>
+          <span style="color:var(--rojo-alto);">Colon derecho</span> → anemia ferropénica.<br>
+          <span style="color:var(--azul-normal);">Colon izquierdo</span> → cambios ritmo intestinal, obstrucción, heces en "miga de pan".
+        </div>
+        <div class="tumor-dato">
+          Marcador: CEA (seguimiento, NO diagnóstico).<br>
+          Screening: SOH 50-75 años cada 2 años.
+        </div>
+      </div>
+      <div class="tumor-row" style="background:#fdf9fb;">
+        <div>
+          <div class="tumor-nombre">Gástrico <span class="badge-ope">OPE</span></div>
+        </div>
+        <div class="tumor-dato">
+          Tipo intestinal: asociado a <em>H. pylori</em>.<br>
+          Tipo difuso: genético, peor pronóstico.<br>
+          <strong>Ganglio de Virchow</strong>: supraclavicular izquierdo → metástasis gástrica.
+        </div>
+        <div class="tumor-dato">
+          Otros signos: Hermana María José (ombligo), Krukenberg (ovario).
+        </div>
+      </div>
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Hepatocarcinoma</div>
+        </div>
+        <div class="tumor-dato">
+          Asociado a <strong>cirrosis</strong> (VHB, VHC).<br>
+          Marcador: <em>AFP (alfafetoproteína)</em>.
+        </div>
+        <div class="tumor-dato">
+          Screening: ECO + AFP cada 6 meses en cirróticos.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UROLÓGICO -->
+  <div class="organo-section">
+    <div class="organo-header" style="background:#1a4a7a;">🫘 APARATO UROLÓGICO</div>
+    <div class="organo-body">
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Vejiga <span class="badge-ope">OPE</span></div>
+        </div>
+        <div class="tumor-dato">
+          Síntoma cardinal: <strong>hematuria monosintomática sin dolor</strong>.<br>
+          Exposición a <strong>aminas aromáticas</strong> (tintes, industria textil/colorantes).<br>
+          Tipo: carcinoma urotelial (transicional).
+        </div>
+        <div class="tumor-dato">
+          FR: tabaco, anilinas, ciclofosfamida prolongada.
+        </div>
+      </div>
+      <div class="tumor-row" style="background:#fdf9fb;">
+        <div>
+          <div class="tumor-nombre">Próstata <span class="badge-ope">OPE</span></div>
+        </div>
+        <div class="tumor-dato">
+          Zona <strong>periférica</strong> (detección por tacto rectal).<br>
+          HBP → zona transicional/central (distinción clave).<br>
+          <strong>Escala Gleason</strong>: grado diferenciación (2-10).
+        </div>
+        <div class="tumor-dato">
+          Marcador: PSA. Screening: controvertido, no universal en España.
+        </div>
+      </div>
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Riñón (adenocarcinoma renal)</div>
+        </div>
+        <div class="tumor-dato">
+          <strong>Tríada clásica (rara, pero cae):</strong><br>
+          Dolor + masa palpable + hematuria.<br>
+          Síndromes paraneoplásicos: policitemia, hipercalcemia.
+        </div>
+        <div class="tumor-dato">
+          Metástasis: pulmón, hueso, cerebro, hígado.<br>
+          Sde Stauffer: disfunción hepática sin metástasis.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GINECOLÓGICO Y MAMA -->
+  <div class="organo-section">
+    <div class="organo-header" style="background:#8a1a5a;">🎀 MAMA Y GINECOLOGÍA</div>
+    <div class="organo-body">
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Mama <span class="badge-ope">OPE</span></div>
+          <div class="tumor-dato">1.º mujeres España</div>
+        </div>
+        <div class="tumor-dato">
+          Tipo más frecuente: <strong>carcinoma ductal infiltrante</strong>.<br>
+          Cuadrante más frecuente: <strong>superior externo</strong>.<br>
+          FR principal: exposición prolongada a estrógenos (menarquia <12a, menopausia >55a, nuliparidad).
+        </div>
+        <div class="tumor-dato">
+          Autoexamen: <strong>7 días post-menstruación</strong>.<br>
+          Screening: mamografía 50-69 años cada 2 años (Plan SNS 2024).
+        </div>
+      </div>
+      <div class="tumor-row" style="background:#fdf9fb;">
+        <div>
+          <div class="tumor-nombre">Cérvix <span class="badge-ope">OPE</span></div>
+        </div>
+        <div class="tumor-dato">
+          Citología: sistema <strong>Bethesda</strong>.<br>
+          VPH 16 y 18: más oncogénicos (>70% casos).<br>
+          VPH 6 y 11: condilomas (no oncogénicos).
+        </div>
+        <div class="tumor-dato">
+          Vacuna: Cervarix (16,18) / Gardasil (6,11,16,18).<br>
+          Screening: citología + test VPH en >30 años.
+        </div>
+      </div>
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Ovario</div>
+          <div class="tumor-dato">"El asesino silencioso"</div>
+        </div>
+        <div class="tumor-dato">
+          Sin síntomas hasta estadio avanzado.<br>
+          Marcador: <strong>CA-125</strong>.<br>
+          Sin cribado poblacional eficaz actualmente.
+        </div>
+        <div class="tumor-dato">
+          FR: nuliparidad, BRCA1/2, historia familiar.<br>
+          Peor supervivencia de todos los ginecológicos.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEMATOLÓGICO -->
+  <div class="organo-section">
+    <div class="organo-header" style="background:#c43a10;">🩸 HEMATOLOGÍA ONCOLÓGICA</div>
+    <div class="organo-body">
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Linfoma Hodgkin <span class="badge-ope">OPE</span></div>
+        </div>
+        <div class="tumor-dato">
+          Ganglios cervicales <strong>indoloros</strong>.<br>
+          Células de <strong>Reed-Sternberg</strong> (patognomónico).<br>
+          Síntomas B: fiebre, sudoración nocturna, pérdida >10% peso.
+        </div>
+        <div class="tumor-dato">
+          Mejor pronóstico que LNH en general.<br>
+          Diseminación ganglionar contigua y predecible.
+        </div>
+      </div>
+      <div class="tumor-row" style="background:#fdf9fb;">
+        <div>
+          <div class="tumor-nombre">Linfoma No Hodgkin</div>
+        </div>
+        <div class="tumor-dato">
+          Más frecuente que LH.<br>
+          Diseminación <strong>extraganglionar</strong> frecuente.<br>
+          Heterogéneo: indolente vs agresivo.
+        </div>
+        <div class="tumor-dato">
+          Tipo más frecuente: LDGCB (difuso grandes cel. B).<br>
+          Associado a VEB, VIH, inmunosupresión.
+        </div>
+      </div>
+      <div class="tumor-row">
+        <div>
+          <div class="tumor-nombre">Mieloma Múltiple <span class="badge-ope">OPE</span></div>
+        </div>
+        <div class="tumor-dato">
+          Proliferación células plasmáticas.<br>
+          <strong>Tríada:</strong> Anemia + Lesiones óseas "en sacabocados" + Insuficiencia renal.<br>
+          Proteína de <strong>Bence-Jones</strong> en orina.
+        </div>
+        <div class="tumor-dato">
+          Hipercalcemia (CRAB: Calcio↑, Renal, Anemia, Bone).<br>
+          Pico M en proteinograma.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divisor"></div>
+
+  <!-- SECCIÓN 4: FARMACOLOGÍA -->
+  <div class="sec-header">
+    <div class="sec-bar"></div>
+    <div>
+      <span class="sec-num">04 · Toxicidades Específicas</span>
+      <div class="sec-title">Farmacología Oncológica — Toxicidades Clave</div>
+    </div>
+  </div>
+
+  <div class="farm-grid">
+    <div class="farm-card">
+      <div class="farm-header" style="background:#c43a10;">💊 AGENTES ALQUILANTES</div>
+      <div class="farm-body">
+        <div class="farm-item">
+          <span class="farm-label">Ciclofosfamida</span>
+          <span class="farm-val" style="color:var(--rojo-alto);">Cistitis hemorrágica</span>
+        </div>
+        <div class="antidoto">
+          <div class="ant-tit">🔑 Prevención / Antídoto</div>
+          <strong>MESNA</strong> (mercaptoetanosulfonato sódico) + hidratación IV abundante.<br>
+          <span style="font-size:0.82rem;color:var(--texto-suave);">MESNA inactiva la acroleína (metabolito vesicante) en vejiga.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-header" style="background:#9a1a40;">💊 ANTRACICLINAS</div>
+      <div class="farm-body">
+        <div class="farm-item">
+          <span class="farm-label">Doxorrubicina (Adriamicina)</span>
+          <span class="farm-val" style="color:var(--rojo-alto);">Cardiotoxicidad</span>
+        </div>
+        <div class="farm-item" style="font-size:0.82rem;color:var(--texto-suave);">
+          <span class="farm-label">Mecanismo:</span>
+          <span>Dosis acumulativa → miocardiopatía dilatada. Límite: 550 mg/m²</span>
+        </div>
+        <div class="warn">
+          <strong>⚠ Vesicante:</strong> Extravasación → necrosis tisular grave. Ver protocolo extravasación.
+        </div>
+      </div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-header" style="background:#1a5a8a;">💊 ALCALOIDES VINCA</div>
+      <div class="farm-body">
+        <div class="farm-item">
+          <span class="farm-label">Vincristina</span>
+          <span class="farm-val" style="color:var(--azul-normal);">Neurotoxicidad</span>
+        </div>
+        <div class="farm-item" style="font-size:0.82rem;color:var(--texto-suave);">
+          <span class="farm-label">Síntomas:</span>
+          <span>Estreñimiento (íleo paralítico), parestesias, debilidad muscular, ptosis</span>
+        </div>
+        <div class="warn">
+          <strong>⚠ NUNCA intratecal</strong> → letal. Administración exclusiva IV.
+        </div>
+      </div>
+    </div>
+
+    <div class="farm-card">
+      <div class="farm-header" style="background:#3a6a2a;">💊 ANTIBIÓTICOS ANTITUMORALES</div>
+      <div class="farm-body">
+        <div class="farm-item">
+          <span class="farm-label">Bleomicina</span>
+          <span class="farm-val" style="color:var(--verde-bajo);">Fibrosis pulmonar</span>
+        </div>
+        <div class="farm-item" style="font-size:0.82rem;color:var(--texto-suave);">
+          <span class="farm-label">Vigilancia:</span>
+          <span>Función pulmonar (DLCO) antes y durante tto. Evitar O₂ alto durante anestesia.</span>
+        </div>
+        <div class="antidoto">
+          <div class="ant-tit">🔑 Dato clave</div>
+          Dosis acumulativa máxima: <strong>400 U</strong>. No mielosupresora.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divisor"></div>
+
+  <!-- SECCIÓN 5: URGENCIAS ONCOLÓGICAS Y CUIDADOS -->
+  <div class="sec-header">
+    <div class="sec-bar"></div>
+    <div>
+      <span class="sec-num">05 · Urgencias Oncológicas</span>
+      <div class="sec-title">Urgencias y Cuidados Enfermería</div>
+    </div>
+  </div>
+
+  <div class="urgencia-grid">
+    <div class="urgencia-card">
+      <div class="u-tit">🌡️ Neutropenia Febril</div>
+      <ul>
+        <li>Urgencia oncológica absoluta</li>
+        <li>Fiebre: ≥38.3°C una vez, o ≥38°C >1 hora</li>
+        <li>Neutrófilos absolutos <500/mm³ (o <1000 y bajando)</li>
+        <li>Hemocultivos x2 antes de antibióticos</li>
+        <li>Antibioterapia empírica en <1h</li>
+        <li>Protocolo: piperazilina-tazobactam o cefepime IV</li>
+      </ul>
+    </div>
+
+    <div class="urgencia-card">
+      <div class="u-tit">💉 Extravasación Vesicante</div>
+      <ul>
+        <li><strong>1.º PARAR la infusión. NO retirar la vía.</strong></li>
+        <li>Intentar aspirar el fármaco por la vía</li>
+        <li>Marcar el área afectada</li>
+        <li>Antídotos: DMSO (antracíclinas), hialuronidasa (alcaloides vinca)</li>
+        <li>Frío local (excepto alcaloides vinca → calor)</li>
+        <li>Notificar y documentar. Derivar a cirugía si necrosis</li>
+      </ul>
+    </div>
+
+    <div class="urgencia-card">
+      <div class="u-tit">🦠 Síndrome Lisis Tumoral</div>
+      <ul>
+        <li>Post-QT en tumores de alta carga (leucemias, LNH)</li>
+        <li>↑ K⁺, ↑ Ácido úrico, ↑ P, ↓ Ca²⁺</li>
+        <li>Riesgo: arritmias, fallo renal agudo</li>
+        <li>Prevención: hiperhidratación, alopurinol o rasburicasa</li>
+        <li>Monitorizar: ECG, diuresis, electrolitos</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MUCOSITIS -->
+  <div class="sec-header" style="margin-top:22px;">
+    <div class="sec-bar" style="background:#c09010;"></div>
+    <div>
+      <span class="sec-num" style="color:#c09010;">05b · Escala OMS</span>
+      <div class="sec-title">Mucositis — Cuidados Enfermería</div>
+    </div>
+  </div>
+
+  <div style="background:var(--superficie);border-radius:10px;border:1px solid #e8e0e4;overflow:hidden;margin-bottom:14px;">
+    <div class="escala-row" style="background:#2a0818;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e0b0c0;">GRADO</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e0b0c0;">CLÍNICA</span>
+    </div>
+    <div class="escala-row">
+      <span class="escala-grado" style="color:#1a7a3a;">0</span>
+      <span style="font-size:0.84rem;">Sin mucositis. Mucosa normal.</span>
+    </div>
+    <div class="escala-row">
+      <span class="escala-grado" style="color:#5a8a1a;">1</span>
+      <span style="font-size:0.84rem;">Eritema. Sin dolor, puede comer normal.</span>
+    </div>
+    <div class="escala-row">
+      <span class="escala-grado" style="color:#c09010;">2</span>
+      <span style="font-size:0.84rem;">Eritema + úlceras. Puede comer sólidos.</span>
+    </div>
+    <div class="escala-row">
+      <span class="escala-grado" style="color:#c04020;">3</span>
+      <span style="font-size:0.84rem;">Úlceras extensas. Solo líquidos. Dolor intenso.</span>
+    </div>
+    <div class="escala-row">
+      <span class="escala-grado" style="color:#8a1a40;">4</span>
+      <span style="font-size:0.84rem;">No puede alimentarse ni oral ni líquidos. Soporte nutricional parenteral. Riesgo vital.</span>
+    </div>
+  </div>
+
+  <div class="cuid-grid">
+    <div class="cuid-card">
+      <div class="cuid-icon" style="background:#ffe8f0;color:#9a1a40;">🪥 HIGIENE ORAL</div>
+      <div class="cuid-body">
+        <strong>Enjuagues con suero bicarbonatado</strong> (NaHCO₃ al 5%) c/4h.<br>
+        <strong>Evitar colutorios con alcohol.</strong><br>
+        Cepillo suave. Lubricar labios con vaselina.
+      </div>
+    </div>
+    <div class="cuid-card">
+      <div class="cuid-icon" style="background:#e8f0ff;color:#1a5a8a;">🍽️ NUTRICIÓN</div>
+      <div class="cuid-body">
+        Dieta blanda/semilíquida fría o templada.<br>
+        Evitar ácidos, picantes, alcohol.<br>
+        Grado 3-4: nutrición enteral/parenteral.
+      </div>
+    </div>
+    <div class="cuid-card">
+      <div class="cuid-icon" style="background:#f0ffe8;color:#1a7a3a;">💊 ANALGESIA</div>
+      <div class="cuid-body">
+        Escalonada según OMS.<br>
+        Grado 3-4: opiáceos sistémicos.<br>
+        Lidocaína viscosa (tópica) para alivio local.
+      </div>
+    </div>
+  </div>
+
+  <div class="divisor"></div>
+
+  <!-- MARCADORES TUMORALES -->
+  <div class="sec-header">
+    <div class="sec-bar"></div>
+    <div>
+      <span class="sec-num">06 · Diagnóstico</span>
+      <div class="sec-title">Marcadores Tumorales — Usos y Limitaciones</div>
+    </div>
+  </div>
+
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Marcador</th>
+          <th>Tumor asociado</th>
+          <th>Uso clínico</th>
+          <th>⚠ Limitación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CEA</strong></td>
+          <td>Colorrectal, pulmón, mama</td>
+          <td>Seguimiento y recidiva</td>
+          <td style="color:var(--rojo-alto);">NO diagnóstico (↑ en fumadores, cirrosis)</td>
+        </tr>
+        <tr>
+          <td><strong>PSA</strong></td>
+          <td>Próstata</td>
+          <td>Screening (controvertido), seguimiento</td>
+          <td style="color:var(--rojo-alto);">↑ también en HBP y prostatitis</td>
+        </tr>
+        <tr>
+          <td><strong>CA-125</strong></td>
+          <td>Ovario (epitelial)</td>
+          <td>Seguimiento, respuesta a tto</td>
+          <td style="color:var(--rojo-alto);">↑ en endometriosis, embarazo, peritonitis</td>
+        </tr>
+        <tr>
+          <td><strong>AFP</strong></td>
+          <td>Hepatocarcinoma, germinales</td>
+          <td>Diagnóstico + seguimiento en cirrosis</td>
+          <td style="color:var(--rojo-alto);">↑ en embarazo, hepatitis activa</td>
+        </tr>
+        <tr>
+          <td><strong>CA 19-9</strong></td>
+          <td>Páncreas, vías biliares</td>
+          <td>Seguimiento, pronóstico</td>
+          <td style="color:var(--rojo-alto);">No específico; negativo en Lewis a-b-</td>
+        </tr>
+        <tr>
+          <td><strong>Beta-HCG</strong></td>
+          <td>Coriocarcinoma, germinales</td>
+          <td>Diagnóstico + seguimiento</td>
+          <td style="color:var(--rojo-alto);">↑ en embarazo (fisiológico)</td>
+        </tr>
+        <tr>
+          <td><strong>Bence-Jones</strong></td>
+          <td>Mieloma múltiple</td>
+          <td>Diagnóstico (en orina de 24h)</td>
+          <td style="color:var(--rojo-alto);">Cadenas ligeras libres; no sale en tira reactiva</td>
+        </tr>
+        <tr>
+          <td><strong>Calcitonina</strong></td>
+          <td>Carcinoma medular tiroideo</td>
+          <td>Diagnóstico y cribado familiar</td>
+          <td style="color:var(--rojo-alto);">↑ en fumadores, embarazo, IRC</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PERLAS EXAMEN -->
+  <div class="perlas-section">
+    <div class="perlas-header">
+      ⭐ PERLAS TIPO EXAMEN INGESA · ONCOLOGÍA
+    </div>
+    <div class="perlas-grid">
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Cáncer más incidente en España (ambos sexos)</strong> → Colorrectal. En hombres: próstata. En mujeres: mama.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Microcítico de pulmón: síndrome paraneoplásico clásico</strong> → SIADH (ADH ectópica). También ACTH → Cushing ectópico.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>CEA sirve para…</strong> → seguimiento y recidiva del colorrectal, NO para diagnóstico. Si preguntan "diagnóstico colorrectal" → colonoscopia + biopsia.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Hematuria monosintomática sin dolor + trabajador textil</strong> → Cáncer de vejiga (aminas aromáticas = tintes).
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Ganglio de Virchow</strong> → supraclavicular izquierdo = metástasis gástrica. (Hermana María José = metástasis umbilical).
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Autoexamen de mama: momento correcto</strong> → 7 días después del inicio de la menstruación (congestión mamaria mínima).
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Extravasación vesicante (adriamicina): primer paso</strong> → PARAR infusión SIN retirar la vía (para intentar aspirar). Nunca retirar primero.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Mucositis: colutorio correcto</strong> → suero bicarbonatado. Nunca colutorios con alcohol (irritan y secan).
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Mieloma múltiple: proteína diagnóstica en orina</strong> → Bence-Jones (cadenas ligeras). NO detectada por tira reactiva.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Ciclofosfamida: toxicidad órgano diana</strong> → Vejiga (cistitis hemorrágica por acroleína). Antídoto: MESNA + hidratación.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Neutropenia febril: temperatura diagnóstica</strong> → ≥38.3°C una vez O ≥38°C sostenida >1 hora. Urgencia absoluta → antibioterapia <60 min.
+      </div>
+      <div class="perla-item">
+        <span class="pe-star">★</span>
+        <strong>Bleomicina: toxicidad limitante de dosis</strong> → Fibrosis pulmonar. Contraindicado O₂ alto en anestesia. No es mielosupresora.
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="sec-header">
+    <div class="sec-bar" style="background:#7a7a7a;"></div>
+    <div>
+      <span class="sec-num" style="color:#7a7a7a;">Glosario</span>
+      <div class="sec-title" style="color:#4a4a4a;">Abreviaturas</div>
+    </div>
+  </div>
+
+  <div class="glos-grid">
+    <div class="glos-item"><span class="g-abr">TNM</span><span class="g-def">Tumor · Nodes · Metastasis</span></div>
+    <div class="glos-item"><span class="g-abr">SIADH</span><span class="g-def">Sínd. inapropiada ADH</span></div>
+    <div class="glos-item"><span class="g-abr">CEA</span><span class="g-def">Antígeno carcinoembrionario</span></div>
+    <div class="glos-item"><span class="g-abr">PSA</span><span class="g-def">Antígeno específico próstata</span></div>
+    <div class="glos-item"><span class="g-abr">AFP</span><span class="g-def">Alfafetoproteína</span></div>
+    <div class="glos-item"><span class="g-abr">HBP</span><span class="g-def">Hiperplasia benigna próstata</span></div>
+    <div class="glos-item"><span class="g-abr">VPH</span><span class="g-def">Virus papiloma humano</span></div>
+    <div class="glos-item"><span class="g-abr">LDGCB</span><span class="g-def">Linfoma difuso gran. cel. B</span></div>
+    <div class="glos-item"><span class="g-abr">QT</span><span class="g-def">Quimioterapia</span></div>
+    <div class="glos-item"><span class="g-abr">RT</span><span class="g-def">Radioterapia</span></div>
+    <div class="glos-item"><span class="g-abr">DMSO</span><span class="g-def">Dimetilsulfóxido (antídoto)</span></div>
+    <div class="glos-item"><span class="g-abr">MESNA</span><span class="g-def">Mercaptoetanosulfonato sódico</span></div>
+    <div class="glos-item"><span class="g-abr">SOH</span><span class="g-def">Sangre oculta en heces</span></div>
+    <div class="glos-item"><span class="g-abr">CRAB</span><span class="g-def">Calcio·Renal·Anemia·Bone (MM)</span></div>
+    <div class="glos-item"><span class="g-abr">LH</span><span class="g-def">Linfoma Hodgkin</span></div>
+    <div class="glos-item"><span class="g-abr">LNH</span><span class="g-def">Linfoma No Hodgkin</span></div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#c0a0b0;">
+    CÁPSULAS DE REPASO · ONCOLOGÍA · Plan Oncología SNS 2024 · SEOM 2024 · dina15sj-bot.github.io/CAPSULAS-REPASO
+  </div>
+
+</div>
+</body>
+</html>

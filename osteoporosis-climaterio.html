@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osteoporosis · Climaterio · Menopausia — INGESA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ef;
+    --header-bg: #2e1f3e;
+    --accent: #9b59b6;
+    --accent2: #6c3483;
+    --accent3: #e91e8c;
+    --accent4: #27ae60;
+    --card-bg: #ffffff;
+    --card-border: #ddd5e8;
+    --text: #2c2c3e;
+    --text-muted: #5a5a72;
+    --text-dim: #9090a8;
+    --pearl-bg: #fffce6;
+    --pearl-border: #d4a010;
+    --danger-bg: #fff0f0;
+    --danger-border: #e05555;
+    --danger-text: #8b1a1a;
+    --ok-bg: #f0fff4;
+    --ok-border: #27ae60;
+    --ok-text: #145a32;
+    --table-stripe: rgba(155,89,182,0.05);
+    --table-stripe2: rgba(155,89,182,0.02);
+    --sep: #ddd5e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: 15px; line-height: 1.6; }
+
+  .header { background: var(--header-bg); border-bottom: 3px solid var(--accent3); padding: 40px 32px 32px; position: relative; overflow: hidden; }
+  .header::before { content: '♀'; position: absolute; right: 50px; top: 50%; transform: translateY(-50%); font-size: 180px; opacity: 0.05; color: #fff; pointer-events: none; }
+  .header-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .pill { background: rgba(155,89,182,0.25); border: 1px solid rgba(155,89,182,0.4); color: #d7b8f0; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+  .pill.pink { background: rgba(233,30,140,0.2); border-color: rgba(233,30,140,0.4); color: #f08cc0; }
+  .pill.green { background: rgba(39,174,96,0.2); border-color: rgba(39,174,96,0.4); color: #80d8a8; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+  .header h1 span { color: #f08cc0; }
+  .header .subtitle { font-size: 16px; color: #b8a0d0; font-weight: 300; }
+  .header .meta { margin-top: 16px; display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-item { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #9080a8; }
+  .meta-item strong { color: #d7b8f0; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  .section { margin-bottom: 48px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--sep); }
+  .sec-num { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 900; color: rgba(155,89,182,0.12); line-height: 1; min-width: 60px; text-align: right; }
+  .section-title-wrap h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--accent2); line-height: 1.2; }
+  .section-title-wrap p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  /* T-SCORE VISUAL */
+  .tscore-bar { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; }
+  .tscore-track { height: 32px; border-radius: 8px; background: linear-gradient(to right, #e05555 0%, #e07030 18%, #f0c030 35%, #27ae60 55%, #27ae60 100%); position: relative; margin: 16px 0; }
+  .tscore-labels { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+  .tscore-zones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+  .tscore-zone { border-radius: 8px; padding: 12px; text-align: center; border: 1px solid; }
+  .tz-normal { background: #f0fff4; border-color: #27ae60; }
+  .tz-osteopenia { background: #fffbf0; border-color: #e0a030; }
+  .tz-osteoporosis { background: #fff5f0; border-color: #e05530; }
+  .tz-establecida { background: #fff0f0; border-color: #e05555; }
+  .tz-val { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .tz-normal .tz-val { color: #1a7a3a; }
+  .tz-osteopenia .tz-val { color: #b07010; }
+  .tz-osteoporosis .tz-val { color: #c04020; }
+  .tz-establecida .tz-val { color: #a01010; }
+  .tz-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .tz-normal .tz-name { color: #145a32; }
+  .tz-osteopenia .tz-name { color: #8a5010; }
+  .tz-osteoporosis .tz-name { color: #8a2010; }
+  .tz-establecida .tz-name { color: #7a0808; }
+  .tz-def { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+  /* CARDS */
+  .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 18px; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--accent2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+  .card h3 span { color: var(--accent3); }
+
+  /* TWO COLUMNS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* ROW ITEM */
+  .row-item { display: flex; gap: 10px; margin-bottom: 8px; align-items: baseline; font-size: 13.5px; }
+  .rl { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); min-width: 120px; flex-shrink: 0; }
+  .rv { color: var(--text); }
+  .rv strong { color: var(--accent2); }
+  .rv .red { color: var(--danger-text); font-weight: 700; }
+  .rv .green { color: #145a32; font-weight: 700; }
+
+  /* DRUG LIST */
+  .drug-item { background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; }
+  .drug-name { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--accent2); margin-bottom: 4px; }
+  .drug-mech { font-size: 12.5px; color: var(--text-muted); }
+  .drug-pearl { font-size: 12px; color: #8a5010; margin-top:4px; background: rgba(224,160,30,0.1); padding: 3px 8px; border-radius: 4px; display: inline-block; }
+  .drug-pearl::before { content: '★ '; }
+  .drug-badge { display: inline-block; font-size: 10px; font-family: 'JetBrains Mono', monospace; padding: 2px 7px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+  .badge-first { background: rgba(39,174,96,0.15); color: #145a32; border: 1px solid rgba(39,174,96,0.3); }
+  .badge-caution { background: rgba(224,85,85,0.12); color: #8b1a1a; border: 1px solid rgba(224,85,85,0.25); }
+
+  /* DIFF TABLE */
+  .diff-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--card-border); }
+  .diff-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .diff-table thead th { background: #f0eaf8; color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; padding: 9px 12px; text-align: left; border-bottom: 2px solid var(--card-border); }
+  .diff-table tbody td { padding: 9px 12px; border-bottom: 1px solid #ede5f5; vertical-align: top; }
+  .diff-table tbody tr:nth-child(odd) td { background: var(--table-stripe); }
+  .diff-table .cat { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent2); }
+
+  /* HORMONE PHASE TABLE */
+  .phase-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--card-border); }
+  .phase-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .phase-table thead th { background: var(--header-bg); color: #d0b8f0; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1px; padding: 9px 12px; text-align: left; border-bottom: 2px solid var(--accent); }
+  .phase-table tbody td { padding: 9px 12px; border-bottom: 1px solid #ede5f5; vertical-align: top; line-height: 1.45; }
+  .phase-table tbody tr:nth-child(odd) td { background: rgba(155,89,182,0.04); }
+  .phase-table .fase { font-weight: 700; color: var(--accent2); font-size: 13px; }
+  .up { color: var(--danger-text); font-weight: 700; }
+  .down { color: #145a32; font-weight: 700; }
+  .norm { color: #1a5a8a; font-weight: 700; }
+
+  /* ALERT / KEY */
+  .alert-box { border-left: 4px solid var(--danger-border); background: var(--danger-bg); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 13px; color: var(--danger-text); }
+  .alert-box::before { content: '⚠ '; font-weight: 700; }
+  .key-box { background: #f8f0ff; border: 1px solid #d0a8f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; font-size: 13px; color: var(--accent2); }
+  .key-box::before { content: '🔑 '; }
+
+  /* PEARL GRID */
+  .pearl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pearl-item { background: var(--pearl-bg); border: 1px solid var(--pearl-border); border-radius: 8px; padding: 14px 16px; color: #3a3010; font-size: 13.5px; line-height: 1.5; }
+  .pearl-item::before { content: '★ '; color: #b08010; font-weight: 700; }
+  .pearl-item strong { color: #7a4a00; }
+
+  /* SECTION DIVIDER */
+  .section-divider { background: var(--header-bg); color: #d0b8f0; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; padding: 14px 24px; margin: 40px 0 32px; border-radius: 10px; border-left: 5px solid var(--accent3); }
+
+  .sep { height: 1px; background: linear-gradient(to right, transparent, var(--sep), transparent); margin: 32px 0; }
+  .footer { background: var(--header-bg); border-top: 1px solid rgba(155,89,182,0.3); padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #9080a8; font-family: 'JetBrains Mono', monospace; }
+  .footer strong { color: #d0b8f0; }
+
+  @media (max-width: 800px) {
+    .header h1 { font-size: 26px; }
+    .tscore-zones { grid-template-columns: 1fr 1fr; }
+    .two-col, .three-col, .pearl-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-pills">
+    <span class="pill">Reumatología / Endocrinología</span>
+    <span class="pill pink">Ginecología</span>
+    <span class="pill green">OPE INGESA 2026</span>
+  </div>
+  <h1>Osteoporosis · Climaterio · <span>Menopausia</span></h1>
+  <div class="subtitle">Diagnóstico OMS · Farmacología · Fases hormonales · THS · Perlas tipo test</div>
+  <div class="meta">
+    <span class="meta-item"><strong>Fuentes:</strong> OMS (criterios DXA) · SEGO · Fichas técnicas EMA</span>
+    <span class="meta-item"><strong>Bloque:</strong> Crónicos prevalentes · Salud de la mujer</span>
+    <span class="meta-item"><strong>Nº:</strong> 52</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- BLOQUE A: OSTEOPOROSIS -->
+  <div class="section-divider">PARTE A — Osteoporosis</div>
+
+  <!-- S1: DIAGNÓSTICO OMS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">01</div>
+      <div class="section-title-wrap">
+        <h2>Diagnóstico OMS — T-score (DXA)</h2>
+        <p>Gold standard: densitometría ósea (DXA) en columna lumbar y cadera</p>
+      </div>
+    </div>
+
+    <div class="tscore-bar">
+      <div class="tscore-labels">
+        <span>−3.5</span><span>−3.0</span><span>−2.5</span><span>−2.0</span><span>−1.5</span><span>−1.0</span><span>−0.5</span><span>0</span><span>+1</span>
+      </div>
+      <div style="position:relative;">
+        <div class="tscore-track"></div>
+        <div style="position:absolute;top:-8px;left:8%;width:2px;height:48px;background:#a01010;"></div>
+        <div style="position:absolute;top:-8px;left:35%;width:2px;height:48px;background:#c04020;"></div>
+        <div style="position:absolute;top:-8px;left:55%;width:2px;height:48px;background:#e0a030;"></div>
+      </div>
+      <div class="tscore-zones" style="margin-top:20px;">
+        <div class="tscore-zone tz-normal">
+          <div class="tz-val">&gt; −1</div>
+          <div class="tz-name">Normal</div>
+          <div class="tz-def">Densidad ósea dentro de la normalidad</div>
+        </div>
+        <div class="tscore-zone tz-osteopenia">
+          <div class="tz-val">−1 a −2,5</div>
+          <div class="tz-name">Osteopenia</div>
+          <div class="tz-def">Baja masa ósea. No es enfermedad, es factor de riesgo</div>
+        </div>
+        <div class="tscore-zone tz-osteoporosis">
+          <div class="tz-val">≤ −2,5</div>
+          <div class="tz-name">Osteoporosis</div>
+          <div class="tz-def">Diagnóstico establecido por densitometría</div>
+        </div>
+        <div class="tscore-zone tz-establecida">
+          <div class="tz-val">≤ −2,5 + fractura</div>
+          <div class="tz-name">Osteoporosis Establecida</div>
+          <div class="tz-def">T-score ≤ −2,5 más fractura por fragilidad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:16px;">
+      <div class="card">
+        <h3>Fracturas por Localización</h3>
+        <div class="row-item"><span class="rl">Más frecuentes:</span><span class="rv"><strong>Vertebrales</strong> — pérdida de estatura, cifosis dorsal. Muchas asintomáticas</span></div>
+        <div class="row-item"><span class="rl">Mayor mortalidad:</span><span class="rv"><strong>Cadera (fémur proximal)</strong> — morbimortalidad muy elevada en &gt;70 años</span></div>
+        <div class="row-item"><span class="rl">Mujer posmenopáusica:</span><span class="rv"><strong>Fractura de Colles</strong> — radio distal tras caída con mano extendida</span></div>
+        <div style="margin-top:10px;" class="alert-box">La osteoporosis es "enfermedad silente": asintomática hasta la fractura. Diagnóstico frecuentemente incidental</div>
+      </div>
+      <div class="card">
+        <h3>Diagnóstico Diferencial Bioquímico</h3>
+        <div class="row-item"><span class="rl">Osteoporosis:</span><span class="rv">Ca, P y FA <strong>normales</strong></span></div>
+        <div class="row-item"><span class="rl">Osteomalacia:</span><span class="rv">Ca ↓, P ↓, <strong>FA ↑</strong> — defecto mineralización (déficit vit D)</span></div>
+        <div class="row-item"><span class="rl">Paget óseo:</span><span class="rv">Ca y P normales, <strong>FA muy ↑</strong> — remodelado desorganizado</span></div>
+        <div class="row-item"><span class="rl">Mieloma múltiple:</span><span class="rv"><strong>Hipercalcemia + anemia</strong> + lesiones líticas</span></div>
+        <div class="row-item"><span class="rl">Metástasis óseas:</span><span class="rv">Lesiones múltiples. Causa más frecuente de tumores óseos en adultos</span></div>
+        <div class="key-box" style="margin-top:10px;">Marcadores de remodelado (CTX, fosfatasa alcalina ósea): útiles para monitorizar respuesta. <strong>NUNCA para diagnóstico</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S2: TRATAMIENTO OSTEOPOROSIS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">02</div>
+      <div class="section-title-wrap">
+        <h2>Tratamiento de la Osteoporosis</h2>
+        <p>No farmacológico + farmacológico con mecanismos y perlas</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Medidas no Farmacológicas</h3>
+        <div class="drug-item">
+          <div class="drug-name">Calcio en la dieta</div>
+          <div class="drug-mech">Ingesta recomendada: <strong>1.000–1.200 mg/día</strong> (preferiblemente de alimentos, no solo suplementos)</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Vitamina D</div>
+          <div class="drug-mech">Ingesta recomendada: <strong>600–800 UI/día</strong>. Niveles séricos objetivo: 25(OH)D &gt; 20 ng/mL</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Ejercicio físico</div>
+          <div class="drug-mech">Actividad con <strong>carga y resistencia</strong> para masa ósea. Ejercicios de <strong>equilibrio</strong> para prevenir caídas</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Evitar tóxicos</div>
+          <div class="drug-mech">Abandono del tabaco (↓ masa ósea). Reducción del alcohol. Prevención de caídas en el hogar</div>
+        </div>
+        <div class="alert-box">Causas secundarias frecuentes de osteoporosis: <strong>glucocorticoides crónicos</strong> e inmovilización prolongada</div>
+      </div>
+      <div class="card">
+        <h3>Tratamiento Farmacológico</h3>
+        <div class="drug-item">
+          <div class="drug-name">Bifosfonatos <span class="drug-badge badge-first">1ª LÍNEA</span></div>
+          <div class="drug-mech">Alendronato (oral semanal), Zoledronato (IV anual). Inhiben resorción ósea induciendo apoptosis de osteoclastos</div>
+          <div class="drug-pearl">Alendronato: tomar en ayunas con vaso de agua, no tumbarse 30 min</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Denosumab</div>
+          <div class="drug-mech">Anticuerpo monoclonal anti-RANKL. Bloquea la activación y diferenciación de osteoclastos</div>
+          <div class="drug-pearl">SC cada 6 meses. Rebote de resorción si se suspende sin transición a bifosfonato</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Teriparatida <span class="drug-badge badge-caution">MÁXIMO 24 MESES</span></div>
+          <div class="drug-mech">Análogo de PTH (1-34). Único fármaco <strong>osteoformador</strong> aprobado para uso clínico general</div>
+          <div class="drug-pearl">Limitado a 24 meses por riesgo de osteosarcoma (observado en estudios en rata)</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Raloxifeno (SERM)</div>
+          <div class="drug-mech">Modulador selectivo del receptor estrogénico. Agonista en hueso, antagonista en mama y endometrio</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Romosozumab</div>
+          <div class="drug-mech">Anticuerpo anti-esclerostina. Aumenta formación ósea Y reduce reabsorción (doble acción)</div>
+          <div class="drug-pearl">SC mensual durante 12 meses. Precaución en riesgo cardiovascular elevado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE B: CLIMATERIO Y MENOPAUSIA -->
+  <div class="section-divider">PARTE B — Climaterio y Menopausia</div>
+
+  <!-- S3: DEFINICIONES Y FISIOLOGÍA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">03</div>
+      <div class="section-title-wrap">
+        <h2>Definiciones y Fisiología Hormonal</h2>
+        <p>Conceptos precisos imprescindibles para no perder estas preguntas</p>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px;">
+      <div class="card">
+        <h3>Definiciones Clave</h3>
+        <div class="row-item"><span class="rl">Climaterio:</span><span class="rv">Etapa de transición entre fase reproductiva y no reproductiva. Incluye pre-, peri- y posmenopausia</span></div>
+        <div class="row-item"><span class="rl">Menopausia:</span><span class="rv">Cese definitivo de la menstruación. Se confirma tras <strong>12 meses consecutivos de amenorrea</strong></span></div>
+        <div class="row-item"><span class="rl">Edad media:</span><span class="rv"><strong>51 años</strong> (rango normal: 45–55 años)</span></div>
+        <div class="row-item"><span class="rl">Menop. precoz:</span><span class="rv">Insuficiencia Ovárica Prematura (IOP): cese antes de los <strong>40 años</strong></span></div>
+      </div>
+      <div class="card">
+        <h3>Cambios Hormonales Principales</h3>
+        <div class="row-item"><span class="rl">Estrógenos:</span><span class="rv">↓ Estradiol (E2). Estrógeno predominante: <strong>estrona (E1)</strong> (por aromatización periférica)</span></div>
+        <div class="row-item"><span class="rl">Progesterona:</span><span class="rv"><strong>Primera en caer</strong> (ciclos anovulatorios). Antecede a la caída estrogénica</span></div>
+        <div class="row-item"><span class="rl">FSH y LH:</span><span class="rv"><span class="up">↑↑ compensatorio</span> por pérdida de retroalimentación negativa. FSH más marcada</span></div>
+        <div class="row-item"><span class="rl">Inhibina B:</span><span class="rv">↓ precoz — reduce el freno sobre FSH hipofisaria</span></div>
+        <div class="row-item"><span class="rl">Andrógenos:</span><span class="rv">Se mantienen en menor proporción → pueden causar hirsutismo leve</span></div>
+      </div>
+    </div>
+
+    <!-- TABLA FASES HORMONALES -->
+    <div class="phase-table-wrap">
+      <table class="phase-table">
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Cambios Hormonales Clave</th>
+            <th>Síntoma Típico de Examen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="fase">Mujer fértil</td>
+            <td>Estrógenos y progesterona cíclicos. FSH/LH regulados por feedback</td>
+            <td>Ciclos regulares. Sin síntomas vasomotores</td>
+          </tr>
+          <tr>
+            <td class="fase">Perimenopausia temprana</td>
+            <td>↓ ovulación → <strong class="down">↓ progesterona</strong> (primera en caer). Estrógenos fluctuantes. FSH <span class="up">↑ leve</span></td>
+            <td>Reglas irregulares, menorragias, mastodinia, SPM intenso</td>
+          </tr>
+          <tr>
+            <td class="fase">Perimenopausia avanzada</td>
+            <td><strong class="down">↓ progesterona marcada</strong>. Estrógenos globalmente ↓ con picos erráticos. FSH <span class="up">↑ claramente</span></td>
+            <td>Amenorreas + sangrados irregulares. Inicio de sofocos</td>
+          </tr>
+          <tr>
+            <td class="fase">Menopausia / Posmenop. temprana</td>
+            <td>Estradiol muy <span class="down">↓</span>. Progesterona casi 0. FSH y LH muy <span class="up">↑↑</span> (FSH ×15–20; LH ×10)</td>
+            <td>Sofocos, sudores nocturnos, insomnio, irritabilidad, sequedad vaginal incipiente</td>
+          </tr>
+          <tr>
+            <td class="fase">Posmenopausia tardía</td>
+            <td>Hipoestrogenismo mantenido. Pequeñas cantidades de estrona por aromatización periférica</td>
+            <td>Síndrome genitourinario, atrofia vulvovaginal, dispareunia. ↑ riesgo osteoporosis y CV</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S4: CUADRO CLÍNICO Y DIAGNÓSTICO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">04</div>
+      <div class="section-title-wrap">
+        <h2>Cuadro Clínico y Diagnóstico</h2>
+        <p>Manifestaciones por sistemas y confirmación bioquímica</p>
+      </div>
+    </div>
+
+    <div class="diff-table-wrap">
+      <table class="diff-table">
+        <thead>
+          <tr>
+            <th>Sistema</th>
+            <th>Manifestaciones Fisiológicas (Esperadas)</th>
+            <th>Consideraciones Patológicas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cat">Vasomotor</td>
+            <td>Sofocos y sudoración nocturna (<strong>70–80%</strong> de las mujeres)</td>
+            <td>Disfunción grave del centro termorregulador hipotalámico</td>
+          </tr>
+          <tr>
+            <td class="cat">Genitourinario</td>
+            <td>Síndrome genitourinario: atrofia, sequedad, prurito, dispareunia</td>
+            <td>Infecciones urinarias recurrentes, incontinencia de urgencia</td>
+          </tr>
+          <tr>
+            <td class="cat">Psicológico</td>
+            <td>Irritabilidad, insomnio, ansiedad, fallos leves de memoria</td>
+            <td>Depresión mayor o deterioro cognitivo severo</td>
+          </tr>
+          <tr>
+            <td class="cat">Metabólico</td>
+            <td>Perfil lipídico aterogénico: ↑ LDL, ↓ HDL. Resistencia a la insulina</td>
+            <td>↑ riesgo cardiovascular. Osteoporosis acelerada</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col" style="margin-top:16px;">
+      <div class="card">
+        <h3>Confirmación Bioquímica</h3>
+        <div class="row-item"><span class="rl">Diagnóstico:</span><span class="rv"><strong>Clínico</strong> (edad + síntomas). Analítica si hay dudas</span></div>
+        <div class="row-item"><span class="rl">FSH elevada:</span><span class="rv">&gt; <strong>25–30 mUI/mL</strong> — marcador más característico</span></div>
+        <div class="row-item"><span class="rl">Estradiol bajo:</span><span class="rv">&lt; <strong>20 pg/mL</strong></span></div>
+        <div class="row-item"><span class="rl">AMH:</span><span class="rv">Hormona Antimülleriana ↓ — indica baja reserva ovárica</span></div>
+      </div>
+      <div class="card">
+        <h3>⚠ Sangrado Posmenopáusico</h3>
+        <div class="alert-box">El sangrado posmenopáusico <strong>NO es fisiológico</strong>. Requiere diagnóstico diferencial urgente</div>
+        <div class="key-box">Neoplasia ginecológica más frecuente en países desarrollados: <strong>Cáncer de Endometrio</strong>. El sangrado posmenopáusico es su síntoma guía</div>
+        <div class="row-item" style="margin-top:8px;"><span class="rl">Estudio:</span><span class="rv">Ecografía TV + biopsia endometrial (histeroscopia si precisa)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S5: THS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">05</div>
+      <div class="section-title-wrap">
+        <h2>Terapia Hormonal Sustitutiva (THS)</h2>
+        <p>Tratamiento más eficaz para síntomas moderados-severos — reglas críticas de examen</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Esquemas de Administración</h3>
+        <div class="drug-item">
+          <div class="drug-name">Mujer CON útero</div>
+          <div class="drug-mech"><strong>Estrógenos + Progestágenos</strong> combinados. La progesterona protege el endometrio de la hiperplasia inducida por estrógenos</div>
+          <div class="drug-pearl">NUNCA estrógenos solos con útero → riesgo de cáncer de endometrio</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Mujer SIN útero (histerectomizada)</div>
+          <div class="drug-mech"><strong>Estrógenos solos</strong> — no necesita progesterona al no existir endometrio</div>
+        </div>
+        <div class="drug-item">
+          <div class="drug-name">Tratamiento local (tópico)</div>
+          <div class="drug-mech">Estrógenos vaginales (cremas, óvulos, anillos) para atrofia vulvovaginal. <strong>Mínima absorción sistémica</strong></div>
+          <div class="drug-pearl">Los estrógenos locales no requieren progestágenos aunque se tenga útero (dosis muy bajas)</div>
+        </div>
+        <div style="margin-top:10px;">
+          <div class="row-item"><span class="rl">Alternativas:</span><span class="rv">ISRS (paroxetina, venlafaxina), Gabapentina o Clonidina para sofocos sin THS</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Contraindicaciones <span>Absolutas THS</span></h3>
+        <div class="alert-box">Antecedente de <strong>cáncer de mama</strong></div>
+        <div class="alert-box"><strong>Tromboembolismo venoso</strong> (TEV) previo o activo</div>
+        <div class="alert-box"><strong>Enfermedad hepática grave</strong> activa</div>
+        <div class="alert-box"><strong>Patología cardiovascular importante</strong> (enfermedad coronaria activa, ACV reciente)</div>
+        <div class="alert-box">Sangrado vaginal de causa <strong>no diagnosticada</strong></div>
+        <div class="key-box" style="margin-top:12px;">THS NO indicada para: prevención primaria cardiovascular ni como terapia antienvejecimiento. Solo indicada para <strong>síntomas moderados-severos</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- S6: PERLAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">06</div>
+      <div class="section-title-wrap">
+        <h2>⭐ Perlas Tipo Examen INGESA</h2>
+        <p>Las trampas más frecuentes sobre osteoporosis y menopausia en OPEs</p>
+      </div>
+    </div>
+    <div class="pearl-grid">
+      <div class="pearl-item">T-score ≤ −2,5: diagnóstico de <strong>osteoporosis</strong>. T-score ≤ −2,5 + fractura por fragilidad: <strong>osteoporosis establecida</strong></div>
+      <div class="pearl-item"><strong>Gold standard diagnóstico:</strong> densitometría DXA en columna lumbar y cadera. No la analítica sanguínea</div>
+      <div class="pearl-item">Fractura con mayor morbimortalidad: <strong>cadera (fémur proximal)</strong>. Fractura más frecuente: <strong>vertebral</strong> (muchas asintomáticas)</div>
+      <div class="pearl-item">Teriparatida: único <strong>osteoformador</strong> aprobado de uso general. Máximo <strong>24 meses</strong> por riesgo de osteosarcoma</div>
+      <div class="pearl-item">Marcadores de remodelado óseo (CTX, FA ósea): para monitorizar respuesta. <strong>Nunca para diagnóstico</strong></div>
+      <div class="pearl-item">Menopausia: confirmada con <strong>12 meses de amenorrea</strong>. Edad media 51 años. Precoz si &lt;40 años</div>
+      <div class="pearl-item">Primera hormona en caer en el climaterio: <strong>progesterona</strong> (por ciclos anovulatorios). Los estrógenos caen después</div>
+      <div class="pearl-item">Bioquímica típica de menopausia: <strong>FSH muy elevada</strong> (&gt;25–30 mUI/mL) + <strong>estradiol bajo</strong> (&lt;20 pg/mL)</div>
+      <div class="pearl-item">Estrógeno dominante en la edad fértil: <strong>estradiol (E2)</strong>. En el climaterio: <strong>estrona (E1)</strong> (aromatización periférica)</div>
+      <div class="pearl-item"><strong>Regla de oro THS:</strong> NUNCA estrógenos solos a mujer con útero → hiperplasia/cáncer de endometrio</div>
+      <div class="pearl-item">THS: <strong>NO indicada</strong> para prevención cardiovascular primaria ni como antienvejecimiento. Solo sintomatología moderada-severa</div>
+      <div class="pearl-item">Sangrado posmenopáusico: <strong>siempre patológico</strong>. Principal sospecha: cáncer de endometrio (neoplasia ginecológica más frecuente en países desarrollados)</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span><strong>CÁPSULAS DE REPASO INGESA</strong> — Recurso Nº 52</span>
+  <span>Osteoporosis · Climaterio · Menopausia · Fuentes: OMS, SEGO</span>
+  <span>dina15sj-bot.github.io/CAPSULAS-REPASO</span>
+</div>
+</body>
+</html>

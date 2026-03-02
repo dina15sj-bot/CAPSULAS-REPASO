@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escalera Analgésica OMS · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf7f2;
+  --surface: #fff;
+  --border: #e8e0d0;
+  --text: #1a1208;
+  --muted: #7a6a50;
+  --warm: #f2ede4;
+
+  --e1-bg: #e8f4e8;
+  --e1-border: #2a8a2a;
+  --e1-txt: #1a5a1a;
+  --e1-accent: #2a8a2a;
+
+  --e2-bg: #fff3e0;
+  --e2-border: #c47a10;
+  --e2-txt: #7a4a08;
+  --e2-accent: #c47a10;
+
+  --e3-bg: #fdeaea;
+  --e3-border: #c02020;
+  --e3-txt: #7a1010;
+  --e3-accent: #c02020;
+
+  --coad: #e8eaf8;
+  --coad-border: #4060c0;
+  --coad-txt: #202a70;
+
+  --pearl: #fffbe6;
+  --pearl-border: #e0b820;
+  --pearl-txt: #5a4a08;
+
+  --antidote: #f0e8ff;
+  --antidote-border: #7040c0;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+.page-header {
+  background: #1a1208;
+  padding: 2rem 2.5rem 1.8rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 18px,
+    rgba(255,255,255,0.025) 18px,
+    rgba(255,255,255,0.025) 19px
+  );
+}
+.header-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+.header-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #c0b090;
+  margin-bottom: 0.4rem;
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.header-title span { color: #e8c030; }
+.header-sub {
+  font-size: 0.78rem;
+  color: #9a8a70;
+  font-family: 'JetBrains Mono', monospace;
+}
+.oms-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: #c0b890;
+  margin-top: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+/* ─── MAIN LAYOUT ─── */
+.main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+/* ─── OMS STAIRCASE VISUAL ─── */
+.staircase-visual {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+.staircase-visual::after {
+  content: '"by the mouth · by the clock · by the ladder"';
+  position: absolute;
+  bottom: 0.5rem;
+  right: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  color: var(--border);
+  letter-spacing: 0.1em;
+}
+.stair-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.15s;
+}
+.stair-step:hover { transform: translateY(-3px); }
+.stair-block {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem 0.8rem 0.8rem;
+  position: relative;
+}
+.stair-block-e1 { background: var(--e1-bg); border: 2px solid var(--e1-border); border-bottom: none; height: 140px; }
+.stair-block-e2 { background: var(--e2-bg); border: 2px solid var(--e2-border); border-bottom: none; height: 185px; }
+.stair-block-e3 { background: var(--e3-bg); border: 2px solid var(--e3-border); border-bottom: none; height: 230px; }
+
+.stair-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+.e1 .stair-num { color: var(--e1-accent); }
+.e2 .stair-num { color: var(--e2-accent); }
+.e3 .stair-num { color: var(--e3-accent); }
+
+.stair-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.e1 .stair-label { color: var(--e1-txt); }
+.e2 .stair-label { color: var(--e2-txt); }
+.e3 .stair-label { color: var(--e3-txt); }
+
+.stair-drugs {
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1.4;
+}
+.e1 .stair-drugs { color: var(--e1-txt); }
+.e2 .stair-drugs { color: var(--e2-txt); }
+.e3 .stair-drugs { color: var(--e3-txt); }
+
+.stair-base {
+  height: 8px;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+}
+.e1 .stair-base { background: var(--e1-accent); }
+.e2 .stair-base { background: var(--e2-accent); }
+.e3 .stair-base { background: var(--e3-accent); }
+
+.stair-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+  font-size: 1.4rem;
+  color: var(--border);
+  align-self: center;
+}
+
+.coadyuvant-bar {
+  background: var(--coad);
+  border: 1px dashed var(--coad-border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.68rem;
+  color: var(--coad-txt);
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+  margin: 0.6rem 0 1.2rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─── GRID DE ESCALONES ─── */
+.escalon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.escalon-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid;
+}
+.escalon-card-e1 { border-color: var(--e1-border); }
+.escalon-card-e2 { border-color: var(--e2-border); }
+.escalon-card-e3 { border-color: var(--e3-border); }
+
+.escalon-head {
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.e1 .escalon-head { background: var(--e1-accent); }
+.e2 .escalon-head { background: var(--e2-accent); }
+.e3 .escalon-head { background: var(--e3-accent); }
+
+.escalon-head-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.escalon-head-info { flex: 1; }
+.escalon-head-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.8);
+}
+.escalon-head-dolor {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.escalon-body { background: var(--surface); padding: 1rem; }
+
+/* Drug block dentro de cada escalón */
+.drug-block {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.drug-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+.drug-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.drug-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.e1 .drug-dot { background: var(--e1-accent); }
+.e2 .drug-dot { background: var(--e2-accent); }
+.e3 .drug-dot { background: var(--e3-accent); }
+
+.drug-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.e1 .drug-name { color: var(--e1-txt); }
+.e2 .drug-name { color: var(--e2-txt); }
+.e3 .drug-name { color: var(--e3-txt); }
+
+.drug-family {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.drug-comercial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.comercial-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 3px;
+  font-style: italic;
+}
+.e1 .comercial-tag { background: var(--e1-bg); color: var(--e1-txt); border: 1px solid #a0d0a0; }
+.e2 .comercial-tag { background: var(--e2-bg); color: var(--e2-txt); border: 1px solid #e0b060; }
+.e3 .comercial-tag { background: var(--e3-bg); color: var(--e3-txt); border: 1px solid #e09090; }
+
+/* Toxicidad + antídoto inline */
+.tox-row {
+  background: #fff8f0;
+  border-left: 3px solid #e08030;
+  border-radius: 0 4px 4px 0;
+  padding: 0.35rem 0.6rem;
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+.tox-row.severe { background: #fff0f0; border-color: #c02020; }
+.tox-row .tox-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #c06020;
+  margin-bottom: 0.1rem;
+}
+.tox-row.severe .tox-label { color: #c02020; }
+
+.antidote-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--antidote);
+  border: 1px solid var(--antidote-border);
+  border-radius: 4px;
+  padding: 0.18rem 0.55rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: #4020a0;
+  margin-top: 0.35rem;
+}
+.antidote-badge::before { content: '🔑'; font-size: 0.65rem; }
+
+/* ─── PERLAS POR ESCALÓN ─── */
+.perlas-escalon {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--pearl-border);
+  margin-top: 0.8rem;
+}
+.perlas-head {
+  background: #e0b820;
+  padding: 0.4rem 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #1a1208;
+}
+.perlas-body {
+  background: var(--pearl);
+  padding: 0.6rem 0.8rem;
+}
+.perla-item {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid #f0e890;
+  color: var(--pearl-txt);
+  display: flex;
+  gap: 0.4rem;
+}
+.perla-item:last-child { border-bottom: none; }
+.perla-item::before { content: '★'; color: #c0901a; font-size: 0.65rem; flex-shrink: 0; margin-top: 0.15rem; }
+.perla-item strong { color: #3a2a04; }
+
+/* ─── SECCIÓN PRINCIPIOS OMS ─── */
+.principios-section {
+  background: #1a1208;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.principio-item {
+  text-align: center;
+  padding: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+}
+.principio-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e8c030;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.03em;
+}
+.principio-es {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.4rem;
+}
+.principio-desc {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+}
+
+/* ─── PERLAS GENERALES ─── */
+.perlas-generales {
+  background: var(--surface);
+  border: 1px solid var(--pearl-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.perlas-gen-head {
+  background: #c09010;
+  padding: 0.7rem 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.perlas-gen-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.perla-gen-item {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #f0e8c0;
+  border-right: 1px solid #f0e8c0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--pearl-txt);
+  background: var(--pearl);
+  display: flex;
+  gap: 0.5rem;
+}
+.perla-gen-item:nth-child(even) { border-right: none; }
+.perla-gen-item:last-child, .perla-gen-item:nth-last-child(2) { border-bottom: none; }
+.perla-gen-item::before { content: '⭐'; font-size: 0.7rem; flex-shrink: 0; margin-top: 0.1rem; }
+.perla-gen-item strong { color: #3a2a04; }
+
+/* ─── TABLA RESUMEN ANTÍDOTOS ─── */
+.antidote-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--antidote-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.antidote-head {
+  background: #4020a0;
+  padding: 0.7rem 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+table.antidote-tbl {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.antidote-tbl th {
+  background: #f0e8ff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #4020a0;
+  padding: 0.45rem 0.8rem;
+  text-align: left;
+  border-bottom: 2px solid #c0a0e8;
+}
+table.antidote-tbl td {
+  font-size: 0.74rem;
+  padding: 0.4rem 0.8rem;
+  border-bottom: 1px solid #ece4f8;
+  vertical-align: top;
+  line-height: 1.4;
+}
+table.antidote-tbl tr:last-child td { border-bottom: none; }
+table.antidote-tbl tr:hover td { background: #f8f4ff; }
+.tbl-drug { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.68rem; }
+.tbl-e1 .tbl-drug { color: var(--e1-accent); }
+.tbl-e2 .tbl-drug { color: var(--e2-accent); }
+.tbl-e3 .tbl-drug { color: var(--e3-accent); }
+.tbl-antidote { color: #4020a0; font-weight: 600; }
+.tbl-none { color: var(--muted); font-style: italic; }
+
+/* ─── COADYUVANTES ─── */
+.coad-section {
+  background: var(--coad);
+  border: 1px solid var(--coad-border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+}
+.coad-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--coad-txt);
+  margin-bottom: 0.7rem;
+  font-weight: 600;
+}
+.coad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+.coad-item {
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #c8d0f0;
+}
+.coad-item-type { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; color: var(--coad-border); margin-bottom: 0.2rem; }
+.coad-item-drug { font-size: 0.72rem; font-weight: 600; color: var(--coad-txt); margin-bottom: 0.1rem; }
+.coad-item-use { font-size: 0.65rem; color: var(--muted); }
+
+@media (max-width: 800px) {
+  .escalon-grid { grid-template-columns: 1fr; }
+  .principios-section { grid-template-columns: 1fr; }
+  .perlas-gen-body { grid-template-columns: 1fr; }
+  .coad-grid { grid-template-columns: 1fr 1fr; }
+  .staircase-visual { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-tag">Analgesia · Farmacología</div>
+    <div class="header-title">Escalera Analgésica <span>OMS</span></div>
+    <div class="header-sub">Fármacos · Ejemplos comerciales España · Toxicidad · Antídotos · Perlas de examen</div>
+    <div class="oms-badge">OMS 1986 · Actualización práctica 2024 · INGESA</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- VISUALIZACIÓN ESCALERA -->
+  <div class="staircase-visual">
+    <div class="stair-step e1">
+      <div class="stair-block stair-block-e1">
+        <div class="stair-num">1</div>
+        <div class="stair-label">Dolor LEVE</div>
+        <div class="stair-drugs">Paracetamol<br>AINEs<br>± Coadyuvantes</div>
+      </div>
+      <div class="stair-base"></div>
+    </div>
+    <div class="stair-arrow">→</div>
+    <div class="stair-step e2">
+      <div class="stair-block stair-block-e2">
+        <div class="stair-num">2</div>
+        <div class="stair-label">Dolor MODERADO</div>
+        <div class="stair-drugs">Opioides débiles<br>+ no opioide<br>Codeína · Tramadol<br>± Coadyuvantes</div>
+      </div>
+      <div class="stair-base"></div>
+    </div>
+    <div class="stair-arrow">→</div>
+    <div class="stair-step e3">
+      <div class="stair-block stair-block-e3">
+        <div class="stair-num">3</div>
+        <div class="stair-label">Dolor INTENSO</div>
+        <div class="stair-drugs">Opioides fuertes<br>+ no opioide<br>Morfina · Oxicodona<br>Fentanilo<br>± Coadyuvantes</div>
+      </div>
+      <div class="stair-base"></div>
+    </div>
+  </div>
+
+  <!-- PRINCIPIOS OMS -->
+  <div class="principios-section">
+    <div class="principio-item">
+      <div class="principio-en">"By the Mouth"</div>
+      <div class="principio-es">Por la boca</div>
+      <div class="principio-desc">Vía oral siempre que sea posible. Solo cambiar a parenteral si no tolera o no absorbe.</div>
+    </div>
+    <div class="principio-item">
+      <div class="principio-en">"By the Clock"</div>
+      <div class="principio-es">Por el reloj</div>
+      <div class="principio-desc">Administración horaria fija (round-the-clock), no solo a demanda. Evita picos y valles.</div>
+    </div>
+    <div class="principio-item">
+      <div class="principio-en">"By the Ladder"</div>
+      <div class="principio-es">Por la escalera</div>
+      <div class="principio-desc">Elegir escalón según intensidad del dolor. Subir si el anterior no controla. No saltar sin razón.</div>
+    </div>
+  </div>
+
+  <!-- COADYUVANTES -->
+  <div class="coad-section" style="margin-bottom:1.5rem;">
+    <div class="coad-title">🔵 Coadyuvantes — se añaden en CUALQUIER escalón · Especialmente en dolor neuropático</div>
+    <div class="coad-grid">
+      <div class="coad-item">
+        <div class="coad-item-type">Antidepresivos</div>
+        <div class="coad-item-drug">Amitriptilina · Duloxetina</div>
+        <div class="coad-item-use">Dolor neuropático. Fibromialgia. Aumentan umbral dolor.</div>
+      </div>
+      <div class="coad-item">
+        <div class="coad-item-type">Antiepilépticos</div>
+        <div class="coad-item-drug">Gabapentina · Pregabalina</div>
+        <div class="coad-item-use">Neuropatía diabética, dolor neuropático post-herpético, radiculopatía.</div>
+      </div>
+      <div class="coad-item">
+        <div class="coad-item-type">Corticoides</div>
+        <div class="coad-item-drug">Dexametasona · Metilprednisolona</div>
+        <div class="coad-item-use">Dolor óseo oncológico, compresión nerviosa, inflamación severa.</div>
+      </div>
+      <div class="coad-item">
+        <div class="coad-item-type">Otros</div>
+        <div class="coad-item-drug">Bifosfonatos · Ketamina</div>
+        <div class="coad-item-use">Bifosfonatos: metástasis óseas. Ketamina: dolor refractario a opioides (hiperalgesia).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID ESCALONES DETALLADOS -->
+  <div class="escalon-grid">
+
+    <!-- ESCALÓN 1 -->
+    <div class="escalon-card escalon-card-e1 e1">
+      <div class="escalon-head">
+        <div class="escalon-head-num">1</div>
+        <div class="escalon-head-info">
+          <div class="escalon-head-title">Primer escalón</div>
+          <div class="escalon-head-dolor">Dolor leve</div>
+        </div>
+      </div>
+      <div class="escalon-body">
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Paracetamol</div>
+          </div>
+          <div class="drug-family">Analgésico–antipirético · NO AINE · No antiinflamatorio</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Gelocatil</span>
+            <span class="comercial-tag">Termalgin</span>
+            <span class="comercial-tag">Efferalgan</span>
+            <span class="comercial-tag">Apiretal (pediátrico)</span>
+          </div>
+          <div class="tox-row severe">
+            <div class="tox-label">⚠ Toxicidad principal</div>
+            Hepatotoxicidad por sobredosis (insuficiencia hepática aguda). Precaución en hepatopatía grave y alcohol crónico.
+          </div>
+          <div class="antidote-badge">Antídoto: N-acetilcisteína (NAC) — lo más precoz posible</div>
+        </div>
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Ibuprofeno</div>
+          </div>
+          <div class="drug-family">AINE · Inhibidor COX no selectivo</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Espidifen</span>
+            <span class="comercial-tag">Neobrufen</span>
+            <span class="comercial-tag">Dalsy (pediátrico)</span>
+          </div>
+          <div class="tox-row">
+            <div class="tox-label">⚠ Toxicidad</div>
+            GI (úlceras, sangrado) · Renal (deterioro FG) · CV (HTA, eventos CV). Contraindicado en úlcera activa, IR moderada-grave, IC descompensada, 3er trimestre embarazo.
+          </div>
+          <div class="antidote-badge" style="background:#f5f5f5;border-color:#aaa;color:#555;">Sin antídoto específico — suspensión + manejo sintomático</div>
+        </div>
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Naproxeno</div>
+          </div>
+          <div class="drug-family">AINE · Mayor vida media que ibuprofeno</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Antalgin</span>
+            <span class="comercial-tag">Naprosyn</span>
+            <span class="comercial-tag">Naproxen Kern</span>
+          </div>
+          <div class="tox-row">
+            <div class="tox-label">⚠ Toxicidad</div>
+            Igual que ibuprofeno. Perfil CV similar. Menor riesgo GI que algunos AINEs (con IBP).
+          </div>
+        </div>
+
+        <div class="perlas-escalon">
+          <div class="perlas-head">★ Perlas Escalón 1</div>
+          <div class="perlas-body">
+            <div class="perla-item">Inicio siempre con <strong>no opioides ± coadyuvantes</strong> en dolor leve.</div>
+            <div class="perla-item">Evitar AINEs crónicos en <strong>ancianos, IR, riesgo GI o CV elevado</strong>. Si necesario: añadir IBP.</div>
+            <div class="perla-item"><strong>Paracetamol: precaución en hepatopatía</strong>. Dosis máxima 4g/día (2g si hepatopatía).</div>
+            <div class="perla-item">Paracetamol <strong>no tiene efecto antiinflamatorio</strong> — no es AINE, no inhibe COX de forma relevante.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ESCALÓN 2 -->
+    <div class="escalon-card escalon-card-e2 e2">
+      <div class="escalon-head">
+        <div class="escalon-head-num">2</div>
+        <div class="escalon-head-info">
+          <div class="escalon-head-title">Segundo escalón</div>
+          <div class="escalon-head-dolor">Dolor moderado</div>
+        </div>
+      </div>
+      <div class="escalon-body">
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Codeína</div>
+          </div>
+          <div class="drug-family">Opioide débil · Profármaco de morfina (CYP2D6)</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Codeisan</span>
+            <span class="comercial-tag">Termalgín c/ codeína</span>
+            <span class="comercial-tag">Toseína</span>
+          </div>
+          <div class="tox-row">
+            <div class="tox-label">⚠ Toxicidad</div>
+            Estreñimiento · Náuseas · Somnolencia · Depresión respiratoria dosis-alta. CYP2D6 ultra-rápidos: mayor toxicidad. Contraindicada en niños post-amigdalectomía/adenoidectomía.
+          </div>
+          <div class="antidote-badge">Antídoto sobredosis opioide: Naloxona</div>
+        </div>
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Tramadol</div>
+          </div>
+          <div class="drug-family">Opioide débil agonista µ + inhibidor recaptación serotonina/noradrenalina (dual)</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Adolonta</span>
+            <span class="comercial-tag">Zaldiar (+ paracetamol)</span>
+            <span class="comercial-tag">Dolpar</span>
+            <span class="comercial-tag">Tradonal Retard</span>
+          </div>
+          <div class="tox-row severe">
+            <div class="tox-label">⚠ Toxicidad IMPORTANTE</div>
+            Náuseas · Mareo · Riesgo convulsiones · <strong>Síndrome serotoninérgico</strong> con ISRS/IRSN/IMAOs ★★. Contraindicado en epilepsia no controlada y con IMAOs.
+          </div>
+          <div class="antidote-badge">Antídoto sobredosis: Naloxona (puede no revertir efectos no opioides)</div>
+        </div>
+
+        <div class="perlas-escalon">
+          <div class="perlas-head">★ Perlas Escalón 2</div>
+          <div class="perlas-body">
+            <div class="perla-item">Opioides débiles <strong>siempre se AÑADEN</strong> a un no opioide, no lo sustituyen.</div>
+            <div class="perla-item">Vigilar <strong>náuseas, vómitos, estreñimiento, somnolencia</strong> (efectos clase).</div>
+            <div class="perla-item"><strong>Tramadol + ISRS = riesgo síndrome serotoninérgico</strong> ★★ — pregunta frecuente de examen.</div>
+            <div class="perla-item"><strong>Codeína contraindicada en niños</strong> post-adenoamigdalectomía: riesgo depresión respiratoria en metabolizadores ultra-rápidos.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ESCALÓN 3 -->
+    <div class="escalon-card escalon-card-e3 e3">
+      <div class="escalon-head">
+        <div class="escalon-head-num">3</div>
+        <div class="escalon-head-info">
+          <div class="escalon-head-title">Tercer escalón</div>
+          <div class="escalon-head-dolor">Dolor intenso</div>
+        </div>
+      </div>
+      <div class="escalon-body">
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Morfina</div>
+          </div>
+          <div class="drug-family">Opioide fuerte · Agonista µ · Referencia dolor oncológico</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Sevredol (oral rápido)</span>
+            <span class="comercial-tag">MST Continus (LP)</span>
+            <span class="comercial-tag">Oramorph (solución)</span>
+          </div>
+          <div class="tox-row severe">
+            <div class="tox-label">⚠ Toxicidad</div>
+            Depresión respiratoria · Sedación · Estreñimiento (casi obligado) · Náuseas · Retención urinaria · Prurito. Contraindicada en IR descompensada, aumento PIC, ileo paralítico.
+          </div>
+          <div class="antidote-badge">Antídoto: Naloxona (antagonista opioide)</div>
+        </div>
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Oxicodona</div>
+          </div>
+          <div class="drug-family">Opioide fuerte · Agonista µ · Similar a morfina</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Oxynorm (rápida)</span>
+            <span class="comercial-tag">OxyContin (LP)</span>
+            <span class="comercial-tag">Targinact (+naloxona oral)</span>
+          </div>
+          <div class="tox-row severe">
+            <div class="tox-label">⚠ Toxicidad</div>
+            Similar a morfina: depresión respiratoria, somnolencia, estreñimiento. Riesgo abuso/dependencia. Targinact lleva naloxona oral para reducir estreñimiento.
+          </div>
+          <div class="antidote-badge">Antídoto: Naloxona</div>
+        </div>
+
+        <div class="drug-block">
+          <div class="drug-header">
+            <div class="drug-dot"></div>
+            <div class="drug-name">Fentanilo</div>
+          </div>
+          <div class="drug-family">Opioide fuerte · Muy potente · Muy lipófilo · Inicio rápido</div>
+          <div class="drug-comercial">
+            <span class="comercial-tag">Durogesic (parches)</span>
+            <span class="comercial-tag">Abstral (sublingual)</span>
+            <span class="comercial-tag">PecFent (nasal)</span>
+            <span class="comercial-tag">Actiq (oral transmucoso)</span>
+          </div>
+          <div class="tox-row severe">
+            <div class="tox-label">⚠ Toxicidad GRAVE</div>
+            Depresión respiratoria grave especialmente en no tolerantes. Parches: no para dolor agudo — solo dolor crónico estable. Sobredosis: a veces necesita dosis repetidas naloxona (potencia y vida media).
+          </div>
+          <div class="antidote-badge">Antídoto: Naloxona (dosis repetidas si precisa)</div>
+        </div>
+
+        <div class="perlas-escalon">
+          <div class="perlas-head">★ Perlas Escalón 3</div>
+          <div class="perlas-body">
+            <div class="perla-item">Dolor oncológico intenso → <strong>morfina oral es el fármaco de referencia</strong> OMS.</div>
+            <div class="perla-item"><strong>Siempre asociar laxante</strong> al iniciar opioides fuertes (estreñimiento casi obligado).</div>
+            <div class="perla-item">Ajustar dosis en <strong>IR/IH</strong> (morfina acumula metabolitos activos en IR).</div>
+            <div class="perla-item"><strong>Fentanilo transdérmico: solo dolor crónico estable</strong>, nunca para titulación inicial ni dolor agudo.</div>
+            <div class="perla-item">No esperar a que el dolor sea máximo: <strong>subir de escalón si el anterior no controla</strong>.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PERLAS GENERALES -->
+  <div class="perlas-generales">
+    <div class="perlas-gen-head">⭐ Perlas Generales OMS — Las más preguntadas</div>
+    <div class="perlas-gen-body">
+      <div class="perla-gen-item">Los <strong>3 escalones</strong>: no opioide → opioide débil → opioide fuerte, <strong>siempre "by the mouth, by the clock, by the ladder"</strong>.</div>
+      <div class="perla-gen-item">No esperar a que el dolor sea intenso: <strong>subir de escalón si el escalón anterior no controla</strong> el dolor oncológico.</div>
+      <div class="perla-gen-item"><strong>Coadyuvantes en cualquier escalón</strong>, especialmente en dolor neuropático (gabapentinoides, antidepresivos, corticoides).</div>
+      <div class="perla-gen-item">Evitar AINEs crónicos en <strong>ancianos, insuficiencia renal, riesgo gastrointestinal o cardiovascular elevado</strong>.</div>
+      <div class="perla-gen-item">Tramadol + ISRS/IRSN → riesgo <strong>síndrome serotoninérgico</strong>. Tramadol + IMAOs → contraindicado.</div>
+      <div class="perla-gen-item">En todos los opioides: <strong>antídoto es naloxona</strong>. Antídoto paracetamol: <strong>N-acetilcisteína</strong>. AINEs: no tiene antídoto.</div>
+    </div>
+  </div>
+
+  <!-- TABLA ANTÍDOTOS Y TOXICIDAD -->
+  <div class="antidote-table-wrap">
+    <div class="antidote-head">🔑 Tabla resumen: Fármaco → Toxicidad → Antídoto</div>
+    <table class="antidote-tbl">
+      <thead>
+        <tr>
+          <th>Escalón</th>
+          <th>Fármaco</th>
+          <th>Toxicidad / Contraindicación clave</th>
+          <th>Antídoto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tbl-e1">
+          <td>1 — Leve</td>
+          <td class="tbl-drug">Paracetamol</td>
+          <td>Hepatotoxicidad por sobredosis · Hepatopatía grave · Alcohol crónico</td>
+          <td class="tbl-antidote">N-acetilcisteína (NAC) IV</td>
+        </tr>
+        <tr class="tbl-e1">
+          <td>1 — Leve</td>
+          <td class="tbl-drug">Ibuprofeno / Naproxeno</td>
+          <td>GI (úlcera/sangrado) · Renal · CV · Contraindicado: úlcera activa, IR mod-grave, IC descompensada, 3er trimestre embarazo</td>
+          <td class="tbl-none">Sin antídoto específico</td>
+        </tr>
+        <tr class="tbl-e2">
+          <td>2 — Moderado</td>
+          <td class="tbl-drug">Codeína</td>
+          <td>Estreñimiento · Náuseas · Depresión respiratoria a dosis altas · CYP2D6 ultra-rápidos · Contraindicada en niños post-amigdalectomía</td>
+          <td class="tbl-antidote">Naloxona (antagonista opioide)</td>
+        </tr>
+        <tr class="tbl-e2">
+          <td>2 — Moderado</td>
+          <td class="tbl-drug">Tramadol</td>
+          <td>Náuseas · Mareo · Convulsiones · ⚠ Síndrome serotoninérgico con ISRS/IMAOs · Contraindicado: epilepsia no controlada, IMAOs</td>
+          <td class="tbl-antidote">Naloxona (parcial — no revierte efectos no opioides)</td>
+        </tr>
+        <tr class="tbl-e3">
+          <td>3 — Intenso</td>
+          <td class="tbl-drug">Morfina</td>
+          <td>Depresión respiratoria · Sedación · Estreñimiento · Náuseas · Retención urinaria · Contraindicada: IR descompensada, aumento PIC</td>
+          <td class="tbl-antidote">Naloxona IV/IM/SC</td>
+        </tr>
+        <tr class="tbl-e3">
+          <td>3 — Intenso</td>
+          <td class="tbl-drug">Oxicodona</td>
+          <td>Similar morfina · Depresión respiratoria · Estreñimiento · Riesgo abuso/dependencia</td>
+          <td class="tbl-antidote">Naloxona IV/IM/SC</td>
+        </tr>
+        <tr class="tbl-e3">
+          <td>3 — Intenso</td>
+          <td class="tbl-drug">Fentanilo</td>
+          <td>Depresión respiratoria grave · No usar en dolor agudo en no tolerantes · No parches para titulación inicial</td>
+          <td class="tbl-antidote">Naloxona (puede requerir dosis repetidas)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

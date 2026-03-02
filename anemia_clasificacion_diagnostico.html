@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anemia · Diagnóstico · EVIDENCIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5f0;--sur:#fff;--bor:#e5ddd0;--tx:#1a1208;--mu:#7a6a55;--wa:#f2ece0;
+  --mc:#c43a10;--mb:#fef0ea;--mb2:#f0b8a0;
+  --nc:#1a5a8a;--nb:#eaf2fa;--nb2:#a8ccec;
+  --xc:#6a1a8a;--xb:#f4eafa;--xb2:#cca8e8;
+  --up:#c04020;--dn:#1a7a3a;--eq:#1a5a8a;
+  --go:#c49010;--pe:#fffce6;--pb:#e0c020;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tx);}
+
+.hdr{background:#1a1208;padding:1.8rem 2.5rem 1.6rem;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-50deg,transparent,transparent 20px,rgba(255,255,255,.02) 20px,rgba(255,255,255,.02) 21px);}
+.hi{max-width:1100px;margin:0 auto;position:relative;}
+.ht{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.2em;color:#c0a870;margin-bottom:.35rem;}
+.htt{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:.3rem;}
+.htt em{color:#e05830;font-style:italic;}
+.hs{font-size:.78rem;color:#907a60;font-family:'JetBrains Mono',monospace;}
+.hps{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;}
+.hp{font-family:'JetBrains Mono',monospace;font-size:.54rem;text-transform:uppercase;letter-spacing:.1em;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);border-radius:3px;padding:.18rem .6rem;color:#c0a870;}
+
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+
+.sec{display:flex;align-items:center;gap:.7rem;margin:2rem 0 1rem;}
+.sn{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--bor);line-height:1;}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.54rem;text-transform:uppercase;letter-spacing:.14em;color:var(--mu);}
+.st{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;}
+
+/* BAND */
+.band{background:var(--sur);border:1px solid var(--bor);border-radius:10px;padding:1.1rem 1.4rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;}
+.bdl{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.13em;color:var(--mu);margin-bottom:.3rem;}
+.hbg{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem;}
+.hbc{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.2rem .6rem;border-radius:4px;font-weight:600;}
+.hbm{background:#eaf2fa;color:var(--nc);border:1px solid var(--nb2);}
+.hbf{background:#fef0ea;color:var(--mc);border:1px solid var(--mb2);}
+
+/* VCM CARDS */
+.vg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.vc{border-radius:10px;overflow:hidden;border:1px solid;}
+.vc.mi{border-color:var(--mb2);}
+.vc.no{border-color:var(--nb2);}
+.vc.ma{border-color:var(--xb2);}
+.vh{padding:.8rem 1rem;}
+.mi .vh{background:var(--mc);}
+.no .vh{background:var(--nc);}
+.ma .vh{background:var(--xc);}
+.var{font-size:1.4rem;color:#fff;line-height:1;}
+.vrg{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:600;color:rgba(255,255,255,.8);}
+.vna{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#fff;}
+.vb{padding:.9rem 1rem;}
+.mi .vb{background:var(--mb);}
+.no .vb{background:var(--nb);}
+.ma .vb{background:var(--xb);}
+.ci{display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem;font-size:.74rem;line-height:1.4;}
+.cd{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:.3rem;}
+.mi .cd{background:var(--mc);}
+.no .cd{background:var(--nc);}
+.ma .cd{background:var(--xc);}
+.cm{font-weight:600;}
+.mi .cm{color:var(--mc);}
+.no .cm{color:var(--nc);}
+.ma .cm{color:var(--xc);}
+.vm{margin-top:.6rem;padding-top:.6rem;font-size:.68rem;font-style:italic;color:var(--mu);border-top:1px solid;}
+.mi .vm{border-color:var(--mb2);}
+.no .vm{border-color:var(--nb2);}
+.ma .vm{border-color:var(--xb2);}
+
+/* DX TABLE */
+.dtw{background:var(--sur);border:1px solid var(--bor);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
+.dth{background:#1a1208;padding:.8rem 1.2rem;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#e8c030;display:flex;align-items:center;gap:.6rem;}
+table.dt{width:100%;border-collapse:collapse;}
+table.dt thead th{background:var(--wa);font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);padding:.5rem .9rem;text-align:left;border-bottom:2px solid var(--bor);white-space:nowrap;}
+table.dt tbody td{padding:.5rem .9rem;border-bottom:1px solid #f0ece4;font-size:.74rem;vertical-align:middle;}
+table.dt tbody tr:last-child td{border-bottom:none;}
+table.dt tbody tr:hover td{background:#fafaf5;}
+.rmi td:first-child{border-left:4px solid var(--mc);}
+.rno td:first-child{border-left:4px solid var(--nc);}
+.rma td:first-child{border-left:4px solid var(--xc);}
+.db{font-family:'Playfair Display',serif;font-weight:700;font-size:.8rem;}
+.db.mi{color:var(--mc);}
+.db.no{color:var(--nc);}
+.db.ma{color:var(--xc);}
+.ind{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:700;display:inline-block;}
+.iu{color:var(--up);}
+.id{color:var(--dn);}
+.in{color:var(--eq);}
+.is{color:var(--bor);margin:0 .15rem;}
+.cb{font-size:.68rem;background:var(--pe);border:1px solid var(--pb);border-radius:4px;padding:.2rem .5rem;color:#5a4008;font-style:italic;}
+
+/* REGLA */
+.rg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.rc{border-radius:10px;overflow:hidden;}
+.rc.mi{border:1px solid var(--mb2);}
+.rc.no{border:1px solid var(--nb2);}
+.rc.ma{border:1px solid var(--xb2);}
+.rh{padding:.65rem 1rem;}
+.mi .rh{background:var(--mc);}
+.no .rh{background:var(--nc);}
+.ma .rh{background:var(--xc);}
+.rv{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.75);}
+.rn{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;color:#fff;}
+.rb{padding:.8rem 1rem;background:var(--sur);}
+.rs{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.4rem;font-size:.74rem;line-height:1.4;}
+.rsn{width:20px;height:20px;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:.58rem;font-weight:600;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mi .rsn{background:var(--mc);}
+.no .rsn{background:var(--nc);}
+.ma .rsn{background:var(--xc);}
+.mi .rs strong{color:var(--mc);}
+.no .rs strong{color:var(--nc);}
+.ma .rs strong{color:var(--xc);}
+.wb{background:#fef0fa;border:1px solid var(--xb2);border-radius:5px;padding:.4rem .6rem;margin-top:.5rem;font-size:.68rem;color:var(--xc);font-weight:600;}
+
+/* TX */
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.tc{background:var(--sur);border:1px solid var(--bor);border-radius:10px;overflow:hidden;}
+.th{padding:.65rem 1rem;display:flex;align-items:center;gap:.6rem;}
+.thn{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#fff;}
+.t1 .th{background:#b85820;}
+.t2 .th{background:#1a5a8a;}
+.t3 .th{background:#5a1a8a;}
+.t4 .th{background:#1a7a4a;}
+.tb{padding:.85rem 1rem;}
+.tr2{display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem;font-size:.74rem;line-height:1.4;}
+.tr2::before{content:'→';font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--mu);flex-shrink:0;margin-top:.1rem;}
+.tr2.w::before{content:'⚠';color:#c04020;}
+.tr2 strong{color:var(--tx);}
+
+/* PERLAS */
+.pw{background:var(--pe);border:1px solid var(--pb);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
+.ph{background:#c09010;padding:.65rem 1rem;font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;}
+.pb2{display:grid;grid-template-columns:1fr 1fr;}
+.pi{padding:.55rem .9rem;border-bottom:1px solid #f0e8a0;border-right:1px solid #f0e8a0;font-size:.74rem;line-height:1.5;color:#4a3808;display:flex;gap:.4rem;align-items:flex-start;}
+.pi:nth-child(even){border-right:none;}
+.pi:nth-last-child(-n+2){border-bottom:none;}
+.pi::before{content:'★';color:#c09010;font-size:.65rem;flex-shrink:0;margin-top:.2rem;}
+.pi strong{color:#2a1a04;}
+
+/* ABREV */
+.ag{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;}
+.ai{background:var(--sur);border:1px solid var(--bor);border-radius:6px;padding:.5rem .7rem;}
+.ak{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;color:var(--mc);margin-bottom:.1rem;}
+.av{font-size:.68rem;color:var(--mu);line-height:1.3;}
+
+@media(max-width:800px){
+  .vg,.rg,.tg,.band{grid-template-columns:1fr;}
+  .pb2{grid-template-columns:1fr;}
+  .ag{grid-template-columns:1fr 1fr;}
+  table.dt{font-size:.65rem;}
+  table.dt thead th,table.dt tbody td{padding:.4rem .5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hi">
+    <div class="ht">Hematología · Bloque Clínico</div>
+    <div class="htt"><em>Anemia</em> — Clasificación,<br>Diagnóstico y Tratamiento</div>
+    <div class="hs">VCM · Ferritina · Hierro · Transferrina · Tabla modo test INGESA</div>
+    <div class="hps">
+      <span class="hp">OMS criterios Hb</span>
+      <span class="hp">Microcítica · Normocítica · Macrocítica</span>
+      <span class="hp">Tabla diagnóstico rápido</span>
+      <span class="hp">Tratamiento farmacológico</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- 1. DEFINICIÓN -->
+<div class="sec"><div class="sn">1</div><div><div class="sl">Definición OMS · Fisiopatología</div><div class="st">¿Qué es la anemia?</div></div></div>
+<div class="band">
+  <div>
+    <div class="bdl">Umbral OMS · Hemoglobina</div>
+    <div class="hbg"><span class="hbc hbm">♂ &lt; 13 g/dL</span><span class="hbc hbf">♀ &lt; 12 g/dL</span></div>
+    <div style="font-size:.68rem;color:var(--mu);margin-top:.4rem;">Embarazo: &lt;11 g/dL. Niños: varía por edad.</div>
+  </div>
+  <div>
+    <div class="bdl">Fisiopatología — 3 mecanismos</div>
+    <div style="font-size:.76rem;line-height:1.6;">
+      ⬇ <strong>Producción</strong> — déficit Fe/B12/folato, médula enferma<br>
+      ⬆ <strong>Destrucción</strong> — hemólisis<br>
+      💉 <strong>Pérdidas</strong> — hemorragias agudas o crónicas
+    </div>
+  </div>
+  <div>
+    <div class="bdl">Perla clave</div>
+    <div style="background:#fff8f0;border-left:3px solid #c04020;padding:.5rem .8rem;border-radius:0 6px 6px 0;font-size:.74rem;line-height:1.5;">
+      <strong>La anemia NO es un diagnóstico final</strong> — es un <em>signo</em>. Siempre buscar y tratar la causa subyacente.
+    </div>
+  </div>
+</div>
+
+<!-- 2. CLASIFICACIÓN VCM -->
+<div class="sec"><div class="sn">2</div><div><div class="sl">Clasificación morfológica — La más preguntada en oposición</div><div class="st">Por VCM (Volumen Corpuscular Medio)</div></div></div>
+<div class="vg">
+  <div class="vc mi">
+    <div class="vh"><div class="var">↓</div><div class="vrg">VCM &lt; 80 fL</div><div class="vna">Microcítica</div></div>
+    <div class="vb">
+      <div class="ci"><div class="cd"></div><div><span class="cm">Ferropénica</span> — la más frecuente del mundo ★★</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Talasemia</span> — genético, Fe normal/↑</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Anemia crónica*</span> — también puede ser normocítica</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Sideroblástica</span> — déficit uso Fe mitocondrial</div></div>
+      <div class="vm">Mecanismo: problema síntesis Hb. Hematíes pequeños e hipocrómicos.</div>
+    </div>
+  </div>
+  <div class="vc no">
+    <div class="vh"><div class="var">↔</div><div class="vrg">VCM 80–100 fL</div><div class="vna">Normocítica</div></div>
+    <div class="vb">
+      <div class="ci"><div class="cd"></div><div><span class="cm">Anemia de enf. crónica</span> — inflamación, cáncer, ERC</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Hemólisis</span> — reticulocitos↑, LDH↑, haptoglobina↓</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Hemorragia aguda</span> — normocítica al inicio</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Fallo medular</span> — aplasia, infiltración</div></div>
+      <div class="vm">Mecanismo: producción normal pero baja cantidad, o destrucción/pérdida aumentada.</div>
+    </div>
+  </div>
+  <div class="vc ma">
+    <div class="vh"><div class="var">↑</div><div class="vrg">VCM &gt; 100 fL</div><div class="vna">Macrocítica</div></div>
+    <div class="vb">
+      <div class="ci"><div class="cd"></div><div><span class="cm">Déficit Vitamina B12</span> — perniciosa, veganos, gastrectomía</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Déficit de Folato</span> — sin clínica neurológica típica</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Fármacos</span> — metotrexato, fenitoína, hidroxiurea</div></div>
+      <div class="ci"><div class="cd"></div><div><span class="cm">Alcoholismo</span> — depleta folato además</div></div>
+      <div class="vm">Mecanismo: alteración síntesis ADN → megaloblastosis.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. TABLA DIAGNÓSTICO -->
+<div class="sec"><div class="sn">3</div><div><div class="sl">Tabla modo test — Lo más preguntado en examen</div><div class="st">Diagnóstico Rápido — VCM + Hierro + Ferritina + Transferrina</div></div></div>
+<div class="dtw">
+  <div class="dth">🔬 Tabla diagnóstico diferencial de anemia — modo examen INGESA</div>
+  <table class="dt">
+    <thead>
+      <tr>
+        <th>VCM</th>
+        <th>Hierro sérico</th>
+        <th>Ferritina</th>
+        <th>Transferrina</th>
+        <th>Otros marcadores</th>
+        <th>Diagnóstico</th>
+        <th>Clave tipo examen ★</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rmi">
+        <td><span class="ind id">↓</span></td>
+        <td><span class="ind id">↓</span></td>
+        <td><span class="ind id">↓</span></td>
+        <td><span class="ind iu">↑</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">Reticulocitos N o ↓</td>
+        <td><span class="db mi">Anemia ferropénica</span></td>
+        <td><span class="cb">Microcítica · ferritina ↓ · transferrina ↑</span></td>
+      </tr>
+      <tr class="rmi">
+        <td><span class="ind id">↓</span> <span style="font-size:.62rem;color:var(--mu);">(muy ↓)</span></td>
+        <td><span class="ind in">N</span><span class="is">/</span><span class="ind iu">↑</span></td>
+        <td><span class="ind in">N</span><span class="is">/</span><span class="ind iu">↑</span></td>
+        <td><span class="ind in">N</span><span class="is">/</span><span class="ind id">↓</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">Electroforesis Hb</td>
+        <td><span class="db mi">Talasemia</span></td>
+        <td><span class="cb">Microcitosis intensa + Fe normal/↑ ★★</span></td>
+      </tr>
+      <tr class="rno">
+        <td><span class="ind in">N</span><span class="is">o</span><span class="ind id">↓</span></td>
+        <td><span class="ind id">↓</span></td>
+        <td><span class="ind in">N</span><span class="is">/</span><span class="ind iu">↑</span></td>
+        <td><span class="ind id">↓</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">PCR/VSG ↑</td>
+        <td><span class="db no">Anemia de enf. crónica</span></td>
+        <td><span class="cb">Ferritina N/alta + Fe↓ + transferrina↓ ★★</span></td>
+      </tr>
+      <tr class="rno">
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">Reticulocitos<span class="ind iu"> ↑</span> · LDH<span class="ind iu"> ↑</span> · Haptoglobina<span class="ind id"> ↓</span></td>
+        <td><span class="db no">Anemia hemolítica</span></td>
+        <td><span class="cb">Tríada: reticulocitos↑ + LDH↑ + haptoglobina↓</span></td>
+      </tr>
+      <tr class="rno">
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">Contexto: hemorragia aguda</td>
+        <td><span class="db no">Anemia posthemorrágica</span></td>
+        <td><span class="cb">Normocítica al inicio. Ferropénica si se cronifica.</span></td>
+      </tr>
+      <tr class="rma">
+        <td><span class="ind iu">↑</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">B12<span class="ind id"> ↓</span> · Folato N · ± Neuropatía</td>
+        <td><span class="db ma">Déficit B12 (megaloblástica)</span></td>
+        <td><span class="cb">Macrocítica + neuropatía → B12 primero ★★</span></td>
+      </tr>
+      <tr class="rma">
+        <td><span class="ind iu">↑</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td><span class="ind in">N</span></td>
+        <td style="font-size:.68rem;color:var(--mu);">Folato<span class="ind id"> ↓</span> · B12 N · Sin neuropatía</td>
+        <td><span class="db ma">Déficit de folato</span></td>
+        <td><span class="cb">Macrocítica sin neurológico. Descartar B12 antes.</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 4. REGLA RÁPIDA -->
+<div class="sec"><div class="sn">4</div><div><div class="sl">Algoritmo mental · 3 pasos</div><div class="st">Regla rápida para el examen</div></div></div>
+<div class="rg">
+  <div class="rc mi">
+    <div class="rh"><div class="rv">VCM &lt; 80</div><div class="rn">Microcítica → Ferritina</div></div>
+    <div class="rb">
+      <div class="rs"><div class="rsn">1</div><span>Ver <strong>ferritina</strong> primero</span></div>
+      <div class="rs"><div class="rsn">2</div><span><strong>Ferritina ↓</strong> → Ferropénica (más frecuente del mundo)</span></div>
+      <div class="rs"><div class="rsn">3</div><span><strong>Ferritina N/↑ + microcitosis intensa</strong> → Talasemia</span></div>
+      <div class="rs"><div class="rsn">4</div><span><strong>Fe↓ + ferritina N/↑ + transferrina↓</strong> → Enf. crónica*</span></div>
+      <div style="font-size:.65rem;color:var(--mu);margin-top:.4rem;">*Puede ser normo o microcítica</div>
+    </div>
+  </div>
+  <div class="rc no">
+    <div class="rh"><div class="rv">VCM 80–100</div><div class="rn">Normocítica → Reticulocitos</div></div>
+    <div class="rb">
+      <div class="rs"><div class="rsn">1</div><span>Ver <strong>reticulocitos + contexto</strong></span></div>
+      <div class="rs"><div class="rsn">2</div><span><strong>Reticulocitos↑ + LDH↑ + haptoglobina↓</strong> → Hemólisis</span></div>
+      <div class="rs"><div class="rsn">3</div><span><strong>Hemorragia aguda reciente</strong> → Normocítica inicial</span></div>
+      <div class="rs"><div class="rsn">4</div><span><strong>Fe↓ + ferritina N/↑</strong> en enf. crónica → Anemia de inflamación</span></div>
+    </div>
+  </div>
+  <div class="rc ma">
+    <div class="rh"><div class="rv">VCM &gt; 100</div><div class="rn">Macrocítica → B12/Folato</div></div>
+    <div class="rb">
+      <div class="rs"><div class="rsn">1</div><span>Ver <strong>B12 y folato</strong></span></div>
+      <div class="rs"><div class="rsn">2</div><span><strong>Clínica neurológica</strong> → descartar B12 primero siempre ★</span></div>
+      <div class="rs"><div class="rsn">3</div><span><strong>B12↓</strong> → Perniciosa / gastrectomía / vegano sin suplementar</span></div>
+      <div class="rs"><div class="rsn">4</div><span><strong>Folato↓ + B12 N</strong> → Déficit folato (embarazo, alcohol, MTX)</span></div>
+      <div class="wb">⚠ Nunca dar solo folato sin descartar B12 → riesgo enmascarar daño neurológico irreversible</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. TRATAMIENTO -->
+<div class="sec"><div class="sn">5</div><div><div class="sl">Farmacología · Recomendaciones</div><div class="st">Tratamiento por tipo de anemia</div></div></div>
+<div class="tg">
+  <div class="tc t1">
+    <div class="th"><span style="font-size:1.1rem;">🩸</span><div class="thn">Hierro — Ferropenia</div></div>
+    <div class="tb">
+      <div class="tr2"><strong>1ª elección oral</strong> en ferropenia leve-moderada. Sulfato ferroso u otros.</div>
+      <div class="tr2">Duración: <strong>3 meses tras normalizar Hb</strong> para rellenar depósitos.</div>
+      <div class="tr2">Administrar en <strong>ayunas</strong>. Con <strong>vitamina C</strong> (mejora absorción).</div>
+      <div class="tr2">Evitar con <strong>lácteos, café, té, antiácidos</strong> (quelación).</div>
+      <div class="tr2 w">Efectos GI: náuseas, estreñimiento. Si intolerancia → hierro IV.</div>
+      <div class="tr2"><strong>Hierro IV</strong>: EII, ERC, embarazo seleccionadas, mala absorción.</div>
+    </div>
+  </div>
+  <div class="tc t2">
+    <div class="th"><span style="font-size:1.1rem;">💉</span><div class="thn">Vitamina B12 — Déficit B12 / Perniciosa</div></div>
+    <div class="tb">
+      <div class="tr2"><strong>B12 parenteral</strong> (hidroxocobalamina): pauta carga diaria 1 semana → luego mensual.</div>
+      <div class="tr2">En perniciosa: <strong>de por vida</strong> (déficit Factor Intrínseco impide absorción oral).</div>
+      <div class="tr2">Dosis orales altas posibles si causa dietética y absorción preservada.</div>
+      <div class="tr2 w"><strong>Siempre descartar B12 antes de dar solo folato</strong> — riesgo enmascarar daño neurológico ★★</div>
+    </div>
+  </div>
+  <div class="tc t3">
+    <div class="th"><span style="font-size:1.1rem;">🌿</span><div class="thn">Ácido fólico — Déficit folato</div></div>
+    <div class="tb">
+      <div class="tr2"><strong>Ácido fólico oral 1–5 mg/día</strong>. Responde en semanas.</div>
+      <div class="tr2">Prevención defectos tubo neural: <strong>0,4 mg/día preconcepcional</strong> hasta sem. 12.</div>
+      <div class="tr2">Dieta: legumbres, hojas verdes, hígado.</div>
+      <div class="tr2 w"><strong>Causas</strong>: embarazo, alcohol, malabsorción, metotrexato, fenitoína.</div>
+    </div>
+  </div>
+  <div class="tc t4">
+    <div class="th"><span style="font-size:1.1rem;">🔴</span><div class="thn">EPO · Transfusión · Casos especiales</div></div>
+    <div class="tb">
+      <div class="tr2"><strong>EPO</strong>: anemia ERC u oncológica. Objetivo Hb <strong>10–12 g/dL</strong> (no sobrepasar → trombosis).</div>
+      <div class="tr2">Asociar <strong>hierro IV</strong> al iniciar EPO.</div>
+      <div class="tr2"><strong>Transfusión</strong>: solo anemia sintomática grave. Umbral habitual <strong>Hb &lt; 7–8 g/dL</strong>.</div>
+      <div class="tr2 w">Siempre tratar la <strong>causa</strong> — no solo subir la Hb.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. PERLAS -->
+<div class="sec"><div class="sn">6</div><div><div class="sl">Resumen examen</div><div class="st">Perlas tipo examen INGESA — Anemia</div></div></div>
+<div class="pw">
+  <div class="ph">⭐ Perlas tipo examen INGESA — Anemia</div>
+  <div class="pb2">
+    <div class="pi"><strong>Microcítica más frecuente del mundo</strong> → ferropénica. Si preguntan "anemia más frecuente" = ferropénica.</div>
+    <div class="pi"><strong>Ferritina baja = ferropenia</strong>. Mejor marcador de depósitos de hierro.</div>
+    <div class="pi"><strong>Microcitosis intensa + ferritina N/↑</strong> → talasemia. El hierro está disponible; problema en la globina.</div>
+    <div class="pi"><strong>Ferritina N/alta + Fe↓ + transferrina↓</strong> → anemia de enf. crónica. La hepcidina secuestra el hierro.</div>
+    <div class="pi"><strong>Neuropatía + macrocítica</strong> → B12 primero. El folato no da clínica neurológica típica.</div>
+    <div class="pi"><strong>Nunca dar solo folato sin descartar B12</strong> → riesgo enmascarar daño neurológico irreversible.</div>
+    <div class="pi"><strong>Hemorragia aguda → normocítica inicial</strong>. Si se cronifica → ferropénica microcítica.</div>
+    <div class="pi"><strong>Hierro oral: 3 meses tras normalizar Hb</strong> para rellenar depósitos. Ayunas + vitamina C.</div>
+    <div class="pi"><strong>Tríada hemolítica</strong>: LDH↑ + haptoglobina↓ + reticulocitos↑. No mirar solo la Hb.</div>
+    <div class="pi"><strong>Perniciosa = B12 parenteral de por vida</strong>. Déficit Factor Intrínseco impide absorción oral.</div>
+  </div>
+</div>
+
+<!-- 7. ABREVIATURAS -->
+<div class="sec"><div class="sn">7</div><div><div class="sl">Glosario</div><div class="st">Índice de abreviaturas</div></div></div>
+<div class="ag">
+  <div class="ai"><div class="ak">Hb</div><div class="av">Hemoglobina</div></div>
+  <div class="ai"><div class="ak">VCM</div><div class="av">Volumen Corpuscular Medio</div></div>
+  <div class="ai"><div class="ak">B12</div><div class="av">Vitamina B12 (cobalamina)</div></div>
+  <div class="ai"><div class="ak">EPO</div><div class="av">Eritropoyetina</div></div>
+  <div class="ai"><div class="ak">ERC</div><div class="av">Enfermedad Renal Crónica</div></div>
+  <div class="ai"><div class="ak">EII</div><div class="av">Enfermedad Inflamatoria Intestinal</div></div>
+  <div class="ai"><div class="ak">LDH</div><div class="av">Lactato Deshidrogenasa</div></div>
+  <div class="ai"><div class="ak">OMS</div><div class="av">Organización Mundial de la Salud</div></div>
+  <div class="ai"><div class="ak">GI</div><div class="av">Gastrointestinal</div></div>
+  <div class="ai"><div class="ak">PCR/VSG</div><div class="av">Proteína C Reactiva / Veloc. Sed. Globular</div></div>
+  <div class="ai"><div class="ak">MTX</div><div class="av">Metotrexato</div></div>
+  <div class="ai"><div class="ak">IR/ERC</div><div class="av">Insuficiencia Renal / Enf. Renal Crónica</div></div>
+</div>
+
+</div>
+</body>
+</html>

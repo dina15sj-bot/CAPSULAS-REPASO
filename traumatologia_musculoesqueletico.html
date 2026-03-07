@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traumatología y Sistema Musculoesquelético · INGESA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f5f0;
+  --surface: #ffffff;
+  --accent: #8a4a1a;
+  --accent2: #c47a10;
+  --dark: #2a1a08;
+  --muted: #7a6a55;
+  --border: #e5ddd0;
+  --red: #c04020;
+  --green: #1a7a3a;
+  --blue: #1a5a8a;
+  --purple: #6a1a8a;
+  --pearl: #fffce6;
+  --pearl-border: #e0c020;
+  --warn-bg: #fff8f0;
+  --antidote: #f0e8ff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.55; font-size: 0.88rem; }
+
+/* HEADER */
+.page-header {
+  background: #3a1a08;
+  padding: 2rem 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.02) 20px, rgba(255,255,255,0.02) 40px);
+}
+.header-inner { max-width: 1120px; margin: 0 auto; position: relative; }
+.header-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.2em; color: #c47a10; margin-bottom: 0.5rem; }
+.header-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 0.4rem; }
+.header-title em { color: #e8a030; font-style: italic; }
+.header-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.55); margin-bottom: 1rem; }
+.h-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.h-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.2rem 0.7rem; border-radius: 2px; border: 1px solid rgba(196,122,16,0.5); color: #e8a030; }
+
+/* MAIN */
+.main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+/* SECTION HEADERS */
+.sec { display: flex; align-items: center; gap: 0.8rem; margin: 2rem 0 1rem; }
+.sec-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #e5ddd0; line-height: 1; }
+.sec-label { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--dark); }
+
+/* CELLS GRID — células óseas */
+.cells-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.cell-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.cell-head { padding: 0.7rem 1rem; display: flex; align-items: center; gap: 0.6rem; }
+.cell-icon { font-size: 1.4rem; }
+.cell-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+.cell-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; }
+.cell-body { padding: 0.8rem 1rem; }
+.cell-body ul { padding-left: 1rem; }
+.cell-body li { margin-bottom: 0.3rem; line-height: 1.4; }
+.c-blast .cell-head { background: #fff0e8; }
+.c-blast .cell-name { color: #8a3a10; }
+.c-clast .cell-head { background: #e8f0ff; }
+.c-clast .cell-name { color: #1a3a8a; }
+.c-cyte .cell-head { background: #eafaf0; }
+.c-cyte .cell-name { color: #1a6a2a; }
+
+.badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.1rem 0.5rem; border-radius: 3px; font-weight: 600; margin-top: 0.3rem; }
+.b-red { background: #fde8e0; color: var(--red); border: 1px solid #f0b0a0; }
+.b-blue { background: #e0ecff; color: var(--blue); border: 1px solid #a0c0f0; }
+.b-green { background: #e0f5e8; color: var(--green); border: 1px solid #a0d5b0; }
+
+/* BONE ANATOMY TABLE */
+.anatomy-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.anatomy-head { background: var(--accent); padding: 0.7rem 1rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+table.anatomy-tbl { width: 100%; border-collapse: collapse; }
+table.anatomy-tbl th { background: #f5ede0; font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); padding: 0.45rem 1rem; text-align: left; border-bottom: 2px solid var(--border); }
+table.anatomy-tbl td { padding: 0.55rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.45; font-size: 0.84rem; }
+table.anatomy-tbl tr:last-child td { border-bottom: none; }
+table.anatomy-tbl tr:hover td { background: #fdf9f5; }
+.r-diafisis td:first-child { border-left: 4px solid #8a4a1a; }
+.r-metafisis td:first-child { border-left: 4px solid #1a5a8a; }
+.r-epifisis td:first-child { border-left: 4px solid #1a7a3a; }
+.zona { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.78rem; }
+.z-d { color: #8a4a1a; }
+.z-m { color: #1a5a8a; }
+.z-e { color: #1a7a3a; }
+.perla-inline { background: var(--pearl); border: 1px solid var(--pearl-border); border-radius: 4px; padding: 0.2rem 0.5rem; font-size: 0.75rem; display: inline-block; margin-top: 0.2rem; }
+
+/* MÉDULA */
+.medula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.medula-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.medula-head { padding: 0.65rem 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.medula-icon { font-size: 1.1rem; }
+.medula-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; }
+.medula-body { padding: 0.8rem 1rem; font-size: 0.83rem; line-height: 1.5; }
+.medula-body strong { display: block; margin-bottom: 0.2rem; font-size: 0.82rem; }
+.m-roja .medula-head { background: #fde0e0; }
+.m-roja .medula-title { color: #c02020; }
+.m-amarilla .medula-head { background: #fff8e0; }
+.m-amarilla .medula-title { color: #c09010; }
+
+.tecnica-box { background: var(--antidote); border: 1px solid #9060d0; border-radius: 8px; padding: 0.8rem 1rem; margin-top: 0.8rem; }
+.tecnica-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: #5a30b0; margin-bottom: 0.3rem; }
+
+/* FIBRAS MUSCULARES */
+.fibras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.fibra-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; position: relative; overflow: hidden; }
+.fibra-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.f1::before { background: #c02020; }
+.f2::before { background: #e8e8e8; }
+.fibra-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; line-height: 1; margin-bottom: 0.3rem; }
+.f1 .fibra-num { color: #c02020; }
+.f2 .fibra-num { color: #6a6a6a; }
+.fibra-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.7rem; }
+.f1 .fibra-subtitle { color: #c02020; }
+.f2 .fibra-subtitle { color: #6a6a6a; }
+.fibra-props { display: flex; flex-direction: column; gap: 0.3rem; }
+.prop-row { display: flex; justify-content: space-between; align-items: center; padding: 0.25rem 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
+.prop-row:last-child { border-bottom: none; }
+.prop-label { color: var(--muted); }
+.prop-val { font-weight: 600; }
+
+/* COMPLICACIONES */
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.comp-head { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+.comp-icon { font-size: 1.1rem; }
+.comp-title { font-family: 'Playfair Display', serif; font-size: 0.93rem; font-weight: 700; }
+.comp-body { padding: 0.8rem 1rem; font-size: 0.82rem; line-height: 1.5; }
+.c-compartimento .comp-head { background: #fff0f0; border-bottom-color: #f0b0b0; }
+.c-compartimento .comp-title { color: #b01010; }
+.c-tev .comp-head { background: #f0e8ff; border-bottom-color: #c0a0e0; }
+.c-tev .comp-title { color: #6010a0; }
+.c-tumor .comp-head { background: #f0f5ff; border-bottom-color: #a0b8e8; }
+.c-tumor .comp-title { color: #1030a0; }
+.c-consolidacion .comp-head { background: #f5ffe8; border-bottom-color: #b0d890; }
+.c-consolidacion .comp-title { color: #2a7010; }
+
+.warn-box { background: var(--warn-bg); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 0.5rem 0.8rem; margin: 0.5rem 0; font-size: 0.8rem; }
+.warn-label { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; }
+.steps { display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.4rem; }
+.step { display: flex; gap: 0.5rem; align-items: flex-start; }
+.step-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.72rem; color: #fff; background: var(--accent); padding: 0.1rem 0.35rem; border-radius: 3px; flex-shrink: 0; margin-top: 0.05rem; }
+.step-txt { font-size: 0.81rem; line-height: 1.4; }
+
+/* CONDUCTOS */
+.conductos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.conducto-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; }
+.conducto-title { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem; font-weight: 600; }
+.c-havers .conducto-title { color: var(--accent); }
+.c-volkmann .conducto-title { color: var(--blue); }
+
+/* FLASH CARDS */
+.flash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+.flash-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem; text-align: center; }
+.flash-q { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; line-height: 1.3; }
+.flash-a { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.9rem; color: var(--accent); line-height: 1.25; }
+
+/* PERLAS */
+.perlas-wrap { background: var(--pearl); border: 1px solid var(--pearl-border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.perlas-head { background: #c09010; padding: 0.7rem 1rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.perlas-body { display: grid; grid-template-columns: 1fr 1fr; }
+.perla-item { padding: 0.65rem 1rem; border-bottom: 1px solid #f0e890; border-right: 1px solid #f0e890; font-size: 0.78rem; line-height: 1.5; color: #4a3a08; display: flex; gap: 0.4rem; }
+.perla-item:nth-child(even) { border-right: none; }
+.perla-item:nth-last-child(-n+2) { border-bottom: none; }
+.perla-item::before { content: '★'; color: #c09010; font-size: 0.65rem; flex-shrink: 0; margin-top: 0.15rem; }
+.perla-item strong { color: #2a1a04; }
+
+/* GLOSARIO */
+.glosario-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+.glos-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.7rem; }
+.glos-term { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; color: var(--accent); margin-bottom: 0.1rem; }
+.glos-def { font-size: 0.72rem; color: var(--muted); line-height: 1.3; }
+
+/* HOMEOSTASIS MINERAL */
+.mineral-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+.mineral-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; text-align: center; }
+.mineral-icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+.mineral-name { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 0.4rem; }
+.mineral-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+
+@media (max-width: 800px) {
+  .cells-grid, .comp-grid, .fibras-grid, .conductos-grid, .medula-grid { grid-template-columns: 1fr; }
+  .flash-grid { grid-template-columns: repeat(2, 1fr); }
+  .glosario-grid { grid-template-columns: repeat(2, 1fr); }
+  .mineral-grid { grid-template-columns: 1fr 1fr; }
+  .perlas-body { grid-template-columns: 1fr; }
+  .perla-item { border-right: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-tag">Traumatología · Musculoesquelético · OPE Militar + INGESA</div>
+    <div class="header-title">Sistema <em>Musculoesquelético</em></div>
+    <div class="header-sub">Histología ósea · Anatomía clínica · Fibras musculares · Complicaciones · Consolidación</div>
+    <div class="h-pills">
+      <span class="h-pill">Academia Enfermería Militar</span>
+      <span class="h-pill">Osteoblasto · Osteoclasto · Osteocito</span>
+      <span class="h-pill">Síndrome Compartimental</span>
+      <span class="h-pill">TEV post-ortopédico</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 1. CÉLULAS ÓSEAS -->
+  <div class="sec">
+    <div class="sec-num">1</div>
+    <div class="sec-info">
+      <div class="sec-label">Las células del examen</div>
+      <div class="sec-title">Histología Ósea — Tres células clave</div>
+    </div>
+  </div>
+
+  <div class="cells-grid">
+    <div class="cell-card c-blast">
+      <div class="cell-head">
+        <span class="cell-icon">🔨</span>
+        <div>
+          <div class="cell-name">Osteoblasto</div>
+          <div class="cell-tag">Constructora</div>
+        </div>
+      </div>
+      <div class="cell-body">
+        <ul>
+          <li>Sintetiza la <strong>matriz ósea</strong> (osteoide)</li>
+          <li>Mineraliza el tejido (depósito de Ca²⁺)</li>
+          <li>Al quedar atrapado → se convierte en osteocito</li>
+        </ul>
+        <span class="badge b-red">↑ tabaco inhibe osteoblastos → retrasa consolidación</span>
+      </div>
+    </div>
+    <div class="cell-card c-clast">
+      <div class="cell-head">
+        <span class="cell-icon">🪛</span>
+        <div>
+          <div class="cell-name">Osteoclasto</div>
+          <div class="cell-tag">Barredora / resorción</div>
+        </div>
+      </div>
+      <div class="cell-body">
+        <ul>
+          <li>Realiza la <strong>resorción ósea</strong> (degradación)</li>
+          <li>Esencial para remodelación y renovación del esqueleto</li>
+          <li>Activado por PTH, inhibido por calcitonina y bifosfonatos</li>
+        </ul>
+        <span class="badge b-blue">Célula que DESTRUYE hueso para remodelarlo</span>
+      </div>
+    </div>
+    <div class="cell-card c-cyte">
+      <div class="cell-head">
+        <span class="cell-icon">📡</span>
+        <div>
+          <div class="cell-name">Osteocito</div>
+          <div class="cell-tag">Sensor mecánico</div>
+        </div>
+      </div>
+      <div class="cell-body">
+        <ul>
+          <li>Osteoblasto <strong>maduro atrapado</strong> en la matriz mineralizada</li>
+          <li>Mantiene el tejido óseo</li>
+          <li>Sensor mecánico: detecta carga y micro-daño</li>
+        </ul>
+        <span class="badge b-green">El más abundante del hueso</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ANATOMÍA CLÍNICA -->
+  <div class="sec">
+    <div class="sec-num">2</div>
+    <div class="sec-info">
+      <div class="sec-label">Hueso largo — implicaciones clínicas</div>
+      <div class="sec-title">Anatomía del Hueso Largo</div>
+    </div>
+  </div>
+
+  <div class="anatomy-wrap">
+    <div class="anatomy-head">📐 Hueso largo: Diáfisis · Metáfisis · Epífisis</div>
+    <table class="anatomy-tbl">
+      <thead>
+        <tr>
+          <th>Zona</th>
+          <th>Tejido predominante</th>
+          <th>Vascularización</th>
+          <th>Función clave</th>
+          <th>Perla OPE ★</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="r-diafisis">
+          <td><span class="zona z-d">DIÁFISIS</span><br><small>Cuerpo</small></td>
+          <td>Hueso compacto (cortical)</td>
+          <td style="color:var(--red)">↓ Limitada</td>
+          <td>Resistencia mecánica</td>
+          <td><span class="perla-inline">★ Consolidación más LENTA por escasa vascularización</span></td>
+        </tr>
+        <tr class="r-metafisis">
+          <td><span class="zona z-m">METÁFISIS</span><br><small>Transición</small></td>
+          <td>Hueso esponjoso + placa epifisaria (en niños)</td>
+          <td style="color:var(--green)">↑↑ Muy vascularizada</td>
+          <td>Crecimiento longitudinal</td>
+          <td><span class="perla-inline">★ Sede de tumores óseos primarios y fracturas de crecimiento</span></td>
+        </tr>
+        <tr class="r-epifisis">
+          <td><span class="zona z-e">EPÍFISIS</span><br><small>Extremos</small></td>
+          <td>Hueso esponjoso + cartílago hialino articular</td>
+          <td style="color:var(--blue)">↑ Buena</td>
+          <td>Articulación / apoyo</td>
+          <td><span class="perla-inline">★ Cartílago hialino avascular → regeneración limitada</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONDUCTOS -->
+  <div class="sec">
+    <div class="sec-num">3</div>
+    <div class="sec-info">
+      <div class="sec-label">Sistema vascular intraóseo</div>
+      <div class="sec-title">Conductos de Havers y Volkmann</div>
+    </div>
+  </div>
+
+  <div class="conductos-grid">
+    <div class="conducto-card c-havers">
+      <div class="conducto-title">🔴 Conductos de Havers — Longitudinales</div>
+      <p>Canales en el <strong>centro de la osteona</strong> que discurren longitudinalmente a lo largo del eje del hueso. Contienen vasos sanguíneos, linfáticos y nervios que nutren el hueso compacto.</p>
+      <div class="warn-box" style="margin-top:0.6rem">
+        <div class="warn-label">Clave clínica</div>
+        Su alteración por trauma o compresión → <strong>necrosis ósea avascular</strong>
+      </div>
+    </div>
+    <div class="conducto-card c-volkmann">
+      <div class="conducto-title" style="color:var(--blue)">🔵 Canales de Volkmann — Transversales</div>
+      <p>Conductos <strong>transversales u oblicuos</strong> que conectan los conductos de Havers entre sí y con el periostio. Completan la red vascular del hueso compacto.</p>
+      <div class="warn-box" style="margin-top:0.6rem">
+        <div class="warn-label">Clave clínica</div>
+        Juntos forman la red que nutre la osteona. Si se comprometen → riesgo de necrosis
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MÉDULA ÓSEA -->
+  <div class="sec">
+    <div class="sec-num">4</div>
+    <div class="sec-info">
+      <div class="sec-label">Clásico de oposiciones</div>
+      <div class="sec-title">Médula Ósea Roja vs. Amarilla</div>
+    </div>
+  </div>
+
+  <div class="medula-grid">
+    <div class="medula-card m-roja">
+      <div class="medula-head">
+        <span class="medula-icon">🔴</span>
+        <div class="medula-title">Médula Ósea Roja — Hematopoyética</div>
+      </div>
+      <div class="medula-body">
+        <strong>Función:</strong> Produce hematíes, leucocitos y plaquetas
+        <p style="margin-top:0.5rem"><strong>Localización en adultos:</strong></p>
+        <ul style="margin-top:0.3rem;padding-left:1rem">
+          <li>Huesos planos: <strong>esternón, costillas, pelvis, cráneo</strong></li>
+          <li>Epífisis proximales de <strong>fémur y húmero</strong></li>
+          <li>Vértebras</li>
+        </ul>
+        <div class="tecnica-box" style="margin-top:0.7rem">
+          <div class="tecnica-label">🔑 Técnica de enfermería</div>
+          Biopsia / aspirado de médula → <strong>cresta ilíaca posterosuperior</strong> (bajo riesgo + fácil acceso)
+        </div>
+      </div>
+    </div>
+    <div class="medula-card m-amarilla">
+      <div class="medula-head">
+        <span class="medula-icon">🟡</span>
+        <div class="medula-title">Médula Ósea Amarilla — Grasa</div>
+      </div>
+      <div class="medula-body">
+        <strong>Función:</strong> Reserva energética (tejido adiposo)
+        <p style="margin-top:0.5rem"><strong>Localización:</strong></p>
+        <ul style="margin-top:0.3rem;padding-left:1rem">
+          <li>Diáfisis de huesos largos en adultos</li>
+          <li>En niños: toda la médula es roja</li>
+          <li>En hemorragia severa: puede reconvertirse en roja (extramedular)</li>
+        </ul>
+        <div class="warn-box" style="margin-top:0.7rem">
+          <div class="warn-label">⚠ Importante</div>
+          En el RN y lactante, toda la médula es ROJA. La conversión a amarilla ocurre de distal a proximal durante el crecimiento.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. FIBRAS MUSCULARES -->
+  <div class="sec">
+    <div class="sec-num">5</div>
+    <div class="sec-info">
+      <div class="sec-label">Fisiología del ejercicio e inmovilización</div>
+      <div class="sec-title">Fibras Musculares Tipo I vs. Tipo II</div>
+    </div>
+  </div>
+
+  <div class="fibras-grid">
+    <div class="fibra-card f1">
+      <div class="fibra-num">I</div>
+      <div class="fibra-subtitle">Roja · Lenta · Oxidativa</div>
+      <div class="fibra-props">
+        <div class="prop-row"><span class="prop-label">Color</span><span class="prop-val" style="color:#c02020">Roja</span></div>
+        <div class="prop-row"><span class="prop-label">Tamaño</span><span class="prop-val">Pequeña</span></div>
+        <div class="prop-row"><span class="prop-label">Contracción</span><span class="prop-val">Lenta</span></div>
+        <div class="prop-row"><span class="prop-label">Fatiga</span><span class="prop-val" style="color:var(--green)">Muy resistente</span></div>
+        <div class="prop-row"><span class="prop-label">Mioglobina</span><span class="prop-val" style="color:#c02020">↑↑ Rica</span></div>
+        <div class="prop-row"><span class="prop-label">Metabolismo</span><span class="prop-val">Aeróbico</span></div>
+        <div class="prop-row"><span class="prop-label">Localización</span><span class="prop-val">Músculos posturales</span></div>
+      </div>
+      <div class="warn-box" style="margin-top:0.7rem">
+        <div class="warn-label">En reposo prolongado</div>
+        Se preservan mejor que las tipo II
+      </div>
+    </div>
+    <div class="fibra-card f2">
+      <div class="fibra-num" style="color:#4a4a4a">II</div>
+      <div class="fibra-subtitle" style="color:#4a4a4a">Blanca · Rápida · Glucolítica</div>
+      <div class="fibra-props">
+        <div class="prop-row"><span class="prop-label">Color</span><span class="prop-val" style="color:#6a6a6a">Blanca/pálida</span></div>
+        <div class="prop-row"><span class="prop-label">Tamaño</span><span class="prop-val">Grande</span></div>
+        <div class="prop-row"><span class="prop-label">Contracción</span><span class="prop-val">Rápida</span></div>
+        <div class="prop-row"><span class="prop-label">Fatiga</span><span class="prop-val" style="color:var(--red)">Se fatiga rápido</span></div>
+        <div class="prop-row"><span class="prop-label">Mioglobina</span><span class="prop-val">↓ Escasa</span></div>
+        <div class="prop-row"><span class="prop-label">Metabolismo</span><span class="prop-val">Anaeróbico</span></div>
+        <div class="prop-row"><span class="prop-label">Localización</span><span class="prop-val">Movimientos explosivos</span></div>
+      </div>
+      <div class="warn-box" style="background:#fff0f0;border-color:var(--red);margin-top:0.7rem">
+        <div class="warn-label" style="color:var(--red)">★★ PERLA CLAVE</div>
+        El <strong>desuso prolongado</strong> (encamado) provoca atrofia <strong>preferencial de fibras Tipo II</strong> → pérdida rápida de masa y fuerza
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. HOMEOSTASIS MINERAL -->
+  <div class="sec">
+    <div class="sec-num">6</div>
+    <div class="sec-info">
+      <div class="sec-label">Regulación del metabolismo óseo</div>
+      <div class="sec-title">Homeostasis Mineral — Ca²⁺ y Fósforo</div>
+    </div>
+  </div>
+
+  <div class="mineral-grid">
+    <div class="mineral-card">
+      <div class="mineral-icon">☀️</div>
+      <div class="mineral-name" style="color:#c47a10">Vitamina D</div>
+      <div class="mineral-desc">Facilita absorción intestinal de Ca²⁺. Déficit → raquitismo (niños), osteomalacia (adultos). Síntesis cutánea solar.</div>
+    </div>
+    <div class="mineral-card">
+      <div class="mineral-icon">🔼</div>
+      <div class="mineral-name" style="color:#c02020">PTH (Paratohormona)</div>
+      <div class="mineral-desc">↑ Ca²⁺ sérico: activa osteoclastos, ↑ reabsorción renal Ca²⁺, ↑ activación vit D. Secretada por paratiroides ante hipocalcemia.</div>
+    </div>
+    <div class="mineral-card">
+      <div class="mineral-icon">🔽</div>
+      <div class="mineral-name" style="color:#1a5a8a">Calcitonina</div>
+      <div class="mineral-desc">↓ Ca²⁺ sérico: inhibe osteoclastos, ↑ excreción renal Ca²⁺. Secretada por células C del tiroides ante hipercalcemia.</div>
+    </div>
+  </div>
+
+  <!-- 7. COMPLICACIONES -->
+  <div class="sec">
+    <div class="sec-num">7</div>
+    <div class="sec-info">
+      <div class="sec-label">Casos clínicos · Red flags</div>
+      <div class="sec-title">Complicaciones Prioritarias en Traumatología</div>
+    </div>
+  </div>
+
+  <div class="comp-grid">
+    <div class="comp-card c-compartimento">
+      <div class="comp-head">
+        <span class="comp-icon">🚨</span>
+        <div class="comp-title">Síndrome Compartimental</div>
+      </div>
+      <div class="comp-body">
+        <p style="margin-bottom:0.5rem">Urgencia vital. Clásico de examen: fractura tibia/antebrazo con inmovilización.</p>
+        <strong>Signos 6P:</strong>
+        <ul style="padding-left:1rem;margin:0.3rem 0">
+          <li><strong>Pain</strong>: dolor desproporcionado, no cede con analgesia</li>
+          <li><strong>Pressure</strong>: tensión a la palpación</li>
+          <li><strong>Paresthesias</strong>: hormigueo/entumecimiento distal</li>
+          <li><strong>Paralysis</strong>: debilidad progresiva</li>
+          <li><strong>Pallor</strong>: palidez</li>
+          <li><strong>Pulselessness</strong>: (tardío, no descarta el síndrome)</li>
+        </ul>
+        <div class="steps" style="margin-top:0.5rem">
+          <div class="step"><span class="step-num">1</span><span class="step-txt"><strong>Retirar/abrir</strong> la inmovilización inmediatamente</span></div>
+          <div class="step"><span class="step-num">2</span><span class="step-txt">Mantener miembro <strong>a altura del corazón</strong> (no elevar: ↓ perfusión)</span></div>
+          <div class="step"><span class="step-num">3</span><span class="step-txt">Aviso urgente para <strong>fasciotomía</strong></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-card c-tev">
+      <div class="comp-head">
+        <span class="comp-icon">🩸</span>
+        <div class="comp-title">TEV Post-cirugía ortopédica</div>
+      </div>
+      <div class="comp-body">
+        <p style="margin-bottom:0.5rem">Paciente post-prótesis rodilla/cadera con dolor y edema unilateral en MI.</p>
+        <strong>No masajear el miembro afecto</strong>
+        <div class="steps" style="margin-top:0.5rem">
+          <div class="step"><span class="step-num">1</span><span class="step-txt"><strong>Reposo absoluto</strong> del miembro afectado</span></div>
+          <div class="step"><span class="step-num">2</span><span class="step-txt">HBPM según prescripción médica</span></div>
+          <div class="step"><span class="step-num">3</span><span class="step-txt">Medias de compresión graduada</span></div>
+          <div class="step"><span class="step-num">4</span><span class="step-txt">Deambulación precoz si está permitida</span></div>
+        </div>
+        <div class="warn-box" style="margin-top:0.5rem">
+          <div class="warn-label">⚠ Prevención</div>
+          Triada de Virchow: estasis venoso + hipercoagulabilidad + daño endotelial
+        </div>
+      </div>
+    </div>
+
+    <div class="comp-card c-tumor">
+      <div class="comp-head">
+        <span class="comp-icon">🔍</span>
+        <div class="comp-title">Tumor Óseo — Red Flags</div>
+      </div>
+      <div class="comp-body">
+        <p style="margin-bottom:0.5rem">Joven con dolor nocturno persistente en rodilla (fémur distal/tibia proximal) → siempre pensar en tumor.</p>
+        <strong>Red Flags:</strong>
+        <ul style="padding-left:1rem;margin:0.3rem 0">
+          <li>Dolor nocturno que no cede</li>
+          <li>Masa palpable de crecimiento progresivo</li>
+          <li>Pérdida de peso no justificada</li>
+          <li>↑ VSG, ↑ fosfatasa alcalina</li>
+        </ul>
+        <div class="perla-inline" style="margin-top:0.4rem">★ La metáfisis es la sede habitual de tumores óseos primarios</div><br>
+        <div class="perla-inline" style="margin-top:0.3rem">★ Prueba definitiva: biopsia histológica</div>
+      </div>
+    </div>
+
+    <div class="comp-card c-consolidacion">
+      <div class="comp-head">
+        <span class="comp-icon">🦴</span>
+        <div class="comp-title">Retraso de Consolidación</div>
+      </div>
+      <div class="comp-body">
+        <p style="margin-bottom:0.5rem">Fractura en diáfisis de hueso largo con curación lenta.</p>
+        <strong>Justificación:</strong> La diáfisis tiene hueso compacto con <strong>vascularización limitada</strong> → consolidación más lenta que metáfisis/epífisis.
+        <div class="steps" style="margin-top:0.5rem">
+          <div class="step"><span class="step-num">E</span><span class="step-txt">Dieta rica en <strong>Ca²⁺ y Vitamina D</strong></span></div>
+          <div class="step"><span class="step-num">E</span><span class="step-txt"><strong>No fumar</strong>: tabaco inhibe osteoblastos</span></div>
+          <div class="step"><span class="step-num">E</span><span class="step-txt">Revisar fármacos que inhiban osteoblastos (corticoides crónicos)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLASH RESUMEN -->
+  <div class="sec">
+    <div class="sec-num">8</div>
+    <div class="sec-info">
+      <div class="sec-label">Resumen exprés</div>
+      <div class="sec-title">Flash Cards — Repaso rápido</div>
+    </div>
+  </div>
+
+  <div class="flash-grid">
+    <div class="flash-card">
+      <div class="flash-q">¿Dónde crece el hueso longitudinalmente?</div>
+      <div class="flash-a">Metáfisis<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">(placa epifisaria)</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">¿Dónde se fabrican las células sanguíneas?</div>
+      <div class="flash-a">Médula roja<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">huesos planos + epífisis fémur/húmero</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">¿Qué fibra se pierde primero al estar encamado?</div>
+      <div class="flash-a">Tipo II<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">(blanca / rápida)</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">¿Qué célula destruye hueso para remodelarlo?</div>
+      <div class="flash-a">Osteoclasto<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">(barredora)</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">¿Dónde puncionar para biopsia de médula en adultos?</div>
+      <div class="flash-a">Cresta ilíaca<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">posterosuperior</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">Tejido con menor capacidad de regeneración</div>
+      <div class="flash-a">Cartílago<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">(avascular → difusión)</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">Consolidación más lenta → ¿qué zona?</div>
+      <div class="flash-a">Diáfisis<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">(hueso compacto, baja vascularización)</small></div>
+    </div>
+    <div class="flash-card">
+      <div class="flash-q">Síndrome compartimental → 1ª acción de enfermería</div>
+      <div class="flash-a">Abrir / retirar<br><small style="font-family:sans-serif;font-size:0.7rem;color:var(--muted)">la inmovilización</small></div>
+    </div>
+  </div>
+
+  <!-- PERLAS INGESA -->
+  <div class="sec">
+    <div class="sec-num">⭐</div>
+    <div class="sec-info">
+      <div class="sec-label">Sección obligatoria</div>
+      <div class="sec-title">Perlas tipo examen INGESA / OPE Militar</div>
+    </div>
+  </div>
+
+  <div class="perlas-wrap">
+    <div class="perlas-head">⭐ Perlas tipo test — Traumatología y Musculoesquelético</div>
+    <div class="perlas-body">
+      <div class="perla-item"><strong>Osteoclasto</strong> → destruye hueso (resorción). Si preguntan "¿qué célula remodela destruyendo?" = osteoclasto.</div>
+      <div class="perla-item"><strong>Osteoblasto</strong> → construye hueso. El tabaco los inhibe → retrasa consolidación.</div>
+      <div class="perla-item"><strong>Médula roja en adultos</strong> → huesos planos (esternón, costillas, pelvis) + epífisis proximales de fémur y húmero.</div>
+      <div class="perla-item"><strong>Biopsia de médula ósea en adultos</strong> → cresta ilíaca posterosuperior (bajo riesgo + acceso).</div>
+      <div class="perla-item"><strong>Fibras Tipo II</strong> (blancas/rápidas) → primeras en atrofiarse con el desuso prolongado (encamado).</div>
+      <div class="perla-item"><strong>Metáfisis</strong> → sede de tumores óseos primarios + lesión que compromete crecimiento en niños.</div>
+      <div class="perla-item"><strong>Cartílago hialino</strong> → avascular. Se nutre por difusión desde líquido sinovial → regeneración mínima.</div>
+      <div class="perla-item"><strong>Síndrome compartimental</strong> → dolor desproporcionado + parestesias. Acción 1ª: ABRIR la inmovilización. NO elevar el miembro.</div>
+      <div class="perla-item"><strong>TEV post-ortopédico</strong> → NO masajear. Reposo + HBPM + medias compresión + deambulación precoz.</div>
+      <div class="perla-item"><strong>PTH</strong> → ↑ calcemia (activa osteoclastos). <strong>Calcitonina</strong> → ↓ calcemia (inhibe osteoclastos). Opuestos.</div>
+      <div class="perla-item"><strong>Diáfisis</strong> = consolidación lenta (hueso compacto + baja vascularización). Metáfisis y epífisis consolidan antes.</div>
+      <div class="perla-item"><strong>Conductos de Havers</strong> = longitudinales (osteona). <strong>Volkmann</strong> = transversales (conectan Havers + periostio). Su lesión → necrosis ósea.</div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="sec">
+    <div class="sec-num">G</div>
+    <div class="sec-info">
+      <div class="sec-label">Términos clave</div>
+      <div class="sec-title">Glosario de abreviaturas</div>
+    </div>
+  </div>
+  <div class="glosario-grid">
+    <div class="glos-item"><div class="glos-term">SCQ</div><div class="glos-def">Superficie Corporal Quemada</div></div>
+    <div class="glos-item"><div class="glos-term">PTH</div><div class="glos-def">Paratohormona (paratiroides)</div></div>
+    <div class="glos-item"><div class="glos-term">TEV</div><div class="glos-def">Tromboembolismo Venoso</div></div>
+    <div class="glos-item"><div class="glos-term">HBPM</div><div class="glos-def">Heparina Bajo Peso Molecular</div></div>
+    <div class="glos-item"><div class="glos-term">Ca²⁺</div><div class="glos-def">Calcio iónico</div></div>
+    <div class="glos-item"><div class="glos-term">Vit D</div><div class="glos-def">Vitamina D (calcitriol)</div></div>
+    <div class="glos-item"><div class="glos-term">RM / TAC</div><div class="glos-def">Resonancia Magnética / Tomografía</div></div>
+    <div class="glos-item"><div class="glos-term">EAP</div><div class="glos-def">Fosfatasa Alcalina (marcador óseo)</div></div>
+  </div>
+
+</div><!-- /main -->
+</body>
+</html>

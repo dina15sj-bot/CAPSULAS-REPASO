@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grandes Quemados — Wallace y Parkland · INGESA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f5f0;
+  --surface: #ffffff;
+  --accent: #b03010;
+  --accent2: #c04020;
+  --dark: #2a0808;
+  --muted: #7a5a50;
+  --border: #e8d8d0;
+  --red: #c02020;
+  --orange: #c06010;
+  --green: #1a7a3a;
+  --blue: #1a5a8a;
+  --pearl: #fffce6;
+  --pearl-border: #e0c020;
+  --warn-bg: #fff4f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.55; font-size: 0.88rem; }
+
+/* HEADER */
+.page-header { background: #2a0808; padding: 2rem 2rem 1.5rem; position: relative; overflow: hidden; }
+.page-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 25px, rgba(255,80,0,0.04) 25px, rgba(255,80,0,0.04) 50px); }
+.header-inner { max-width: 1120px; margin: 0 auto; position: relative; }
+.header-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.2em; color: #e8a030; margin-bottom: 0.5rem; }
+.header-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 0.4rem; }
+.header-title em { color: #ff8040; font-style: italic; }
+.header-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+.h-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.h-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.2rem 0.7rem; border-radius: 2px; border: 1px solid rgba(230,100,30,0.5); color: #e8a030; }
+
+.main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+.sec { display: flex; align-items: center; gap: 0.8rem; margin: 2rem 0 1rem; }
+.sec-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #e8d8d0; line-height: 1; }
+.sec-label { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--dark); }
+
+/* ── WALLACE BODY MAP ── */
+.wallace-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+.wallace-head { background: var(--accent); padding: 0.75rem 1.2rem; display: flex; align-items: center; justify-content: space-between; }
+.wallace-head-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.wallace-head-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; }
+.wallace-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.body-diagram { padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--border); }
+.figure { position: relative; width: 200px; height: 320px; }
+.fig-part { position: absolute; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.72rem; color: white; }
+/* cabeza */
+.f-head { top: 0; left: 60px; width: 80px; height: 60px; background: #c04020; border-radius: 50% 50% 40% 40%; font-size: 0.65rem; }
+/* tronco ant */
+.f-torso-a { top: 65px; left: 25px; width: 150px; height: 90px; background: #d05020; }
+/* tronco post - se muestra como strip lateral */
+.f-torso-p { top: 65px; left: 0px; width: 20px; height: 90px; background: #b03010; writing-mode: vertical-rl; font-size: 0.55rem; }
+/* brazos */
+.f-arm-l { top: 65px; left: 0; width: 22px; height: 80px; background: #e06030; border-radius: 4px; writing-mode: vertical-rl; font-size: 0.55rem; display:none; }
+.f-arm-r { top: 65px; right: 0; width: 22px; height: 80px; background: #e06030; border-radius: 4px; writing-mode: vertical-rl; font-size: 0.55rem; display:none; }
+/* piernas */
+.f-leg-l { top: 160px; left: 20px; width: 70px; height: 120px; background: #c05030; border-radius: 0 0 8px 8px; }
+.f-leg-r { top: 160px; left: 110px; width: 70px; height: 120px; background: #c05030; border-radius: 0 0 8px 8px; }
+/* genitales */
+.f-gen { top: 155px; left: 85px; width: 30px; height: 20px; background: #a03010; font-size: 0.5rem; border-radius: 3px; }
+.wallace-table { padding: 1.2rem 1.5rem; }
+.wallace-table table { width: 100%; border-collapse: collapse; }
+.wallace-table th { background: #f5ede8; font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); padding: 0.4rem 0.8rem; text-align: left; border-bottom: 2px solid #e8c8c0; }
+.wallace-table td { padding: 0.45rem 0.8rem; border-bottom: 1px solid var(--border); font-size: 0.83rem; vertical-align: top; }
+.wallace-table tr:last-child td { border-bottom: none; }
+.wallace-table tr:hover td { background: #fdf5f2; }
+.zona-name { font-weight: 600; }
+.pct { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem; color: var(--accent); }
+.desglose { font-size: 0.72rem; color: var(--muted); }
+.total-row td { background: #2a0808; color: #fff; font-weight: 700; border-radius: 0; }
+.total-row .pct { color: #ff8040; }
+
+.warn-box { background: var(--warn-bg); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 0.5rem 0.8rem; margin: 0.6rem 0; font-size: 0.8rem; }
+.warn-label { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; }
+
+/* NOTA PALMA */
+.palma-box { background: #f0f8ff; border: 1px solid #a0c0e8; border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 1rem; }
+.palma-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; color: var(--blue); margin-bottom: 0.3rem; }
+
+/* ── PARKLAND ── */
+.parkland-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+.parkland-head { background: #1a3a6a; padding: 0.75rem 1.2rem; }
+.parkland-head-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.parkland-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.parkland-formula { padding: 1.5rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.formula-box { background: #e8f0ff; border: 2px solid #1a3a6a; border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 1rem; }
+.formula-main { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: #1a3a6a; line-height: 1.6; }
+.formula-highlight { font-size: 1.4rem; color: var(--accent); }
+.formula-fluido { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-top: 0.4rem; }
+.parkland-reparto { padding: 1.2rem 1.5rem; }
+.reparto-title { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.8rem; }
+.reparto-half { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; align-items: stretch; }
+.half-card { flex: 1; border-radius: 8px; padding: 0.8rem; }
+.h1 { background: #fff0e8; border: 1px solid #e8b090; }
+.h2 { background: #e8f5ff; border: 1px solid #90c0e8; }
+.half-pct { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; line-height: 1; margin-bottom: 0.2rem; }
+.h1 .half-pct { color: var(--accent); }
+.h2 .half-pct { color: var(--blue); }
+.half-tiempo { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; margin-bottom: 0.3rem; }
+.h1 .half-tiempo { color: var(--accent); }
+.h2 .half-tiempo { color: var(--blue); }
+.half-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+
+/* DIURESIS */
+.diuresis-box { background: #e8fff0; border: 1px solid #70c090; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+.diuresis-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); margin-bottom: 0.3rem; }
+.diuresis-valor { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--green); }
+
+/* EJEMPLO PARKLAND */
+.ejemplo-wrap { background: #f5f0ff; border: 1px solid #c0a0e8; border-radius: 8px; padding: 0.8rem 1rem; margin-top: 0.8rem; }
+.ejemplo-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; color: #6030c0; margin-bottom: 0.4rem; }
+.ejemplo-calc { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.8; }
+
+/* ABCDE QUEMADOS */
+.abcde-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+.abcde-head { background: #8a1010; padding: 0.7rem 1.2rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.abcde-grid { display: grid; grid-template-columns: repeat(5, 1fr); }
+.abcde-item { padding: 0.9rem 0.8rem; border-right: 1px solid var(--border); text-align: center; }
+.abcde-item:last-child { border-right: none; }
+.abcde-letra { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+.abcde-key { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.4rem; color: var(--dark); }
+.abcde-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.3; }
+.abcde-quemado { font-size: 0.7rem; color: var(--accent2); font-weight: 600; margin-top: 0.3rem; }
+
+/* CRITERIOS DERIVACIÓN */
+.derivacion-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.derivacion-head { background: #5a1a00; padding: 0.7rem 1.2rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.derivacion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.derivacion-col { padding: 1rem 1.2rem; }
+.derivacion-col:first-child { border-right: 1px solid var(--border); }
+.col-title { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.7rem; font-weight: 600; }
+.must-go .col-title { color: var(--accent); }
+.can-stay .col-title { color: var(--green); }
+.deriv-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.deriv-list li { font-size: 0.82rem; padding: 0.3rem 0.5rem; border-radius: 4px; display: flex; align-items: flex-start; gap: 0.4rem; }
+.deriv-list li::before { flex-shrink: 0; font-size: 0.7rem; margin-top: 0.05rem; }
+.must-go .deriv-list li { background: #fff0ee; }
+.must-go .deriv-list li::before { content: '🔴'; }
+.can-stay .deriv-list li { background: #eef8f0; }
+.can-stay .deriv-list li::before { content: '🟢'; }
+
+/* PROFILAXIS */
+.profilaxis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.prof-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1rem; }
+.prof-title { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 0.4rem; }
+.prof-si { background: #e8f5e8; border-color: #70c070; }
+.prof-si .prof-title { color: var(--green); }
+.prof-no { background: #fde8e8; border-color: #e07070; }
+.prof-no .prof-title { color: var(--red); }
+
+/* GRADOS QUEMADURAS */
+.grados-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.grados-head { background: var(--orange); padding: 0.7rem 1.2rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+table.grados-tbl { width: 100%; border-collapse: collapse; }
+table.grados-tbl th { background: #fff0e0; font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); padding: 0.4rem 1rem; text-align: left; border-bottom: 2px solid var(--border); }
+table.grados-tbl td { padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.83rem; vertical-align: top; line-height: 1.4; }
+table.grados-tbl tr:last-child td { border-bottom: none; }
+.g1 td:first-child { border-left: 4px solid #ffaa44; }
+.g2a td:first-child { border-left: 4px solid #ff6622; }
+.g2b td:first-child { border-left: 4px solid #cc3300; }
+.g3 td:first-child { border-left: 4px solid #661100; }
+.grado-name { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.78rem; }
+
+/* PERLAS */
+.perlas-wrap { background: var(--pearl); border: 1px solid var(--pearl-border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.perlas-head { background: #c09010; padding: 0.7rem 1rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.perlas-body { display: grid; grid-template-columns: 1fr 1fr; }
+.perla-item { padding: 0.65rem 1rem; border-bottom: 1px solid #f0e890; border-right: 1px solid #f0e890; font-size: 0.78rem; line-height: 1.5; color: #4a3a08; display: flex; gap: 0.4rem; }
+.perla-item:nth-child(even) { border-right: none; }
+.perla-item:nth-last-child(-n+2) { border-bottom: none; }
+.perla-item::before { content: '★'; color: #c09010; font-size: 0.65rem; flex-shrink: 0; margin-top: 0.15rem; }
+.perla-item strong { color: #2a1a04; }
+
+/* GLOSARIO */
+.glosario-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+.glos-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.7rem; }
+.glos-term { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; color: var(--accent); margin-bottom: 0.1rem; }
+.glos-def { font-size: 0.72rem; color: var(--muted); line-height: 1.3; }
+
+@media (max-width: 800px) {
+  .wallace-body, .parkland-grid, .derivacion-grid, .profilaxis-grid { grid-template-columns: 1fr; }
+  .abcde-grid { grid-template-columns: repeat(3, 1fr); }
+  .perlas-body { grid-template-columns: 1fr; }
+  .perla-item { border-right: none; }
+  .glosario-grid { grid-template-columns: repeat(2, 1fr); }
+  .reparto-half { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-tag">Urgencias · Trauma · INGESA 2026 · OPE Militar</div>
+    <div class="header-title">Grandes <em>Quemados</em></div>
+    <div class="header-sub">Regla de Wallace · Fórmula de Parkland · Grados · Derivación · Perlas OPE</div>
+    <div class="h-pills">
+      <span class="h-pill">Regla de los 9 (Wallace)</span>
+      <span class="h-pill">4 ml × kg × % SCQ</span>
+      <span class="h-pill">Ringer Lactato 1ª elección</span>
+      <span class="h-pill">Diuresis 0,5–1 ml/kg/h</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 1. GRADOS DE QUEMADURAS -->
+  <div class="sec">
+    <div class="sec-num">1</div>
+    <div class="sec-info">
+      <div class="sec-label">Clasificación base</div>
+      <div class="sec-title">Grados de Quemaduras — Características clave</div>
+    </div>
+  </div>
+
+  <div class="grados-wrap">
+    <div class="grados-head">🔥 Clasificación por profundidad</div>
+    <table class="grados-tbl">
+      <thead>
+        <tr><th>Grado</th><th>Capas afectadas</th><th>Aspecto / Color</th><th>Dolor</th><th>Cicatrización</th><th>Wallace</th></tr>
+      </thead>
+      <tbody>
+        <tr class="g1">
+          <td><span class="grado-name" style="color:#aa6610">1º Grado</span><br><small>Superficial</small></td>
+          <td>Solo epidermis</td>
+          <td>Eritema, piel seca, sin ampollas</td>
+          <td style="color:var(--orange)">Intenso</td>
+          <td style="color:var(--green)">3–5 días, sin secuelas</td>
+          <td><strong style="color:var(--red)">NO se cuenta</strong> en SCQ</td>
+        </tr>
+        <tr class="g2a">
+          <td><span class="grado-name" style="color:#cc3300">2º Superficial</span><br><small>Dérmica parcial</small></td>
+          <td>Epidermis + dermis superficial</td>
+          <td>Ampollas, fondo rosado húmedo</td>
+          <td style="color:var(--red)">Muy intenso</td>
+          <td style="color:var(--green)">10–14 días</td>
+          <td>SÍ se incluye en SCQ</td>
+        </tr>
+        <tr class="g2b">
+          <td><span class="grado-name" style="color:#aa1a00">2º Profundo</span><br><small>Dérmica profunda</small></td>
+          <td>Epidermis + dermis profunda</td>
+          <td>Palidez, menos ampollas, seco</td>
+          <td style="color:var(--muted)">Reducido (↓ sensibilidad)</td>
+          <td style="color:var(--orange)">3–4 semanas, cicatriz</td>
+          <td>SÍ se incluye en SCQ</td>
+        </tr>
+        <tr class="g3">
+          <td><span class="grado-name" style="color:#661100">3er Grado</span><br><small>Full thickness</small></td>
+          <td>Todas las capas + hipodermis</td>
+          <td>Escara: blanca, marrón o negra, seca</td>
+          <td style="color:var(--muted)">Ausente (nervios destruidos)</td>
+          <td style="color:var(--red)">Requiere injerto</td>
+          <td>SÍ se incluye en SCQ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. REGLA DE WALLACE -->
+  <div class="sec">
+    <div class="sec-num">2</div>
+    <div class="sec-info">
+      <div class="sec-label">Cálculo de superficie quemada</div>
+      <div class="sec-title">Regla de los Nueve — Wallace</div>
+    </div>
+  </div>
+
+  <div class="wallace-wrap">
+    <div class="wallace-head">
+      <div>
+        <div class="wallace-head-title">📐 Regla de los 9 — Wallace</div>
+        <div class="wallace-head-sub">Adultos · No usar en quemaduras de 1er grado</div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.7)">TOTAL = 99% + 1% genitales</div>
+    </div>
+    <div class="wallace-body">
+      <div class="body-diagram">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.8rem">Regla de los 9 — distribución</div>
+        <!-- Diagrama esquemático simplificado en grid visual -->
+        <div style="display:grid;grid-template-columns:auto auto auto;gap:4px;width:200px">
+          <!-- fila cabeza -->
+          <div></div>
+          <div style="background:#c04020;color:#fff;text-align:center;padding:10px 8px;border-radius:8px 8px 4px 4px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700">CABEZA<br>9%</div>
+          <div></div>
+          <!-- fila brazo + tronco + brazo -->
+          <div style="background:#d05030;color:#fff;text-align:center;padding:8px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;writing-mode:vertical-rl">BRAZO<br>9%</div>
+          <div style="background:#b83020;color:#fff;text-align:center;padding:16px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700">TRONCO<br>ANT 18%<br><span style="font-size:0.55rem;opacity:0.8">(tórax 9%<br>abd 9%)</span></div>
+          <div style="background:#d05030;color:#fff;text-align:center;padding:8px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;writing-mode:vertical-rl">BRAZO<br>9%</div>
+          <!-- fila genitales -->
+          <div></div>
+          <div style="background:#8a1810;color:#fff;text-align:center;padding:5px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700">GENITALES 1%</div>
+          <div></div>
+          <!-- fila piernas -->
+          <div style="background:#a03020;color:#fff;text-align:center;padding:20px 6px;border-radius:0 0 6px 6px;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700">PIERNA<br>18%</div>
+          <div style="background:#2a0808;color:rgba(255,255,255,0.3);text-align:center;padding:20px 4px;font-size:0.55rem;font-family:'JetBrains Mono',monospace">TRONCO<br>POST<br>18%</div>
+          <div style="background:#a03020;color:#fff;text-align:center;padding:20px 6px;border-radius:0 0 6px 6px;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700">PIERNA<br>18%</div>
+        </div>
+      </div>
+
+      <div class="wallace-table">
+        <table>
+          <thead>
+            <tr><th>Zona corporal</th><th>%SCQ</th><th>Desglose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="zona-name">Cabeza y cuello</td><td class="pct">9%</td><td class="desglose">Unidad única</td></tr>
+            <tr><td class="zona-name">Tronco anterior</td><td class="pct">18%</td><td class="desglose">Tórax 9% + Abdomen 9%</td></tr>
+            <tr><td class="zona-name">Tronco posterior</td><td class="pct">18%</td><td class="desglose">Dorsal 9% + Lumbar 9%</td></tr>
+            <tr><td class="zona-name">Miembro superior (×2)</td><td class="pct">9% c/u</td><td class="desglose">4,5% ant + 4,5% post · Total: 18%</td></tr>
+            <tr><td class="zona-name">Miembro inferior (×2)</td><td class="pct">18% c/u</td><td class="desglose">9% ant + 9% post · Total: 36%</td></tr>
+            <tr><td class="zona-name">Genitales</td><td class="pct">1%</td><td class="desglose">Unidad única</td></tr>
+            <tr class="total-row"><td class="zona-name">TOTAL (sin 1er grado)</td><td class="pct">100%</td><td class="desglose" style="color:rgba(255,255,255,0.7)">Suma de zonas quemadas ≥2º grado</td></tr>
+          </tbody>
+        </table>
+        <div class="palma-box" style="margin-top:1rem">
+          <div class="palma-label">🖐 Regla de la palma (Lund-Browder)</div>
+          <strong>La mano del paciente</strong> (palma + dedos) equivale al <strong>1%</strong> de SCQ. Ideal para quemaduras <strong>parcheadas o irregulares</strong>. Útil en urgencias para estimación rápida.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. PARKLAND -->
+  <div class="sec">
+    <div class="sec-num">3</div>
+    <div class="sec-info">
+      <div class="sec-label">Reposición hídrica primeras 24h</div>
+      <div class="sec-title">Fórmula de Parkland</div>
+    </div>
+  </div>
+
+  <div class="parkland-wrap">
+    <div class="parkland-head">
+      <div class="parkland-head-title">💧 Fórmula de Parkland — Reanimación hídrica en quemados</div>
+    </div>
+    <div class="parkland-grid">
+      <div class="parkland-formula">
+        <div class="formula-box">
+          <div class="formula-main">
+            <span class="formula-highlight">4 ml</span> × <span class="formula-highlight">kg</span> × <span class="formula-highlight">% SCQ</span>
+          </div>
+          <div class="formula-fluido">Fluido de elección: RINGER LACTATO</div>
+        </div>
+        <div class="warn-box" style="width:100%;text-align:left">
+          <div class="warn-label">★★ Perla crítica</div>
+          El tiempo cuenta desde la <strong>HORA DEL ACCIDENTE</strong>, NO desde la llegada a urgencias. Si llega 2h tarde → la 1ª mitad debe pasar en <strong>6 horas</strong>.
+        </div>
+        <div class="ejemplo-wrap" style="width:100%">
+          <div class="ejemplo-label">📊 Ejemplo de cálculo</div>
+          <div class="ejemplo-calc">
+            Paciente: 70 kg · SCQ: 40%<br>
+            Total = 4 × 70 × 40 = <strong>11.200 ml</strong><br>
+            ───────────────────<br>
+            1ª mitad (50%): <strong>5.600 ml</strong> en 8h = 700 ml/h<br>
+            2ª mitad (50%): <strong>5.600 ml</strong> en 16h = 350 ml/h
+          </div>
+        </div>
+      </div>
+
+      <div class="parkland-reparto">
+        <div class="reparto-title">📅 Distribución temporal</div>
+        <div class="reparto-half">
+          <div class="half-card h1">
+            <div class="half-pct">50%</div>
+            <div class="half-tiempo">Primeras 8 horas</div>
+            <div class="half-desc">Desde la hora del accidente. Ritmo más rápido. Prioridad: compensar pérdida inicial.</div>
+          </div>
+          <div class="half-card h2">
+            <div class="half-pct">50%</div>
+            <div class="half-tiempo">Siguientes 16 horas</div>
+            <div class="half-desc">Completar las 24h desde el accidente. Ritmo más lento. Mantenimiento.</div>
+          </div>
+        </div>
+
+        <div class="diuresis-box">
+          <div class="diuresis-label">✅ Indicador de reanimación correcta</div>
+          <div class="diuresis-valor">0,5 – 1 ml/kg/h</div>
+          <div style="font-size:0.8rem;margin-top:0.3rem">Diuresis en adulto · La <strong>diuresis es el mejor indicador</strong> de que la reposición hídrica es adecuada.</div>
+        </div>
+
+        <div style="margin-top:0.8rem">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem">Otras fórmulas (referencia)</div>
+          <div style="font-size:0.8rem;line-height:1.6;color:var(--muted)">
+            <strong style="color:var(--dark)">Brooke modificada:</strong> 2 ml × kg × %SCQ (con coloides en 2ª mitad)<br>
+            <strong style="color:var(--dark)">Niños:</strong> añadir necesidades basales (fórmula de Holliday-Segar) a Parkland
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ABCDE QUEMADOS -->
+  <div class="sec">
+    <div class="sec-num">4</div>
+    <div class="sec-info">
+      <div class="sec-label">Prioridad inicial · Actuación enfermera</div>
+      <div class="sec-title">ABCDE en el Gran Quemado</div>
+    </div>
+  </div>
+
+  <div class="abcde-wrap">
+    <div class="abcde-head">🚨 Actuación sistemática — Prioridad ABCDE</div>
+    <div class="abcde-grid">
+      <div class="abcde-item">
+        <div class="abcde-letra">A</div>
+        <div class="abcde-key">Airway</div>
+        <div class="abcde-desc">Permeabilidad de vía aérea</div>
+        <div class="abcde-quemado">Sospecha inhalación si quemado en espacio cerrado → O₂ 100%</div>
+      </div>
+      <div class="abcde-item">
+        <div class="abcde-letra">B</div>
+        <div class="abcde-key">Breathing</div>
+        <div class="abcde-desc">Ventilación y oxigenación</div>
+        <div class="abcde-quemado">Buscar signos de inhalación: disfonía, estridor, esputo carbonáceo</div>
+      </div>
+      <div class="abcde-item">
+        <div class="abcde-letra">C</div>
+        <div class="abcde-key">Circulation</div>
+        <div class="abcde-desc">Circulación y control de hemorragias</div>
+        <div class="abcde-quemado">Iniciar Parkland si SCQ ≥20%. Acceso venoso calibre grueso ×2</div>
+      </div>
+      <div class="abcde-item">
+        <div class="abcde-letra">D</div>
+        <div class="abcde-key">Disability</div>
+        <div class="abcde-desc">Estado neurológico</div>
+        <div class="abcde-quemado">GCS, pupilas. Intoxicación CO → confusión, cefalea, coma</div>
+      </div>
+      <div class="abcde-item">
+        <div class="abcde-letra">E</div>
+        <div class="abcde-key">Exposure</div>
+        <div class="abcde-desc">Exposición + control temperatura</div>
+        <div class="abcde-quemado">Retirar ropa (no adherida). Manta térmica. Prevenir hipotermia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. CRITERIOS DERIVACIÓN -->
+  <div class="sec">
+    <div class="sec-num">5</div>
+    <div class="sec-info">
+      <div class="sec-label">Triage quemados</div>
+      <div class="sec-title">Criterios de Derivación a Unidad de Quemados</div>
+    </div>
+  </div>
+
+  <div class="derivacion-wrap">
+    <div class="derivacion-head">🏥 ¿Cuándo derivar a Unidad de Quemados?</div>
+    <div class="derivacion-grid">
+      <div class="derivacion-col must-go">
+        <div class="col-title">🔴 SIEMPRE derivar — Unidad de Quemados</div>
+        <ul class="deriv-list">
+          <li>SCQ ≥20% en adultos / ≥10% en niños o mayores</li>
+          <li>Quemaduras 3er grado de cualquier extensión</li>
+          <li>Zonas especiales: <strong>cara, manos, pies, genitales, articulaciones, periné</strong></li>
+          <li>Sospecha o confirmación de <strong>inhalación de humos</strong></li>
+          <li>Quemaduras eléctricas o químicas</li>
+          <li>Quemaduras circulares (riesgo síndrome compartimental)</li>
+          <li>Pacientes con comorbilidades graves</li>
+          <li>Menores de 2 años o mayores de 65</li>
+        </ul>
+      </div>
+      <div class="derivacion-col can-stay">
+        <div class="col-title">🟢 Puede manejarse ambulatorio o urgencias</div>
+        <ul class="deriv-list">
+          <li>Quemaduras 1er grado (no se cuentan en SCQ)</li>
+          <li>2º grado superficial &lt;10% en adulto sano</li>
+          <li>Sin afectación de zonas especiales</li>
+          <li>Sin sospecha de inhalación</li>
+          <li>Paciente joven sin comorbilidades</li>
+          <li>Quemadura no circunferencial</li>
+        </ul>
+        <div class="warn-box" style="margin-top:0.8rem">
+          <div class="warn-label">⚠ Recuerda siempre</div>
+          Profilaxis <strong>antitetánica</strong> en toda quemadura. <strong>NO antibióticos sistémicos profilácticos</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. PROFILAXIS -->
+  <div class="sec">
+    <div class="sec-num">6</div>
+    <div class="sec-info">
+      <div class="sec-label">Prevención infecciones</div>
+      <div class="sec-title">Profilaxis en Grandes Quemados</div>
+    </div>
+  </div>
+
+  <div class="profilaxis-grid">
+    <div class="prof-card prof-si">
+      <div class="prof-title">✅ SÍ se realiza siempre</div>
+      <p><strong>Profilaxis antitetánica</strong>: vacuna y/o inmunoglobulina según estado vacunal. Toda quemadura mayor de 1er grado requiere valoración del estado frente al tétanos.</p>
+    </div>
+    <div class="prof-card prof-no">
+      <div class="prof-title">🚫 NO se usa de forma profiláctica</div>
+      <p><strong>Antibióticos sistémicos</strong>: no hay evidencia de beneficio profiláctico. Su uso indiscriminado favorece resistencias. Solo si hay signos de infección establecida.</p>
+    </div>
+  </div>
+
+  <!-- PERLAS -->
+  <div class="sec">
+    <div class="sec-num">⭐</div>
+    <div class="sec-info">
+      <div class="sec-label">Sección obligatoria</div>
+      <div class="sec-title">Perlas tipo examen INGESA / OPE Militar</div>
+    </div>
+  </div>
+
+  <div class="perlas-wrap">
+    <div class="perlas-head">⭐ Perlas tipo test — Grandes Quemados</div>
+    <div class="perlas-body">
+      <div class="perla-item"><strong>1er grado NO se incluye</strong> en el cálculo de SCQ con la regla de Wallace. Solo 2º y 3er grado.</div>
+      <div class="perla-item"><strong>Parkland = 4 ml × kg × %SCQ</strong> con Ringer Lactato. El fluido de elección es siempre Ringer, no suero fisiológico.</div>
+      <div class="perla-item"><strong>1ª mitad en 8h, 2ª mitad en 16h</strong>. El tiempo cuenta desde la hora del accidente, NO desde la llegada a urgencias.</div>
+      <div class="perla-item"><strong>Diuresis objetivo</strong>: 0,5–1 ml/kg/h en adultos. Es el mejor indicador de reanimación hídrica correcta.</div>
+      <div class="perla-item"><strong>Zona especiales → siempre a Unidad de Quemados</strong>: cara, manos, pies, genitales, articulaciones. Sin importar la extensión.</div>
+      <div class="perla-item"><strong>Inhalación de humos en espacio cerrado</strong> → sospecha siempre → O₂ al 100% inmediatamente. Es prioridad ABCDE.</div>
+      <div class="perla-item"><strong>Profilaxis antitetánica SÍ</strong>. Antibióticos sistémicos profilácticos NO (no hay evidencia + resistencias).</div>
+      <div class="perla-item"><strong>Regla de la palma</strong>: mano del paciente (con dedos) = 1% SCQ. Útil en quemaduras parcheadas.</div>
+      <div class="perla-item"><strong>3er grado</strong>: escara, sin dolor (nervios destruidos), requiere injerto. No cicatriza espontáneamente.</div>
+      <div class="perla-item"><strong>CO (monóxido de carbono)</strong> → signo clásico: cefalea + confusión + piel rosada-cereza. Antídoto: O₂ al 100% (acorta vida media COHb).</div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="sec">
+    <div class="sec-num">G</div>
+    <div class="sec-info">
+      <div class="sec-label">Términos clave</div>
+      <div class="sec-title">Glosario de abreviaturas</div>
+    </div>
+  </div>
+  <div class="glosario-grid">
+    <div class="glos-item"><div class="glos-term">SCQ</div><div class="glos-def">Superficie Corporal Quemada (%)</div></div>
+    <div class="glos-item"><div class="glos-term">RL</div><div class="glos-def">Ringer Lactato (fluido 1ª elección)</div></div>
+    <div class="glos-item"><div class="glos-term">COHb</div><div class="glos-def">Carboxihemoglobina (CO + Hb)</div></div>
+    <div class="glos-item"><div class="glos-term">UQ</div><div class="glos-def">Unidad de Quemados</div></div>
+    <div class="glos-item"><div class="glos-term">SCQ</div><div class="glos-def">Lund-Browder: tabla precisa en niños</div></div>
+    <div class="glos-item"><div class="glos-term">GCS</div><div class="glos-def">Glasgow Coma Scale</div></div>
+    <div class="glos-item"><div class="glos-term">ABCDE</div><div class="glos-def">Algoritmo atención inicial urgencias</div></div>
+    <div class="glos-item"><div class="glos-term">CO</div><div class="glos-def">Monóxido de carbono (inhalación)</div></div>
+  </div>
+
+</div>
+</body>
+</html>

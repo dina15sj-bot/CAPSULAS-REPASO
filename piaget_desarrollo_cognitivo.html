@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piaget — Desarrollo Cognitivo · INGESA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --accent: #1a7a5a;
+  --accent2: #0e5c40;
+  --dark: #0a2a1a;
+  --muted: #5a7060;
+  --border: #d5e8dc;
+  --red: #c04020;
+  --green: #1a7a3a;
+  --blue: #1a5a8a;
+  --teal: #1a6a6a;
+  --pearl: #fffce6;
+  --pearl-border: #e0c020;
+  --warn-bg: #fff8f0;
+  --s0: #1a7a5a;   /* sensoriomotor */
+  --s1: #1a5a8a;   /* preoperacional */
+  --s2: #8a5a1a;   /* concretas */
+  --s3: #5a1a8a;   /* formales */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.55; font-size: 0.88rem; }
+
+/* ── HEADER ── */
+.page-header { background: #071a10; padding: 2rem 2rem 1.5rem; position: relative; overflow: hidden; }
+.page-header::before { content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(60deg, transparent, transparent 30px, rgba(26,122,90,0.06) 30px, rgba(26,122,90,0.06) 60px); }
+.header-inner { max-width: 1120px; margin: 0 auto; position: relative; }
+.header-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.2em; color: #4ad0a0; margin-bottom: 0.5rem; }
+.header-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 0.4rem; }
+.header-title em { color: #50e0a0; font-style: italic; }
+.header-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.45); margin-bottom: 1rem; }
+.h-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.h-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; padding: 0.2rem 0.7rem; border-radius: 2px; border: 1px solid rgba(74,208,160,0.4); color: #4ad0a0; }
+
+.main { max-width: 1120px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+/* ── SECTION HEADERS ── */
+.sec { display: flex; align-items: center; gap: 0.8rem; margin: 2rem 0 1rem; }
+.sec-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: #d5e8dc; line-height: 1; }
+.sec-label { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--dark); }
+
+/* ── MOTOR DEL DESARROLLO ── */
+.motor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-bottom: 1.5rem; }
+.motor-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; position: relative; overflow: hidden; }
+.motor-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.mc-asim::after { background: var(--accent); }
+.mc-acom::after { background: var(--blue); }
+.mc-adap::after { background: var(--s2); }
+.mc-cons::after { background: var(--s3); }
+.motor-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.motor-term { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.mc-asim .motor-term { color: var(--accent); }
+.mc-acom .motor-term { color: var(--blue); }
+.mc-adap .motor-term { color: var(--s2); }
+.mc-cons .motor-term { color: var(--s3); }
+.motor-def { font-size: 0.8rem; color: var(--muted); line-height: 1.4; margin-bottom: 0.5rem; }
+.motor-ejemplo { font-size: 0.75rem; font-style: italic; background: #f0f8f4; border-radius: 4px; padding: 0.3rem 0.5rem; border-left: 2px solid var(--accent); color: var(--dark); }
+.mc-acom .motor-ejemplo { border-color: var(--blue); background: #f0f4ff; }
+.mc-adap .motor-ejemplo { border-color: var(--s2); background: #fdf5e8; }
+.mc-cons .motor-ejemplo { border-color: var(--s3); background: #f5f0ff; }
+
+/* ── LÍNEA TEMPORAL ── */
+.timeline-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; overflow: hidden; }
+.timeline-title { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1.2rem; }
+.timeline { display: flex; position: relative; gap: 0; }
+.timeline::before { content: ''; position: absolute; top: 32px; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--s0), var(--s1), var(--s2), var(--s3)); z-index: 0; }
+.tl-item { flex: 1; padding-top: 0; position: relative; z-index: 1; }
+.tl-dot { width: 16px; height: 16px; border-radius: 50%; margin: 24px auto 12px; border: 3px solid #fff; box-shadow: 0 0 0 2px; }
+.tl-s0 .tl-dot { background: var(--s0); box-shadow: 0 0 0 2px var(--s0); }
+.tl-s1 .tl-dot { background: var(--s1); box-shadow: 0 0 0 2px var(--s1); }
+.tl-s2 .tl-dot { background: var(--s2); box-shadow: 0 0 0 2px var(--s2); }
+.tl-s3 .tl-dot { background: var(--s3); box-shadow: 0 0 0 2px var(--s3); }
+.tl-content { text-align: center; padding: 0 0.5rem; }
+.tl-edad { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; margin-bottom: 0.3rem; }
+.tl-s0 .tl-edad { color: var(--s0); }
+.tl-s1 .tl-edad { color: var(--s1); }
+.tl-s2 .tl-edad { color: var(--s2); }
+.tl-s3 .tl-edad { color: var(--s3); }
+.tl-nombre { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+.tl-clave { font-size: 0.72rem; color: var(--muted); }
+
+/* ── ESTADIOS CARDS ── */
+.estadios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.estadio-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.estadio-head { padding: 0.9rem 1.2rem; display: flex; align-items: center; justify-content: space-between; }
+.e-s0 .estadio-head { background: linear-gradient(135deg, #e8fff5, #d0f5e8); border-bottom: 1px solid #b0e8d0; }
+.e-s1 .estadio-head { background: linear-gradient(135deg, #e8f0ff, #d0e0ff); border-bottom: 1px solid #b0c8f8; }
+.e-s2 .estadio-head { background: linear-gradient(135deg, #fff5e8, #ffe8d0); border-bottom: 1px solid #e8c898; }
+.e-s3 .estadio-head { background: linear-gradient(135deg, #f0e8ff, #e0d0ff); border-bottom: 1px solid #c8b0f8; }
+.estadio-info { flex: 1; }
+.estadio-num { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.2rem; }
+.e-s0 .estadio-num { color: var(--s0); }
+.e-s1 .estadio-num { color: var(--s1); }
+.e-s2 .estadio-num { color: var(--s2); }
+.e-s3 .estadio-num { color: var(--s3); }
+.estadio-nombre { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; }
+.e-s0 .estadio-nombre { color: var(--s0); }
+.e-s1 .estadio-nombre { color: var(--s1); }
+.e-s2 .estadio-nombre { color: var(--s2); }
+.e-s3 .estadio-nombre { color: var(--s3); }
+.estadio-rango { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; background: rgba(0,0,0,0.08); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
+.estadio-body { padding: 1rem 1.2rem; }
+.estrella-concepto { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 3px; margin-bottom: 0.6rem; }
+.e-s0 .estrella-concepto { background: #e0fff0; color: var(--s0); border: 1px solid #80d0b0; }
+.e-s1 .estrella-concepto { background: #e0e8ff; color: var(--s1); border: 1px solid #80a8f0; }
+.e-s2 .estrella-concepto { background: #fff0e0; color: var(--s2); border: 1px solid #e0a060; }
+.e-s3 .estrella-concepto { background: #f0e0ff; color: var(--s3); border: 1px solid #c090f0; }
+.concepto-box { padding: 0.6rem 0.8rem; border-radius: 6px; margin-bottom: 0.7rem; }
+.e-s0 .concepto-box { background: #f0fff8; border: 1px solid #b0e8d0; }
+.e-s1 .concepto-box { background: #f0f4ff; border: 1px solid #b0c8f8; }
+.e-s2 .concepto-box { background: #fff8f0; border: 1px solid #e8c898; }
+.e-s3 .concepto-box { background: #f8f0ff; border: 1px solid #d0b0f8; }
+.concepto-title { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+.e-s0 .concepto-title { color: var(--s0); }
+.e-s1 .concepto-title { color: var(--s1); }
+.e-s2 .concepto-title { color: var(--s2); }
+.e-s3 .concepto-title { color: var(--s3); }
+.concepto-def { font-size: 0.8rem; line-height: 1.4; }
+.caracteristicas { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; }
+.caracteristicas li { font-size: 0.8rem; padding: 0.25rem 0.5rem; border-radius: 4px; display: flex; align-items: flex-start; gap: 0.4rem; background: #fafafa; border: 1px solid var(--border); }
+.caracteristicas li::before { content: '·'; font-weight: 700; flex-shrink: 0; }
+.e-s0 .caracteristicas li::before { color: var(--s0); }
+.e-s1 .caracteristicas li::before { color: var(--s1); }
+.e-s2 .caracteristicas li::before { color: var(--s2); }
+.e-s3 .caracteristicas li::before { color: var(--s3); }
+
+/* ── TABLA COMPARATIVA ── */
+.tabla-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.tabla-head { background: var(--accent); padding: 0.75rem 1.2rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+table.comp-tbl { width: 100%; border-collapse: collapse; }
+table.comp-tbl th { background: #e8f8f0; font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); padding: 0.4rem 1rem; text-align: left; border-bottom: 2px solid var(--border); }
+table.comp-tbl td { padding: 0.55rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.83rem; vertical-align: middle; }
+table.comp-tbl tr:last-child td { border-bottom: none; }
+table.comp-tbl tr:hover td { background: #f0faf5; }
+.r-s0 td:first-child { border-left: 4px solid var(--s0); }
+.r-s1 td:first-child { border-left: 4px solid var(--s1); }
+.r-s2 td:first-child { border-left: 4px solid var(--s2); }
+.r-s3 td:first-child { border-left: 4px solid var(--s3); }
+.e-tag { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.78rem; }
+.perla-inline { background: var(--pearl); border: 1px solid var(--pearl-border); border-radius: 4px; padding: 0.15rem 0.45rem; font-size: 0.74rem; display: inline-block; }
+
+/* ── CONFUSIONES CLÁSICAS ── */
+.confusion-wrap { background: #fff4f0; border: 1px solid #e8a080; border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.confusion-head { background: #c04020; padding: 0.7rem 1.2rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.confusion-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.conf-item { padding: 0.9rem 1rem; border-right: 1px solid #e8c0b0; }
+.conf-item:last-child { border-right: none; }
+.conf-concepto { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--red); }
+.conf-flecha { font-size: 1rem; color: var(--red); margin: 0.2rem 0; }
+.conf-estadio { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 0.2rem; }
+.conf-edad { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); }
+
+/* ── OTRAS TEORÍAS ── */
+.teorias-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-bottom: 1.5rem; }
+.teoria-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; }
+.teoria-autor { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--accent); margin-bottom: 0.2rem; }
+.teoria-titulo { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+.teoria-desc { font-size: 0.8rem; line-height: 1.4; color: var(--dark); }
+.teoria-perla { font-size: 0.75rem; font-style: italic; background: #f0fff8; border-radius: 4px; padding: 0.3rem 0.5rem; border-left: 2px solid var(--accent); margin-top: 0.4rem; }
+
+/* ── COMPARATIVA PIAGET vs VYGOTSKY ── */
+.versus-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.versus-head { background: var(--teal); padding: 0.7rem 1.2rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.versus-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.versus-col { padding: 1rem 1.2rem; }
+.versus-col:first-child { border-right: 1px solid var(--border); }
+.versus-title { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 0.7rem; }
+.v-piaget .versus-title { color: var(--accent); }
+.v-vygotsky .versus-title { color: var(--blue); }
+.versus-list { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.versus-list li { font-size: 0.82rem; padding: 0.3rem 0.6rem; border-radius: 4px; }
+.v-piaget .versus-list li { background: #f0fff8; border-left: 2px solid var(--accent); }
+.v-vygotsky .versus-list li { background: #f0f4ff; border-left: 2px solid var(--blue); }
+
+/* ── PERLAS ── */
+.perlas-wrap { background: var(--pearl); border: 1px solid var(--pearl-border); border-radius: 10px; overflow: hidden; margin-bottom: 1.5rem; }
+.perlas-head { background: #c09010; padding: 0.7rem 1rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; }
+.perlas-body { display: grid; grid-template-columns: 1fr 1fr; }
+.perla-item { padding: 0.65rem 1rem; border-bottom: 1px solid #f0e890; border-right: 1px solid #f0e890; font-size: 0.78rem; line-height: 1.5; color: #4a3a08; display: flex; gap: 0.4rem; }
+.perla-item:nth-child(even) { border-right: none; }
+.perla-item:nth-last-child(-n+2) { border-bottom: none; }
+.perla-item::before { content: '★'; color: #c09010; font-size: 0.65rem; flex-shrink: 0; margin-top: 0.15rem; }
+.perla-item strong { color: #2a1a04; }
+
+/* ── GLOSARIO ── */
+.glosario-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+.glos-item { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.7rem; }
+.glos-term { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; color: var(--accent); margin-bottom: 0.1rem; }
+.glos-def { font-size: 0.72rem; color: var(--muted); line-height: 1.3; }
+
+.warn-box { background: var(--warn-bg); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 0.5rem 0.8rem; font-size: 0.8rem; margin: 0.6rem 0; }
+.warn-label { font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; }
+
+@media (max-width: 800px) {
+  .motor-grid, .confusion-grid, .teorias-grid { grid-template-columns: 1fr 1fr; }
+  .estadios-grid, .versus-grid { grid-template-columns: 1fr; }
+  .perlas-body { grid-template-columns: 1fr; }
+  .perla-item { border-right: none; }
+  .glosario-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline { flex-direction: column; gap: 0.5rem; }
+  .timeline::before { display: none; }
+  .tl-dot { margin: 0 0 8px 0; }
+  .tl-content { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-tag">Pediatría · Desarrollo · Psicología · INGESA 2026 · OPE Militar</div>
+    <div class="header-title">Piaget — Desarrollo <em>Cognitivo</em></div>
+    <div class="header-sub">4 Estadios · Asimilación / Acomodación · Constructivismo · Confusiones de examen</div>
+    <div class="h-pills">
+      <span class="h-pill">Sensoriomotor 0–2a</span>
+      <span class="h-pill">Preoperacional 2–7a</span>
+      <span class="h-pill">Op. Concretas 7–11a</span>
+      <span class="h-pill">Op. Formales +12a</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 1. MOTOR DEL DESARROLLO -->
+  <div class="sec">
+    <div class="sec-num">1</div>
+    <div class="sec-info">
+      <div class="sec-label">Procesos constantes — Constructivismo</div>
+      <div class="sec-title">El Motor del Desarrollo Cognitivo</div>
+    </div>
+  </div>
+
+  <div class="motor-grid">
+    <div class="motor-card mc-asim">
+      <div class="motor-icon">🧲</div>
+      <div class="motor-term">Asimilación</div>
+      <div class="motor-def">Moldear la información <strong>nueva</strong> para que encaje en los <strong>esquemas ya existentes</strong>.</div>
+      <div class="motor-ejemplo">Ej: el niño llama "perro" a un lobo porque encaja en su esquema de "animal de cuatro patas".</div>
+    </div>
+    <div class="motor-card mc-acom">
+      <div class="motor-icon">🔄</div>
+      <div class="motor-term">Acomodación</div>
+      <div class="motor-def">Cambiar o crear nuevos esquemas mentales porque la información nueva <strong>no encaja</strong> en los anteriores.</div>
+      <div class="motor-ejemplo">Ej: aprender que el lobo es distinto al perro → se crea un nuevo esquema "lobo".</div>
+    </div>
+    <div class="motor-card mc-adap">
+      <div class="motor-icon">⚖️</div>
+      <div class="motor-term">Adaptación</div>
+      <div class="motor-def"><strong>Equilibrio dinámico</strong> entre asimilación y acomodación. Impulsa el desarrollo cognitivo.</div>
+      <div class="motor-ejemplo">Ej: el niño equilibra lo que ya sabe con lo que aprende para adaptarse al entorno.</div>
+    </div>
+    <div class="motor-card mc-cons">
+      <div class="motor-icon">🏗️</div>
+      <div class="motor-term">Constructivismo</div>
+      <div class="motor-def">El niño es un <strong>sujeto activo</strong> que construye su propio conocimiento a partir de la experiencia.</div>
+      <div class="motor-ejemplo">Ej: el conocimiento no se transmite pasivamente, sino que el niño lo construye interactuando con el mundo.</div>
+    </div>
+  </div>
+
+  <!-- 2. LÍNEA TEMPORAL -->
+  <div class="sec">
+    <div class="sec-num">2</div>
+    <div class="sec-info">
+      <div class="sec-label">Visión global</div>
+      <div class="sec-title">Los 4 Estadios — Línea temporal</div>
+    </div>
+  </div>
+
+  <div class="timeline-wrap">
+    <div class="timeline-title">📅 Progresión cronológica universal y biológica</div>
+    <div class="timeline">
+      <div class="tl-item tl-s0">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-edad" style="color:var(--s0)">0 – 2 años</div>
+          <div class="tl-nombre">Sensoriomotor</div>
+          <div class="tl-clave">Permanencia del objeto</div>
+        </div>
+      </div>
+      <div class="tl-item tl-s1">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-edad" style="color:var(--s1)">2 – 7 años</div>
+          <div class="tl-nombre">Preoperacional</div>
+          <div class="tl-clave">Egocentrismo · Juego simbólico</div>
+        </div>
+      </div>
+      <div class="tl-item tl-s2">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-edad" style="color:var(--s2)">7 – 11 años</div>
+          <div class="tl-nombre">Op. Concretas</div>
+          <div class="tl-clave">Reversibilidad · Conservación</div>
+        </div>
+      </div>
+      <div class="tl-item tl-s3">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-edad" style="color:var(--s3)">+12 años</div>
+          <div class="tl-nombre">Op. Formales</div>
+          <div class="tl-clave">Pensamiento abstracto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ESTADIOS EN DETALLE -->
+  <div class="sec">
+    <div class="sec-num">3</div>
+    <div class="sec-info">
+      <div class="sec-label">Lo que siempre preguntan</div>
+      <div class="sec-title">Los 4 Estadios en Detalle</div>
+    </div>
+  </div>
+
+  <div class="estadios-grid">
+
+    <!-- Sensoriomotor -->
+    <div class="estadio-card e-s0">
+      <div class="estadio-head">
+        <div class="estadio-info">
+          <div class="estadio-num">Estadio 1 · Sensoriomotor</div>
+          <div class="estadio-nombre">Sensoriomotor</div>
+        </div>
+        <div class="estadio-rango" style="color:var(--s0)">0 – 2 años</div>
+      </div>
+      <div class="estadio-body">
+        <span class="estrella-concepto">★★ Concepto estrella del examen</span>
+        <div class="concepto-box">
+          <div class="concepto-title">Permanencia del objeto</div>
+          <div class="concepto-def">El niño aprende que los <strong>objetos siguen existiendo aunque no los vea</strong>. Se adquiere hacia los 8–12 meses. Antes de esto, si tapas un juguete, "desaparece" para el bebé.</div>
+        </div>
+        <ul class="caracteristicas">
+          <li>Aprendizaje por <strong>sentidos y movimiento</strong> (sensoriomotor = reflejos)</li>
+          <li>El bebé descubre causa-efecto: "si lloro, viene mamá"</li>
+          <li>Al final del estadio aparece el <strong>pensamiento simbólico incipiente</strong></li>
+          <li>No hay lenguaje verbal desarrollado</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Preoperacional -->
+    <div class="estadio-card e-s1">
+      <div class="estadio-head">
+        <div class="estadio-info">
+          <div class="estadio-num">Estadio 2 · Preoperacional</div>
+          <div class="estadio-nombre">Preoperacional</div>
+        </div>
+        <div class="estadio-rango" style="color:var(--s1)">2 – 7 años</div>
+      </div>
+      <div class="estadio-body">
+        <span class="estrella-concepto">★★ Conceptos estrella del examen</span>
+        <div class="concepto-box">
+          <div class="concepto-title">Egocentrismo</div>
+          <div class="concepto-def">El niño <strong>solo puede ver el mundo desde su propio punto de vista</strong>. No entiende que otros tienen perspectivas distintas. (Tarea de los 3 montes de Piaget).</div>
+        </div>
+        <ul class="caracteristicas">
+          <li><strong>Juego simbólico</strong>: un palo es un caballo, una caja es un coche</li>
+          <li><strong>Animismo</strong>: los objetos inanimados tienen vida y sentimientos</li>
+          <li><strong>No hay reversibilidad</strong>: no entiende que 2+3=5 y 5-3=2</li>
+          <li>Pensamiento intuitivo (no lógico todavía)</li>
+          <li>Explosión del <strong>lenguaje verbal</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Operaciones Concretas -->
+    <div class="estadio-card e-s2">
+      <div class="estadio-head">
+        <div class="estadio-info">
+          <div class="estadio-num">Estadio 3 · Operaciones Concretas</div>
+          <div class="estadio-nombre">Operaciones Concretas</div>
+        </div>
+        <div class="estadio-rango" style="color:var(--s2)">7 – 11 años</div>
+      </div>
+      <div class="estadio-body">
+        <span class="estrella-concepto">★★ Conceptos estrella del examen</span>
+        <div class="concepto-box">
+          <div class="concepto-title">Reversibilidad + Conservación</div>
+          <div class="concepto-def"><strong>Reversibilidad</strong>: entiende que 2+3=5 → 5-3=2. Las operaciones tienen inversa. <strong>Conservación</strong>: la cantidad de agua no cambia aunque se vierta a un vaso distinto.</div>
+        </div>
+        <ul class="caracteristicas">
+          <li>Lógica <strong>aplicada a objetos concretos</strong> (necesita verlos/tocarlos)</li>
+          <li>Desaparece el egocentrismo: puede ponerse en el lugar del otro</li>
+          <li><strong>Clasificación y seriación</strong>: ordena objetos por tamaño, color, etc.</li>
+          <li>Pensamiento más flexible pero aún concreto (no abstracto)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Operaciones Formales -->
+    <div class="estadio-card e-s3">
+      <div class="estadio-head">
+        <div class="estadio-info">
+          <div class="estadio-num">Estadio 4 · Operaciones Formales</div>
+          <div class="estadio-nombre">Operaciones Formales</div>
+        </div>
+        <div class="estadio-rango" style="color:var(--s3)">+12 años</div>
+      </div>
+      <div class="estadio-body">
+        <span class="estrella-concepto">★★ Conceptos estrella del examen</span>
+        <div class="concepto-box">
+          <div class="concepto-title">Pensamiento Abstracto</div>
+          <div class="concepto-def">Puede <strong>razonar sobre hipótesis, posibilidades y conceptos abstractos</strong> sin necesidad de objetos físicos. Aparece el razonamiento hipotético-deductivo.</div>
+        </div>
+        <ul class="caracteristicas">
+          <li><strong>Razonamiento hipotético-deductivo</strong>: "¿qué pasaría si…?"</li>
+          <li>Puede pensar en el <strong>futuro y en "lo posible"</strong></li>
+          <li>Metacognición: puede pensar sobre su propio pensamiento</li>
+          <li>Comprende conceptos filosóficos, morales, ideológicos</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 4. TABLA COMPARATIVA -->
+  <div class="sec">
+    <div class="sec-num">4</div>
+    <div class="sec-info">
+      <div class="sec-label">Resumen comparativo — Para el test</div>
+      <div class="sec-title">Tabla resumen de los 4 Estadios</div>
+    </div>
+  </div>
+
+  <div class="tabla-wrap">
+    <div class="tabla-head">📊 Cuadro comparativo — Piaget</div>
+    <table class="comp-tbl">
+      <thead>
+        <tr>
+          <th>Estadio</th>
+          <th>Edad</th>
+          <th>Concepto estrella ★★</th>
+          <th>Característica clave</th>
+          <th>Trampa de examen 🚨</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="r-s0">
+          <td><span class="e-tag" style="color:var(--s0)">Sensoriomotor</span></td>
+          <td>0 – 2 a</td>
+          <td><strong>Permanencia del objeto</strong></td>
+          <td>Aprende por sentidos y reflejos</td>
+          <td><span class="perla-inline">Permanencia del objeto NO es preoperacional → es sensoriomotor</span></td>
+        </tr>
+        <tr class="r-s1">
+          <td><span class="e-tag" style="color:var(--s1)">Preoperacional</span></td>
+          <td>2 – 7 a</td>
+          <td><strong>Egocentrismo · Juego simbólico</strong></td>
+          <td>Sin reversibilidad. Animismo.</td>
+          <td><span class="perla-inline">Egocentrismo NO es op. concretas → es preoperacional</span></td>
+        </tr>
+        <tr class="r-s2">
+          <td><span class="e-tag" style="color:var(--s2)">Op. Concretas</span></td>
+          <td>7 – 11 a</td>
+          <td><strong>Reversibilidad · Conservación</strong></td>
+          <td>Necesita objetos físicos para razonar</td>
+          <td><span class="perla-inline">Conservación NO es preoperacional → es op. concretas</span></td>
+        </tr>
+        <tr class="r-s3">
+          <td><span class="e-tag" style="color:var(--s3)">Op. Formales</span></td>
+          <td>+12 a</td>
+          <td><strong>Pensamiento abstracto</strong></td>
+          <td>Hipotético-deductivo. Sin objetos físicos.</td>
+          <td><span class="perla-inline">Abstracción/hipótesis → solo en op. formales (+12a)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. CONFUSIONES CLÁSICAS -->
+  <div class="sec">
+    <div class="sec-num">5</div>
+    <div class="sec-info">
+      <div class="sec-label">¡No te confundas! — Trampas del examen</div>
+      <div class="sec-title">Asociaciones Conceptuales — Riesgo de confusión</div>
+    </div>
+  </div>
+
+  <div class="confusion-wrap">
+    <div class="confusion-head">🚨 ¡CUIDADO! Conceptos que hay que asociar correctamente</div>
+    <div class="confusion-grid">
+      <div class="conf-item">
+        <div class="conf-concepto">Permanencia del objeto</div>
+        <div class="conf-flecha">↓</div>
+        <div class="conf-estadio" style="color:var(--s0)">Sensoriomotor</div>
+        <div class="conf-edad">0 – 2 años</div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-concepto">Egocentrismo · Animismo · Juego simbólico</div>
+        <div class="conf-flecha">↓</div>
+        <div class="conf-estadio" style="color:var(--s1)">Preoperacional</div>
+        <div class="conf-edad">2 – 7 años</div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-concepto">Conservación · Reversibilidad · Clasificación</div>
+        <div class="conf-flecha">↓</div>
+        <div class="conf-estadio" style="color:var(--s2)">Op. Concretas</div>
+        <div class="conf-edad">7 – 11 años</div>
+      </div>
+      <div class="conf-item">
+        <div class="conf-concepto">Abstracción · Hipótesis · Deducción</div>
+        <div class="conf-flecha">↓</div>
+        <div class="conf-estadio" style="color:var(--s3)">Op. Formales</div>
+        <div class="conf-edad">+ 12 años</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. PIAGET vs VYGOTSKY -->
+  <div class="sec">
+    <div class="sec-num">6</div>
+    <div class="sec-info">
+      <div class="sec-label">Diferenciación para el test</div>
+      <div class="sec-title">Piaget vs. Vygotsky — Clásico de examen</div>
+    </div>
+  </div>
+
+  <div class="versus-wrap">
+    <div class="versus-head">⚖️ Comparativa: dos grandes teorías del desarrollo cognitivo</div>
+    <div class="versus-grid">
+      <div class="versus-col v-piaget">
+        <div class="versus-title">🟢 Jean Piaget — Constructivismo individual</div>
+        <ul class="versus-list">
+          <li><strong>Etapas universales y biológicas</strong>: todos los niños pasan por los mismos estadios en el mismo orden</li>
+          <li>El desarrollo cognitivo <strong>precede</strong> al aprendizaje</li>
+          <li>El niño aprende por <strong>interacción directa con el entorno físico</strong></li>
+          <li>Énfasis en la <strong>maduración biológica</strong></li>
+          <li>Concepto clave: <strong>constructivismo individual</strong></li>
+        </ul>
+      </div>
+      <div class="versus-col v-vygotsky">
+        <div class="versus-title">🔵 Vygotsky — Constructivismo social</div>
+        <ul class="versus-list">
+          <li>El aprendizaje es <strong>social y cultural</strong>: depende del contexto y de los otros</li>
+          <li>El aprendizaje <strong>impulsa</strong> el desarrollo cognitivo</li>
+          <li><strong>ZDP (Zona de Desarrollo Próximo)</strong>: la diferencia entre lo que el niño puede hacer solo y con ayuda</li>
+          <li><strong>Andamiaje</strong> (scaffolding): apoyo temporal del adulto</li>
+          <li>Concepto clave: <strong>aprendizaje mediado</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. OTRAS TEORÍAS DEL DESARROLLO -->
+  <div class="sec">
+    <div class="sec-num">7</div>
+    <div class="sec-info">
+      <div class="sec-label">Contexto complementario</div>
+      <div class="sec-title">Otras Teorías del Desarrollo — Referencia OPE</div>
+    </div>
+  </div>
+
+  <div class="teorias-grid">
+    <div class="teoria-card">
+      <div class="teoria-autor">Erikson</div>
+      <div class="teoria-titulo">8 Etapas psicosociales</div>
+      <div class="teoria-desc">Desarrollo a lo largo de toda la vida. Cada etapa tiene un <strong>conflicto central</strong> que resolver (ej: confianza vs. desconfianza en el lactante).</div>
+      <div class="teoria-perla">★ Si preguntan "etapas de toda la vida" → Erikson (8 etapas). Piaget solo llega a los 12 años.</div>
+    </div>
+    <div class="teoria-card">
+      <div class="teoria-autor">Freud</div>
+      <div class="teoria-titulo">Etapas psicosexuales</div>
+      <div class="teoria-desc">Desarrollo psicosexual: oral, anal, fálica, latencia, genital. Énfasis en el <strong>inconsciente y la sexualidad</strong> en el desarrollo.</div>
+      <div class="teoria-perla">★ Diferencia clave: Freud habla de zonas erógenas. Erikson habla de conflictos sociales. Piaget habla de cognición.</div>
+    </div>
+    <div class="teoria-card">
+      <div class="teoria-autor">Kohlberg</div>
+      <div class="teoria-titulo">Desarrollo moral</div>
+      <div class="teoria-desc">Basado en Piaget. 3 niveles morales: <strong>preconvencional</strong> (niño), <strong>convencional</strong> (adolescente/adulto), <strong>postconvencional</strong> (principios éticos). </div>
+      <div class="teoria-perla">★ Kohlberg = desarrollo MORAL. Se pregunta diferenciado de Piaget (cognitivo).</div>
+    </div>
+  </div>
+
+  <!-- PERLAS INGESA -->
+  <div class="sec">
+    <div class="sec-num">⭐</div>
+    <div class="sec-info">
+      <div class="sec-label">Sección obligatoria</div>
+      <div class="sec-title">Perlas tipo examen INGESA / OPE Militar</div>
+    </div>
+  </div>
+
+  <div class="perlas-wrap">
+    <div class="perlas-head">⭐ Perlas tipo test — Piaget y Desarrollo Cognitivo</div>
+    <div class="perlas-body">
+      <div class="perla-item"><strong>Permanencia del objeto</strong> → estadio SENSORIOMOTOR (0–2a). La opción "preoperacional" es trampa clásica.</div>
+      <div class="perla-item"><strong>Egocentrismo</strong> → PREOPERACIONAL (2–7a). El niño no puede adoptar la perspectiva de otro.</div>
+      <div class="perla-item"><strong>Reversibilidad y conservación</strong> → OP. CONCRETAS (7–11a). Si preguntan "puede entender que 5-3=2" → op. concretas.</div>
+      <div class="perla-item"><strong>Pensamiento abstracto e hipotético-deductivo</strong> → OP. FORMALES (+12a). Puede razonar sobre lo posible.</div>
+      <div class="perla-item"><strong>Juego simbólico</strong> (un palo es un caballo) → PREOPERACIONAL. <strong>Animismo</strong> (los objetos tienen vida) → también preoperacional.</div>
+      <div class="perla-item"><strong>Piaget = etapas biológicas/cognitivas</strong>. <strong>Erikson = psicosociales toda la vida</strong>. <strong>Freud = psicosexuales</strong>. <strong>Kohlberg = morales</strong>.</div>
+      <div class="perla-item"><strong>Vygotsky</strong> → ZDP (Zona Desarrollo Próximo) = lo que puede hacer con ayuda vs. solo. Piaget no habla de ZDP.</div>
+      <div class="perla-item"><strong>Asimilación</strong>: nueva info encaja en esquema existente. <strong>Acomodación</strong>: nueva info obliga a cambiar el esquema.</div>
+      <div class="perla-item"><strong>Constructivismo</strong>: el niño construye activamente su conocimiento. No es receptor pasivo (no confundir con conductismo).</div>
+      <div class="perla-item">Los estadios son <strong>universales, ordenados e invariables</strong>: todos los niños pasan por el mismo orden, aunque el ritmo varía.</div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="sec">
+    <div class="sec-num">G</div>
+    <div class="sec-info">
+      <div class="sec-label">Términos clave</div>
+      <div class="sec-title">Glosario de abreviaturas</div>
+    </div>
+  </div>
+  <div class="glosario-grid">
+    <div class="glos-item"><div class="glos-term">ZDP</div><div class="glos-def">Zona de Desarrollo Próximo (Vygotsky)</div></div>
+    <div class="glos-item"><div class="glos-term">Op.</div><div class="glos-def">Operaciones (concretas / formales)</div></div>
+    <div class="glos-item"><div class="glos-term">EIR</div><div class="glos-def">Enfermero Interno Residente</div></div>
+    <div class="glos-item"><div class="glos-term">OPE</div><div class="glos-def">Oferta Pública de Empleo</div></div>
+    <div class="glos-item"><div class="glos-term">Animismo</div><div class="glos-def">Atribuir vida a objetos inanimados</div></div>
+    <div class="glos-item"><div class="glos-term">Conservación</div><div class="glos-def">La cantidad no cambia al cambiar la forma</div></div>
+    <div class="glos-item"><div class="glos-term">Reversibilidad</div><div class="glos-def">Una operación puede deshacerse (5-3=2)</div></div>
+    <div class="glos-item"><div class="glos-term">Egocentrismo</div><div class="glos-def">Solo ver el mundo desde el propio punto de vista</div></div>
+  </div>
+
+</div>
+</body>
+</html>

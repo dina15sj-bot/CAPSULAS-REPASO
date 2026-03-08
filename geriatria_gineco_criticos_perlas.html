@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geriatría · Ginecología · Críticos — Perlas OPE INGESA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f0f8;--surface:#fff;--accent:#3a3a8a;--dark:#0a081a;--muted:#5a5880;--border:#d8d5e8;--red:#c04020;--green:#1a7a3a;--blue:#1a5a8a;--indigo:#3a3a8a;--pearl:#fffce6;--pearl-b:#e0c020;--warn:#fff8f0;--ant:#f0e8ff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--dark);line-height:1.55;font-size:.87rem;}
+.ph{background:#08081a;padding:1.8rem 2rem 1.4rem;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(55deg,transparent,transparent 28px,rgba(58,58,138,.08) 28px,rgba(58,58,138,.08) 56px);}
+.hi{max-width:1120px;margin:0 auto;position:relative;}
+.ht{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.2em;color:#8888e8;margin-bottom:.4rem;}
+.hm{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;line-height:1.05;margin-bottom:.35rem;}
+.hm em{color:#a0a0ff;font-style:italic;}
+.hs{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:.9rem;}
+.hpills{display:flex;flex-wrap:wrap;gap:.4rem;}
+.hp{font-family:'JetBrains Mono',monospace;font-size:.52rem;padding:.15rem .6rem;border-radius:2px;border:1px solid rgba(136,136,232,.4);color:#8888e8;}
+.main{max-width:1120px;margin:0 auto;padding:1.8rem 1.4rem 3rem;}
+.sec{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sn{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#e0ddf0;line-height:1;}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);}
+.st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark);}
+.ev{font-family:'JetBrains Mono',monospace;font-size:.48rem;background:#e8e8ff;border:1px solid #9090e0;color:#2a2a8a;padding:.07rem .38rem;border-radius:3px;display:inline-block;margin-left:.3rem;vertical-align:middle;}
+.pi{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:4px;padding:.15rem .45rem;font-size:.74rem;display:inline-block;margin-top:.2rem;}
+.wb{background:var(--warn);border-left:3px solid var(--red);border-radius:0 5px 5px 0;padding:.45rem .75rem;margin:.5rem 0;font-size:.79rem;}
+.wl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:var(--red);margin-bottom:.15rem;}
+.ab{background:var(--ant);border:1px solid #9060d0;border-radius:6px;padding:.5rem .8rem;margin:.5rem 0;font-size:.79rem;}
+.al{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:#5a30b0;margin-bottom:.15rem;}
+/* ESCALAS GERIÁTRICAS */
+.escalas-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
+.escalas-head{background:var(--indigo);padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
+table.etbl{width:100%;border-collapse:collapse;}
+table.etbl th{background:#eeeeff;font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;color:#2a2a8a;padding:.4rem .9rem;text-align:left;border-bottom:2px solid var(--border);}
+table.etbl td{padding:.48rem .9rem;border-bottom:1px solid var(--border);font-size:.82rem;vertical-align:top;line-height:1.4;}
+table.etbl tr:last-child td{border-bottom:none;}
+table.etbl tr:hover td{background:#f5f5ff;}
+.rf td:first-child{border-left:4px solid #3a3a8a;}
+.ra td:first-child{border-left:4px solid #1a5a8a;}
+.rn td:first-child{border-left:4px solid #6a1a8a;}
+.ry td:first-child{border-left:4px solid #8a4a1a;}
+.rz td:first-child{border-left:4px solid #c04020;}
+.rb td:first-child{border-left:4px solid #1a7a3a;}
+/* ESCALAS DIFERENCIAS CLAVE */
+.escala-diff{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem;}
+.ed-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;}
+.ed-title{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:.5rem;}
+/* GINECOLOGÍA */
+.gine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-bottom:1.4rem;}
+.gine-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.gine-head{padding:.6rem .9rem;border-bottom:1px solid var(--border);}
+.gine-title{font-family:'Playfair Display',serif;font-size:.93rem;font-weight:700;}
+.gine-sub{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;opacity:.7;margin-top:.08rem;}
+.gine-body{padding:.8rem .9rem;font-size:.81rem;line-height:1.5;}
+.g1 .gine-head{background:#fff0f8;border-bottom-color:#e8c0d8;}
+.g1 .gine-title{color:#8a1a6a;}
+.g2 .gine-head{background:#fffce8;border-bottom-color:#e8d890;}
+.g2 .gine-title{color:#6a5a10;}
+.g3 .gine-head{background:#f0f8ff;border-bottom-color:#a0c8f0;}
+.g3 .gine-title{color:#1a3a8a;}
+/* CRÍTICOS */
+.criticos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem;}
+.crit-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.crit-head{padding:.65rem 1rem;border-bottom:1px solid var(--border);}
+.crit-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;}
+.crit-body{padding:.85rem 1rem;font-size:.82rem;line-height:1.5;}
+.c-htic .crit-head{background:#fde8e8;border-bottom-color:#e09090;}
+.c-htic .crit-title{color:#9a1010;}
+.c-va .crit-head{background:#e8fff0;border-bottom-color:#90d8a8;}
+.c-va .crit-title{color:#0a5a1a;}
+.c-drena .crit-head{background:#e8f0ff;border-bottom-color:#90a8f0;}
+.c-drena .crit-title{color:#1a2a8a;}
+.c-ir .crit-head{background:#fff8e0;border-bottom-color:#e8d060;}
+.c-ir .crit-title{color:#6a5010;}
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:.3rem;margin-top:.4rem;}
+.step{display:flex;gap:.5rem;align-items:flex-start;}
+.step-num{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.7rem;color:#fff;background:var(--indigo);padding:.08rem .3rem;border-radius:3px;flex-shrink:0;margin-top:.05rem;}
+.c-htic .step-num{background:#9a1010;}
+.c-va .step-num{background:#0a5a1a;}
+/* PERLAS */
+.perlas-wrap{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:10px;overflow:hidden;margin-bottom:1.4rem;}
+.perlas-head{background:#c09010;padding:.65rem 1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
+.perlas-body{display:grid;grid-template-columns:1fr 1fr;}
+.perla-item{padding:.6rem 1rem;border-bottom:1px solid #f0e890;border-right:1px solid #f0e890;font-size:.77rem;line-height:1.5;color:#4a3a08;display:flex;gap:.4rem;}
+.perla-item:nth-child(even){border-right:none;}
+.perla-item:nth-last-child(-n+2){border-bottom:none;}
+.perla-item::before{content:'★';color:#c09010;font-size:.62rem;flex-shrink:0;margin-top:.15rem;}
+.perla-item strong{color:#2a1a04;}
+.glos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;}
+.gi{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.45rem .65rem;}
+.gt{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:var(--accent);margin-bottom:.08rem;}
+.gd{font-size:.7rem;color:var(--muted);line-height:1.25;}
+@media(max-width:800px){
+.escala-diff,.gine-grid,.criticos-grid{grid-template-columns:1fr;}
+.perlas-body{grid-template-columns:1fr;}
+.perla-item{border-right:none;}
+.glos-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ── ILUSTRACIONES ANATÓMICAS ── */
+.anat-section{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.6rem;}
+.anat-section-head{padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;}
+.anat-section-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.anat-fig{padding:1rem;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;background:#fafaf8;}
+.anat-fig:last-child{border-right:none;}
+.anat-fig-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem;text-align:center;}
+.anat-fig-caption{font-size:.68rem;color:var(--muted);margin-top:.5rem;text-align:center;max-width:280px;line-height:1.45;}
+.anat-fig svg{max-width:100%;height:auto;}
+@media(max-width:800px){.anat-section-body{grid-template-columns:1fr;}.anat-fig{border-right:none;border-bottom:1px solid var(--border);}}
+
+</style>
+</head>
+<body>
+<div class="ph">
+<div class="hi">
+  <div class="ht">Geriatría · Ginecología · Críticos · OPE INGESA · Escala Oficiales Enfermeros</div>
+  <div class="hm">Geriatría · Ginecología · <em>Críticos</em></div>
+  <div class="hs">Escalas geriátricas · Ciclo menstrual · Vía aérea · HTIC · Reflejo de Cushing · Drenaje torácico</div>
+  <div class="hpills">
+    <span class="hp">Lawton = instrumental · Barthel = básico</span>
+    <span class="hp">Cuerpo lúteo → progesterona</span>
+    <span class="hp">HTIC = HTA + bradicardia + IR</span>
+    <span class="hp">Drenaje: 5.º EIC LAM</span>
+  </div>
+</div>
+</div>
+
+<div class="main">
+
+<!-- ═══ ILUSTRACIONES ANATÓMICAS ═══ -->
+<div class="anat-section">
+  <div class="anat-section-head" style="background:#eeeeff;border-bottom:1px solid var(--border);">
+    <span style="font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#2a2a7a;">🎨 Ilustraciones Anatómicas</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;color:var(--muted);margin-left:.5rem;">Lóbulos cerebrales · Drenaje torácico · Tórax</span>
+  </div>
+  <div class="anat-section-body">
+
+    <!-- FIG 1: CEREBRO CON LÓBULOS Y FUNCIONES -->
+    <div class="anat-fig">
+      <div class="anat-fig-title" style="color:#3a3a8a;">Lóbulos cerebrales — funciones clínicas</div>
+      <svg viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" style="width:280px;">
+        <defs>
+          <radialGradient id="frontalG" cx="40%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#d0e8ff"/><stop offset="100%" stop-color="#a8c8f0"/>
+          </radialGradient>
+          <radialGradient id="parietalG" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#d0f0d8"/><stop offset="100%" stop-color="#a8d8b8"/>
+          </radialGradient>
+          <radialGradient id="temporalG" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#fff0d0"/><stop offset="100%" stop-color="#f0d0a0"/>
+          </radialGradient>
+          <radialGradient id="occipitalG" cx="60%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#f0d0f0"/><stop offset="100%" stop-color="#d8a8d8"/>
+          </radialGradient>
+          <radialGradient id="hipocG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffe0a0"/><stop offset="100%" stop-color="#f0c060"/>
+          </radialGradient>
+        </defs>
+        <rect width="280" height="360" fill="#f8f5f0" rx="8"/>
+        <text x="140" y="14" text-anchor="middle" font-size="7" fill="#3a3a8a" font-family="JetBrains Mono" font-weight="bold">LÓBULOS CEREBRALES — VISTA LATERAL</text>
+
+        <!-- CONTORNO CEREBRAL -->
+        <path d="M40,80 Q38,55 55,42 Q75,30 100,30 Q130,28 155,32 Q185,38 205,55 Q222,72 225,95 Q228,120 220,145 Q210,170 195,188 Q178,205 155,215 Q130,222 105,218 Q78,212 60,198 Q42,182 38,158 Q34,130 40,80 Z" fill="#f0e8d8" stroke="#b0a080" stroke-width="2"/>
+
+        <!-- LÓBULO FRONTAL (azul) -->
+        <path d="M40,80 Q38,55 55,42 Q75,30 100,30 Q118,30 125,35 Q115,55 110,75 Q100,92 88,95 Q70,95 55,88 Q43,83 40,80 Z" fill="url(#frontalG)" stroke="#8090c0" stroke-width="1.5" opacity=".9"/>
+        <text x="72" y="65" text-anchor="middle" font-size="7.5" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">FRONTAL</text>
+        <text x="72" y="75" text-anchor="middle" font-size="5.5" fill="#1a3a8a" font-family="JetBrains Mono">Personalidad</text>
+        <text x="72" y="83" text-anchor="middle" font-size="5.5" fill="#1a3a8a" font-family="JetBrains Mono">Conducta</text>
+        <text x="72" y="91" text-anchor="middle" font-size="5.5" fill="#1a3a8a" font-family="JetBrains Mono">Iniciativa</text>
+        <text x="72" y="99" text-anchor="middle" font-size="5" fill="#9a1a1a" font-family="JetBrains Mono">DFT si lesión ⚠</text>
+
+        <!-- LÓBULO PARIETAL (verde) -->
+        <path d="M125,35 Q155,32 175,40 Q195,50 200,70 Q205,88 195,100 Q182,108 162,110 Q142,110 130,100 Q118,88 115,72 Q115,55 125,35 Z" fill="url(#parietalG)" stroke="#60a070" stroke-width="1.5" opacity=".9"/>
+        <text x="160" y="68" text-anchor="middle" font-size="7.5" fill="#1a5a2a" font-family="JetBrains Mono" font-weight="bold">PARIETAL</text>
+        <text x="160" y="78" text-anchor="middle" font-size="5.5" fill="#1a5a2a" font-family="JetBrains Mono">Sensibilidad</text>
+        <text x="160" y="86" text-anchor="middle" font-size="5.5" fill="#1a5a2a" font-family="JetBrains Mono">Espacial</text>
+        <text x="160" y="94" text-anchor="middle" font-size="5.5" fill="#1a5a2a" font-family="JetBrains Mono">Gnosias</text>
+
+        <!-- LÓBULO OCCIPITAL (lila) -->
+        <path d="M195,100 Q215,105 222,120 Q228,140 218,158 Q205,175 188,182 Q170,188 158,180 Q145,170 148,152 Q152,130 165,118 Q180,108 195,100 Z" fill="url(#occipitalG)" stroke="#9060a0" stroke-width="1.5" opacity=".9"/>
+        <text x="185" y="148" text-anchor="middle" font-size="7.5" fill="#6a1a8a" font-family="JetBrains Mono" font-weight="bold">OCCIPITAL</text>
+        <text x="185" y="158" text-anchor="middle" font-size="5.5" fill="#6a1a8a" font-family="JetBrains Mono">Visión</text>
+        <text x="185" y="166" text-anchor="middle" font-size="5.5" fill="#6a1a8a" font-family="JetBrains Mono">Corteza visual</text>
+
+        <!-- LÓBULO TEMPORAL (naranja) -->
+        <path d="M88,95 Q100,92 115,95 Q130,100 142,110 Q148,125 145,148 Q140,168 125,178 Q108,185 90,180 Q72,172 62,158 Q52,142 55,125 Q58,108 70,100 Q80,95 88,95 Z" fill="url(#temporalG)" stroke="#c09040" stroke-width="1.5" opacity=".9"/>
+        <text x="100" y="143" text-anchor="middle" font-size="7.5" fill="#8a4a10" font-family="JetBrains Mono" font-weight="bold">TEMPORAL</text>
+        <text x="100" y="153" text-anchor="middle" font-size="5.5" fill="#8a4a10" font-family="JetBrains Mono">Audición</text>
+        <text x="100" y="161" text-anchor="middle" font-size="5.5" fill="#8a4a10" font-family="JetBrains Mono">Lenguaje (Wernicke)</text>
+        <text x="100" y="169" text-anchor="middle" font-size="5.5" fill="#c04020" font-family="JetBrains Mono">Memoria (hipocampo)</text>
+
+        <!-- CISURA DE ROLANDO (motora/sensitiva) -->
+        <path d="M115,38 Q120,58 118,80 Q116,95 115,95" fill="none" stroke="#c02020" stroke-width="2.5" stroke-dasharray="5,3"/>
+        <text x="108" y="28" text-anchor="end" font-size="5.5" fill="#c02020" font-family="JetBrains Mono" font-weight="bold">C.Rolando</text>
+        <text x="108" y="36" text-anchor="end" font-size="5" fill="#c02020" font-family="JetBrains Mono">motor/sensitivo</text>
+
+        <!-- HIPOCAMPO (destaque especial) -->
+        <path d="M78,172 Q85,165 95,168 Q108,172 112,180 Q108,190 98,195 Q85,198 78,192 Q72,185 78,172 Z" fill="url(#hipocG)" stroke="#c09020" stroke-width="2"/>
+        <text x="92" y="185" text-anchor="middle" font-size="6.5" fill="#8a6010" font-family="JetBrains Mono" font-weight="bold">hipocampo</text>
+        <text x="92" y="193" text-anchor="middle" font-size="5.5" fill="#8a6010" font-family="JetBrains Mono">memoria reciente</text>
+        <!-- Flecha Alzheimer -->
+        <line x1="70" y1="183" x2="45" y2="185" stroke="#c04020" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <rect x="2" y="178" width="42" height="18" rx="2" fill="rgba(192,64,32,.1)"/>
+        <text x="23" y="187" text-anchor="middle" font-size="5.5" fill="#c02020" font-family="JetBrains Mono" font-weight="bold">Alzheimer</text>
+        <text x="23" y="194" text-anchor="middle" font-size="5" fill="#c02020" font-family="JetBrains Mono">lesión precoz</text>
+
+        <!-- ÁREA DE BROCA -->
+        <circle cx="68" cy="108" r="8" fill="rgba(255,200,100,.6)" stroke="#d09020" stroke-width="1.5"/>
+        <text x="43" y="104" text-anchor="end" font-size="5.5" fill="#8a5010" font-family="JetBrains Mono">Broca</text>
+        <text x="43" y="112" text-anchor="end" font-size="5" fill="#8a5010" font-family="JetBrains Mono">(lenguaje motor)</text>
+        <line x1="44" y1="108" x2="60" y2="108" stroke="#c09020" stroke-width="1" stroke-dasharray="2,2"/>
+
+        <!-- Tabla comparativa Frontal vs Hipocampo -->
+        <rect x="10" y="228" width="260" height="72" rx="5" fill="#fff" stroke="#d0d0e0" stroke-width="1"/>
+        <text x="140" y="241" text-anchor="middle" font-size="6.5" fill="#3a3a8a" font-family="JetBrains Mono" font-weight="bold">DIFERENCIACIÓN CLAVE — DEMENCIAS</text>
+        <rect x="15" y="247" width="110" height="46" rx="4" fill="rgba(26,58,138,.07)"/>
+        <text x="70" y="258" text-anchor="middle" font-size="6.5" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">LÓBULO FRONTAL</text>
+        <text x="70" y="267" text-anchor="middle" font-size="6" fill="#1a3a8a" font-family="JetBrains Mono">Personalidad / conducta</text>
+        <text x="70" y="276" text-anchor="middle" font-size="6" fill="#1a3a8a" font-family="JetBrains Mono">Desinhibición, apatía</text>
+        <text x="70" y="285" text-anchor="middle" font-size="6" fill="#c02020" font-family="JetBrains Mono">→ DFT (frontotemporal)</text>
+        <rect x="155" y="247" width="110" height="46" rx="4" fill="rgba(192,144,16,.07)"/>
+        <text x="210" y="258" text-anchor="middle" font-size="6.5" fill="#8a6010" font-family="JetBrains Mono" font-weight="bold">HIPOCAMPO</text>
+        <text x="210" y="267" text-anchor="middle" font-size="6" fill="#8a6010" font-family="JetBrains Mono">Memoria reciente</text>
+        <text x="210" y="276" text-anchor="middle" font-size="6" fill="#8a6010" font-family="JetBrains Mono">Primeros síntomas</text>
+        <text x="210" y="285" text-anchor="middle" font-size="6" fill="#c02020" font-family="JetBrains Mono">→ Alzheimer (temprano)</text>
+
+        <!-- Tríada de Cushing (HTIC) -->
+        <rect x="10" y="308" width="260" height="42" rx="5" fill="#fde8e8" stroke="#e08080" stroke-width="1.5"/>
+        <text x="140" y="320" text-anchor="middle" font-size="7" fill="#9a0808" font-family="JetBrains Mono" font-weight="bold">TRÍADA DE CUSHING (HTIC grave)</text>
+        <text x="140" y="330" text-anchor="middle" font-size="7" fill="#c02020" font-family="JetBrains Mono">HTA ↑ + Bradicardia ↓ + Respiración irregular</text>
+        <text x="140" y="340" text-anchor="middle" font-size="6" fill="#9a1010" font-family="JetBrains Mono">Herniación inminente — urgencia máxima · cabecero 30° + manitol</text>
+        <text x="140" y="349" text-anchor="middle" font-size="6" fill="#9a1010" font-family="JetBrains Mono">La cavidad craneal es RÍGIDA → cualquier ↑ volumen → ↑ PIC</text>
+
+        <rect x="1" y="1" width="278" height="358" fill="none" stroke="#d0e0e0" stroke-width="1" rx="8"/>
+      </svg>
+      <div class="anat-fig-caption">Vista lateral del cerebro con lóbulos y funciones. El <strong style="color:#f0c060;">hipocampo</strong> (memoria reciente) es la primera estructura dañada en Alzheimer. El <strong style="color:#a8c8f0;">lóbulo frontal</strong> controla personalidad/conducta (demencia frontotemporal si se lesiona).</div>
+    </div>
+
+    <!-- FIG 2: DRENAJE TORÁCICO + VÍA AÉREA -->
+    <div class="anat-fig">
+      <div class="anat-fig-title" style="color:#1a3a6a;">Tórax — Drenaje y vía aérea</div>
+      <svg viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" style="width:280px;">
+        <defs>
+          <radialGradient id="pulmG" cx="40%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#f8e0d8"/><stop offset="100%" stop-color="#e8c0b0"/>
+          </radialGradient>
+          <radialGradient id="corazG" cx="50%" cy="45%" r="55%">
+            <stop offset="0%" stop-color="#e83030"/><stop offset="100%" stop-color="#c01010"/>
+          </radialGradient>
+        </defs>
+        <rect width="280" height="360" fill="#f8f5f0" rx="8"/>
+        <text x="140" y="14" text-anchor="middle" font-size="7" fill="#1a3a6a" font-family="JetBrains Mono" font-weight="bold">TÓRAX — DRENAJE PLEURAL Y VÍA AÉREA</text>
+
+        <!-- COSTILLAS (EIC) -->
+        <!-- Numeración de espacios intercostales -->
+        <!-- Caja torácica simplificada -->
+        <path d="M50,25 Q45,28 40,40 L30,280 Q30,295 50,300 Q140,310 230,300 Q250,295 250,280 L240,40 Q235,28 230,25 Z" fill="none" stroke="#b0a090" stroke-width="1" stroke-dasharray="3,3" opacity=".3"/>
+
+        <!-- Costillas (arcos) - numeradas -->
+        <!-- Costilla 1 -->
+        <path d="M85,28 Q140,22 195,28" fill="none" stroke="#c0b090" stroke-width="3" stroke-linecap="round"/>
+        <text x="55" y="32" text-anchor="end" font-size="6" fill="#7a6040" font-family="JetBrains Mono">1ª</text>
+        <!-- Costilla 2 -->
+        <path d="M78,48 Q140,40 202,48" fill="none" stroke="#c0b090" stroke-width="3" stroke-linecap="round"/>
+        <text x="55" y="52" text-anchor="end" font-size="6" fill="#7a6040" font-family="JetBrains Mono">2ª</text>
+        <!-- Costilla 3 -->
+        <path d="M72,70 Q140,60 208,70" fill="none" stroke="#c0b090" stroke-width="3" stroke-linecap="round"/>
+        <text x="55" y="74" text-anchor="end" font-size="6" fill="#7a6040" font-family="JetBrains Mono">3ª</text>
+        <!-- Costilla 4 -->
+        <path d="M68,94 Q140,83 212,94" fill="none" stroke="#c0b090" stroke-width="3" stroke-linecap="round"/>
+        <text x="55" y="98" text-anchor="end" font-size="6" fill="#7a6040" font-family="JetBrains Mono">4ª</text>
+        <!-- Costilla 5 (referencia drenaje) -->
+        <path d="M65,118 Q140,106 215,118" fill="none" stroke="#1a5a8a" stroke-width="4" stroke-linecap="round"/>
+        <text x="55" y="122" text-anchor="end" font-size="7" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">5ª ★</text>
+        <!-- Costilla 6 -->
+        <path d="M63,144 Q140,132 217,144" fill="none" stroke="#c0b090" stroke-width="3" stroke-linecap="round"/>
+        <text x="55" y="148" text-anchor="end" font-size="6" fill="#7a6040" font-family="JetBrains Mono">6ª</text>
+
+        <!-- EIC 5 resaltado (espacio entre 5ª y 6ª) -->
+        <rect x="58" y="118" width="164" height="26" rx="4" fill="rgba(26,90,138,.08)" stroke="#1a5a8a" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <text x="140" y="135" text-anchor="middle" font-size="6.5" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">5.º ESPACIO INTERCOSTAL</text>
+
+        <!-- PULMONES -->
+        <!-- Pulmón izquierdo -->
+        <path d="M62,30 Q50,50 48,80 Q45,115 50,150 Q55,180 70,200 Q85,215 105,218 Q120,218 128,210 Q118,180 115,150 Q110,115 112,80 Q108,52 100,32 Q85,26 62,30 Z" fill="url(#pulmG)" stroke="#c09080" stroke-width="1.5" opacity=".8"/>
+        <text x="85" y="125" text-anchor="middle" font-size="7" fill="#8a3a2a" font-family="JetBrains Mono" font-weight="bold">P.IZQ</text>
+        <!-- Pulmón derecho -->
+        <path d="M218,30 Q230,50 232,80 Q235,115 230,150 Q225,180 210,200 Q195,215 175,218 Q160,218 152,210 Q162,180 165,150 Q170,115 168,80 Q172,52 180,32 Q195,26 218,30 Z" fill="url(#pulmG)" stroke="#c09080" stroke-width="1.5" opacity=".8"/>
+        <text x="195" y="125" text-anchor="middle" font-size="7" fill="#8a3a2a" font-family="JetBrains Mono" font-weight="bold">P.DER</text>
+
+        <!-- CORAZÓN -->
+        <path d="M115,138 Q118,125 130,122 Q145,118 155,125 Q168,118 178,122 Q190,130 188,145 Q185,162 175,175 Q162,188 150,195 Q138,188 127,175 Q115,162 115,138 Z" fill="url(#corazG)" stroke="#900010" stroke-width="1.5" opacity=".9"/>
+        <text x="152" y="162" text-anchor="middle" font-size="6.5" fill="white" font-family="JetBrains Mono" font-weight="bold">♥</text>
+
+        <!-- TRÁQUEA -->
+        <rect x="133" y="20" width="14" height="35" rx="4" fill="#d0e8d8" stroke="#80b890" stroke-width="1.5"/>
+        <text x="140" y="30" text-anchor="middle" font-size="5.5" fill="#2a6a3a" font-family="JetBrains Mono">traquea</text>
+        <!-- Bronquios principales -->
+        <path d="M136,55 Q118,62 108,75" fill="none" stroke="#80b890" stroke-width="3" stroke-linecap="round"/>
+        <path d="M144,55 Q162,62 172,75" fill="none" stroke="#80b890" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- PUNTO DE DRENAJE (★) en Línea Axilar Media, 5.º EIC -->
+        <circle cx="62" cy="131" r="9" fill="#c02020" stroke="white" stroke-width="2.5"/>
+        <text x="62" y="135" text-anchor="middle" font-size="9" fill="white" font-family="JetBrains Mono" font-weight="bold">★</text>
+        <!-- Tubo de drenaje -->
+        <path d="M62,140 L62,165 L48,170" fill="none" stroke="#1a5a8a" stroke-width="3" stroke-linecap="round"/>
+        <!-- Sistema de drenaje -->
+        <rect x="28" y="168" width="38" height="25" rx="3" fill="#e0f0ff" stroke="#1a5a8a" stroke-width="1.5"/>
+        <text x="47" y="179" text-anchor="middle" font-size="5.5" fill="#0a3a6a" font-family="JetBrains Mono">Sistema</text>
+        <text x="47" y="188" text-anchor="middle" font-size="5.5" fill="#0a3a6a" font-family="JetBrains Mono">drenaje</text>
+        <!-- Línea axilar media (vertical) -->
+        <line x1="62" y1="22" x2="62" y2="230" stroke="#1a5a8a" stroke-width="1" stroke-dasharray="4,3" opacity=".5"/>
+        <text x="10" y="238" font-size="6" fill="#1a3a8a" font-family="JetBrains Mono">L. Axilar Media</text>
+
+        <!-- ANOTACIONES CLAVE -->
+        <rect x="168" y="165" width="106" height="52" rx="4" fill="rgba(26,90,138,.1)" stroke="#1a5a8a" stroke-width="1"/>
+        <text x="221" y="177" text-anchor="middle" font-size="7" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">DRENAJE ★</text>
+        <text x="221" y="186" text-anchor="middle" font-size="6.5" fill="#1a3a8a" font-family="JetBrains Mono">5.º EIC</text>
+        <text x="221" y="195" text-anchor="middle" font-size="6.5" fill="#1a3a8a" font-family="JetBrains Mono">Línea axilar media</text>
+        <text x="221" y="204" text-anchor="middle" font-size="6" fill="#1a3a8a" font-family="JetBrains Mono">Borde sup. costilla 6ª</text>
+        <text x="221" y="213" text-anchor="middle" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">Evitar paquete VN</text>
+
+        <!-- VÍA AÉREA: frente-mentón vs tracción mandibular -->
+        <rect x="10" y="238" width="260" height="108" rx="6" fill="#fff" stroke="#e0d0e0" stroke-width="1.5"/>
+        <text x="140" y="252" text-anchor="middle" font-size="7" fill="#3a3a8a" font-family="JetBrains Mono" font-weight="bold">VÍA AÉREA — MANIOBRAS DE APERTURA</text>
+
+        <!-- Frente-mentón (normal) -->
+        <rect x="15" y="258" width="110" height="80" rx="5" fill="#e8f8e8" stroke="#90c890" stroke-width="1.5"/>
+        <text x="70" y="272" text-anchor="middle" font-size="7" fill="#1a5a1a" font-family="JetBrains Mono" font-weight="bold">✅ FRENTE-MENTÓN</text>
+        <!-- Cabeza en extensión (perfil esquemático) -->
+        <ellipse cx="70" cy="300" rx="20" ry="24" fill="#f0e0d0" stroke="#c0a880" stroke-width="1.5"/>
+        <path d="M60,320 Q52,330 55,340 Q65,348 75,342" fill="none" stroke="#c0a880" stroke-width="2"/>
+        <path d="M82,296 Q95,292 98,300 Q95,310 85,314" fill="#f0e0d0" stroke="#c0a880" stroke-width="1.5"/>
+        <!-- Flecha extensión -->
+        <path d="M52,296 Q45,285 50,275" fill="none" stroke="#1a7a3a" stroke-width="2" marker-end="url(#arrowG)"/>
+        <defs><marker id="arrowG" markerWidth="6" markerHeight="6" refX="3" refY="6" orient="auto"><path d="M0,6 L3,0 L6,6 z" fill="#1a7a3a"/></marker></defs>
+        <text x="70" y="328" text-anchor="middle" font-size="5.5" fill="#1a5a1a" font-family="JetBrains Mono">Sin lesión cervical</text>
+
+        <!-- Tracción mandibular (trauma) -->
+        <rect x="155" y="258" width="118" height="80" rx="5" fill="#fff0e8" stroke="#e09060" stroke-width="1.5"/>
+        <text x="214" y="272" text-anchor="middle" font-size="7" fill="#8a3010" font-family="JetBrains Mono" font-weight="bold">⚠ TRACCIÓN MAND.</text>
+        <!-- Cabeza neutra + manos empujando mandíbula -->
+        <ellipse cx="214" cy="300" rx="20" ry="24" fill="#f0e0d0" stroke="#c0a880" stroke-width="1.5"/>
+        <path d="M204,320 Q196,330 199,340 Q209,348 219,342" fill="none" stroke="#c0a880" stroke-width="2"/>
+        <path d="M226,296 Q239,292 242,300 Q239,310 229,314" fill="#f0e0d0" stroke="#c0a880" stroke-width="1.5"/>
+        <!-- Manos empujando mandíbula hacia adelante -->
+        <path d="M196,316 Q188,318 190,310" fill="none" stroke="#c04020" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M232,316 Q240,318 238,310" fill="none" stroke="#c04020" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="214" y="328" text-anchor="middle" font-size="5.5" fill="#8a2010" font-family="JetBrains Mono">Sospecha lesión cervical</text>
+        <text x="214" y="336" text-anchor="middle" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">NO hiperextender</text>
+
+        <rect x="1" y="1" width="278" height="358" fill="none" stroke="#d0e0e0" stroke-width="1" rx="8"/>
+      </svg>
+      <div class="anat-fig-caption">Tórax con localización del drenaje pleural: <strong style="color:#1a3a8a;">5.º espacio intercostal, línea axilar media</strong> (por encima del borde superior de la 6.ª costilla). Maniobras de vía aérea: frente-mentón en paciente sin lesión cervical; <strong style="color:#c04020;">tracción mandibular</strong> si hay sospecha de trauma cervical.</div>
+    </div>
+
+  </div>
+</div>
+<!-- ═══ FIN ILUSTRACIONES ═══ -->
+
+
+<!-- 1. ESCALAS GERIÁTRICAS -->
+<div class="sec"><div class="sn">1</div><div><div class="sl">Valoración geriátrica integral</div><div class="st">Escalas Geriátricas — La tabla más preguntada <span class="ev-tag">SEGG 2023</span></div></div></div>
+
+<div class="escalas-wrap">
+  <div class="escalas-head">📊 Escalas de valoración geriátrica — Función, cognición, ánimo y carga</div>
+  <table class="etbl">
+    <thead>
+      <tr><th>Escala</th><th>Dominio evaluado</th><th>Puntuación / Interpretación</th><th>Perla OPE ★</th></tr>
+    </thead>
+    <tbody>
+      <tr class="rb"><td><strong>Índice de Barthel</strong></td><td>Actividades Básicas de la Vida Diaria (ABVD): comer, vestirse, higiene, continencia, deambulación</td><td>0–100. &lt;20 dependencia total; 20–40 grave; 40–60 moderada; 60–80 leve; &gt;80 independiente</td><td><span class="pi">★ Barthel = actividades BÁSICAS. No confundir con Lawton.</span></td></tr>
+      <tr class="ra"><td><strong>Escala de Lawton-Brody</strong></td><td>Actividades Instrumentales de la Vida Diaria (AIVD): usar teléfono, cocinar, compras, medicación, dinero</td><td>0–8. Cada ítem: independiente (1) / dependiente (0)</td><td><span class="pi">★ Lawton = actividades INSTRUMENTALES (más complejas)</span></td></tr>
+      <tr class="rn"><td><strong>Test de Pfeiffer</strong></td><td>Función cognitiva (orientación, memoria, cálculo)</td><td>0–10 errores. &gt;5 errores = deterioro cognitivo moderado-severo</td><td><span class="pi">★ Pfeiffer = orientación + memoria + cálculo</span></td></tr>
+      <tr class="rf"><td><strong>MEC (Mini-Examen Cognoscitivo)</strong></td><td>Cognición global (versión española del MMSE de Folstein)</td><td>0–35. ≤23 = deterioro cognitivo</td><td><span class="pi">★ MEC/MMSE = cribado cognitivo más completo. ≤23 = deterioro.</span></td></tr>
+      <tr class="ry"><td><strong>Escala de Yesavage</strong></td><td>Depresión geriátrica (forma corta: 15 ítems)</td><td>0–15. &gt;5 = depresión leve; &gt;10 = grave</td><td><span class="pi">★ Yesavage = depresión en ancianos. No aplica en demencia avanzada.</span></td></tr>
+      <tr class="rz"><td><strong>Escala de Zarit</strong></td><td>Sobrecarga del cuidador</td><td>0–88. ≥46 = sobrecarga intensa; 22–45 = leve; &lt;22 = no sobrecarga</td><td><span class="pi">★ Zarit = cuidador (no paciente). ≥46 sobrecarga intensa.</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="escala-diff">
+  <div class="ed-card">
+    <div class="ed-title" style="color:#3a3a8a;">🔵 Barthel vs Lawton — Diferencia clave</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">
+      <div style="background:#e8f8e8;border-radius:6px;padding:.6rem .8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;color:#1a5a1a;margin-bottom:.3rem;">BARTHEL = BÁSICAS</div>
+        <ul style="font-size:.78rem;padding-left:1rem;line-height:1.6;">
+          <li>Comer</li><li>Vestirse</li><li>Bañarse</li>
+          <li>Continencia</li><li>Caminar</li>
+        </ul>
+      </div>
+      <div style="background:#e8e8ff;border-radius:6px;padding:.6rem .8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;color:#2a2a8a;margin-bottom:.3rem;">LAWTON = INSTRUMENTALES</div>
+        <ul style="font-size:.78rem;padding-left:1rem;line-height:1.6;">
+          <li>Teléfono</li><li>Compras</li><li>Cocinar</li>
+          <li>Medicación</li><li>Dinero</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="ed-card">
+    <div class="ed-title" style="color:#8a1a1a;">🔴 Corteza frontal vs Hipocampo</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;">
+      <div style="background:#fff0f0;border-radius:6px;padding:.6rem .8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;color:#8a1a1a;margin-bottom:.3rem;">LÓBULO FRONTAL</div>
+        <p style="font-size:.78rem;line-height:1.5;">Personalidad, iniciativa, conducta social, inhibición. <strong>Deterioro frontal</strong>: desinhibición, apatía, cambios conductuales = demencia frontotemporal (DFT).</p>
+      </div>
+      <div style="background:#fff8e0;border-radius:6px;padding:.6rem .8rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;color:#8a6010;margin-bottom:.3rem;">HIPOCAMPO</div>
+        <p style="font-size:.78rem;line-height:1.5;"><strong>Memoria reciente</strong> (episódica). Primera estructura dañada en Alzheimer. Deterioro leve: fallos de memoria reciente con buena memoria remota.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. GINECOLOGÍA -->
+<div class="sec"><div class="sn">2</div><div><div class="sl">Anatomía reproductiva femenina</div><div class="st">Ginecología — Estructuras y Clínica OPE</div></div></div>
+
+<div class="gine-grid">
+  <div class="gine-card g1">
+    <div class="gine-head">
+      <div class="gine-title">Cuello uterino</div>
+      <div class="gine-sub">Zona de transformación · Cribado</div>
+    </div>
+    <div class="gine-body">
+      <p style="margin-bottom:.4rem;"><strong>Zona de transformación</strong>: unión escamocolumnar. Es donde se toman las muestras de Papanicolaou y donde se originan las lesiones premalignas (CIN).</p>
+      <p style="margin-bottom:.4rem;">Cribado España (Plan Oncología 2024): citología + VPH-AR en <strong>25–65 años</strong>.</p>
+      <div class="wb">
+        <div class="wl">★ Tricomoniasis</div>
+        <strong>Cérvix en fresa</strong> (colpitis macularis): aspecto punteado rojo en el cérvix, típico de <em>Trichomonas vaginalis</em>. Descarga amarillo-verdosa, mal oliente.
+      </div>
+    </div>
+  </div>
+  <div class="gine-card g2">
+    <div class="gine-head">
+      <div class="gine-title">Tubérculos de Montgomery</div>
+      <div class="gine-sub">Embarazo · Areola</div>
+    </div>
+    <div class="gine-body">
+      <p style="margin-bottom:.4rem;"><strong>Glándulas sebáceas</strong> de la areola que se hipertrofian durante el embarazo. Su función es secretar una sustancia lubrificante que protege el pezón durante la lactancia.</p>
+      <p style="margin-bottom:.4rem;">Son visibles como pequeñas elevaciones en la areola mamaria. Su presencia puede ser signo precoz de embarazo.</p>
+      <div class="pi">★ Tubérculos de Montgomery están en la AREOLA. NO en el ovario, NO en el útero. Confusión frecuente en examen.</div>
+    </div>
+  </div>
+  <div class="gine-card g3">
+    <div class="gine-head">
+      <div class="gine-title">Folículo de Graaf y Cuerpo Lúteo</div>
+      <div class="gine-sub">Ciclo menstrual · Hormonas</div>
+    </div>
+    <div class="gine-body">
+      <p style="margin-bottom:.4rem;"><strong>Folículo de Graaf</strong>: folículo maduro pre-ovulatorio. Produce <strong>estrógenos</strong> → pico de LH → ovulación.</p>
+      <p style="margin-bottom:.4rem;"><strong>Cuerpo lúteo</strong>: estructura post-ovulatoria que produce <strong>progesterona</strong> (y algo de estradiol). Mantiene el endometrio preparado para implantación.</p>
+      <div class="wb">
+        <div class="wl">★ Si no hay fecundación</div>
+        El cuerpo lúteo <strong>involuciona</strong> → cesa la progesterona → descenso hormonal → <strong>menstruación</strong>. Si hay fecundación: la HCG del trofoblasto "rescata" el cuerpo lúteo.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. CRÍTICOS -->
+<div class="sec"><div class="sn">3</div><div><div class="sl">Vía aérea · Neurología crítica · Torax</div><div class="st">Paciente Crítico — Clínica y Maniobras Esenciales</div></div></div>
+
+<div class="criticos-grid">
+  <div class="crit-card c-htic">
+    <div class="crit-head">
+      <div class="crit-title">⚠️ Hipertensión Intracraneal (HTIC)</div>
+    </div>
+    <div class="crit-body">
+      <p style="margin-bottom:.5rem;">La cavidad craneal es rígida → cualquier incremento de volumen (edema, hematoma, hidrocefalia) → ↑ presión intracraneal (PIC). Normal PIC: 5–15 mmHg.</p>
+      <strong>Tríada de Cushing</strong> (signo tardío y grave de HTIC):
+      <div class="steps" style="margin-top:.4rem;">
+        <div class="step"><span class="step-num">1</span><span style="font-size:.8rem;"><strong>HTA</strong> (presión de pulso amplia): el organismo intenta mantener presión de perfusión cerebral</span></div>
+        <div class="step"><span class="step-num">2</span><span style="font-size:.8rem;"><strong>Bradicardia</strong> (reflejo vagal compensatorio ante la HTA)</span></div>
+        <div class="step"><span class="step-num">3</span><span style="font-size:.8rem;"><strong>Respiración irregular</strong> (Cheyne-Stokes o atáxica): disfunción del centro respiratorio bulbar</span></div>
+      </div>
+      <div class="wb" style="margin-top:.5rem;">
+        <div class="wl">★★ Perla crítica</div>
+        <strong>HTA + bradicardia + respiración irregular</strong> = reflejo de Cushing = HTIC grave = riesgo de herniación cerebral. Actuar con máxima urgencia.
+      </div>
+      <div style="font-size:.8rem;margin-top:.5rem;"><strong>Medidas:</strong> cabecero 30°, normocapnia, osmoterapia (manitol o suero salino hipertónico), evitar hipoxia, drenaje ventricular si indicado.</div>
+    </div>
+  </div>
+  <div class="crit-card c-va">
+    <div class="crit-head">
+      <div class="crit-title">✅ Apertura Vía Aérea — Maniobras</div>
+    </div>
+    <div class="crit-body">
+      <strong>Dos maniobras básicas:</strong>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:.6rem 0;">
+        <div style="background:#e8f8e8;border:1px solid #90d890;border-radius:6px;padding:.6rem .8rem;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;color:#0a5a1a;margin-bottom:.2rem;">✅ FRENTE-MENTÓN</div>
+          <p style="font-size:.79rem;">Hiperextensión del cuello. Estándar si <strong>NO hay sospecha de lesión cervical</strong>.</p>
+        </div>
+        <div style="background:#fff0e8;border:1px solid #e8a080;border-radius:6px;padding:.6rem .8rem;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;font-weight:700;color:#8a2010;margin-bottom:.2rem;">⚠️ TRACCIÓN MANDIBULAR</div>
+          <p style="font-size:.79rem;">Si <strong>sospecha de lesión cervical</strong> → NO hiperextender. Usar tracción mandibular (empuje anterior de la mandíbula).</p>
+        </div>
+      </div>
+      <div class="wb">
+        <div class="wl">★ Trauma → tracción mandibular</div>
+        En cualquier politraumatizado o accidente → sospechar lesión cervical → <strong>contraindicada hiperextensión (frente-mentón)</strong>. Usar <strong>tracción mandibular</strong>.
+      </div>
+      <div class="ab" style="margin-top:.5rem;">
+        <div class="al">🔑 Insuficiencia Respiratoria Aguda</div>
+        Fallo del intercambio gaseoso: PaO₂ &lt;60 mmHg (±PaCO₂ &gt;50 mmHg). Tipo I (hipoxémica): PaO₂ ↓ + PaCO₂ normal/↓. Tipo II (hipercápnica): PaO₂ ↓ + PaCO₂ ↑.
+      </div>
+    </div>
+  </div>
+  <div class="crit-card c-drena">
+    <div class="crit-head">
+      <div class="crit-title">🫁 Drenaje Torácico — Posición</div>
+    </div>
+    <div class="crit-body">
+      <p style="margin-bottom:.5rem;"><strong>Localización estándar del tubo de drenaje torácico:</strong></p>
+      <div style="background:#e8f0ff;border:2px solid #1a3a8a;border-radius:8px;padding:.7rem 1rem;margin-bottom:.5rem;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.95rem;color:#1a3a8a;">5.º Espacio Intercostal</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#1a3a8a;">Línea Axilar Media (LAM)</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">El triángulo de seguridad — "safe triangle"</div>
+      </div>
+      <div class="steps" style="margin-top:.4rem;">
+        <div class="step"><span class="step-num" style="background:#1a3a8a;">P</span><span style="font-size:.8rem;">Se introduce <strong>por encima del borde superior</strong> de la costilla (evitar paquete vasculonervioso del borde inferior)</span></div>
+        <div class="step"><span class="step-num" style="background:#1a3a8a;">I</span><span style="font-size:.8rem;">Indicaciones: neumotórax (esp. a tensión), hemotórax, derrame pleural masivo</span></div>
+        <div class="step"><span class="step-num" style="background:#1a3a8a;">C</span><span style="font-size:.8rem;">Conectar a sistema de drenaje cerrado con trampa de agua (o válvula de Heimlich)</span></div>
+      </div>
+      <div class="pi" style="margin-top:.4rem;">★ 5.º EIC línea axilar media = localización más frecuente en preguntas de neumotórax/hemotórax</div>
+    </div>
+  </div>
+  <div class="crit-card c-ir">
+    <div class="crit-head">
+      <div class="crit-title">💨 IR Aguda — Gasometría y Asma</div>
+    </div>
+    <div class="crit-body">
+      <table style="width:100%;font-size:.8rem;border-collapse:collapse;margin-bottom:.5rem;">
+        <tr style="background:#fff8e0;border-bottom:1px solid var(--border);">
+          <td style="padding:.3rem .5rem;font-weight:600;border-left:3px solid #c06010;">IR Tipo I (hipoxémica)</td>
+          <td style="padding:.3rem .5rem;">PaO₂ &lt;60 mmHg + PaCO₂ normal/↓. Ej: neumonía, TEP, EAP</td>
+        </tr>
+        <tr style="background:#fff0e8;border-bottom:1px solid var(--border);">
+          <td style="padding:.3rem .5rem;font-weight:600;border-left:3px solid #c04020;">IR Tipo II (hipercápnica)</td>
+          <td style="padding:.3rem .5rem;">PaO₂ ↓ + PaCO₂ &gt;50 mmHg. Ej: EPOC severo, sobredosis, miastenia</td>
+        </tr>
+        <tr>
+          <td style="padding:.3rem .5rem;font-weight:600;border-left:3px solid #1a5a8a;">Asma leve (crisis)</td>
+          <td style="padding:.3rem .5rem;"><strong>Hiperventilación</strong> → PaCO₂ ↓ + pH ↑ = alcalosis respiratoria</td>
+        </tr>
+      </table>
+      <div class="wb">
+        <div class="wl">★★ Signo de gravedad en asma</div>
+        En crisis asmática: si el <strong>CO₂ se normaliza</strong> (sube al rango normal) → el paciente se está <strong>agotando</strong> → riesgo de parada. No es buena señal.
+      </div>
+      <div class="pi">★ Asma leve = hipocapnia + alcalosis respiratoria. CO₂ normal en asma = peligro.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PERLAS -->
+<div class="sec"><div class="sn">⭐</div><div><div class="sl">Sección obligatoria</div><div class="st">Perlas tipo examen INGESA / OPE Militar</div></div></div>
+
+<div class="perlas-wrap">
+  <div class="perlas-head">⭐ Perlas — Geriatría, Ginecología y Críticos</div>
+  <div class="perlas-body">
+    <div class="perla-item"><strong>Barthel = actividades BÁSICAS</strong> (comer, vestirse, continencia). <strong>Lawton = INSTRUMENTALES</strong> (teléfono, compras, medicación).</div>
+    <div class="perla-item"><strong>Hipocampo = memoria reciente</strong>. Primera estructura dañada en Alzheimer. Lóbulo frontal = personalidad y conducta (demencia frontotemporal).</div>
+    <div class="perla-item"><strong>Yesavage</strong> = escala de depresión geriátrica. <strong>Zarit</strong> = sobrecarga del cuidador (no del paciente). <strong>Pfeiffer</strong> = función cognitiva (orientación/cálculo).</div>
+    <div class="perla-item"><strong>MEC/MMSE</strong>: cribado cognitivo completo, ≤23 = deterioro cognitivo. Versión española del Mini-Mental State Examination de Folstein.</div>
+    <div class="perla-item"><strong>Cérvix en fresa</strong> (colpitis macularis) = tricomoniasis (Trichomonas vaginalis). Descarga amarillo-verdosa + mal olor.</div>
+    <div class="perla-item"><strong>Tubérculos de Montgomery</strong> = glándulas sebáceas de la AREOLA. Se hipertrofian en embarazo. NO están en ovario ni en útero.</div>
+    <div class="perla-item"><strong>Cuerpo lúteo</strong> produce progesterona. Si no hay fecundación → involuciona → cae progesterona → menstruación. HCG rescata el cuerpo lúteo en el embarazo.</div>
+    <div class="perla-item"><strong>Tríada de Cushing</strong> (HTIC): HTA + bradicardia + respiración irregular = emergencia neurológica.</div>
+    <div class="perla-item"><strong>Lesión cervical</strong> → CONTRAINDICADA frente-mentón. Usar <strong>tracción mandibular</strong> para apertura de vía aérea.</div>
+    <div class="perla-item"><strong>Drenaje torácico</strong> = 5.º espacio intercostal, línea axilar media. Por encima del borde superior de la costilla para evitar el paquete vasculonervioso.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sec"><div class="sn">G</div><div><div class="sl">Términos</div><div class="st">Glosario</div></div></div>
+<div class="glos-grid">
+  <div class="gi"><div class="gt">ABVD</div><div class="gd">Actividades Básicas Vida Diaria</div></div>
+  <div class="gi"><div class="gt">AIVD</div><div class="gd">Actividades Instrumentales Vida Diaria</div></div>
+  <div class="gi"><div class="gt">PIC</div><div class="gd">Presión Intracraneal</div></div>
+  <div class="gi"><div class="gt">HTIC</div><div class="gd">Hipertensión Intracraneal</div></div>
+  <div class="gi"><div class="gt">CIN</div><div class="gd">Neoplasia Intraepitelial Cervical</div></div>
+  <div class="gi"><div class="gt">MEC</div><div class="gd">Mini-Examen Cognoscitivo</div></div>
+  <div class="gi"><div class="gt">EAP</div><div class="gd">Edema Agudo de Pulmón</div></div>
+  <div class="gi"><div class="gt">LAM</div><div class="gd">Línea Axilar Media</div></div>
+</div>
+
+</div>
+</body>
+</html>

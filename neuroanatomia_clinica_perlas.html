@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neuroanatomía Clínica — Perlas OPE · INGESA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f2;--surface:#fff;--accent:#1a6a6a;--dark:#0a1a1a;--muted:#5a7070;--border:#d0e0e0;--red:#c04020;--green:#1a7a3a;--blue:#1a5a8a;--teal:#1a6a6a;--pearl:#fffce6;--pearl-b:#e0c020;--warn:#fff8f0;--antidote:#f0e8ff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--dark);line-height:1.55;font-size:.87rem;}
+/* HEADER */
+.ph{background:#061818;padding:1.8rem 2rem 1.4rem;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(55deg,transparent,transparent 28px,rgba(26,106,106,.07) 28px,rgba(26,106,106,.07) 56px);}
+.hi{max-width:1120px;margin:0 auto;position:relative;}
+.ht{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.2em;color:#40c0c0;margin-bottom:.4rem;}
+.hm{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;line-height:1.05;margin-bottom:.35rem;}
+.hm em{color:#50e0e0;font-style:italic;}
+.hs{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:.9rem;}
+.hpills{display:flex;flex-wrap:wrap;gap:.4rem;}
+.hp{font-family:'JetBrains Mono',monospace;font-size:.52rem;padding:.15rem .6rem;border-radius:2px;border:1px solid rgba(64,192,192,.4);color:#40c0c0;}
+/* MAIN */
+.main{max-width:1120px;margin:0 auto;padding:1.8rem 1.4rem 3rem;}
+/* SEC */
+.sec{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
+.sn{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#d8eaea;line-height:1;}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);}
+.st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark);}
+/* CARDS GENÉRICAS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.card-head{padding:.65rem 1rem;border-bottom:1px solid var(--border);}
+.card-body{padding:.85rem 1rem;}
+/* PERLA INLINE */
+.pi{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:4px;padding:.15rem .45rem;font-size:.74rem;display:inline-block;margin-top:.25rem;}
+/* WARN */
+.wb{background:var(--warn);border-left:3px solid var(--red);border-radius:0 5px 5px 0;padding:.45rem .75rem;margin:.5rem 0;font-size:.79rem;}
+.wl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:var(--red);margin-bottom:.15rem;}
+/* ANTIDOTE */
+.ab{background:var(--antidote);border:1px solid #9060d0;border-radius:6px;padding:.55rem .85rem;margin:.5rem 0;font-size:.79rem;}
+.al{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:#5a30b0;margin-bottom:.15rem;}
+/* BADGE */
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.53rem;padding:.1rem .45rem;border-radius:3px;font-weight:600;margin:.2rem .1rem 0;}
+.br{background:#fde8e0;color:var(--red);border:1px solid #f0b0a0;}
+.bb{background:#e0ecff;color:var(--blue);border:1px solid #a0c0f0;}
+.bg{background:#e0f5e8;color:var(--green);border:1px solid #a0d5b0;}
+.bt{background:#e0f5f5;color:var(--teal);border:1px solid #80d0d0;}
+/* POLÍGONO DE WILLIS */
+.willis-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
+.willis-head{background:var(--teal);padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
+.willis-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.willis-diagram{padding:1.3rem;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;}
+.diagram-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.8rem;}
+/* SVG diagrama Willis simplificado */
+.willis-svg{width:320px;height:300px;}
+/* SVG ANATOMY STYLES */
+.anat-wrap{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.8rem;display:flex;flex-direction:column;align-items:center;margin-bottom:1rem;}
+.anat-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem;text-align:center;}
+.anat-caption{font-size:.68rem;color:var(--muted);margin-top:.4rem;text-align:center;max-width:300px;line-height:1.4;}
+/* tooltip hover */
+.anat-hotspot{cursor:pointer;}
+.anat-hotspot:hover .anat-tooltip{display:block;}
+.anat-tooltip{display:none;}
+.willis-info{padding:1rem 1.3rem;}
+.comp-list{list-style:none;display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem;}
+.comp-list li{font-size:.81rem;padding:.28rem .6rem;border-radius:4px;background:#f0fafa;border-left:3px solid var(--teal);display:flex;align-items:flex-start;gap:.4rem;line-height:1.4;}
+/* ACM */
+.acm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem;}
+.acm-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;}
+.acm-head{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:.4rem;}
+/* OÍDO */
+.oido-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-bottom:1.4rem;}
+.oido-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;}
+.oido-title{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.4rem;}
+.o-ext .oido-title{color:#8a5a1a;}
+.o-med .oido-title{color:var(--teal);}
+.o-int .oido-title{color:var(--blue);}
+/* TABLA NERVIOS */
+.nervios-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1.4rem;}
+.nervios-head{background:#2a3a6a;padding:.65rem 1rem;font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#fff;}
+table.ntbl{width:100%;border-collapse:collapse;}
+table.ntbl th{background:#edf0ff;font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;color:#2a3a6a;padding:.4rem .9rem;text-align:left;border-bottom:2px solid var(--border);}
+table.ntbl td{padding:.48rem .9rem;border-bottom:1px solid var(--border);font-size:.82rem;vertical-align:top;line-height:1.4;}
+table.ntbl tr:last-child td{border-bottom:none;}
+table.ntbl tr:hover td{background:#f8f9ff;}
+.rn1 td:first-child{border-left:4px solid var(--teal);}
+.rn2 td:first-child{border-left:4px solid var(--blue);}
+.rn3 td:first-child{border-left:4px solid #8a5a1a;}
+/* PERLAS */
+.perlas-wrap{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:10px;overflow:hidden;margin-bottom:1.4rem;}
+.perlas-head{background:#c09010;padding:.65rem 1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
+.perlas-body{display:grid;grid-template-columns:1fr 1fr;}
+.perla-item{padding:.6rem 1rem;border-bottom:1px solid #f0e890;border-right:1px solid #f0e890;font-size:.77rem;line-height:1.5;color:#4a3a08;display:flex;gap:.4rem;}
+.perla-item:nth-child(even){border-right:none;}
+.perla-item:nth-last-child(-n+2){border-bottom:none;}
+.perla-item::before{content:'★';color:#c09010;font-size:.62rem;flex-shrink:0;margin-top:.15rem;}
+.perla-item strong{color:#2a1a04;}
+/* GLOSARIO */
+.glos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;}
+.gi{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.45rem .65rem;}
+.gt{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:var(--teal);margin-bottom:.08rem;}
+.gd{font-size:.7rem;color:var(--muted);line-height:1.25;}
+/* EVIDENCIA */
+.ev-tag{font-family:'JetBrains Mono',monospace;font-size:.48rem;background:#e0f0f0;border:1px solid #80c0c0;color:var(--teal);padding:.08rem .4rem;border-radius:3px;display:inline-block;margin-left:.3rem;vertical-align:middle;}
+@media(max-width:800px){
+.willis-body,.acm-grid,.oido-grid{grid-template-columns:1fr;}
+.perlas-body{grid-template-columns:1fr;}
+.perla-item{border-right:none;}
+.glos-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ── ILUSTRACIONES ANATÓMICAS ── */
+.anat-section{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.6rem;}
+.anat-section-head{padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;}
+.anat-section-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.anat-fig{padding:1rem;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;background:#fafaf8;}
+.anat-fig:last-child{border-right:none;}
+.anat-fig-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem;text-align:center;}
+.anat-fig-caption{font-size:.68rem;color:var(--muted);margin-top:.5rem;text-align:center;max-width:280px;line-height:1.45;}
+.anat-fig svg{max-width:100%;height:auto;}
+@media(max-width:800px){.anat-section-body{grid-template-columns:1fr;}.anat-fig{border-right:none;border-bottom:1px solid var(--border);}}
+
+</style>
+</head>
+<body>
+<div class="ph">
+<div class="hi">
+  <div class="ht">Neuroanatomía · Clínica · OPE INGESA · Escala Oficiales Enfermeros</div>
+  <div class="hm">Neuroanatomía <em>Clínica</em> — Estructuras Clave</div>
+  <div class="hs">Polígono de Willis · ACM · Vía óptica · Oído · Canal carpiano</div>
+  <div class="hpills">
+    <span class="hp">Polígono de Willis</span>
+    <span class="hp">Ictus ACM</span>
+    <span class="hp">Presbiacusia</span>
+    <span class="hp">Estribo → ventana oval</span>
+    <span class="hp">Nervio mediano (Phalen/Tinel)</span>
+  </div>
+</div>
+</div>
+
+<div class="main">
+
+<!-- ═══ ILUSTRACIONES ANATÓMICAS ═══ -->
+<div class="anat-section">
+  <div class="anat-section-head" style="background:#e0f5f5;border-bottom:1px solid var(--border);">
+    <span style="font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#0a5a5a;">🎨 Ilustraciones Anatómicas</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;color:var(--muted);margin-left:.5rem;">Vista superior · Vista lateral · Corte transversal</span>
+  </div>
+  <div class="anat-section-body">
+
+    <!-- FIG 1: ENCÉFALO VISTA SUPERIOR + POLÍGONO DE WILLIS -->
+    <div class="anat-fig">
+      <div class="anat-fig-title" style="color:#1a6a6a;">Polígono de Willis — Vista inferior del encéfalo</div>
+      <svg viewBox="0 0 300 310" xmlns="http://www.w3.org/2000/svg" style="width:300px;">
+        <defs>
+          <radialGradient id="bg1" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#f5ede0"/><stop offset="100%" stop-color="#e2cba8"/>
+          </radialGradient>
+          <radialGradient id="ts1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#d5bfa0"/><stop offset="100%" stop-color="#b89a72"/>
+          </radialGradient>
+        </defs>
+        <rect width="300" height="310" fill="#f8f5f0" rx="8"/>
+        <!-- Título -->
+        <text x="150" y="14" text-anchor="middle" font-size="7" fill="#1a6a6a" font-family="JetBrains Mono" font-weight="bold">VISTA INFERIOR ENCÉFALO</text>
+
+        <!-- Hemisferio izquierdo -->
+        <ellipse cx="98" cy="105" rx="84" ry="75" fill="url(#bg1)" stroke="#b09070" stroke-width="1.8"/>
+        <!-- Hemisferio derecho -->
+        <ellipse cx="202" cy="105" rx="84" ry="75" fill="url(#bg1)" stroke="#b09070" stroke-width="1.8"/>
+        <!-- Fisura interhemisférica -->
+        <ellipse cx="150" cy="108" rx="16" ry="68" fill="#e0cba8" stroke="#b09070" stroke-width="1"/>
+        <!-- Surcos simulados Izq -->
+        <path d="M32,78 Q62,63 92,68 Q115,73 130,80" fill="none" stroke="#c0a875" stroke-width="1" opacity=".55"/>
+        <path d="M28,105 Q58,90 90,94 Q115,98 130,107" fill="none" stroke="#c0a875" stroke-width="1" opacity=".55"/>
+        <path d="M35,132 Q65,118 95,122 Q118,126 130,133" fill="none" stroke="#c0a875" stroke-width="1" opacity=".55"/>
+        <!-- Surcos Der -->
+        <path d="M170,80 Q188,63 215,68 Q240,73 265,80" fill="none" stroke="#c0a875" stroke-width="1" opacity=".55"/>
+        <path d="M170,107 Q190,92 218,96 Q242,100 268,107" fill="none" stroke="#c0a875" stroke-width="1" opacity=".55"/>
+        <path d="M172,133 Q194,118 222,122 Q244,126 268,133" fill="none" stroke="#c0a875" stroke-width="1" opacity=".55"/>
+        <!-- Bulbos olfatorios -->
+        <ellipse cx="110" cy="168" rx="11" ry="6" fill="#d8c0a0" stroke="#a08060" stroke-width="1"/>
+        <ellipse cx="190" cy="168" rx="11" ry="6" fill="#d8c0a0" stroke="#a08060" stroke-width="1"/>
+        <text x="110" y="181" text-anchor="middle" font-size="5" fill="#6a4a2a" font-family="JetBrains Mono">I (olfatorio)</text>
+        <text x="190" y="181" text-anchor="middle" font-size="5" fill="#6a4a2a" font-family="JetBrains Mono">I (olfatorio)</text>
+        <!-- Quiasma óptico -->
+        <ellipse cx="150" cy="172" rx="10" ry="5" fill="#e8d0b0" stroke="#9a7858" stroke-width="1"/>
+        <text x="150" y="185" text-anchor="middle" font-size="5" fill="#6a4a2a" font-family="JetBrains Mono">Quiasma opt.</text>
+        <!-- Tronco encefálico -->
+        <ellipse cx="150" cy="200" rx="26" ry="18" fill="url(#ts1)" stroke="#a08060" stroke-width="1.5"/>
+        <text x="150" y="198" text-anchor="middle" font-size="5.5" fill="#5a3a1a" font-family="JetBrains Mono" font-weight="bold">MESEN-</text>
+        <text x="150" y="207" text-anchor="middle" font-size="5.5" fill="#5a3a1a" font-family="JetBrains Mono" font-weight="bold">CÉFALO</text>
+        <!-- Puente/bulbo -->
+        <ellipse cx="150" cy="228" rx="21" ry="14" fill="#c8a888" stroke="#9a7858" stroke-width="1.5"/>
+        <text x="150" y="232" text-anchor="middle" font-size="5.5" fill="#5a3a1a" font-family="JetBrains Mono">PROTUBERANCIA</text>
+
+        <!-- ══ ARTERIA BASILAR ══ -->
+        <line x1="150" y1="256" x2="150" y2="213" stroke="#c06010" stroke-width="4"/>
+        <rect x="156" y="240" width="72" height="18" rx="3" fill="rgba(255,240,220,.9)"/>
+        <text x="159" y="250" font-size="6" fill="#c06010" font-family="JetBrains Mono" font-weight="bold">A. BASILAR</text>
+        <text x="159" y="258" font-size="5.5" fill="#c06010" font-family="JetBrains Mono">NO forma el anillo</text>
+        <!-- Arterias vertebrales -->
+        <path d="M137,260 Q130,270 138,275 Q150,278 162,275 Q170,270 163,260" fill="#d8c8a8" stroke="#a08058" stroke-width="1"/>
+        <text x="150" y="273" text-anchor="middle" font-size="5" fill="#6a4a1a" font-family="JetBrains Mono">A. vertebrales</text>
+
+        <!-- ══ POLÍGONO ══ -->
+        <!-- ACP izq -->
+        <path d="M150,213 Q132,216 118,210 Q108,205 102,198" fill="none" stroke="#1a7a3a" stroke-width="3" stroke-linecap="round"/>
+        <!-- ACP der -->
+        <path d="M150,213 Q168,216 182,210 Q192,205 198,198" fill="none" stroke="#1a7a3a" stroke-width="3" stroke-linecap="round"/>
+        <!-- Com. Post izq (punteada) -->
+        <path d="M102,198 Q95,186 93,173" fill="none" stroke="#8a3a80" stroke-width="2.5" stroke-dasharray="5,3"/>
+        <!-- Com. Post der -->
+        <path d="M198,198 Q205,186 207,173" fill="none" stroke="#8a3a80" stroke-width="2.5" stroke-dasharray="5,3"/>
+        <!-- Carótidas internas -->
+        <line x1="93" y1="173" x2="93" y2="143" stroke="#1a5a8a" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="207" y1="173" x2="207" y2="143" stroke="#1a5a8a" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- ACM izq (ramo lateral) -->
+        <path d="M93,156 Q72,148 50,150" fill="none" stroke="#9a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- ACM der -->
+        <path d="M207,156 Q228,148 250,150" fill="none" stroke="#9a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- ACA izq -->
+        <path d="M93,143 Q108,136 126,135" fill="none" stroke="#1a6a6a" stroke-width="3" stroke-linecap="round"/>
+        <!-- ACA der -->
+        <path d="M207,143 Q192,136 174,135" fill="none" stroke="#1a6a6a" stroke-width="3" stroke-linecap="round"/>
+        <!-- Comunicante anterior -->
+        <line x1="126" y1="135" x2="174" y2="135" stroke="#c04020" stroke-width="4"/>
+        <circle cx="150" cy="135" r="6.5" fill="#ffe0d0" stroke="#c04020" stroke-width="2"/>
+        <text x="150" y="123" text-anchor="middle" font-size="6" fill="#c04020" font-family="JetBrains Mono" font-weight="bold">COM.ANT</text>
+        <text x="150" y="131" text-anchor="middle" font-size="5.5" fill="#c04020" font-family="JetBrains Mono">aneurisma ⚠</text>
+
+        <!-- ETIQUETAS -->
+        <text x="80" y="130" text-anchor="end" font-size="7" fill="#1a6a6a" font-family="JetBrains Mono" font-weight="bold">ACA</text>
+        <text x="220" y="130" text-anchor="start" font-size="7" fill="#1a6a6a" font-family="JetBrains Mono" font-weight="bold">ACA</text>
+        <text x="38" y="147" font-size="7" fill="#9a1a1a" font-family="JetBrains Mono" font-weight="bold">ACM ★</text>
+        <text x="253" y="147" font-size="7" fill="#9a1a1a" font-family="JetBrains Mono" font-weight="bold">ACM ★</text>
+        <rect x="2" y="140" width="40" height="18" rx="2" fill="rgba(26,90,138,.08)"/>
+        <text x="4" y="150" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">Carótida</text>
+        <text x="4" y="158" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">int. IZQ</text>
+        <rect x="258" y="140" width="40" height="18" rx="2" fill="rgba(26,90,138,.08)"/>
+        <text x="260" y="150" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">Carótida</text>
+        <text x="260" y="158" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">int. DER</text>
+        <text x="74" y="182" font-size="6" fill="#8a3a80" font-family="JetBrains Mono">Com.Post</text>
+        <text x="205" y="182" font-size="6" fill="#8a3a80" font-family="JetBrains Mono">Com.Post</text>
+        <text x="94" y="207" font-size="7" fill="#1a7a3a" font-family="JetBrains Mono" font-weight="bold">ACP</text>
+        <text x="196" y="207" font-size="7" fill="#1a7a3a" font-family="JetBrains Mono" font-weight="bold">ACP</text>
+
+        <!-- Leyenda -->
+        <rect x="1" y="288" width="298" height="21" rx="3" fill="rgba(255,255,255,.85)"/>
+        <circle cx="8" cy="298" r="3" fill="#1a6a6a"/><text x="13" y="301" font-size="5.5" fill="#1a6a6a" font-family="JetBrains Mono">ACA</text>
+        <circle cx="42" cy="298" r="3" fill="#9a1a1a"/><text x="47" y="301" font-size="5.5" fill="#9a1a1a" font-family="JetBrains Mono">ACM (ictus)</text>
+        <circle cx="102" cy="298" r="3" fill="#1a5a8a"/><text x="107" y="301" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">Carótida int.</text>
+        <circle cx="162" cy="298" r="3" fill="#c04020"/><text x="167" y="301" font-size="5.5" fill="#c04020" font-family="JetBrains Mono">Com.Ant</text>
+        <circle cx="205" cy="298" r="3" fill="#8a3a80"/><text x="210" y="301" font-size="5.5" fill="#8a3a80" font-family="JetBrains Mono">Com.Post</text>
+        <circle cx="252" cy="298" r="3" fill="#c06010"/><text x="257" y="301" font-size="5.5" fill="#c06010" font-family="JetBrains Mono">Basilar</text>
+        <rect x="1" y="1" width="298" height="308" fill="none" stroke="#d0e0e0" stroke-width="1" rx="8"/>
+      </svg>
+      <div class="anat-fig-caption">El <strong>polígono de Willis</strong> forma el anillo arterial en la base del cráneo. La arteria basilar <em>aporta flujo</em> pero <strong style="color:#c04020;">NO</strong> forma el anillo. La ACM (rojo) es el territorio más frecuente de ictus isquémico.</div>
+    </div>
+
+    <!-- FIG 2: OÍDO — 3 COMPARTIMENTOS + HUESECILLOS -->
+    <div class="anat-fig">
+      <div class="anat-fig-title" style="color:#1a5a8a;">Anatomía del Oído — 3 compartimentos y huesecillos</div>
+      <svg viewBox="0 0 300 310" xmlns="http://www.w3.org/2000/svg" style="width:300px;">
+        <defs>
+          <linearGradient id="oext" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#f5e8d0"/><stop offset="100%" stop-color="#e8d4b8"/>
+          </linearGradient>
+          <linearGradient id="omed" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#d8eef8"/><stop offset="100%" stop-color="#b8dcf0"/>
+          </linearGradient>
+          <linearGradient id="oint" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#d8f0e8"/><stop offset="100%" stop-color="#b8e0d0"/>
+          </linearGradient>
+        </defs>
+        <rect width="300" height="310" fill="#f8f5f0" rx="8"/>
+        <text x="150" y="14" text-anchor="middle" font-size="7" fill="#1a5a8a" font-family="JetBrains Mono" font-weight="bold">CORTE FRONTAL DEL OÍDO</text>
+
+        <!-- OÍDO EXTERNO -->
+        <rect x="10" y="28" width="78" height="220" rx="6" fill="url(#oext)" stroke="#c8a870" stroke-width="1.5"/>
+        <text x="49" y="43" text-anchor="middle" font-size="7.5" fill="#8a5a10" font-family="JetBrains Mono" font-weight="bold">EXTERNO</text>
+        <!-- Pabellón auricular esquemático -->
+        <path d="M18,60 Q10,90 15,130 Q18,155 22,170 Q10,175 12,155 Q5,120 8,85 Q12,60 18,60 Z" fill="#e8d0a8" stroke="#b09060" stroke-width="1.2"/>
+        <text x="14" y="200" font-size="5.5" fill="#8a5a10" font-family="JetBrains Mono">Pabellón</text>
+        <!-- Canal auditivo externo -->
+        <rect x="22" y="100" width="55" height="48" rx="4" fill="#f0e0c8" stroke="#b09060" stroke-width="1.2"/>
+        <text x="49" y="121" text-anchor="middle" font-size="6" fill="#6a4010" font-family="JetBrains Mono">CAE</text>
+        <text x="49" y="132" text-anchor="middle" font-size="5.5" fill="#6a4010" font-family="JetBrains Mono">Canal aud.</text>
+        <text x="49" y="141" text-anchor="middle" font-size="5.5" fill="#6a4010" font-family="JetBrains Mono">externo</text>
+
+        <!-- TÍMPANO (membrana) -->
+        <line x1="88" y1="90" x2="88" y2="158" stroke="#b09060" stroke-width="4"/>
+        <text x="88" y="172" text-anchor="middle" font-size="5.5" fill="#8a5a10" font-family="JetBrains Mono">TÍMPANO</text>
+
+        <!-- OÍDO MEDIO -->
+        <rect x="90" y="28" width="100" height="220" rx="6" fill="url(#omed)" stroke="#80b8d8" stroke-width="1.5"/>
+        <text x="140" y="43" text-anchor="middle" font-size="7.5" fill="#1a4a7a" font-family="JetBrains Mono" font-weight="bold">MEDIO</text>
+        <!-- HUESECILLOS - Martillo -->
+        <path d="M95,100 Q100,105 105,110 L108,140 Q108,150 104,155" fill="none" stroke="#3a6a9a" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="95" cy="98" r="5" fill="#3a6a9a"/>
+        <text x="96" y="86" font-size="6.5" fill="#1a3a7a" font-family="JetBrains Mono" font-weight="bold">MARTILLO</text>
+        <text x="96" y="93" font-size="5.5" fill="#3a6a9a" font-family="JetBrains Mono">toca tímpano</text>
+        <!-- Yunque -->
+        <path d="M108,110 L128,108 L130,115 L110,118 Z" fill="#1a6a9a" stroke="#0a4a7a" stroke-width="1"/>
+        <text x="118" y="104" text-anchor="middle" font-size="6.5" fill="#1a3a7a" font-family="JetBrains Mono" font-weight="bold">YUNQUE</text>
+        <!-- Estribo -->
+        <path d="M130,115 Q145,115 155,112 Q160,118 155,124 Q145,127 130,125 Z" fill="#0a5a8a" stroke="#084060" stroke-width="1"/>
+        <text x="143" y="138" text-anchor="middle" font-size="6.5" fill="#084060" font-family="JetBrains Mono" font-weight="bold">ESTRIBO</text>
+        <!-- Flecha estribo → ventana oval -->
+        <line x1="158" y1="118" x2="182" y2="118" stroke="#c04020" stroke-width="2" marker-end="url(#arrowEx)"/>
+        <defs><marker id="arrowEx" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#c04020"/></marker></defs>
+        <rect x="132" y="143" width="78" height="18" rx="3" fill="rgba(192,64,32,.1)"/>
+        <text x="171" y="153" text-anchor="middle" font-size="5.5" fill="#c04020" font-family="JetBrains Mono" font-weight="bold">→ Ventana oval ★</text>
+        <text x="171" y="161" text-anchor="middle" font-size="5" fill="#c04020" font-family="JetBrains Mono">pregunta literal OPE</text>
+        <!-- Trompa de Eustaquio -->
+        <path d="M110,200 Q120,215 130,225 Q145,235 155,240" fill="none" stroke="#4a8ab0" stroke-width="2" stroke-dasharray="4,2"/>
+        <text x="115" y="218" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">Trompa de</text>
+        <text x="115" y="227" font-size="5.5" fill="#1a5a8a" font-family="JetBrains Mono">Eustaquio</text>
+
+        <!-- OÍDO INTERNO -->
+        <rect x="192" y="28" width="100" height="220" rx="6" fill="url(#oint)" stroke="#80c8a8" stroke-width="1.5"/>
+        <text x="242" y="43" text-anchor="middle" font-size="7.5" fill="#1a5a3a" font-family="JetBrains Mono" font-weight="bold">INTERNO</text>
+        <!-- Ventana oval -->
+        <ellipse cx="197" cy="118" rx="6" ry="10" fill="#c04020" stroke="#900020" stroke-width="2"/>
+        <text x="197" y="136" text-anchor="middle" font-size="5.5" fill="#900020" font-family="JetBrains Mono" font-weight="bold">V.OVAL ★</text>
+        <!-- Cóclea (espiral) -->
+        <path d="M210,90 Q230,75 248,85 Q262,98 258,115 Q250,135 230,140 Q215,143 208,133 Q203,123 210,115 Q218,107 228,110 Q238,113 236,122 Q232,130 224,128" fill="none" stroke="#1a6a4a" stroke-width="2.5"/>
+        <text x="240" y="80" font-size="6.5" fill="#1a5a3a" font-family="JetBrains Mono" font-weight="bold">CÓCLEA</text>
+        <text x="240" y="89" font-size="5.5" fill="#1a5a3a" font-family="JetBrains Mono">audición</text>
+        <text x="240" y="97" font-size="5" fill="#1a5a3a" font-family="JetBrains Mono">Órgano Corti</text>
+        <!-- Canales semicirculares -->
+        <path d="M212,148 Q195,140 200,158 Q205,172 220,168 Q232,163 228,150" fill="none" stroke="#2a8a5a" stroke-width="2"/>
+        <path d="M226,152 Q208,148 212,165 Q216,178 230,176 Q243,172 238,160" fill="none" stroke="#2a8a5a" stroke-width="2" opacity="0.7"/>
+        <path d="M222,158 Q208,160 210,174 Q213,186 225,187 Q237,187 240,175" fill="none" stroke="#2a8a5a" stroke-width="2" opacity="0.5"/>
+        <text x="242" y="155" font-size="6.5" fill="#1a6a3a" font-family="JetBrains Mono" font-weight="bold">CANALES</text>
+        <text x="242" y="164" font-size="6" fill="#1a6a3a" font-family="JetBrains Mono">SEMICIRC.</text>
+        <text x="242" y="173" font-size="5.5" fill="#1a6a3a" font-family="JetBrains Mono">equilibrio</text>
+        <!-- Nervio vestibulococlear -->
+        <line x1="260" y1="120" x2="285" y2="120" stroke="#6a3a9a" stroke-width="2"/>
+        <text x="275" y="112" font-size="5.5" fill="#6a3a9a" font-family="JetBrains Mono">N.VIII</text>
+        <text x="268" y="120" font-size="0" fill="none"/>
+        <!-- Utrículo y sáculo -->
+        <ellipse cx="218" cy="118" rx="8" ry="5" fill="rgba(42,138,90,.3)" stroke="#1a7a3a" stroke-width="1"/>
+        <text x="218" y="132" text-anchor="middle" font-size="5" fill="#1a5a3a" font-family="JetBrains Mono">utrículo</text>
+
+        <!-- Leyenda inferior -->
+        <rect x="1" y="255" width="298" height="53" rx="3" fill="rgba(255,255,255,.85)"/>
+        <rect x="6" y="260" width="8" height="8" rx="1" fill="#8a5a10" opacity=".6"/>
+        <text x="17" y="268" font-size="5.5" fill="#6a3a08" font-family="JetBrains Mono">EXTERNO: pabellón + CAE + tímpano</text>
+        <rect x="6" y="272" width="8" height="8" rx="1" fill="#1a5a8a" opacity=".6"/>
+        <text x="17" y="280" font-size="5.5" fill="#0a3a6a" font-family="JetBrains Mono">MEDIO: martillo + yunque + estribo (→ ventana oval ★)</text>
+        <rect x="6" y="284" width="8" height="8" rx="1" fill="#1a6a3a" opacity=".6"/>
+        <text x="17" y="292" font-size="5.5" fill="#0a4a2a" font-family="JetBrains Mono">INTERNO: cóclea (audición) + canales semicirculares (equilibrio)</text>
+        <text x="17" y="303" font-size="5.5" fill="#c04020" font-family="JetBrains Mono" font-weight="bold">★ ESTRIBO → VENTANA OVAL (pregunta literal más frecuente)</text>
+        <rect x="1" y="1" width="298" height="308" fill="none" stroke="#d0e0e0" stroke-width="1" rx="8"/>
+      </svg>
+      <div class="anat-fig-caption">Corte frontal del oído. El <strong>estribo</strong> es el tercer huesecillo del oído medio y se articula con la <strong style="color:#c04020;">ventana oval</strong> del oído interno. La cóclea transforma las vibraciones en señal nerviosa (VIII par craneal).</div>
+    </div>
+
+  </div>
+</div>
+<!-- ═══ FIN ILUSTRACIONES ═══ -->
+
+
+<!-- 1. POLÍGONO DE WILLIS -->
+<div class="sec"><div class="sn">1</div><div><div class="sl">Circulación colateral cerebral</div><div class="st">Polígono de Willis <span class="ev-tag">AHA/ASA Stroke 2024</span></div></div></div>
+
+<div class="willis-wrap">
+  <div class="willis-head">🧠 Polígono de Willis — Anillo arterial de la base del cráneo</div>
+  <div class="willis-body">
+    <div class="willis-diagram">
+      <div class="diagram-title">Componentes del anillo arterial</div>
+      <!-- Diagrama SVG esquemático del polígono -->
+      <svg class="willis-svg" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- ACA bilateral -->
+        <line x1="80" y1="40" x2="140" y2="40" stroke="#1a6a6a" stroke-width="3"/>
+        <!-- Comunicante anterior -->
+        <line x1="110" y1="40" x2="110" y2="40" stroke="#c04020" stroke-width="4"/>
+        <circle cx="110" cy="40" r="5" fill="#c04020"/>
+        <text x="110" y="28" text-anchor="middle" font-size="8" fill="#c04020" font-family="JetBrains Mono">Com. Ant.</text>
+        <!-- ACA izq -->
+        <line x1="80" y1="40" x2="60" y2="80" stroke="#1a6a6a" stroke-width="3"/>
+        <!-- ACA der -->
+        <line x1="140" y1="40" x2="160" y2="80" stroke="#1a6a6a" stroke-width="3"/>
+        <!-- Carótidas internas -->
+        <line x1="60" y1="80" x2="60" y2="120" stroke="#1a5a8a" stroke-width="4"/>
+        <line x1="160" y1="80" x2="160" y2="120" stroke="#1a5a8a" stroke-width="4"/>
+        <text x="40" y="105" font-size="7" fill="#1a5a8a" font-family="JetBrains Mono">CI izq</text>
+        <text x="163" y="105" font-size="7" fill="#1a5a8a" font-family="JetBrains Mono">CI der</text>
+        <!-- Comunicantes posteriores -->
+        <line x1="60" y1="120" x2="80" y2="150" stroke="#8a3a80" stroke-width="2.5" stroke-dasharray="4,2"/>
+        <line x1="160" y1="120" x2="140" y2="150" stroke="#8a3a80" stroke-width="2.5" stroke-dasharray="4,2"/>
+        <text x="20" y="140" font-size="7" fill="#8a3a80" font-family="JetBrains Mono">Com.P</text>
+        <text x="163" y="140" font-size="7" fill="#8a3a80" font-family="JetBrains Mono">Com.P</text>
+        <!-- ACP -->
+        <line x1="80" y1="150" x2="140" y2="150" stroke="#1a7a3a" stroke-width="3"/>
+        <!-- Basilar -->
+        <line x1="110" y1="150" x2="110" y2="185" stroke="#c06010" stroke-width="3.5"/>
+        <text x="110" y="198" text-anchor="middle" font-size="8" fill="#c06010" font-family="JetBrains Mono">A. BASILAR (aporta flujo)</text>
+        <!-- Labels ACA ACP -->
+        <text x="95" y="35" font-size="7.5" fill="#1a6a6a" font-family="JetBrains Mono" font-weight="bold">ACA</text>
+        <text x="95" y="160" font-size="7.5" fill="#1a7a3a" font-family="JetBrains Mono" font-weight="bold">ACP (P1)</text>
+        <!-- Marco -->
+        <rect x="5" y="5" width="210" height="190" fill="none" stroke="#d0e0e0" stroke-width="1" rx="4"/>
+      </svg>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.5rem;text-align:center;max-width:200px;">La arteria basilar <strong>aporta flujo</strong> a través de las ACP pero <strong>no forma</strong> el anillo del polígono</div>
+    </div>
+    <div class="willis-info">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.6rem;">Componentes del polígono</div>
+      <ul class="comp-list">
+        <li><strong>Carótidas internas terminales</strong> (CI bilateral) — pilares laterales</li>
+        <li><strong>Arterias cerebrales anteriores A1</strong> (ACA bilateral)</li>
+        <li><strong>Arteria comunicante anterior</strong> — conecta ACA entre sí (sitio frecuente de aneurismas)</li>
+        <li><strong>Arterias cerebrales posteriores P1</strong> (ACP bilateral)</li>
+        <li><strong>Arterias comunicantes posteriores</strong> — conectan CI con ACP</li>
+      </ul>
+      <div class="wb" style="margin-top:.8rem;">
+        <div class="wl">⚠ Trampa clásica de examen</div>
+        La <strong>arteria basilar</strong> aporta flujo al polígono a través de las ACP, pero <strong>NO forma parte del anillo</strong>. Si la opción la incluye como componente directo → suele ser falsa.
+      </div>
+      <div class="ab" style="margin-top:.6rem;">
+        <div class="al">🩸 Clínica HSA</div>
+        <strong>Cefalea en trueno</strong> (inicio súbito, máxima intensidad en segundos) + <strong>rigidez de nuca</strong> en paciente joven = HSA por rotura de aneurisma sacular en Willis. <span class="ev-tag">ESO/EAN 2024</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. ARTERIA CEREBRAL MEDIA -->
+<div class="sec"><div class="sn">2</div><div><div class="sl">Ictus isquémico más frecuente</div><div class="st">Arteria Cerebral Media (ACM) <span class="ev-tag">AHA/ASA 2023</span></div></div></div>
+
+<div class="acm-grid">
+  <div class="acm-card">
+    <div class="acm-head">Anatomía y territorio ACM</div>
+    <p style="font-size:.82rem;margin-bottom:.6rem;">Rama principal de la <strong>arteria carótida interna</strong>. Irriga la mayor parte del córtex motor y sensitivo, el lenguaje (hemisferio dominante izq.) y parte profunda (cápsula interna, ganglios basales).</p>
+    <p style="font-size:.82rem;">Es el <strong>territorio más frecuente de ictus isquémico</strong> en adultos (>60% de los ictus hemisféricos).</p>
+    <div class="badge br">Territorio más frecuente de ictus</div>
+    <div class="badge bb">Rama de carótida interna</div>
+  </div>
+  <div class="acm-card">
+    <div class="acm-head" style="color:#c04020;">Clínica del ictus de ACM</div>
+    <table style="width:100%;font-size:.8rem;border-collapse:collapse;">
+      <tr><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);font-weight:600;">Hemiparesia</td><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);">Predominio <strong>faciobraquial</strong> (cara + brazo > pierna)</td></tr>
+      <tr><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);font-weight:600;">Hemianestesia</td><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);">Contralateral a la lesión</td></tr>
+      <tr><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);font-weight:600;">Afasia</td><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);">Si es hemisferio <strong>dominante (izq)</strong>: Broca (motora) o Wernicke (sensitiva)</td></tr>
+      <tr><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);font-weight:600;">Desviación conjugada</td><td style="padding:.3rem .5rem;border-bottom:1px solid var(--border);">Ojos hacia el lado de la lesión</td></tr>
+      <tr><td style="padding:.3rem .5rem;font-weight:600;">Negligencia</td><td style="padding:.3rem .5rem;">Si hemisferio no dominante (der)</td></tr>
+    </table>
+    <div class="wb" style="margin-top:.6rem;">
+      <div class="wl">★ Perla clave</div>
+      Hemiparesia faciobraquial + afasia = ictus de ACM hasta que se demuestre lo contrario. Código ictus → activar dentro de 4,5h para trombolisis iv (rt-PA).
+    </div>
+  </div>
+</div>
+
+<!-- 3. VÍA ÓPTICA -->
+<div class="sec"><div class="sn">3</div><div><div class="sl">Nervio óptico, retina, papila</div><div class="st">Vía Óptica — Afectaciones sistémicas</div></div></div>
+
+<div class="card" style="margin-bottom:1.4rem;">
+  <div class="card-head" style="background:#1a3a6a;">
+    <span style="font-family:'Playfair Display',serif;font-size:.96rem;font-weight:700;color:#fff;">👁️ Patología de la vía óptica por enfermedad sistémica</span>
+  </div>
+  <div class="card-body">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;">
+      <div style="background:#fff8f5;border:1px solid #f0b8a0;border-radius:8px;padding:.7rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;color:#b03010;margin-bottom:.3rem;font-weight:700;">HTA crónica</div>
+        <p style="font-size:.79rem;line-height:1.4;">Retinopatía hipertensiva: cruce arteriovenoso patológico (<strong>signo de Gunn</strong>), papilledema en crisis graves, alteraciones AV.</p>
+      </div>
+      <div style="background:#fffce0;border:1px solid #e0c060;border-radius:8px;padding:.7rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;color:#8a6010;margin-bottom:.3rem;font-weight:700;">Diabetes</div>
+        <p style="font-size:.79rem;line-height:1.4;">Retinopatía diabética: microaneurismas, exudados, neovascularización. <strong>Primera causa de ceguera</strong> en adultos en edad laboral.</p>
+      </div>
+      <div style="background:#f0fff0;border:1px solid #80d080;border-radius:8px;padding:.7rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;color:#1a6a1a;margin-bottom:.3rem;font-weight:700;">Glaucoma</div>
+        <p style="font-size:.79rem;line-height:1.4;">Excavación papilar progresiva, visión en tubo, daño irreversible del nervio óptico. PIO ≥<strong>21 mmHg</strong> = criterio de hipertensión ocular.</p>
+      </div>
+      <div style="background:#f8f0ff;border:1px solid #c090e0;border-radius:8px;padding:.7rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;color:#6a1a9a;margin-bottom:.3rem;font-weight:700;">Presbiacusia</div>
+        <p style="font-size:.79rem;line-height:1.4;">Pérdida de <strong>alta frecuencia</strong> bilateral por envejecimiento coclear. Inicio insidioso. No confundir con hipoacusia de transmisión (huesecillos).</p>
+      </div>
+    </div>
+    <div class="pi" style="margin-top:.6rem;display:block;">★ PIO ≥21 mmHg = hipertensión ocular (cifra de corte en exámenes). PIO &gt;21 mmHg + daño papilar + déficit campo visual = glaucoma.</div>
+  </div>
+</div>
+
+<!-- 4. OÍDO -->
+<div class="sec"><div class="sn">4</div><div><div class="sl">Anatomía funcional</div><div class="st">Oído — Tres compartimentos y huesecillos</div></div></div>
+
+<div class="oido-grid">
+  <div class="oido-card o-ext">
+    <div class="oido-title">🔴 Oído Externo</div>
+    <p style="font-size:.8rem;margin-bottom:.5rem;"><strong>Pabellón auricular + CAE + tímpano</strong>. Recoge y canaliza las ondas sonoras hasta la membrana timpánica.</p>
+    <div class="pi">★ Otitis externa: dolor al traccionar el pabellón (signo del trago)</div>
+  </div>
+  <div class="oido-card o-med">
+    <div class="oido-title">🟢 Oído Medio — Huesecillos</div>
+    <p style="font-size:.8rem;margin-bottom:.5rem;">Contiene los <strong>tres huesecillos</strong>:</p>
+    <ul style="list-style:none;font-size:.8rem;padding-left:.5rem;margin-bottom:.4rem;">
+      <li style="margin-bottom:.2rem;">🔨 <strong>Martillo</strong> — contacta con la membrana timpánica</li>
+      <li style="margin-bottom:.2rem;">🔗 <strong>Yunque</strong> — articulación intermedia</li>
+      <li style="margin-bottom:.2rem;">🪄 <strong>Estribo</strong> — se articula con la <strong>ventana oval</strong></li>
+    </ul>
+    <div class="wb">
+      <div class="wl">★★ Pregunta literal muy frecuente</div>
+      El estribo (no el martillo, no el yunque) se articula con la <strong>ventana oval</strong>.
+    </div>
+  </div>
+  <div class="oido-card o-int">
+    <div class="oido-title">🔵 Oído Interno</div>
+    <p style="font-size:.8rem;margin-bottom:.5rem;"><strong>Cóclea</strong> (audición) + <strong>Aparato vestibular</strong> (equilibrio). Conversión de vibraciones mecánicas en señal nerviosa (células ciliadas).</p>
+    <div style="font-size:.79rem;line-height:1.5;">
+      <strong>Cóclea:</strong> transducción auditiva (órgano de Corti)<br>
+      <strong>Canales semicirculares:</strong> aceleración angular<br>
+      <strong>Utrículo y sáculo:</strong> aceleración lineal<br>
+    </div>
+    <div class="pi">★ Presbiacusia = pérdida de alta frecuencia por daño coclear</div>
+  </div>
+</div>
+
+<!-- 5. CANAL CARPIANO -->
+<div class="sec"><div class="sn">5</div><div><div class="sl">Síndrome de atrapamiento nervioso más frecuente</div><div class="st">Canal Carpiano — Nervio Mediano <span class="ev-tag">Neurology 2023</span></div></div></div>
+
+<div class="nervios-wrap">
+  <div class="nervios-head">🖐️ Síndrome del Túnel Carpiano — Diagnóstico clínico</div>
+  <table class="ntbl">
+    <thead>
+      <tr><th>Aspecto</th><th>Contenido</th><th>Clave examen</th></tr>
+    </thead>
+    <tbody>
+      <tr class="rn1"><td><strong>Nervio atrapado</strong></td><td><strong>Nervio mediano</strong> (NO cubital, NO radial)</td><td><span class="pi">★ El nervio mediano es el atrapado en el túnel carpiano</span></td></tr>
+      <tr class="rn2"><td><strong>Síntomas</strong></td><td>Parestesias y dolor en <strong>1.º–3.º dedo</strong> + mitad radial del 4.º. Empeoran por la noche.</td><td>Respetan el meñique (inervado por cubital)</td></tr>
+      <tr class="rn3"><td><strong>Test de Phalen</strong></td><td>Flexión máxima de muñeca 60 seg → reproduce parestesias</td><td>Positivo = compresión del mediano</td></tr>
+      <tr class="rn1"><td><strong>Test de Tinel</strong></td><td>Percusión sobre el túnel carpiano → parestesias en trayecto mediano</td><td>Positivo = irritación del mediano</td></tr>
+      <tr class="rn2"><td><strong>Etiología frecuente</strong></td><td>Embarazo, hipotiroidismo, AR, obesidad, trabajos repetitivos</td><td>Reversible en embarazo al resolverse el edema</td></tr>
+      <tr class="rn3"><td><strong>Tratamiento</strong></td><td>Férula nocturna → corticoide infiltración → cirugía (descompresión)</td><td>La cirugía es definitiva si falla el conservador</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PERLAS -->
+<div class="sec"><div class="sn">⭐</div><div><div class="sl">Sección obligatoria</div><div class="st">Perlas tipo examen INGESA / OPE Militar</div></div></div>
+
+<div class="perlas-wrap">
+  <div class="perlas-head">⭐ Perlas — Neuroanatomía Clínica</div>
+  <div class="perlas-body">
+    <div class="perla-item"><strong>Arteria basilar NO forma el polígono de Willis</strong>. Aporta flujo a través de las ACP, pero no es componente del anillo. Opción que la incluya en el círculo → falsa.</div>
+    <div class="perla-item"><strong>Cefalea en trueno + rigidez de nuca</strong> en joven → HSA por aneurisma sacular en Willis. El TAC sin contraste es la prueba inicial.</div>
+    <div class="perla-item"><strong>Ictus de ACM</strong> → hemiparesia faciobraquial (cara+brazo predomina sobre pierna) + afasia si hemisferio dominante (izquierdo).</div>
+    <div class="perla-item"><strong>Ventana de trombólisis iv (rt-PA)</strong> → 4,5 horas desde inicio síntomas en ictus isquémico. Código ictus = urgencia tiempo-dependiente (AHA/ASA 2023).</div>
+    <div class="perla-item"><strong>Estribo → ventana oval</strong>. El estribo (tercer huesecillo) transmite la vibración a la perilinfa del oído interno a través de la ventana oval. Pregunta literal frecuente.</div>
+    <div class="perla-item"><strong>Presbiacusia = pérdida de alta frecuencia</strong> bilateral. Causa: degeneración coclear (cóclea, no huesecillos). No es una hipoacusia de transmisión.</div>
+    <div class="perla-item"><strong>Canal carpiano = nervio mediano</strong> (no cubital). Phalen y Tinel positivos. Parestesias en 1.º–3.º dedo. El meñique → nervio cubital.</div>
+    <div class="perla-item"><strong>PIO ≥21 mmHg</strong> = hipertensión ocular (cifra de corte). La retinopatía diabética es la primera causa de ceguera en adultos en edad laboral.</div>
+    <div class="perla-item"><strong>Lesión cervical sospechada</strong> → CONTRAINDICADA hiperextensión (frente-mentón). Usar <strong>tracción mandibular</strong> para apertura de vía aérea.</div>
+    <div class="perla-item"><strong>HTA crónica</strong> → retinopatía hipertensiva (signo de Gunn, papilledema). <strong>Diabetes</strong> → retinopatía diabética (microaneurismas, neovascularización).</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sec"><div class="sn">G</div><div><div class="sl">Términos</div><div class="st">Glosario de abreviaturas</div></div></div>
+<div class="glos-grid">
+  <div class="gi"><div class="gt">ACM</div><div class="gd">Arteria Cerebral Media</div></div>
+  <div class="gi"><div class="gt">ACA</div><div class="gd">Arteria Cerebral Anterior (A1)</div></div>
+  <div class="gi"><div class="gt">ACP</div><div class="gd">Arteria Cerebral Posterior (P1)</div></div>
+  <div class="gi"><div class="gt">CI</div><div class="gd">Carótida Interna</div></div>
+  <div class="gi"><div class="gt">HSA</div><div class="gd">Hemorragia Subaracnoidea</div></div>
+  <div class="gi"><div class="gt">PIO</div><div class="gd">Presión Intraocular</div></div>
+  <div class="gi"><div class="gt">CAE</div><div class="gd">Conducto Auditivo Externo</div></div>
+  <div class="gi"><div class="gt">STC</div><div class="gd">Síndrome Túnel Carpiano</div></div>
+</div>
+
+</div>
+</body>
+</html>

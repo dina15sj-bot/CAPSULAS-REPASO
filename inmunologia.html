@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inmunología · Cápsulas INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#1e3a5f;--ac2:#2a5080;--acl:#4a80b0;
+  --inn:#c47a10;--inn2:#e09020;   /* innata: naranja */
+  --ada:#1a7a5a;--ada2:#2a9a70;   /* adaptativa: verde */
+  --B:#7a1a5a;--T:#1a5a8a;        /* B=ciruela, T=azul */
+  --fondo:#f4f6fa;--sup:#ffffff;
+  --txt:#1a1a1a;--soft:#4a5060;
+  --rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--morado:#6a1a8a;--naranja:#c47a10;
+  --perla:#fffce6;--pb:#e0c020;--ph:#c09010;
+  --ant:#f0e8ff;--antb:#7040c0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14.5px;line-height:1.55;}
+
+/* ── HEADER ── */
+.ph{background:linear-gradient(135deg,#0a1428 0%,#1e3a5f 55%,#2a5080 100%);padding:22px 32px 18px;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;background-image:radial-gradient(ellipse at 80% 50%, rgba(74,128,176,0.12) 0%, transparent 60%);pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;position:relative;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.67rem;color:#7ab0d8;letter-spacing:2px;text-transform:uppercase;margin-top:5px;position:relative;}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;position:relative;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:3px 9px;border-radius:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac2);color:#fff;} .p2{background:rgba(255,255,255,0.1);color:#ccc;}
+.pi{background:var(--inn);color:#fff;} .pa{background:var(--ada);color:#fff;}
+
+.wrap{max-width:1110px;margin:0 auto;padding:24px 20px;}
+.sh{display:flex;align-items:center;gap:11px;margin:28px 0 13px;}
+.sb{width:5px;height:32px;border-radius:3px;background:var(--ac);flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;color:#0a1428;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:26px 0;opacity:0.2;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;}
+
+/* ── TABLAS ── */
+.tw{overflow-x:auto;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;background:var(--sup);border-radius:9px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,0.06);}
+thead tr{background:#0a1428;}
+thead th{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:#7ab0d8;padding:10px 12px;text-align:left;}
+tbody tr:nth-child(odd){background:#f6f8fc;} tbody tr:nth-child(even){background:#fff;}
+tbody td{padding:8px 12px;border-bottom:1px solid #dde4ee;vertical-align:top;}
+td strong{color:#0a1428;}
+
+/* ── CARDS GENERALES ── */
+.card{background:var(--sup);border-radius:9px;border:1px solid #dde4ee;padding:14px;}
+.ctit{font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;}
+.warn{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 7px 7px 0;padding:10px 13px;margin:8px 0;font-size:0.84rem;}
+.warn strong{color:var(--rojo);}
+.ant{background:var(--ant);border:1px solid var(--antb);border-radius:7px;padding:10px 13px;margin:8px 0;font-size:0.84rem;}
+.ant .at{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--antb);margin-bottom:4px;}
+
+/* ── COMPARATIVA INN vs ADA ── */
+.ia-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:11px;overflow:hidden;border:2px solid #dde4ee;margin-bottom:14px;}
+.ia-inn{background:linear-gradient(135deg,#3a2000,#6a4010);}
+.ia-ada{background:linear-gradient(135deg,#0a2a1a,#1a5a3a);}
+.ia-head{padding:13px 18px;}
+.ia-head h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:#fff;}
+.ia-head .ia-sub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.65);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.ia-body{padding:14px 18px;background:var(--sup);}
+.ia-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px dashed #e8ecf4;}
+.ia-row:last-child{border-bottom:none;}
+.ia-lbl{font-family:'JetBrains Mono',monospace;font-size:0.59rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--soft);}
+.ia-val{font-size:0.83rem;font-weight:600;color:var(--txt);text-align:right;max-width:60%;}
+
+/* ── ÁRBOL CELULAR CSS ── */
+.tree-wrap{background:var(--sup);border-radius:11px;border:1px solid #dde4ee;padding:20px;margin-bottom:14px;}
+.tree-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);text-align:center;margin-bottom:18px;}
+.tree{display:flex;flex-direction:column;align-items:center;gap:0;}
+.tree-row{display:flex;justify-content:center;align-items:flex-start;gap:14px;flex-wrap:wrap;position:relative;padding:8px 0;}
+/* Nodo célula */
+.cnode{display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;}
+.cnode::before{content:'';position:absolute;top:-8px;left:50%;width:1px;height:8px;background:#c0cce0;}
+.cnode-root::before{display:none;}
+.cball{border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:#fff;transition:transform 0.18s;}
+.cball:hover{transform:scale(1.12);}
+.cball-lg{width:64px;height:64px;font-size:0.62rem;}
+.cball-md{width:52px;height:52px;font-size:0.6rem;}
+.cball-sm{width:44px;height:44px;font-size:0.59rem;}
+.cball-xs{width:38px;height:38px;font-size:0.57rem;}
+.cname{font-size:0.72rem;font-weight:700;color:var(--txt);text-align:center;max-width:80px;line-height:1.2;}
+.csub{font-size:0.62rem;color:var(--soft);text-align:center;max-width:80px;line-height:1.2;}
+/* Línea horizontal */
+.tree-hline{width:100%;height:1px;background:#c0cce0;margin:0;}
+.tree-connector{display:flex;justify-content:space-around;width:100%;margin:0;}
+.tree-connector .tc{display:flex;flex-direction:column;align-items:center;}
+.tree-connector .tc-line{width:1px;height:14px;background:#c0cce0;}
+/* colores celulas */
+.c-stem{background:linear-gradient(135deg,#1e3a5f,#2a5a8f);}
+.c-mie{background:linear-gradient(135deg,#7a4010,#c47a10);}
+.c-lin{background:linear-gradient(135deg,#0a3a2a,#1a7a5a);}
+.c-B{background:linear-gradient(135deg,#5a0a3a,#9a2a6a);}
+.c-T{background:linear-gradient(135deg,#0a3a5a,#1a6a9a);}
+.c-NK{background:linear-gradient(135deg,#3a2a6a,#6a4a9a);}
+.c-gran{background:linear-gradient(135deg,#8a4010,#c47a30);}
+.c-mono{background:linear-gradient(135deg,#6a3000,#a85010);}
+.c-mast{background:linear-gradient(135deg,#5a1020,#9a2040);}
+.c-Th{background:linear-gradient(135deg,#0a4a6a,#1a7aaa);}
+.c-Tc{background:linear-gradient(135deg,#0a2a4a,#1a4a7a);}
+.c-Treg{background:linear-gradient(135deg,#2a4a10,#4a8a20);}
+.c-Tfh{background:linear-gradient(135deg,#3a0a6a,#6a2aaa);}
+.c-Bplas{background:linear-gradient(135deg,#7a0a5a,#b02a8a);}
+.c-Bmem{background:linear-gradient(135deg,#4a0a3a,#7a1a5a);}
+.c-macro{background:linear-gradient(135deg,#8a5000,#c07a10);}
+.c-DC{background:linear-gradient(135deg,#4a3a10,#8a6020);}
+.c-ntr{background:linear-gradient(135deg,#6a6a30,#a0a050);}
+.c-eos{background:linear-gradient(135deg,#8a3020,#c05040);}
+.c-bas{background:linear-gradient(135deg,#2a0a6a,#5a2a9a);}
+
+/* ── INMUNOGLOBULINAS ── */
+.ig-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;}
+.ig-card{background:var(--sup);border-radius:9px;overflow:hidden;border:1px solid #dde4ee;text-align:center;}
+.ig-head{padding:10px 8px;font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:#fff;}
+.ig-body{padding:10px 8px;font-size:0.8rem;color:var(--soft);line-height:1.6;}
+.ig-body strong{color:var(--txt);}
+.ig-body .ighigh{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;display:block;margin-top:4px;}
+
+/* ── CD MARKERS GRID ── */
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px;}
+.cd-card{background:var(--sup);border-radius:8px;border:1px solid #dde4ee;padding:10px;border-top:3px solid var(--ac);}
+.cd-marker{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--ac);display:block;margin-bottom:3px;}
+.cd-cell{font-size:0.79rem;font-weight:700;color:var(--txt);}
+.cd-note{font-size:0.75rem;color:var(--soft);}
+
+/* ── HIPERSENSIBILIDAD ── */
+.hiper-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px;}
+.hiper-card{background:var(--sup);border-radius:9px;overflow:hidden;border:1px solid #dde4ee;}
+.hiper-head{padding:10px 13px;}
+.hiper-head .hnum{font-family:'Playfair Display',serif;font-weight:900;font-size:2rem;color:rgba(255,255,255,0.3);float:right;line-height:1;}
+.hiper-head h4{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;position:relative;}
+.hiper-head .hname{font-family:'Playfair Display',serif;font-weight:700;font-size:0.95rem;color:rgba(255,255,255,0.9);margin-top:2px;display:block;}
+.hiper-body{padding:11px 13px;font-size:0.82rem;line-height:1.65;color:var(--soft);}
+.hiper-body strong{color:var(--txt);}
+.hiper-body .hej{background:#f4f6fc;border-radius:6px;padding:5px 8px;font-size:0.79rem;margin-top:6px;border-left:3px solid;}
+
+/* ── COMPLEMENTO ── */
+.comp-vias{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+.comp-via{background:var(--sup);border-radius:9px;border:1px solid #dde4ee;overflow:hidden;}
+.comp-via-h{padding:9px 13px;font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;}
+.comp-via-b{padding:11px 13px;font-size:0.83rem;line-height:1.65;color:var(--soft);}
+.comp-via-b strong{color:var(--txt);}
+
+/* ── HISTOLOGÍA ── */
+.histo-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:14px;}
+.histo-card{background:var(--sup);border-radius:10px;border:1px solid #dde4ee;overflow:hidden;}
+.histo-head{padding:11px 16px;}
+.histo-head h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.02rem;color:#fff;}
+.histo-sub{font-family:'JetBrains Mono',monospace;font-size:0.59rem;color:rgba(255,255,255,0.65);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.histo-body{padding:13px 16px;font-size:0.83rem;line-height:1.75;color:var(--soft);}
+.histo-body strong{color:var(--txt);}
+.histo-body .zone{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:1px;text-transform:uppercase;margin-right:4px;vertical-align:middle;}
+
+/* LINFONODO SVG ASCII */
+.lnodo-wrap{background:#f8faff;border-radius:9px;border:1px solid #dde4ee;padding:14px;position:relative;overflow:hidden;}
+.lnodo-diagram{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:6px;margin-bottom:10px;}
+.lnodo-zone{border-radius:8px;padding:8px 10px;text-align:center;}
+.lnodo-zone .zname{font-family:'JetBrains Mono',monospace;font-size:0.61rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px;}
+.lnodo-zone .zcell{font-size:0.8rem;font-weight:600;}
+
+/* PERLAS */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:28px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:13px 15px;}
+.pe{padding:8px 10px;border-bottom:1px solid #f0e8b0;font-size:0.84rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #f0e8b0;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#2a1800;}
+
+/* GLOSARIO */
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.gi{background:var(--sup);border-radius:7px;padding:8px 10px;border:1px solid #dde4ee;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--ac);display:block;margin-bottom:2px;}
+.gd{font-size:0.76rem;color:var(--soft);}
+
+@media(max-width:800px){
+  .g2,.g3,.ia-grid,.hiper-grid,.comp-vias,.histo-grid{grid-template-columns:1fr;}
+  .ig-grid{grid-template-columns:repeat(3,1fr);}
+  .cd-grid{grid-template-columns:repeat(2,1fr);}
+  .tree-row{gap:8px;}
+  .cball-lg{width:52px;height:52px;}
+  .perlas-g{grid-template-columns:1fr;}
+  .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#3a6a9a;margin-bottom:5px;">CÁPSULAS INGESA · INMUNOLOGÍA</div>
+  <h1>Sistema Inmunitario</h1>
+  <div class="sub">INNATA · ADAPTATIVA · CÉLULAS · Ig · CD · HIPERSENSIBILIDAD · HISTOLOGÍA ÓRGANOS LINFOIDES</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span>
+    <span class="pill p2">OPE Militar</span>
+    <span class="pill pi">Innata</span>
+    <span class="pill pa">Adaptativa</span>
+    <span class="pill p2">★ 14 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ 1. INNATA vs ADAPTATIVA ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">01 · Visión General</span><div class="st">Inmunidad Innata vs Adaptativa — Diferencias Fundamentales</div></div></div>
+
+<div class="ia-grid">
+  <div>
+    <div class="ia-inn ia-head">
+      <h3>🛡 Inmunidad Innata</h3>
+      <div class="ia-sub">No específica · Primera línea · Sin memoria</div>
+    </div>
+    <div class="ia-body">
+      <div class="ia-row"><span class="ia-lbl">Tiempo respuesta</span><span class="ia-val" style="color:var(--inn);font-weight:700;">Minutos–horas</span></div>
+      <div class="ia-row"><span class="ia-lbl">Especificidad</span><span class="ia-val">Inespecífica (reconoce PAMPs/DAMPs)</span></div>
+      <div class="ia-row"><span class="ia-lbl">Memoria</span><span class="ia-val" style="color:var(--rojo);">NO</span></div>
+      <div class="ia-row"><span class="ia-lbl">Receptores</span><span class="ia-val">PRRs: TLRs, NLRs, CLRs (línea germinal)</span></div>
+      <div class="ia-row"><span class="ia-lbl">Células</span><span class="ia-val">Neutrófilos, macrófagos, NK, mastocitos, DC, complemento</span></div>
+      <div class="ia-row"><span class="ia-lbl">Barreras físicas</span><span class="ia-val">Piel, mucosas, cilios, pH ácido, lisozima</span></div>
+      <div class="ia-row"><span class="ia-lbl">Mediadores</span><span class="ia-val">Citocinas pro-inflamatorias (IL-1, IL-6, TNF-α, IFN tipo I)</span></div>
+      <div class="ia-row"><span class="ia-lbl">Complemento</span><span class="ia-val">Vía alternativa y lectinas (sin anticuerpos)</span></div>
+    </div>
+  </div>
+  <div>
+    <div class="ia-ada ia-head">
+      <h3>🎯 Inmunidad Adaptativa</h3>
+      <div class="ia-sub">Específica · Segunda línea · Con memoria</div>
+    </div>
+    <div class="ia-body">
+      <div class="ia-row"><span class="ia-lbl">Tiempo respuesta</span><span class="ia-val" style="color:var(--ada);font-weight:700;">Días (1.ª exposición) · Horas (2.ª)</span></div>
+      <div class="ia-row"><span class="ia-lbl">Especificidad</span><span class="ia-val" style="color:var(--ada);">Específica por antígeno ⭐</span></div>
+      <div class="ia-row"><span class="ia-lbl">Memoria</span><span class="ia-val" style="color:var(--verde);">SÍ (células memoria) ⭐</span></div>
+      <div class="ia-row"><span class="ia-lbl">Receptores</span><span class="ia-val">BCR / TCR (reordenamiento somático)</span></div>
+      <div class="ia-row"><span class="ia-lbl">Células</span><span class="ia-val">Linfocitos T (CD4+, CD8+, Treg) · Linfocitos B → Plasmáticas</span></div>
+      <div class="ia-row"><span class="ia-lbl">Inmunidad humoral</span><span class="ia-val">Linfocito B → Célula plasmática → Anticuerpos</span></div>
+      <div class="ia-row"><span class="ia-lbl">Inmunidad celular</span><span class="ia-val">Linfocito T CD8+ → mata células infectadas</span></div>
+      <div class="ia-row"><span class="ia-lbl">Complemento</span><span class="ia-val">Vía clásica (Ac + Ag) ⭐</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 2. ÁRBOL DIFERENCIACIÓN CELULAR ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">02 · Hematopoyesis</span><div class="st">Árbol de Diferenciación — Células del Sistema Inmune</div></div></div>
+
+<div class="tree-wrap">
+  <div class="tree-title">MÉDULA ÓSEA → Célula Madre Hematopoyética Pluripotente (HSC)</div>
+  <div class="tree">
+
+    <!-- RAÍZ -->
+    <div class="tree-row">
+      <div class="cnode cnode-root">
+        <div class="cball cball-lg c-stem">HSC</div>
+        <div class="cname">Cél. Madre<br>Hematopoyética</div>
+        <div class="csub">CD34+</div>
+      </div>
+    </div>
+
+    <!-- LÍNEA 1: MIELOIDE / LINFOIDE -->
+    <div style="display:flex;width:60%;justify-content:space-around;margin:0 auto;">
+      <div style="width:1px;height:18px;background:#c0cce0;margin:0 auto;"></div>
+    </div>
+    <div style="display:flex;width:75%;justify-content:space-between;margin:0 auto;padding-bottom:4px;">
+      <div style="height:1px;background:#c0cce0;flex:1;margin-top:9px;"></div>
+      <div style="height:1px;background:#c0cce0;flex:1;margin-top:9px;"></div>
+    </div>
+    <div class="tree-row">
+      <div class="cnode">
+        <div class="cball cball-md c-mie">CMP</div>
+        <div class="cname">Progenitor<br>Mieloide</div>
+        <div class="csub">CFU-GEMM</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-md c-lin">CLP</div>
+        <div class="cname">Progenitor<br>Linfoide</div>
+        <div class="csub">CD10+</div>
+      </div>
+    </div>
+
+    <!-- LINEA 2 — MIELOIDE -->
+    <div style="width:90%;margin:0 auto;display:flex;justify-content:space-between;padding:4px 0;">
+      <div style="width:42%;display:flex;justify-content:space-around;">
+        <div style="width:1px;height:16px;background:#c0cce0;"></div>
+        <div style="width:1px;height:16px;background:#c0cce0;"></div>
+        <div style="width:1px;height:16px;background:#c0cce0;"></div>
+      </div>
+      <div style="width:46%;display:flex;justify-content:space-around;">
+        <div style="width:1px;height:16px;background:#c0cce0;"></div>
+        <div style="width:1px;height:16px;background:#c0cce0;"></div>
+        <div style="width:1px;height:16px;background:#c0cce0;"></div>
+      </div>
+    </div>
+
+    <div class="tree-row">
+      <!-- MIELOIDES -->
+      <div class="cnode">
+        <div class="cball cball-sm c-ntr">NEU</div>
+        <div class="cname">Neutrófilo</div>
+        <div class="csub">PMN · Fagocito</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-eos">EOS</div>
+        <div class="cname">Eosinófilo</div>
+        <div class="csub">Parásitos · Alergia</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-bas">BAS</div>
+        <div class="cname">Basófilo</div>
+        <div class="csub">IgE · Alergia</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-mast">MAST</div>
+        <div class="cname">Mastocito</div>
+        <div class="csub">Tejidos · IgE</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-mono">MONO</div>
+        <div class="cname">Monocito<br>→ Macrófago</div>
+        <div class="csub">Fagocitosis · APC</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-DC">DC</div>
+        <div class="cname">Célula<br>Dendrítica</div>
+        <div class="csub">APC profesional</div>
+      </div>
+      <!-- LINFOIDES -->
+      <div class="cnode">
+        <div class="cball cball-sm c-NK">NK</div>
+        <div class="cname">NK</div>
+        <div class="csub">CD56+ Sin MHC</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-B">Pre-B</div>
+        <div class="cname">Linfocito B</div>
+        <div class="csub">Médula ósea</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-sm c-T">Pre-T</div>
+        <div class="cname">Linfocito T</div>
+        <div class="csub">→ Timo</div>
+      </div>
+    </div>
+
+    <!-- LÍNEA 3 — LINFOCITOS -->
+    <div style="width:55%;margin:0 auto;display:flex;justify-content:flex-end;padding:4px 0;gap:24px;">
+      <div style="width:1px;height:16px;background:#c0cce0;"></div>
+      <div style="width:1px;height:16px;background:#c0cce0;"></div>
+      <div style="width:1px;height:16px;background:#c0cce0;"></div>
+      <div style="width:1px;height:16px;background:#c0cce0;"></div>
+      <div style="width:1px;height:16px;background:#c0cce0;"></div>
+    </div>
+
+    <div class="tree-row">
+      <div class="cnode">
+        <div class="cball cball-xs c-Bplas">Bplas</div>
+        <div class="cname">Célula<br>Plasmática</div>
+        <div class="csub">Fab Anticuerpos</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-xs c-Bmem">Bmem</div>
+        <div class="cname">B Memoria</div>
+        <div class="csub">IgG largo plazo</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-xs c-Th">Th</div>
+        <div class="cname">T Helper<br>CD4+</div>
+        <div class="csub">IL-2, IL-4...</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-xs c-Tc">Tc</div>
+        <div class="cname">T Citotóxico<br>CD8+</div>
+        <div class="csub">Perforinas</div>
+      </div>
+      <div class="cnode">
+        <div class="cball cball-xs c-Treg">Treg</div>
+        <div class="cname">T Regulador<br>CD25+FoxP3</div>
+        <div class="csub">IL-10, TGF-β</div>
+      </div>
+    </div>
+
+  </div>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:14px;">
+    <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#7a4010,#c47a10);"></div><span style="color:var(--soft);">Linaje mieloide</span></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#5a0a3a,#9a2a6a);"></div><span style="color:var(--soft);">Linfocito B</span></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#0a3a5a,#1a6a9a);"></div><span style="color:var(--soft);">Linfocito T</span></div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;"><div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#3a2a6a,#6a4a9a);"></div><span style="color:var(--soft);">NK</span></div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 3. CÉLULAS EN DETALLE ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">03 · Células del SI</span><div class="st">Funciones, Marcadores y Datos OPE</div></div></div>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Célula</th><th>Marcadores CD</th><th>Función Principal</th><th>Origen / Maduración</th><th>Dato Clave OPE ⭐</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Neutrófilo</strong></td><td>CD66b, CD16</td><td>Fagocitosis 1.ª línea. Liberación de NET (trampas extracelulares). Enzimas lisosomales.</td><td>Médula ósea. Vida media 6–8h en sangre.</td><td style="color:var(--rojo);font-weight:700;">El leucocito más abundante (50–70%) ⭐</td></tr>
+      <tr><td><strong>Macrófago</strong></td><td>CD14, CD68</td><td>Fagocitosis. Presentación de Ag (APC). Producción IL-1, IL-6, TNF-α. Resolución inflamación.</td><td>Monocito sanguíneo → tejido. Macrófagos tisulares con nombre propio.</td><td style="color:var(--rojo);font-weight:700;">Macrófago hepático = Célula de Kupffer. Pulmonar = Macrófago alveolar ⭐</td></tr>
+      <tr><td><strong>Cél. Dendrítica (DC)</strong></td><td>CD11c, HLA-DR</td><td>APC profesional más potente. Une innata y adaptativa. Activa linfocitos T naïve.</td><td>Médula ósea. Células de Langerhans en piel = DC especializadas.</td><td style="color:var(--azul);">Célula de Langerhans = DC de la epidermis ⭐</td></tr>
+      <tr><td><strong>Célula NK</strong></td><td>CD56+, CD16+, <strong>CD3−</strong></td><td>Mata células con ↓ MHC-I (tumorales, virus). Sin necesidad de sensibilización previa.</td><td>Progenitor linfoide. NO pasa por timo.</td><td style="color:var(--azul);">NK = CD56+ CD3−. Mata sin MHC ni sensibilización previa ⭐</td></tr>
+      <tr><td><strong>Mastocito</strong></td><td>CD117 (c-Kit), FcεRI</td><td>Libera histamina, heparina, prostaglandinas. Clave en alergia (hipersensibilidad tipo I).</td><td>Progenitor mieloide → tejidos.</td><td style="color:var(--rojo);">Célula clave en anafilaxia. Unida a IgE en superficie. ⭐</td></tr>
+      <tr><td><strong>Basófilo</strong></td><td>CD123, FcεRI</td><td>Similar al mastocito pero circulante. Liberación histamina y citocinas en alergia.</td><td>Médula ósea. Circula en sangre.</td><td>El menos abundante (&lt;1%). Similar a mastocito pero en sangre.</td></tr>
+      <tr><td><strong>Eosinófilo</strong></td><td>CD193 (CCR3)</td><td>Lucha contra parásitos (helmintos). Mediador de daño en asma alérgica. Gránulos de proteína básica mayor (MBP).</td><td>Médula ósea.</td><td style="color:var(--azul);">Eosinofilia → alergia o parásitos. MBP = proteína básica mayor ⭐</td></tr>
+      <tr><td><strong>Linfocito B</strong></td><td><strong>CD19, CD20, CD21, mIgM</strong></td><td>Inmunidad humoral. Reconoce Ag nativos (sin MHC). → Célula plasmática (fab Ac) + B memoria.</td><td>Médula ósea (todo el ciclo en aves: Bolsa de Fabricio).</td><td style="color:var(--B);font-weight:700;">CD19/CD20 = marcadores B. Terapia: rituximab anti-CD20 ⭐</td></tr>
+      <tr><td><strong>Linfocito T CD4+ (Th)</strong></td><td><strong>CD3, CD4, TCR</strong></td><td>Coordinador de respuesta inmune. Ayuda a B (Tfh), activa macrófagos (Th1), promueve alergia (Th2).</td><td>Progenitor linfoide → TIMO (maduración). Selección positiva y negativa.</td><td style="color:var(--T);font-weight:700;">CD4:CD8 ratio normal = 2:1. En VIH: CD4 ↓ ⭐</td></tr>
+      <tr><td><strong>Linfocito T CD8+ (Tc)</strong></td><td><strong>CD3, CD8, TCR</strong></td><td>Citotoxicidad directa: libera perforinas y granzimas → apoptosis célula diana (infectada o tumoral).</td><td>TIMO.</td><td style="color:var(--T);">Perforinas + Granzimas = armas del CD8+ ⭐</td></tr>
+      <tr><td><strong>T Regulador (Treg)</strong></td><td>CD4, CD25, <strong>FoxP3</strong></td><td>Suprime respuesta inmune. Evita autoinmunidad. Secreta IL-10 y TGF-β.</td><td>TIMO (Treg natural) o periferia (Treg inducido).</td><td style="color:var(--verde);">FoxP3 = factor de transcripción de Treg. Mutación → síndrome IPEX ⭐</td></tr>
+      <tr><td><strong>Cél. Plasmática</strong></td><td>CD38+, CD138+, <strong>CD20−</strong></td><td>Fábrica de anticuerpos. 2.000–3.000 Ac/segundo. Vive en médula ósea.</td><td>Linfocito B activado → centro germinal → célula plasmática.</td><td>CD20 NEGATIVO → rituximab no actúa sobre ella ⭐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- CD MARKERS RÁPIDOS -->
+<div style="font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:9px;margin-top:14px;">MARCADORES CD — CONSULTA RÁPIDA ⭐</div>
+<div class="cd-grid">
+  <div class="cd-card" style="border-top-color:var(--T);">
+    <span class="cd-marker" style="color:var(--T);">CD3</span>
+    <div class="cd-cell">Todos los T</div>
+    <div class="cd-note">Pan-T marker. Complejo TCR</div>
+  </div>
+  <div class="cd-card" style="border-top-color:var(--T);">
+    <span class="cd-marker" style="color:var(--T);">CD4</span>
+    <div class="cd-cell">T Helper / Treg</div>
+    <div class="cd-note">Correceptor MHC-II. Diana VIH</div>
+  </div>
+  <div class="cd-card" style="border-top-color:var(--T);">
+    <span class="cd-marker" style="color:var(--T);">CD8</span>
+    <div class="cd-cell">T Citotóxico</div>
+    <div class="cd-note">Correceptor MHC-I</div>
+  </div>
+  <div class="cd-card" style="border-top-color:#5a3a8a;">
+    <span class="cd-marker" style="color:#5a3a8a;">CD25</span>
+    <div class="cd-cell">T activado / Treg</div>
+    <div class="cd-note">Receptor IL-2α</div>
+  </div>
+  <div class="cd-card" style="border-top-color:var(--B);">
+    <span class="cd-marker" style="color:var(--B);">CD19</span>
+    <div class="cd-cell">Linfocito B</div>
+    <div class="cd-note">Pan-B marker</div>
+  </div>
+  <div class="cd-card" style="border-top-color:var(--B);">
+    <span class="cd-marker" style="color:var(--B);">CD20</span>
+    <div class="cd-cell">Linfocito B</div>
+    <div class="cd-note">Diana rituximab. NO en plasmáticas</div>
+  </div>
+  <div class="cd-card" style="border-top-color:#9a1a40;">
+    <span class="cd-marker" style="color:#9a1a40;">CD138</span>
+    <div class="cd-cell">Cél. Plasmática</div>
+    <div class="cd-note">Sindecan-1. Mieloma múltiple</div>
+  </div>
+  <div class="cd-card" style="border-top-color:#4a6a10;">
+    <span class="cd-marker" style="color:#4a6a10;">CD56</span>
+    <div class="cd-cell">NK (+ cél. plasmática)</div>
+    <div class="cd-note">NK = CD56+ CD16+ CD3−</div>
+  </div>
+  <div class="cd-card" style="border-top-color:var(--inn);">
+    <span class="cd-marker" style="color:var(--inn);">CD14</span>
+    <div class="cd-cell">Monocito / Macrófago</div>
+    <div class="cd-note">Receptor LPS (Gram−)</div>
+  </div>
+  <div class="cd-card" style="border-top-color:var(--inn);">
+    <span class="cd-marker" style="color:var(--inn);">CD16</span>
+    <div class="cd-cell">NK / Neutrófilo / Macrófago</div>
+    <div class="cd-note">FcγRIII — receptor Fc de IgG</div>
+  </div>
+  <div class="cd-card" style="border-top-color:#8a2010;">
+    <span class="cd-marker" style="color:#8a2010;">CD34</span>
+    <div class="cd-cell">Cél. madre hematopoyética</div>
+    <div class="cd-note">Progenitor. Marcador trasplante</div>
+  </div>
+  <div class="cd-card" style="border-top-color:#2a5a10;">
+    <span class="cd-marker" style="color:#2a5a10;">CD45</span>
+    <div class="cd-cell">TODOS los leucocitos</div>
+    <div class="cd-note">Pan-leucocito. Fosfatasa tirosina</div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 4. INMUNOGLOBULINAS ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">04 · Inmunidad Humoral</span><div class="st">Inmunoglobulinas — Características y Funciones OPE</div></div></div>
+
+<div class="ig-grid">
+  <div class="ig-card">
+    <div class="ig-head" style="background:linear-gradient(135deg,#1e3a5f,#2a6090);">IgG</div>
+    <div class="ig-body">
+      <strong>Más abundante en suero</strong> (75–80%)<br>
+      <span class="ighigh" style="color:#2a6090;">4 subclases (G1–G4)</span>
+      Cruza placenta ⭐<br>
+      Memoria inmune<br>
+      Opsonización<br>
+      Vida media: <strong>21–28 días</strong> (la más larga)
+    </div>
+  </div>
+  <div class="ig-card">
+    <div class="ig-head" style="background:linear-gradient(135deg,#3a1a6a,#6a3aaa);">IgM</div>
+    <div class="ig-body">
+      <strong>1.ª en aparecer</strong> tras infección ⭐<br>
+      <span class="ighigh" style="color:#6a3aaa;">Pentámero (5 unidades)</span>
+      Mayor capacidad aglutinante<br>
+      Activa complemento (vía clásica) ⭐<br>
+      No cruza placenta<br>
+      <strong>Isohemaglutininas ABO</strong>
+    </div>
+  </div>
+  <div class="ig-card">
+    <div class="ig-head" style="background:linear-gradient(135deg,#6a3010,#aa6020);">IgA</div>
+    <div class="ig-body">
+      <strong>Más abundante en secreciones</strong> ⭐<br>
+      <span class="ighigh" style="color:#aa6020;">Dímero en mucosas</span>
+      Saliva, leche materna, lágrimas, calostro<br>
+      Defensa de mucosas<br>
+      IgA secretora (SIgA) + pieza secretora<br>
+      <strong>Deficiencia IgA: la más frecuente</strong> ⭐
+    </div>
+  </div>
+  <div class="ig-card">
+    <div class="ig-head" style="background:linear-gradient(135deg,#2a6a10,#4aaa30);">IgE</div>
+    <div class="ig-body">
+      <strong>Más baja en suero</strong> (traza)<br>
+      <span class="ighigh" style="color:#4aaa30;">Se une a mastocitos/basófilos</span>
+      <strong>Hipersensibilidad tipo I</strong> (alergia) ⭐<br>
+      Parasitosis (helmintos)<br>
+      Receptor FcεRI en mastocitos<br>
+      ↑ en atopia y alergia
+    </div>
+  </div>
+  <div class="ig-card">
+    <div class="ig-head" style="background:linear-gradient(135deg,#5a4010,#9a7020);">IgD</div>
+    <div class="ig-body">
+      <strong>Función desconocida mayormente</strong><br>
+      <span class="ighigh" style="color:#9a7020;">BCR en linfocito B naïve</span>
+      Muy baja concentración<br>
+      Coexpresada con IgM en B inmaduros<br>
+      Participa en activación B
+    </div>
+  </div>
+</div>
+
+<div class="ant" style="margin-top:0;">
+  <div class="at">⭐ Reglas de oro de las Inmunoglobulinas</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:0.84rem;">
+    <div><strong>Cruza placenta:</strong> Solo IgG → inmunidad pasiva neonatal (0–6 meses)</div>
+    <div><strong>1.ª en aparecer:</strong> IgM → marcador de infección aguda. IgG → infección pasada o vacuna</div>
+    <div><strong>Secreciones:</strong> IgA → la "guardiana de las mucosas". Calostro = IgA protectora</div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 5. COMPLEMENTO ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">05 · Sistema del Complemento</span><div class="st">Tres Vías de Activación</div></div></div>
+
+<div class="comp-vias">
+  <div class="comp-via">
+    <div class="comp-via-h" style="background:#8a1a10;">🔴 Vía Clásica</div>
+    <div class="comp-via-b">
+      <strong>Activador:</strong> Complejo Ag-Ac (IgM o IgG) ⭐<br>
+      Requiere anticuerpos → inmunidad adaptativa.<br>
+      <strong>Inicio: C1q</strong> se une al Fc de IgG/IgM.<br>
+      C1q → C1r → C1s → C4 → C2 → C3<br>
+      <strong>Más eficiente que la alternativa.</strong>
+    </div>
+  </div>
+  <div class="comp-via">
+    <div class="comp-via-h" style="background:#1a5a8a;">🔵 Vía Alternativa</div>
+    <div class="comp-via-b">
+      <strong>Activador:</strong> Superficies microbianas (LPS, manano, zimosán) ⭐<br>
+      No requiere anticuerpos → innata.<br>
+      <strong>Inicio: C3 espontáneo + factor B + D</strong>.<br>
+      Amplificación rápida de C3b.<br>
+      <strong>Primera en actuar sin Ac.</strong>
+    </div>
+  </div>
+  <div class="comp-via">
+    <div class="comp-via-h" style="background:#2a6a4a;">🟢 Vía de las Lectinas (MBL)</div>
+    <div class="comp-via-b">
+      <strong>Activador:</strong> Lectina fijadora de manosa (MBL) se une a residuos de manosa en patógenos.<br>
+      No requiere Ac ni C1q.<br>
+      MBL + MASP-1/2 → C4 + C2<br>
+      <strong>Puente innata-adaptativa.</strong>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--sup);border-radius:9px;border:1px solid #dde4ee;padding:14px;margin-bottom:13px;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:9px;">CONVERGENCIA EN C3 → VÍA COMÚN TERMINAL</div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.84rem;">
+    <div style="background:#f0f4ff;border:1px solid #b0c0e0;border-radius:7px;padding:6px 12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#1e3a5f;">C3 convertasa</div>
+    <div style="color:var(--soft);">→</div>
+    <div style="background:#f0f4ff;border:1px solid #b0c0e0;border-radius:7px;padding:6px 12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#1e3a5f;">C3b (opsonización)</div>
+    <div style="color:var(--soft);">→</div>
+    <div style="background:#f0f4ff;border:1px solid #b0c0e0;border-radius:7px;padding:6px 12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#1e3a5f;">C5 convertasa</div>
+    <div style="color:var(--soft);">→</div>
+    <div style="background:#fff0ee;border:1px solid #c09080;border-radius:7px;padding:6px 12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--rojo);">C5b–C9 = MAC</div>
+  </div>
+  <div style="font-size:0.83rem;color:var(--soft);margin-top:9px;">
+    <strong>MAC (Complejo de Ataque a Membrana):</strong> Forma poros en la membrana del patógeno → lisis. Esencial contra <em>Neisseria</em> (gonorrhoeae, meningitidis).<br>
+    <strong>Déficit de componentes terminales C5–C9</strong> → susceptibilidad a infecciones recurrentes por <em>Neisseria</em> ⭐<br>
+    <strong>C3b:</strong> Opsonina → facilita fagocitosis. <strong>C3a / C5a (anafilotoxinas):</strong> ↑ permeabilidad vascular, reclutan leucocitos.
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 6. HIPERSENSIBILIDAD ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">06 · Patología Inmune</span><div class="st">Hipersensibilidad — Clasificación de Gell y Coombs</div></div></div>
+
+<div class="hiper-grid">
+  <div class="hiper-card">
+    <div class="hiper-head" style="background:linear-gradient(135deg,#8a1a10,#c04030);">
+      <div class="hnum">I</div>
+      <h4>TIPO I</h4>
+      <span class="hname">Inmediata / Anafiláctica</span>
+    </div>
+    <div class="hiper-body">
+      <strong>Mecanismo:</strong> IgE unida a mastocitos/basófilos. Re-exposición al alérgeno → degranulación → histamina.<br>
+      <strong>Tiempo:</strong> Minutos.<br>
+      <strong>Mediador:</strong> IgE ⭐<br>
+      <div class="hej" style="border-color:#c04030;background:#fff5f4;">
+        <strong>Ejemplos:</strong> Anafilaxia, asma alérgica, rinitis alérgica, urticaria, alergia al maní, alergia a medicamentos (penicilina).
+      </div>
+      <strong style="color:#c04030;">Tto: Adrenalina 1.ª línea</strong> en anafilaxia.
+    </div>
+  </div>
+
+  <div class="hiper-card">
+    <div class="hiper-head" style="background:linear-gradient(135deg,#5a1a3a,#9a3060);">
+      <div class="hnum">II</div>
+      <h4>TIPO II</h4>
+      <span class="hname">Citotóxica mediada por Ac</span>
+    </div>
+    <div class="hiper-body">
+      <strong>Mecanismo:</strong> Anticuerpos IgG o IgM contra Ag de superficie celular → ADCC, complemento o fagocitosis.<br>
+      <strong>Tiempo:</strong> Horas.<br>
+      <strong>Mediador:</strong> IgG / IgM ⭐<br>
+      <div class="hej" style="border-color:#9a3060;background:#fdf5f8;">
+        <strong>Ejemplos:</strong> Anemia hemolítica autoinmune, trombocitopenia inmune (ITP), enfermedad hemolítica del RN (anti-Rh), incompatibilidad ABO, miastenia gravis (anti-AChR), hipertiroidismo Graves (anti-TSH-R).
+      </div>
+    </div>
+  </div>
+
+  <div class="hiper-card">
+    <div class="hiper-head" style="background:linear-gradient(135deg,#1a3a7a,#2a60b0);">
+      <div class="hnum">III</div>
+      <h4>TIPO III</h4>
+      <span class="hname">Inmunocomplejos</span>
+    </div>
+    <div class="hiper-body">
+      <strong>Mecanismo:</strong> Depósito de complejos inmunes (Ag-Ac) en tejidos → activación complemento → inflamación local.<br>
+      <strong>Tiempo:</strong> Horas–días.<br>
+      <strong>Mediador:</strong> IgG + Ag (complejos) ⭐<br>
+      <div class="hej" style="border-color:#2a60b0;background:#f4f8ff;">
+        <strong>Ejemplos:</strong> LES (glomerulonefritis), enfermedad del suero, vasculitis por complejos, glomerulonefritis post-estreptocócica, artritis reactiva, neumonitis por hipersensibilidad (pulmón del granjero).
+      </div>
+    </div>
+  </div>
+
+  <div class="hiper-card">
+    <div class="hiper-head" style="background:linear-gradient(135deg,#2a5a1a,#4a9a30);">
+      <div class="hnum">IV</div>
+      <h4>TIPO IV</h4>
+      <span class="hname">Retardada / Celular</span>
+    </div>
+    <div class="hiper-body">
+      <strong>Mecanismo:</strong> NO intervienen anticuerpos. Linfocitos T CD4+ (Th1) → macrófagos activados. Formación de granulomas.<br>
+      <strong>Tiempo:</strong> <strong style="color:var(--verde);">48–72 horas</strong> ⭐<br>
+      <strong>Mediador:</strong> Linfocitos T (sin Ac) ⭐<br>
+      <div class="hej" style="border-color:#4a9a30;background:#f4faf0;">
+        <strong>Ejemplos:</strong> Prueba de Mantoux (PPD) ⭐, dermatitis de contacto (níquel, látex), rechazo de trasplante, enfermedad de Crohn, sarcoidosis, granuloma tuberculoso.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="warn"><strong>⭐ Regla nemotécnica hipersensibilidades:</strong> Tipo I = IgE inmediata · Tipo II = IgG/M en superficie celular · Tipo III = complejos inmunes depositados · Tipo IV = T cells, tardía (48–72h), sin anticuerpos. La única SIN anticuerpos es el tipo IV.</div>
+
+<div class="div"></div>
+
+<!-- ═══ 7. ÓRGANOS LINFOIDES — HISTOLOGÍA ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">07 · Histología</span><div class="st">Órganos Linfoides — Estructura y Zonificación Histológica</div></div></div>
+
+<div class="histo-grid">
+
+  <!-- TIMO -->
+  <div class="histo-card">
+    <div class="histo-head" style="background:linear-gradient(135deg,#0a3a5a,#1a6090);">
+      <h3>🫀 Timo</h3>
+      <div class="histo-sub">Órgano linfoide primario · Maduración T</div>
+    </div>
+    <div class="histo-body">
+      <strong>Estructura:</strong> Lóbulos divididos en <strong>corteza</strong> y <strong>médula</strong>.<br><br>
+      <span class="zone" style="background:#1a6090;color:#fff;">CORTEZA</span><br>
+      · Densamente celular. <strong>Timocitos en proliferación</strong>.<br>
+      · <strong>Células epiteliales corticales</strong>: crean el microambiente. Expresan MHC I y II.<br>
+      · Aquí ocurre la <strong>selección positiva</strong> → sobreviven los T que reconocen el MHC propio (95% mueren por fallo).<br><br>
+      <span class="zone" style="background:#2a90c0;color:#fff;">MÉDULA</span><br>
+      · Menos densa. <strong>Corpúsculos de Hassall</strong> ⭐ (epitelio queratinizado en espiral, marcador histológico del timo).<br>
+      · <strong>Selección negativa</strong>: eliminación de T autoreactivos (gen AIRE).<br><br>
+      <strong>Involución tímica:</strong> Comienza en pubertad, reemplazado por grasa. En adulto mayor: tejido adiposo.<br>
+      <strong style="color:var(--rojo);">Corpúsculos de Hassall = hallazgo histológico patognomónico del timo ⭐</strong>
+    </div>
+  </div>
+
+  <!-- GANGLIO LINFÁTICO -->
+  <div class="histo-card">
+    <div class="histo-head" style="background:linear-gradient(135deg,#1a5a3a,#2a8a5a);">
+      <h3>🫘 Ganglio Linfático</h3>
+      <div class="histo-sub">Filtro linfa · Activación B y T</div>
+    </div>
+    <div class="histo-body">
+      <strong>Estructura: Cápsula → Corteza → Paracorteza → Médula</strong><br><br>
+      <span class="zone" style="background:#1a6a3a;color:#fff;">CORTEZA</span> Zona B ⭐<br>
+      · <strong>Folículos linfoides primarios</strong>: linfocitos B naïve (pequeños, densos).<br>
+      · <strong>Folículos secundarios</strong>: B activados. Tienen <strong>centro germinal</strong> (zona clara + zona oscura). Aquí ocurre la hipermutación somática y cambio de clase ⭐.<br><br>
+      <span class="zone" style="background:#2a8a5a;color:#fff;">PARACORTEZA</span> Zona T ⭐<br>
+      · Linfocitos T (CD4+, CD8+).<br>
+      · Células dendríticas interdigitantes.<br>
+      · Vénulas de endotelio alto (HEV): entrada de linfocitos desde sangre.<br><br>
+      <span class="zone" style="background:#3a7a40;color:#fff;">MÉDULA</span><br>
+      · Cordones medulares: células plasmáticas y macrófagos.<br>
+      · Senos medulares: linfa fluye aquí.<br><br>
+      <strong style="color:var(--ada);">Linfoma Hodgkin: células Reed-Sternberg (B gigantes con ojo de lechuza) ⭐</strong>
+    </div>
+  </div>
+
+  <!-- BAZO -->
+  <div class="histo-card">
+    <div class="histo-head" style="background:linear-gradient(135deg,#5a1a3a,#8a2a5a);">
+      <h3>🫁 Bazo</h3>
+      <div class="histo-sub">Filtro sangre · Pulpa roja y blanca</div>
+    </div>
+    <div class="histo-body">
+      <strong>Dos compartimentos principales:</strong><br><br>
+      <span class="zone" style="background:#8a2a5a;color:#fff;">PULPA ROJA</span><br>
+      · <strong>Filtra eritrocitos envejecidos</strong> y patógenos sanguíneos.<br>
+      · Sinusoides esplénicos + cordones de Billroth.<br>
+      · Macrófagos esplénicos (destruyen hematíes, fagocitan bacterias capsuladas).<br>
+      · Almacena plaquetas (30% del pool).<br><br>
+      <span class="zone" style="background:#6a1a4a;color:#fff;">PULPA BLANCA</span><br>
+      · Tejido linfoide organizado alrededor de arteriolas (PALS = vaina periarterial).<br>
+      · <strong>PALS: zona T</strong> (alrededor de arteriola central) ⭐<br>
+      · <strong>Folículos linfoides: zona B</strong> (periférico al PALS).<br>
+      · Zona marginal: linfocitos B de zona marginal, macrófagos.<br><br>
+      <strong style="color:var(--rojo);">Asplenia → ↑ riesgo infecciones por bacterias capsuladas (neumococo, H. influenzae, meningococo) ⭐ → vacunar antes de esplenectomía.</strong>
+    </div>
+  </div>
+
+  <!-- MÉDULA ÓSEA -->
+  <div class="histo-card">
+    <div class="histo-head" style="background:linear-gradient(135deg,#2a1a4a,#5a3a7a);">
+      <h3>🦴 Médula Ósea</h3>
+      <div class="histo-sub">Órgano linfoide primario · Hematopoyesis</div>
+    </div>
+    <div class="histo-body">
+      <strong>Dos tipos funcionales:</strong><br><br>
+      <span class="zone" style="background:#5a3a7a;color:#fff;">MO ROJA</span><br>
+      · <strong>Hematopoyéticamente activa</strong>.<br>
+      · En el adulto: vértebras, esternón, costillas, pelvis, huesos largos proximales.<br>
+      · Células del estroma (reticulares, fibroblastos, adipocitos, células endoteliales) crean nichos.<br>
+      · <strong>Islotes eritroblásticos</strong>: macrófago central rodeado de eritroblastos en maduración.<br><br>
+      <span class="zone" style="background:#3a2a5a;color:#fff;">MO AMARILLA</span><br>
+      · Inactiva hematopoyéticamente. Rica en adipocitos.<br>
+      · Puede convertirse en roja ante demanda (anemia severa, sangrado).<br><br>
+      <strong>Maduración linfocito B completa en MO</strong> (IgM → IgD en superficie).<br>
+      <strong>CD34+: marcador de célula progenitora en trasplante MO ⭐</strong>
+    </div>
+  </div>
+
+</div>
+
+<!-- AMÍGDALAS y TEJIDO MALT -->
+<div class="g2" style="margin-bottom:14px;">
+  <div class="card">
+    <div class="ctit">Amígdalas — Anillo de Waldeyer</div>
+    <div style="font-size:0.84rem;line-height:1.8;color:var(--soft);">
+      Conjunto de tejido linfoide en la faringe:<br>
+      <strong>Amígdala palatina</strong> (amígdalas comunes) × 2 · <strong>Amígdala faríngea</strong> (adenoides) · <strong>Amígdala lingual</strong> × 2 · Amígdalas tubáricas.<br><br>
+      <strong>Histología:</strong> Epitelio escamoso estratificado invaginado formando criptas (+ bacterias). Folículos con centros germinales (zona B). Zona T entre folículos.<br>
+      <strong>Función:</strong> Primera defensa inmune en vías aéreas altas. Producción de IgA local.<br>
+      <strong>Hipertrofia adenoides:</strong> Obstrucción nasal, respiración bucal, ronquido en niños. La amígdala faríngea NO tiene criptas (diferencia clave de la palatina).
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctit">MALT — Tejido Linfoide Asociado a Mucosas</div>
+    <div style="font-size:0.84rem;line-height:1.8;color:var(--soft);">
+      Sistema inmune de las mucosas (no encapsulado):<br>
+      <strong>GALT</strong>: intestino. Incluye <strong>Placas de Peyer</strong> (íleon) ⭐ y apéndice.<br>
+      <strong>BALT</strong>: bronquios.<br>
+      <strong>NALT</strong>: nasofaringe (incluye adenoides).<br><br>
+      <strong>Placas de Peyer:</strong> Folículos linfoides en íleon. <strong>Células M</strong> (microfold cells) en epitelio → capturan Ag de la luz intestinal y los pasan a DCs y macrófagos subepiteliales → inician respuesta IgA.<br>
+      <strong style="color:var(--ada);">Células M: presentan Ag luminal en Placas de Peyer ⭐</strong>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 8. LINFOCITO T — MADURACIÓN EN TIMO ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">08 · Educación Tímica</span><div class="st">Maduración del Linfocito T — Selección Positiva y Negativa</div></div></div>
+
+<div style="background:var(--sup);border-radius:10px;border:1px solid #dde4ee;padding:16px;margin-bottom:14px;">
+  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;">
+    <div style="text-align:center;padding:10px 14px;background:#f0f4ff;border-radius:9px;border:1px solid #b0c0e0;min-width:120px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--soft);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Entrada</div>
+      <div style="font-weight:700;color:var(--ac);">Pro-T (CD4−CD8−)</div>
+      <div style="font-size:0.78rem;color:var(--soft);">Double Negative (DN)</div>
+    </div>
+    <div style="font-size:1.5rem;color:#c0cce0;">→</div>
+    <div style="text-align:center;padding:10px 14px;background:#e8f0ff;border-radius:9px;border:2px solid #1e3a5f;min-width:130px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ac);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Corteza tímica</div>
+      <div style="font-weight:700;color:var(--ac);">Timocito DP (CD4+CD8+)</div>
+      <div style="font-size:0.78rem;color:var(--soft);">Double Positive (DP)</div>
+    </div>
+    <div style="font-size:1.5rem;color:#c0cce0;">→</div>
+    <div style="background:#f5f8ff;border:2px solid var(--inn);border-radius:9px;padding:10px 14px;min-width:160px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--inn);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">✅ SELECCIÓN POSITIVA</div>
+      <div style="font-size:0.83rem;color:var(--soft);">Sobreviven si reconocen MHC propio.<br><strong>Fallo → muerte por neglect</strong><br>(95% de los timocitos)</div>
+    </div>
+    <div style="font-size:1.5rem;color:#c0cce0;">→</div>
+    <div style="background:#fff5f4;border:2px solid var(--rojo);border-radius:9px;padding:10px 14px;min-width:160px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--rojo);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">❌ SELECCIÓN NEGATIVA</div>
+      <div style="font-size:0.83rem;color:var(--soft);">Eliminación de T con alta afinidad por antígenos propios (auto-reactivos).<br><strong>Gen AIRE ⭐</strong></div>
+    </div>
+    <div style="font-size:1.5rem;color:#c0cce0;">→</div>
+    <div style="text-align:center;padding:10px 14px;background:#f0fff8;border-radius:9px;border:2px solid var(--ada);min-width:130px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--ada);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Salida</div>
+      <div style="font-weight:700;color:var(--ada);">T maduro SP</div>
+      <div style="font-size:0.78rem;color:var(--soft);">Single Positive<br>CD4+ o CD8+</div>
+    </div>
+  </div>
+  <div style="font-size:0.83rem;color:var(--soft);margin-top:12px;padding:10px;background:#f6f8fc;border-radius:8px;">
+    <strong>Gen AIRE (AutoImmune REgulator):</strong> Expresado en células epiteliales medulares tímicas. Permite expresar Ag periféricos propios (insulina, tiroglobulina…) en el timo → elimina T autoreactivos. <strong>Mutación de AIRE → síndrome APS-1 (poliendocrinopatía autoinmune tipo 1) ⭐</strong>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ═══ 9. CITOCINAS CLAVE ═══ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">09 · Mensajeros</span><div class="st">Citocinas Esenciales — Funciones y Fuentes</div></div></div>
+
+<div class="tw">
+  <table>
+    <thead><tr><th>Citocina</th><th>Fuente principal</th><th>Función</th><th>Dato OPE ⭐</th></tr></thead>
+    <tbody>
+      <tr><td><strong>IL-1</strong></td><td>Macrófago</td><td>Fiebre (pirógeno endógeno), activación células endoteliales, inflamación aguda.</td><td style="color:var(--rojo);font-weight:700;">Pirógeno endógeno junto con IL-6 y TNF-α ⭐</td></tr>
+      <tr><td><strong>IL-2</strong></td><td>T CD4+ (Th1)</td><td>Factor de crecimiento de linfocitos T. Proliferación y activación de T y NK.</td><td>Terapia biológica: IL-2 recombinante en melanoma metastásico.</td></tr>
+      <tr><td><strong>IL-4</strong></td><td>T CD4+ (Th2)</td><td>Diferenciación Th2. Cambio de clase de Ig hacia IgE. Activa eosinófilos.</td><td style="color:var(--naranja);">IL-4 → Th2 → IgE → alergia ⭐</td></tr>
+      <tr><td><strong>IL-5</strong></td><td>Th2, mastocitos</td><td>Diferenciación y activación de eosinófilos.</td><td>Anticuerpo anti-IL-5 (mepolizumab): tto asma eosinofílica ⭐</td></tr>
+      <tr><td><strong>IL-6</strong></td><td>Macrófago, Th2</td><td>Pirógeno endógeno. Diferenciación células plasmáticas. Fase aguda (PCR, fibrinógeno).</td><td style="color:var(--rojo);">Tocilizumab = anti-IL-6 (AR, tormenta de citocinas COVID) ⭐</td></tr>
+      <tr><td><strong>IL-8 (CXCL8)</strong></td><td>Macrófago, endotelio</td><td>Quimiocina. Recluta neutrófilos al foco infeccioso.</td><td>Principal quimioatrayente de neutrófilos.</td></tr>
+      <tr><td><strong>IL-10</strong></td><td>Treg, Th2, macrófago M2</td><td>Antiinflamatoria. Inhibe producción de citocinas proinflamatorias. Tolera infección.</td><td>IL-10 = principal citocina antiinflamatoria ⭐</td></tr>
+      <tr><td><strong>IL-12</strong></td><td>Macrófago, DC</td><td>Diferenciación Th1. Activa NK. Promueve inmunidad celular.</td><td>IL-12 → Th1 → inmunidad celular → IFN-γ ⭐</td></tr>
+      <tr><td><strong>IL-17</strong></td><td>Th17</td><td>Inflamación neutrofílica. Defensa frente a hongos y bacterias extracelulares.</td><td>Déficit IL-17 → candidiasis mucocutánea recurrente ⭐</td></tr>
+      <tr><td><strong>TNF-α</strong></td><td>Macrófago, NK, T</td><td>Pirógeno. Caquexia. Activación endotelial. Formación granuloma.</td><td>Adalimumab, infliximab = anti-TNF-α (AR, Crohn, espondilitis) ⭐</td></tr>
+      <tr><td><strong>IFN-γ</strong></td><td>T CD4+ Th1, T CD8+, NK</td><td>Activa macrófagos. Aumenta expresión MHC I y II. Antiviral. Promueve Th1.</td><td>IFN-γ = citocina de la inmunidad celular (intracellular) ⭐</td></tr>
+      <tr><td><strong>IFN-α/β</strong></td><td>Células infectadas por virus</td><td>Respuesta antiviral. Activa NK. Inducen estado antiviral en células vecinas.</td><td>IFN tipo I = innata antiviral. Producidos por células infectadas.</td></tr>
+      <tr><td><strong>TGF-β</strong></td><td>Treg, plaquetas</td><td>Antiinflamatorio. Fibrosis. Diferenciación Treg y Th17 (según contexto).</td><td>TGF-β + IL-6 → Th17. TGF-β solo → Treg ⭐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · INMUNOLOGÍA</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>Inmunidad innata vs adaptativa: diferencia fundamental</strong> → Innata: sin memoria, rápida, inespecífica. Adaptativa: con memoria, lenta (1.ª vez), específica. La única con memoria es la adaptativa.</div>
+    <div class="pe"><span class="s">★</span><strong>Primer anticuerpo en aparecer tras infección</strong> → IgM. Marca infección activa o reciente. IgG aparece después y persiste (vacunación, memoria).</div>
+    <div class="pe"><span class="s">★</span><strong>Única Ig que cruza la placenta</strong> → IgG. Protege al neonato en los primeros 6 meses de vida. La IgM materna no cruza.</div>
+    <div class="pe"><span class="s">★</span><strong>Ig más abundante en secreciones</strong> → IgA secretora (SIgA). Calostro, saliva, lágrimas, secreciones genitales. La IgG es la más abundante en suero.</div>
+    <div class="pe"><span class="s">★</span><strong>Inmunodeficiencia más frecuente</strong> → Déficit de IgA selectivo. Generalmente asintomático o infecciones respiratorias recurrentes. Riesgo de anafilaxia con transfusiones de sangre completa.</div>
+    <div class="pe"><span class="s">★</span><strong>Hipersensibilidad tipo IV: la única sin anticuerpos</strong> → Mediada por linfocitos T (CD4+/Th1). Tardía: 48–72h. Prueba de Mantoux = tipo IV. Dermatitis de contacto = tipo IV.</div>
+    <div class="pe"><span class="s">★</span><strong>Corpúsculos de Hassall</strong> → Marcador histológico exclusivo del timo. Epitelio escamoso en espiral en la médula tímica. Presentes desde fetal. Su ausencia = síndrome DiGeorge.</div>
+    <div class="pe"><span class="s">★</span><strong>Zona T del ganglio = paracorteza</strong> → Los linfocitos T están en la paracorteza. Los B están en la corteza (folículos). Las células plasmáticas en los cordones medulares.</div>
+    <div class="pe"><span class="s">★</span><strong>Asplenia: riesgo infeccioso</strong> → Infecciones graves por bacterias capsuladas (neumococo, Haemophilus, meningococo). Vacunar antes de esplenectomía programada. Penicilina profiláctica en niños.</div>
+    <div class="pe"><span class="s">★</span><strong>NK: características diferenciales</strong> → CD56+ CD16+ CD3− (no son T). Matan sin necesidad de MHC ni sensibilización previa. Buscan células con MHC-I ausente (tumorales, infectadas por virus).</div>
+    <div class="pe"><span class="s">★</span><strong>Células de Reed-Sternberg</strong> → Gigantes bilobuladas con "ojo de lechuza". Patognomónicas del linfoma de Hodgkin. Son linfocitos B aberrantes en el ganglio.</div>
+    <div class="pe"><span class="s">★</span><strong>Gen AIRE en el timo</strong> → Permite expresar Ag periféricos propios en la médula tímica → selección negativa de T autoreactivos. Mutación → APS-1 (poliendocrinopatía autoinmune).</div>
+    <div class="pe"><span class="s">★</span><strong>Déficit complemento terminal (C5–C9)</strong> → Susceptibilidad específica a Neisseria (gonorrhoeae, meningitidis). El MAC no puede formarse → la bacteria no se lisa.</div>
+    <div class="pe"><span class="s">★</span><strong>IL-10: la antiinflamatoria</strong> → Producida por Treg y macrófagos M2. Inhibe TNF-α, IL-1, IL-6. Frena la respuesta inflamatoria. Tocilizumab bloquea IL-6 (no IL-10).</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">APC</span><span class="gd">Célula presentadora de antígenos</span></div>
+  <div class="gi"><span class="ga">BCR</span><span class="gd">Receptor del linfocito B</span></div>
+  <div class="gi"><span class="ga">TCR</span><span class="gd">Receptor del linfocito T</span></div>
+  <div class="gi"><span class="ga">MHC</span><span class="gd">Complejo mayor de histocompatibilidad</span></div>
+  <div class="gi"><span class="ga">HLA</span><span class="gd">Human Leukocyte Antigen (MHC en humanos)</span></div>
+  <div class="gi"><span class="ga">PAMP</span><span class="gd">Patrón molecular asociado a patógeno</span></div>
+  <div class="gi"><span class="ga">TLR</span><span class="gd">Toll-like receptor (PRR)</span></div>
+  <div class="gi"><span class="ga">MAC</span><span class="gd">Complejo de ataque a membrana (C5b–C9)</span></div>
+  <div class="gi"><span class="ga">ADCC</span><span class="gd">Citotoxicidad celular anticuerpo-dependiente</span></div>
+  <div class="gi"><span class="ga">NK</span><span class="gd">Natural Killer</span></div>
+  <div class="gi"><span class="ga">DC</span><span class="gd">Célula dendrítica</span></div>
+  <div class="gi"><span class="ga">HEV</span><span class="gd">Vénula endotelio alto (entrada linfocitos)</span></div>
+  <div class="gi"><span class="ga">AIRE</span><span class="gd">AutoImmune REgulator (gen tímico)</span></div>
+  <div class="gi"><span class="ga">PALS</span><span class="gd">Vaina linfoide periarterial (bazo)</span></div>
+  <div class="gi"><span class="ga">MALT</span><span class="gd">Tejido linfoide asociado a mucosas</span></div>
+  <div class="gi"><span class="ga">GALT</span><span class="gd">MALT intestinal (Placas de Peyer)</span></div>
+</div>
+
+<div style="text-align:center;margin-top:26px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.57rem;letter-spacing:2px;text-transform:uppercase;color:#3a6a9a;">
+  CÁPSULAS DE REPASO · INMUNOLOGÍA · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

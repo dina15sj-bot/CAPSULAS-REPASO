@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articulaciones · Cápsulas INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#6a5a1a;--ac2:#8a7a2a;--acl:#b0a050;
+  --sin:#8a2a10;   /* sinartrosis rojo oscuro */
+  --anf:#1a5a8a;   /* anfiartrosis azul */
+  --dia:#2a6a1a;   /* diartrosis verde */
+  --fondo:#f8f5ec;--sup:#ffffff;
+  --txt:#1a1508;--soft:#4a3a18;
+  --rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--naranja:#c47a10;
+  --perla:#fffce6;--pb:#e0c020;--ph:#b08010;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14px;line-height:1.55;}
+
+/* ── HEADER ── */
+.ph{background:linear-gradient(135deg,#0e0c04 0%,#2a2408 55%,#6a5a1a 100%);padding:20px 32px 16px;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(ellipse at 75% 55%,rgba(176,160,80,0.1) 0%,transparent 60%),
+  repeating-linear-gradient(30deg,transparent,transparent 35px,rgba(255,255,255,0.012) 35px,rgba(255,255,255,0.012) 36px);
+  pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;position:relative;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#c8b860;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:2px 8px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac);color:#fff;} .p2{background:rgba(255,255,255,0.1);color:#bbb;}
+.psin{background:var(--sin);color:#fff;} .panf{background:var(--anf);color:#fff;} .pdia{background:var(--dia);color:#fff;}
+
+.wrap{max-width:1150px;margin:0 auto;padding:22px 18px;}
+.sh{display:flex;align-items:center;gap:10px;margin:26px 0 12px;}
+.sb{width:5px;height:30px;border-radius:3px;background:var(--ac);flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;color:#0e0c04;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:24px 0;opacity:0.25;}
+
+/* ══ ÁRBOL JERÁRQUICO ══ */
+.tree-wrap{background:var(--sup);border-radius:13px;border:1px solid #d8cc98;padding:22px;margin-bottom:16px;overflow-x:auto;}
+.tree-title{font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);text-align:center;margin-bottom:20px;}
+.tree-svg-wrap{display:flex;justify-content:center;}
+
+/* ══ BLOQUES PRINCIPALES ══ */
+.bloque{border-radius:12px;overflow:hidden;margin-bottom:18px;border:2px solid;}
+.bloque-head{padding:14px 20px;}
+.bloque-head h2{font-family:'Playfair Display',serif;font-weight:900;font-size:1.35rem;color:#fff;}
+.bloque-head .bsub{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-top:3px;}
+.bloque-head .bdesc{font-size:0.85rem;color:rgba(255,255,255,0.85);margin-top:6px;line-height:1.5;}
+.bloque-body{padding:16px 20px;background:var(--sup);}
+
+/* ══ CARDS SUBTIPOS ══ */
+.subtipos{display:grid;gap:12px;}
+.subtipos-3{grid-template-columns:1fr 1fr 1fr;}
+.subtipos-2{grid-template-columns:1fr 1fr;}
+.subtipos-6{grid-template-columns:repeat(3,1fr);}
+
+.sub-card{border-radius:10px;border:1px solid #ddd;overflow:hidden;background:var(--sup);transition:box-shadow 0.15s;}
+.sub-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.1);}
+.sub-head{padding:10px 13px;}
+.sub-head h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;display:block;}
+.sub-head .sh-alt{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:rgba(255,255,255,0.65);letter-spacing:1px;text-transform:uppercase;margin-top:2px;display:block;}
+.sub-body{padding:10px 13px;display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:start;}
+.sub-body.full{grid-template-columns:1fr;}
+
+/* SVG articulaciones */
+.svg-box{display:flex;justify-content:center;align-items:center;background:#f8f5ec;border-radius:8px;border:1px solid #e0d8b0;padding:6px;}
+.sub-info{font-size:0.8rem;line-height:1.65;color:var(--soft);}
+.sub-info strong{color:var(--txt);}
+.sub-info .ej{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;color:var(--ac);display:block;margin-top:4px;}
+.sub-info .mov{display:inline-flex;align-items:center;gap:4px;background:#f0ece0;border-radius:5px;padding:2px 7px;font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;color:var(--ac);margin-top:3px;}
+.ope-b{display:inline-block;background:var(--ph);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.53rem;font-weight:700;padding:1px 5px;border-radius:4px;letter-spacing:0.5px;vertical-align:middle;margin-left:3px;}
+
+/* ══ TABLA COMPARATIVA DIARTROSIS ══ */
+.tw{overflow-x:auto;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.79rem;background:var(--sup);border-radius:9px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+thead tr{background:#0e0c04;}
+thead th{font-family:'JetBrains Mono',monospace;font-size:0.59rem;letter-spacing:1.5px;text-transform:uppercase;color:#c8b860;padding:9px 10px;text-align:left;}
+tbody tr:nth-child(odd){background:#f8f5ec;}
+tbody tr:nth-child(even){background:#fff;}
+tbody td{padding:7px 10px;border-bottom:1px solid #e0d8b0;vertical-align:top;}
+
+/* ══ MAPA CUERPO ══ */
+.body-map{background:var(--sup);border-radius:12px;border:1px solid #d8cc98;padding:18px;margin-bottom:14px;}
+.body-map-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);text-align:center;margin-bottom:14px;}
+.body-layout{display:grid;grid-template-columns:1fr 220px 1fr;gap:12px;align-items:start;}
+.body-col{display:flex;flex-direction:column;gap:7px;}
+.body-col.right{align-items:flex-end;}
+.body-tag{display:flex;align-items:center;gap:7px;}
+.body-col.right .body-tag{flex-direction:row-reverse;}
+.body-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.body-info .bn{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:var(--txt);display:block;}
+.body-info .bf{font-size:0.7rem;color:var(--soft);}
+.body-info.right{text-align:right;}
+
+/* ══ PERLAS ══ */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:26px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:9px 18px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:12px 14px;}
+.pe{padding:7px 9px;border-bottom:1px solid #e8e098;font-size:0.81rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #e8e098;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#261600;}
+
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px;}
+.gi{background:var(--sup);border-radius:7px;padding:7px 9px;border:1px solid #d8cc98;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:var(--ac);display:block;margin-bottom:1px;}
+.gd{font-size:0.73rem;color:var(--soft);}
+
+@media(max-width:900px){
+  .subtipos-3,.subtipos-6{grid-template-columns:1fr 1fr;}
+  .body-layout{grid-template-columns:1fr;}
+  .body-col.right{align-items:flex-start;}
+  .body-col.right .body-tag{flex-direction:row;}
+  .body-info.right{text-align:left;}
+}
+@media(max-width:600px){
+  .subtipos-3,.subtipos-6,.subtipos-2{grid-template-columns:1fr;}
+  .sub-body{grid-template-columns:1fr;}
+  .perlas-g{grid-template-columns:1fr;}
+  .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+  .tree-svg-wrap svg{min-width:600px;}
+}
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:#6a5a1a;margin-bottom:4px;">CÁPSULAS INGESA · ANATOMÍA</div>
+  <h1>Articulaciones</h1>
+  <div class="sub">SINARTROSIS · ANFIARTROSIS · DIARTROSIS · TIPOS · EJEMPLOS · DIAGRAMA ANATÓMICO</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span><span class="pill p2">OPE Militar</span>
+    <span class="pill psin">Sinartrosis</span>
+    <span class="pill panf">Anfiartrosis</span>
+    <span class="pill pdia">Diartrosis</span>
+    <span class="pill p2">★ 10 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════
+     ÁRBOL JERÁRQUICO SVG
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">00 · Clasificación Global</span><div class="st">Árbol Jerárquico — Los 3 Grandes Grupos y sus Subtipos</div></div></div>
+
+<div class="tree-wrap">
+  <div class="tree-title">ARTICULACIONES — Clasificación por Movilidad y Tejido de Unión</div>
+  <div class="tree-svg-wrap">
+  <svg viewBox="0 0 980 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:980px;">
+    <defs>
+      <marker id="a1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#8a2a10"/></marker>
+      <marker id="a2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#1a5a8a"/></marker>
+      <marker id="a3" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#2a6a1a"/></marker>
+    </defs>
+
+    <!-- RAÍZ -->
+    <rect x="370" y="10" width="240" height="46" rx="10" fill="linear-gradient(135deg,#0e0c04,#6a5a1a)" stroke="#6a5a1a" stroke-width="2"/>
+    <rect x="370" y="10" width="240" height="46" rx="10" fill="#2a2408" stroke="#6a5a1a" stroke-width="2"/>
+    <text x="490" y="30" text-anchor="middle" font-family="'Playfair Display'" font-size="14" fill="#c8b860" font-weight="700">ARTICULACIONES</text>
+    <text x="490" y="47" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#a89840" letter-spacing="1">CLASIFICACIÓN POR MOVILIDAD</text>
+
+    <!-- Línea raíz → 3 grupos -->
+    <line x1="490" y1="56" x2="490" y2="75" stroke="#a89840" stroke-width="1.5"/>
+    <line x1="140" y1="75" x2="840" y2="75" stroke="#a89840" stroke-width="1.5"/>
+    <line x1="140" y1="75" x2="140" y2="90" stroke="#8a2a10" stroke-width="1.5"/>
+    <line x1="490" y1="75" x2="490" y2="90" stroke="#1a5a8a" stroke-width="1.5"/>
+    <line x1="840" y1="75" x2="840" y2="90" stroke="#2a6a1a" stroke-width="1.5"/>
+
+    <!-- GRUPO 1: SINARTROSIS -->
+    <rect x="30" y="90" width="220" height="50" rx="9" fill="#7a1a08"/>
+    <text x="140" y="111" text-anchor="middle" font-family="'Playfair Display'" font-size="13" fill="#fff" font-weight="700">SINARTROSIS</text>
+    <text x="140" y="127" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="rgba(255,255,255,0.7)">INMÓVILES · Rígidas</text>
+
+    <!-- Líneas sinartrosis → subtipos -->
+    <line x1="140" y1="140" x2="140" y2="158" stroke="#8a2a10" stroke-width="1.5"/>
+    <line x1="45" y1="158" x2="235" y2="158" stroke="#8a2a10" stroke-width="1.5"/>
+    <line x1="45" y1="158" x2="45" y2="172" stroke="#8a2a10" stroke-width="1.5"/>
+    <line x1="140" y1="158" x2="140" y2="172" stroke="#8a2a10" stroke-width="1.5"/>
+    <line x1="235" y1="158" x2="235" y2="172" stroke="#8a2a10" stroke-width="1.5"/>
+
+    <!-- Subtipos SINARTROSIS -->
+    <rect x="8" y="172" width="75" height="56" rx="7" fill="#fff0ee" stroke="#8a2a10" stroke-width="1.5"/>
+    <text x="45" y="191" text-anchor="middle" font-family="'Playfair Display'" font-size="9" fill="#6a0808" font-weight="700">Sinfibrosis</text>
+    <text x="45" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a2a10">(Suturas)</text>
+    <text x="45" y="217" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#6a2010">Tej. fibroso</text>
+    <text x="45" y="225" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#4a1808">Cráneo ⭐</text>
+
+    <rect x="103" y="172" width="75" height="56" rx="7" fill="#fff0ee" stroke="#8a2a10" stroke-width="1.5"/>
+    <text x="140" y="191" text-anchor="middle" font-family="'Playfair Display'" font-size="9" fill="#6a0808" font-weight="700">Sincondrosis</text>
+    <text x="140" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a2a10">Cart. hialino</text>
+    <text x="140" y="215" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#6a2010">Placa epifisaria</text>
+    <text x="140" y="225" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#4a1808">crecimiento ⭐</text>
+
+    <rect x="198" y="172" width="75" height="56" rx="7" fill="#fff0ee" stroke="#8a2a10" stroke-width="1.5"/>
+    <text x="235" y="191" text-anchor="middle" font-family="'Playfair Display'" font-size="9" fill="#6a0808" font-weight="700">Gonfosis</text>
+    <text x="235" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a2a10">Clavija</text>
+    <text x="235" y="215" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#6a2010">Ligamento</text>
+    <text x="235" y="225" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#4a1808">periodontal ⭐</text>
+
+    <!-- GRUPO 2: ANFIARTROSIS -->
+    <rect x="380" y="90" width="220" height="50" rx="9" fill="#0a3a5a"/>
+    <text x="490" y="111" text-anchor="middle" font-family="'Playfair Display'" font-size="13" fill="#fff" font-weight="700">ANFIARTROSIS</text>
+    <text x="490" y="127" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="rgba(255,255,255,0.7)">SEMIMÓVILES · Limitadas</text>
+
+    <!-- Líneas anfiartrosis → subtipos -->
+    <line x1="490" y1="140" x2="490" y2="158" stroke="#1a5a8a" stroke-width="1.5"/>
+    <line x1="420" y1="158" x2="560" y2="158" stroke="#1a5a8a" stroke-width="1.5"/>
+    <line x1="420" y1="158" x2="420" y2="172" stroke="#1a5a8a" stroke-width="1.5"/>
+    <line x1="560" y1="158" x2="560" y2="172" stroke="#1a5a8a" stroke-width="1.5"/>
+
+    <rect x="383" y="172" width="75" height="56" rx="7" fill="#f0f4ff" stroke="#1a5a8a" stroke-width="1.5"/>
+    <text x="420" y="191" text-anchor="middle" font-family="'Playfair Display'" font-size="9" fill="#0a2a5a" font-weight="700">Sínfisis</text>
+    <text x="420" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#1a5a8a">Fibrocartílago</text>
+    <text x="420" y="215" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a4a7a">Pubis</text>
+    <text x="420" y="225" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#0a3a5a">Vértebras ⭐</text>
+
+    <rect x="523" y="172" width="75" height="56" rx="7" fill="#f0f4ff" stroke="#1a5a8a" stroke-width="1.5"/>
+    <text x="560" y="191" text-anchor="middle" font-family="'Playfair Display'" font-size="9" fill="#0a2a5a" font-weight="700">Sindesmosis</text>
+    <text x="560" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#1a5a8a">Ligamentos</text>
+    <text x="560" y="215" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a4a7a">Tibia-Peroné</text>
+    <text x="560" y="225" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#0a3a5a">Cúbito-Radio ⭐</text>
+
+    <!-- GRUPO 3: DIARTROSIS -->
+    <rect x="730" y="90" width="220" height="50" rx="9" fill="#1a4a0a"/>
+    <text x="840" y="111" text-anchor="middle" font-family="'Playfair Display'" font-size="13" fill="#fff" font-weight="700">DIARTROSIS</text>
+    <text x="840" y="127" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="rgba(255,255,255,0.7)">MÓVILES · Sinoviales</text>
+
+    <!-- Líneas diartrosis → subtipos -->
+    <line x1="840" y1="140" x2="840" y2="158" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="683" y1="158" x2="978" y2="158" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="683" y1="158" x2="683" y2="172" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="735" y1="158" x2="735" y2="172" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="787" y1="158" x2="787" y2="172" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="840" y1="158" x2="840" y2="172" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="893" y1="158" x2="893" y2="172" stroke="#2a6a1a" stroke-width="1.5"/>
+    <line x1="945" y1="158" x2="945" y2="172" stroke="#2a6a1a" stroke-width="1.5"/>
+
+    <!-- 6 subtipos diartrosis -->
+    <rect x="658" y="172" width="50" height="68" rx="6" fill="#f0fff0" stroke="#2a6a1a" stroke-width="1.5"/>
+    <text x="683" y="189" text-anchor="middle" font-family="'Playfair Display'" font-size="8" fill="#0a3a0a" font-weight="700">Enartrosis</text>
+    <text x="683" y="200" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Esférica</text>
+    <text x="683" y="211" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a4a1a">3 ejes</text>
+    <text x="683" y="222" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Hombro</text>
+    <text x="683" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Cadera ⭐</text>
+
+    <rect x="710" y="172" width="50" height="68" rx="6" fill="#f0fff0" stroke="#2a6a1a" stroke-width="1.5"/>
+    <text x="735" y="189" text-anchor="middle" font-family="'Playfair Display'" font-size="8" fill="#0a3a0a" font-weight="700">Condílea</text>
+    <text x="735" y="200" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Elipsoide</text>
+    <text x="735" y="211" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a4a1a">2 ejes</text>
+    <text x="735" y="222" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Muñeca</text>
+    <text x="735" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Metacarpo ⭐</text>
+
+    <rect x="762" y="172" width="50" height="68" rx="6" fill="#f0fff0" stroke="#2a6a1a" stroke-width="1.5"/>
+    <text x="787" y="187" text-anchor="middle" font-family="'Playfair Display'" font-size="7.5" fill="#0a3a0a" font-weight="700">Enc. Recíp.</text>
+    <text x="787" y="198" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Silla de</text>
+    <text x="787" y="209" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">montar</text>
+    <text x="787" y="220" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a4a1a">2 ejes</text>
+    <text x="787" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Pulgar ⭐</text>
+
+    <rect x="815" y="172" width="50" height="68" rx="6" fill="#f0fff0" stroke="#2a6a1a" stroke-width="1.5"/>
+    <text x="840" y="189" text-anchor="middle" font-family="'Playfair Display'" font-size="8" fill="#0a3a0a" font-weight="700">Troclear</text>
+    <text x="840" y="200" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Bisagra</text>
+    <text x="840" y="211" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a4a1a">1 eje</text>
+    <text x="840" y="222" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Codo</text>
+    <text x="840" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Rodilla ⭐</text>
+
+    <rect x="868" y="172" width="50" height="68" rx="6" fill="#f0fff0" stroke="#2a6a1a" stroke-width="1.5"/>
+    <text x="893" y="189" text-anchor="middle" font-family="'Playfair Display'" font-size="8" fill="#0a3a0a" font-weight="700">Trocoide</text>
+    <text x="893" y="200" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Pivote</text>
+    <text x="893" y="211" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a4a1a">1 eje rot.</text>
+    <text x="893" y="222" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Atlas-Axis</text>
+    <text x="893" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">C1-C2 ⭐</text>
+
+    <rect x="920" y="172" width="50" height="68" rx="6" fill="#f0fff0" stroke="#2a6a1a" stroke-width="1.5"/>
+    <text x="945" y="189" text-anchor="middle" font-family="'Playfair Display'" font-size="8" fill="#0a3a0a" font-weight="700">Artrodia</text>
+    <text x="945" y="200" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Plana</text>
+    <text x="945" y="211" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a4a1a">Desliz.</text>
+    <text x="945" y="222" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Carpo</text>
+    <text x="945" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#2a6a1a">Tarso ⭐</text>
+
+    <!-- Nº ejes leyenda pie -->
+    <text x="490" y="295" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#6a5a1a" font-weight="700">Ejes de movimiento: Enartrosis 3 ejes = máxima movilidad · Troclear/Trocoide = 1 eje · Condílea/Silla = 2 ejes · Artrodia = deslizamiento</text>
+  </svg>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════
+     BLOQUE 1: SINARTROSIS
+     ══════════════════════════ -->
+<div class="sh"><div class="sb" style="background:var(--sin);"></div><div><span class="sn" style="color:var(--sin);">01 · Sinartrosis</span><div class="st">Articulaciones Inmóviles — Tejido de Unión Rígido</div></div></div>
+
+<div class="bloque" style="border-color:var(--sin);">
+  <div class="bloque-head" style="background:linear-gradient(135deg,#4a0808,#8a2a10);">
+    <h2>Sinartrosis — Inmóviles</h2>
+    <div class="bsub">SYNARTHROSIS · Fibrous / Cartilaginous joints</div>
+    <div class="bdesc">Los huesos están unidos directamente por tejido fibroso o cartilaginoso, sin cavidad articular. Movimiento nulo o mínimo. Función: estabilidad y protección.</div>
+  </div>
+  <div class="bloque-body">
+    <div class="subtipos subtipos-3">
+
+      <!-- SINFIBROSIS -->
+      <div class="sub-card" style="border-color:#c04020;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#5a0808,#a02020);">
+          <span class="sh-alt">Sinartrosis fibrosa</span>
+          <h3>Sinfibrosis (Sutura)</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Dos huesos del cráneo con sutura interdigitada -->
+              <rect x="5" y="10" width="42" height="90" rx="6" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <rect x="63" y="10" width="42" height="90" rx="6" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <!-- Interdigitaciones (sutura) -->
+              <path d="M47 10 L47 28 L55 28 L55 46 L47 46 L47 64 L55 64 L55 82 L47 82 L47 100" stroke="#c04020" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M63 10 L63 28 L55 28 L55 46 L63 46 L63 64 L55 64 L55 82 L63 82 L63 100" stroke="#c04020" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <!-- Relleno tejido fibroso -->
+              <path d="M47 10 L55 10 L55 28 L63 28 L63 46 L55 46 L55 64 L63 64 L63 82 L55 82 L55 100 L47 100 L47 82 L55 82 L55 64 L47 64 L47 46 L55 46 L55 28 L47 28 Z" fill="#e8a070" opacity="0.4"/>
+              <!-- Etiquetas -->
+              <text x="26" y="58" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">Hueso</text>
+              <text x="84" y="58" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">Hueso</text>
+              <text x="55" y="106" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#c04020" font-weight="700">Tejido fibroso</text>
+              <!-- Flecha movimiento = 0 -->
+              <text x="55" y="8" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020" font-weight="700">MOV: 0</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Unión:</strong> Tejido conjuntivo fibroso denso (ligamento sutural).<br>
+            <strong>Morfología:</strong> Bordes óseos interdigitados (encajados como piezas de puzzle).<br>
+            <span class="ej">📍 Ejemplos: Suturas craneales ⭐ (coronal, sagital, lambdoidea, escamosa)</span>
+            <div class="mov">📐 Movimiento = 0</div><br>
+            <strong>Dato OPE:</strong> En el RN las suturas son blandas → fontanelas. La fontanela anterior (bregmática) cierra a los <strong>18 meses</strong> ⭐. La posterior a los 2–3 meses.<span class="ope-b">OPE</span><br>
+            <strong>Con la edad:</strong> Las suturas se osifican completamente (sinostosis).
+          </div>
+        </div>
+      </div>
+
+      <!-- SINCONDROSIS -->
+      <div class="sub-card" style="border-color:#c04020;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#5a0808,#a02020);">
+          <span class="sh-alt">Sinartrosis cartilaginosa</span>
+          <h3>Sincondrosis</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Dos bloques óseos con placa de cartílago hialino entre ellos -->
+              <!-- Hueso 1 (epífisis) -->
+              <rect x="8" y="8" width="94" height="35" rx="8" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="55" y="30" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#6a4010" font-weight="700">EPÍFISIS</text>
+              <!-- Cartílago hialino -->
+              <rect x="8" y="43" width="94" height="24" rx="0" fill="#a8d8f8" stroke="#1a7ab8" stroke-width="1.5"/>
+              <text x="55" y="53" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#0a4a7a" font-weight="700">CARTÍLAGO HIALINO</text>
+              <text x="55" y="63" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">PLACA EPIFISARIA ⭐</text>
+              <!-- Hueso 2 (diáfisis) -->
+              <rect x="8" y="67" width="94" height="35" rx="8" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="55" y="88" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#6a4010" font-weight="700">DIÁFISIS</text>
+              <!-- Flecha crecimiento -->
+              <text x="55" y="108" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#c04020" font-weight="700">↕ Crecimiento óseo</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Unión:</strong> Cartílago hialino.<br>
+            <strong>Función clave:</strong> Permite el <strong>crecimiento longitudinal del hueso</strong> en niños y adolescentes ⭐<br>
+            <span class="ej">📍 Ejemplos: Placa epifisaria (entre epífisis y diáfisis) · Unión costocondral (costillas - esternón)</span>
+            <div class="mov">📐 Movimiento = 0 (rígida)</div><br>
+            <strong>Dato OPE:</strong> La placa epifisaria se <strong>osifica al terminar el crecimiento</strong> (pubertad). En niños: fractura de Salter-Harris afecta la placa de crecimiento ⭐. La hormona del crecimiento (GH) actúa aquí.<span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GONFOSIS -->
+      <div class="sub-card" style="border-color:#c04020;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#5a0808,#a02020);">
+          <span class="sh-alt">Articulación dentoalveolar</span>
+          <h3>Gonfosis</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Encía -->
+              <rect x="5" y="5" width="100" height="30" rx="6" fill="#f0a0a0"/>
+              <text x="55" y="25" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#7a1010" font-weight="700">HUESO ALVEOLAR</text>
+              <!-- Diente corona -->
+              <path d="M32 35 Q28 18 55 15 Q82 18 78 35 Z" fill="#f8f8e8" stroke="#c0c0a0" stroke-width="1.5"/>
+              <!-- Diente raíz -->
+              <path d="M32 35 Q30 75 55 95 Q80 75 78 35 Z" fill="#f0e8d0" stroke="#c0a080" stroke-width="1.5"/>
+              <!-- Ligamento periodontal -->
+              <path d="M32 35 Q30 75 55 95" stroke="#e87040" stroke-width="3" fill="none" stroke-dasharray="4,2"/>
+              <path d="M78 35 Q80 75 55 95" stroke="#e87040" stroke-width="3" fill="none" stroke-dasharray="4,2"/>
+              <text x="90" y="65" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020" font-weight="700">Lig.</text>
+              <text x="90" y="73" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020" font-weight="700">perio-</text>
+              <text x="90" y="81" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020" font-weight="700">dontal</text>
+              <!-- Ápice raíz -->
+              <circle cx="55" cy="95" r="4" fill="#e8d0b0" stroke="#a08030" stroke-width="1"/>
+              <text x="55" y="108" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#c04020" font-weight="700">Clavija en alvéolo</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Unión:</strong> Ligamento periodontal (fibras de Sharpey).<br>
+            <strong>Forma:</strong> Clavija (raíz del diente) encajada en el alvéolo óseo.<br>
+            <strong>Exclusiva:</strong> Solo existe entre dientes y maxilares. <strong>La única gonfosis del cuerpo</strong> ⭐<span class="ope-b">OPE</span><br>
+            <span class="ej">📍 Ejemplo: Todos los dientes en sus alvéolos</span>
+            <div class="mov">📐 Movimiento = 0 (ligera micromovilidad)</div><br>
+            <strong>Dato OPE:</strong> El ligamento periodontal actúa como amortiguador y tiene mecanorreceptores. Inflamación → periodontitis → pérdida de diente.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     BLOQUE 2: ANFIARTROSIS
+     ══════════════════════════ -->
+<div class="sh"><div class="sb" style="background:var(--anf);"></div><div><span class="sn" style="color:var(--anf);">02 · Anfiartrosis</span><div class="st">Articulaciones Semimóviles — Movimiento Limitado</div></div></div>
+
+<div class="bloque" style="border-color:var(--anf);">
+  <div class="bloque-head" style="background:linear-gradient(135deg,#061828,#0a3a5a);">
+    <h2>Anfiartrosis — Semimóviles</h2>
+    <div class="bsub">AMPHIARTHROSIS · Cartilaginous / Fibrous joints</div>
+    <div class="bdesc">Permiten pequeños movimientos funcionales pero no rangos amplios. Suelen tener un disco o membrana interósea entre los huesos. Fundamentales para amortiguar impactos y transmitir fuerzas.</div>
+  </div>
+  <div class="bloque-body">
+    <div class="subtipos subtipos-2">
+
+      <!-- SÍNFISIS -->
+      <div class="sub-card" style="border-color:#1a5a8a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a2a4a,#1a5a8a);">
+          <span class="sh-alt">Cartilaginosa secundaria</span>
+          <h3>Sínfisis</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Hueso izquierdo -->
+              <rect x="5" y="20" width="38" height="90" rx="8" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="24" y="68" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#6a4010" font-weight="700">Hueso</text>
+              <!-- Cartílago hialino fino: capas -->
+              <rect x="43" y="20" width="7" height="90" fill="#a8d8f8" opacity="0.7"/>
+              <rect x="60" y="20" width="7" height="90" fill="#a8d8f8" opacity="0.7"/>
+              <!-- Disco fibrocartilaginoso central -->
+              <rect x="50" y="20" width="10" height="90" fill="#e8b870"/>
+              <text x="55" y="60" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#5a3000" font-weight="700" transform="rotate(-90,55,60)">FIBROCARTÍLAGO ⭐</text>
+              <!-- Hueso derecho -->
+              <rect x="67" y="20" width="38" height="90" rx="8" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="86" y="68" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#6a4010" font-weight="700">Hueso</text>
+              <!-- Flechas movimiento permitido -->
+              <text x="55" y="118" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a" font-weight="700">↕ Leve movimiento</text>
+              <!-- Capas: cart.hialino + fibrocartilago -->
+              <text x="55" y="13" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a5a8a">CH + Fibrocartílago</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Estructura:</strong> Capa de cartílago hialino en cada superficie ósea + disco fibrocartilaginoso central.<br>
+            <strong>Sin cavidad articular.</strong> Resistente a compresión y tracción.<br>
+            <span class="ej">📍 Ejemplos: Sínfisis del pubis ⭐ (se relaja en el embarazo por relaxina) · Discos intervertebrales ⭐ · Sínfisis mandibular</span>
+            <div class="mov">📐 Movimiento limitado · Amortigua impactos</div><br>
+            <strong>Dato OPE:</strong> La <strong>sínfisis del pubis</strong> se ensancha durante el embarazo por acción de la <strong>relaxina</strong> (hormona) → permite el paso del feto ⭐. Los <strong>discos intervertebrales</strong> son anfiartrosis → hernia discal = protrusión del núcleo pulposo ⭐<span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SINDESMOSIS -->
+      <div class="sub-card" style="border-color:#1a5a8a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a2a4a,#1a5a8a);">
+          <span class="sh-alt">Fibrosa por ligamentos</span>
+          <h3>Sindesmosis</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Tibia (hueso izq) -->
+              <rect x="8" y="15" width="35" height="100" rx="7" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="25" y="68" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#6a4010" font-weight="700">TIBIA</text>
+              <!-- Membrana interósea -->
+              <path d="M43 18 Q55 35 67 18 Q55 50 67 65 Q55 75 67 92 Q55 108 43 115" stroke="#e87040" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+              <!-- Ligamentos adicionales -->
+              <line x1="43" y1="25" x2="67" y2="35" stroke="#c87030" stroke-width="2.5"/>
+              <line x1="43" y1="50" x2="67" y2="60" stroke="#c87030" stroke-width="2.5"/>
+              <line x1="43" y1="75" x2="67" y2="85" stroke="#c87030" stroke-width="2.5"/>
+              <line x1="43" y1="100" x2="67" y2="108" stroke="#c87030" stroke-width="2.5"/>
+              <!-- Peroné -->
+              <rect x="67" y="15" width="35" height="100" rx="7" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="84" y="68" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#6a4010" font-weight="700">PERONÉ</text>
+              <!-- Etiqueta -->
+              <text x="55" y="128" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a5a8a" font-weight="700">Membrana interósea</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Estructura:</strong> Ligamentos resistentes o membrana fibrosa interósea entre los huesos. No hay disco cartilaginoso.<br>
+            <span class="ej">📍 Ejemplos: Tibia-Peroné distal ⭐ · Cúbito-Radio (membrana interósea) · Articulación atlantoaxoidea (ligamentos)</span>
+            <div class="mov">📐 Movimiento mínimo · Resistente a cizallamiento</div><br>
+            <strong>Dato OPE:</strong> La sindesmosis tibioperonea puede lesionarse en esguinces graves de tobillo <strong>Grado III</strong> → "esguince alto de tobillo" ⭐. La membrana interósea del antebrazo es clave en fracturas de Monteggia y Galeazzi ⭐<span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     BLOQUE 3: DIARTROSIS
+     ══════════════════════════ -->
+<div class="sh"><div class="sb" style="background:var(--dia);"></div><div><span class="sn" style="color:var(--dia);">03 · Diartrosis</span><div class="st">Articulaciones Sinoviales — Las Más Comunes y Móviles</div></div></div>
+
+<!-- Estructura sinovial -->
+<div style="background:var(--sup);border-radius:11px;border:1px solid #c8d8c0;padding:14px 18px;margin-bottom:14px;display:grid;grid-template-columns:160px 1fr;gap:14px;align-items:center;">
+  <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:160px;">
+    <!-- Hueso sup -->
+    <rect x="20" y="5" width="120" height="38" rx="8" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+    <!-- Cartílago articular -->
+    <rect x="20" y="43" width="120" height="12" rx="0" fill="#a8d8f8" stroke="#1a7ab8" stroke-width="1"/>
+    <text x="80" y="53" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#0a4a7a" font-weight="700">CARTÍLAGO ARTICULAR</text>
+    <!-- Cavidad sinovial -->
+    <rect x="20" y="55" width="120" height="24" rx="0" fill="#e8f8e8"/>
+    <text x="80" y="64" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#1a6a1a" font-weight="700">CAVIDAD SINOVIAL</text>
+    <text x="80" y="74" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a6a1a">+ Líquido sinovial</text>
+    <!-- Cartílago articular inf -->
+    <rect x="20" y="79" width="120" height="12" rx="0" fill="#a8d8f8" stroke="#1a7ab8" stroke-width="1"/>
+    <!-- Hueso inf -->
+    <rect x="20" y="91" width="120" height="38" rx="8" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+    <!-- Membrana sinovial -->
+    <path d="M20 55 Q10 67 20 79" stroke="#e87040" stroke-width="2.5" fill="none"/>
+    <path d="M140 55 Q150 67 140 79" stroke="#e87040" stroke-width="2.5" fill="none"/>
+    <!-- Cápsula articular -->
+    <path d="M20 43 Q5 67 20 91" stroke="#8a6030" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+    <path d="M140 43 Q155 67 140 91" stroke="#8a6030" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+    <!-- Ligamentos -->
+    <line x1="20" y1="43" x2="20" y2="91" stroke="#6a4020" stroke-width="3" opacity="0.5"/>
+    <line x1="140" y1="43" x2="140" y2="91" stroke="#6a4020" stroke-width="3" opacity="0.5"/>
+    <!-- Etiquetas -->
+    <text x="80" y="25" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO</text>
+    <text x="80" y="113" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO</text>
+    <text x="0" y="68" font-family="'JetBrains Mono'" font-size="5.5" fill="#e87040" font-weight="700" transform="rotate(-90,0,68)">Mb. Sinovial</text>
+    <text x="148" y="68" font-family="'JetBrains Mono'" font-size="5.5" fill="#e87040" font-weight="700" transform="rotate(90,148,68)">Mb. Sinovial</text>
+    <text x="80" y="140" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a6a1a" font-weight="700">ESTRUCTURA SINOVIAL GENÉRICA</text>
+    <text x="80" y="152" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a">Presente en todas las diartrosis</text>
+  </svg>
+  <div style="font-size:0.83rem;line-height:1.85;color:var(--soft);">
+    <strong style="color:var(--txt);">Componentes de toda articulación sinovial (diartrosis):</strong><br>
+    🦴 <strong>Cartílago articular</strong> hialino (no vascularizado, nutre por difusión del líquido sinovial) ⭐<br>
+    🟢 <strong>Cavidad articular</strong> con <strong>líquido sinovial</strong> (viscoso, lubrica y nutre el cartílago) ⭐<br>
+    🟠 <strong>Membrana sinovial</strong> (produce el líquido sinovial, no cubre el cartílago)<br>
+    🟤 <strong>Cápsula articular fibrosa</strong> (contiene y estabiliza)<br>
+    🔵 <strong>Ligamentos</strong> (estabilizan y limitan rangos de movimiento)<br><br>
+    <span style="background:#f0fff0;border:1px solid #a0d8a0;border-radius:6px;padding:4px 9px;font-size:0.8rem;"><strong style="color:#1a6a1a;">La membrana sinovial → inflamada en artritis reumatoide (pannus sinovial) ⭐</strong></span>
+  </div>
+</div>
+
+<div class="bloque" style="border-color:var(--dia);">
+  <div class="bloque-head" style="background:linear-gradient(135deg,#0a2008,#1a5010);">
+    <h2>Diartrosis — 6 Subtipos Sinoviales</h2>
+    <div class="bsub">DIARTHROSIS · Synovial joints · Las más complejas</div>
+    <div class="bdesc">Poseen cavidad articular con líquido sinovial. Clasificadas según la forma de las superficies articulares y los ejes de movimiento que permiten.</div>
+  </div>
+  <div class="bloque-body">
+    <div class="subtipos subtipos-6" style="grid-template-columns:repeat(3,1fr);">
+
+      <!-- ENARTROSIS -->
+      <div class="sub-card" style="border-color:#2a7a1a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a3a08,#2a7a1a);">
+          <span class="sh-alt">Esférica / Ball-and-socket</span>
+          <h3>Enartrosis</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Cavidad acetabular / glenoide (cóncava) -->
+              <path d="M10 55 Q10 10 55 10 Q100 10 100 55 Q100 100 55 100 Q10 100 10 55 Z" fill="#e8d8b0" stroke="#a08030" stroke-width="2"/>
+              <!-- Cartílago articular cavidad -->
+              <path d="M18 55 Q18 18 55 18 Q92 18 92 55 Q92 92 55 92 Q18 92 18 55 Z" fill="#c8e8f8" stroke="#1a8ab8" stroke-width="1"/>
+              <!-- Cabeza esférica (convex) -->
+              <circle cx="55" cy="55" r="26" fill="#f0e8c8" stroke="#a08030" stroke-width="2"/>
+              <!-- Cartílago articular cabeza -->
+              <circle cx="55" cy="55" r="22" fill="#f8f5e8" stroke="#d0c098" stroke-width="0.8"/>
+              <!-- Ligamento cabeza (redondo) -->
+              <line x1="55" y1="55" x2="55" y2="77" stroke="#8a5020" stroke-width="2" stroke-dasharray="3,2"/>
+              <!-- Ejes de rotación -->
+              <line x1="25" y1="55" x2="85" y2="55" stroke="#c04020" stroke-width="1" stroke-dasharray="4,2" opacity="0.6"/>
+              <line x1="55" y1="25" x2="55" y2="85" stroke="#c04020" stroke-width="1" stroke-dasharray="4,2" opacity="0.6"/>
+              <ellipse cx="55" cy="55" rx="22" ry="8" fill="none" stroke="#c04020" stroke-width="1" stroke-dasharray="3,2" opacity="0.4"/>
+              <!-- Label ejes -->
+              <text x="55" y="105" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a7a1a" font-weight="700">3 ejes = max. movil.</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Forma:</strong> Cabeza esférica en cavidad cóncava (acetábulo/glenoide).<br>
+            <strong>Ejes: 3</strong> (flexo-ext, abd-add, rotación) ⭐<br>
+            <strong>Mayor movilidad de todas las diartrosis.</strong><br>
+            <span class="ej">📍 Hombro ⭐ · Cadera ⭐</span>
+            <div class="mov">🔄 Todos los movimientos</div><br>
+            <strong>OPE:</strong> Hombro = más móvil pero más inestable (luxación anterior más frecuente). Cadera = más estable (acetábulo más profundo). <span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONDÍLEA -->
+      <div class="sub-card" style="border-color:#2a7a1a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a3a08,#2a7a1a);">
+          <span class="sh-alt">Elipsoidea / Condyloid</span>
+          <h3>Condílea</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Superficie cóncava elipsoide (receptor) -->
+              <ellipse cx="55" cy="70" rx="46" ry="24" fill="#e8d8b0" stroke="#a08030" stroke-width="1.5"/>
+              <ellipse cx="55" cy="68" rx="38" ry="18" fill="#c8e8f8" stroke="#1a8ab8" stroke-width="1"/>
+              <!-- Cóndilo elipsoide (convexo) -->
+              <ellipse cx="55" cy="52" rx="32" ry="18" fill="#f0e8c8" stroke="#a08030" stroke-width="2"/>
+              <ellipse cx="55" cy="51" rx="27" ry="14" fill="#f8f5e8" stroke="#d0c098" stroke-width="0.8"/>
+              <!-- Hueso proximal -->
+              <rect x="28" y="8" width="54" height="28" rx="7" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="55" y="26" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO</text>
+              <!-- Ejes (2) -->
+              <line x1="15" y1="55" x2="95" y2="55" stroke="#c04020" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>
+              <line x1="55" y1="35" x2="55" y2="95" stroke="#1a5a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.7"/>
+              <text x="55" y="105" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a7a1a" font-weight="700">2 ejes · Elipsoide</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Forma:</strong> Cóndilo ovalado (elipsoide) en cavidad elipsoide.<br>
+            <strong>Ejes: 2</strong> (flexo-ext + abd-add). Sin rotación axial. ⭐<br>
+            <span class="ej">📍 Muñeca ⭐ · Articulación metacarpofalángica · Atlanto-occipital</span>
+            <div class="mov">↕ ↔ Flex/Ext + Abd/Add</div><br>
+            <strong>OPE:</strong> Muñeca = condílea (2 ejes). Confusión frecuente con encaje recíproco. La diferencia: encaje recíproco permite oposición del pulgar. <span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENCAJE RECÍPROCO -->
+      <div class="sub-card" style="border-color:#2a7a1a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a3a08,#2a7a1a);">
+          <span class="sh-alt">Silla de montar / Saddle</span>
+          <h3>Encaje Recíproco</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Superficie inferior (silla cóncava-convexa) -->
+              <path d="M10 75 Q30 55 55 70 Q80 85 100 65" stroke="#a08030" stroke-width="2" fill="none"/>
+              <path d="M10 80 Q30 60 55 75 Q80 90 100 70 L100 95 Q80 105 55 95 Q30 100 10 95 Z" fill="#e8d8b0" stroke="#a08030" stroke-width="1.5"/>
+              <!-- Cartílago articular inferior -->
+              <path d="M15 77 Q32 60 55 73 Q78 86 97 68 L97 75 Q78 92 55 79 Q32 66 15 83 Z" fill="#c8e8f8" stroke="#1a8ab8" stroke-width="0.8" opacity="0.7"/>
+              <!-- Superficie superior (convexa-cóncava inversa: silla) -->
+              <path d="M18 68 Q38 88 55 68 Q72 48 92 65 Q72 55 55 60 Q38 65 18 50 Z" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <!-- Ejes cruzados -->
+              <line x1="15" y1="58" x2="95" y2="58" stroke="#c04020" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.7"/>
+              <line x1="55" y1="30" x2="55" y2="90" stroke="#1a5a8a" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.7"/>
+              <text x="55" y="105" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a7a1a" font-weight="700">Cóncavo-convexo inverso</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Forma:</strong> Superficies cóncavo-convexas perpendiculares entre sí (como jinete sobre silla).<br>
+            <strong>Ejes: 2</strong> + permite <strong>oposición del pulgar</strong> ⭐<br>
+            <span class="ej">📍 Trapecio-1.º metacarpiano ⭐ (base del pulgar) · Esternoclavicular</span>
+            <div class="mov">↕ ↔ + Oposición</div><br>
+            <strong>OPE:</strong> La <strong>articulación trapeciometacarpiana del pulgar</strong> es la única encaje recíproco del cuerpo con oposición. Rizartrosis = artrosis de esta articulación ⭐ <span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TROCLEAR -->
+      <div class="sub-card" style="border-color:#2a7a1a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a3a08,#2a7a1a);">
+          <span class="sh-alt">Bisagra / Hinge joint</span>
+          <h3>Troclear (Gínglimo)</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Tróclea (polea) superior -->
+              <rect x="15" y="10" width="80" height="28" rx="7" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="55" y="28" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO PROX.</text>
+              <!-- Ranura central de la tróclea -->
+              <path d="M15 38 Q55 30 95 38 Q55 46 15 38 Z" fill="#c8e8f8" stroke="#1a8ab8" stroke-width="1"/>
+              <!-- Cavidad sigmoidea (media luna) -->
+              <path d="M20 52 Q55 38 90 52 Q90 60 55 58 Q20 60 20 52 Z" fill="#c8e8f8" stroke="#1a8ab8" stroke-width="1"/>
+              <!-- Hueso distal -->
+              <rect x="15" y="72" width="80" height="28" rx="7" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <text x="55" y="90" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO DIST.</text>
+              <!-- Eje único -->
+              <line x1="5" y1="57" x2="105" y2="57" stroke="#c04020" stroke-width="2" stroke-dasharray="5,3" opacity="0.8"/>
+              <!-- Flechas flex/ext -->
+              <text x="10" y="42" font-family="'JetBrains Mono'" font-size="10" fill="#1a5a8a" opacity="0.8">↕</text>
+              <text x="55" y="107" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a7a1a" font-weight="700">1 eje · Flex/Ext solo</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Forma:</strong> Polea (tróclea) convexa en cavidad sigmoidea cóncava. Un solo eje transversal.<br>
+            <strong>Ejes: 1</strong> (solo flexión y extensión) ⭐<br>
+            <span class="ej">📍 Codo ⭐ (húmero-cúbito) · Rodilla ⭐ (con meniscos) · Tobillo · Interfalángicas</span>
+            <div class="mov">↕ Solo Flexión / Extensión</div><br>
+            <strong>OPE:</strong> La rodilla es troclear con meniscos (que la hacen condílea funcionalmente). El codo tiene componente troclear (húmero-cúbito) + trocoide (húmero-radio). <span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TROCOIDE -->
+      <div class="sub-card" style="border-color:#2a7a1a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a3a08,#2a7a1a);">
+          <span class="sh-alt">Pivote / Pivot joint</span>
+          <h3>Trocoide</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Anillo de la apófisis odontoide -->
+              <circle cx="55" cy="55" r="42" fill="#e8d8b0" stroke="#a08030" stroke-width="1.5"/>
+              <!-- Ligamento transverso -->
+              <rect x="12" y="48" width="86" height="14" rx="5" fill="#d0a060" stroke="#9a7030" stroke-width="1.5"/>
+              <text x="55" y="59" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#4a2808" font-weight="700">LIG. TRANSVERSO</text>
+              <!-- Apófisis odontoide (pivote central) -->
+              <circle cx="55" cy="55" r="16" fill="#f0e8c8" stroke="#a08030" stroke-width="2"/>
+              <circle cx="55" cy="55" r="11" fill="#f8f5e8"/>
+              <text x="55" y="51" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#6a4010" font-weight="700">ODONT.</text>
+              <text x="55" y="61" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#6a4010" font-weight="700">AXIS</text>
+              <!-- Flecha de rotación circular -->
+              <path d="M20 40 Q35 12 70 18 Q95 25 100 55 Q100 85 75 98" stroke="#c04020" stroke-width="2" fill="none" marker-end="url(#rota)"/>
+              <defs><marker id="rota" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#c04020"/></marker></defs>
+              <text x="55" y="105" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a7a1a" font-weight="700">1 eje · Solo Rotación</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Forma:</strong> Pivote cilíndrico que rota dentro de un anillo fibroso o óseo.<br>
+            <strong>Ejes: 1</strong> (solo rotación axial) ⭐<br>
+            <span class="ej">📍 Atlas-Axis (C1-C2) ⭐ → rotación del cuello "No" · Radio-Cúbito proximal y distal → pronación/supinación ⭐</span>
+            <div class="mov">🔄 Solo Rotación axial</div><br>
+            <strong>OPE:</strong> La articulación atlantoaxoidea permite el <strong>90% de la rotación de la cabeza</strong> ⭐. La apófisis odontoide del axis actúa como pivote. Luxación en AR → compresión medular. <span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTRODIA -->
+      <div class="sub-card" style="border-color:#2a7a1a;">
+        <div class="sub-head" style="background:linear-gradient(135deg,#0a3a08,#2a7a1a);">
+          <span class="sh-alt">Plana / Gliding joint</span>
+          <h3>Artrodia</h3>
+        </div>
+        <div class="sub-body">
+          <div class="svg-box">
+            <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="width:108px;">
+              <!-- Hueso superior (plano) -->
+              <rect x="10" y="20" width="90" height="28" rx="6" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <!-- Cartílago articular plano superior -->
+              <rect x="10" y="48" width="90" height="8" fill="#a8d8f8" stroke="#1a8ab8" stroke-width="0.8"/>
+              <!-- Cavidad articular mínima -->
+              <rect x="10" y="56" width="90" height="6" fill="#e8f8e8"/>
+              <!-- Cartílago articular plano inferior -->
+              <rect x="10" y="62" width="90" height="8" fill="#a8d8f8" stroke="#1a8ab8" stroke-width="0.8"/>
+              <!-- Hueso inferior (plano) -->
+              <rect x="10" y="70" width="90" height="28" rx="6" fill="#f0e8c8" stroke="#a08030" stroke-width="1.5"/>
+              <!-- Flechas deslizamiento -->
+              <line x1="20" y1="59" x2="90" y2="59" stroke="#c04020" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <text x="8" y="62" font-family="'JetBrains Mono'" font-size="12" fill="#c04020" opacity="0.7">↔</text>
+              <text x="88" y="62" font-family="'JetBrains Mono'" font-size="12" fill="#c04020" opacity="0.7">↔</text>
+              <!-- Label -->
+              <text x="55" y="35" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO</text>
+              <text x="55" y="85" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#6a4010" font-weight="700">HUESO</text>
+              <text x="55" y="105" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a7a1a" font-weight="700">Sup. planas · Deslizamiento</text>
+            </svg>
+          </div>
+          <div class="sub-info">
+            <strong>Forma:</strong> Superficies articulares planas o casi planas. Deslizamiento en cualquier dirección pero muy limitado.<br>
+            <strong>Ejes: ninguno fijo</strong> (deslizamiento multiplanar mínimo) ⭐<br>
+            <span class="ej">📍 Huesos del carpo ⭐ · Huesos del tarso ⭐ · Articulaciones intervertebrales (facetarias) · Acromioclavicular</span>
+            <div class="mov">↔ Deslizamiento mínimo</div><br>
+            <strong>OPE:</strong> Las articulaciones facetarias (zigoapofisarias) de la columna son artrodias → su artrosis causa estenosis de canal lumbar ⭐. El carpo tiene múltiples artrodias que suman movimiento global. <span class="ope-b">OPE</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- TABLA RESUMEN DIARTROSIS -->
+<div class="sh"><div class="sb"></div><div><span class="sn">Referencia rápida</span><div class="st">Tabla Comparativa — Los 6 Subtipos de Diartrosis</div></div></div>
+
+<div class="tw">
+  <table>
+    <thead><tr><th>Tipo</th><th>Alias</th><th>Forma</th><th>N.º Ejes</th><th>Movimientos</th><th>Ejemplo OPE ⭐</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Enartrosis</strong></td><td>Esférica · Ball-socket</td><td>Esfera en cúpula</td><td style="color:var(--rojo);font-weight:700;font-family:'JetBrains Mono',monospace;">3</td><td>Flex/Ext + Abd/Add + Rotación + Circunducción</td><td><strong>Hombro</strong> (más móvil) · <strong>Cadera</strong> (más estable) ⭐</td></tr>
+      <tr><td><strong>Condílea</strong></td><td>Elipsoidea</td><td>Elipse en cavidad</td><td style="color:var(--naranja);font-weight:700;font-family:'JetBrains Mono',monospace;">2</td><td>Flex/Ext + Abd/Add. SIN rotación axial</td><td><strong>Muñeca</strong> ⭐ · Metacarpofalángicas · Atlanto-occipital</td></tr>
+      <tr><td><strong>Encaje Recíproco</strong></td><td>Silla de montar</td><td>Cóncavo-convexo ⊥</td><td style="color:var(--naranja);font-weight:700;font-family:'JetBrains Mono',monospace;">2+</td><td>Flex/Ext + Abd/Add + Oposición (pulgar)</td><td><strong>Trapeciometacarpiana</strong> ⭐ (base pulgar) · Esternoclavicular</td></tr>
+      <tr><td><strong>Troclear (Gínglimo)</strong></td><td>Bisagra · Hinge</td><td>Polea en ranura</td><td style="color:var(--verde);font-weight:700;font-family:'JetBrains Mono',monospace;">1</td><td>SOLO Flexión / Extensión</td><td><strong>Codo</strong> ⭐ · <strong>Rodilla</strong> ⭐ · Tobillo · Interfalángicas</td></tr>
+      <tr><td><strong>Trocoide</strong></td><td>Pivote · Pivot</td><td>Cilindro en anillo</td><td style="color:var(--verde);font-weight:700;font-family:'JetBrains Mono',monospace;">1</td><td>SOLO Rotación axial</td><td><strong>Atlas-Axis (C1-C2)</strong> ⭐ · Radio-Cúbito (pronación/supinación)</td></tr>
+      <tr><td><strong>Artrodia</strong></td><td>Plana · Gliding</td><td>Superficies planas</td><td style="color:var(--azul);font-weight:700;font-family:'JetBrains Mono',monospace;">0</td><td>Deslizamiento mínimo multiplanar</td><td><strong>Carpo</strong> ⭐ · Tarso · Facetarias vertebrales · Acromioclavicular</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MAPA CUERPO -->
+<div class="body-map">
+  <div class="body-map-title">🗺 MAPA CORPORAL — Localización de los Principales Tipos Articulares</div>
+  <div class="body-layout">
+    <div class="body-col">
+      <div class="body-tag"><div class="body-dot" style="background:var(--sin);"></div><div class="body-info"><span class="bn">Suturas craneales</span><span class="bf">Sinfibrosis (sinartrosis)</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--sin);"></div><div class="body-info"><span class="bn">Dientes en alvéolos</span><span class="bf">Gonfosis (sinartrosis)</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--dia);"></div><div class="body-info"><span class="bn">Articulación temporomandibular</span><span class="bf">Diartrosis condílea + disc.</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--dia);"></div><div class="body-info"><span class="bn">Esternoclavicular</span><span class="bf">Diartrosis encaje recíproco</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--dia);"></div><div class="body-info"><span class="bn">Hombro</span><span class="bf">Diartrosis ENARTROSIS ⭐</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--dia);"></div><div class="body-info"><span class="bn">Codo (húmero-cúbito)</span><span class="bf">Diartrosis TROCLEAR ⭐</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--dia);"></div><div class="body-info"><span class="bn">Codo (húmero-radio)</span><span class="bf">Diartrosis TROCOIDE</span></div></div>
+      <div class="body-tag"><div class="body-dot" style="background:var(--dia);"></div><div class="body-info"><span class="bn">Radio-Cúbito (pronación)</span><span class="bf">Diartrosis TROCOIDE ⭐</span></div></div>
+    </div>
+
+    <!-- SILUETA CUERPO SVG -->
+    <div style="display:flex;justify-content:center;">
+      <svg viewBox="0 0 220 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:220px;">
+        <!-- Cabeza -->
+        <ellipse cx="110" cy="42" rx="38" ry="42" fill="#f5e8d8" stroke="#c0a080" stroke-width="1.5"/>
+        <!-- Cuello -->
+        <rect x="95" y="80" width="30" height="25" rx="5" fill="#f0e0c8" stroke="#c0a080" stroke-width="1"/>
+        <!-- Tronco -->
+        <path d="M60 105 Q50 130 55 200 Q60 230 80 240 L140 240 Q160 230 165 200 Q170 130 160 105 Z" fill="#f0e0c8" stroke="#c0a080" stroke-width="1.5"/>
+        <!-- Hombros -->
+        <ellipse cx="60" cy="115" rx="18" ry="14" fill="#e8d8c0" stroke="#c0a080" stroke-width="1"/>
+        <ellipse cx="160" cy="115" rx="18" ry="14" fill="#e8d8c0" stroke="#c0a080" stroke-width="1"/>
+        <!-- Brazos -->
+        <path d="M42 115 Q30 155 35 195" stroke="#e8d0b8" stroke-width="18" stroke-linecap="round" fill="none"/>
+        <path d="M178 115 Q190 155 185 195" stroke="#e8d0b8" stroke-width="18" stroke-linecap="round" fill="none"/>
+        <!-- Codos -->
+        <circle cx="35" cy="195" r="10" fill="#d8c0a0" stroke="#c0a080" stroke-width="1"/>
+        <circle cx="185" cy="195" r="10" fill="#d8c0a0" stroke="#c0a080" stroke-width="1"/>
+        <!-- Antebrazos -->
+        <path d="M35 195 Q28 230 30 260" stroke="#e8d0b8" stroke-width="16" stroke-linecap="round" fill="none"/>
+        <path d="M185 195 Q192 230 190 260" stroke="#e8d0b8" stroke-width="16" stroke-linecap="round" fill="none"/>
+        <!-- Muñecas -->
+        <ellipse cx="30" cy="263" rx="10" ry="7" fill="#d8c0a0" stroke="#c0a080" stroke-width="1"/>
+        <ellipse cx="190" cy="263" rx="10" ry="7" fill="#d8c0a0" stroke="#c0a080" stroke-width="1"/>
+        <!-- Manos -->
+        <ellipse cx="28" cy="283" rx="13" ry="20" fill="#e8d0b8" stroke="#c0a080" stroke-width="1"/>
+        <ellipse cx="192" cy="283" rx="13" ry="20" fill="#e8d0b8" stroke="#c0a080" stroke-width="1"/>
+        <!-- Pelvis -->
+        <path d="M75 240 Q60 265 65 285 Q85 295 110 295 Q135 295 155 285 Q160 265 145 240 Z" fill="#e8d8c0" stroke="#c0a080" stroke-width="1.5"/>
+        <!-- Sínfisis pubis indicador -->
+        <line x1="110" y1="260" x2="110" y2="295" stroke="#1a5a8a" stroke-width="2.5" stroke-dasharray="4,2"/>
+        <!-- Caderas -->
+        <circle cx="75" cy="285" r="14" fill="#d8c8a8" stroke="#c0a080" stroke-width="1"/>
+        <circle cx="145" cy="285" r="14" fill="#d8c8a8" stroke="#c0a080" stroke-width="1"/>
+        <!-- Muslos -->
+        <path d="M68 298 Q60 340 65 375" stroke="#e8d0b8" stroke-width="22" stroke-linecap="round" fill="none"/>
+        <path d="M152 298 Q160 340 155 375" stroke="#e8d0b8" stroke-width="22" stroke-linecap="round" fill="none"/>
+        <!-- Rodillas -->
+        <ellipse cx="65" cy="378" rx="16" ry="12" fill="#d8c0a0" stroke="#c0a080" stroke-width="1"/>
+        <ellipse cx="155" cy="378" rx="16" ry="12" fill="#d8c0a0" stroke="#c0a080" stroke-width="1"/>
+        <!-- Piernas -->
+        <path d="M65 388 Q62 410 63 428" stroke="#e8d0b8" stroke-width="18" stroke-linecap="round" fill="none"/>
+        <path d="M155 388 Q158 410 157 428" stroke="#e8d0b8" stroke-width="18" stroke-linecap="round" fill="none"/>
+
+        <!-- PUNTOS DE ARTICULACIONES coloreados -->
+        <!-- Suturas cráneo -->
+        <circle cx="110" cy="18" r="5" fill="var(--sin)" opacity="0.8"/>
+        <circle cx="85" cy="30" r="4" fill="var(--sin)" opacity="0.7"/>
+        <circle cx="135" cy="30" r="4" fill="var(--sin)" opacity="0.7"/>
+        <!-- ATM -->
+        <circle cx="73" cy="72" r="5" fill="var(--dia)" opacity="0.9"/>
+        <circle cx="147" cy="72" r="5" fill="var(--dia)" opacity="0.9"/>
+        <!-- Atlas-Axis -->
+        <circle cx="110" cy="92" r="5" fill="var(--dia)" stroke="#c04020" stroke-width="1"/>
+        <!-- Hombros -->
+        <circle cx="60" cy="110" r="7" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <circle cx="160" cy="110" r="7" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <!-- Discos intervert. -->
+        <circle cx="110" cy="135" r="4" fill="var(--anf)" opacity="0.8"/>
+        <circle cx="110" cy="160" r="4" fill="var(--anf)" opacity="0.8"/>
+        <circle cx="110" cy="185" r="4" fill="var(--anf)" opacity="0.8"/>
+        <!-- Codos -->
+        <circle cx="35" cy="193" r="6" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <circle cx="185" cy="193" r="6" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <!-- Muñecas -->
+        <circle cx="30" cy="260" r="5" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <circle cx="190" cy="260" r="5" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <!-- Sínfisis pubis -->
+        <circle cx="110" cy="278" r="6" fill="var(--anf)" stroke="#1a5a8a" stroke-width="1.5"/>
+        <!-- Caderas -->
+        <circle cx="75" cy="283" r="8" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <circle cx="145" cy="283" r="8" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <!-- Rodillas -->
+        <circle cx="65" cy="376" r="7" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <circle cx="155" cy="376" r="7" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1.5"/>
+        <!-- Tobillos -->
+        <circle cx="63" cy="425" r="5" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1"/>
+        <circle cx="157" cy="425" r="5" fill="var(--dia)" stroke="#2a7a1a" stroke-width="1"/>
+
+        <!-- Leyenda puntos -->
+        <circle cx="10" cy="412" r="5" fill="var(--sin)"/><text x="18" y="416" font-family="'JetBrains Mono'" font-size="6" fill="#8a2a10" font-weight="700">Sinartros.</text>
+        <circle cx="10" cy="422" r="5" fill="var(--anf)"/><text x="18" y="426" font-family="'JetBrains Mono'" font-size="6" fill="#1a5a8a" font-weight="700">Anfiartros.</text>
+        <circle cx="10" cy="432" r="5" fill="var(--dia)"/><text x="18" y="436" font-family="'JetBrains Mono'" font-size="6" fill="#2a6a1a" font-weight="700">Diartrosis</text>
+      </svg>
+    </div>
+
+    <div class="body-col right">
+      <div class="body-tag"><div class="body-info right"><span class="bn">Atlas-Axis (C1-C2)</span><span class="bf">Diartrosis TROCOIDE ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">ATM</span><span class="bf">Diartrosis condílea con disco</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Discos intervertebrales</span><span class="bf">Anfiartrosis SÍNFISIS ⭐</span></div><div class="body-dot" style="background:var(--anf);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Articulaciones facetarias</span><span class="bf">Diartrosis ARTRODIA ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Sínfisis del pubis</span><span class="bf">Anfiartrosis SÍNFISIS ⭐</span></div><div class="body-dot" style="background:var(--anf);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Cadera</span><span class="bf">Diartrosis ENARTROSIS ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Rodilla</span><span class="bf">Diartrosis TROCLEAR ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Tibia-Peroné distal</span><span class="bf">Anfiartrosis SINDESMOSIS</span></div><div class="body-dot" style="background:var(--anf);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Carpo / Tarso</span><span class="bf">Diartrosis ARTRODIA ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Muñeca</span><span class="bf">Diartrosis CONDÍLEA ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+      <div class="body-tag"><div class="body-info right"><span class="bn">Base del pulgar</span><span class="bf">Diartrosis ENCAJE RECÍPROCO ⭐</span></div><div class="body-dot" style="background:var(--dia);"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · ARTICULACIONES</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>Articulación más móvil del cuerpo</strong> → Hombro (enartrosis). 3 ejes de movimiento. Por eso es también la más inestable y la que más se luxa (luxación anterior glenohumereal = la más frecuente).</div>
+    <div class="pe"><span class="s">★</span><strong>La única gonfosis del cuerpo</strong> → Todas las articulaciones dentarias (raíz del diente en el alvéolo, unidas por ligamento periodontal). Exclusiva de la dentición.</div>
+    <div class="pe"><span class="s">★</span><strong>Sínfisis del pubis: relaxina en el embarazo</strong> → La hormona relaxina relaja la sínfisis del pubis y las articulaciones sacroilíacas durante el embarazo para permitir el parto. Puede causar dolor pélvico (disfunción de la sínfisis).</div>
+    <div class="pe"><span class="s">★</span><strong>Sincondrosis = placa epifisaria</strong> → Permite el crecimiento longitudinal del hueso. Se cierra en la pubertad. Fractura de Salter-Harris la afecta. La GH actúa estimulando el crecimiento en la placa.</div>
+    <div class="pe"><span class="s">★</span><strong>Diartrosis vs Anfiartrosis: tienen o no tienen cavidad sinovial</strong> → Diartrosis: SÍ tienen cavidad sinovial. Anfiartrosis: NO tienen cavidad sinovial (sínfisis tiene disco fibrocartilaginoso, sindesmosis tiene membrana interósea).</div>
+    <div class="pe"><span class="s">★</span><strong>Atlas-Axis: trocoide → rotación "NO" con la cabeza</strong> → C1-C2 = trocoide (pivote). Permite el 90% de la rotación cervical. La apófisis odontoide del axis es el pivote central. Riesgo en AR: luxación atlantoaxoidea.</div>
+    <div class="pe"><span class="s">★</span><strong>Muñeca = condílea (2 ejes, NO rotación axial)</strong> → La rotación de la muñeca que vemos es en realidad pronación/supinación del antebrazo (radio-cúbito = trocoide). La muñeca en sí solo hace flex/ext + desviac. rad/ulnar.</div>
+    <div class="pe"><span class="s">★</span><strong>Encaje recíproco → oposición del pulgar</strong> → La articulación trapeciometacarpiana (base del pulgar) es la única que permite la oposición, exclusiva del ser humano y primates. Su artrosis = rizartrosis.</div>
+    <div class="pe"><span class="s">★</span><strong>Hernia discal → anfiartrosis (sínfisis)</strong> → Los discos intervertebrales son sínfisis (anfiartrosis). La hernia discal = protrusión del núcleo pulposo a través del anillo fibroso. L4-L5 y L5-S1 son las más frecuentes.</div>
+    <div class="pe"><span class="s">★</span><strong>Artritis reumatoide → ataca la membrana sinovial</strong> → El pannus sinovial (proliferación inflamatoria de la membrana sinovial) destruye el cartílago y el hueso. Solo afecta diartrosis (tienen membrana sinovial). Las anfiartrosis y sinartrosis no se afectan.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">Flex/Ext</span><span class="gd">Flexión / Extensión</span></div>
+  <div class="gi"><span class="ga">Abd/Add</span><span class="gd">Abducción / Aducción</span></div>
+  <div class="gi"><span class="ga">GH</span><span class="gd">Hormona del crecimiento</span></div>
+  <div class="gi"><span class="ga">ATM</span><span class="gd">Articulación temporomandibular</span></div>
+  <div class="gi"><span class="ga">AR</span><span class="gd">Artritis reumatoide</span></div>
+  <div class="gi"><span class="ga">Cart.</span><span class="gd">Cartílago</span></div>
+  <div class="gi"><span class="ga">Lig.</span><span class="gd">Ligamento</span></div>
+  <div class="gi"><span class="ga">C1/C2</span><span class="gd">Atlas / Axis (vértebras cervicales)</span></div>
+</div>
+
+<div style="text-align:center;margin-top:24px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:#6a5a1a;">
+  CÁPSULAS DE REPASO · ARTICULACIONES · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

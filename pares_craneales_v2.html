@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pares Craneales · Visual · INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#1a6a6a;--ac2:#2a8a8a;
+  --fondo:#f2f7f7;--sup:#ffffff;
+  --txt:#0a1a1a;--soft:#2a4a4a;
+  --S:#1a5a8a;--M:#9a1a40;--Mx:#b06010;
+  --c1:#1e3a70;--c2:#1a5a3a;--c3:#8a1818;--c4:#4a1870;
+  --c5:#7a4a08;--c6:#104858;--c7:#581848;--c8:#186848;
+  --c9:#682808;--c10:#381868;--c11:#185828;--c12:#383808;
+  --rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--naranja:#c47a10;
+  --perla:#fffce6;--pb:#e0c020;--ph:#b08010;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14px;line-height:1.5;}
+
+.ph{background:linear-gradient(135deg,#030e0e 0%,#0a2a2a 50%,#1a6a6a 100%);padding:20px 32px 16px;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(74,173,173,0.09) 0%,transparent 60%);pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;position:relative;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#60b8b8;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:2px 8px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac);color:#fff;} .p2{background:rgba(255,255,255,0.1);color:#bbb;}
+.ps{background:var(--S);color:#fff;} .pm{background:var(--M);color:#fff;} .pmx{background:var(--Mx);color:#fff;}
+
+.wrap{max-width:1150px;margin:0 auto;padding:22px 18px;}
+.sh{display:flex;align-items:center;gap:10px;margin:26px 0 12px;}
+.sb{width:5px;height:30px;border-radius:3px;background:var(--ac);flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;color:#030e0e;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:24px 0;opacity:0.2;}
+
+/* LAYOUT PRINCIPAL DEL DIAGRAMA DE CARA */
+.anatomy-section{display:grid;grid-template-columns:1fr 320px 1fr;gap:16px;align-items:start;margin-bottom:14px;}
+.par-col{display:flex;flex-direction:column;gap:8px;}
+.par-col.right .par-tag{flex-direction:row-reverse;text-align:right;}
+
+.par-tag{display:flex;align-items:center;gap:8px;}
+.par-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:0.85rem;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.2);}
+.par-info .pn{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:var(--txt);display:block;line-height:1.2;}
+.par-info .pf{font-size:0.7rem;color:var(--soft);line-height:1.3;}
+.par-info .pt-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;padding:1px 5px;border-radius:4px;letter-spacing:0.5px;text-transform:uppercase;margin-top:1px;}
+
+/* SVG CARA */
+.face-container{background:var(--sup);border-radius:12px;border:1px solid #c0d8d8;padding:14px;text-align:center;}
+.face-container .fc-title{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;}
+
+/* TRONCO ENCEFÁLICO SVG */
+.brainstem-wrap{background:var(--sup);border-radius:12px;border:1px solid #c0d8d8;padding:18px;margin-bottom:14px;}
+.bw-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);text-align:center;margin-bottom:14px;}
+.brainstem-layout{display:grid;grid-template-columns:1fr 200px 1fr;gap:10px;align-items:center;}
+.bs-col{display:flex;flex-direction:column;gap:6px;}
+.bs-col.right .bs-tag{flex-direction:row-reverse;text-align:right;}
+.bs-tag{display:flex;align-items:center;gap:6px;}
+.bs-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:#fff;flex-shrink:0;}
+.bs-info .bn{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:var(--txt);display:block;}
+.bs-info .bf{font-size:0.68rem;color:var(--soft);}
+
+/* MOVIMIENTOS OCULARES */
+.oculo-section{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.oculo-card{background:var(--sup);border-radius:11px;border:1px solid #c0d8d8;padding:16px;}
+.oc-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;}
+
+/* VISUAL FIELDS */
+.vfield-wrap{background:var(--sup);border-radius:12px;border:1px solid #c0d8d8;padding:18px;margin-bottom:14px;}
+.vf-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);text-align:center;margin-bottom:14px;}
+.vfield-layout{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.vf-item{text-align:center;}
+.vf-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--soft);margin-bottom:6px;display:block;}
+.vf-cause{font-size:0.75rem;color:var(--rojo);font-weight:700;margin-top:5px;display:block;}
+
+/* BELL vs CENTRAL — visual CSS cara */
+.bell-section{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.bell-card{background:var(--sup);border-radius:11px;border:2px solid;overflow:hidden;}
+.bell-head{padding:10px 16px;}
+.bell-head h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;}
+.bell-sub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:rgba(255,255,255,0.65);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.bell-body{display:grid;grid-template-columns:160px 1fr;gap:10px;padding:14px;align-items:start;}
+.bell-face-wrap{display:flex;justify-content:center;}
+.bell-features{font-size:0.81rem;line-height:1.85;color:var(--soft);}
+.bell-features strong{color:var(--txt);}
+.feature-row{display:flex;align-items:baseline;gap:6px;padding:3px 0;}
+.fcheck{font-size:0.85rem;}
+
+/* TARJETAS PARES */
+.pares-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.par-card{background:var(--sup);border-radius:9px;overflow:hidden;border:1px solid #c0d8d8;}
+.par-head{padding:9px 12px;}
+.par-roman{font-family:'Playfair Display',serif;font-weight:900;font-size:1.5rem;color:rgba(255,255,255,0.2);float:right;line-height:1;}
+.par-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);display:block;}
+.par-name-h{font-family:'Playfair Display',serif;font-weight:700;font-size:0.92rem;color:#fff;display:block;}
+.type-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.52rem;font-weight:700;padding:1px 6px;border-radius:4px;background:rgba(255,255,255,0.15);color:#fff;letter-spacing:0.5px;text-transform:uppercase;margin-top:3px;}
+.par-body{padding:10px 12px;font-size:0.78rem;line-height:1.6;color:var(--soft);}
+.par-body strong{color:var(--txt);}
+.patho-box{background:#f5fafa;border-left:3px solid;border-radius:0 6px 6px 0;padding:6px 9px;margin-top:7px;font-size:0.77rem;}
+.patho-box .pt{font-family:'JetBrains Mono',monospace;font-size:0.54rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:2px;}
+.ope{display:inline-block;background:var(--ph);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.52rem;font-weight:700;padding:1px 5px;border-radius:4px;letter-spacing:0.5px;vertical-align:middle;margin-left:2px;}
+
+/* SÍNDROMES */
+.sindrome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.sind-card{background:var(--sup);border-radius:9px;border:1px solid #c0d8d8;border-top:3px solid;padding:12px;}
+.sind-title{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;}
+.sind-body{font-size:0.8rem;line-height:1.7;color:var(--soft);}
+.sind-body strong{color:var(--txt);}
+
+/* TABLA RESUMEN */
+.tw{overflow-x:auto;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.78rem;background:var(--sup);border-radius:9px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+thead tr{background:#030e0e;}
+thead th{font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;color:#60c8c8;padding:9px 10px;text-align:left;}
+tbody tr:nth-child(odd){background:#f2f7f7;}
+tbody tr:nth-child(even){background:#fff;}
+tbody td{padding:6px 10px;border-bottom:1px solid #c0d8d8;vertical-align:top;}
+.ts td:nth-child(3){color:var(--S);font-weight:700;font-family:'JetBrains Mono',monospace;}
+.tm td:nth-child(3){color:var(--M);font-weight:700;font-family:'JetBrains Mono',monospace;}
+.tmx td:nth-child(3){color:var(--Mx);font-weight:700;font-family:'JetBrains Mono',monospace;}
+
+/* PERLAS */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:26px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:9px 18px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:12px 14px;}
+.pe{padding:7px 9px;border-bottom:1px solid #e8e098;font-size:0.81rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #e8e098;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#261600;}
+
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px;}
+.gi{background:var(--sup);border-radius:7px;padding:7px 9px;border:1px solid #c0d8d8;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:var(--ac);display:block;margin-bottom:1px;}
+.gd{font-size:0.73rem;color:var(--soft);}
+
+@media(max-width:900px){
+  .anatomy-section,.brainstem-layout,.oculo-section,.bell-section{grid-template-columns:1fr;}
+  .pares-grid{grid-template-columns:1fr 1fr;}
+  .sindrome-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .pares-grid,.sindrome-grid,.perlas-g{grid-template-columns:1fr;}
+  .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+  .bell-body{grid-template-columns:1fr;}
+  .vfield-layout{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:#1a6a6a;margin-bottom:4px;">CÁPSULAS INGESA · NEUROLOGÍA</div>
+  <h1>Pares Craneales</h1>
+  <div class="sub">ANATOMÍA VISUAL · TRONCO ENCEFÁLICO · CAMPOS VISUALES · PARÁLISIS FACIAL · SÍNDROMES</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span><span class="pill p2">OPE Militar</span>
+    <span class="pill ps">S Sensitivo</span><span class="pill pm">M Motor</span><span class="pill pmx">Mx Mixto</span>
+    <span class="pill p2">★ 14 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════
+     BLOQUE 1 · DIAGRAMA ANATÓMICO CARA
+     ══════════════════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">01 · Diagrama Anatómico</span><div class="st">Los 12 Pares sobre la Cara y el Cráneo</div></div></div>
+
+<div class="anatomy-section">
+  <!-- columna izquierda: I, II, III, IV, V, VI -->
+  <div class="par-col">
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c1);">I</div>
+      <div class="par-info">
+        <span class="pn">Olfatorio</span>
+        <span class="pf">Olfato · lámina cribosa</span>
+        <span class="pt-badge" style="background:var(--S);color:#fff;">S</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c2);">II</div>
+      <div class="par-info">
+        <span class="pn">Óptico</span>
+        <span class="pf">Visión · quiasma óptico</span>
+        <span class="pt-badge" style="background:var(--S);color:#fff;">S</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c3);">III</div>
+      <div class="par-info">
+        <span class="pn">Oculomotor</span>
+        <span class="pf">RS·RI·RM·OI·párpado·pupila</span>
+        <span class="pt-badge" style="background:var(--M);color:#fff;">M</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c4);">IV</div>
+      <div class="par-info">
+        <span class="pn">Troclear</span>
+        <span class="pf">Oblicuo superior · dorsal</span>
+        <span class="pt-badge" style="background:var(--M);color:#fff;">M</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c5);">V</div>
+      <div class="par-info">
+        <span class="pn">Trigémino</span>
+        <span class="pf">Sensibilidad facial · masticación</span>
+        <span class="pt-badge" style="background:var(--Mx);color:#fff;">Mx</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c6);">VI</div>
+      <div class="par-info">
+        <span class="pn">Abducens</span>
+        <span class="pf">Recto lateral · abducción</span>
+        <span class="pt-badge" style="background:var(--M);color:#fff;">M</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARA SVG central -->
+  <div class="face-container">
+    <div class="fc-title">Mapa Anatómico · Vista Frontal</div>
+    <svg viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;">
+      <!-- Fondo cráneo/silueta -->
+      <defs>
+        <radialGradient id="skinGrad" cx="50%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#f5e8d8"/>
+          <stop offset="100%" stop-color="#d8c0a0"/>
+        </radialGradient>
+        <radialGradient id="irisGrad" cx="40%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#6090b0"/>
+          <stop offset="100%" stop-color="#204060"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Cuello -->
+      <rect x="118" y="340" width="84" height="55" rx="8" fill="#d8c0a0"/>
+
+      <!-- Cabeza principal -->
+      <ellipse cx="160" cy="185" rx="115" ry="140" fill="url(#skinGrad)" stroke="#c0a080" stroke-width="1.5"/>
+
+      <!-- Cabello -->
+      <ellipse cx="160" cy="68" rx="115" ry="55" fill="#3a2a18"/>
+      <rect x="45" y="68" width="230" height="30" fill="#3a2a18"/>
+      <!-- pelo lateral -->
+      <ellipse cx="50" cy="145" rx="22" ry="60" fill="#3a2a18"/>
+      <ellipse cx="270" cy="145" rx="22" ry="60" fill="#3a2a18"/>
+
+      <!-- orejas -->
+      <ellipse cx="47" cy="205" rx="16" ry="24" fill="#d8b898" stroke="#c0a080" stroke-width="1"/>
+      <ellipse cx="273" cy="205" rx="16" ry="24" fill="#d8b898" stroke="#c0a080" stroke-width="1"/>
+      <!-- trágo -->
+      <path d="M52 192 Q60 205 52 218" fill="none" stroke="#b89878" stroke-width="1.5"/>
+      <path d="M268 192 Q260 205 268 218" fill="none" stroke="#b89878" stroke-width="1.5"/>
+
+      <!-- cejas -->
+      <path d="M95 148 Q120 138 145 142" stroke="#3a2a18" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M175 142 Q200 138 225 148" stroke="#3a2a18" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+      <!-- Ojos — orbita sombra -->
+      <ellipse cx="120" cy="168" rx="22" ry="13" fill="#e8d0b8"/>
+      <ellipse cx="200" cy="168" rx="22" ry="13" fill="#e8d0b8"/>
+      <!-- esclerótica -->
+      <ellipse cx="120" cy="168" rx="18" ry="11" fill="white" stroke="#a09080" stroke-width="0.8"/>
+      <ellipse cx="200" cy="168" rx="18" ry="11" fill="white" stroke="#a09080" stroke-width="0.8"/>
+      <!-- iris -->
+      <circle cx="120" cy="168" r="7" fill="url(#irisGrad)"/>
+      <circle cx="200" cy="168" r="7" fill="url(#irisGrad)"/>
+      <!-- pupila -->
+      <circle cx="120" cy="168" r="3.5" fill="#111"/>
+      <circle cx="200" cy="168" r="3.5" fill="#111"/>
+      <!-- reflejo -->
+      <circle cx="122" cy="165" r="1.5" fill="white" opacity="0.7"/>
+      <circle cx="202" cy="165" r="1.5" fill="white" opacity="0.7"/>
+      <!-- párpados -->
+      <path d="M102 161 Q120 155 138 161" stroke="#b09080" stroke-width="1.2" fill="none"/>
+      <path d="M102 175 Q120 180 138 175" stroke="#b09080" stroke-width="1.2" fill="none"/>
+      <path d="M182 161 Q200 155 218 161" stroke="#b09080" stroke-width="1.2" fill="none"/>
+      <path d="M182 175 Q200 180 218 175" stroke="#b09080" stroke-width="1.2" fill="none"/>
+
+      <!-- nariz -->
+      <path d="M152 175 Q148 215 140 225 Q160 232 180 225 Q172 215 168 175" fill="#d0a888" stroke="none"/>
+      <ellipse cx="145" cy="223" rx="9" ry="6" fill="#b89070"/>
+      <ellipse cx="175" cy="223" rx="9" ry="6" fill="#b89070"/>
+      <ellipse cx="160" cy="225" rx="6" ry="4" fill="#3a2018" opacity="0.4"/>
+
+      <!-- boca -->
+      <path d="M130 258 Q160 275 190 258" stroke="#b08070" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M130 258 Q160 250 190 258" stroke="#d0a090" stroke-width="1.5" fill="#e8b0a0"/>
+      <!-- labio inf -->
+      <path d="M130 258 Q160 275 190 258 Q175 285 145 285 Z" fill="#d09888"/>
+
+      <!-- mentón -->
+      <ellipse cx="160" cy="310" rx="35" ry="15" fill="#d0b898" opacity="0.5"/>
+
+      <!-- ══ LÍNEAS de nervios coloreadas ══ -->
+      <!-- I Olfatorio — zona nariz -->
+      <line x1="160" y1="210" x2="70" y2="130" stroke="#1e3a70" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+      <circle cx="160" cy="218" r="5" fill="#1e3a70" opacity="0.4"/>
+
+      <!-- II Óptico — ojos -->
+      <line x1="120" y1="168" x2="55" y2="155" stroke="#1a5a3a" stroke-width="1.8" opacity="0.8"/>
+      <line x1="200" y1="168" x2="265" y2="155" stroke="#1a5a3a" stroke-width="1.8" opacity="0.8"/>
+      <!-- quiasma central -->
+      <line x1="120" y1="168" x2="160" y2="200" stroke="#1a5a3a" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+      <line x1="200" y1="168" x2="160" y2="200" stroke="#1a5a3a" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+      <circle cx="160" cy="200" r="4" fill="#1a5a3a" opacity="0.5"/>
+
+      <!-- III/IV/VI — músculo ocular izq -->
+      <line x1="108" y1="165" x2="62" y2="168" stroke="#8a1818" stroke-width="2" opacity="0.9"/>
+      <line x1="108" y1="165" x2="62" y2="168" stroke="#4a1870" stroke-width="1" stroke-dasharray="6,3" opacity="0.7"/>
+
+      <!-- III/IV/VI — músculo ocular der -->
+      <line x1="212" y1="165" x2="258" y2="168" stroke="#104858" stroke-width="2" opacity="0.9"/>
+
+      <!-- V Trigémino — 3 ramas -->
+      <!-- V1 (oftálmica) — frente -->
+      <path d="M110 150 Q85 120 65 115" stroke="#7a4a08" stroke-width="1.8" fill="none" opacity="0.8"/>
+      <!-- V2 (maxilar) — mejilla -->
+      <path d="M100 200 Q70 195 60 188" stroke="#7a4a08" stroke-width="1.8" fill="none" opacity="0.8"/>
+      <!-- V3 (mandibular) — mandíbula -->
+      <path d="M105 265 Q75 260 60 255" stroke="#7a4a08" stroke-width="1.8" fill="none" opacity="0.8"/>
+      <!-- ganglio trigeminal (G. de Gasser) -->
+      <ellipse cx="83" cy="188" rx="14" ry="22" fill="#f0e0b0" stroke="#7a4a08" stroke-width="1.5"/>
+      <text x="83" y="183" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#7a4a08" font-weight="700">GG</text>
+      <text x="83" y="192" text-anchor="middle" font-family="'JetBrains Mono'" font-size="4.5" fill="#7a4a08">Gasser</text>
+
+      <!-- VII Facial — ramas faciales -->
+      <path d="M47 205 Q80 170 100 150" stroke="#581848" stroke-width="1.5" fill="none" opacity="0.8" stroke-dasharray="5,2"/>
+      <path d="M47 205 Q80 225 130 258" stroke="#581848" stroke-width="1.5" fill="none" opacity="0.8" stroke-dasharray="5,2"/>
+
+      <!-- VIII — oído -->
+      <line x1="63" y1="205" x2="47" y2="205" stroke="#186848" stroke-width="2" opacity="0.9"/>
+      <line x1="257" y1="205" x2="273" y2="205" stroke="#186848" stroke-width="2" opacity="0.9"/>
+
+      <!-- IX, X — faringe (zona central baja) -->
+      <line x1="160" y1="320" x2="90" y2="290" stroke="#682808" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+      <line x1="160" y1="320" x2="80" y2="310" stroke="#381868" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+
+      <!-- XI — ECM -->
+      <path d="M135" y1="345" d="M135 345 Q110 340 95 320" stroke="#185828" stroke-width="1.5" fill="none" opacity="0.7" stroke-dasharray="4,3"/>
+
+      <!-- XII — lengua -->
+      <ellipse cx="160" cy="270" rx="18" ry="8" fill="#e09080" opacity="0.6"/>
+      <line x1="160" y1="270" x2="88" y2="285" stroke="#383808" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8"/>
+
+      <!-- ETIQUETAS de zonas -->
+      <text x="160" y="130" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#7a4a08" font-weight="700" opacity="0.7">V1</text>
+      <text x="75" y="198" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#7a4a08" font-weight="700" opacity="0.7">V2</text>
+      <text x="82" y="262" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#7a4a08" font-weight="700" opacity="0.7">V3</text>
+
+      <!-- Leyenda pequeña abajo -->
+      <text x="160" y="388" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#2a6a6a" font-weight="700">— Nervio sensitivo  - - Motor/Mixto</text>
+    </svg>
+  </div>
+
+  <!-- columna derecha: VII–XII -->
+  <div class="par-col right">
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c7);">VII</div>
+      <div class="par-info" style="text-align:right;">
+        <span class="pn">Facial</span>
+        <span class="pf">Mímica · gusto 2/3 ant · lagrimal</span>
+        <span class="pt-badge" style="background:var(--Mx);color:#fff;">Mx</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c8);">VIII</div>
+      <div class="par-info" style="text-align:right;">
+        <span class="pn">Vestibulococlear</span>
+        <span class="pf">Audición + equilibrio</span>
+        <span class="pt-badge" style="background:var(--S);color:#fff;">S</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c9);">IX</div>
+      <div class="par-info" style="text-align:right;">
+        <span class="pn">Glosofaríngeo</span>
+        <span class="pf">Gusto 1/3 post · parótida · náusea</span>
+        <span class="pt-badge" style="background:var(--Mx);color:#fff;">Mx</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c10);">X</div>
+      <div class="par-info" style="text-align:right;">
+        <span class="pn">Vago (Neumogástrico)</span>
+        <span class="pf">Parasimpático visceral · laringe</span>
+        <span class="pt-badge" style="background:var(--Mx);color:#fff;">Mx</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c11);">XI</div>
+      <div class="par-info" style="text-align:right;">
+        <span class="pn">Accesorio (Espinal)</span>
+        <span class="pf">ECM + Trapecio superior</span>
+        <span class="pt-badge" style="background:var(--M);color:#fff;">M</span>
+      </div>
+    </div>
+    <div class="par-tag">
+      <div class="par-badge" style="background:var(--c12);">XII</div>
+      <div class="par-info" style="text-align:right;">
+        <span class="pn">Hipogloso</span>
+        <span class="pf">Musculatura lingual</span>
+        <span class="pt-badge" style="background:var(--M);color:#fff;">M</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 2 · TRONCO ENCEFÁLICO
+     ══════════════════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">02 · Origen en el Tronco</span><div class="st">¿Dónde emerge cada par? — Tronco Encefálico SVG</div></div></div>
+
+<div class="brainstem-wrap">
+  <div class="bw-title">ORIGEN DE LOS NÚCLEOS — Mesencéfalo · Protuberancia · Bulbo · Médula Espinal</div>
+  <div class="brainstem-layout">
+    <!-- columna izq: pares izquierdos -->
+    <div class="bs-col">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a3030;padding:3px 8px;background:#fff0ee;border-radius:5px;text-align:right;border-right:3px solid #8a3030;">MESENCÉFALO</div>
+      <div class="bs-tag" style="justify-content:flex-end;">
+        <div class="bs-info" style="text-align:right;"><span class="bn">III Oculomotor</span><span class="bf">Núcleo de Edinger-Westphal (parasimpático)</span></div>
+        <div class="bs-num" style="background:var(--c3);">III</div>
+      </div>
+      <div class="bs-tag" style="justify-content:flex-end;">
+        <div class="bs-info" style="text-align:right;"><span class="bn">IV Troclear</span><span class="bf">Único par dorsal del tronco</span></div>
+        <div class="bs-num" style="background:var(--c4);">IV</div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a4a7a;padding:3px 8px;background:#f0f4ff;border-radius:5px;text-align:right;border-right:3px solid #1a4a7a;margin-top:4px;">PROTUBERANCIA</div>
+      <div class="bs-tag" style="justify-content:flex-end;">
+        <div class="bs-info" style="text-align:right;"><span class="bn">V Trigémino</span><span class="bf">Motor: masticación · Sensitivo: cara</span></div>
+        <div class="bs-num" style="background:var(--c5);">V</div>
+      </div>
+      <div class="bs-tag" style="justify-content:flex-end;">
+        <div class="bs-info" style="text-align:right;"><span class="bn">VI Abducens</span><span class="bf">Fosa romboidea, eminencia teres</span></div>
+        <div class="bs-num" style="background:var(--c6);">VI</div>
+      </div>
+      <div class="bs-tag" style="justify-content:flex-end;">
+        <div class="bs-info" style="text-align:right;"><span class="bn">VII Facial</span><span class="bf">Rodilla del facial interno</span></div>
+        <div class="bs-num" style="background:var(--c7);">VII</div>
+      </div>
+      <div class="bs-tag" style="justify-content:flex-end;">
+        <div class="bs-info" style="text-align:right;"><span class="bn">VIII Vestibulococlear</span><span class="bf">Ángulo pontocerebeloso</span></div>
+        <div class="bs-num" style="background:var(--c8);">VIII</div>
+      </div>
+    </div>
+
+    <!-- SVG TRONCO -->
+    <div style="display:flex;justify-content:center;">
+      <svg viewBox="0 0 200 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:200px;">
+        <!-- Mesencéfalo -->
+        <rect x="45" y="15" width="110" height="90" rx="12" fill="#fff0ee" stroke="#8a3030" stroke-width="2"/>
+        <text x="100" y="38" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#8a3030" font-weight="700">MESENCÉFALO</text>
+        <!-- colículos superiores -->
+        <ellipse cx="80" cy="55" rx="18" ry="10" fill="#f8d0c8" stroke="#c06040" stroke-width="1"/>
+        <ellipse cx="120" cy="55" rx="18" ry="10" fill="#f8d0c8" stroke="#c06040" stroke-width="1"/>
+        <text x="80" y="58" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#8a1818">CS</text>
+        <text x="120" y="58" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#8a1818">CI</text>
+        <!-- pie de pedúnculo -->
+        <rect x="55" y="72" width="90" height="22" rx="5" fill="#e8c0b0" stroke="#a05040" stroke-width="1"/>
+        <text x="100" y="86" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#5a1818" font-weight="700">Pedúnculos</text>
+        <!-- puntos de emergencia III y IV -->
+        <circle cx="45" cy="80" r="5" fill="var(--c3)" stroke="white" stroke-width="1.5"/>
+        <text x="45" y="83.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">III</text>
+        <circle cx="100" cy="105" r="5" fill="var(--c4)" stroke="white" stroke-width="1.5"/>
+        <text x="100" y="108.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">IV</text>
+
+        <!-- Protuberancia -->
+        <rect x="35" y="115" width="130" height="120" rx="12" fill="#f0f4ff" stroke="#1a4a7a" stroke-width="2"/>
+        <text x="100" y="133" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#1a4a7a" font-weight="700">PROTUBERANCIA</text>
+        <!-- fibras transversas -->
+        <line x1="35" y1="155" x2="165" y2="155" stroke="#a0b8d8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="35" y1="165" x2="165" y2="165" stroke="#a0b8d8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="35" y1="175" x2="165" y2="175" stroke="#a0b8d8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- tegmento -->
+        <rect x="55" y="185" width="90" height="22" rx="4" fill="#c8d8f0" stroke="#1a4a7a" stroke-width="0.8"/>
+        <text x="100" y="199" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#0a2a5a" font-weight="700">Tegmento</text>
+        <!-- emergencia V, VI, VII, VIII -->
+        <circle cx="35" cy="150" r="5" fill="var(--c5)" stroke="white" stroke-width="1.5"/>
+        <text x="35" y="153.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">V</text>
+        <circle cx="35" cy="172" r="5" fill="var(--c6)" stroke="white" stroke-width="1.5"/>
+        <text x="35" y="175.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">VI</text>
+        <circle cx="165" cy="225" r="5" fill="var(--c7)" stroke="white" stroke-width="1.5"/>
+        <text x="165" y="228.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">VII</text>
+        <circle cx="165" cy="210" r="5" fill="var(--c8)" stroke="white" stroke-width="1.5"/>
+        <text x="165" y="213.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">VIII</text>
+
+        <!-- Bulbo raquídeo -->
+        <path d="M35 245 Q30 290 35 360 L165 360 Q170 290 165 245 Z" fill="#f0fff4" stroke="#1a6a3a" stroke-width="2"/>
+        <text x="100" y="268" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#1a6a3a" font-weight="700">BULBO</text>
+        <!-- olivas -->
+        <ellipse cx="72" cy="305" rx="18" ry="30" fill="#c8f0d8" stroke="#1a7a3a" stroke-width="1.2"/>
+        <ellipse cx="128" cy="305" rx="18" ry="30" fill="#c8f0d8" stroke="#1a7a3a" stroke-width="1.2"/>
+        <text x="72" y="300" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#0a4a1a">OLIVA</text>
+        <text x="72" y="310" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#0a4a1a">INF</text>
+        <text x="128" y="300" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#0a4a1a">OLIVA</text>
+        <text x="128" y="310" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#0a4a1a">INF</text>
+        <!-- emergencia IX, X, XII -->
+        <circle cx="35" cy="275" r="5" fill="var(--c9)" stroke="white" stroke-width="1.5"/>
+        <text x="35" y="278.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">IX</text>
+        <circle cx="35" cy="295" r="5" fill="var(--c10)" stroke="white" stroke-width="1.5"/>
+        <text x="35" y="298.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">X</text>
+        <circle cx="165" cy="310" r="5" fill="var(--c12)" stroke="white" stroke-width="1.5"/>
+        <text x="165" y="313.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">XII</text>
+
+        <!-- Decusación piramidal -->
+        <path d="M65 350 Q100 368 135 350" stroke="#8a8a40" stroke-width="1.5" fill="none" stroke-dasharray="4,2"/>
+        <text x="100" y="360" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#5a5a20">Decusación</text>
+
+        <!-- Médula espinal cervical -->
+        <rect x="65" y="370" width="70" height="75" rx="8" fill="#fffff0" stroke="#7a7a20" stroke-width="1.5"/>
+        <text x="100" y="390" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#5a5a10" font-weight="700">MÉDULA</text>
+        <text x="100" y="402" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#5a5a10">ESPINAL</text>
+        <text x="100" y="414" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#7a7a30">C1-C5</text>
+        <!-- emergencia XI -->
+        <circle cx="65" cy="400" r="5" fill="var(--c11)" stroke="white" stroke-width="1.5"/>
+        <text x="65" y="403.5" text-anchor="middle" font-family="'Playfair Display'" font-size="6" fill="white" font-weight="700">XI</text>
+
+        <!-- I y II — nota encima -->
+        <text x="100" y="8" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#1e3a70" font-weight="700">I · II: No nacen en tronco</text>
+        <text x="100" y="14.5" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#1a5a3a">(son extensiones del SNC)</text>
+
+        <!-- Etiquetas regiones -->
+        <text x="170" y="60" font-family="'JetBrains Mono'" font-size="5.5" fill="#8a3030" opacity="0.7">Mes</text>
+        <text x="170" y="175" font-family="'JetBrains Mono'" font-size="5.5" fill="#1a4a7a" opacity="0.7">Prot</text>
+        <text x="170" y="305" font-family="'JetBrains Mono'" font-size="5.5" fill="#1a6a3a" opacity="0.7">Bulb</text>
+      </svg>
+    </div>
+
+    <!-- columna der: pares derechos -->
+    <div class="bs-col right">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1a6a3a;padding:3px 8px;background:#f0fff4;border-radius:5px;border-left:3px solid #1a6a3a;">BULBO RAQUÍDEO</div>
+      <div class="bs-tag">
+        <div class="bs-num" style="background:var(--c9);">IX</div>
+        <div class="bs-info"><span class="bn">IX Glosofaríngeo</span><span class="bf">Surco retroolivar superior</span></div>
+      </div>
+      <div class="bs-tag">
+        <div class="bs-num" style="background:var(--c10);">X</div>
+        <div class="bs-info"><span class="bn">X Vago</span><span class="bf">Surco retroolivar · agujero yugular</span></div>
+      </div>
+      <div class="bs-tag">
+        <div class="bs-num" style="background:var(--c12);">XII</div>
+        <div class="bs-info"><span class="bn">XII Hipogloso</span><span class="bf">Surco preolivar · canal hipogloso</span></div>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#5a5a10;padding:3px 8px;background:#fffff0;border-radius:5px;border-left:3px solid #5a5a10;margin-top:4px;">MÉDULA ESPINAL</div>
+      <div class="bs-tag">
+        <div class="bs-num" style="background:var(--c11);">XI</div>
+        <div class="bs-info"><span class="bn">XI Accesorio (Espinal)</span><span class="bf">Raíces C1–C5 · asciende al cráneo</span></div>
+      </div>
+      <div style="margin-top:12px;background:#f0fafa;border-radius:8px;padding:9px;border:1px solid #a0d0d0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ac);margin-bottom:5px;">EXCEPCIÓN ⭐</div>
+        <div style="font-size:0.78rem;color:var(--soft);line-height:1.6;">
+          <strong>I Olfatorio y II Óptico</strong> no emergen del tronco encefálico. Son extensiones directas del SNC:
+          <br>· <strong>I</strong> → bulbo olfatorio en telencéfalo
+          <br>· <strong>II</strong> → diencéfalo (retina = tejido cerebral)
+          <br>· <strong>IV</strong> → único par que emerge por la cara <em>dorsal</em> del tronco
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 3 · MOVIMIENTOS OCULARES SVG
+     ══════════════════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">03 · Motilidad Ocular</span><div class="st">Músculos Extraoculares y sus Pares Craneales</div></div></div>
+
+<div class="oculo-section">
+  <!-- Diagrama de los 6 músculos extraoculares -->
+  <div class="oculo-card">
+    <div class="oc-title">OJO DERECHO — 6 Músculos · Vista Frontal</div>
+    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:block;margin:0 auto;">
+      <!-- Órbita -->
+      <ellipse cx="140" cy="140" rx="120" ry="105" fill="#f5f0e8" stroke="#b0a080" stroke-width="2"/>
+      <!-- Esclerótica -->
+      <circle cx="140" cy="140" r="70" fill="white" stroke="#d0c0a0" stroke-width="1.5"/>
+      <!-- Iris -->
+      <circle cx="140" cy="140" r="32" fill="#5080a0"/>
+      <!-- Pupila -->
+      <circle cx="140" cy="140" r="16" fill="#0a0a0a"/>
+      <circle cx="145" cy="134" r="5" fill="white" opacity="0.6"/>
+
+      <!-- Recto Superior -->
+      <rect x="122" y="28" width="36" height="42" rx="6" fill="#c03020" opacity="0.85"/>
+      <text x="140" y="44" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="white" font-weight="700">RS</text>
+      <text x="140" y="57" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="rgba(255,255,255,0.9)">Par III</text>
+      <!-- flecha RS -->
+      <line x1="140" y1="70" x2="140" y2="108" stroke="#c03020" stroke-width="2" marker-end="url(#arr)"/>
+
+      <!-- Recto Inferior -->
+      <rect x="122" y="210" width="36" height="42" rx="6" fill="#c03020" opacity="0.85"/>
+      <text x="140" y="226" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="white" font-weight="700">RI</text>
+      <text x="140" y="239" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="rgba(255,255,255,0.9)">Par III</text>
+      <line x1="140" y1="210" x2="140" y2="172" stroke="#c03020" stroke-width="2" marker-end="url(#arr)"/>
+
+      <!-- Recto Medial (nasal = izquierda en OD) -->
+      <rect x="18" y="122" width="42" height="36" rx="6" fill="#c03020" opacity="0.85"/>
+      <text x="39" y="136" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="white" font-weight="700">RM</text>
+      <text x="39" y="149" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="rgba(255,255,255,0.9)">Par III</text>
+      <line x1="60" y1="140" x2="108" y2="140" stroke="#c03020" stroke-width="2" marker-end="url(#arr)"/>
+
+      <!-- Recto Lateral (temporal = derecha en OD) -->
+      <rect x="220" y="122" width="42" height="36" rx="6" fill="#104858" opacity="0.9"/>
+      <text x="241" y="136" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="white" font-weight="700">RL</text>
+      <text x="241" y="149" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="rgba(255,255,255,0.9)">Par VI</text>
+      <line x1="220" y1="140" x2="172" y2="140" stroke="#104858" stroke-width="2" marker-end="url(#arr)"/>
+
+      <!-- Oblicuo Superior (IV) -->
+      <rect x="28" y="38" width="52" height="30" rx="6" fill="#4a1870" opacity="0.9"/>
+      <text x="54" y="52" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="white" font-weight="700">OS</text>
+      <text x="54" y="63" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="rgba(255,255,255,0.9)">Par IV</text>
+      <line x1="72" y1="68" x2="108" y2="108" stroke="#4a1870" stroke-width="2" stroke-dasharray="5,2" marker-end="url(#arr2)"/>
+
+      <!-- Oblicuo Inferior (III) -->
+      <rect x="28" y="210" width="52" height="30" rx="6" fill="#8a1818" opacity="0.85"/>
+      <text x="54" y="223" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="white" font-weight="700">OI</text>
+      <text x="54" y="236" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="rgba(255,255,255,0.9)">Par III</text>
+      <line x1="72" y1="212" x2="108" y2="170" stroke="#8a1818" stroke-width="2" stroke-dasharray="5,2" marker-end="url(#arr3)"/>
+
+      <!-- Definición flechas -->
+      <defs>
+        <marker id="arr" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#c03020"/>
+        </marker>
+        <marker id="arr2" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#4a1870"/>
+        </marker>
+        <marker id="arr3" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#8a1818"/>
+        </marker>
+      </defs>
+
+      <!-- Etiquetas direcciones -->
+      <text x="140" y="14" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#888">SUPERIOR</text>
+      <text x="140" y="275" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#888">INFERIOR</text>
+      <text x="8" y="143" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#888" transform="rotate(-90,8,143)">NASAL</text>
+      <text x="272" y="143" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#888" transform="rotate(90,272,143)">TEMPORAL</text>
+    </svg>
+  </div>
+
+  <!-- Tabla H de movimientos -->
+  <div class="oculo-card">
+    <div class="oc-title">TEST EN H — Qué par se explora en cada dirección</div>
+    <svg viewBox="0 0 280 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:block;margin:0 auto;">
+      <!-- Ojo central -->
+      <circle cx="140" cy="130" r="38" fill="white" stroke="#d0c0a0" stroke-width="2"/>
+      <circle cx="140" cy="130" r="18" fill="#5080a0"/>
+      <circle cx="140" cy="130" r="9" fill="#0a0a0a"/>
+
+      <!-- 8 posiciones de mirada con su par -->
+      <!-- Arriba centro: RS (III) -->
+      <g>
+        <circle cx="140" cy="35" r="22" fill="#fff0ee" stroke="#c03020" stroke-width="2"/>
+        <text x="140" y="31" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#c03020" font-weight="700">RS</text>
+        <text x="140" y="43" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a1818">III</text>
+        <line x1="140" y1="57" x2="140" y2="92" stroke="#c03020" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Abajo centro: RI (III) -->
+      <g>
+        <circle cx="140" cy="225" r="22" fill="#fff0ee" stroke="#c03020" stroke-width="2"/>
+        <text x="140" y="221" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#c03020" font-weight="700">RI</text>
+        <text x="140" y="233" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a1818">III</text>
+        <line x1="140" y1="168" x2="140" y2="203" stroke="#c03020" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Izquierda (para OD = nasal): RM (III) -->
+      <g>
+        <circle cx="38" cy="130" r="22" fill="#fff0ee" stroke="#c03020" stroke-width="2"/>
+        <text x="38" y="126" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#c03020" font-weight="700">RM</text>
+        <text x="38" y="138" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a1818">III</text>
+        <line x1="60" y1="130" x2="102" y2="130" stroke="#c03020" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Derecha (temporal): RL (VI) -->
+      <g>
+        <circle cx="242" cy="130" r="22" fill="#e8f8ff" stroke="#104858" stroke-width="2"/>
+        <text x="242" y="126" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#104858" font-weight="700">RL</text>
+        <text x="242" y="138" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#104858">VI</text>
+        <line x1="178" y1="130" x2="220" y2="130" stroke="#104858" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Arriba-izquierda: OI del OD (III) -->
+      <g>
+        <circle cx="48" cy="52" r="20" fill="#ffeef8" stroke="#8a1818" stroke-width="1.5"/>
+        <text x="48" y="48" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#8a1818" font-weight="700">OI</text>
+        <text x="48" y="59" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#8a1818">III</text>
+        <line x1="66" y1="68" x2="107" y2="100" stroke="#8a1818" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Abajo-izquierda: OS del OD (IV) -->
+      <g>
+        <circle cx="48" cy="208" r="20" fill="#f0e8ff" stroke="#4a1870" stroke-width="1.5"/>
+        <text x="48" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#4a1870" font-weight="700">OS</text>
+        <text x="48" y="215" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#4a1870">IV ⭐</text>
+        <line x1="66" y1="192" x2="107" y2="160" stroke="#4a1870" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Arriba-derecha: RS del OI del otro ojo (normalmente OS de OI) -->
+      <g>
+        <circle cx="232" cy="52" r="20" fill="#fff0ee" stroke="#c03020" stroke-width="1.5"/>
+        <text x="232" y="48" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#c03020" font-weight="700">RS</text>
+        <text x="232" y="59" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#c03020">III</text>
+        <line x1="173" y1="100" x2="214" y2="68" stroke="#c03020" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+      <!-- Abajo-derecha: RI (III) -->
+      <g>
+        <circle cx="232" cy="208" r="20" fill="#fff0ee" stroke="#c03020" stroke-width="1.5"/>
+        <text x="232" y="204" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#c03020" font-weight="700">RI</text>
+        <text x="232" y="215" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#c03020">III</text>
+        <line x1="173" y1="160" x2="214" y2="192" stroke="#c03020" stroke-width="1.5" stroke-dasharray="4,2"/>
+      </g>
+
+      <!-- nota central -->
+      <text x="140" y="252" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a6a6a">El IV explora la posición ABAJO-NASAL ⭐</text>
+    </svg>
+    <div style="background:#f0fafa;border-radius:7px;padding:8px 10px;font-size:0.78rem;color:var(--soft);margin-top:8px;">
+      <strong style="color:var(--ac);">Truco:</strong> Para explorar el IV (OS), pide al paciente que mire hacia <strong>abajo y adentro</strong>. Diplopía en esa posición = parálisis del IV. Head tilt hacia el hombro <em>contrario</em> al IV afecto.
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 4 · CAMPOS VISUALES
+     ══════════════════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">04 · Par II — Vía Visual</span><div class="st">Campos Visuales según Nivel de Lesión — Diagrama SVG</div></div></div>
+
+<div class="vfield-wrap">
+  <div class="vf-title">LESIONES DE LA VÍA VISUAL · Correlación Anatómica y Defecto Campimétrico</div>
+  <svg viewBox="0 0 820 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto 14px;">
+    <defs>
+      <pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6">
+        <line x1="0" y1="6" x2="6" y2="0" stroke="#c04020" stroke-width="1.2" opacity="0.5"/>
+      </pattern>
+    </defs>
+
+    <!-- ═══ OJOS ═══ -->
+    <!-- OJO IZQUIERDO -->
+    <rect x="20" y="20" width="80" height="50" rx="8" fill="#f0f8ff" stroke="#1a5a8a" stroke-width="1.5"/>
+    <text x="60" y="39" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#1a5a8a" font-weight="700">OJO IZQ</text>
+    <circle cx="60" cy="55" r="10" fill="white" stroke="#808080" stroke-width="1"/>
+    <circle cx="60" cy="55" r="5" fill="#5080a0"/>
+    <circle cx="60" cy="55" r="2.5" fill="#0a0a0a"/>
+    <!-- hemi izq del OI = temporal OI = va ipsilateral (no cruza) -->
+    <rect x="20" y="20" width="40" height="50" rx="8" fill="#c0d8f0" opacity="0.3"/>
+
+    <!-- OJO DERECHO -->
+    <rect x="120" y="20" width="80" height="50" rx="8" fill="#f0f8ff" stroke="#1a5a8a" stroke-width="1.5"/>
+    <text x="160" y="39" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#1a5a8a" font-weight="700">OJO DER</text>
+    <circle cx="160" cy="55" r="10" fill="white" stroke="#808080" stroke-width="1"/>
+    <circle cx="160" cy="55" r="5" fill="#5080a0"/>
+    <circle cx="160" cy="55" r="2.5" fill="#0a0a0a"/>
+    <rect x="160" y="20" width="40" height="50" rx="8" fill="#c0d8f0" opacity="0.3"/>
+
+    <!-- Nervios ópticos -->
+    <line x1="60" y1="70" x2="110" y2="105" stroke="#1a5a8a" stroke-width="2"/>
+    <line x1="160" y1="70" x2="110" y2="105" stroke="#1a5a8a" stroke-width="2"/>
+
+    <!-- QUIASMA -->
+    <ellipse cx="110" cy="110" rx="30" ry="15" fill="#fff0a0" stroke="#c09010" stroke-width="2"/>
+    <text x="110" y="107" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#8a6010" font-weight="700">QUIASMA</text>
+    <text x="110" y="118" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#8a6010">fibras nasales cruzan</text>
+
+    <!-- Cintillas ópticas -->
+    <line x1="85" y1="122" x2="60" y2="165" stroke="#8a3010" stroke-width="2"/>
+    <line x1="135" y1="122" x2="160" y2="165" stroke="#1a5a8a" stroke-width="2"/>
+
+    <!-- Cuerpo geniculado lateral -->
+    <ellipse cx="60" cy="172" rx="22" ry="10" fill="#f0e8d0" stroke="#8a3010" stroke-width="1.5"/>
+    <text x="60" y="169" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#5a2010" font-weight="700">CGL</text>
+    <text x="60" y="179" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#5a2010">izq</text>
+
+    <ellipse cx="160" cy="172" rx="22" ry="10" fill="#f0e8d0" stroke="#1a5a8a" stroke-width="1.5"/>
+    <text x="160" y="169" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#0a3060" font-weight="700">CGL</text>
+    <text x="160" y="179" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#0a3060">der</text>
+
+    <!-- Radiaciones ópticas -->
+    <line x1="60" y1="182" x2="60" y2="218" stroke="#8a3010" stroke-width="1.5"/>
+    <line x1="160" y1="182" x2="160" y2="218" stroke="#1a5a8a" stroke-width="1.5"/>
+
+    <!-- Corteza visual -->
+    <rect x="25" y="220" width="70" height="28" rx="6" fill="#f0ffe8" stroke="#2a8a2a" stroke-width="1.5"/>
+    <text x="60" y="232" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#1a6a1a" font-weight="700">CORTEZA V1</text>
+    <text x="60" y="242" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a6a1a">lóbulo occipital izq</text>
+
+    <rect x="125" y="220" width="70" height="28" rx="6" fill="#f0ffe8" stroke="#2a8a2a" stroke-width="1.5"/>
+    <text x="160" y="232" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#1a6a1a" font-weight="700">CORTEZA V1</text>
+    <text x="160" y="242" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a6a1a">lóbulo occipital der</text>
+
+    <!-- ═══ SEPARADOR ═══ -->
+    <line x1="220" y1="10" x2="220" y2="330" stroke="#c0d0d0" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- ═══ LESIONES Y CAMPOS VISUALES ═══ -->
+    <!-- Helper: campo visual = cuadrado 100x60, blanco = ve, hatch = ciego -->
+    <!-- OI izq = campo temporal (derecha del campo), OI der = campo temporal (izquierda) -->
+
+    <!-- LESIÓN A: Nervio óptico derecho -->
+    <rect x="240" y="10" width="120" height="310" rx="8" fill="#faf8f8" stroke="#e0c8c8" stroke-width="1"/>
+    <text x="300" y="28" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#8a1818" font-weight="700">LESIÓN A</text>
+    <text x="300" y="38" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#8a1818">Nervio óptico dcho</text>
+    <!-- punto de lesión -->
+    <circle cx="300" cy="52" r="7" fill="#c04020"/>
+    <text x="300" y="56" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="white" font-weight="700">A</text>
+    <!-- Campos OI (normal) -->
+    <text x="270" y="82" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OI</text>
+    <rect x="248" y="87" width="44" height="30" rx="3" fill="#d0e8f8"/>
+    <rect x="292" y="87" width="44" height="30" rx="3" fill="#d0e8f8"/>
+    <!-- Campos OD (ceguera total) -->
+    <text x="300" y="140" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OD</text>
+    <rect x="248" y="145" width="44" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <rect x="292" y="145" width="44" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <text x="300" y="195" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020" font-weight="700">Ceguera</text>
+    <text x="300" y="207" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020">monocular OD</text>
+    <!-- causa -->
+    <rect x="240" y="220" width="120" height="40" rx="5" fill="#fff5f0" stroke="#e0a898" stroke-width="1"/>
+    <text x="300" y="235" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#8a1818" font-weight="700">Neuritis óptica</text>
+    <text x="300" y="247" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#8a1818">EM · AV · glaucoma</text>
+    <text x="300" y="265" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#8a1818" font-weight="700">⭐ Ceguera total 1 ojo</text>
+
+    <!-- LESIÓN B: Quiasma -->
+    <rect x="380" y="10" width="120" height="310" rx="8" fill="#faf8f0" stroke="#e0d898" stroke-width="1"/>
+    <text x="440" y="28" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#8a6010" font-weight="700">LESIÓN B</text>
+    <text x="440" y="38" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#8a6010">Quiasma óptico</text>
+    <circle cx="440" cy="52" r="7" fill="#c09010"/>
+    <text x="440" y="56" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="white" font-weight="700">B</text>
+    <!-- Campos OI: pierde temporal (der) -->
+    <text x="410" y="82" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OI</text>
+    <rect x="388" y="87" width="44" height="30" rx="3" fill="#d0e8f8"/>
+    <rect x="432" y="87" width="44" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <!-- Campos OD: pierde temporal (izq) -->
+    <text x="440" y="140" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OD</text>
+    <rect x="388" y="145" width="44" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <rect x="432" y="145" width="44" height="30" rx="3" fill="#d0e8f8"/>
+    <text x="440" y="195" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020" font-weight="700">Hemianopsia</text>
+    <text x="440" y="207" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020">BITemporal</text>
+    <rect x="380" y="220" width="120" height="40" rx="5" fill="#fffae8" stroke="#e0d0a0" stroke-width="1"/>
+    <text x="440" y="235" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#8a6010" font-weight="700">Adenoma hipofisario</text>
+    <text x="440" y="247" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#8a6010">craneofaringioma</text>
+    <text x="440" y="265" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#8a6010" font-weight="700">⭐ Bitemporal = hipófisis</text>
+
+    <!-- LESIÓN C: Cintilla óptica derecha -->
+    <rect x="520" y="10" width="120" height="310" rx="8" fill="#f8f5ff" stroke="#c8b8e8" stroke-width="1"/>
+    <text x="580" y="28" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#4a1870" font-weight="700">LESIÓN C</text>
+    <text x="580" y="38" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#4a1870">Cintilla óptica dcha</text>
+    <circle cx="580" cy="52" r="7" fill="#6a30a0"/>
+    <text x="580" y="56" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="white" font-weight="700">C</text>
+    <!-- OI pierde hemicampo izq (nasal) -->
+    <text x="550" y="82" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OI</text>
+    <rect x="528" y="87" width="44" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <rect x="572" y="87" width="44" height="30" rx="3" fill="#d0e8f8"/>
+    <!-- OD pierde hemicampo izq (temporal) -->
+    <text x="580" y="140" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OD</text>
+    <rect x="528" y="145" width="44" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <rect x="572" y="145" width="44" height="30" rx="3" fill="#d0e8f8"/>
+    <text x="580" y="195" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020" font-weight="700">Hemianopsia</text>
+    <text x="580" y="207" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020">Homónima izq</text>
+    <rect x="520" y="220" width="120" height="40" rx="5" fill="#f8f0ff" stroke="#c8a8e0" stroke-width="1"/>
+    <text x="580" y="235" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#4a1870" font-weight="700">ACV, tumor</text>
+    <text x="580" y="247" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#4a1870">hemisfério derecho</text>
+    <text x="580" y="265" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#4a1870" font-weight="700">⭐ Homónima = postquiasma</text>
+
+    <!-- LESIÓN D: Corteza occipital -->
+    <rect x="660" y="10" width="148" height="310" rx="8" fill="#f0fff4" stroke="#a8d8b8" stroke-width="1"/>
+    <text x="734" y="28" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#1a6a2a" font-weight="700">LESIÓN D</text>
+    <text x="734" y="38" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a6a2a">Corteza occipital dcha</text>
+    <circle cx="734" cy="52" r="7" fill="#2a8a3a"/>
+    <text x="734" y="56" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="white" font-weight="700">D</text>
+    <!-- Igual que C pero con respeto macular -->
+    <text x="700" y="82" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OI</text>
+    <rect x="668" y="87" width="40" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <rect x="708" y="87" width="14" height="30" rx="2" fill="#d0e8f8"/>
+    <rect x="722" y="87" width="40" height="30" rx="3" fill="#d0e8f8"/>
+    <text x="700" y="140" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6.5" fill="#1a5a8a">OD</text>
+    <rect x="668" y="145" width="40" height="30" rx="3" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <rect x="708" y="145" width="14" height="30" rx="2" fill="#d0e8f8"/>
+    <rect x="722" y="145" width="40" height="30" rx="3" fill="#d0e8f8"/>
+    <text x="734" y="195" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#c04020" font-weight="700">Hemianopsia homónima</text>
+    <text x="734" y="207" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7" fill="#2a8a3a">con respeto macular ⭐</text>
+    <rect x="660" y="220" width="148" height="50" rx="5" fill="#e8fff0" stroke="#a0d8b0" stroke-width="1"/>
+    <text x="734" y="235" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a6a2a" font-weight="700">ACV occipital (ACOP)</text>
+    <text x="734" y="247" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#1a6a2a">Doble irrigación macular</text>
+    <text x="734" y="265" text-anchor="middle" font-family="'JetBrains Mono'" font-size="7.5" fill="#1a6a2a" font-weight="700">⭐ Respeto macular = occipital</text>
+
+    <!-- Leyenda -->
+    <rect x="240" y="285" width="15" height="10" rx="2" fill="#d0e8f8"/>
+    <text x="260" y="294" font-family="'JetBrains Mono'" font-size="7" fill="#1a5a8a">Ve</text>
+    <rect x="290" y="285" width="15" height="10" rx="2" fill="url(#hatch)" stroke="#c04020" stroke-width="1"/>
+    <text x="310" y="294" font-family="'JetBrains Mono'" font-size="7" fill="#c04020">Ciego (defecto campimétrico)</text>
+  </svg>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE 5 · FACIAL PERIFÉRICO vs CENTRAL
+     ══════════════════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">05 · Par VII — Lo Más Preguntado</span><div class="st">Parálisis Facial Periférica vs Central — Comparativa Visual</div></div></div>
+
+<div class="bell-section">
+  <!-- PERIFÉRICA -->
+  <div class="bell-card" style="border-color:var(--M);">
+    <div class="bell-head" style="background:linear-gradient(135deg,#5a0a30,#9a1a50);">
+      <h3>🔴 Periférica — Parálisis de Bell</h3>
+      <div class="bell-sub">Todo el hemifacial · nervio VII completo</div>
+    </div>
+    <div class="bell-body">
+      <div class="bell-face-wrap">
+        <svg viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style="width:155px;flex-shrink:0;">
+          <!-- Cara base -->
+          <ellipse cx="80" cy="110" rx="68" ry="85" fill="#f5e8d8" stroke="#c0a080" stroke-width="1.5"/>
+          <ellipse cx="80" cy="50" rx="68" ry="35" fill="#3a2a18"/>
+          <ellipse cx="28" cy="110" rx="13" ry="20" fill="#e8d0b8" stroke="#c0a080" stroke-width="1"/>
+          <ellipse cx="132" cy="110" rx="13" ry="20" fill="#e8d0b8" stroke="#c0a080" stroke-width="1"/>
+          <!-- cejas: izq normal, der caída -->
+          <path d="M35 82 Q55 72 72 76" stroke="#3a2a18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M88 80 Q108 80 125 84" stroke="#3a2a18" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-dasharray="0"/>
+          <!-- arrugas frente izq normal -->
+          <line x1="38" y1="68" x2="68" y2="64" stroke="#d0a888" stroke-width="1" opacity="0.7"/>
+          <line x1="38" y1="74" x2="68" y2="71" stroke="#d0a888" stroke-width="1" opacity="0.7"/>
+          <!-- lado der (afecto) sin arrugas -->
+          <!-- ojo izq NORMAL: cierra bien -->
+          <ellipse cx="55" cy="100" rx="18" ry="11" fill="white" stroke="#a09080" stroke-width="1"/>
+          <ellipse cx="55" cy="100" rx="12" ry="7" fill="#5080a0"/>
+          <ellipse cx="55" cy="100" rx="6" ry="3.5" fill="#0a0a0a"/>
+          <circle cx="57" cy="98" r="1.5" fill="white" opacity="0.7"/>
+          <!-- ojo der AFECTO: lagoftalmos — ojo abierto, iris va arriba (signo Bell) -->
+          <ellipse cx="105" cy="100" rx="18" ry="11" fill="white" stroke="#c04020" stroke-width="2"/>
+          <ellipse cx="105" cy="93" rx="10" ry="9" fill="#5080a0"/><!-- iris sube -->
+          <ellipse cx="105" cy="90" rx="5" ry="4.5" fill="#0a0a0a"/>
+          <text x="105" y="115" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020" font-weight="700">LAGOFTALMOS</text>
+          <!-- nariz -->
+          <path d="M72 120 Q68 138 62 143 Q80 148 98 143 Q92 138 88 120" fill="#d0a888"/>
+          <!-- boca: desviada al lado SANO (izq) -->
+          <path d="M48 162 Q70 170 105 158" stroke="#b08070" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M48 162 Q70 155 105 158" stroke="#d0a090" stroke-width="1.5" fill="#e8b0a0"/>
+          <text x="55" y="178" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020">boca→lado sano</text>
+          <!-- flecha señalando lado afecto -->
+          <text x="125" y="95" font-family="'JetBrains Mono'" font-size="8" fill="#c04020" font-weight="700">←</text>
+          <text x="130" y="82" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020" font-weight="700">AFECTO</text>
+          <!-- flecha frente -->
+          <text x="103" y="68" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#c04020">sin arrugar ⭐</text>
+        </svg>
+      </div>
+      <div class="bell-features">
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>Frente afectada</strong> — no puede arrugar <span class="ope" style="background:var(--rojo);">OPE⭐⭐</span></div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>Lagoftalmos</strong> — no cierra el ojo</div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>Signo de Bell</strong> — ojo sube al intentar cerrar</div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>Boca desviada</strong> al lado SANO</div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>Pérdida gusto</strong> 2/3 ant. lengua</div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>Hiperacusia</strong> (nervio al estapedio)</div></div>
+        <div style="background:#fff0ee;border-radius:7px;padding:7px;margin-top:6px;border:1px solid #e8b0a0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--rojo);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Causas frecuentes</div>
+          <div style="font-size:0.78rem;color:var(--soft);">Idiopática (Bell) · VHS tipo 1 · Ramsay Hunt (VVZ) · Enfermedad de Lyme · Otitis media · Parotiditis · Neurinoma acústico</div>
+        </div>
+        <div style="background:#f5f0ff;border-radius:7px;padding:7px;margin-top:5px;border:1px solid #c8a8e0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:#5a1a8a;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Tratamiento Bell</div>
+          <div style="font-size:0.78rem;color:var(--soft);">Prednisolona 1 mg/kg × 10 días (iniciar en &lt;72h) ± Aciclovir. Proteger ojo (lágrimas artificiales, oclusión nocturna).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTRAL -->
+  <div class="bell-card" style="border-color:var(--azul);">
+    <div class="bell-head" style="background:linear-gradient(135deg,#0a2a5a,#1a5090);">
+      <h3>🔵 Central — ACV / Lesión corticonuclear</h3>
+      <div class="bell-sub">Solo 1/3 inferior · frente inervación bilateral</div>
+    </div>
+    <div class="bell-body">
+      <div class="bell-face-wrap">
+        <svg viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style="width:155px;flex-shrink:0;">
+          <!-- Cara base -->
+          <ellipse cx="80" cy="110" rx="68" ry="85" fill="#f5e8d8" stroke="#c0a080" stroke-width="1.5"/>
+          <ellipse cx="80" cy="50" rx="68" ry="35" fill="#3a2a18"/>
+          <ellipse cx="28" cy="110" rx="13" ry="20" fill="#e8d0b8" stroke="#c0a080" stroke-width="1"/>
+          <ellipse cx="132" cy="110" rx="13" ry="20" fill="#e8d0b8" stroke="#c0a080" stroke-width="1"/>
+          <!-- Cejas: AMBAS normales (frente respetada) -->
+          <path d="M35 82 Q55 72 72 76" stroke="#3a2a18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M88 76 Q108 72 125 82" stroke="#3a2a18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <!-- arrugas frente AMBOS lados normales -->
+          <line x1="38" y1="68" x2="68" y2="64" stroke="#d0a888" stroke-width="1" opacity="0.6"/>
+          <line x1="92" y1="64" x2="122" y2="68" stroke="#d0a888" stroke-width="1" opacity="0.6"/>
+          <!-- ojos: AMBOS normales (cierra bien) -->
+          <ellipse cx="55" cy="100" rx="18" ry="11" fill="white" stroke="#a09080" stroke-width="1"/>
+          <ellipse cx="55" cy="100" rx="12" ry="7" fill="#5080a0"/>
+          <ellipse cx="55" cy="100" rx="6" ry="3.5" fill="#0a0a0a"/>
+          <circle cx="57" cy="98" r="1.5" fill="white" opacity="0.7"/>
+
+          <ellipse cx="105" cy="100" rx="18" ry="11" fill="white" stroke="#a09080" stroke-width="1"/>
+          <ellipse cx="105" cy="100" rx="12" ry="7" fill="#5080a0"/>
+          <ellipse cx="105" cy="100" rx="6" ry="3.5" fill="#0a0a0a"/>
+          <circle cx="107" cy="98" r="1.5" fill="white" opacity="0.7"/>
+          <!-- VERDE en frente indicando que está OK -->
+          <text x="80" y="68" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5.5" fill="#1a7a3a" font-weight="700">FRENTE OK ⭐</text>
+          <!-- nariz -->
+          <path d="M72 120 Q68 138 62 143 Q80 148 98 143 Q92 138 88 120" fill="#d0a888"/>
+          <!-- boca: desviada al lado SANO (opuesta a Bell) — afecto = izquierdo en este dibujo → ACV derecho -->
+          <path d="M58 162 Q80 158 108 166" stroke="#b08070" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M58 162 Q80 155 108 166" stroke="#d0a090" stroke-width="1.5" fill="#e8b0a0"/>
+          <!-- señalización zona inferior afecta -->
+          <rect x="22" y="150" width="65" height="38" rx="5" fill="#fff0f8" stroke="#c04020" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.7"/>
+          <text x="54" y="193" text-anchor="middle" font-family="'JetBrains Mono'" font-size="5" fill="#c04020" font-weight="700">AFECTO (ACV dcho)</text>
+        </svg>
+      </div>
+      <div class="bell-features">
+        <div class="feature-row"><span class="fcheck" style="color:var(--verde);">✔</span> <div><strong>Frente RESPETADA</strong> — puede arrugar <span class="ope" style="background:var(--azul);">OPE⭐⭐</span></div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--verde);">✔</span> <div><strong>Cierra los ojos</strong> correctamente</div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--verde);">✔</span> <div><strong>Sin lagoftalmos</strong></div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--rojo);">✖</span> <div><strong>1/3 inferior afecto</strong> (boca, platisma) contralateral a lesión</div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--verde);">✔</span> <div><strong>Gusto conservado</strong></div></div>
+        <div class="feature-row"><span class="fcheck" style="color:var(--verde);">✔</span> <div><strong>Sin hiperacusia</strong></div></div>
+        <div style="background:#f0f8ff;border-radius:7px;padding:7px;margin-top:6px;border:1px solid #a0c8e8;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">¿Por qué se respeta la frente?</div>
+          <div style="font-size:0.78rem;color:var(--soft);">El núcleo del VII que controla el músculo frontal recibe inervación <strong>bilateral</strong> de ambas cortezas motoras. Una lesión unilateral no elimina la función del frontal porque el hemisferio sano sigue inervando ese núcleo. Solo el tercio inferior tiene inervación predominantemente <em>contralateral</em>.</div>
+        </div>
+        <div style="background:#f0fff8;border-radius:7px;padding:7px;margin-top:5px;border:1px solid #a0d8b8;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Buscar siempre además</div>
+          <div style="font-size:0.78rem;color:var(--soft);">Hemiparesia ipsilateral al VII, afasia (si hemisferio dominante), hemianopsia homónima. Origen = ACV/tumor hemisférico contralateral.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · PARES CRANEALES</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>Pares sensitivos puros: I, II, VIII</strong> → Solo estos tres son sensitivos puros. El resto son motores o mixtos. Mnemotecnia: "Oh, Oh, Very" (posición 1,2,8 en el orden).</div>
+    <div class="pe"><span class="s">★</span><strong>Bell (frente afecta) vs ACV (frente sana)</strong> → Es LA pregunta más repetida. Periférico: todo el hemifacial incluyendo frente (no puede arrugar). Central: solo 1/3 inferior, frente respetada por inervación bilateral del frontal. ⭐⭐</div>
+    <div class="pe"><span class="s">★</span><strong>III compresivo vs isquémico: la pupila</strong> → Aneurisma/herniación: midriasis + ptosis + ojo abajo-afuera (fibras parasimpáticas externas se comprimen primero). DM/HTA: mismo cuadro pero PUPILA RESPETADA. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Hemianopsia bitemporal → adenoma hipofisario</strong> → La hipófisis comprime el quiasma por debajo: pierden las fibras nasales que cruzan. Resultado: campos temporales perdidos en ambos ojos. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>IV: el de la diplopía al bajar escaleras</strong> → Parálisis del oblicuo superior → diplopía vertical al mirar abajo-adentro. Paciente inclina la cabeza al hombro CONTRARIO. Causa más frecuente: TCE. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>VI: falso localizador de HIC</strong> → Trayecto intracraneal más largo → se comprime ante cualquier HIC independientemente de la localización de la lesión. No localiza la lesión. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Lengua (XII) → lado ENFERMO; úvula (X) → lado SANO</strong> → Reglas inversas. Hipogloso: el músculo sano empuja la lengua hacia el enfermo. Vago: el paladar enfermo no sube, la úvula se desvía al sano. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Ramsay Hunt: VVZ + VII + oído</strong> → Parálisis facial periférica + vesículas en CAE y pabellón auricular ± hipoacusia ± vértigo. Más grave que Bell. Tto: aciclovir + corticoides. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Wernicke: tiamina ANTES que glucosa</strong> → En alcohólico/malnutrido: dar glucosa sin tiamina precipita la encefalopatía. Tríada: oftalmoplejía (VI bilateral) + ataxia + confusión. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Seno cavernoso: III+IV+V1/V2+VI</strong> → Oftalmoplegia + ptosis + anestesia facial superior + exoftalmos. Causas: trombosis, fístula carotidocavernosa, aneurisma, tumor hipofisario. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Ototoxicidad sinérgica: VIII</strong> → Aminoglucósidos + furosemida. Primero la coclear (hipoacusia), luego vestibular (vértigo). Monitorizar niveles y audiometría. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>IV único par dorsal</strong> → Sale por la cara dorsal del mesencéfalo (el resto emergen ventralmente). El más delgado y con trayecto más largo → el más vulnerable al TCE. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Neuralgia trigémino → carbamazepina</strong> → Dolor paroxístico lancinante en territorio V2/V3, zona gatillo al tocar cara o al comer. Carbamazepina (1.ª línea). Si refractaria: cirugía (descompresión microvascular). ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Hemianopsia con respeto macular → occipital</strong> → La corteza occipital tiene doble irrigación (ACOP + ACAM). Ante un infarto occipital se puede respetar el campo macular. Diferencia de la lesión de la cintilla. ⭐</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">ECM</span><span class="gd">Esternocleidomastoideo</span></div>
+  <div class="gi"><span class="ga">RS/RI/RM/RL</span><span class="gd">Recto sup/inf/med/lat</span></div>
+  <div class="gi"><span class="ga">OS/OI</span><span class="gd">Oblicuo sup/inf</span></div>
+  <div class="gi"><span class="ga">CGL</span><span class="gd">Cuerpo geniculado lateral</span></div>
+  <div class="gi"><span class="ga">ACOP</span><span class="gd">Arteria comunicante posterior</span></div>
+  <div class="gi"><span class="ga">PICA</span><span class="gd">Arteria cerebelosa posteroinferior</span></div>
+  <div class="gi"><span class="ga">CAE</span><span class="gd">Conducto auditivo externo</span></div>
+  <div class="gi"><span class="ga">VVZ</span><span class="gd">Virus varicela-zóster</span></div>
+  <div class="gi"><span class="ga">HIC</span><span class="gd">Hipertensión intracraneal</span></div>
+  <div class="gi"><span class="ga">RAPD</span><span class="gd">Defecto pupilar aferente relativo</span></div>
+  <div class="gi"><span class="ga">MOE</span><span class="gd">Motilidad ocular extrínseca</span></div>
+  <div class="gi"><span class="ga">V1/V2/V3</span><span class="gd">Ramas oftálmica/maxilar/mandibular V</span></div>
+</div>
+
+<div style="text-align:center;margin-top:24px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:#1a6a6a;">
+  CÁPSULAS DE REPASO · PARES CRANEALES · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

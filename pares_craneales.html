@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pares Craneales · Cápsulas INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#1a6a6a;--ac2:#2a8a8a;--acl:#4aadad;
+  --fondo:#f3f8f8;--sup:#ffffff;
+  --txt:#0a1a1a;--soft:#2a4a4a;
+  --S:#1a6a6a;   /* sensitivo */
+  --M:#9a1a40;   /* motor */
+  --Mx:#c47a10;  /* mixto */
+  --rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--naranja:#c47a10;--morado:#6a1a8a;
+  --perla:#fffce6;--pb:#e0c020;--ph:#c09010;
+  --ant:#f0e8ff;--antb:#7040c0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14px;line-height:1.55;}
+
+/* ── HEADER ── */
+.ph{background:linear-gradient(135deg,#030e0e 0%,#0d2e2e 50%,#1a6a6a 100%);padding:22px 32px 18px;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(ellipse at 80% 50%,rgba(74,173,173,0.1) 0%,transparent 60%),
+  repeating-linear-gradient(60deg,transparent,transparent 40px,rgba(255,255,255,0.012) 40px,rgba(255,255,255,0.012) 41px);
+  pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;position:relative;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.67rem;color:#70c8c8;letter-spacing:2px;text-transform:uppercase;margin-top:5px;position:relative;}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;position:relative;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:3px 9px;border-radius:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac);color:#fff;} .p2{background:rgba(255,255,255,0.11);color:#ccc;}
+.ps{background:var(--S);color:#fff;} .pm{background:var(--M);color:#fff;} .pmx{background:var(--Mx);color:#fff;}
+
+.wrap{max-width:1150px;margin:0 auto;padding:24px 20px;}
+.sh{display:flex;align-items:center;gap:11px;margin:28px 0 13px;}
+.sb{width:5px;height:32px;border-radius:3px;background:var(--ac);flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;color:#030e0e;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:26px 0;opacity:0.22;}
+
+/* ── LEYENDA TIPO ── */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px;padding:10px 14px;background:var(--sup);border-radius:9px;border:1px solid #c8e0e0;}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:0.82rem;color:var(--soft);}
+.leg-dot{width:13px;height:13px;border-radius:50%;}
+
+/* ── RESUMEN MNEMOTECNIA ── */
+.mnemo-wrap{background:var(--sup);border-radius:11px;border:1px solid #c8e0e0;padding:16px 18px;margin-bottom:16px;}
+.mnemo-title{font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:11px;}
+.mnemo-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+.mnemo-cell{border-radius:7px;padding:7px 8px;text-align:center;}
+.mnemo-num{font-family:'Playfair Display',serif;font-weight:900;font-size:1.35rem;line-height:1;color:#fff;}
+.mnemo-abbr{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);margin-top:2px;display:block;}
+.mnemo-name{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.9);margin-top:1px;display:block;line-height:1.2;}
+
+/* ── DIAGRAMA CARA CSS ── */
+.cara-wrap{background:var(--sup);border-radius:12px;border:1px solid #c8e0e0;padding:20px;margin-bottom:16px;}
+.cara-title{font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);text-align:center;margin-bottom:14px;}
+.cara-layout{display:grid;grid-template-columns:1fr 260px 1fr;gap:10px;align-items:start;}
+
+/* Columnas laterales con los pares */
+.cara-col{display:flex;flex-direction:column;gap:7px;}
+.cara-col.right{align-items:flex-end;}
+.cara-tag{display:flex;align-items:center;gap:6px;cursor:default;}
+.cara-col.right .cara-tag{flex-direction:row-reverse;}
+.cara-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:#fff;flex-shrink:0;}
+.cara-info{font-size:0.76rem;line-height:1.3;}
+.cara-info .cn{font-weight:700;color:var(--txt);display:block;}
+.cara-info .cs{font-size:0.68rem;color:var(--soft);}
+
+/* Cara SVG */
+.cara-face{display:flex;justify-content:center;align-items:flex-start;}
+.face-svg{width:100%;max-width:260px;}
+
+/* ── TARJETAS DE PARES — GRID PRINCIPAL ── */
+.pares-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+.par-card{background:var(--sup);border-radius:10px;overflow:hidden;border:1px solid #c8e0e0;transition:box-shadow 0.15s;}
+.par-card:hover{box-shadow:0 4px 18px rgba(26,106,106,0.13);}
+
+/* Header de cada par */
+.par-head{padding:11px 14px;position:relative;overflow:hidden;}
+.par-head::after{font-family:'Playfair Display',serif;font-weight:900;font-size:3.5rem;color:rgba(255,255,255,0.08);position:absolute;right:8px;top:-4px;line-height:1;}
+.par-roman{font-family:'Playfair Display',serif;font-weight:900;font-size:1.7rem;color:rgba(255,255,255,0.25);float:right;line-height:1;margin-top:-2px;}
+.par-num-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);display:block;margin-bottom:1px;}
+.par-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.02rem;color:#fff;display:block;}
+.par-type{display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,0.15);font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;}
+
+/* Body de cada par */
+.par-body{padding:11px 14px;}
+.par-section{margin-bottom:8px;}
+.par-section:last-child{margin-bottom:0;}
+.par-stit{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px;}
+.par-stext{font-size:0.8rem;line-height:1.55;color:var(--soft);}
+.par-stext strong{color:var(--txt);}
+
+/* Patología — destacada */
+.par-patho{background:#f8fbfb;border-left:3px solid;border-radius:0 7px 7px 0;padding:7px 10px;margin-top:6px;}
+.par-patho .pt{font-family:'JetBrains Mono',monospace;font-size:0.57rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px;}
+.par-patho .pd{font-size:0.8rem;line-height:1.5;color:var(--soft);}
+.par-patho .pd strong{color:var(--txt);}
+
+/* Exploración — pequeña pill */
+.par-exp{background:#f0fafa;border:1px solid #a8d8d8;border-radius:6px;padding:5px 9px;margin-top:5px;font-size:0.78rem;color:var(--soft);}
+.par-exp strong{color:var(--ac);}
+
+/* Badge perla OPE */
+.ope-badge{display:inline-block;background:var(--ph);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.56rem;font-weight:700;padding:2px 6px;border-radius:5px;letter-spacing:1px;text-transform:uppercase;vertical-align:middle;margin-left:3px;}
+
+/* ── TABLA RESUMEN ── */
+.tw{overflow-x:auto;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.8rem;background:var(--sup);border-radius:9px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,0.05);}
+thead tr{background:#030e0e;}
+thead th{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:#70c8c8;padding:10px 11px;text-align:left;}
+tbody tr:nth-child(odd){background:#f3f8f8;}
+tbody tr:nth-child(even){background:#fff;}
+tbody td{padding:7px 11px;border-bottom:1px solid #c8e0e0;vertical-align:top;}
+td strong{color:#030e0e;}
+.ts{background:rgba(26,106,106,0.08);}
+.tm{background:rgba(154,26,64,0.07);}
+.tmx{background:rgba(196,122,16,0.08);}
+
+/* ── PERLAS ── */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:28px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:13px 15px;}
+.pe{padding:8px 10px;border-bottom:1px solid #f0e8b0;font-size:0.83rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #f0e8b0;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#2a1800;}
+
+/* ── GLOSARIO ── */
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.gi{background:var(--sup);border-radius:7px;padding:8px 10px;border:1px solid #c8e0e0;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--ac);display:block;margin-bottom:2px;}
+.gd{font-size:0.75rem;color:var(--soft);}
+
+/* ── COLORES por par ── */
+.c1{background:linear-gradient(135deg,#1a3a6a,#2a5a9a);}
+.c2{background:linear-gradient(135deg,#1a5a3a,#2a8a5a);}
+.c3{background:linear-gradient(135deg,#6a1a1a,#aa2a2a);}
+.c4{background:linear-gradient(135deg,#4a1a6a,#7a2aaa);}
+.c5{background:linear-gradient(135deg,#6a4a10,#aa8020);}
+.c6{background:linear-gradient(135deg,#1a4a5a,#2a7a8a);}
+.c7{background:linear-gradient(135deg,#5a1a4a,#9a2a7a);}
+.c8{background:linear-gradient(135deg,#1a6a4a,#2aaa70);}
+.c9{background:linear-gradient(135deg,#6a2a10,#aa5020);}
+.c10{background:linear-gradient(135deg,#3a1a5a,#6a2a9a);}
+.c11{background:linear-gradient(135deg,#1a5a2a,#2a9a4a);}
+.c12{background:linear-gradient(135deg,#3a3a10,#7a7a20);}
+
+.b1{border-color:#3a5a9a;}.b2{border-color:#2a8a5a;}.b3{border-color:#aa2a2a;}
+.b4{border-color:#7a2aaa;}.b5{border-color:#aa8020;}.b6{border-color:#2a7a8a;}
+.b7{border-color:#9a2a7a;}.b8{border-color:#2aaa70;}.b9{border-color:#aa5020;}
+.b10{border-color:#6a2a9a;}.b11{border-color:#2a9a4a;}.b12{border-color:#7a7a20;}
+
+@media(max-width:900px){
+  .pares-grid{grid-template-columns:1fr 1fr;}
+  .mnemo-grid{grid-template-columns:repeat(4,1fr);}
+  .cara-layout{grid-template-columns:1fr;}
+  .cara-col.right{align-items:flex-start;}
+  .cara-face{display:none;}
+}
+@media(max-width:600px){
+  .pares-grid{grid-template-columns:1fr;}
+  .mnemo-grid{grid-template-columns:repeat(3,1fr);}
+  .perlas-g{grid-template-columns:1fr;}
+  .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#1a6a6a;margin-bottom:5px;">CÁPSULAS INGESA · NEUROLOGÍA</div>
+  <h1>Pares Craneales</h1>
+  <div class="sub">XII NERVIOS · FUNCIÓN · EXPLORACIÓN · PATOLOGÍA ASOCIADA · PERLAS OPE</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span>
+    <span class="pill p2">OPE Militar</span>
+    <span class="pill ps">Sensitivo</span>
+    <span class="pill pm">Motor</span>
+    <span class="pill pmx">Mixto</span>
+    <span class="pill p2">★ 14 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- LEYENDA + MNEMOTECNIA -->
+<div class="sh"><div class="sb"></div><div><span class="sn">00 · Orientación</span><div class="st">Mnemotecnia y Tipos Funcionales</div></div></div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:var(--S);"></div><strong>Sensitivo (S)</strong> — solo aferente</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--M);"></div><strong>Motor (M)</strong> — solo eferente</div>
+  <div class="leg-item"><div class="leg-dot" style="background:var(--Mx);"></div><strong>Mixto (Mx)</strong> — sensitivo + motor</div>
+  <div style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--soft);align-self:center;">
+    <strong style="color:var(--ac);">REGLA:</strong> Pares I, II, VIII = Sensitivos puros · III, IV, VI, XI, XII = Motores puros · V, VII, IX, X = Mixtos
+  </div>
+</div>
+
+<div class="mnemo-wrap">
+  <div class="mnemo-title">📌 Mnemotecnia — "Oh, Oh, Oh, To Touch And Feel Very Good Velvet, Ah Heaven!"</div>
+  <div class="mnemo-grid">
+    <div class="mnemo-cell c1"><div class="mnemo-num">I</div><span class="mnemo-abbr">Oh</span><span class="mnemo-name">Olfatorio</span></div>
+    <div class="mnemo-cell c2"><div class="mnemo-num">II</div><span class="mnemo-abbr">Oh</span><span class="mnemo-name">Óptico</span></div>
+    <div class="mnemo-cell c3"><div class="mnemo-num">III</div><span class="mnemo-abbr">Oh</span><span class="mnemo-name">Oculomotor</span></div>
+    <div class="mnemo-cell c4"><div class="mnemo-num">IV</div><span class="mnemo-abbr">To</span><span class="mnemo-name">Troclear</span></div>
+    <div class="mnemo-cell c5"><div class="mnemo-num">V</div><span class="mnemo-abbr">Touch</span><span class="mnemo-name">Trigémino</span></div>
+    <div class="mnemo-cell c6"><div class="mnemo-num">VI</div><span class="mnemo-abbr">And</span><span class="mnemo-name">Abducens</span></div>
+    <div class="mnemo-cell c7"><div class="mnemo-num">VII</div><span class="mnemo-abbr">Feel</span><span class="mnemo-name">Facial</span></div>
+    <div class="mnemo-cell c8"><div class="mnemo-num">VIII</div><span class="mnemo-abbr">Very</span><span class="mnemo-name">Vestibulococlear</span></div>
+    <div class="mnemo-cell c9"><div class="mnemo-num">IX</div><span class="mnemo-abbr">Good</span><span class="mnemo-name">Glosofaríngeo</span></div>
+    <div class="mnemo-cell c10"><div class="mnemo-num">X</div><span class="mnemo-abbr">Velvet</span><span class="mnemo-name">Vago</span></div>
+    <div class="mnemo-cell c11"><div class="mnemo-num">XI</div><span class="mnemo-abbr">Ah</span><span class="mnemo-name">Accesorio</span></div>
+    <div class="mnemo-cell c12"><div class="mnemo-num">XII</div><span class="mnemo-abbr">Heaven</span><span class="mnemo-name">Hipogloso</span></div>
+  </div>
+  <div style="margin-top:11px;background:#f0fafa;border-radius:7px;padding:9px 12px;font-size:0.81rem;color:var(--soft);">
+    <strong style="color:var(--ac);">Tipo funcional (S/M/Mx):</strong> "Some Say Marry Money But My Brother Says Bad Business Marry Money" →
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--S);">S</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--S);">S</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--M);">M</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--M);">M</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--Mx);">Mx</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--M);">M</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--Mx);">Mx</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--S);">S</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--Mx);">Mx</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--Mx);">Mx</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--M);">M</span>·
+    <span style="font-family:'JetBrains Mono',monospace;color:var(--M);">M</span>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- TARJETAS INDIVIDUALES -->
+<div class="sh"><div class="sb"></div><div><span class="sn">01–12 · Detalle Completo</span><div class="st">Los Doce Pares Craneales — Función, Exploración y Patología</div></div></div>
+
+<div class="pares-grid">
+
+  <!-- I OLFATORIO -->
+  <div class="par-card">
+    <div class="par-head c1">
+      <div class="par-roman">I</div>
+      <span class="par-num-label">Par I</span>
+      <span class="par-name">N. Olfatorio</span>
+      <div class="par-type" style="background:rgba(26,106,106,0.4);">🔵 Sensitivo</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#1a3a6a;">Función</span>
+        <div class="par-stext">Olfato. Fibras de la mucosa olfatoria → lámina cribosa del etmoides → bulbo olfatorio.</div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Identificar olores conocidos (café, vainilla) con cada fosa nasal ocluida. No usar sustancias irritantes (amoníaco activa trigémino).</div>
+      </div>
+      <div class="par-patho b1">
+        <span class="pt" style="color:#1a3a6a;">⚠ Patología</span>
+        <div class="pd">
+          <strong>Anosmia:</strong> TCE (fractura lámina cribosa) ⭐, meningioma de surco olfatorio, COVID-19 (anosmia/disgeusia como síntoma precoz). <span class="ope-badge">OPE</span><br>
+          <strong>Hiperosmia:</strong> Migraña, embarazo.<br>
+          <strong>Cacosmia:</strong> Sinusitis, psicosis.<br>
+          <strong>Alucinaciones olfativas:</strong> Crisis uncales (epilepsia temporal).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- II ÓPTICO -->
+  <div class="par-card">
+    <div class="par-head c2">
+      <div class="par-roman">II</div>
+      <span class="par-num-label">Par II</span>
+      <span class="par-name">N. Óptico</span>
+      <div class="par-type" style="background:rgba(26,106,106,0.4);">🔵 Sensitivo</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#1a5a3a;">Función</span>
+        <div class="par-stext">Visión. Retina → nervio óptico → quiasma óptico → tracto óptico → corteza visual occipital (V1).</div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Agudeza visual (optotipos), campo visual (confrontación), fondo de ojo, reflejo fotomotor (aferente). Pupila Marcus Gunn (RAPD).</div>
+      </div>
+      <div class="par-patho b2">
+        <span class="pt" style="color:#1a5a3a;">⚠ Patología</span>
+        <div class="pd">
+          <strong>Neuritis óptica:</strong> Esclerosis múltiple (25% debut), dolor al mover el ojo, scotoma central. <span class="ope-badge">OPE</span><br>
+          <strong>Lesión quiasma:</strong> Adenoma hipofisario → hemianopsia bitemporal ⭐<br>
+          <strong>Lesión cintilla:</strong> Hemianopsia homónima contralateral.<br>
+          <strong>Papiledema:</strong> HIC → borramiento del disco óptico.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- III OCULOMOTOR -->
+  <div class="par-card">
+    <div class="par-head c3">
+      <div class="par-roman">III</div>
+      <span class="par-num-label">Par III</span>
+      <span class="par-name">N. Oculomotor</span>
+      <div class="par-type" style="background:rgba(154,26,64,0.4);">🔴 Motor</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#8a1a20;">Función</span>
+        <div class="par-stext">Motilidad ocular extrínseca (<strong>RS, RI, RM, OI</strong>). Elevador del párpado superior. Músculo ciliar y esfínter pupilar (parasimpático).</div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Movimientos oculares en H, ptosis, tamaño pupilar, reflejo fotomotor directo y consensual (eferente).</div>
+      </div>
+      <div class="par-patho b3">
+        <span class="pt" style="color:#8a1a20;">⚠ Patología — El más importante OPE ⭐</span>
+        <div class="pd">
+          <strong>Parálisis completa III:</strong> Ptosis palpebral + ojo "abajo y afuera" (posición primaria) + midriasis. <span class="ope-badge">OPE</span><br>
+          <strong>Compresiva (aneurisma ACOP, herniación uncal):</strong> Afecta pupila primero (fibras parasimpáticas externas) → <strong>midriasis ⭐</strong><br>
+          <strong>Isquémica (DM, HTA):</strong> Respeta pupila → sin midriasis. <span class="ope-badge">OPE</span><br>
+          <strong>Herniación transtentorial:</strong> III comprimido → midriasis ipsilateral = signo de alarma de HIC.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IV TROCLEAR -->
+  <div class="par-card">
+    <div class="par-head c4">
+      <div class="par-roman">IV</div>
+      <span class="par-num-label">Par IV</span>
+      <span class="par-name">N. Troclear</span>
+      <div class="par-type" style="background:rgba(154,26,64,0.4);">🔴 Motor</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#4a1a6a;">Función</span>
+        <div class="par-stext">Inerva el <strong>músculo oblicuo superior</strong> (desplaza ojo abajo y adentro). Único par craneal que sale por la cara dorsal del tronco.</div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Mirar hacia abajo y adentro. Diplopía vertical en esa dirección. Test de Parks-Bielschowsky.</div>
+      </div>
+      <div class="par-patho b4">
+        <span class="pt" style="color:#4a1a6a;">⚠ Patología</span>
+        <div class="pd">
+          <strong>Parálisis IV:</strong> <strong>Diplopía vertical</strong> (peor al mirar hacia abajo). Inclinación compensatoria de la cabeza contralateral (tortícolis ocular). <span class="ope-badge">OPE</span><br>
+          <strong>Causa más frecuente:</strong> TCE (par más delgado y largo = más vulnerable al trauma).<br>
+          <strong>Inclinación cabeza hacia el hombro CONTRARIO</strong> al IV afectado = signo clásico.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- V TRIGÉMINO -->
+  <div class="par-card">
+    <div class="par-head c5">
+      <div class="par-roman">V</div>
+      <span class="par-num-label">Par V</span>
+      <span class="par-name">N. Trigémino</span>
+      <div class="par-type" style="background:rgba(196,122,16,0.4);">🟠 Mixto</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#6a4a10;">Función</span>
+        <div class="par-stext">
+          <strong>Sensitivo:</strong> Sensibilidad facial (3 ramas: V1 oftálmica, V2 maxilar, V3 mandibular).<br>
+          <strong>Motor:</strong> Músculos masticadores (masetero, temporal, pterigoideo).
+        </div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Sensibilidad táctil/dolorosa en 3 territorios faciales. Reflejo corneal (aferente = V1). Apertura mandibular (si paresia, desvía hacia lado afecto). Reflejo masetero.</div>
+      </div>
+      <div class="par-patho b5">
+        <span class="pt" style="color:#6a4a10;">⚠ Patología — Más preguntado ⭐</span>
+        <div class="pd">
+          <strong>Neuralgia del trigémino:</strong> Dolor facial paroxístico lancinante en uno o más territorios V. Zona gatillo. Carbamazepina tto 1.ª línea. <span class="ope-badge">OPE</span><br>
+          <strong>Herpes zóster oftálmico (V1):</strong> Erupción vesicular en frente/párpados, keratitis, signo de Hutchinson (vesículas en punta nariz). <span class="ope-badge">OPE</span><br>
+          <strong>Anestesia corneal:</strong> Lesión V1 → úlcera corneal neurotrófica (ojo seco sin dolor).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VI ABDUCENS -->
+  <div class="par-card">
+    <div class="par-head c6">
+      <div class="par-roman">VI</div>
+      <span class="par-num-label">Par VI</span>
+      <span class="par-name">N. Abducens</span>
+      <div class="par-type" style="background:rgba(154,26,64,0.4);">🔴 Motor</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#1a4a5a;">Función</span>
+        <div class="par-stext">Inerva el <strong>músculo recto lateral</strong> (abducción del ojo). Trayecto intracraneal más largo → más vulnerable a HIC.</div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Movimiento de abducción (mirar hacia temporal). Diplopía horizontal.</div>
+      </div>
+      <div class="par-patho b6">
+        <span class="pt" style="color:#1a4a5a;">⚠ Patología — Falso localizador ⭐</span>
+        <div class="pd">
+          <strong>Parálisis VI:</strong> Ojo desviado hacia adentro (estrabismo convergente), diplopía horizontal homónima (peor en mirada lateral ipsilateral). <span class="ope-badge">OPE</span><br>
+          <strong>Falso signo localizador HIC:</strong> La HIC puede comprimir el VI por su recorrido largo aunque la lesión sea lejos. ⭐<br>
+          <strong>Síndrome Wernicke:</strong> Parálisis VI bilateral + nistagmo + ataxia (tríada clásica).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VII FACIAL -->
+  <div class="par-card">
+    <div class="par-head c7">
+      <div class="par-roman">VII</div>
+      <span class="par-num-label">Par VII</span>
+      <span class="par-name">N. Facial</span>
+      <div class="par-type" style="background:rgba(196,122,16,0.4);">🟠 Mixto</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#5a1a4a;">Función</span>
+        <div class="par-stext">
+          <strong>Motor:</strong> Musculatura mímica facial (orbicular, frontal, buccinador).<br>
+          <strong>Sensitivo especial:</strong> Gusto 2/3 anteriores lengua (cuerda del tímpano).<br>
+          <strong>Parasimpático:</strong> Glándulas lagrimal, submaxilar, sublingual.
+        </div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Arrugar frente, cerrar ojos fuerte, mostrar dientes, inflar mejillas, gusto en 2/3 ant. lengua.</div>
+      </div>
+      <div class="par-patho b7">
+        <span class="pt" style="color:#5a1a4a;">⚠ Patología — La más preguntada ⭐⭐</span>
+        <div class="pd">
+          <strong>Parálisis de Bell (periférica):</strong> Afecta TODO el hemifacial incluida frente (músculo frontal). Lagoftalmos. Signo de Bell (ojo va hacia arriba al intentar cerrar). Tratamiento: corticoides + aciclovir (si herpes). <span class="ope-badge">OPE</span><br>
+          <strong>Parálisis central (ACV):</strong> Respeta la frente (inervación bilateral del frontalis). Solo tercio inferior contralateral. <span class="ope-badge">OPE</span><br>
+          <strong>Síndrome Ramsay Hunt:</strong> VVZ en ganglio geniculado. Parálisis facial + vesículas en CAE y pabellón auricular + sordera + vértigo. <span class="ope-badge">OPE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIII VESTIBULOCOCLEAR -->
+  <div class="par-card">
+    <div class="par-head c8">
+      <div class="par-roman">VIII</div>
+      <span class="par-num-label">Par VIII</span>
+      <span class="par-name">N. Vestibulococlear</span>
+      <div class="par-type" style="background:rgba(26,106,106,0.4);">🔵 Sensitivo</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#1a6a4a;">Función</span>
+        <div class="par-stext">
+          <strong>Rama coclear:</strong> Audición.<br>
+          <strong>Rama vestibular:</strong> Equilibrio y orientación espacial (canales semicirculares, utrículo, sáculo).
+        </div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Prueba de Weber (diapasón en vertex: lateraliza a sano en neurosensorial, a enfermo en conductiva ⭐). Prueba de Rinne. Otoscopía. Prueba de Romberg. Maniobra Dix-Hallpike.</div>
+      </div>
+      <div class="par-patho b8">
+        <span class="pt" style="color:#1a6a4a;">⚠ Patología</span>
+        <div class="pd">
+          <strong>Neurinoma del acústico (schwannoma VIII):</strong> Hipoacusia neurosensorial unilateral progresiva + acúfenos + vértigo. AO II (neurofibromatosis tipo II). <span class="ope-badge">OPE</span><br>
+          <strong>Laberintitis:</strong> Vértigo + hipoacusia + nistagmo.<br>
+          <strong>Neuritis vestibular:</strong> Vértigo intenso SIN hipoacusia ni acúfenos (solo rama vestibular). Tras infección viral.<br>
+          <strong>Ototoxicidad:</strong> Aminoglucósidos + furosemida (sinergismo). <span class="ope-badge">OPE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IX GLOSOFARÍNGEO -->
+  <div class="par-card">
+    <div class="par-head c9">
+      <div class="par-roman">IX</div>
+      <span class="par-num-label">Par IX</span>
+      <span class="par-name">N. Glosofaríngeo</span>
+      <div class="par-type" style="background:rgba(196,122,16,0.4);">🟠 Mixto</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#6a2a10;">Función</span>
+        <div class="par-stext">
+          <strong>Sensitivo:</strong> Gusto 1/3 posterior lengua, faringe posterior, CAE.<br>
+          <strong>Motor:</strong> Estilofaríngeo (elevación faringe al deglutir).<br>
+          <strong>Parasimpático:</strong> Glándula parótida (nervio timpánico → ganglio ótico).
+        </div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Reflejo nauseoso/faríngeo (aferente = IX, eferente = X). Gusto 1/3 posterior lengua.</div>
+      </div>
+      <div class="par-patho b9">
+        <span class="pt" style="color:#6a2a10;">⚠ Patología</span>
+        <div class="pd">
+          <strong>Neuralgia glosofaríngea:</strong> Dolor paroxístico en amígdala/oído/faringe al deglutir o toser. Menos frecuente que trigémino. <span class="ope-badge">OPE</span><br>
+          <strong>Síndrome del seno cavernoso:</strong> Junto con V, III, IV, VI.<br>
+          <strong>Síndrome del agujero yugular (Vernet):</strong> IX + X + XI. Disfagia + disfonía + paresia ECM/trapecio.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- X VAGO -->
+  <div class="par-card">
+    <div class="par-head c10">
+      <div class="par-roman">X</div>
+      <span class="par-num-label">Par X</span>
+      <span class="par-name">N. Vago</span>
+      <div class="par-type" style="background:rgba(196,122,16,0.4);">🟠 Mixto</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#3a1a5a;">Función</span>
+        <div class="par-stext">
+          <strong>Parasimpático visceral:</strong> Corazón (bradicardia), pulmones, tubo digestivo hasta colon transverso.<br>
+          <strong>Motor:</strong> Laringe (nervio recurrente), faringe, paladar blando.<br>
+          <strong>Sensitivo:</strong> Faringe, laringe, vísceras torácicas y abdominales.
+        </div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Reflejo nauseoso (eferente). Fonación (voz bitonal en lesión del recurrente). Elevación del paladar (úvula se desvía al lado SANO). Deglución.</div>
+      </div>
+      <div class="par-patho b10">
+        <span class="pt" style="color:#3a1a5a;">⚠ Patología — Muy preguntado ⭐</span>
+        <div class="pd">
+          <strong>Lesión nervio recurrente:</strong> Disfonía/afonía (parálisis cuerda vocal). Causa: cirugía tiroidea, aneurisma aorta, Ca. pulmón. <span class="ope-badge">OPE</span><br>
+          <strong>Parálisis velo del paladar:</strong> Úvula se desvía hacia el lado <strong>SANO</strong> ⭐ (el paladar enfermo no sube).<br>
+          <strong>Síndrome Wallenberg:</strong> Infarto bulbar lateral → disfagia + disfonía + síndrome de Horner ipsilateral + hemianestesia cruzada. <span class="ope-badge">OPE</span><br>
+          <strong>Síncope vasovagal:</strong> Hiperactividad vagal → bradicardia + hipotensión.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- XI ACCESORIO -->
+  <div class="par-card">
+    <div class="par-head c11">
+      <div class="par-roman">XI</div>
+      <span class="par-num-label">Par XI</span>
+      <span class="par-name">N. Accesorio</span>
+      <div class="par-type" style="background:rgba(154,26,64,0.4);">🔴 Motor</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#1a5a2a;">Función</span>
+        <div class="par-stext">
+          Motor puro. Inerva <strong>músculo esternocleidomastoideo (ECM)</strong> y <strong>trapecio superior</strong>.<br>
+          El ECM rota la cabeza hacia el lado contralateral y la inclina ipsilateral.
+        </div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Rotar cabeza contra resistencia (valora ECM contralateral al movimiento). Elevar hombros contra resistencia (valora trapecio). Inspección de atrofia.</div>
+      </div>
+      <div class="par-patho b11">
+        <span class="pt" style="color:#1a5a2a;">⚠ Patología</span>
+        <div class="pd">
+          <strong>Lesión XI:</strong> Dificultad para rotar cabeza + caída del hombro + atrofia ECM y/o trapecio. <span class="ope-badge">OPE</span><br>
+          <strong>Tortícolis espasmódica:</strong> Espasmo del ECM → cabeza desviada. Tratamiento: toxina botulínica.<br>
+          <strong>Síndrome del agujero yugular:</strong> XI + IX + X. Disfonía + disfagia + paresia ECM.<br>
+          <strong>Yatrogenia:</strong> Biopsias ganglionares cervicales posteriores → lesión XI (mala técnica).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- XII HIPOGLOSO -->
+  <div class="par-card">
+    <div class="par-head c12">
+      <div class="par-roman">XII</div>
+      <span class="par-num-label">Par XII</span>
+      <span class="par-name">N. Hipogloso</span>
+      <div class="par-type" style="background:rgba(154,26,64,0.4);">🔴 Motor</div>
+    </div>
+    <div class="par-body">
+      <div class="par-section">
+        <span class="par-stit" style="color:#3a3a10;">Función</span>
+        <div class="par-stext">Motor puro. Inerva la <strong>musculatura extrínseca e intrínseca de la lengua</strong>. El geniogloso empuja la lengua hacia afuera en dirección contralateral.</div>
+      </div>
+      <div class="par-section">
+        <div class="par-exp"><strong>Exploración:</strong> Sacar la lengua y moverla lateralmente. Valorar fasciculaciones, atrofia (lesión periférica). Desviación al protruir.</div>
+      </div>
+      <div class="par-patho b12">
+        <span class="pt" style="color:#3a3a10;">⚠ Patología — Regla de desviación ⭐</span>
+        <div class="pd">
+          <strong>Lesión periférica XII:</strong> Lengua se desvía hacia el lado <strong>ENFERMO</strong> al protruir ⭐ (el músculo sano empuja hacia el lado enfermo).<br>
+          <strong>ELA:</strong> Atrofia + fasciculaciones linguales = clásico de neurona motora inferior.<br>
+          <strong>Síndrome bulbar:</strong> XII + IX + X + XI → disfagia + disartria + atrofia lingual.<br>
+          <strong>Síndrome pseudobulbar:</strong> Mismos síntomas pero por lesión neurona motora superior (sin atrofia, con reflejos vivos). <span class="ope-badge">OPE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="div"></div>
+
+<!-- TABLA RESUMEN -->
+<div class="sh"><div class="sb"></div><div><span class="sn">Referencia rápida</span><div class="st">Tabla Resumen — Los 12 Pares de un Vistazo</div></div></div>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>#</th><th>Nombre</th><th>Tipo</th><th>Función Clave</th><th>Músculo / Estructura</th><th>Patología OPE ⭐</th></tr>
+    </thead>
+    <tbody>
+      <tr class="ts"><td><strong style="font-family:'Playfair Display',serif;">I</strong></td><td><strong>Olfatorio</strong></td><td><span style="color:var(--S);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">S</span></td><td>Olfato</td><td>Mucosa olfatoria → bulbo</td><td>Anosmia post-TCE; COVID-19; meningioma surco olfatorio</td></tr>
+      <tr class="ts"><td><strong style="font-family:'Playfair Display',serif;">II</strong></td><td><strong>Óptico</strong></td><td><span style="color:var(--S);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">S</span></td><td>Visión</td><td>Retina → quiasma → corteza V1</td><td>Neuritis óptica (EM); hemianopsia bitemporal (adenoma hipofisario)</td></tr>
+      <tr class="tm"><td><strong style="font-family:'Playfair Display',serif;">III</strong></td><td><strong>Oculomotor</strong></td><td><span style="color:var(--M);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">M</span></td><td>MOE (RS, RM, RI, OI), elevador párpado, pupila</td><td>Recto sup/med/inf, oblicuo inf, elevador párpado</td><td>Ptosis + ojo abajo-afuera + midriasis (compresivo) vs pupila respetada (isquémico DM) ⭐</td></tr>
+      <tr class="tm"><td><strong style="font-family:'Playfair Display',serif;">IV</strong></td><td><strong>Troclear</strong></td><td><span style="color:var(--M);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">M</span></td><td>Depresión ojo en aducción</td><td>Oblicuo superior</td><td>Diplopía vertical; head tilt contralateral; TCE</td></tr>
+      <tr class="tmx"><td><strong style="font-family:'Playfair Display',serif;">V</strong></td><td><strong>Trigémino</strong></td><td><span style="color:var(--Mx);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">Mx</span></td><td>Sensibilidad facial (V1/V2/V3); masticación</td><td>Masetero, temporal, pterigoideos</td><td>Neuralgia trigémino; HZV oftálmico (V1); reflejo corneal aferente</td></tr>
+      <tr class="tm"><td><strong style="font-family:'Playfair Display',serif;">VI</strong></td><td><strong>Abducens</strong></td><td><span style="color:var(--M);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">M</span></td><td>Abducción ocular</td><td>Recto lateral</td><td>Estrabismo convergente; diplopía horizontal; falso localizador HIC; Wernicke ⭐</td></tr>
+      <tr class="tmx"><td><strong style="font-family:'Playfair Display',serif;">VII</strong></td><td><strong>Facial</strong></td><td><span style="color:var(--Mx);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">Mx</span></td><td>Mímica facial; gusto 2/3 ant.; lagrimeo/salivaciòn</td><td>Orbicular, frontal, platisma...</td><td>Bell (periférica=frente afecta); ACV (central=frente respetada); Ramsay Hunt ⭐⭐</td></tr>
+      <tr class="ts"><td><strong style="font-family:'Playfair Display',serif;">VIII</strong></td><td><strong>Vestibulococlear</strong></td><td><span style="color:var(--S);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">S</span></td><td>Audición + equilibrio</td><td>Cóclea + canales semicirculares</td><td>Schwannoma acústico; ototoxicidad (aminoglucósidos+furosemida); laberintitis ⭐</td></tr>
+      <tr class="tmx"><td><strong style="font-family:'Playfair Display',serif;">IX</strong></td><td><strong>Glosofaríngeo</strong></td><td><span style="color:var(--Mx);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">Mx</span></td><td>Gusto 1/3 post. lengua; reflejo nauseoso (aferente); parótida</td><td>Estilofaríngeo</td><td>Neuralgia glosofaríngea; síndrome agujero yugular</td></tr>
+      <tr class="tmx"><td><strong style="font-family:'Playfair Display',serif;">X</strong></td><td><strong>Vago</strong></td><td><span style="color:var(--Mx);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">Mx</span></td><td>Parasimpático visceral; laringe/faringe/paladar</td><td>Recurrente laríngeo, constrictores faringe</td><td>Recurrente: disfonía (cirugía tiroides, Ca. pulmón); úvula al lado sano; Wallenberg ⭐</td></tr>
+      <tr class="tm"><td><strong style="font-family:'Playfair Display',serif;">XI</strong></td><td><strong>Accesorio</strong></td><td><span style="color:var(--M);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">M</span></td><td>Rotación cabeza; elevación hombro</td><td>ECM + Trapecio</td><td>Paresia ECM/trapecio; yatrogenia biopsia cervical; tortícolis (toxina botulínica)</td></tr>
+      <tr class="tm"><td><strong style="font-family:'Playfair Display',serif;">XII</strong></td><td><strong>Hipogloso</strong></td><td><span style="color:var(--M);font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;">M</span></td><td>Movimiento lingual</td><td>Geniogloso, hipogloso, estilogloso</td><td>Lengua se desvía al lado ENFERMO; ELA (fasciculaciones); bulbar vs pseudobulbar ⭐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="div"></div>
+
+<!-- SÍNDROMES ESPECIALES -->
+<div class="sh"><div class="sb"></div><div><span class="sn">Síndromes combinados</span><div class="st">Afectación de Múltiples Pares Craneales — Muy Preguntados</div></div></div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
+
+  <div class="card" style="border-top:3px solid var(--morado);">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--morado);margin-bottom:7px;">SENO CAVERNOSO</div>
+    <div style="font-size:0.83rem;line-height:1.8;color:var(--soft);">
+      <strong>Pares afectados: III + IV + V1/V2 + VI</strong> ⭐<br>
+      Causa: Trombosis seno cavernoso, fístula carótido-cavernosa, aneurisma, tumor hipofisario.<br>
+      <strong>Clínica:</strong> Oftalmoplejía completa + ptosis + dolor/anestesia facial superior + quemosis + exoftalmos pulsátil (fístula).<br>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--morado);">III + IV + V + VI = SENO CAVERNOSO ⭐</span>
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid var(--rojo);">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rojo);margin-bottom:7px;">AGUJERO YUGULAR (VERNET)</div>
+    <div style="font-size:0.83rem;line-height:1.8;color:var(--soft);">
+      <strong>Pares afectados: IX + X + XI</strong> ⭐<br>
+      Causa: Glomus yugular, meningioma, carcinoma nasofaríngeo, fractura base cráneo.<br>
+      <strong>Clínica:</strong> Disfagia + disfonía (voz bitonal) + paresia ECM y trapecio + pérdida reflejo nauseoso + anestesia hemipaladar.<br>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--rojo);">IX + X + XI = AGUJERO YUGULAR ⭐</span>
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid var(--naranja);">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--naranja);margin-bottom:7px;">SÍNDROME BULBAR vs PSEUDOBULBAR</div>
+    <div style="font-size:0.83rem;line-height:1.8;color:var(--soft);">
+      <strong>Bulbar (NMI):</strong> IX+X+XII periférico. Disfagia + disartria + atrofia lingual + fasciculaciones + reflejo nauseoso ausente.<br>
+      <strong>Pseudobulbar (NMS):</strong> Igual clínicamente pero reflejo nauseoso presente/aumentado + sin atrofia + risa/llanto patológico. <span class="ope-badge">OPE</span><br>
+      <em>Pseudobulbar: bilateral, por lesión cortical/subcortical bilateral.</em>
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid var(--azul);">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--azul);margin-bottom:7px;">WALLENBERG (PICA/ACV BULBAR LATERAL)</div>
+    <div style="font-size:0.83rem;line-height:1.8;color:var(--soft);">
+      <strong>Infarto bulbar lateral (arteria PICA)</strong><br>
+      <strong>Ipsilateral:</strong> Síndrome Horner (ptosis, miosis, anhidrosis) + ataxia + IX/X (disfagia, disfonía) + V (anestesia facial).<br>
+      <strong>Contralateral:</strong> Hemianestesia espino-talámica (termoalgesia). <span class="ope-badge">OPE</span><br>
+      <strong>→ Hemianestesia CRUZADA: cara ipsi + cuerpo contra.</strong> ⭐
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid var(--verde);">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--verde);margin-bottom:7px;">ENCEFALOPATÍA WERNICKE</div>
+    <div style="font-size:0.83rem;line-height:1.8;color:var(--soft);">
+      <strong>Causa:</strong> Déficit tiamina (B1). Alcohólicos, malnutridos.<br>
+      <strong>Tríada:</strong> <strong>Oftalmoplejía (VI bilateral)</strong> + nistagmo + <strong>ataxia</strong> + <strong>confusión mental</strong>. <span class="ope-badge">OPE</span><br>
+      <strong>Tratamiento:</strong> Tiamina IV urgente (ANTES de cualquier glucosa). <span class="ope-badge">OPE</span><br>
+      Progresa a Korsakoff (amnesia anterógrada + confabulación) si no se trata.
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid var(--ac);">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;">PARÁLISIS VII: CENTRAL vs PERIFÉRICA ⭐⭐</div>
+    <div style="font-size:0.83rem;line-height:1.8;color:var(--soft);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+        <div style="background:#fff0f5;border-radius:6px;padding:7px 9px;border:1px solid #e8a0c0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.59rem;font-weight:700;color:var(--M);text-transform:uppercase;margin-bottom:4px;">PERIFÉRICA (Bell)</div>
+          <div style="font-size:0.78rem;color:var(--soft);">
+            Frente <strong style="color:var(--rojo);">AFECTADA</strong><br>
+            Todo el hemifacial<br>
+            Lagoftalmos<br>
+            Signo de Bell<br>
+            Ipsilateral a lesión
+          </div>
+        </div>
+        <div style="background:#f0f8ff;border-radius:6px;padding:7px 9px;border:1px solid #90b8e0;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.59rem;font-weight:700;color:var(--azul);text-transform:uppercase;margin-bottom:4px;">CENTRAL (ACV)</div>
+          <div style="font-size:0.78rem;color:var(--soft);">
+            Frente <strong style="color:var(--verde);">RESPETADA</strong><br>
+            Solo 1/3 inferior<br>
+            No lagoftalmos<br>
+            Contralateral a lesión<br>
+            + otros signos ACV
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · PARES CRANEALES</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>Pares SENSITIVOS puros</strong> → I (olfatorio), II (óptico), VIII (vestibulococlear). Solo tres. Los demás son motores o mixtos. Mnemotecnia: I, II, VIII = S-S-S.</div>
+    <div class="pe"><span class="s">★</span><strong>III compresivo vs isquémico</strong> → Compresivo (aneurisma, herniación): midriasis ⭐. Isquémico (DM, HTA): respeta pupila. Las fibras parasimpáticas van por fuera del III.</div>
+    <div class="pe"><span class="s">★</span><strong>Bell vs ACV: la frente es la clave</strong> → Parálisis periférica (Bell): frente afectada (no puede arrugar). Central (ACV): frente respetada (inervación bilateral del frontalis cortical). ⭐⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Lengua en XII: hacia el enfermo</strong> → Al protruir la lengua, se desvía hacia el lado ENFERMO. El músculo sano (geniogloso) empuja la lengua hacia el lado lesionado. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Úvula en X: hacia el sano</strong> → Al decir "ahhh", la úvula se desvía hacia el lado SANO (el lado enfermo no sube). Regla inversa a hipogloso. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Seno cavernoso: los 4 oculomotores + V</strong> → III + IV + VI + V1/V2. Oftalmoplegia completa + ptosis + dolor facial + quemosis. Causa: trombosis, fístula, aneurisma.</div>
+    <div class="pe"><span class="s">★</span><strong>Agujero yugular: IX + X + XI</strong> → Disfagia + disfonía + paresia ECM/trapecio. Síndrome de Vernet. Causa: glomus yugular, fractura base cráneo.</div>
+    <div class="pe"><span class="s">★</span><strong>VI: falso localizador de HIC</strong> → La parálisis del VI puede no indicar lesión en la protuberancia. Su trayecto largo lo hace vulnerable a cualquier HIC (herniación, tumor lejano). ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Ramsay Hunt: VVZ + VII</strong> → Parálisis facial periférica + vesículas en CAE/pabellón auricular (+ posible hipoacusia/vértigo). Tratamiento: aciclovir + corticoides.</div>
+    <div class="pe"><span class="s">★</span><strong>Wernicke: tiamina ANTES de glucosa</strong> → Dar glucosa sin tiamina puede desencadenar o empeorar la encefalopatía de Wernicke. Siempre tiamina IV primero en alcohólicos desnutridos. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Neuralgia del trigémino: carbamazepina</strong> → Dolor paroxístico en el territorio V (V2 o V3 más frecuente). Zona gatillo. Carbamazepina es el fármaco de primera línea. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Anosmia post-COVID o post-TCE → I</strong> → TCE con fractura de lámina cribosa del etmoides desgarra las fibras del I. COVID-19: neurotropismo directo o inflamación de la mucosa olfatoria.</div>
+    <div class="pe"><span class="s">★</span><strong>Ototoxicidad: VIII</strong> → Aminoglucósidos + furosemida = sinergia ototóxica. Rama coclear y vestibular pueden afectarse. Monitorizar niveles y audición. ⭐</div>
+    <div class="pe"><span class="s">★</span><strong>Hemianopsia bitemporal → adenoma hipofisario</strong> → Compresión del quiasma óptico por el tumor suprasellar. Se pierden las fibras nasales de ambos ojos (campos temporales). ⭐</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">MOE</span><span class="gd">Motilidad ocular extrínseca</span></div>
+  <div class="gi"><span class="ga">RS/RI/RM/RL</span><span class="gd">Recto sup/inf/med/lat</span></div>
+  <div class="gi"><span class="ga">OS/OI</span><span class="gd">Oblicuo sup/inf</span></div>
+  <div class="gi"><span class="ga">RAPD</span><span class="gd">Pupila Marcus Gunn (defecto aferente)</span></div>
+  <div class="gi"><span class="ga">HIC</span><span class="gd">Hipertensión intracraneal</span></div>
+  <div class="gi"><span class="ga">ACOP</span><span class="gd">Arteria comunicante posterior</span></div>
+  <div class="gi"><span class="ga">ECM</span><span class="gd">Esternocleidomastoideo</span></div>
+  <div class="gi"><span class="ga">PICA</span><span class="gd">Arteria cerebelosa posteroinferior</span></div>
+  <div class="gi"><span class="ga">CAE</span><span class="gd">Conducto auditivo externo</span></div>
+  <div class="gi"><span class="ga">NMI/NMS</span><span class="gd">Neurona motora inferior/superior</span></div>
+  <div class="gi"><span class="ga">ELA</span><span class="gd">Esclerosis lateral amiotrófica</span></div>
+  <div class="gi"><span class="ga">VVZ</span><span class="gd">Virus varicela-zóster</span></div>
+</div>
+
+<div style="text-align:center;margin-top:26px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.57rem;letter-spacing:2px;text-transform:uppercase;color:#1a6a6a;">
+  CÁPSULAS DE REPASO · PARES CRANEALES · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

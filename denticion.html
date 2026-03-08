@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dentición · Cápsulas INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#1a7a5a;--ac2:#2a9a70;--fondo:#f4faf7;--sup:#ffffff;
+  --txt:#1a1a1a;--soft:#3a6050;
+  --leche:#e8a020;--leche-bg:#fffbf0;--leche-brd:#f0c060;
+  --perm:#1a7a5a;--perm-bg:#f0faf5;--perm-brd:#70c0a0;
+  --rojo:#c04020;--azul:#1a5a8a;--morado:#6a1a8a;
+  --perla:#fffce6;--pb:#e0c020;--ph:#c09010;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14.5px;line-height:1.55;}
+
+/* HEADER */
+.ph{background:linear-gradient(135deg,#062018 0%,#0e3828 60%,#1a5a3a 100%);padding:22px 32px 18px;position:relative;overflow:hidden;}
+.ph::before{content:'🦷';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:5.5rem;opacity:0.08;pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.67rem;color:#80d0a8;letter-spacing:2px;text-transform:uppercase;margin-top:5px;}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:3px 9px;border-radius:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac);color:#fff;}.p2{background:rgba(255,255,255,0.12);color:#ccc;}.pl{background:var(--leche);color:#fff;}
+
+.wrap{max-width:1110px;margin:0 auto;padding:24px 20px;}
+.sh{display:flex;align-items:center;gap:11px;margin:28px 0 13px;}
+.sb{width:5px;height:32px;border-radius:3px;background:var(--ac);flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;color:#062018;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:26px 0;opacity:0.25;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+/* ══════════ DIAGRAMA BOCA ══════════ */
+.boca-wrapper{background:var(--sup);border-radius:14px;border:1px solid #c8e8d8;padding:20px;margin-bottom:14px;}
+.boca-title{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:14px;}
+
+/* Diagrama diente genérico SVG CSS */
+.boca-grid{display:grid;gap:6px;}
+
+/* Hilera de dientes */
+.teeth-row{display:flex;justify-content:center;align-items:flex-end;gap:3px;flex-wrap:nowrap;}
+.teeth-row.lower{align-items:flex-start;}
+
+/* Diente individual */
+.tooth-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:default;}
+.tooth-wrap:hover .tooth{transform:scale(1.18);box-shadow:0 4px 14px rgba(0,0,0,0.15);}
+.tooth-wrap:hover .tooth-tip{opacity:1;visibility:visible;pointer-events:none;}
+
+.tooth{border-radius:40% 40% 30% 30%;transition:transform 0.18s ease,box-shadow 0.18s ease;position:relative;}
+.tooth.lower{border-radius:30% 30% 40% 40%;}
+.tooth-num{font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;text-align:center;line-height:1;margin-top:1px;}
+.tooth-abbr{font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-align:center;color:var(--soft);line-height:1;}
+
+/* INCISIVOS */
+.inc{width:20px;height:28px;}
+.inc.lower{height:22px;}
+/* CANINOS */
+.can{width:18px;height:32px;border-radius:40% 40% 20% 20%;}
+.can.lower{height:26px;border-radius:20% 20% 40% 40%;}
+/* PREMOLARES */
+.prm{width:21px;height:26px;border-radius:30% 30% 25% 25%;}
+.prm.lower{height:22px;}
+/* MOLARES */
+.mol{width:26px;height:24px;border-radius:25% 25% 22% 22%;}
+.mol.lower{height:20px;}
+/* WISDOM */
+.wis{width:24px;height:22px;border-radius:22% 22% 20% 20%;}
+.wis.lower{height:18px;}
+
+/* Colores leche */
+.t-leche{background:linear-gradient(to bottom,#f0c84a,#d8a010);border:2px solid #c09010;}
+.t-leche .tooth-num{color:#7a5000;}
+/* Colores permanentes */
+.t-perm{background:linear-gradient(to bottom,#e8f5ee,#b0dcc0);border:2px solid #1a7a5a;}
+.t-perm .tooth-num{color:#0a4030;}
+/* Molar juicio */
+.t-wis{background:linear-gradient(to bottom,#e0f0f8,#90c0d8);border:2px solid #1a5a8a;}
+.t-wis .tooth-num{color:#0a3050;}
+
+/* Tooltip al hover */
+.tooth-tip{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#062018;color:#fff;border-radius:7px;padding:7px 10px;
+  font-size:0.75rem;white-space:nowrap;z-index:100;
+  opacity:0;visibility:hidden;transition:opacity 0.15s;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);min-width:130px;text-align:center;
+}
+.tooth-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#062018;}
+.tooth-tip .tip-name{font-family:'Playfair Display',serif;font-weight:700;font-size:0.8rem;display:block;margin-bottom:2px;}
+.tooth-tip .tip-er{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#80d0a8;display:block;}
+.tooth-tip .tip-ca{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#f0c060;display:block;}
+
+/* LEYENDAS */
+.leyenda{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+.ley-item{display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--soft);}
+.ley-sq{width:14px;height:14px;border-radius:3px;}
+
+/* QUADRANT LABEL */
+.quad-labels{display:grid;grid-template-columns:1fr 1fr;text-align:center;margin-bottom:4px;}
+.quad-lbl{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 0;}
+
+/* SEPARADOR CENTRAL */
+.midline{width:2px;height:36px;background:rgba(26,122,90,0.25);border-radius:2px;margin:0 4px;align-self:center;}
+.midline-h{height:2px;width:100%;background:rgba(26,122,90,0.2);border-radius:2px;margin:5px 0;}
+
+/* ══════════ TABLA CRONOLOGÍA ══════════ */
+.crono-wrap{overflow-x:auto;margin-bottom:12px;}
+.crono-table{width:100%;border-collapse:collapse;font-size:0.82rem;border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.07);}
+.crono-table thead tr{background:#062018;}
+.crono-table thead th{font-family:'JetBrains Mono',monospace;font-size:0.61rem;letter-spacing:1.5px;text-transform:uppercase;color:#80d0a8;padding:10px 12px;text-align:left;}
+.crono-table tbody tr:nth-child(odd){background:#f8fcfa;}
+.crono-table tbody tr:nth-child(even){background:#fff;}
+.crono-table tbody td{padding:8px 12px;border-bottom:1px solid #d8ede4;vertical-align:middle;}
+.tipo-leche{border-left:4px solid var(--leche);}
+.tipo-perm{border-left:4px solid var(--perm);}
+.badge-l{display:inline-block;background:var(--leche);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;padding:2px 6px;border-radius:6px;letter-spacing:0.5px;}
+.badge-p{display:inline-block;background:var(--perm);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;padding:2px 6px;border-radius:6px;letter-spacing:0.5px;}
+
+/* COMPARATIVA */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.comp-card{border-radius:11px;overflow:hidden;border:2px solid;}
+.comp-head{padding:12px 16px;}
+.comp-head h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:#fff;}
+.comp-head .comp-sub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.75);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.comp-body{padding:13px 16px;font-size:0.84rem;line-height:1.8;color:var(--soft);}
+.comp-body strong{color:var(--txt);}
+.comp-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px dashed #d8ede4;}
+.comp-row:last-child{border-bottom:none;}
+.comp-lbl{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--soft);}
+.comp-val{font-size:0.84rem;font-weight:700;}
+
+/* TIMELINE ERUPCIÓN */
+.timeline{position:relative;padding-left:24px;margin-bottom:12px;}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--leche),var(--perm));border-radius:2px;}
+.tl-item{position:relative;margin-bottom:10px;}
+.tl-item::before{content:'';position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid;background:#fff;}
+.tl-leche::before{border-color:var(--leche);background:var(--leche);}
+.tl-perm::before{border-color:var(--perm);background:var(--perm);}
+.tl-age{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;display:block;margin-bottom:1px;}
+.tl-leche .tl-age{color:var(--leche);}
+.tl-perm .tl-age{color:var(--perm);}
+.tl-desc{font-size:0.83rem;color:var(--soft);}
+.tl-desc strong{color:var(--txt);}
+
+/* NUMERACIÓN NOTACIÓN */
+.not-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.not-card{background:var(--sup);border-radius:9px;border:1px solid #c8e8d8;padding:13px;}
+.not-tit{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;}
+.not-body{font-size:0.83rem;line-height:1.7;color:var(--soft);}
+.not-body strong{color:var(--txt);}
+
+/* WARN / ANT */
+.warn{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 7px 7px 0;padding:10px 13px;margin:8px 0;font-size:0.84rem;}
+.warn strong{color:var(--rojo);}
+.ant{background:#f0e8ff;border:1px solid #7040c0;border-radius:7px;padding:10px 13px;margin:8px 0;font-size:0.84rem;}
+.ant .at{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7040c0;margin-bottom:4px;}
+
+/* PERLAS */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:28px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:13px 15px;}
+.pe{padding:8px 10px;border-bottom:1px solid #f0e8b0;font-size:0.84rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #f0e8b0;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#2a1800;}
+
+/* GLOSARIO */
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.gi{background:var(--sup);border-radius:7px;padding:8px 10px;border:1px solid #c8e8d8;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--ac);display:block;margin-bottom:2px;}
+.gd{font-size:0.76rem;color:var(--soft);}
+
+@media(max-width:800px){
+  .g2,.comp-grid,.not-grid{grid-template-columns:1fr;}
+  .perlas-g{grid-template-columns:1fr;}
+  .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+  .teeth-row{gap:2px;}
+  .inc{width:16px;height:22px;}
+  .can{width:14px;height:26px;}
+  .prm{width:17px;height:20px;}
+  .mol{width:20px;height:18px;}
+  .wis{width:18px;height:16px;}
+}
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#1a7a5a;margin-bottom:5px;">CÁPSULAS INGESA · PEDIATRÍA · ODONTOLOGÍA</div>
+  <h1>Dentición Temporal y Permanente</h1>
+  <div class="sub">CRONOLOGÍA · TIPOS · NOTACIÓN · DIFERENCIAS · ERUPCIÓN Y CAÍDA</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span>
+    <span class="pill p2">OPE Militar</span>
+    <span class="pill pl">20 dientes de leche</span>
+    <span class="pill p1">32 permanentes</span>
+    <span class="pill p2">★ 10 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ════════ DIAGRAMA DENTICIÓN DE LECHE ════════ -->
+<div class="sh"><div class="sb" style="background:var(--leche);"></div><div>
+  <span class="sn" style="color:var(--leche);">01 · Dentición Temporal</span>
+  <div class="st">Dientes de Leche — 20 Dientes · 6 meses – 3 años</div>
+</div></div>
+
+<div class="boca-wrapper" style="border-color:var(--leche-brd);background:var(--leche-bg);">
+  <div class="boca-title" style="color:var(--leche);">🦷 ARCADA TEMPORAL — Vista desde el exterior (como mira el clínico)</div>
+
+  <div class="quad-labels">
+    <div class="quad-lbl" style="color:var(--leche);border-right:1px dashed #e0c070;">CUADRANTE II (sup. izq.) ←</div>
+    <div class="quad-lbl" style="color:var(--leche);">→ CUADRANTE I (sup. der.)</div>
+  </div>
+
+  <!-- ARCADA SUPERIOR LECHE -->
+  <div class="teeth-row" style="margin-bottom:2px;">
+    <!-- izq del paciente = der. del observador: II izq, I der -->
+    <!-- Cuadrante II (paciente izq): 65 64 63 62 61 | Cuadrante I: 11→51 52 53 54 55 -->
+
+    <!-- CUAD II (izq del paciente) = derecha del diagrama si vemos desde afuera -->
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-leche" style="position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">2.º Molar sup. izq.</span>
+          <span class="tip-er">Erupción: 25–33 meses</span>
+          <span class="tip-ca">Caída: 10–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">65</div>
+      <div class="tooth-abbr">2Mol</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-leche" style="width:22px;height:26px;position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">1.º Molar sup. izq.</span>
+          <span class="tip-er">Erupción: 13–19 meses</span>
+          <span class="tip-ca">Caída: 9–11 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">64</div>
+      <div class="tooth-abbr">1Mol</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can t-leche" style="position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">Canino sup. izq.</span>
+          <span class="tip-er">Erupción: 16–22 meses</span>
+          <span class="tip-ca">Caída: 10–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">63</div>
+      <div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-leche" style="position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">Incisivo lateral sup. izq.</span>
+          <span class="tip-er">Erupción: 9–13 meses</span>
+          <span class="tip-ca">Caída: 7–8 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">62</div>
+      <div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-leche" style="width:18px;position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">Incisivo central sup. izq.</span>
+          <span class="tip-er">Erupción: 8–12 meses</span>
+          <span class="tip-ca">Caída: 6–7 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">61</div>
+      <div class="tooth-abbr">IC</div>
+    </div>
+
+    <div class="midline"></div>
+
+    <!-- CUAD I (der. del paciente) -->
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-leche" style="width:18px;position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">Incisivo central sup. der.</span>
+          <span class="tip-er">Erupción: 8–12 meses</span>
+          <span class="tip-ca">Caída: 6–7 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">51</div>
+      <div class="tooth-abbr">IC</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-leche" style="position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">Incisivo lateral sup. der.</span>
+          <span class="tip-er">Erupción: 9–13 meses</span>
+          <span class="tip-ca">Caída: 7–8 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">52</div>
+      <div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can t-leche" style="position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">Canino sup. der.</span>
+          <span class="tip-er">Erupción: 16–22 meses</span>
+          <span class="tip-ca">Caída: 10–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">53</div>
+      <div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-leche" style="width:22px;height:26px;position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">1.º Molar sup. der.</span>
+          <span class="tip-er">Erupción: 13–19 meses</span>
+          <span class="tip-ca">Caída: 9–11 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">54</div>
+      <div class="tooth-abbr">1Mol</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-leche" style="position:relative;">
+        <div class="tooth-tip">
+          <span class="tip-name">2.º Molar sup. der.</span>
+          <span class="tip-er">Erupción: 25–33 meses</span>
+          <span class="tip-ca">Caída: 10–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">55</div>
+      <div class="tooth-abbr">2Mol</div>
+    </div>
+  </div>
+
+  <div class="midline-h"></div>
+
+  <!-- ARCADA INFERIOR LECHE -->
+  <div class="teeth-row lower" style="margin-top:2px;">
+    <!-- Cuad III (inf. izq.) = izq del diagrama | Cuad IV = der del diagrama -->
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-leche" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">2.º Molar inf. izq.</span>
+          <span class="tip-er">Erupción: 23–31 meses</span>
+          <span class="tip-ca">Caída: 11–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">75</div>
+      <div class="tooth-abbr">2Mol</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-leche" style="width:22px;height:20px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">1.º Molar inf. izq.</span>
+          <span class="tip-er">Erupción: 12–18 meses</span>
+          <span class="tip-ca">Caída: 9–11 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">74</div>
+      <div class="tooth-abbr">1Mol</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can lower t-leche" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">Canino inf. izq.</span>
+          <span class="tip-er">Erupción: 17–23 meses</span>
+          <span class="tip-ca">Caída: 9–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">73</div>
+      <div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-leche" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">Incisivo lateral inf. izq.</span>
+          <span class="tip-er">Erupción: 10–16 meses</span>
+          <span class="tip-ca">Caída: 7–8 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">72</div>
+      <div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-leche" style="width:18px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">Incisivo central inf. izq.</span>
+          <span class="tip-er">Erupción: 6–10 meses</span>
+          <span class="tip-ca">Caída: 6–7 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">71</div>
+      <div class="tooth-abbr">IC</div>
+    </div>
+
+    <div class="midline"></div>
+
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-leche" style="width:18px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">Incisivo central inf. der.</span>
+          <span class="tip-er">Erupción: 6–10 meses</span>
+          <span class="tip-ca">Caída: 6–7 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">81</div>
+      <div class="tooth-abbr">IC</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-leche" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">Incisivo lateral inf. der.</span>
+          <span class="tip-er">Erupción: 10–16 meses</span>
+          <span class="tip-ca">Caída: 7–8 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">82</div>
+      <div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can lower t-leche" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">Canino inf. der.</span>
+          <span class="tip-er">Erupción: 17–23 meses</span>
+          <span class="tip-ca">Caída: 9–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">83</div>
+      <div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-leche" style="width:22px;height:20px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">1.º Molar inf. der.</span>
+          <span class="tip-er">Erupción: 12–18 meses</span>
+          <span class="tip-ca">Caída: 9–11 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">84</div>
+      <div class="tooth-abbr">1Mol</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-leche" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100% + 8px);">
+          <span class="tip-name">2.º Molar inf. der.</span>
+          <span class="tip-er">Erupción: 23–31 meses</span>
+          <span class="tip-ca">Caída: 11–12 años</span>
+        </div>
+      </div>
+      <div class="tooth-num" style="color:#7a5000;">85</div>
+      <div class="tooth-abbr">2Mol</div>
+    </div>
+  </div>
+
+  <div class="quad-labels" style="margin-top:4px;">
+    <div class="quad-lbl" style="color:var(--leche);border-right:1px dashed #e0c070;">← CUADRANTE III (inf. izq.)</div>
+    <div class="quad-lbl" style="color:var(--leche);">CUADRANTE IV (inf. der.) →</div>
+  </div>
+
+  <div class="leyenda">
+    <div class="ley-item"><div class="ley-sq" style="background:linear-gradient(to bottom,#f0c84a,#d8a010);border:2px solid #c09010;"></div><span><strong>Diente temporal</strong> — numeración FDI 50–80</span></div>
+    <div class="ley-item" style="font-size:0.75rem;color:#9a8050;"><em>Pasa el ratón / toca cada diente para ver el nombre y cronología</em></div>
+  </div>
+</div>
+
+<!-- ════════ DIAGRAMA DENTICIÓN PERMANENTE ════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">02 · Dentición Permanente</span>
+  <div class="st">Dientes Permanentes — 32 Dientes · 6 – 21 años</div>
+</div></div>
+
+<div class="boca-wrapper">
+  <div class="boca-title" style="color:var(--ac);">🦷 ARCADA PERMANENTE — Notación FDI</div>
+
+  <div class="quad-labels">
+    <div class="quad-lbl" style="color:var(--ac);border-right:1px dashed #90d0b0;">CUADRANTE II (sup. izq.) ←</div>
+    <div class="quad-lbl" style="color:var(--ac);">→ CUADRANTE I (sup. der.)</div>
+  </div>
+
+  <!-- ARCADA SUPERIOR PERMANENTE -->
+  <div class="teeth-row" style="margin-bottom:2px;">
+    <!-- CU II izq → 28 27 26 25 24 23 22 21 | CU I der → 11 12 13 14 15 16 17 18 -->
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth wis t-wis" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Cordal / Muela juicio sup. izq.</span><span class="tip-er">Erupción: 17–21 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a3050;">28</div><div class="tooth-abbr" style="color:#1a5a8a;">CJ</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">2.º Molar sup. izq.</span><span class="tip-er">Erupción: 11–13 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">27</div><div class="tooth-abbr">2M</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-perm" style="width:24px;height:26px;position:relative;">
+        <div class="tooth-tip"><span class="tip-name">1.º Molar sup. izq. ⭐</span><span class="tip-er">Erupción: 6–7 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">26</div><div class="tooth-abbr">1M⭐</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">2.º Premolar sup. izq.</span><span class="tip-er">Erupción: 10–12 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">25</div><div class="tooth-abbr">2Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">1.º Premolar sup. izq.</span><span class="tip-er">Erupción: 10–11 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">24</div><div class="tooth-abbr">1Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Canino sup. izq.</span><span class="tip-er">Erupción: 11–13 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">23</div><div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Incisivo lateral sup. izq.</span><span class="tip-er">Erupción: 8–9 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">22</div><div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-perm" style="width:18px;position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Incisivo central sup. izq.</span><span class="tip-er">Erupción: 7–8 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">21</div><div class="tooth-abbr">IC</div>
+    </div>
+
+    <div class="midline"></div>
+
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-perm" style="width:18px;position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Incisivo central sup. der.</span><span class="tip-er">Erupción: 7–8 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">11</div><div class="tooth-abbr">IC</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Incisivo lateral sup. der.</span><span class="tip-er">Erupción: 8–9 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">12</div><div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Canino sup. der.</span><span class="tip-er">Erupción: 11–13 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">13</div><div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">1.º Premolar sup. der.</span><span class="tip-er">Erupción: 10–11 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">14</div><div class="tooth-abbr">1Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">2.º Premolar sup. der.</span><span class="tip-er">Erupción: 10–12 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">15</div><div class="tooth-abbr">2Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-perm" style="width:24px;height:26px;position:relative;">
+        <div class="tooth-tip"><span class="tip-name">1.º Molar sup. der. ⭐</span><span class="tip-er">Erupción: 6–7 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">16</div><div class="tooth-abbr">1M⭐</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol t-perm" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">2.º Molar sup. der.</span><span class="tip-er">Erupción: 11–13 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">17</div><div class="tooth-abbr">2M</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth wis t-wis" style="position:relative;">
+        <div class="tooth-tip"><span class="tip-name">Cordal / Muela juicio sup. der.</span><span class="tip-er">Erupción: 17–21 años</span><span class="tip-ca" style="color:#90c8e8;">Permanente</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a3050;">18</div><div class="tooth-abbr" style="color:#1a5a8a;">CJ</div>
+    </div>
+  </div>
+
+  <div class="midline-h"></div>
+
+  <!-- ARCADA INFERIOR PERMANENTE -->
+  <div class="teeth-row lower" style="margin-top:2px;">
+    <!-- Cuad III izq → 38 37 36 35 34 33 32 31 | Cuad IV → 41 42 43 44 45 46 47 48 -->
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth wis lower t-wis" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Cordal inf. izq.</span><span class="tip-er">Erupción: 17–21 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a3050;">38</div><div class="tooth-abbr" style="color:#1a5a8a;">CJ</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">2.º Molar inf. izq.</span><span class="tip-er">Erupción: 11–13 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">37</div><div class="tooth-abbr">2M</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-perm" style="width:24px;height:20px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">1.º Molar inf. izq. ⭐</span><span class="tip-er">Erupción: 6–7 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">36</div><div class="tooth-abbr">1M⭐</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">2.º Premolar inf. izq.</span><span class="tip-er">Erupción: 11–12 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">35</div><div class="tooth-abbr">2Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">1.º Premolar inf. izq.</span><span class="tip-er">Erupción: 10–12 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">34</div><div class="tooth-abbr">1Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Canino inf. izq.</span><span class="tip-er">Erupción: 9–11 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">33</div><div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Incisivo lateral inf. izq.</span><span class="tip-er">Erupción: 7–8 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">32</div><div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-perm" style="width:18px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Incisivo central inf. izq.</span><span class="tip-er">Erupción: 6–7 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">31</div><div class="tooth-abbr">IC</div>
+    </div>
+
+    <div class="midline"></div>
+
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-perm" style="width:18px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Incisivo central inf. der.</span><span class="tip-er">Erupción: 6–7 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">41</div><div class="tooth-abbr">IC</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth inc lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Incisivo lateral inf. der.</span><span class="tip-er">Erupción: 7–8 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">42</div><div class="tooth-abbr">IL</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth can lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Canino inf. der.</span><span class="tip-er">Erupción: 9–11 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">43</div><div class="tooth-abbr">Can</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">1.º Premolar inf. der.</span><span class="tip-er">Erupción: 10–12 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">44</div><div class="tooth-abbr">1Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth prm lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">2.º Premolar inf. der.</span><span class="tip-er">Erupción: 11–12 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">45</div><div class="tooth-abbr">2Pm</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-perm" style="width:24px;height:20px;position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">1.º Molar inf. der. ⭐</span><span class="tip-er">Erupción: 6–7 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">46</div><div class="tooth-abbr">1M⭐</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth mol lower t-perm" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">2.º Molar inf. der.</span><span class="tip-er">Erupción: 11–13 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a4030;">47</div><div class="tooth-abbr">2M</div>
+    </div>
+    <div class="tooth-wrap" style="position:relative;">
+      <div class="tooth wis lower t-wis" style="position:relative;">
+        <div class="tooth-tip" style="bottom:auto;top:calc(100%+8px);"><span class="tip-name">Cordal inf. der.</span><span class="tip-er">Erupción: 17–21 años</span></div>
+      </div>
+      <div class="tooth-num" style="color:#0a3050;">48</div><div class="tooth-abbr" style="color:#1a5a8a;">CJ</div>
+    </div>
+  </div>
+
+  <div class="quad-labels" style="margin-top:4px;">
+    <div class="quad-lbl" style="color:var(--ac);border-right:1px dashed #90d0b0;">← CUADRANTE III (inf. izq.)</div>
+    <div class="quad-lbl" style="color:var(--ac);">CUADRANTE IV (inf. der.) →</div>
+  </div>
+
+  <div class="leyenda">
+    <div class="ley-item"><div class="ley-sq" style="background:linear-gradient(to bottom,#e8f5ee,#b0dcc0);border:2px solid #1a7a5a;"></div><span><strong>Diente permanente</strong></span></div>
+    <div class="ley-item"><div class="ley-sq" style="background:linear-gradient(to bottom,#e0f0f8,#90c0d8);border:2px solid #1a5a8a;"></div><span><strong>Muela del juicio</strong> (puede no erupcionar)</span></div>
+    <div class="ley-item" style="background:#f0fff8;border:1px solid #90d0b0;border-radius:6px;padding:4px 9px;font-weight:700;font-size:0.8rem;color:#0a4030;">⭐ = 1.er Molar (6 años) — el más importante en OPE</div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ════════ COMPARATIVA ════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">03 · Comparativa</span><div class="st">Temporal vs Permanente — Diferencias Anatómicas y Clínicas</div></div></div>
+
+<div class="comp-grid">
+  <div class="comp-card" style="border-color:var(--leche);">
+    <div class="comp-head" style="background:linear-gradient(135deg,#c08010,#e0a020);">
+      <h3>🌕 Dentición Temporal (de Leche)</h3>
+      <div class="comp-sub">Dientes deciduos · 20 dientes · 6 m – 12 años</div>
+    </div>
+    <div class="comp-body" style="background:var(--leche-bg);">
+      <div class="comp-row"><span class="comp-lbl">N.º total</span><span class="comp-val" style="color:var(--leche);">20 dientes</span></div>
+      <div class="comp-row"><span class="comp-lbl">Tipos</span><span class="comp-val">8 Incisivos · 4 Caninos · 8 Molares</span></div>
+      <div class="comp-row"><span class="comp-lbl">Sin</span><span class="comp-val" style="color:var(--rojo);">No hay premolares ⭐</span></div>
+      <div class="comp-row"><span class="comp-lbl">Color</span><span class="comp-val">Blanco azulado / más claros</span></div>
+      <div class="comp-row"><span class="comp-lbl">Tamaño</span><span class="comp-val">Más pequeños, coronas más cortas y anchas</span></div>
+      <div class="comp-row"><span class="comp-lbl">Esmalte</span><span class="comp-val" style="color:var(--rojo);">Más delgado y poroso → caries más rápida ⭐</span></div>
+      <div class="comp-row"><span class="comp-lbl">Raíces</span><span class="comp-val">Largas y divergentes (para dejar espacio al permanente)</span></div>
+      <div class="comp-row"><span class="comp-lbl">Cámara pulpar</span><span class="comp-val">Proporcionalmente grande</span></div>
+      <div class="comp-row"><span class="comp-lbl">1.º diente</span><span class="comp-val" style="color:var(--ac);">Incisivo central inferior · 6–10 meses ⭐</span></div>
+      <div class="comp-row"><span class="comp-lbl">Último diente</span><span class="comp-val">2.º Molar · 25–33 meses (completa a los ~3 años)</span></div>
+      <div class="comp-row"><span class="comp-lbl">Caída</span><span class="comp-val">IC inferior · 6–7 años (inicio caída)</span></div>
+      <div class="comp-row"><span class="comp-lbl">Notación FDI</span><span class="comp-val" style="color:var(--leche);">Cuadrantes 5-6-7-8 (50-89)</span></div>
+    </div>
+  </div>
+
+  <div class="comp-card" style="border-color:var(--perm);">
+    <div class="comp-head" style="background:linear-gradient(135deg,#0a4030,#1a7a5a);">
+      <h3>💎 Dentición Permanente</h3>
+      <div class="comp-sub">Dientes definitivos · 28–32 dientes · desde 6 años</div>
+    </div>
+    <div class="comp-body" style="background:var(--perm-bg);">
+      <div class="comp-row"><span class="comp-lbl">N.º total</span><span class="comp-val" style="color:var(--perm);">32 dientes (28 sin cordales)</span></div>
+      <div class="comp-row"><span class="comp-lbl">Tipos</span><span class="comp-val">8 Inc · 4 Can · 8 Premolares · 8 Molares · 4 Cordales</span></div>
+      <div class="comp-row"><span class="comp-lbl">Sin equivalente</span><span class="comp-val" style="color:var(--azul);">Premolares y Cordales (nuevos) ⭐</span></div>
+      <div class="comp-row"><span class="comp-lbl">Color</span><span class="comp-val">Más amarillento / marfil</span></div>
+      <div class="comp-row"><span class="comp-lbl">Tamaño</span><span class="comp-val">Más grandes, coronas más altas y estrechas</span></div>
+      <div class="comp-row"><span class="comp-lbl">Esmalte</span><span class="comp-val">Más grueso y mineralizado</span></div>
+      <div class="comp-row"><span class="comp-lbl">Raíces</span><span class="comp-val">Fusionadas, convergentes, más largas</span></div>
+      <div class="comp-row"><span class="comp-lbl">Cámara pulpar</span><span class="comp-val">Proporcionalmente menor</span></div>
+      <div class="comp-row"><span class="comp-lbl">1.º diente ⭐</span><span class="comp-val" style="color:var(--rojo);">1.er Molar · 6–7 años ("molar de los 6 años") ⭐</span></div>
+      <div class="comp-row"><span class="comp-lbl">Completación</span><span class="comp-val">28 dientes → ~12–14 años. Con cordales → 17–21 años</span></div>
+      <div class="comp-row"><span class="comp-lbl">Cordal</span><span class="comp-val">Puede no erupcionar (agenesia o inclusión) — 17–21 años</span></div>
+      <div class="comp-row"><span class="comp-lbl">Notación FDI</span><span class="comp-val" style="color:var(--perm);">Cuadrantes 1-2-3-4 (11-48)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ════════ CRONOLOGÍA TABLA ════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">04 · Cronología Completa</span><div class="st">Tabla de Erupción y Caída — Referencia Rápida OPE</div></div></div>
+
+<div class="crono-wrap">
+  <table class="crono-table">
+    <thead>
+      <tr>
+        <th>Diente</th><th>Tipo</th><th>Erupción (meses/años)</th><th>Caída</th><th>Dato clave OPE ⭐</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tipo-leche"><td><strong>Incisivo central inferior</strong></td><td><span class="badge-l">LECHE</span></td><td>6–10 meses</td><td>6–7 años</td><td style="color:var(--rojo);font-weight:700;">1.er diente en erupcionar ⭐</td></tr>
+      <tr class="tipo-leche"><td>Incisivo central superior</td><td><span class="badge-l">LECHE</span></td><td>8–12 meses</td><td>6–7 años</td><td>2.º en erupcionar</td></tr>
+      <tr class="tipo-leche"><td>Incisivo lateral superior</td><td><span class="badge-l">LECHE</span></td><td>9–13 meses</td><td>7–8 años</td><td>—</td></tr>
+      <tr class="tipo-leche"><td>Incisivo lateral inferior</td><td><span class="badge-l">LECHE</span></td><td>10–16 meses</td><td>7–8 años</td><td>—</td></tr>
+      <tr class="tipo-leche"><td>1.er Molar superior e inferior</td><td><span class="badge-l">LECHE</span></td><td>13–19 meses</td><td>9–11 años</td><td>Antes que los caninos de leche</td></tr>
+      <tr class="tipo-leche"><td>Canino superior e inferior</td><td><span class="badge-l">LECHE</span></td><td>16–23 meses</td><td>9–12 años</td><td>Caninos DESPUÉS de 1.er molar ⭐</td></tr>
+      <tr class="tipo-leche"><td>2.º Molar inferior</td><td><span class="badge-l">LECHE</span></td><td>23–31 meses</td><td>11–12 años</td><td>—</td></tr>
+      <tr class="tipo-leche"><td><strong>2.º Molar superior</strong></td><td><span class="badge-l">LECHE</span></td><td>25–33 meses</td><td>10–12 años</td><td style="color:var(--ac);font-weight:700;">Último temporal — completa dentición temporal ~3 años ⭐</td></tr>
+      <tr class="tipo-perm" style="background:#f0faf5;"><td><strong>1.er Molar permanente</strong></td><td><span class="badge-p">PERM</span></td><td style="color:var(--rojo);font-weight:700;">6–7 años</td><td>Permanente</td><td style="color:var(--rojo);font-weight:700;">1.er permanente en erupcionar. "Molar de los 6 años". Sin reemplazar temporal. ⭐⭐</td></tr>
+      <tr class="tipo-perm"><td>Incisivo central inferior perm.</td><td><span class="badge-p">PERM</span></td><td>6–7 años</td><td>Permanente</td><td>Reemplaza incisivo central de leche</td></tr>
+      <tr class="tipo-perm" style="background:#f0faf5;"><td>Incisivo central superior perm.</td><td><span class="badge-p">PERM</span></td><td>7–8 años</td><td>Permanente</td><td>—</td></tr>
+      <tr class="tipo-perm"><td>Incisivo lateral permanente</td><td><span class="badge-p">PERM</span></td><td>8–9 años</td><td>Permanente</td><td>—</td></tr>
+      <tr class="tipo-perm" style="background:#f0faf5;"><td>Canino inferior permanente</td><td><span class="badge-p">PERM</span></td><td>9–11 años</td><td>Permanente</td><td>Canino mandibular antes que maxilar</td></tr>
+      <tr class="tipo-perm"><td>1.er Premolar</td><td><span class="badge-p">PERM</span></td><td>10–12 años</td><td>Permanente</td><td style="color:var(--azul);">No existe en leche (nuevo) ⭐</td></tr>
+      <tr class="tipo-perm" style="background:#f0faf5;"><td>2.º Premolar</td><td><span class="badge-p">PERM</span></td><td>10–12 años</td><td>Permanente</td><td style="color:var(--azul);">No existe en leche (nuevo) ⭐</td></tr>
+      <tr class="tipo-perm"><td>Canino superior permanente</td><td><span class="badge-p">PERM</span></td><td>11–13 años</td><td>Permanente</td><td>El más tardío de los anteriores</td></tr>
+      <tr class="tipo-perm" style="background:#f0faf5;"><td>2.º Molar permanente</td><td><span class="badge-p">PERM</span></td><td>11–13 años</td><td>Permanente</td><td>"Molar de los 12 años" ⭐</td></tr>
+      <tr class="tipo-perm"><td>3.er Molar (Cordal/Juicio)</td><td><span class="badge-p">PERM</span></td><td style="color:var(--azul);font-weight:700;">17–21 años</td><td>Permanente</td><td style="color:var(--azul);font-weight:700;">Puede no erupcionar (inclusión, agenesia). No hay equivalente en leche. ⭐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="div"></div>
+
+<!-- ════════ NOTACIÓN FDI ════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">05 · Numeración</span><div class="st">Sistema FDI — Notación Internacional</div></div></div>
+
+<div class="not-grid">
+  <div class="not-card">
+    <div class="not-tit">Sistema FDI (ISO 3950) — Permanentes</div>
+    <div class="not-body">
+      Se usa un número de <strong>2 dígitos</strong>.<br>
+      <strong>1.er dígito = cuadrante:</strong><br>
+      · <strong>1</strong> = Superior derecho (paciente)<br>
+      · <strong>2</strong> = Superior izquierdo<br>
+      · <strong>3</strong> = Inferior izquierdo<br>
+      · <strong>4</strong> = Inferior derecho<br><br>
+      <strong>2.º dígito = posición</strong> (1–8 de central a distal).<br>
+      Ej: <strong>16</strong> = cuadrante 1 + 6.ª posición = 1.er molar superior derecho.
+    </div>
+  </div>
+  <div class="not-card" style="background:var(--leche-bg);border-color:var(--leche-brd);">
+    <div class="not-tit" style="color:var(--leche);">Sistema FDI — Temporales</div>
+    <div class="not-body">
+      Misma lógica pero cuadrantes 5-6-7-8:<br>
+      · <strong>5</strong> = Superior derecho (temporal)<br>
+      · <strong>6</strong> = Superior izquierdo (temporal)<br>
+      · <strong>7</strong> = Inferior izquierdo (temporal)<br>
+      · <strong>8</strong> = Inferior derecho (temporal)<br><br>
+      Posiciones 1–5 (no hay premolares).<br>
+      Ej: <strong>64</strong> = cuadrante 6 + posición 4 = 1.er molar temporal superior izquierdo.
+    </div>
+  </div>
+  <div class="not-card" style="background:#f5f0ff;border-color:#c0a0e0;">
+    <div class="not-tit" style="color:var(--morado);">Notación Americana (Universal)</div>
+    <div class="not-body">
+      Numeración <strong>1–32</strong> para permanentes (empieza en 3.er molar superior derecho, va en S hasta 3.er molar inferior derecho).<br>
+      Temporales: letras <strong>A–T</strong> (A = 2.º molar temporal sup. der., antihorario).<br><br>
+      <span style="font-size:0.8rem;color:#9a8090;">Menos usada en España. En OPE española: sistema FDI.</span>
+    </div>
+  </div>
+</div>
+
+<!-- DENTICIÓN MIXTA -->
+<div class="sh"><div class="sb"></div><div><span class="sn">06 · Período de Transición</span><div class="st">Dentición Mixta — Fases y Relevancia Clínica</div></div></div>
+
+<div class="g2" style="margin-bottom:14px;">
+  <div>
+    <div style="background:var(--sup);border-radius:9px;border:1px solid #c8e8d8;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:9px;">FASES DE LA DENTICIÓN MIXTA (6–12 AÑOS)</div>
+      <div class="timeline">
+        <div class="tl-item tl-perm">
+          <span class="tl-age">6–7 años</span>
+          <span class="tl-desc"><strong>1.er Molar permanente erupciona sin reemplazar ningún temporal</strong> ← el más importante. IC inf. temporal cae → erupciona IC inf. permanente.</span>
+        </div>
+        <div class="tl-item tl-leche">
+          <span class="tl-age">7–8 años</span>
+          <span class="tl-desc">Caída IC superiores de leche → erupción IC sup. perm. Período de <strong>"dientes de conejo"</strong> (diastema fisiológico).</span>
+        </div>
+        <div class="tl-item tl-perm">
+          <span class="tl-age">9–12 años</span>
+          <span class="tl-desc">Caída molares y caninos de leche → erupción premolares y caninos permanentes. <strong>2.º Molar permanente</strong> erupciona ~12 años.</span>
+        </div>
+        <div class="tl-item tl-perm">
+          <span class="tl-age">12–14 años</span>
+          <span class="tl-desc"><strong>Dentición permanente completa (sin cordales)</strong>. 28 dientes.</span>
+        </div>
+        <div class="tl-item tl-perm">
+          <span class="tl-age">17–21 años</span>
+          <span class="tl-desc"><strong>Cordales</strong> (3.er molar). Variables. Puede no erupcionar. 32 dientes posibles.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="ant" style="margin-bottom:12px;">
+      <div class="at">⭐ DATO OPE FUNDAMENTAL — Molar de los 6 años</div>
+      El <strong>1.er Molar permanente</strong> (16, 26, 36, 46) erupciona a los <strong>6–7 años</strong> SIN reemplazar ningún diente de leche — erupciona detrás del último molar temporal. Es el diente permanente que erupciona <strong>primero</strong> y el más susceptible a caries por aparecer temprano con esmalte inmaturo. Considerado el diente más importante de la dentición permanente.
+    </div>
+    <div style="background:var(--sup);border-radius:9px;border:1px solid #c8e8d8;padding:14px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:9px;">ALTERACIONES FRECUENTES</div>
+      <div style="font-size:0.84rem;line-height:1.85;color:var(--soft);">
+        <strong>Erupción precoz (&lt;4 meses del rango):</strong> Normal. Si &lt;3 meses → Diente natal (al nacer) o neonatal (primer mes): extraer si dificulta lactancia.<br>
+        <strong>Erupción tardía (&gt;1 año del rango):</strong> Estudiar causa (hipotiroidismo, raquitismo, genética).<br>
+        <strong>Diastema fisiológico entre incisivos:</strong> Normal en dentición mixta hasta la erupción del canino permanente.<br>
+        <strong>Agenesia:</strong> Falta congénita. Más frecuente: 3.er molar (cordal) &gt; 2.º premolar &gt; incisivo lateral superior.<br>
+        <strong>Traumatismo en diente temporal:</strong> NO reimplantar (riesgo de anquilosis y daño al germen permanente).
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · DENTICIÓN</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>1.er diente en erupcionar</strong> → Incisivo central inferior de leche · 6–10 meses. Los inferiores van antes que los superiores.</div>
+    <div class="pe"><span class="s">★</span><strong>1.er diente permanente en erupcionar</strong> → 1.er Molar permanente ("molar de los 6 años") · 6–7 años. NO reemplaza ningún temporal — erupciona distal al último molar de leche.</div>
+    <div class="pe"><span class="s">★</span><strong>Dentición temporal: total</strong> → 20 dientes. Sin premolares. Tipos: Incisivos (8) + Caninos (4) + Molares (8). Completa hacia los 3 años (último: 2.º molar ~25–33 meses).</div>
+    <div class="pe"><span class="s">★</span><strong>Dentición permanente: total</strong> → 32 dientes (28 sin cordales). Los premolares y cordales son exclusivos de la permanente (no tienen equivalente en leche).</div>
+    <div class="pe"><span class="s">★</span><strong>Canino de leche erupciona DESPUÉS del 1.er molar temporal</strong> → Orden: IC → IL → 1.er Molar → Canino → 2.º Molar. Trampa frecuente en examen.</div>
+    <div class="pe"><span class="s">★</span><strong>Notación FDI permanentes</strong> → Cuadrantes 1-2-3-4. Temporales: 5-6-7-8. Ej: diente 36 = permanente inferior izquierdo posición 6 = 1.er molar mandibular izquierdo.</div>
+    <div class="pe"><span class="s">★</span><strong>Traumatismo diente temporal caído</strong> → NO reimplantar. Riesgo de anquilosis y daño al germen permanente subyacente. Diferente a diente permanente (SÍ reimplantar en &lt;30 min en leche fisiológica).</div>
+    <div class="pe"><span class="s">★</span><strong>Diente natal vs neonatal</strong> → Natal: presente al nacer. Neonatal: erupciona en el 1.er mes. Si interfiere con lactancia → extracción. Más frecuente en incisivos centrales inferiores.</div>
+    <div class="pe"><span class="s">★</span><strong>Agenesia más frecuente</strong> → 3.er molar (cordal), después 2.º premolar, después incisivo lateral superior. Hasta 25% de la población no tiene los 4 cordales.</div>
+    <div class="pe"><span class="s">★</span><strong>"Molar de los 12 años"</strong> → 2.º Molar permanente · 11–13 años. Con la erupción del 2.º molar y los 2 premolares se completan las 28 piezas definitivas (sin cordales).</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas y Términos</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">IC</span><span class="gd">Incisivo central</span></div>
+  <div class="gi"><span class="ga">IL</span><span class="gd">Incisivo lateral</span></div>
+  <div class="gi"><span class="ga">Can</span><span class="gd">Canino (cúspide)</span></div>
+  <div class="gi"><span class="ga">Pm</span><span class="gd">Premolar (bicúspide)</span></div>
+  <div class="gi"><span class="ga">M</span><span class="gd">Molar (tricúspide)</span></div>
+  <div class="gi"><span class="ga">CJ</span><span class="gd">Cordal / muela del juicio</span></div>
+  <div class="gi"><span class="ga">FDI</span><span class="gd">Fédération Dentaire Internationale</span></div>
+  <div class="gi"><span class="ga">Deciduo</span><span class="gd">Sinónimo de temporal / de leche</span></div>
+</div>
+
+<div style="text-align:center;margin-top:26px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.57rem;letter-spacing:2px;text-transform:uppercase;color:#1a7a5a;">
+  CÁPSULAS DE REPASO · DENTICIÓN · PEDIATRÍA · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

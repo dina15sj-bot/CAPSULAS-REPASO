@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legislación y Bioética Clínica · INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#6a1a3a; --ac2:#8a2a50; --acl:#c06080;
+  --fondo:#f8f2f5; --sup:#ffffff;
+  --txt:#0a0008; --soft:#4a2a38;
+  --kc1:#1a5a8a; /* azul Karnofsky */
+  --kc2:#2a7a3a; /* verde bueno */
+  --kc3:#b06010; /* naranja medio */
+  --kc4:#9a1a40; /* rojo grave */
+  --burn:#5a3a8a; /* púrpura burnout */
+  --eut:#1a6a5a;  /* teal eutanasia */
+  --pres:#7a5a10; /* dorado prescripción */
+  --rojo:#c04020; --verde:#1a7a3a; --azul:#1a5a8a; --naranja:#c47a10;
+  --perla:#fffce6; --pb:#e0c020; --ph:#b08010;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14px;line-height:1.55;}
+
+.ph{background:linear-gradient(135deg,#0a0005 0%,#2a0818 55%,#6a1a3a 100%);padding:20px 32px 16px;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 75% 50%,rgba(180,80,120,0.1) 0%,transparent 60%),
+  repeating-linear-gradient(60deg,transparent,transparent 50px,rgba(255,255,255,0.012) 50px,rgba(255,255,255,0.012) 51px);
+  pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:#fff;position:relative;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:#c080a0;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:2px 8px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac);color:#fff;} .p2{background:rgba(255,255,255,0.1);color:#bbb;}
+.pk{background:var(--kc1);color:#fff;} .pb2{background:var(--burn);color:#fff;}
+.pe2{background:var(--eut);color:#fff;} .ppr{background:var(--pres);color:#fff;}
+
+.wrap{max-width:1160px;margin:0 auto;padding:22px 18px;}
+
+/* separador temático */
+.bloque-sep{display:flex;align-items:center;gap:14px;margin:30px 0 14px;padding:10px 16px;border-radius:10px;border:1px solid;}
+.bloque-sep .bnum{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;opacity:0.25;}
+.bloque-sep .btxt .bt{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.bloque-sep .btxt .bs{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;}
+
+.sh{display:flex;align-items:center;gap:10px;margin:20px 0 10px;}
+.sb{width:5px;height:26px;border-radius:3px;flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#06000a;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:20px 0;opacity:0.18;}
+
+/* ════ KARNOFSKY ════ */
+.karn-ruler{background:var(--sup);border-radius:13px;border:1px solid #d8ccd4;padding:18px;margin-bottom:14px;overflow:hidden;}
+.karn-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--kc1);margin-bottom:14px;}
+.karn-band{display:flex;gap:0;border-radius:9px;overflow:hidden;margin-bottom:12px;}
+.kb{flex:1;text-align:center;padding:10px 4px;}
+.kb .kv{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:#fff;}
+.kb .kl{font-family:'JetBrains Mono',monospace;font-size:0.52rem;color:rgba(255,255,255,0.75);letter-spacing:0.5px;margin-top:1px;}
+.karn-rows{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:10px;}
+.kr{border-radius:8px;border:1px solid;padding:9px 11px;overflow:hidden;}
+.kr-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.kr-range{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;}
+.kr-label{font-family:'JetBrains Mono',monospace;font-size:0.56rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.kr-items{list-style:none;font-size:0.78rem;line-height:1.65;color:var(--soft);}
+.kr-items li::before{content:'↪ ';}
+.kr-items li strong{color:var(--txt);}
+.karn-ecog{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px;}
+.ke{border-radius:8px;padding:9px 10px;border:1px solid #d8ccd4;text-align:center;}
+.ke .keval{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;display:block;margin-bottom:3px;}
+.ke .karval{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;}
+.ke .kedesc{font-size:0.72rem;color:var(--soft);margin-top:2px;}
+.pronos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;}
+.pro-card{border-radius:8px;padding:10px 12px;border:1px solid;}
+.pro-val{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;line-height:1;}
+.pro-unit{font-family:'JetBrains Mono',monospace;font-size:0.56rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.pro-desc{font-size:0.79rem;color:var(--soft);margin-top:5px;}
+
+/* ════ PRESCRIPCIÓN ENFERMERA ════ */
+.norma-timeline{position:relative;padding-left:26px;margin-bottom:14px;}
+.norma-timeline::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--pres),transparent);}
+.nt-item{position:relative;margin-bottom:12px;}
+.nt-item::before{content:'';position:absolute;left:-21px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--pres);border:2px solid #fff;}
+.nt-year{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--pres);letter-spacing:1px;text-transform:uppercase;}
+.nt-text{font-size:0.82rem;line-height:1.6;color:var(--soft);}
+.nt-text strong{color:var(--txt);}
+.ope-badge{display:inline-block;background:#c06000;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.52rem;font-weight:700;padding:1px 5px;border-radius:4px;letter-spacing:0.5px;vertical-align:middle;margin-left:4px;}
+
+.ambito-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.amb-card{background:var(--sup);border-radius:10px;border:1px solid #d0c0a0;border-left:4px solid var(--pres);padding:12px 14px;}
+.amb-t{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pres);margin-bottom:5px;}
+.amb-body{font-size:0.82rem;line-height:1.7;color:var(--soft);}
+.amb-body strong{color:var(--txt);}
+
+.mece-lines{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px;}
+.mece-l{background:var(--sup);border-radius:8px;border:1px solid #d0c0a0;border-top:3px solid var(--pres);padding:9px 10px;text-align:center;}
+.mece-n{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--pres);}
+.mece-t{font-size:0.76rem;color:var(--soft);margin-top:3px;line-height:1.35;}
+
+/* ════ BURNOUT ════ */
+.triada{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+.tri-card{border-radius:11px;border:2px solid var(--burn);overflow:hidden;}
+.tri-head{background:linear-gradient(135deg,#2a1a50,#5a3a8a);padding:11px 14px;}
+.tri-head h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;}
+.tri-head .ti{font-family:'JetBrains Mono',monospace;font-size:0.56rem;color:rgba(255,255,255,0.6);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.tri-body{background:var(--sup);padding:11px 14px;font-size:0.81rem;line-height:1.7;color:var(--soft);}
+.tri-body strong{color:var(--txt);}
+
+.riesgos-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.rg-card{background:var(--sup);border-radius:9px;border:1px solid #c8b8e0;border-top:3px solid var(--burn);padding:10px 12px;}
+.rg-t{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--burn);margin-bottom:5px;}
+.rg-body{font-size:0.79rem;line-height:1.65;color:var(--soft);}
+.rg-body strong{color:var(--txt);}
+.cii11{background:#f0ecff;border:1px solid #c8b8e0;border-radius:8px;padding:10px 13px;margin-bottom:12px;}
+.cii11 .ct{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--burn);margin-bottom:4px;}
+.cii11 .cc{font-size:0.82rem;line-height:1.65;color:var(--soft);}
+.cii11 .cc strong{color:var(--txt);}
+
+/* ════ EUTANASIA ════ */
+.eut-def{background:var(--sup);border-radius:11px;border:1px solid #b8d8d0;padding:14px 17px;margin-bottom:12px;display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.eut-box{border-radius:8px;padding:11px 13px;border:2px solid;}
+.eut-box h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:6px;}
+.eut-box p{font-size:0.81rem;line-height:1.65;color:var(--soft);}
+.eut-box p strong{color:var(--txt);}
+
+.pasos{counter-reset:paso;margin-bottom:14px;}
+.paso{display:flex;gap:12px;padding:9px 12px;background:var(--sup);border-radius:9px;border:1px solid #b8d8d0;margin-bottom:6px;align-items:flex-start;}
+.paso-n{width:28px;height:28px;border-radius:50%;background:var(--eut);color:#fff;font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.paso-t{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--eut);display:block;margin-bottom:2px;}
+.paso-d{font-size:0.81rem;line-height:1.55;color:var(--soft);}
+.paso-d strong{color:var(--txt);}
+
+.figuras{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+.fig{background:var(--sup);border-radius:10px;border:2px solid var(--eut);padding:13px 14px;text-align:center;}
+.fig-icon{font-size:1.5rem;margin-bottom:5px;}
+.fig-t{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--eut);margin-bottom:4px;}
+.fig-d{font-size:0.79rem;line-height:1.5;color:var(--soft);}
+
+.sed-eut{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.se-card{border-radius:10px;border:2px solid;overflow:hidden;}
+.se-head{padding:10px 14px;}
+.se-head h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;}
+.se-head .si{font-family:'JetBrains Mono',monospace;font-size:0.56rem;color:rgba(255,255,255,0.65);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.se-body{background:var(--sup);padding:12px 14px;}
+.se-row{display:flex;gap:7px;padding:4px 0;border-bottom:1px solid #e8e8e8;font-size:0.8rem;}
+.se-row:last-child{border-bottom:none;}
+.se-k{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;min-width:80px;flex-shrink:0;color:var(--soft);}
+.se-v{color:var(--txt);}
+
+.obj-wrap{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 9px 9px 0;padding:12px 15px;margin-bottom:14px;}
+.obj-t{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rojo);margin-bottom:8px;}
+.obj-body{font-size:0.82rem;line-height:1.8;color:var(--soft);}
+.obj-body strong{color:var(--txt);}
+
+/* ════ PERLAS ════ */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:26px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:9px 18px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:12px 14px;}
+.pe{padding:7px 9px;border-bottom:1px solid #e8e098;font-size:0.81rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #e8e098;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#261600;}
+.pe-section{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 9px 2px;grid-column:1/-1;color:var(--ph);background:#fffae0;}
+
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px;}
+.gi{background:var(--sup);border-radius:7px;padding:7px 9px;border:1px solid #d8c8d0;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:var(--ac);display:block;margin-bottom:1px;}
+.gd{font-size:0.73rem;color:var(--soft);}
+
+.tw{overflow-x:auto;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.79rem;background:var(--sup);border-radius:9px;overflow:hidden;}
+thead tr{background:#0a0005;}
+thead th{font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;color:#c080a0;padding:8px 10px;text-align:left;}
+tbody tr:nth-child(odd){background:#f8f0f5;}
+tbody tr:nth-child(even){background:#fff;}
+tbody td{padding:7px 10px;border-bottom:1px solid #e0c8d0;vertical-align:top;}
+
+@media(max-width:900px){
+  .karn-rows,.mece-lines,.riesgos-grid{grid-template-columns:repeat(2,1fr);}
+  .triada,.figuras,.pronos-grid,.karn-ecog{grid-template-columns:1fr 1fr;}
+  .ambito-grid,.sed-eut,.eut-def{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .karn-rows,.riesgos-grid,.mece-lines,.karn-ecog,.triada,.figuras,.pronos-grid{grid-template-columns:1fr;}
+  .perlas-g{grid-template-columns:1fr;} .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:#8a3a5a;margin-bottom:4px;">CÁPSULAS INGESA · LEGISLACIÓN Y BIOÉTICA CLÍNICA</div>
+  <h1>Legislación, Bioética y Riesgos Profesionales</h1>
+  <div class="sub">KARNOFSKY · PRESCRIPCIÓN ENFERMERA RD 1302/2018 · BURNOUT CIE-11 · EUTANASIA LO 3/2021</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span>
+    <span class="pill pk">Karnofsky</span>
+    <span class="pill ppr">Prescripción</span>
+    <span class="pill pb2">Burnout</span>
+    <span class="pill pe2">LO 3/2021</span>
+    <span class="pill p2">★ 14 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════
+     BLOQUE I — ESCALA DE KARNOFSKY
+     ══════════════════════════════════════ -->
+<div class="bloque-sep" style="background:#f0f4ff;border-color:#b0c4e0;color:var(--kc1);">
+  <div class="bnum" style="color:var(--kc1);">I</div>
+  <div class="btxt">
+    <div class="bt" style="color:var(--kc1);">Bloque 01</div>
+    <div class="bs" style="color:#06062a;">Escala de Karnofsky — Estado Funcional y Paliativos</div>
+  </div>
+</div>
+
+<div class="karn-ruler">
+  <div class="karn-title">REGLA VISUAL KARNOFSKY — De mayor a menor función</div>
+  <div class="karn-band">
+    <div class="kb" style="background:#1a5a8a;"><div class="kv">100</div><div class="kl">Normal</div></div>
+    <div class="kb" style="background:#2a6a9a;"><div class="kv">90</div><div class="kl">Mín. sínts.</div></div>
+    <div class="kb" style="background:#2a8a3a;"><div class="kv">80</div><div class="kl">Con esfuerzo</div></div>
+    <div class="kb" style="background:#4a9a2a;"><div class="kv">70</div><div class="kl">Cuida solo</div></div>
+    <div class="kb" style="background:#8a7a10;"><div class="kv">60</div><div class="kl">Ayuda ocas.</div></div>
+    <div class="kb" style="background:#b06010;"><div class="kv">50</div><div class="kl">Ayuda imp.</div></div>
+    <div class="kb" style="background:#c04020;"><div class="kv">40</div><div class="kl">Incapacitado</div></div>
+    <div class="kb" style="background:#8a1010;"><div class="kv">30</div><div class="kl">Hospitalizar</div></div>
+    <div class="kb" style="background:#5a0808;"><div class="kv">20</div><div class="kl">Tto. activo</div></div>
+    <div class="kb" style="background:#280408;"><div class="kv">10</div><div class="kl">Moribundo</div></div>
+    <div class="kb" style="background:#0a0208;"><div class="kv">0</div><div class="kl">Fallecido</div></div>
+  </div>
+
+  <div class="karn-rows">
+    <div class="kr" style="border-color:#b0d0f0;background:#f0f6ff;">
+      <div class="kr-head"><span class="kr-range" style="color:var(--kc1);">100–80</span><span class="kr-label" style="color:var(--kc1);">Vida casi normal</span></div>
+      <ul class="kr-items">
+        <li><strong>100</strong> — Sin síntomas ni quejas; actividad normal total</li>
+        <li><strong>90</strong> — Actividad normal, síntomas mínimos</li>
+        <li><strong>80</strong> — Actividad normal con esfuerzo; algunos síntomas</li>
+      </ul>
+      <div style="margin-top:6px;font-size:0.75rem;background:#deeeff;border-radius:5px;padding:4px 7px;color:var(--kc1);font-weight:600;">Supervivencia estimada ≥ 6–12 meses ⭐</div>
+    </div>
+    <div class="kr" style="border-color:#b0d4b0;background:#f2fdf2;">
+      <div class="kr-head"><span class="kr-range" style="color:var(--kc2);">70–50</span><span class="kr-label" style="color:var(--kc2);">Pierde trabajo, semidependiente</span></div>
+      <ul class="kr-items">
+        <li><strong>70</strong> — Incapaz de trabajar; se cuida solo</li>
+        <li><strong>60</strong> — Necesita ayuda ocasional; cubre mayoría de AVD</li>
+        <li><strong>50</strong> — Necesita ayuda importante y atención médica frecuente</li>
+      </ul>
+      <div style="margin-top:6px;font-size:0.75rem;background:#d8ecd8;border-radius:5px;padding:4px 7px;color:var(--kc2);font-weight:600;">K ≤50 = criterio de terminalidad / fragilidad ⭐⭐</div>
+    </div>
+    <div class="kr" style="border-color:#f0d090;background:#fffaec;">
+      <div class="kr-head"><span class="kr-range" style="color:var(--kc3);">40–30</span><span class="kr-label" style="color:var(--kc3);">Gran dependencia / Terminalidad</span></div>
+      <ul class="kr-items">
+        <li><strong>40</strong> — Incapacitado; precisa ayuda y asistencia especial</li>
+        <li><strong>30</strong> — Totalmente incapaz; requiere hospitalización, tto. de soporte</li>
+      </ul>
+      <div style="margin-top:6px;font-size:0.75rem;background:#ffe8b0;border-radius:5px;padding:4px 7px;color:var(--kc3);font-weight:600;">K 30 = supervivencia ≈ 2 semanas ⭐⭐</div>
+    </div>
+    <div class="kr" style="border-color:#f0b0b0;background:#fff4f4;">
+      <div class="kr-head"><span class="kr-range" style="color:var(--kc4);">20–0</span><span class="kr-label" style="color:var(--kc4);">Agonía / Muerte</span></div>
+      <ul class="kr-items">
+        <li><strong>20</strong> — Gravemente enfermo; tratamiento activo imprescindible</li>
+        <li><strong>10</strong> — Moribundo; proceso irreversible en marcha</li>
+        <li><strong>0</strong> — Fallecido</li>
+      </ul>
+      <div style="margin-top:6px;font-size:0.75rem;background:#fdd8d8;border-radius:5px;padding:4px 7px;color:var(--kc4);font-weight:600;">Cuidados paliativos intensivos + confort</div>
+    </div>
+  </div>
+</div>
+
+<!-- EQUIVALENCIA ECOG -->
+<div class="sh"><div class="sb" style="background:var(--kc1);"></div><div><span class="sn" style="color:var(--kc1);">Equivalencia</span><div class="st">Karnofsky ↔ ECOG/WHO</div></div></div>
+<div class="karn-ecog">
+  <div class="ke" style="background:#e8f4ff;border-color:#b0d0f0;">
+    <span class="keval" style="color:var(--kc1);">ECOG 0</span>
+    <div class="karval" style="color:var(--kc1);">90–100</div>
+    <div class="kedesc">Actividad normal. Sin restricción.</div>
+  </div>
+  <div class="ke" style="background:#ecfcec;border-color:#a0d8a0;">
+    <span class="keval" style="color:var(--kc2);">ECOG 1</span>
+    <div class="karval" style="color:var(--kc2);">70–80</div>
+    <div class="kedesc">Restricción leve. Ambulatorio.</div>
+  </div>
+  <div class="ke" style="background:#fffce8;border-color:#e0d080;">
+    <span class="keval" style="color:#8a7010;">ECOG 2</span>
+    <div class="karval" style="color:#8a7010;">50–60</div>
+    <div class="kedesc">Encamado &lt;50% horas diurnas.</div>
+  </div>
+  <div class="ke" style="background:#fff0e0;border-color:#f0b060;">
+    <span class="keval" style="color:var(--kc3);">ECOG 3</span>
+    <div class="karval" style="color:var(--kc3);">30–40</div>
+    <div class="kedesc">Encamado &gt;50% horas diurnas.</div>
+  </div>
+  <div class="ke" style="background:#fff4f4;border-color:#f09090;">
+    <span class="keval" style="color:var(--kc4);">ECOG 4</span>
+    <div class="karval" style="color:var(--kc4);">10–20</div>
+    <div class="kedesc">Encamado 100%. Incapaz de autocuidado.</div>
+  </div>
+</div>
+
+<!-- DATOS PRONÓSTICOS -->
+<div class="sh"><div class="sb" style="background:var(--kc1);"></div><div><span class="sn" style="color:var(--kc1);">Pronóstico</span><div class="st">Datos Clave para el Examen</div></div></div>
+<div class="pronos-grid">
+  <div class="pro-card" style="border-color:#b0d0f0;background:#f0f6ff;">
+    <div class="pro-val" style="color:var(--kc1);">≤50</div>
+    <div class="pro-unit" style="color:var(--kc1);">Criterio terminalidad ⭐⭐</div>
+    <div class="pro-desc">Alta dependencia · dependencia en ≥3 ABVD · criterio de acceso a paliativos</div>
+  </div>
+  <div class="pro-card" style="border-color:#f0d090;background:#fffaec;">
+    <div class="pro-val" style="color:var(--kc3);">30</div>
+    <div class="pro-unit" style="color:var(--kc3);">≈ 2 semanas supervivencia ⭐⭐</div>
+    <div class="pro-desc">Hospitalización necesaria. Inicio de cuidados de confort intensivos.</div>
+  </div>
+  <div class="pro-card" style="border-color:#b0d0f0;background:#ecf8ff;">
+    <div class="pro-val" style="color:var(--kc2);">80</div>
+    <div class="pro-unit" style="color:var(--kc2);">≥ 6–12 meses supervivencia ⭐</div>
+    <div class="pro-desc">Aún funcional. PPS complementa Karnofsky añadiendo ingesta y conciencia.</div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE II — PRESCRIPCIÓN ENFERMERA
+     ══════════════════════════════════════ -->
+<div class="bloque-sep" style="background:#fdf8ec;border-color:#d8c070;color:var(--pres);">
+  <div class="bnum" style="color:var(--pres);">II</div>
+  <div class="btxt">
+    <div class="bt" style="color:var(--pres);">Bloque 02</div>
+    <div class="bs" style="color:#1a1000;">Prescripción Enfermera — RD 954/2015 + RD 1302/2018 + MECE</div>
+  </div>
+</div>
+
+<!-- Timeline normativa -->
+<div class="sh"><div class="sb" style="background:var(--pres);"></div><div><span class="sn" style="color:var(--pres);">Marco Legal</span><div class="st">Evolución Normativa</div></div></div>
+<div style="background:var(--sup);border-radius:11px;border:1px solid #d8c8a0;padding:15px 18px;margin-bottom:14px;">
+<div class="norma-timeline">
+  <div class="nt-item">
+    <div class="nt-year">2015 · RD 954/2015</div>
+    <div class="nt-text">Primera regulación de la indicación, uso y autorización de dispensación por enfermeras. Requería validación médica caso a caso (tutela médica). Criticado por limitar la autonomía enfermera.</div>
+  </div>
+  <div class="nt-item">
+    <div class="nt-year">2018 · RD 1302/2018 ⭐⭐ — NORMA ACTUAL</div>
+    <div class="nt-text"><strong>Elimina la tutela médica</strong> previa. La colaboración médico-enfermera se articula vía <strong>protocolos y guías de práctica clínica</strong> aprobados por la Comisión Permanente de Farmacia del CISNS y validados por la DGSP, no por validación caso a caso. <span class="ope-badge">PREGUNTA TIPO ⭐</span></div>
+  </div>
+  <div class="nt-item">
+    <div class="nt-year">2022 · Resolución INGESA 04-10-2022 ⭐</div>
+    <div class="nt-text">INGESA abre plazo de acreditación en <strong>Ceuta y Melilla</strong>. Desde 2022-2024 se acreditan enfermeras de AP y hospitalaria para vacunación, cura de heridas, productos de continencia, etc.</div>
+  </div>
+  <div class="nt-item">
+    <div class="nt-year">2025 · Anteproyecto nueva Ley de Medicamentos ⭐</div>
+    <div class="nt-text">Eleva a enfermeras y fisioterapeutas al mismo nivel que médicos, odontólogos y podólogos como <strong>profesionales con facultad de prescribir</strong>. Obliga a actualizar RD 954/2015 en 1 año tras entrar en vigor. <span class="ope-badge">NOVEDAD HOT</span></div>
+  </div>
+</div>
+</div>
+
+<!-- Ámbitos de prescripción -->
+<div class="sh"><div class="sb" style="background:var(--pres);"></div><div><span class="sn" style="color:var(--pres);">Competencias</span><div class="st">Dos Ámbitos de Actuación Enfermera</div></div></div>
+<div class="ambito-grid">
+  <div class="amb-card">
+    <div class="amb-t">A) Medicamentos NO sujetos a prescripción médica</div>
+    <div class="amb-body">La enfermera acreditada puede <strong>indicar, usar y autorizar la dispensación de forma autónoma</strong>. No precisa protocolo médico previo. Incluye productos sanitarios, antisépticos, apósitos, productos de incontinencia, etc.</div>
+  </div>
+  <div class="amb-card">
+    <div class="amb-t">B) Medicamentos sujetos a prescripción médica ⭐</div>
+    <div class="amb-body">La indicación enfermera se realiza según <strong>protocolos y guías de práctica clínica aprobadas por la Comisión Permanente de Farmacia del CISNS</strong> y validados por la Dirección General de Salud Pública. Incluye vacunas del calendario (basta orden enfermera, salvo valoración médica individualizada).</div>
+  </div>
+</div>
+
+<!-- Requisitos acreditación + órgano validador -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+  <div style="background:var(--sup);border-radius:10px;border:1px solid #d8c8a0;padding:12px 14px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pres);margin-bottom:7px;">REQUISITOS PARA ACREDITARSE ⭐</div>
+    <div style="font-size:0.82rem;line-height:1.8;color:var(--soft);">
+      ✔ <strong>Titulación:</strong> Grado / DUE / ATS<br>
+      ✔ <strong>Acreditación</strong> emitida por CCAA o INGESA (experiencia mínima o curso específico)<br>
+      ✔ Formación complementaria solo para medicamentos de especial complejidad<br>
+      ✔ INGESA: gestión propia para Ceuta y Melilla; cursos de adaptación gratuitos
+    </div>
+  </div>
+  <div style="background:var(--sup);border-radius:10px;border:1px solid #d8c8a0;padding:12px 14px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pres);margin-bottom:7px;">ÓRGANOS CLAVE — Identificar en el Examen ⭐⭐</div>
+    <div style="font-size:0.82rem;line-height:1.8;color:var(--soft);">
+      🔑 <strong>Comisión Permanente de Farmacia del CISNS</strong> → aprueba protocolos y guías de prescripción enfermera<br>
+      🔑 <strong>Dirección General de Salud Pública</strong> → valida los protocolos<br>
+      🔑 <strong>CCAA / INGESA</strong> → emiten la acreditación individual, organizan cursos
+    </div>
+  </div>
+</div>
+
+<!-- MECE -->
+<div class="sh"><div class="sb" style="background:var(--pres);"></div><div><span class="sn" style="color:var(--pres);">MECE 2025–2027</span><div class="st">Marco Estratégico de Cuidados de Enfermería del SNS</div></div></div>
+<div style="background:var(--sup);border-radius:11px;border:1px solid #d8c8a0;padding:14px 18px;margin-bottom:14px;">
+  <div style="font-size:0.82rem;color:var(--soft);margin-bottom:10px;">Aprobado por el <strong>Pleno del CISNS</strong>. Hoja de ruta estatal 2025-2027 para práctica profesional enfermera en AP, hospital, urgencias y sociosanitario.</div>
+  <div class="mece-lines">
+    <div class="mece-l"><div class="mece-n">1</div><div class="mece-t">Análisis de necesidades de salud y RRHH de cuidados</div></div>
+    <div class="mece-l"><div class="mece-n">2</div><div class="mece-t">Modelo de práctica profesional enfermera y TCAE</div></div>
+    <div class="mece-l"><div class="mece-n">3</div><div class="mece-t">Desarrollo competencial + EPA + cambios normativos</div></div>
+    <div class="mece-l"><div class="mece-n">4</div><div class="mece-t">Visibilidad y liderazgo enfermero en el SNS</div></div>
+    <div class="mece-l"><div class="mece-n">5</div><div class="mece-t">Investigación e innovación en cuidados</div></div>
+  </div>
+  <div style="margin-top:10px;background:#fffaec;border-radius:7px;padding:8px 11px;border:1px solid #d8c070;font-size:0.8rem;color:var(--soft);">
+    <strong style="color:var(--pres);">Enfermera de Práctica Avanzada (EPA)</strong> — figura a desarrollar en el MECE. Alta competencia clínica en áreas específicas (cronicidad, heridas, salud mental, ostomías), liderazgo clínico e inter-niveles, uso intensivo de prescripción enfermera. 5 líneas estratégicas. <span class="ope-badge">PREGUNTABLE</span>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE III — BURNOUT Y RIESGOS PSICOSOCIALES
+     ══════════════════════════════════════ -->
+<div class="bloque-sep" style="background:#f4f0ff;border-color:#c0a8e0;color:var(--burn);">
+  <div class="bnum" style="color:var(--burn);">III</div>
+  <div class="btxt">
+    <div class="bt" style="color:var(--burn);">Bloque 03</div>
+    <div class="bs" style="color:#1a0a30;">Burnout y Riesgos Psicosociales en Enfermería</div>
+  </div>
+</div>
+
+<!-- CIE-11 -->
+<div class="cii11">
+  <div class="ct">CIE-11 (QD85) — Definición Oficial ⭐⭐</div>
+  <div class="cc"><strong>Síndrome de desgaste ocupacional</strong> → resultado del <strong>estrés crónico en el lugar de trabajo que no se ha manejado con éxito</strong>. Se clasifica como <strong>problema relacionado con el empleo</strong>, NO como trastorno mental. Tres dimensiones: <strong>(1) agotamiento de energía o cansancio extremo · (2) distancia mental / cinismo / negativismo · (3) eficacia profesional reducida</strong>. ⭐ En España NO está recogido como enfermedad profesional en el RD 1299/2006 (hay debate pendiente).</div>
+</div>
+
+<!-- Triada clásica -->
+<div class="sh"><div class="sb" style="background:var(--burn);"></div><div><span class="sn" style="color:var(--burn);">Clínica</span><div class="st">La Tríada Clásica del Burnout</div></div></div>
+<div class="triada">
+  <div class="tri-card">
+    <div class="tri-head"><h3>1. Agotamiento Emocional</h3><div class="ti">Dimensión 01 · Maslach</div></div>
+    <div class="tri-body">Cansancio intenso, falta de energía, <strong>trastornos del sueño</strong>, irritabilidad, sensación de no poder dar más. Primera dimensión en aparecer cronológicamente. Indicador más sensible.</div>
+  </div>
+  <div class="tri-card">
+    <div class="tri-head"><h3>2. Despersonalización / Cinismo</h3><div class="ti">Dimensión 02 · Distanciamiento</div></div>
+    <div class="tri-body">Trato <strong>frío, irónico o distante</strong> hacia pacientes y compañeros. Pérdida de empatía. Mecanismo de defensa ante el agotamiento emocional. Impacto directo en la seguridad del paciente.</div>
+  </div>
+  <div class="tri-card">
+    <div class="tri-head"><h3>3. Baja Realización Personal</h3><div class="ti">Dimensión 03 · Eficacia reducida</div></div>
+    <div class="tri-body">Sensación de ineficacia, fracaso, culpa, baja autoestima profesional. Dudas sobre la propia competencia. Riesgo de abandono de la profesión.</div>
+  </div>
+</div>
+
+<!-- Otros riesgos psicosociales -->
+<div class="sh"><div class="sb" style="background:var(--burn);"></div><div><span class="sn" style="color:var(--burn);">Cuadros Relacionados</span><div class="st">Otros Riesgos Psicosociales Típicos en Enfermería</div></div></div>
+<div class="riesgos-grid">
+  <div class="rg-card">
+    <div class="rg-t">Fatiga por Compasión</div>
+    <div class="rg-body">Agotamiento emocional por cuidar intensamente a personas que sufren cuando la energía compasiva supera la capacidad de recuperarse. Muy frecuente en <strong>UCI, oncología, paliativos, urgencias</strong>. Tristeza, irritabilidad, evitación de casos complejos, pérdida de sentido.</div>
+  </div>
+  <div class="rg-card">
+    <div class="rg-t">Trauma Vicario</div>
+    <div class="rg-body">Desgaste psicológico por <strong>exposición repetida al sufrimiento</strong> y relatos traumáticos de los pacientes. Síntomas similares al TEPT: intrusiones, hipervigilancia, evitación. No es burnout; requiere abordaje diferenciado.</div>
+  </div>
+  <div class="rg-card">
+    <div class="rg-t">Estrés Post-agresión</div>
+    <div class="rg-body">Las <strong>agresiones físicas o verbales</strong> de pacientes/familias → burnout, estrés crónico y posible TEPT (reviviscencias, miedo, hipervigilancia, evitación del servicio). Problema emergente en España. Impacto en calidad asistencial.</div>
+  </div>
+  <div class="rg-card">
+    <div class="rg-t">Moral Distress</div>
+    <div class="rg-body"><strong>Sufrimiento moral</strong> por no poder dar la atención que se considera éticamente correcta por falta de recursos, ratios inadecuadas o conflictos organizativos. Alta prevalencia en UCI y urgencias. Poco reconocido.</div>
+  </div>
+</div>
+
+<div style="background:var(--sup);border-radius:9px;border:1px solid #c8b8e0;padding:11px 14px;margin-bottom:14px;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--burn);margin-bottom:6px;">PREVALENCIA EN ESPAÑA — Datos Examen</div>
+  <div style="font-size:0.82rem;line-height:1.8;color:var(--soft);">
+    Revisiones: <strong>30–50% de enfermeras españolas</strong> con burnout activo (picos altos en UCI y urgencias). Estudios SATSE/CGE: hasta <strong>80%</strong> declara síntomas de agotamiento emocional y estrés intenso. <strong>Ley 31/1995 PRL</strong> → obliga a evaluar riesgos psicosociales. Prevención: adecuar cargas, clarificar roles, mejorar liderazgo, formación en manejo del estrés + autocuidado profesional (sueño, ejercicio, límites).
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════════════════
+     BLOQUE IV — EUTANASIA LO 3/2021
+     ══════════════════════════════════════ -->
+<div class="bloque-sep" style="background:#eefaf6;border-color:#90c8b8;color:var(--eut);">
+  <div class="bnum" style="color:var(--eut);">IV</div>
+  <div class="btxt">
+    <div class="bt" style="color:var(--eut);">Bloque 04</div>
+    <div class="bs" style="color:#060e0c;">Eutanasia — LO 3/2021, en vigor desde 25-06-2021</div>
+  </div>
+</div>
+
+<!-- Definición y formas -->
+<div class="eut-def">
+  <div class="eut-box" style="border-color:var(--eut);">
+    <h4 style="color:var(--eut);">Prestación de Ayuda para Morir ⭐⭐</h4>
+    <p>Así se llama el <strong>nuevo derecho prestacional</strong> reconocido en el SNS por la LO 3/2021. Incluye dos formas:<br><br>
+    → <strong>Eutanasia:</strong> el profesional sanitario administra la medicación letal.<br>
+    → <strong>Suicidio médicamente asistido:</strong> el profesional prescribe y el paciente se la administra.<br><br>
+    <span style="background:#dafaf4;border-radius:5px;padding:3px 7px;font-size:0.78rem;font-weight:700;color:var(--eut);">OPE ⭐⭐ — "Prestación de ayuda para morir" es el término legal oficial</span></p>
+  </div>
+  <div>
+    <div style="background:var(--sup);border-radius:9px;border:1px solid #a8d8c8;padding:12px 14px;margin-bottom:10px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--eut);margin-bottom:7px;">REQUISITOS — Se deben cumplir TODOS ⭐</div>
+      <div style="font-size:0.82rem;line-height:1.85;color:var(--soft);">
+        ① Mayor de edad<br>
+        ② Nacionalidad española / residencia legal / empadronamiento en España<br>
+        ③ Capaz y consciente al momento de solicitarla<br>
+        ④ <strong>Contexto eutanásico:</strong> enfermedad grave e incurable, o padecimiento grave crónico e imposibilitante, con sufrimiento físico o psíquico constante e intolerable no aliviaable de forma aceptable<br>
+        ⑤ Solicitudes <strong>voluntarias, informadas y reiteradas</strong> por escrito
+      </div>
+    </div>
+    <div style="background:#fff8f2;border-radius:9px;border:1px solid #d8c0a0;padding:10px 13px;font-size:0.8rem;line-height:1.65;color:var(--soft);">
+      Si el paciente pierde capacidad pero tiene <strong>voluntades anticipadas / instrucciones previas</strong> en las que pedía eutanasia → se puede activar la prestación.
+    </div>
+  </div>
+</div>
+
+<!-- Procedimiento -->
+<div class="sh"><div class="sb" style="background:var(--eut);"></div><div><span class="sn" style="color:var(--eut);">Procedimiento</span><div class="st">Pasos del Proceso — Orden Exacto para el Test</div></div></div>
+<div class="pasos">
+  <div class="paso"><div class="paso-n">1</div><div><span class="paso-t">Primera solicitud</span><div class="paso-d">Escrita, firmada y fechada. Libre, sin presiones. El médico responsable informa de diagnóstico, pronóstico y <strong>alternativas (paliativos, sedación paliativa)</strong>.</div></div></div>
+  <div class="paso"><div class="paso-n">2</div><div><span class="paso-t">Segunda solicitud + intervalo mínimo</span><div class="paso-d">Petición reiterada tras intervalo (la ley marca plazos). Verificación de que se mantiene la decisión libre e informada.</div></div></div>
+  <div class="paso"><div class="paso-n">3</div><div><span class="paso-t">Evaluación por el Médico Responsable</span><div class="paso-d">Comprueba cumplimiento de todos los requisitos legales. Si considera que no se cumplen, puede negarse (no es objetor, es evaluación de criterios).</div></div></div>
+  <div class="paso"><div class="paso-n">4</div><div><span class="paso-t">Médico Consultor ⭐</span><div class="paso-d"><strong>Independiente</strong> del médico responsable. Revisa el caso y emite informe favorable o desfavorable. Figura clave para el examen.</div></div></div>
+  <div class="paso"><div class="paso-n">5</div><div><span class="paso-t">Comisión de Garantía y Evaluación ⭐</span><div class="paso-d">Revisa el caso <strong>a posteriori</strong> para asegurar que se realizó conforme a la ley. Controla la legalidad de la prestación. Figura clave para el examen.</div></div></div>
+</div>
+
+<!-- 3 figuras -->
+<div class="figuras">
+  <div class="fig">
+    <div class="fig-icon">👨‍⚕️</div>
+    <div class="fig-t">Médico Responsable</div>
+    <div class="fig-d">Informa, evalúa los criterios y dirige el proceso. Puede ser objetor.</div>
+  </div>
+  <div class="fig">
+    <div class="fig-icon">🔎</div>
+    <div class="fig-t">Médico Consultor ⭐</div>
+    <div class="fig-d"><strong>Independiente.</strong> Revisa el caso antes de proceder. Emite informe preceptivo.</div>
+  </div>
+  <div class="fig">
+    <div class="fig-icon">⚖️</div>
+    <div class="fig-t">Comisión de Garantía y Evaluación ⭐</div>
+    <div class="fig-d">Control <strong>a posteriori.</strong> Garantiza legalidad. Órgano de control externo.</div>
+  </div>
+</div>
+
+<!-- Sedación vs Eutanasia -->
+<div class="sh"><div class="sb" style="background:var(--eut);"></div><div><span class="sn" style="color:var(--eut);">Diferencia Clave</span><div class="st">Sedación Paliativa vs Eutanasia — La Trampa del Examen ⭐⭐</div></div></div>
+<div class="sed-eut">
+  <div class="se-card" style="border-color:#1a6a3a;">
+    <div class="se-head" style="background:linear-gradient(135deg,#082015,#1a6a3a);">
+      <h4>Sedación Paliativa</h4>
+      <div class="si">Tratamiento paliativo · Buena práctica clínica</div>
+    </div>
+    <div class="se-body">
+      <div class="se-row"><span class="se-k">Intención</span><span class="se-v"><strong>Aliviar el sufrimiento</strong> reduciendo nivel de conciencia. No causar la muerte.</span></div>
+      <div class="se-row"><span class="se-k">Fármacos</span><span class="se-v">Midazolam u otros. <strong>Dosis proporcionadas y ajustadas</strong>, no letales. Principio del doble efecto.</span></div>
+      <div class="se-row"><span class="se-k">Causa muerte</span><span class="se-v">La enfermedad. La sedación no provoca la muerte directamente.</span></div>
+      <div class="se-row"><span class="se-k">Marco legal</span><span class="se-v">Buena práctica clínica. No requiere LO 3/2021.</span></div>
+      <div class="se-row"><span class="se-k">Indicación</span><span class="se-v">Síntomas refractarios (dolor, disnea, angustia) en enfermedad avanzada.</span></div>
+    </div>
+  </div>
+  <div class="se-card" style="border-color:var(--eut);">
+    <div class="se-head" style="background:linear-gradient(135deg,#021510,#1a6a5a);">
+      <h4>Eutanasia</h4>
+      <div class="si">LO 3/2021 · Derecho prestacional SNS</div>
+    </div>
+    <div class="se-body">
+      <div class="se-row"><span class="se-k">Intención</span><span class="se-v"><strong>Causar la muerte</strong> para poner fin al sufrimiento. Acto buscado y previsto.</span></div>
+      <div class="se-row"><span class="se-k">Fármacos</span><span class="se-v">Medicación en <strong>dosis letales</strong> según protocolo específico.</span></div>
+      <div class="se-row"><span class="se-k">Causa muerte</span><span class="se-v"><strong>El fármaco administrado</strong> es la causa directa. Efecto buscado, no secundario.</span></div>
+      <div class="se-row"><span class="se-k">Marco legal</span><span class="se-v">LO 3/2021. Requiere requisitos, solicitudes y proceso reglado.</span></div>
+      <div class="se-row"><span class="se-k">Resultado</span><span class="se-v">Muerte consecuencia directa, buscada y prevista del acto.</span></div>
+    </div>
+  </div>
+</div>
+<div style="background:#e8f8f4;border-radius:8px;border:1px solid #90c8b8;padding:10px 14px;margin-bottom:14px;font-size:0.82rem;text-align:center;color:var(--soft);">
+  <strong style="color:var(--eut);">Perla OPE clarísima ⭐⭐:</strong> La diferencia entre sedación paliativa y eutanasia la marcan <strong>la INTENCIÓN, el PROCEDIMIENTO y el RESULTADO</strong>
+</div>
+
+<!-- Objeción de conciencia -->
+<div class="obj-wrap">
+  <div class="obj-t">⚠ Objeción de Conciencia — Art. 16 LO 3/2021 — Muy Preguntable</div>
+  <div class="obj-body">
+    ✔ Derecho <strong>individual</strong> del profesional sanitario directamente implicado. <strong>Nunca de un servicio o centro.</strong> ⭐<br>
+    ✔ Debe ejercerse de forma <strong>anticipada, por escrito</strong>, ante la administración sanitaria para inscribirse en el registro de objetores. No vale declararse objetor el mismo día.<br>
+    ✔ La objeción <strong>no puede impedir que el sistema garantice la prestación</strong> al paciente. La administración se organiza para contar con profesionales no objetores.<br>
+    ✔ La objeción <strong>NO se extiende</strong> a: cuidados paliativos, información general, apoyo emocional, tareas no directamente ligadas al acto eutanásico. El objetor <strong>no puede negar cuidados generales ni alivio de síntomas.</strong> ⭐
+  </div>
+</div>
+
+<!-- ════════════════════
+     PERLAS INGESA
+     ════════════════════ -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · Karnofsky + Prescripción + Burnout + Eutanasia</div>
+  <div class="perlas-g">
+    <div class="pe-section">🩺 KARNOFSKY</div>
+    <div class="pe"><span class="s">★</span><strong>K ≤50 = criterio de terminalidad</strong> → Declive funcional relevante, dependencia en ≥3 ABVD. Es el punto de corte para criterio paliativo formal. Memorizar este número.</div>
+    <div class="pe"><span class="s">★</span><strong>K 30 ≈ 2 semanas de supervivencia</strong> → Hospitalización y tratamiento de soporte activo. K 80 ≈ 6-12 meses. La escala va de 0 a 100, de 10 en 10. 0 = muerte. 100 = normal.</div>
+    <div class="pe"><span class="s">★</span><strong>ECOG 2 = K 50–60 / ECOG 3 = K 30–40</strong> → Equivalencias directas. ECOG 0 = K 90-100. ECOG 4 = K 10-20. Medir función, no síntomas aislados.</div>
+    <div class="pe"><span class="s">★</span><strong>PPS vs Karnofsky</strong> → La Palliative Performance Scale es adaptación del Karnofsky para paliativos que añade la ingesta y el nivel de conciencia, con predicción de supervivencia en días.</div>
+    <div class="pe-section">💊 PRESCRIPCIÓN ENFERMERA</div>
+    <div class="pe"><span class="s">★</span><strong>RD 1302/2018 elimina la tutela médica</strong> → La clave del cambio respecto al RD 954/2015: pasa de validación caso a caso a protocolos y guías. Esta es la pregunta trampa habitual.</div>
+    <div class="pe"><span class="s">★</span><strong>Órgano que valida protocolos: Comisión Permanente de Farmacia del CISNS + DGSP</strong> → Si el examen pregunta "¿quién aprueba los protocolos de prescripción enfermera?" = Comisión Permanente de Farmacia del Consejo Interterritorial del SNS.</div>
+    <div class="pe"><span class="s">★</span><strong>Acreditación: competencia de CCAA/INGESA</strong> → No es el Ministerio ni el Colegio. La emite CCAA o INGESA. Resolución INGESA 04-10-2022 la activa en Ceuta y Melilla.</div>
+    <div class="pe"><span class="s">★</span><strong>Anteproyecto Ley Medicamentos 2025: equipara enfermeras a médicos como prescriptores</strong> → Novedad muy preguntable. Obliga a actualizar RD 954/2015 en 1 año desde la entrada en vigor.</div>
+    <div class="pe-section">🔥 BURNOUT</div>
+    <div class="pe"><span class="s">★</span><strong>Burnout CIE-11 = QD85 → NO es trastorno mental</strong> → Es un "problema relacionado con el empleo". Las tres dimensiones: agotamiento · cinismo · baja eficacia. Diferenciarlo de depresión (que sí es trastorno mental).</div>
+    <div class="pe"><span class="s">★</span><strong>Burnout NO está en el listado de enfermedades profesionales RD 1299/2006</strong> → En España no tiene reconocimiento legal de enfermedad profesional a día de hoy. Sigue siendo debate político y sindical abierto.</div>
+    <div class="pe-section">☯️ EUTANASIA LO 3/2021</div>
+    <div class="pe"><span class="s">★</span><strong>"Prestación de ayuda para morir" = término legal oficial</strong> → No se llama "eutanasia" en la ley. El nuevo derecho se denomina "prestación de ayuda para morir". Incluye eutanasia y suicidio médicamente asistido.</div>
+    <div class="pe"><span class="s">★</span><strong>3 figuras clave del procedimiento</strong> → Médico responsable · Médico consultor (independiente, antes) · Comisión de Garantía y Evaluación (control a posteriori). Si solo hay que recordar tres palabras para el examen, son estas.</div>
+    <div class="pe"><span class="s">★</span><strong>Objeción de conciencia: individual, previa, por escrito, registrada</strong> → Nunca institucional (centros no son objetores). Nunca verbal el mismo día. No exime de cuidados generales ni paliativos. El sistema debe garantizar la prestación.</div>
+    <div class="pe"><span class="s">★</span><strong>Sedación ≠ Eutanasia: intención + procedimiento + resultado</strong> → Sedación = aliviar, dosis proporcionadas, muerte por enfermedad. Eutanasia = causar muerte, dosis letales, muerte por fármaco. Esta diferencia aparece en exámenes MIR/OPE de bioética.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#3a3a3a;">Abreviaturas del Recurso</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">CISNS</span><span class="gd">Consejo Interterritorial del SNS</span></div>
+  <div class="gi"><span class="ga">DGSP</span><span class="gd">Dirección General de Salud Pública</span></div>
+  <div class="gi"><span class="ga">MECE</span><span class="gd">Marco Estratégico de Cuidados de Enfermería</span></div>
+  <div class="gi"><span class="ga">EPA</span><span class="gd">Enfermera de Práctica Avanzada</span></div>
+  <div class="gi"><span class="ga">ECOG</span><span class="gd">Eastern Cooperative Oncology Group</span></div>
+  <div class="gi"><span class="ga">PPS</span><span class="gd">Palliative Performance Scale</span></div>
+  <div class="gi"><span class="ga">ABVD</span><span class="gd">Actividades básicas vida diaria</span></div>
+  <div class="gi"><span class="ga">LO 3/2021</span><span class="gd">Ley Orgánica regulación eutanasia</span></div>
+  <div class="gi"><span class="ga">RD 1302/2018</span><span class="gd">Norma actual prescripción enfermera</span></div>
+  <div class="gi"><span class="ga">CIE-11</span><span class="gd">Clasificación Internacional de Enfermedades 11ª ed.</span></div>
+  <div class="gi"><span class="ga">TEPT</span><span class="gd">Trastorno de estrés postraumático</span></div>
+  <div class="gi"><span class="ga">PRL</span><span class="gd">Prevención de Riesgos Laborales (Ley 31/1995)</span></div>
+</div>
+
+<div style="text-align:center;margin-top:24px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:#6a1a3a;">
+  CÁPSULAS DE REPASO · LEGISLACIÓN Y BIOÉTICA · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

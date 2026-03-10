@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEST INGESA 2024 · Enfermero/a · OPE Acceso Fijo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f8f5f0;
+    --white: #ffffff;
+    --accent: #6a1a8a;
+    --accent-dark: #42106a;
+    --accent-light: #f0e8ff;
+    --gold: #c09010;
+    --gold-light: #fffce6;
+    --red: #c04020;
+    --green: #1a7a3a;
+    --green-light: #e8f5ec;
+    --red-light: #fdf0ed;
+    --orange: #e07020;
+    --text: #1a1a2e;
+    --text-soft: #4a4a6a;
+    --border: #d8d0c8;
+    --border-light: #ece8e2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 60%, #9a3aaa 100%);
+    padding: 28px 32px 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.03) 40px);
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), #e0c020, var(--gold));
+  }
+  .site-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  .site-header .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    position: relative;
+  }
+  .header-pills {
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    margin-top: 14px; position: relative;
+  }
+  .pill {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .pill.gold { background: rgba(192,144,16,0.35); border-color: rgba(224,192,32,0.5); }
+
+  /* STICKY CONTROLS */
+  .controls {
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 16px rgba(106,26,138,0.08);
+  }
+  .controls-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .filter-btn {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    cursor: pointer;
+    color: var(--text-soft);
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .spacer { flex: 1; }
+  .score-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent-dark);
+    background: var(--accent-light);
+    padding: 5px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    border: 1px solid rgba(106,26,138,0.2);
+  }
+  .reset-btn {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .reset-btn:hover { opacity: 0.85; }
+
+  /* MAIN */
+  .main-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 4px;
+    height: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #c060e0);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px 8px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 32px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-header.supuesto { background: #1a5a8a; }
+  .section-header.reserva { background: #5a4a30; }
+  .section-count {
+    background: rgba(255,255,255,0.25);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+  }
+
+  /* SUPUESTO CONTEXT BOX */
+  .context-box {
+    background: #eef4fb;
+    border: 1.5px solid #b0c8e8;
+    border-top: none;
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .context-box .ctx-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #1a5a8a;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .context-box table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.84rem; }
+  .context-box td { padding: 3px 8px; vertical-align: top; }
+  .context-box td:first-child { font-weight: 600; white-space: nowrap; width: 160px; color: #1a5a8a; }
+  .context-box tr:nth-child(even) td { background: rgba(255,255,255,0.5); }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-top: none;
+    padding: 18px 20px;
+    transition: all 0.15s;
+  }
+  .question-card:last-child { border-radius: 0 0 8px 8px; }
+  .question-card + .question-card { border-top: 1px solid var(--border-light); }
+  .question-card.answered-correct { border-left: 4px solid var(--green); }
+  .question-card.answered-wrong { border-left: 4px solid var(--red); }
+  .question-card.hidden { display: none; }
+
+  .q-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .q-text {
+    font-size: 0.96rem;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 13px;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-align: left;
+    transition: all 0.15s;
+    line-height: 1.45;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    transform: translateX(2px);
+  }
+  .option-btn:disabled { cursor: default; }
+  .option-letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    min-width: 20px;
+    color: var(--accent);
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .option-btn.correct { background: var(--green-light); border-color: var(--green); }
+  .option-btn.correct .option-letter { color: var(--green); }
+  .option-btn.wrong { background: var(--red-light); border-color: var(--red); }
+  .option-btn.wrong .option-letter { color: var(--red); }
+  .option-btn.dimmed { opacity: 0.45; }
+
+  /* EXPLANATION */
+  .explanation {
+    margin-top: 10px;
+    background: var(--gold-light);
+    border: 1px solid #e0c020;
+    border-radius: 7px;
+    padding: 11px 14px;
+    font-size: 0.87rem;
+    line-height: 1.55;
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .explanation.show { display: block; }
+  .explanation .exp-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .result-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .badge-correct { background: var(--green-light); color: var(--green); border: 1px solid var(--green); }
+  .badge-wrong { background: var(--red-light); color: var(--red); border: 1px solid var(--red); }
+
+  /* SUMMARY */
+  .summary-box {
+    background: var(--white);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 28px;
+    margin-top: 36px;
+    text-align: center;
+    display: none;
+  }
+  .summary-box.show { display: block; }
+  .summary-score { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--accent); line-height: 1; }
+  .summary-detail { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-soft); margin-top: 8px; letter-spacing: 1px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+  .summary-stat { background: var(--cream); border-radius: 8px; padding: 14px; }
+  .summary-stat .num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+  .summary-stat .lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-soft); margin-top: 4px; }
+  .num-green { color: var(--green); }
+  .num-red { color: var(--red); }
+  .num-orange { color: var(--orange); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-3px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .site-header h1 { font-size: 1.5rem; }
+    .controls { padding: 10px 12px; gap: 7px; }
+    .main-wrapper { padding: 14px 10px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>TEST INGESA 2024</h1>
+  <div class="subtitle">OPE · Acceso a Personal Estatutario Fijo · Resolución 21-12-2022</div>
+  <div class="header-pills">
+    <span class="pill">Categoría: Enfermero/a</span>
+    <span class="pill">100 + 10 Reserva Preguntas</span>
+    <span class="pill">1 Supuesto Práctico</span>
+    <span class="pill gold">★ Respuestas comentadas</span>
+  </div>
+</header>
+
+<div class="controls">
+  <span class="controls-label">Ver:</span>
+  <button class="filter-btn active" onclick="filterQ('all',event)">Todas</button>
+  <button class="filter-btn" onclick="filterQ('unanswered',event)">Sin contestar</button>
+  <button class="filter-btn" onclick="filterQ('wrong',event)">Falladas</button>
+  <button class="filter-btn" onclick="filterQ('correct',event)">Correctas</button>
+  <div class="spacer"></div>
+  <div class="score-display" id="scoreDisplay">0 / 0 respondidas</div>
+  <button class="reset-btn" onclick="resetAll()">↺ Reiniciar</button>
+</div>
+
+<div class="main-wrapper">
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div id="questionsContainer"></div>
+  <div class="summary-box" id="summaryBox">
+    <div class="summary-score" id="summaryScore">—</div>
+    <div class="summary-detail" id="summaryDetail">RESULTADO FINAL</div>
+    <div class="summary-grid">
+      <div class="summary-stat"><div class="num num-green" id="statCorrect">0</div><div class="lbl">✓ Correctas</div></div>
+      <div class="summary-stat"><div class="num num-red" id="statWrong">0</div><div class="lbl">✗ Falladas</div></div>
+      <div class="summary-stat"><div class="num num-orange" id="statSkipped">0</div><div class="lbl">— Sin contestar</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  // ——— PRIMERA PARTE ———
+  {id:1, sec:'primera',
+   text:'¿Cuál de los siguientes enunciados NO se encuentra entre los usos principales de la Epidemiología?',
+   opts:['Establecimiento de normas de organización y de la atención médica.','Establecer la magnitud y distribución de la salud-enfermedad.','Completar cuadros clínicos.','Describir la historia natural de la enfermedad y de los determinantes de su curso.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Establecer normas de organización sanitaria pertenece a la gestión y política sanitaria, no a la Epidemiología. Los usos epidemiológicos son: describir distribución de enfermedades, identificar factores de riesgo, completar cuadros clínicos, evaluar intervenciones y describir la historia natural.'
+  },
+  {id:2, sec:'primera',
+   text:'¿A qué tipo de DM corresponde: "Se caracteriza por producción insuficiente y/o uso metabólico ineficiente de la insulina. Es el tipo más frecuente, alcanzando el 90% de la enfermedad diagnosticada"?',
+   opts:['Diabetes Mellitus Tipo 1 (DM1).','Diabetes Mellitus Tipo 2 (DM2).','Diabetes gestacional (DG).','Diabetes Insípida.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La DM2 representa el 90-95% de todos los casos de diabetes. Se caracteriza por resistencia a la insulina y déficit relativo de secreción. La DM1 es autoinmune con destrucción de células beta. La diabetes insípida no es una hiperglucemia, sino un trastorno de la hormona ADH.'
+  },
+  {id:3, sec:'primera',
+   text:'Los TCA o Trastornos de la Conducta Alimentaria (señale la respuesta FALSA):',
+   opts:['Son una de las enfermedades crónicas más frecuentes en adolescentes y mujeres jóvenes.','Es una alteración del patrón de ingesta o de la conducta sobre el control del peso que produce un deterioro biopsicosocial.','La anorexia nerviosa y la bulimia nerviosa son TCA.','El trastorno por atracones no es TCA.'],
+   ans:3,
+   exp:'<strong>D es la FALSA.</strong> El trastorno por atracones (binge eating disorder) SÍ es un TCA reconocido en el DSM-5 desde 2013. Los TCA incluyen: anorexia nerviosa, bulimia nerviosa, trastorno por atracones, ARFID (evitación/restricción), pica y trastorno de rumiación.'
+  },
+  {id:4, sec:'primera',
+   text:'De las siguientes vacunas, ¿cuál se podría utilizar de forma segura durante la gestación?',
+   opts:['Triple vírica.','Gripe.','Varicela.','VPH.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La vacuna de la gripe (inactivada) es SEGURA y RECOMENDADA en cualquier trimestre del embarazo. Las vacunas de virus vivos atenuados (triple vírica, varicela) están CONTRAINDICADAS en el embarazo. La VPH no tiene datos suficientes y se pospone al postparto.'
+  },
+  {id:5, sec:'primera',
+   text:'Entre los diagnósticos NANDA más prevalentes en DM, el "Manejo inefectivo del régimen terapéutico", ¿qué Intervenciones/NIC serían adecuadas?',
+   opts:['Aumentar el afrontamiento.','Autoanálisis de glucemia.','Cuidado de los pies.','Educación proceso de enfermedad y Modificación de la conducta.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Para el diagnóstico "Manejo inefectivo del régimen terapéutico" las NIC más adecuadas son la educación sobre el proceso de la enfermedad (5602) y la modificación de la conducta (4360), ya que abordan directamente la causa del manejo inefectivo: déficit de conocimientos y conductas inadaptadas.'
+  },
+  {id:6, sec:'primera',
+   text:'La ecuación de Harris-Benedict:',
+   opts:['Calcula las necesidades calóricas en función de talla, peso y edad.','Calcula el porcentaje de superficie total quemada en un paciente con quemaduras masivas.','Calcula el grado de empatía que tiene el personal sanitario.','Calcula el índice de masa corporal.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La ecuación de Harris-Benedict calcula el Gasto Energético Basal (GEB) en función de peso, talla, edad y sexo. Para hombres: GEB = 66 + (13,7×peso) + (5×talla) – (6,8×edad). Para mujeres: GEB = 655 + (9,6×peso) + (1,8×talla) – (4,7×edad).'
+  },
+  {id:7, sec:'primera',
+   text:'En relación con la cartera de servicios comunes del SNS, señale la respuesta correcta:',
+   opts:['No puede ser actualizada más que transcurrido un plazo de 10 años desde su aprobación.','Su actualización no requiere la participación de las Comunidades Autónomas.','Es preciso acuerdo del Consejo Interterritorial del Sistema Nacional de Salud.','Para incorporar nuevas técnicas basta con que haya sido evaluada por un órgano propuesto por una CCAA.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Según la Ley 16/2003, la cartera de servicios comunes del SNS se actualiza mediante acuerdo del Consejo Interterritorial del SNS. No hay plazo mínimo de 10 años (A falsa). La participación de las CCAA es necesaria (B falsa). No basta con la evaluación de una sola CCAA (D falsa).'
+  },
+  {id:8, sec:'primera',
+   text:'El procedimiento en el que se inactivan todas las formas vegetativas bacterianas, virus, hongos y la mayoría de esporas para conseguir un nivel adecuado para uso seguro en el paciente es:',
+   opts:['Asepsia.','Desinfección de nivel medio.','Antisepsia.','Desinfección de nivel alto.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La <strong>desinfección de alto nivel (DAN)</strong> elimina todos los microorganismos excepto esporas bacterianas en alta concentración (inactiva la mayoría). Se usa para material semicrítico que contacta mucosas. La esterilización elimina TODAS las formas incluyendo esporas. La DAN se logra con glutaraldehído, ácido peracético, H₂O₂.'
+  },
+  {id:9, sec:'primera',
+   text:'Respecto a las úlceras por presión (UPP) indique la respuesta correcta:',
+   opts:['Constituyen un problema clínico no evitable.','La incidencia de las UPP es un indicador de la calidad de los cuidados prestados.','La prevalencia de las UPP no es un indicador de la calidad de los cuidados prestados.','Para prevenirlas hay que aumentar la presión de los puntos de apoyo.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La incidencia de UPP es un indicador centinela de la CALIDAD de los cuidados de enfermería. Las UPP son MAYORITARIAMENTE prevenibles (A falsa). La prevalencia también es indicador de calidad (C falsa). La prevención requiere REDUCIR la presión en puntos de apoyo (D falsa).'
+  },
+  {id:10, sec:'primera',
+   text:'En relación a las vacunas frente al VPH registradas en España, indique la respuesta FALSA:',
+   opts:['Son vacunas inactivadas.','No tienen efecto terapéutico sobre la infección ya establecida.','Se obtienen por técnicas de recombinación genética.','La suspensión inyectable es transparente.'],
+   ans:0,
+   exp:'<strong>A es la FALSA.</strong> Las vacunas VPH (Gardasil 9, Cervarix) son vacunas de <strong>subunidades proteicas</strong> (partículas similares al virus, VLP), NO virus inactivados completos. Se producen por recombinación genética (C verdadera). No tienen efecto terapéutico (B verdadera). La suspensión es transparente/blanco lechoso (D verdadera).'
+  },
+  {id:11, sec:'primera',
+   text:'El patrón hormonal del climaterio consiste en:',
+   opts:['Un aumento de estrógenos.','Una disminución de gonadotropinas.','Un descenso de estrógenos.','Un aumento de progestágenos.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> En el climaterio los ovarios dejan de producir estrógenos → <strong>descenso de estrógenos y progesterona</strong>. Por feedback negativo, las gonadotropinas (FSH, LH) AUMENTAN compensatoriamente. FSH >40 UI/L confirma menopausia. El patrón es: ↓ estrógenos + ↑ FSH + ↑ LH.'
+  },
+  {id:12, sec:'primera',
+   text:'Según la profundidad de las lesiones, las quemaduras se clasifican en:',
+   opts:['Quemaduras epidérmicas o de primer grado, dérmicas o de segundo grado, subdérmicas o de tercer grado.','Epidérmicas/1er grado, dérmicas superficiales/2º grado, dérmicas profundas/3er grado, subdérmicas/4º grado.','Epidérmicas/4º grado, dérmicas superficiales/3er grado, dérmicas profundas/2º grado, subdérmicas/1er grado.','Epidérmicas/3er grado, dérmicas/2º grado, subdérmicas/1er grado.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Clasificación clásica en 3 grados: <strong>1º/Epidérmicas</strong> (eritema, sin ampollas), <strong>2º/Dérmicas</strong> (ampollas, superficiales o profundas), <strong>3º/Subdérmicas</strong> (destrucción total de la dermis, aspecto apergaminado, indoloras). Algunos autores añaden 4º grado (afecta hueso/músculo).'
+  },
+  {id:13, sec:'primera',
+   text:'Entre los diagnósticos NANDA relacionados con la colocación y cuidados de la sonda nasogástrica, indique la INCORRECTA:',
+   opts:['Riesgo de aspiración.','Riesgo de deterioro de la integridad cutánea.','Riesgo de infecciones asociado a cirrosis hepática.','Riesgo de úlcera por presión.'],
+   ans:2,
+   exp:'<strong>C es la INCORRECTA.</strong> "Riesgo de infección asociado a cirrosis hepática" no es un diagnóstico NANDA relacionado con el procedimiento de colocación de SNG. Los diagnósticos relacionados son: riesgo de aspiración, riesgo de deterioro de la integridad cutánea (por presión alar nasal), riesgo de UPP, y desequilibrio nutricional.'
+  },
+  {id:14, sec:'primera',
+   text:'De acuerdo con la Ley 44/2003, ¿cuál de estas afirmaciones sobre la formación continuada NO es correcta?',
+   opts:['Es el proceso de enseñanza y aprendizaje activo y permanente al que tienen derecho, pero no obligación los profesionales sanitarios.','Tiene como objetivo mejorar la percepción del papel social como agentes individuales en el sistema de salud.','Se inicia al finalizar los estudios de pregrado o especialización.','Es un objetivo de la misma mejorar la cualificación de los profesionales.'],
+   ans:0,
+   exp:'<strong>A es la INCORRECTA.</strong> Según el art. 33 de la Ley 44/2003, la formación continuada es "derecho y deber de los profesionales sanitarios". No es solo un derecho; es también una OBLIGACIÓN. Los profesionales tienen tanto el derecho como el deber de mantener actualizada su formación.'
+  },
+  {id:15, sec:'primera',
+   text:'¿A qué edad salen los caninos de leche en el niño?',
+   opts:['8-11 meses.','12-15 meses.','16-20 meses.','22-30 meses.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Erupción dentición temporal: Incisivos centrales inf. (6-10m) → Incisivos laterales (10-16m) → <strong>Caninos (16-20m)</strong> → 1º molares (14-18m) → 2º molares (20-30m). Total dentición temporal: 20 dientes. Los caninos de leche aparecen a los 16-20 meses.'
+  },
+  {id:16, sec:'primera',
+   text:'En un infarto agudo de miocardio, ¿qué alteración específica del ECG aparece en los primeros segundos o minutos?',
+   opts:['Ondas T simétricas y picudas.','Elevación del segmento ST.','Onda Q anormal.','Aparecen todos esos cambios a la vez.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Cronología del ECG en el IAM: <strong>Primeros minutos</strong>: ondas T picudas simétricas (isquemia subendocárdica). <strong>Horas 1-24h</strong>: elevación del ST (lesión). <strong>Días</strong>: onda Q patológica (necrosis). Los tres cambios NO aparecen simultáneamente, son secuenciales.'
+  },
+  {id:17, sec:'primera',
+   text:'En relación con los principios para el desarrollo de hábitos saludables, indique la respuesta correcta:',
+   opts:['Los programas orientados a conductas aisladas han demostrado resultados excelentes.','Es necesario contemplar una perspectiva global que comprenda las cadenas conductuales implicadas en un estilo de vida.','Para que se desarrolle cualquier aprendizaje de hábitos saludables, no es necesaria la percepción del beneficio.','El aprendizaje de las rutinas de salud deberán ponerse en marcha cuando los niños han alcanzado su desarrollo evolutivo.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La modificación de estilos de vida requiere un enfoque GLOBAL que contemple las cadenas conductuales (múltiples conductas interrelacionadas). Los programas de conducta aislada tienen pobres resultados (A falsa). La percepción del beneficio SÍ es necesaria (C falsa). La educación para la salud debe iniciarse PRECOZMENTE, no esperar al desarrollo completo (D falsa).'
+  },
+  {id:18, sec:'primera',
+   text:'¿Qué valora el test de Hamilton en Geriatría?',
+   opts:['La marcha.','La seguridad ambiental.','Sobrecarga del cuidador.','El ánimo.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La <strong>escala de Hamilton</strong> (HAM-D y HAM-A) valora la <strong>depresión y ansiedad</strong> respectivamente. En geriatría se usa para valorar el estado de ánimo. La marcha se valora con Tinetti/Get up and go. La sobrecarga del cuidador con Zarit. La seguridad ambiental con escalas específicas.'
+  },
+  {id:19, sec:'primera',
+   text:'Las siguientes vacunas presentan un alto riesgo de fotosensibilidad EXCEPTO:',
+   opts:['Hepatitis A.','Tétanos.','Varicela.','Gripe.'],
+   ans:1,
+   exp:'<strong>B es correcta (la EXCEPCIÓN).</strong> La vacuna del <strong>tétanos</strong> no tiene reconocida la fotosensibilidad como efecto adverso relevante. Las vacunas con componentes fotosensibles que deben almacenarse protegidas de la luz: hepatitis A, varicela, gripe (algunos preparados). Tétanos: almacenar entre 2-8°C pero sin especial sensibilidad a la luz en la práctica clínica.'
+  },
+  {id:20, sec:'primera',
+   text:'En el procedimiento para la administración de medicación por vía oftálmica, se debe preparar y colocar al paciente:',
+   opts:['Sentar al paciente con la cabeza inclinada hacia adelante.','Sentar al paciente con la cabeza inclinada hacia atrás.','Sentar al paciente acostado en decúbito prono.','Sentar al paciente acostado en decúbito lateral derecho o izquierdo según el ojo a instilar.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Para la instilación de colirios/pomadas oculares: paciente sentado o en decúbito supino, cabeza ligeramente inclinada <strong>hacia atrás</strong> con la vista mirando al techo. Se tracciona el párpado inferior para formar el saco conjuntival y se instila sin tocar el ojo. La inclinación hacia atrás evita que el fármaco caiga y favorece la distribución.'
+  },
+  {id:21, sec:'primera',
+   text:'Según el calendario común de vacunación en las Ciudades Autónomas de Ceuta y Melilla, se recomienda la vacunación de la gripe en personas mayores de:',
+   opts:['60 años.','64 años.','65 años.','75 años.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El calendario de vacunación INGESA establece la vacunación antigripal en personas <strong>≥65 años</strong>. También en grupos de riesgo con enfermedades crónicas independientemente de la edad, embarazadas, trabajadores sanitarios, y personas institucionalizadas. El umbral de 65 años es el estándar europeo.'
+  },
+  {id:22, sec:'primera',
+   text:'En el Plan de Ordenación de Recursos Humanos del INGESA, el reingreso provisional:',
+   opts:['Es una obligación del personal.','Podrá concederse siempre que exista plaza vacante de la categoría en el Centro de Gasto en que se concedió la excedencia.','Si no existe vacante, se informará de las vacantes existentes en el SNS.','Deberá concederse siempre que exista plaza vacante de la categoría en el Centro de Gasto en que se concedió la excedencia.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Según el PORH del INGESA, el reingreso provisional <strong>deberá</strong> (es obligatorio para la Administración) concederse cuando exista plaza vacante de la categoría en el Centro de Gasto donde se concedió la excedencia. La diferencia entre B y D es el carácter potestativo (podrá) vs obligatorio (deberá). El reingreso provisional es un derecho del trabajador si hay vacante.'
+  },
+  {id:23, sec:'primera',
+   text:'De las siguientes afirmaciones sobre el recién nacido prematuro, señale la correcta:',
+   opts:['Suelen presentar exceso de surfactante pulmonar, provocando la enfermedad de la membrana hialina.','Tienen escasas pérdidas insensibles de líquido a través de la piel y la respiración.','La temperatura de la incubadora ha de estar comprendida entre 28°C y 34°C.','La humedad de la incubadora debe estar comprendida entre un 65-70%.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La humedad en incubadora para prematuro: 65-70% (o hasta 80-85% en los más prematuros) para evitar pérdidas insensibles de agua a través de la piel inmadura. Los prematuros tienen DÉFICIT de surfactante (A falsa) → membrana hialina. Tienen GRANDES pérdidas insensibles por piel inmadura (B falsa). Temperatura de incubadora: 32-36°C según edad gestacional (C incorrecta con valores bajos).'
+  },
+  {id:24, sec:'primera',
+   text:'Respecto a la Fibrosis Quística (FQ), señale la opción FALSA:',
+   opts:['Se transmite con carácter autosómico recesivo.','Afecta más a la raza blanca que a la negra o asiática.','Algunos pacientes inician el cuadro clínico en la lactancia mientras que otros pueden permanecer asintomáticos hasta la adolescencia.','Aproximadamente el 65% de los pacientes con FQ tienen insuficiencia pancreática que cursa con esteatorrea.'],
+   ans:3,
+   exp:'<strong>D es la FALSA.</strong> En FQ, la insuficiencia pancreática exocrina afecta al <strong>85-90%</strong> de los pacientes (no al 65%). Cursa con esteatorrea, malabsorción y retraso del crecimiento. La mutación más frecuente es la deleción F508 del gen CFTR (cromosoma 7). Herencia autosómica recesiva (A correcta). Predomina en raza caucásica (B correcta).'
+  },
+  {id:25, sec:'primera',
+   text:'Cuando se describe: "Proceso por el cual las enfermeras toman decisiones clínicas usando las mejores pruebas disponibles de investigación, su experiencia clínica y las preferencias del paciente, en el contexto de los recursos disponibles", estamos hablando de:',
+   opts:['EBMB (Enfermería basada en el Modelo Biomédico).','EBE (Enfermería basada en la evidencia).','EBC (Enfermería basada en la ciencia-modelo de cuidados).','EBMP (Enfermería basada en modelos de la práctica clínica).'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La definición describe exactamente la <strong>EBE (Enfermería Basada en la Evidencia)</strong>, que integra: evidencia científica + experiencia clínica del profesional + preferencias del paciente + recursos disponibles. Es la adaptación enfermera de la Evidence-Based Medicine (EBM) de Sackett.'
+  },
+  {id:26, sec:'primera',
+   text:'De los operadores booleanos, ¿cuál amplía más el resultado de búsqueda llegando a localizar registros donde se cumpla al menos un término?',
+   opts:['OR.','NOT.','XOR.','AND.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Operadores booleanos: <strong>OR</strong> = amplía (A OR B → recupera documentos con A, con B, o con ambos). <strong>AND</strong> = restringe (solo documentos con A y B). <strong>NOT</strong> = excluye. OR es el que más amplía la búsqueda porque basta con cumplir UNO de los criterios. XOR no es un operador booleano estándar en búsquedas bibliográficas.'
+  },
+  {id:27, sec:'primera',
+   text:'La fase de planificación del proceso enfermero implica:',
+   opts:['Obtener, Recoger, Organizar, Validar y Valorar.','Identificar, Validar, Inferir e Interpretar.','Priorizar, Definir objetivos y Estrategias.','Actualizar datos, Actuar, Favorecer la relación de ayuda.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El PAE tiene 5 fases: Valoración → Diagnóstico → <strong>Planificación</strong> → Ejecución → Evaluación. La <strong>planificación</strong> incluye: priorizar diagnósticos, definir objetivos (NOC) y planificar intervenciones (NIC). A describe la valoración. B describe parte del diagnóstico. D describe la ejecución.'
+  },
+  {id:28, sec:'primera',
+   text:'Una joven adolescente presenta callosidades en los nudillos (signo de Russell). Este hallazgo nos puede indicar que:',
+   opts:['Es víctima de malos tratos.','Puede padecer algún trastorno de la conducta alimentaria.','Practica algún tipo de deporte de contacto.','Tiene alguna patología dermatológica.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El <strong>signo de Russell</strong> (callosidades en las articulaciones metacarpofalángicas e interfalángicas) es patognomónico de <strong>bulimia nerviosa</strong>: se produce por el roce repetido de los dientes contra los nudillos al provocarse el vómito. Es un signo diagnóstico clave en TCA, especialmente bulimia.'
+  },
+  {id:29, sec:'primera',
+   text:'¿Cuál de los siguientes NO es un objetivo de los cuidados paliativos según la OMS?',
+   opts:['Alivio del dolor y otros síntomas.','Dar apoyo psicológico, social y espiritual.','Considerar la muerte como un proceso anormal.','Dar apoyo a la familia durante la enfermedad y el duelo.'],
+   ans:2,
+   exp:'<strong>C es la INCORRECTA.</strong> Los cuidados paliativos (OMS) consideran la muerte como un <strong>proceso natural</strong>, no anormal. Objetivos: aliviar el dolor, no prolongar ni acelerar la muerte, integrar aspectos psicológicos/espirituales, apoyar a la familia. La muerte es vista como parte del ciclo vital, no como un fracaso terapéutico.'
+  },
+  {id:30, sec:'primera',
+   text:'Entre los diagnósticos NANDA relacionados con la administración de medicación por vía ótica, indique la respuesta correcta:',
+   opts:['Disposición para mejorar la autogestión de la salud.','Riesgo de desequilibrio de la temperatura corporal.','Limpieza ineficaz de las vías aéreas.','Náuseas.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> "Disposición para mejorar la autogestión de la salud" (NANDA 00162) es el diagnóstico más pertinente para la administración de medicación ótica, ya que implica educar al paciente sobre cómo autoadministrarse el tratamiento. Las náuseas/vértigo pueden aparecer si el líquido está frío (efecto caloríco), pero el diagnóstico prioritario es el de autogestión.'
+  },
+  {id:31, sec:'primera',
+   text:'¿Cuál de los siguientes parámetros de la función pulmonar NO se modifica durante el embarazo?',
+   opts:['Capacidad inspiratoria.','Capacidad vital.','Volumen respiratorio circulante.','Volumen residual.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> En el embarazo: ↑ Volumen corriente/circulante (+40%), ↑ Capacidad inspiratoria, ↓ Volumen residual (por elevación diafragma), ↓ Capacidad funcional residual. La <strong>Capacidad Vital</strong> (CI + VER) prácticamente no varía porque el aumento de CI compensa la disminución del volumen de reserva espiratorio.'
+  },
+  {id:32, sec:'primera',
+   text:'¿Qué vacunas se administran a los 3 años según el calendario en Ceuta y Melilla?',
+   opts:['Triple vírica y Meningococo C conjugada.','Varicela y hepatitis A.','Varicela y Meningococo C conjugada.','Triple vírica y varicela.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Calendario vacunal INGESA (Ceuta y Melilla) a los 3 años: <strong>2ª dosis de Triple Vírica + 2ª dosis de Varicela</strong> (habitualmente como PRIORIX-TETRA o vacunas separadas). Pregunta específica del temario INGESA, diferente a algunas CCAA que administran a los 3 años otras combinaciones.'
+  },
+  {id:33, sec:'primera',
+   text:'Según el artículo 2 de la Ley 41/2002, la negativa al tratamiento debe ser:',
+   opts:['De forma escrita.','De forma verbal.','De forma verbal y escrita.','Ante testigos que puedan corroborar la negativa.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> El art. 2.4 de la Ley 41/2002 establece que el paciente o usuario tiene derecho a negarse al tratamiento, excepto en los casos determinados en la Ley. Cuando la negativa pueda suponer riesgo para la salud pública o implique riesgos para el propio paciente, la negativa debe constar <strong>por escrito</strong> (documento de rechazo/alta voluntaria).'
+  },
+  {id:34, sec:'primera',
+   text:'En Salud Pública, la cantidad de personas afectadas por un problema de salud y el impacto que tiene en cantidad y calidad de vida se asocia a la definición de:',
+   opts:['Vulnerabilidad.','Magnitud.','Trascendencia.','Viabilidad.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Criterios para priorizar problemas de salud (método de Hanlon): <strong>Magnitud</strong> = número de personas afectadas. <strong>Trascendencia</strong> = impacto en cantidad/calidad de vida (mortalidad, morbilidad, años de vida perdidos). <strong>Vulnerabilidad</strong> = capacidad de intervención. <strong>Viabilidad</strong> = factibilidad de la intervención.'
+  },
+  {id:35, sec:'primera',
+   text:'De las siguientes afirmaciones sobre el desarrollo durante la pubertad, señale la INCORRECTA:',
+   opts:['Se considera pubertad precoz la aparición de signos puberales antes de los 7 años en niñas y 8 en niños.','La escala de Tanner se utiliza para valorar la madurez sexual.','Las necesidades energéticas diarias en adolescentes se estiman en 2100-2400 kcal para chicas y 2400-2800 kcal para chicos.','La aceleración del crecimiento en la pubertad se da antes en las chicas que en los chicos.'],
+   ans:0,
+   exp:'<strong>A es la INCORRECTA.</strong> La pubertad precoz se define: en <strong>niñas antes de los 8 años</strong> (no 7) y en <strong>niños antes de los 9 años</strong> (no 8). Este es un dato clínico preciso que frecuentemente aparece con cifras incorrectas en los exámenes. La escala de Tanner (B), las necesidades calóricas (C) y el estirón puberal antes en chicas (D) son correctos.'
+  },
+  {id:36, sec:'primera',
+   text:'Si nos encontramos ante una lesión que haya prolongado el tiempo de hospitalización y haga necesarias más pruebas diagnósticas o tratamientos, la taxonomía OMS de Seguridad del Paciente la relaciona con:',
+   opts:['Incidente relacionado con la seguridad del paciente.','Incidente sin daño.','Incidente con daño.','Daño innecesario.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Taxonomía OMS de Seguridad del Paciente: <strong>Incidente con daño</strong> (= evento adverso) = aquel que provoca daño al paciente, incluyendo prolongación de la hospitalización, necesidad de pruebas adicionales o tratamientos. El daño innecesario es el causado sin justificación clínica. El incidente sin daño no produce consecuencias clínicas.'
+  },
+  {id:37, sec:'primera',
+   text:'Dentro de las funciones de atención directa de los equipos de Atención Primaria, NO se encuentra:',
+   opts:['Promoción de los estilos de vida saludables.','Prevención secundaria de problemas más prevalentes en la comunidad.','Elaboración e implementación de proyectos de educación para la salud en entornos escolares.','Formación pregrado y posgrado del personal de salud.'],
+   ans:3,
+   exp:'<strong>D es correcta (la que NO pertenece a funciones de atención directa).</strong> La formación pregrado y posgrado es una función DOCENTE, no de atención directa. Las funciones de los EAP incluyen: asistencia clínica, prevención, promoción de salud, educación para la salud, atención comunitaria y coordinación entre niveles. La docencia es una función diferenciada.'
+  },
+  {id:38, sec:'primera',
+   text:'¿Cómo se define el Proceso de Atención de Enfermería?',
+   opts:['Modelo conceptual y organizado de enfermería que define al hombre, a la familia y a la comunidad.','Método sistemático y racional organizado para proporcionar cuidados de enfermería individualizados.','Teoría desarrollada por el Consejo Internacional de Enfermeras (CIE).','Acción realizada por la enfermera/o para prevenir la enfermedad y restablecer la salud.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El PAE (Proceso de Atención de Enfermería) es un <strong>método sistemático y racional</strong> para planificar y proporcionar cuidados individualizados. Consta de 5 fases: valoración, diagnóstico, planificación, ejecución y evaluación. Es el método científico adaptado a la práctica enfermera, no una teoría ni un modelo conceptual.'
+  },
+  {id:39, sec:'primera',
+   text:'El síndrome del túnel carpiano es el aprisionamiento de un nervio a su paso por la muñeca. Indique el nervio principalmente afectado:',
+   opts:['Nervio braquial.','Nervio cubital.','Nervio mediano.','Nervio radial.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El síndrome del túnel carpiano = compresión del <strong>nervio mediano</strong> bajo el ligamento transverso del carpo. Síntomas: parestesias en 1º-2º-3º dedo y mitad radial del 4º dedo. Signo de Tinel y Phalen positivos. El nervio cubital → síndrome del canal de Guyon. Pregunta muy frecuente en OPEs.'
+  },
+  {id:40, sec:'primera',
+   text:'El término MANIPULADOR DE CITOSTÁTICOS se aplicaría al personal encargado de diversas actividades. Indique la respuesta INCORRECTA:',
+   opts:['Eliminación de excretas de pacientes en tratamiento con citostáticos.','Administración al paciente de medicación previa al tratamiento con antibioterapia preventiva.','Preparación de la medicación ya preparada completamente en una presentación comercial.','Mantenimiento del espacio de la farmacia por donde se recepcionen las presentaciones que puedan utilizarse para la preparación de citostáticos.'],
+   ans:1,
+   exp:'<strong>B es la INCORRECTA.</strong> La administración de medicación previa (antibioterapia preventiva) no convierte al profesional en manipulador de citostáticos por sí sola, ya que no implica contacto con citostáticos. Son manipuladores: quienes preparan, administran, eliminan excretas de pacientes tratados, y mantienen las instalaciones de preparación.'
+  },
+  {id:41, sec:'primera',
+   text:'¿Cómo definiría la figura de la enfermera gestora de casos?',
+   opts:['Enfermera que facilita la participación de los miembros de la familia en el cuidado.','Enfermera que dirige grupos de ayuda para proporcionar apoyo emocional a sus miembros.','Enfermera que facilita la capacidad de una persona enferma para interactuar con los demás.','Enfermera que coordina la asistencia y defensa de los individuos y poblaciones para mejorar la calidad de la asistencia, reducir costes y disminuir el uso de recursos.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La <strong>enfermera gestora de casos</strong> (case manager) coordina y defiende la asistencia de individuos y poblaciones en distintos contextos, actuando como nexo entre niveles asistenciales, optimizando recursos y mejorando resultados. Es un rol clave en la atención a pacientes crónicos complejos y en la coordinación sociosanitaria.'
+  },
+  {id:42, sec:'primera',
+   text:'Según la LO 3/2018, de Protección de Datos, los responsables del tratamiento y todas las personas que intervengan en el mismo estarán sujetas al deber de:',
+   opts:['Custodia.','Secreto profesional.','Confidencialidad.','Sigilo.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El art. 5 de la LO 3/2018 establece el deber de <strong>confidencialidad</strong>: todas las personas que intervienen en el tratamiento de datos personales están sujetas a este deber, incluso después de finalizar su relación con el responsable/encargado del tratamiento. Es un deber permanente.'
+  },
+  {id:43, sec:'primera',
+   text:'¿Cuáles son las etapas del método científico enfermero?',
+   opts:['Valoración, Ejecución, Diagnóstico, Planificación y Evaluación.','Valoración, Diagnóstico, Planificación, Ejecución y Evaluación.','Planificación, Valoración, Diagnóstico, Ejecución y Evaluación.','Diagnóstico, Planificación, Ejecución y Evaluación.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Las 5 etapas del PAE en orden correcto: <strong>1) Valoración</strong> → <strong>2) Diagnóstico</strong> → <strong>3) Planificación</strong> → <strong>4) Ejecución</strong> → <strong>5) Evaluación</strong>. Mnemotécnico: V-D-P-E-E. Es un proceso cíclico y dinámico, no lineal.'
+  },
+  {id:44, sec:'primera',
+   text:'Entre los factores de riesgo para el desprendimiento de placenta se incluye:',
+   opts:['Consumo de alcohol.','Sedentarismo.','Hipertensión.','Hipotiroidismo.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El desprendimiento prematuro de placenta normoinserta (DPPNI) tiene como principal factor de riesgo la <strong>hipertensión</strong> (especialmente preeclampsia). Otros factores: tabaco, cocaína, traumatismo abdominal, multiparidad, sobredistensión uterina, antecedentes previos. El alcohol y el sedentarismo no son factores específicos.'
+  },
+  {id:45, sec:'primera',
+   text:'En pacientes con alimentación enteral que requieren medicación, hay que tener en cuenta varios aspectos. Señale la respuesta FALSA:',
+   opts:['Comprobar la ubicación de la sonda y su permeabilidad.','Está contraindicada la administración de comprimidos con revestimiento entérico o líquidos oleosos.','Hay que tener especial precaución ante el riesgo de obstrucción en sondas de poco calibre.','Está indicada cuando hay intolerancia oral.'],
+   ans:3,
+   exp:'<strong>D es la FALSA.</strong> La administración de medicación por sonda está indicada cuando el paciente <strong>NO puede ingerir</strong> por vía oral (disfagia, alteración del nivel de conciencia, etc.), no específicamente por intolerancia. Además, con la sonda se pueden administrar fármacos aunque exista tolerancia oral. La intolerancia oral indica la NE pero no específicamente la medicación por sonda.'
+  },
+  {id:46, sec:'primera',
+   text:'En la escala de Karnofsky para el paciente terminal, una puntuación de 10 indica:',
+   opts:['Está moribundo.','Inválido grave, severamente incapacitado y tratamiento de soporte activo.','Encamado por completo, muy grave, necesita hospitalización y tratamiento activo.','Requiere atención ocasional, pero puede cuidarse a sí mismo.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Escala de Karnofsky (0-100): <strong>10 = moribundo, proceso fatal progresando rápidamente</strong>. 20 = muy enfermo, soporte activo necesario. 30 = severamente incapacitado. 40 = discapacitado, requiere cuidados especiales. 50 = requiere asistencia considerable. 0 = muerto. Puntuaciones <40 indican cuidados paliativos y a menudo <50 indica pronóstico sombrío.'
+  },
+  {id:47, sec:'primera',
+   text:'¿Cuál de las siguientes es una complicación CRÓNICA de la diabetes?',
+   opts:['Cetoacidosis.','Coma hiperosmolar no cetósico.','Hipoglucemia.','La disfunción eréctil.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La <strong>disfunción eréctil</strong> es una complicación crónica de la diabetes (neuropatía autonómica + vasculopatía). Complicaciones AGUDAS: cetoacidosis diabética (DM1), coma hiperosmolar (DM2), hipoglucemia. Complicaciones CRÓNICAS: microangiopatía (retinopatía, nefropatía, neuropatía) y macroangiopatía (ECV, ACV, arteriopatía periférica) + disfunción eréctil.'
+  },
+  {id:48, sec:'primera',
+   text:'¿Cómo se denominan los estudios analíticos en los que las unidades de análisis son agregaciones de personas y no sujetos individuales?',
+   opts:['Estudios comunitarios.','Estudios ecológicos.','Estudios de prevalencia.','Estudios factoriales.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Los <strong>estudios ecológicos</strong> son estudios observacionales donde la unidad de análisis son grupos (países, regiones, ciudades), no individuos. La falacia ecológica es su mayor limitación: no se puede inferir lo observado a nivel grupal a nivel individual. Son útiles para generar hipótesis en salud pública.'
+  },
+  {id:49, sec:'primera',
+   text:'Ante un enfermo de Alzheimer que pasa todo el tiempo chillando y molestando a los demás, debemos inicialmente:',
+   opts:['Reprenderle para que así se calle.','Administrarle un sedante para que descanse él y quienes le rodean.','Intentar siempre identificar la causa de los chillidos y tratar de satisfacer sus demandas cuando sea posible.','No realizar ninguna medida esperando que la actitud remita.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Ante síntomas conductuales y psicológicos de la demencia (SCPD), la primera intervención es siempre <strong>identificar la causa</strong> desencadenante (dolor, hambre, necesidad de micción, soledad, desorientación) y aplicar medidas NO farmacológicas antes de recurrir a fármacos. La contención farmacológica sin análisis de causa es una mala práctica.'
+  },
+  {id:50, sec:'primera',
+   text:'¿Cómo se llama el trastorno del estado de ánimo que alterna episodios de euforia y depresión en un período de tiempo concreto?',
+   opts:['Trastorno afectivo.','Trastorno bipolar.','Trastorno por depresión.','Trastorno ciclotímico.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El <strong>trastorno bipolar</strong> se caracteriza por la alternancia de episodios maníacos/hipomaníacos (euforia, grandiosidad, insomnio) y episodios depresivos mayores. El trastorno ciclotímico es una forma más leve con hipomanía + depresión leve que no cumple criterios de episodio completo.'
+  },
+  {id:51, sec:'primera',
+   text:'Señale la INCORRECTA:',
+   opts:['La asepsia hace referencia a procedimientos que impidan el acceso de microorganismos patógenos a un medio libre de ellos.','Biocidas son sustancias que pueden destruir, contrarrestar, neutralizar o controlar cualquier organismo nocivo.','La concentración bactericida mínima se considera el mejor parámetro de resultado de eficacia de un antimicrobiano.','En cuanto a antisépticos sobre piel intacta, para efecto inmediato mejor usar clorhexidina; para efecto prolongado mejor povidona iodada.'],
+   ans:3,
+   exp:'<strong>D es la INCORRECTA.</strong> Es al revés: <strong>Povidona yodada</strong> tiene efecto inmediato más rápido (bactericida en 30 seg). <strong>Clorhexidina</strong> tiene efecto <strong>residual/prolongado</strong> (permanece en piel hasta 6h), por eso se prefiere en cirugía, colocación de catéteres y lavado quirúrgico de manos. La afirmación correcta sería: "para efecto inmediato, povidona; para efecto prolongado, clorhexidina".'
+  },
+  {id:52, sec:'primera',
+   text:'Según la Ley 31/1995 de prevención de riesgos laborales, se considera una obligación del trabajador:',
+   opts:['Proveerse de los medios y equipos de protección necesarios para su seguridad.','Cooperar con el empresario para que éste pueda garantizar unas condiciones de trabajo seguras.','Utilizar según su experiencia los medios y equipos de protección facilitados por el empresario.','Evaluar los planes y programas de prevención de riesgos en la empresa.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Según el art. 29 de la LPRL, obligaciones del trabajador: <strong>cooperar con el empresario</strong> para garantizar condiciones seguras. Los EPI los proporciona el empresario (no se los provee el trabajador, A falsa). Deben usarse <strong>correctamente</strong>, no según experiencia propia (C falsa). La evaluación de planes es función del empresario/servicio de prevención (D falsa).'
+  },
+  {id:53, sec:'primera',
+   text:'Respecto a la EPOC, señale la respuesta INCORRECTA:',
+   opts:['La EPOC es la única de las enfermedades crónicas frecuentes cuyas tasas de mortalidad no han disminuido en los últimos 30 años.','En España, afecta aproximadamente al 10% de la población.','Se considera obstrucción al flujo aéreo cuando FEV1/FVC es inferior a 1 tras broncodilatador.','El déficit de alfa1-antitripsina está relacionado con el enfisema.'],
+   ans:2,
+   exp:'<strong>C es la INCORRECTA.</strong> El diagnóstico de obstrucción espirométrica en EPOC se establece cuando <strong>FEV1/FVC < 0,70</strong> (70%) postbroncodilatador (criterio GOLD), no cuando es inferior a 1. FEV1/FVC normalmente es ~0,75-0,80. Si fuera inferior a 1 (100%), prácticamente todos los pacientes cumplirían criterios.'
+  },
+  {id:54, sec:'primera',
+   text:'Señale los signos de alarma que deben hacer sospechar de una situación de maltrato en el niño:',
+   opts:['Dermatitis del pañal que no remite al tratamiento.','Lesiones cutáneas, quemaduras pequeñas redondas y profundas.','No asistencia a un control previamente citado.','Intoxicación por ansiolíticos o antidepresivos.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Las <strong>quemaduras pequeñas, redondas y profundas</strong> son muy sugestivas de quemaduras por cigarrillo → signo de maltrato físico infantil. Las fracturas múltiples en diferente estadio de consolidación, hematomas en zonas inusuales y el síndrome del niño sacudido son otros signos de alarma específicos.'
+  },
+  {id:55, sec:'primera',
+   text:'De entre las siguientes variables estadísticas, ¿cuál es una variable cualitativa ordinal?',
+   opts:['Origen de la población (Nacional/Extranjero).','Número de camas hospitalarias libres.','Glucemia basal en una muestra.','Respuesta al tratamiento analgésico en un grupo de personas con dolor lumbar crónico.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> "Respuesta al tratamiento" (ej: sin respuesta / respuesta parcial / respuesta completa) es <strong>cualitativa ordinal</strong>: tiene categorías con orden pero sin distancia numérica precisa. A = cualitativa nominal. B = cuantitativa discreta. C = cuantitativa continua. Clave: ordinal = orden, sin distancia precisa.'
+  },
+  {id:56, sec:'primera',
+   text:'¿Cuál de los siguientes test sirve para diagnosticar la demencia?',
+   opts:['Test de Framingham.','Escala de Palacios.','Test de Fagerström.','Test del informador (TIN).'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> El <strong>TIN (Test del Informador)</strong> valora el deterioro cognitivo a través de un informador/cuidador que conoce al paciente, útil para diagnosticar demencia. Framingham = riesgo cardiovascular. Fagerström = dependencia a la nicotina. Escala de Palacios = valora dolor en demencia avanzada. Para deterioro cognitivo también: MMSE, MEC, Test del Reloj, Pfeiffer.'
+  },
+  {id:57, sec:'primera',
+   text:'¿Qué se conoce como Síndrome Socio-Sanitario?',
+   opts:['Al problema de coordinación entre niveles asistenciales que dificulta la trasmisión de información para la continuidad de cuidados.','Al problema de inexistencia de comunicación entre niveles que imposibilita la continuidad de cuidados y repercute en pérdida de autonomía del paciente.','Al problema de salud que presenta un paciente con cuidados múltiples, ante la cual el conjunto de servicios sanitarios y sociales es incapaz de dar una respuesta global y coordinada.','A la creciente dificultad de recursos asistenciales en centros sociales para acoger demandas de derivación de otros niveles.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El Síndrome Sociosanitario describe al paciente complejo y pluripatológico cuyas necesidades de atención sanitaria Y social no son cubiertas de forma integral y coordinada por los sistemas existentes. Es la incapacidad del sistema para dar respuesta global a pacientes con necesidades complejas en múltiples niveles.'
+  },
+  {id:58, sec:'primera',
+   text:'Los modelos y teorías de Enfermería pretenden:',
+   opts:['Describir, establecer y examinar los fenómenos que conforman la práctica de Enfermería.','Describir los fenómenos que conforman la práctica de Enfermería al estudio de enfermedades congénitas.','Examinar los fenómenos que conforman la práctica de Enfermería al estudio de enfermedades congénitas.','Describir los fenómenos que conforman la práctica de Enfermería al estudio de enfermedades crónicas.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Los modelos y teorías de Enfermería pretenden <strong>describir, establecer y examinar</strong> los fenómenos que conforman la práctica de Enfermería. No se limitan a enfermedades congénitas ni crónicas. El metaparadigma enfermero (persona, entorno, salud, cuidado) es universal y transversal a todas las situaciones de salud.'
+  },
+  {id:59, sec:'primera',
+   text:'¿Qué fármacos aumentan el riesgo de pérdida ósea en las mujeres con menopausia?',
+   opts:['Antidiabéticos orales.','Glucocorticoides.','Antiinflamatorios.','Antiparkinsonianos.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Los <strong>glucocorticoides</strong> (corticoides sistémicos) son la causa más frecuente de osteoporosis secundaria: inhiben la formación ósea, reducen la absorción intestinal de calcio y aumentan la resorción ósea. El uso crónico de corticoides >3 meses con dosis equivalentes a prednisolona ≥5 mg/día requiere profilaxis de osteoporosis.'
+  },
+  {id:60, sec:'primera',
+   text:'Entre los factores que NO pueden explicar las diferencias y desigualdades en salud relacionados con el género están:',
+   opts:['Factores biológicos ligados al sexo.','Obligaciones y roles familiares.','Ocupación y patrones de socialización.','Factores ambientales.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Los factores AMBIENTALES no son específicos del género; afectan igualmente a ambos sexos en el mismo entorno. Las desigualdades de género en salud se explican por: factores biológicos (sexo), roles y obligaciones familiares (feminización del cuidado), ocupación diferenciada, patrones de socialización y acceso diferencial a recursos.'
+  },
+  {id:61, sec:'primera',
+   text:'En el tratamiento correcto de los residuos sanitarios:',
+   opts:['La recogida de residuos sanitarios es independiente de los criterios de asepsia, inocuidad y economía.','El primer paso que debe seguirse es la correcta separación basándose en su clasificación.','Los residuos del grupo I van a recipientes rígidos y a prueba de pinchazos.','Los residuos de los grupos II y III se recogen en bolsas y recipientes que tengan un volumen superior a 70 l.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El principio básico del manejo de residuos sanitarios es la <strong>segregación en el punto de generación</strong>, según su clasificación (grupos I-V). Los residuos del grupo III (biosanitarios especiales: cortantes, cultivos, sangre) van a recipientes rígidos imperforables (C es para grupo III, no I). Los recipientes de grupos II y III no deben superar 70 L (D inversa).'
+  },
+  {id:62, sec:'primera',
+   text:'La estructura de la clasificación NANDA Internacional agrupa los diagnósticos en:',
+   opts:['Patrones de respuesta humana.','Patrones del hombre unitario.','Patrones funcionales de salud de Gordon.','Dominios y clases.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> NANDA II (Taxonomía II, desde 2002) organiza los diagnósticos en <strong>13 dominios y múltiples clases</strong>. La Taxonomía I usaba los 9 patrones de respuesta humana. Los patrones funcionales de Gordon son un marco de valoración, no de clasificación diagnóstica. Los 13 dominios: Promoción de salud, Nutrición, Eliminación, Actividad, Percepción, Autopercepción, Relaciones, Sexualidad, Afrontamiento, Principios vitales, Seguridad, Confort, Crecimiento.'
+  },
+  {id:63, sec:'primera',
+   text:'Señale la respuesta INCORRECTA en referencia a los trastornos alimentarios en la adolescencia:',
+   opts:['El momento del diagnóstico es más temprano en la anorexia que en la bulimia.','La mayor incidencia se da en el rango de edad de 18-25 años para la anorexia.','Los trastornos de la conducta alimentaria son más frecuentes en el sexo femenino.','La Pica es un trastorno alimentario que se caracteriza porque el adolescente ingiere sustancias no comestibles.'],
+   ans:1,
+   exp:'<strong>B es la INCORRECTA.</strong> La anorexia nerviosa tiene su pico de incidencia en la <strong>adolescencia (13-18 años)</strong>, no en 18-25 años. La bulimia nerviosa tiene un inicio algo más tardío (16-24 años). El diagnóstico precoz de la anorexia ocurre en la adolescencia temprana-media, que es cuando se debe actuar. La detección tardía empeora el pronóstico.'
+  },
+  {id:64, sec:'primera',
+   text:'La Ley Orgánica 1/2004 de Medidas de Protección Integral contra la violencia de género, tiene por objeto:',
+   opts:['Que las Administraciones educativas velen para que en todos los materiales educativos se eliminen los estereotipos sexistas.','Fortalecer las medidas de sensibilización ciudadana de prevención, dotando a los poderes públicos de instrumentos eficaces.','Actuar contra la violencia que se ejerce sobre las mujeres por parte de quienes sean o hayan sido sus cónyuges o ligados a ellas por relaciones similares de afectividad.','Coordinar los recursos e instrumentos de los distintos poderes públicos para asegurar la prevención de los hechos de violencia de género.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El objeto de la LO 1/2004 (art. 1) es "actuar contra la violencia que, como manifestación de la discriminación, la situación de desigualdad y las relaciones de poder de los hombres sobre las mujeres, se ejerce sobre éstas por parte de quienes sean o hayan sido sus cónyuges o de quienes estén o hayan estado ligados a ellas por relaciones similares de afectividad, aun sin convivencia". Es específica de violencia de pareja/expareja.'
+  },
+  {id:65, sec:'primera',
+   text:'Para la elaboración de un programa de educación sanitaria, es necesario:',
+   opts:['En la enseñanza de técnicas, es suficiente con realizar una única demostración práctica.','Se establecen prioridades sin definir plazos.','Las actividades educativas se realizan siempre en grupo.','Es conveniente que exista un grupo de responsables para el seguimiento del programa educativo.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Todo programa de educación para la salud necesita un equipo con responsabilidades de seguimiento y evaluación. Las técnicas requieren REPETICIÓN de demostraciones y práctica supervisada (A falsa). Las prioridades siempre se establecen CON plazos concretos (B falsa). Las actividades pueden ser individuales o grupales según el objetivo (C falsa).'
+  },
+  {id:66, sec:'primera',
+   text:'En el procedimiento para la toma de muestras en un frotis conjuntival, se debe:',
+   opts:['Hacer toma de ambos ojos con la misma torunda.','Rotar cada torunda en cada conjuntiva tarsal y fórmix.','Humedecer las torundas para no alterar el resultado de la toma.','No es necesario realizar el sistema de identificación de la muestra.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Técnica del frotis conjuntival: se rota la torunda en la conjuntiva tarsal inferior y fórnix conjuntival para obtener una muestra adecuada. Se usan torundas DIFERENTES para cada ojo (nunca la misma, A falsa). Las torundas deben estar SECAS (húmedas diluyen la muestra, C falsa). La identificación de la muestra es SIEMPRE obligatoria (D falsa).'
+  },
+  {id:67, sec:'primera',
+   text:'Para transmitir un mensaje con éxito:',
+   opts:['Lo importante es lo que diga el emisor.','El canal no importa, aunque el público sea diferente.','El mensaje debe basarse en hechos y evitar el humor.','Será más efectivo cuanto menor esfuerzo requiera del receptor.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Teoría de la comunicación eficaz: un mensaje es más efectivo cuanto <strong>menor esfuerzo cognitivo y procesamiento requiere del receptor</strong> (principio de facilidad de procesamiento). Lo importante es lo que ENTIENDE el receptor, no lo que dice el emisor (A falsa). El canal SÍ importa y debe adaptarse al público (B falsa). El humor puede mejorar la persuasión (C falsa).'
+  },
+  {id:68, sec:'primera',
+   text:'Dentro de la clasificación de las disfunciones sexuales femeninas propuestas por la OMS, se encuentra:',
+   opts:['Falta o pérdida de deseo sexual.','Vaginismo orgánico.','Dispareunia orgánica.','Excitación sexual intermitente.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La OMS (CIE-10) clasifica las disfunciones sexuales femeninas: <strong>falta/pérdida de deseo sexual</strong>, falta de respuesta genital, fracaso del orgasmo, vaginismo no orgánico, dispareunia no orgánica, impulso sexual excesivo, otras. Nota: la CIE-10 distingue "no orgánico" (psicógeno) de "orgánico" (causas físicas).'
+  },
+  {id:69, sec:'primera',
+   text:'¿Con cuántas dosis de vacuna parenteral inactivada de polio se consigue un nivel de protección cercano al 100% y duradero?',
+   opts:['Con más de 5 dosis.','Con 1 sola dosis.','Con 4 dosis.','Entre 1 y 3 dosis.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> La vacuna antipoliomielítica inactivada (VPI, Salk) administrada según el esquema estándar de <strong>4 dosis</strong> (2m, 4m, 6-18m, 4-6 años) confiere protección cercana al 100% y duradera. En España desde 2004 se usa exclusivamente VPI (ya no la oral/Sabin) por el riesgo de polio vacunal de la oral.'
+  },
+  {id:70, sec:'primera',
+   text:'La prevención primaria:',
+   opts:['Consiste en evitar o disminuir la probabilidad de padecer una determinada enfermedad.','Se ocupa del diagnóstico y tratamiento precoz de la enfermedad.','Actúa cuando ya se ha establecido la enfermedad, pero intentando retrasar su curso.','Está dirigida a identificar pacientes en riesgo de sufrir intervenciones innecesarias o invasivas.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> <strong>Prevención primaria</strong> = evitar que ocurra la enfermedad (vacunas, educación, control de factores de riesgo). <strong>Secundaria</strong> = diagnóstico y tratamiento precoz (cribados). <strong>Terciaria</strong> = rehabilitación cuando ya está establecida. <strong>Cuaternaria</strong> = evitar el sobrediagnóstico y yatrogenia (D).'
+  },
+  {id:71, sec:'primera',
+   text:'En un estudio de 2021, de todos los niños nacidos vivos ese año, el 1,20/1000 de esos niños fallecieron en su primera semana de vida. ¿De qué indicador estamos hablando?',
+   opts:['Tasa de natalidad perinatal.','Tasa de mortalidad neonatal.','Tasa de mortalidad intranatal tardía.','Tasa de mortalidad neonatal precoz.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> <strong>Mortalidad neonatal precoz</strong> = muertes en los primeros 7 días de vida (0-6 días) / nacidos vivos × 1000. Mortalidad neonatal tardía = 7-28 días. Mortalidad neonatal = 0-28 días. Mortalidad perinatal = muertes fetales tardías + neonatales precoces. La clave es "primera semana = neonatal precoz".'
+  },
+  {id:72, sec:'primera',
+   text:'En una intervención de educación para la salud con 15 pacientes, se analizó el tiempo de cada sesión y el grado de participación. Se ha realizado una evaluación:',
+   opts:['De impacto.','De resultados.','De proceso.','Implementadora.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Tipos de evaluación en educación para la salud: <strong>De proceso/formativa</strong> = evalúa el desarrollo de la intervención (duración, participación, asistencia, metodología). <strong>De resultados/sumativa</strong> = cambios en conocimientos/actitudes/conductas. <strong>De impacto</strong> = cambios en indicadores de salud a largo plazo (prevalencia, mortalidad).'
+  },
+  {id:73, sec:'primera',
+   text:'La escala de coma de Glasgow consta de:',
+   opts:['Pares craneales, respuesta motora, respuesta sensitiva.','Apertura de ojos, respuesta verbal, respuesta motora.','Respuesta al dolor, respuesta verbal, respuesta motora.','Reflejos oculares, reflejos tendinosos, reflejos espinales.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Glasgow Coma Scale (Teasdale & Jennett, 1974): <strong>Apertura de ojos (1-4)</strong> + <strong>Respuesta verbal (1-5)</strong> + <strong>Respuesta motora (1-6)</strong> = Mínimo 3 (máx 15). <3 = coma profundo. <8 = coma. Mnemotécnico: A-V-M (ojos-voz-motor). Puntuación 3 = Glasgow mínimo (no 0).'
+  },
+  {id:74, sec:'primera',
+   text:'Señale cuál de los siguientes NO es un elemento conceptual que caracteriza a la Atención Primaria de Salud:',
+   opts:['Longitudinal.','Integral.','Transversal.','Comunitaria y participativa.'],
+   ans:2,
+   exp:'<strong>C es correcta (el que NO caracteriza a la APS).</strong> Los atributos esenciales de la APS (Starfield): <strong>Longitudinalidad</strong> (atención continua en el tiempo), <strong>Integralidad</strong> (atención a todos los problemas), <strong>Accesibilidad</strong> (primer contacto), <strong>Coordinación</strong> y <strong>Orientación comunitaria</strong>. "Transversal" no es un atributo reconocido de la APS.'
+  },
+  {id:75, sec:'primera',
+   text:'En la anorexia nerviosa ¿qué hormona se ve aumentada cuando la pérdida ponderal de peso es mayor del 25%?',
+   opts:['LH, FSH.','IGF1.','GH.','Estradiol.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> En la anorexia nerviosa con pérdida de peso >25%, la <strong>GH (hormona de crecimiento)</strong> se eleva paradójicamente (resistencia a GH con reducción de IGF-1). También ocurre: ↓ LH/FSH (amenorrea hipotalámica), ↓ estradiol, ↓ IGF-1, ↑ cortisol. La elevación de GH es una respuesta adaptativa al ayuno pero con pérdida del efecto anabolizante.'
+  },
+  {id:76, sec:'primera',
+   text:'En relación con las prestaciones de la Ley 39/2006 de dependencia, señale la respuesta correcta:',
+   opts:['Incluyen Centro de Noche.','La prestación económica vinculada al servicio puede ser periódica o a tanto alzado.','No incluyen los Centros de Día para menores de 65 años.','La prestación económica para cuidados en el entorno familiar y apoyo a cuidadores no profesionales, se recoge en la Ley como la más habitual.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La Ley 39/2006 establece que la <strong>prestación económica vinculada al servicio</strong> (PEV) puede tener carácter periódico (mensual) o a tanto alzado. La Ley SÍ incluye centros de noche (A falsa). SÍ incluye Centros de Día para menores de 65 años con discapacidad (C falsa). La prestación para cuidados en el entorno familiar es la de carácter <strong>excepcional</strong>, no la más habitual (D falsa).'
+  },
+  {id:77, sec:'primera',
+   text:'Ante una situación de hipotermia, forma parte del recalentamiento PASIVO el:',
+   opts:['Aumento de la temperatura corporal mediante recalentamiento de la piel con manta eléctrica.','Aumento de la temperatura corporal mediante la introducción en el organismo de aire o líquidos calientes.','Aumento de la temperatura corporal mediante inmersión en tanque de agua caliente.','Aumento de la temperatura corporal mediante la producción de calor del propio paciente.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> <strong>Recalentamiento pasivo</strong> = el paciente genera su propio calor, simplemente se retiran las causas de pérdida calórica (ropa mojada, ambiente frío) y se aísla con mantas secas. <strong>Activo externo</strong>: manta eléctrica, agua caliente. <strong>Activo interno/central</strong>: líquidos calientes IV, lavado peritoneal caliente. El pasivo es para hipotermia leve.'
+  },
+  {id:78, sec:'primera',
+   text:'Según el Listado de Verificación Quirúrgica, el marcado del lugar donde ha de realizarse la intervención debe hacerse en el periodo:',
+   opts:['Antes de la incisión.','Antes de la inducción a la anestesia.','Después de la inducción a la anestesia y antes de la incisión.','En el momento que lo considere la enfermera circulante.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Según la Lista de Verificación Quirúrgica (OMS Surgical Safety Checklist), el marcado del sitio quirúrgico se realiza durante la fase <strong>PREOPERATORIA: antes de la inducción anestésica</strong> (fase "Entrada"/Sign In), con el paciente consciente y capaz de confirmar la localización. El marcado antes de la anestesia evita errores de lateralidad.'
+  },
+  {id:79, sec:'primera',
+   text:'De las técnicas para la obtención de secreciones bronquiales, ¿cuál es recomendable realizar a primera hora de la mañana?',
+   opts:['Esputo inducido.','Broncoaspirado.','Lavado broncoalveolar.','Fibrobroncoscopia.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La muestra de <strong>esputo espontáneo/inducido</strong> se obtiene preferiblemente a <strong>primera hora de la mañana</strong> (antes de comer, beber o cepillarse los dientes), cuando las secreciones bronquiales se han acumulado durante la noche. Esto maximiza la concentración de microorganismos y células. El broncoaspirado, LBA y broncoscopia no dependen de la hora del día.'
+  },
+  {id:80, sec:'primera',
+   text:'Si clasificamos los modelos en base a las tendencias en la prestación de cuidados, ¿dónde clasificaríamos el modelo de Dorothea Orem?',
+   opts:['Naturalista.','De suplencia y ayuda.','De Interrelación.','Ecologista.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Clasificación de modelos por tendencia: <strong>Naturalistas</strong> (Henderson, Orem, Orlando): el cuidado suple las necesidades del paciente. <strong>De interrelación</strong> (Peplau, King, Roy): centrados en la relación enfermera-paciente. Orem y su Teoría del Autocuidado se clasifica en la tendencia <strong>naturalista</strong> o "suplencia/ayuda". Revisa: algunos autores sitúan a Orem en suplencia/ayuda específicamente.'
+  },
+  {id:81, sec:'primera',
+   text:'¿Cuál de las siguientes NO está considerada como una escala de valoración del deterioro cognitivo?',
+   opts:['Test del Reloj.','Test Folstein MMSE.','Escala Pfeiffer.','Escala de Aldrete.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La <strong>Escala de Aldrete</strong> es una escala de valoración postanestésica (recuperación de la anestesia: actividad motora, respiración, circulación, conciencia, saturación O₂). NO evalúa el deterioro cognitivo. Test del Reloj, MMSE (Folstein) y Pfeiffer SÍ son escalas de deterioro cognitivo ampliamente usadas en geriatría.'
+  },
+  {id:82, sec:'primera',
+   text:'¿Qué medidas fundamentales debemos recomendar para la prevención de enfermedades de transmisión sexual?',
+   opts:['Inmunización con vacuna del virus del papiloma humano (VPH).','Recomendación de la realización de una citología de cribado.','Detección de conductas de riesgo y uso del preservativo.','Profilaxis antibiótica previa a las relaciones sexuales.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Las medidas fundamentales de prevención primaria de ITS son la <strong>detección de conductas de riesgo</strong> y el <strong>uso del preservativo</strong>. La vacuna VPH es importante pero protege solo frente a VPH (no otras ITS). La citología es cribado (prevención secundaria). La profilaxis antibiótica previa NO está indicada como medida general.'
+  },
+  {id:83, sec:'primera',
+   text:'Las causas prerrenales de la insuficiencia renal aguda (IRA) son:',
+   opts:['Cáncer de próstata y formación de cálculos.','Hipovolemia e infarto de miocardio.','Glomerulonefritis aguda.','Lesiones nefrotóxicas por fármacos.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> IRA PRERRENAL = hipoperfusión renal sin daño estructural: <strong>hipovolemia</strong> (hemorragia, deshidratación), bajo gasto cardíaco (<strong>IAM</strong>, IC grave), vasoconstricción. IRA INTRÍNSECA/RENAL: glomerulonefritis, nefrotóxicos, NTA isquémica. IRA POSTRENAL/OBSTRUCTIVA: cálculos, cáncer de próstata, estenosis ureteral.'
+  },
+  {id:84, sec:'primera',
+   text:'Los principales síntomas urinarios del síndrome genitourinario de la menopausia son:',
+   opts:['Urgencia miccional, disuria y las infecciones del tracto urinario inferior.','Poliuria y urgencia miccional.','Incontinencia urinaria de esfuerzo.','Incontinencia urinaria y en ocasiones fecal.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> El síndrome genitourinario de la menopausia (antes "atrofia urogenital") incluye síntomas urinarios: <strong>urgencia miccional, disuria e infecciones urinarias de repetición</strong>. La hipoestrogenemia causa atrofia del epitelio uretral y vesical. También: sequedad vaginal, dispareunia, descenso genital. La incontinencia de esfuerzo es más frecuente pero los síntomas específicos del síndrome son los de A.'
+  },
+  {id:85, sec:'primera',
+   text:'La Constitución Española en su artículo 43 establece:',
+   opts:['Los poderes públicos fomentarán la educación sanitaria, la educación mental y el deporte.','Se reconoce el derecho a la prestación de la salud.','Compete a los poderes públicos organizar y tutelar la salud pública a través de medidas preventivas y de las prestaciones y servicios necesarios.','Los poderes públicos garantizarán la defensa de los consumidores y usuarios.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Art. 43 CE: "1. Se reconoce el derecho a la protección de la salud. 2. Compete a los poderes públicos organizar y tutelar la salud pública a través de medidas preventivas y de las prestaciones y servicios necesarios. La ley establecerá los derechos y deberes de todos al respecto. 3. Los poderes públicos fomentarán la educación sanitaria, la educación física y el deporte". Art. 51 CE es el de consumidores.'
+  },
+  {id:86, sec:'primera',
+   text:'Para un análisis de gases arteriales mediante punción directa, ¿cuál sería la arteria de última opción?',
+   opts:['Arteria radial.','Arteria cubital.','Arteria femoral.','Arteria humeral.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Orden de preferencia para gasometría arterial: 1ª) <strong>Radial</strong> (más accesible, colateral cubital, test de Allen previo), 2ª) Humeral/braquial, 3ª) Femoral. La <strong>femoral</strong> es de última elección por mayor riesgo de complicaciones (arteria de gran calibre, zona de difícil compresión, riesgo de hematoma retroperitoneal, mayor morbilidad).'
+  },
+  {id:87, sec:'primera',
+   text:'¿Cómo definiría una articulación ósea de movimientos muy limitados, formada por dos superficies planas unidas firmemente por fibrocartílago a modo de ligamentos?',
+   opts:['Sinartrosis.','Anfiartrosis.','Diartrosis.','Enartrosis.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> <strong>Anfiartrosis</strong> (semimóvil): movimientos limitados, superficies articulares unidas por fibrocartílago (sínfisis púbica, discos intervertebrales). <strong>Sinartrosis</strong> (inmóvil): suturas craneales. <strong>Diartrosis</strong> (móvil): articulaciones sinoviales (cadera, hombro). <strong>Enartrosis</strong>: tipo de diartrosis con movimiento en todas direcciones (cadera, hombro).'
+  },
+  {id:88, sec:'primera',
+   text:'Los factores más importantes que predisponen la aparición de la anorexia y la bulimia en adolescentes son:',
+   opts:['La presión social y las características familiares y de personalidad.','La pubertad.','Las relaciones sociales exclusivamente.','Exigencias profesionales.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La etiología de los TCA es MULTIFACTORIAL. Los factores más relevantes son: <strong>presión social</strong> (ideal de delgadez, medios de comunicación), <strong>factores familiares</strong> (disfunción familiar, sobreprotección, críticas sobre el peso) y <strong>factores de personalidad</strong> (perfeccionismo, baja autoestima, impulsividad en bulimia). La pubertad es un factor predisponente pero no el principal.'
+  },
+  {id:89, sec:'primera',
+   text:'De los siguientes signos vitales, ¿cuál de ellos se monitoriza de forma invasiva?',
+   opts:['La frecuencia cardiaca.','El ritmo cardiaco.','La frecuencia respiratoria.','La presión venosa central.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> La <strong>Presión Venosa Central (PVC)</strong> requiere monitorización invasiva: catéter venoso central (CVC) insertado en vena cava superior/aurícula derecha. Normal: 8-12 cmH₂O. La FC, ritmo cardíaco y FR se monitorizan de forma NO invasiva. La presión arterial invasiva también requiere catéter arterial.'
+  },
+  {id:90, sec:'primera',
+   text:'La salud sexual es:',
+   opts:['Un estado de bienestar físico y moral.','Una etapa vital de respeto y seguridad.','Un estado de bienestar físico, emocional, mental y social.','La ausencia de discriminación, violencia y consenso.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Definición de la OMS: "La salud sexual es un estado de bienestar físico, emocional, mental y social en relación con la sexualidad; no es solamente la ausencia de enfermedad, disfunción o incapacidad". Incluye también: libre de coerción, discriminación y violencia, y acceso a información y servicios.'
+  },
+  {id:91, sec:'primera',
+   text:'En relación a los determinantes de salud que deben estar visibles en la Historia Clínica del paciente. Indique la respuesta INCORRECTA:',
+   opts:['Antecedentes Familiares.','Determinantes Medioambientales.','Estilos de Vida.','Enfermedades relacionadas con la exposición a redes sociales.'],
+   ans:3,
+   exp:'<strong>D es la INCORRECTA.</strong> Las "enfermedades relacionadas con la exposición a redes sociales" no constituyen una categoría consolidada de determinante de salud en la Historia Clínica. Los determinantes clásicos que deben recogerse: antecedentes familiares, factores medioambientales, estilos de vida (tabaco, alcohol, ejercicio, dieta), determinantes socioeconómicos y factores biológicos.'
+  },
+  {id:92, sec:'primera',
+   text:'Los componentes de la valoración geriátrica son:',
+   opts:['Físico, funcional, mental y socioambiental.','Funcional, mental, social y cuidados de enfermería.','Riesgo funcional, social y económico.','Pluripatología, funcional y mental.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La <strong>Valoración Geriátrica Integral (VGI)</strong> comprende 4 dimensiones: <strong>1) Física/biomédica</strong> (enfermedades, fármacos), <strong>2) Funcional</strong> (ABVD, AIVD), <strong>3) Mental/cognitivo-afectiva</strong> (cognición, depresión), <strong>4) Social/socioambiental</strong> (red de apoyo, recursos). Es el pilar de la geriatría moderna.'
+  },
+  {id:93, sec:'primera',
+   text:'Conforme a la Ley 55/2003 del Estatuto Marco, ¿en qué situación será declarado el personal estatutario fijo que pase a prestar servicios en una categoría profesional diferente?',
+   opts:['Servicios bajo otro régimen jurídico.','Excedencia por prestar servicios en el sector público.','Servicios Especiales.','Suspensión de funciones.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Según el art. 62 de la Ley 55/2003 (Estatuto Marco), el personal estatutario fijo que pase a desempeñar servicios en una categoría diferente dentro o fuera del sistema nacional de salud pasa a la situación de <strong>Servicios Especiales</strong>. Esta situación garantiza la reserva del puesto de origen y el cómputo del tiempo a efectos de antigüedad.'
+  },
+  {id:94, sec:'primera',
+   text:'La acumulación de orina en la vejiga y la incapacidad de esta para vaciarse se denomina:',
+   opts:['Incontinencia urinaria.','Urgencia urinaria.','Retención urinaria.','Incontinencia refleja.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> <strong>Retención urinaria</strong> = incapacidad total o parcial para vaciar la vejiga. Puede ser aguda (dolorosa, emergencia) o crónica (indolora, con globo vesical). Causas: obstrucción prostática, estenosis uretral, medicamentos (anticolinérgicos), lesión medular. La incontinencia es la pérdida INVOLUNTARIA de orina.'
+  },
+  {id:95, sec:'primera',
+   text:'Se define la intervención de enfermería como:',
+   opts:['Cualquier tratamiento, basado en el conocimiento y juicio clínico, que realiza un profesional de enfermería para favorecer los resultados esperados del paciente.','Es un estado, conducta o percepción variable de un paciente o cuidador familiar sensible a los resultados de enfermería.','Juicio clínico sobre la respuesta de un individuo, familia o comunidad, frente a procesos vitales/problemas de salud reales o potenciales.','Diagnóstico preclínico sobre la respuesta de un individuo, familia o comunidad frente a procesos vitales/problemas de salud.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Definición NIC (Clasificación de Intervenciones de Enfermería): "Cualquier tratamiento, basado en el conocimiento y juicio clínico, que realiza un profesional de enfermería para favorecer los resultados del paciente". B define un resultado NOC. C define un diagnóstico NANDA. D no es una definición estándar.'
+  },
+  {id:96, sec:'primera',
+   text:'En pacientes con nutrición parenteral pueden aparecer complicaciones:',
+   opts:['En las primeras 48 horas suelen ser mecánicas y/o infecciosas.','Las complicaciones infecciosas suelen aparecer antes de las 72 horas.','En las primeras 48 horas suelen ser mecánicas y/o metabólicas.','Transcurridos 3 meses, las únicas complicaciones que aparecen son mecánicas.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Complicaciones de la NP: <strong>Primeras 48h</strong>: mecánicas (relacionadas con la inserción del CVC: neumotórax, hemotórax, malposición) y metabólicas (hiperglucemia, alteraciones electrolíticas, síndrome de realimentación). Las infecciosas aparecen más tardíamente (>72h-días, relacionadas con la contaminación del catéter). No solo mecánicas a largo plazo (D falsa).'
+  },
+  {id:97, sec:'primera',
+   text:'La estructura organizativa formada por profesionales sanitarios y no sanitarios, con responsabilidad en la prestación sanitaria de forma integral, compartida y continuada en la zona básica de salud, recibe el nombre de:',
+   opts:['Servicio autonómico de Salud.','Sistema Nacional de Salud.','Centro de Salud.','Equipo de Atención Primaria.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> El <strong>Equipo de Atención Primaria (EAP)</strong> es la unidad funcional y organizativa básica de la APS. Está formado por médicos, enfermeras, trabajadores sociales, auxiliares, administrativos, etc. Presta atención integral, continua y compartida a la población de una zona básica de salud. El Centro de Salud es la sede física del EAP.'
+  },
+  {id:98, sec:'primera',
+   text:'Según la taxonomía NANDA, ¿cuál de estos diagnósticos identificamos en un adolescente que es incapaz de mantener una percepción completa e integrada del "Yo"?',
+   opts:['Afrontamiento ineficaz de la salud.','Trastorno de la identidad de una persona.','Baja autoestima situacional.','Baja autoestima crónica.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El diagnóstico NANDA <strong>"Trastorno de la identidad de una persona"</strong> (00121) se define como la incapacidad para mantener una percepción completa e integrada del yo. Incluye alteraciones en la imagen corporal, el rol, la identidad personal. Diferente de la baja autoestima (negativa evaluación del yo) y del afrontamiento ineficaz.'
+  },
+  {id:99, sec:'primera',
+   text:'Según la Ley 29/2006 de garantías y uso racional de medicamentos, podrán indicar y dispensar medicamentos no sujetos a prescripción médica de forma autónoma:',
+   opts:['Enfermeros y Fisioterapeutas.','Veterinarios y podólogos.','Cirujanos Plásticos y odontólogos.','Profesionales relacionados con la Estética.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La Ley 29/2006 y su modificación mediante RD 954/2015 establecen que los <strong>enfermeros y fisioterapeutas</strong> pueden indicar, usar y autorizar la dispensación de medicamentos no sujetos a prescripción médica de forma autónoma mediante la orden de dispensación. Esto amplió las competencias prescriptoras de la enfermería.'
+  },
+  {id:100, sec:'primera',
+   text:'Respecto al burnout en el entorno sanitario, señale la frase verdadera:',
+   opts:['El burnout es un trastorno físico.','La fatiga sucede por la alta capacidad para desarrollar el potencial.','La construcción de liderazgos potentes ayuda a mitigar el efecto.','Los síntomas son solo psicológicos.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> El <strong>burnout</strong> (síndrome de desgaste profesional) puede mitigarse con <strong>liderazgos transformadores y apoyo organizacional</strong>. El burnout tiene dimensiones físicas, emocionales y conductuales (no es solo físico ni solo psicológico). La fatiga ocurre por sobrecarga, no por alta capacidad. Triada de Maslach: agotamiento emocional + despersonalización + baja realización personal.'
+  },
+
+  // ——— RESERVA ———
+  {id:'R101', sec:'reserva',
+   text:'Dentro de la estrategia "Adecuación de los RRHH del SNS" incluida en el Plan de Calidad del SNS, se encuentra el proyecto:',
+   opts:['Realizar un estudio sobre necesidades de profesionales de cuidados de Enfermería.','Elaborar un sistema de información común sobre los recursos humanos en el SNS.','Mantener actualizado el estudio sobre proyecciones de necesidades futuras de especialistas médicos.','Estimular e impulsar las estancias de intercambio de residentes en centros públicos.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El Plan de Calidad del SNS, en la estrategia de RRHH, contempla la elaboración de un <strong>sistema de información común sobre RRHH del SNS</strong>, que permita planificar necesidades de forma coordinada entre CCAA y el Ministerio de Sanidad.'
+  },
+  {id:'R102', sec:'reserva',
+   text:'¿Cuál de los siguientes objetivos NO se correspondería con un estudio descriptivo?',
+   opts:['Calcular la prevalencia de la hipercolesterolemia en una comunidad.','Determinar la incidencia de infarto agudo de miocardio en varones.','Obtener datos reales sobre los motivos de consulta en los servicios de urgencia.','Estimar el efecto de un taller de información nutricional en personas con obesidad.'],
+   ans:3,
+   exp:'<strong>D es correcta (la que NO es descriptiva).</strong> "Estimar el efecto de una intervención" es un objetivo ANALÍTICO (estudio cuasiexperimental o ensayo clínico). Los estudios descriptivos solo describen: prevalencia (A), incidencia (B), distribución de fenómenos (C). Cuando se "estima efecto" o "se comparan grupos" → estudio analítico.'
+  },
+  {id:'R103', sec:'reserva',
+   text:'La CIE-10-ES (desde 1-1-2016 en España) integra dos clasificaciones. Indique la respuesta correcta:',
+   opts:['La Modificación Clínica de la CIE-10ª versión, para codificar diagnósticos, y el Sistema de Clasificación de Procedimientos.','El registro de los datos clínicos y el conocimiento de la morbilidad atendida.','El conocimiento de la morbilidad atendida y el proceso de atención médica.','El registro de los datos clínicos y el proceso de atención médica.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> La CIE-10-ES integra: <strong>CIE-10-MC</strong> (Modificación Clínica, para codificación de diagnósticos) y <strong>CIE-10-PCS</strong> (Procedure Coding System, para codificación de procedimientos). Sustituyó al sistema CIE-9-MC que se había usado en España hasta 2015. Se usa en el Conjunto Mínimo Básico de Datos (CMBD).'
+  },
+  {id:'R104', sec:'reserva',
+   text:'Según la Teoría del Desarrollo de Erikson, ¿cuántos periodos tienen lugar en la infancia y adolescencia?',
+   opts:['3 en la infancia y 1 en la adolescencia.','3 en la infancia y 2 en la adolescencia.','4 en la infancia y 1 en la adolescencia.','4 en la infancia y 2 en la adolescencia.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Erikson (8 estadios): <strong>4 en la infancia</strong>: 1)Confianza vs desconfianza (0-1a), 2)Autonomía vs vergüenza (1-3a), 3)Iniciativa vs culpa (3-6a), 4)Laboriosidad vs inferioridad (6-12a). <strong>1 en la adolescencia</strong>: 5)Identidad vs confusión de roles (12-20a). Luego 3 en la edad adulta.'
+  },
+  {id:'R105', sec:'reserva',
+   text:'En el triaje de accidente con tarjetas de colores, ¿a qué paciente correspondería la tarjeta AMARILLA?',
+   opts:['Paciente con lesión penetrante en el tórax.','Paciente en coma.','Paciente con múltiples fracturas.','Paciente con destrucción multiorgánica.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> Código cromático de triaje en catástrofes (START): <strong>Rojo</strong> = crítico, atención inmediata (neumotórax abierto, coma recuperable). <strong>Amarillo</strong> = urgente diferible, estable pero necesita atención en horas (múltiples fracturas, quemaduras moderadas). <strong>Verde</strong> = leve. <strong>Negro</strong> = fallecido o irrecuperable (destrucción multiorgánica).'
+  },
+  {id:'R106', sec:'reserva',
+   text:'Sobre el muestreo estratificado, indique cuál de las observaciones es FALSA:',
+   opts:['Divide a la población en grupos homogéneos y se intenta que toda la población esté representada.','Divide las unidades en estratos y se realiza un muestreo simple en cada uno de forma proporcional o no proporcional.','Divide las unidades en estratos y se realiza un muestreo simple en cada uno de forma exclusivamente proporcional.','Es un tipo de muestreo frecuentemente utilizado en muestras sanitarias.'],
+   ans:2,
+   exp:'<strong>C es la FALSA.</strong> El muestreo estratificado puede ser proporcional (el número de elementos de cada estrato es proporcional al tamaño del estrato en la población) o <strong>NO proporcional</strong>. No es exclusivamente proporcional (C falsa). La afirmación B es correcta porque menciona AMBAS modalidades. El estratificado asegura representación de todos los subgrupos.'
+  },
+  {id:'R107', sec:'reserva',
+   text:'Respecto a la enterocolitis necrotizante en el neonato, señale la respuesta INCORRECTA:',
+   opts:['La baja edad gestacional y el peso conllevan mayor riesgo.','Los recién nacidos de madres cocainómanas tienen un mayor riesgo.','Mayor riesgo en recién nacidos que sufren episodios de asfixia y estrés cardiopulmonar.','No hay una diferencia significativa según el sexo del recién nacido.'],
+   ans:3,
+   exp:'<strong>D es la INCORRECTA.</strong> Aunque la diferencia no es dramática, algunos estudios señalan que los <strong>varones</strong> tienen ligeramente mayor incidencia de enterocolitis necrotizante. Factores de riesgo establecidos: prematuridad (A), exposición a cocaína (isquemia intestinal, B), asfixia perinatal (C), alimentación con fórmula, policitemia. La afirmación de "no hay diferencia significativa por sexo" es cuestionable.'
+  },
+  {id:'R108', sec:'reserva',
+   text:'En la entrevista durante la valoración, las preguntas abiertas presentan una desventaja:',
+   opts:['Puede revelar la afectividad del entrevistado respecto a un aspecto.','Las respuestas son difíciles de registrar y hacerlo exige habilidad.','Dejan hablar al entrevistado.','Se concede demasiada importancia a las opiniones del entrevistado.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La <strong>desventaja</strong> de las preguntas abiertas en la entrevista clínica es que las <strong>respuestas son difíciles de registrar</strong> y requieren habilidad para sistematizar. Las ventajas son: revelan afectividad, permiten al paciente expresarse libremente, aportan información cualitativa rica. Las preguntas cerradas son más fáciles de registrar pero limitan la información.'
+  },
+  {id:'R109', sec:'reserva',
+   text:'Un paciente presenta Cormack IV en la escala de Cormack-Lehane. Su intubación es:',
+   opts:['Posible solo con técnicas especiales.','Intubación muy fácil.','Intubación medianamente compleja.','Intubación imposible.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Escala de Cormack-Lehane (visualización laringoscópica): <strong>Grado I</strong> = glotis completa visible, muy fácil. <strong>II</strong> = solo mitad posterior, fácil. <strong>III</strong> = solo epiglotis visible, difícil. <strong>IV</strong> = no se ve ni epiglotis = <strong>intubación imposible/extremadamente difícil</strong>, requiere vía aérea quirúrgica o técnicas avanzadas.'
+  },
+  {id:'R110', sec:'reserva',
+   text:'De acuerdo con el Plan de Ordenación de Recursos Humanos del INGESA, la movilidad por razón de salud:',
+   opts:['No es causa de movilidad.','Se prevé previa intervención del Ministerio de Sanidad.','Debe realizarse conjuntamente con los procesos de movilidad.','Se concede mediante resolución de la Dirección del INGESA.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Según el PORH del INGESA, la movilidad por razón de salud (cuando el trabajador acredita que su puesto de trabajo perjudica su salud) se concede mediante <strong>resolución de la Dirección del INGESA</strong>. Es un proceso independiente de los concursos generales de movilidad, tramitado con criterios médicos y resolución específica.'
+  },
+
+  // ——— SUPUESTO PRÁCTICO ———
+  {id:'SP1', sec:'supuesto',
+   text:'Debido a su hipotiroidismo, ¿qué hallazgo cutáneo nos podemos encontrar?',
+   opts:['Piel fría y húmeda.','Piel áspera y seca.','Aumento del crecimiento del vello.','Piel suave y enrojecida.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El hipotiroidismo produce piel <strong>áspera, seca y fría</strong> (mixedema), pálida/amarillenta (carotenemia), edema periorbitario, caída de cabello. La piel húmeda/caliente/suave corresponde al HIPERTIROIDISMO. Regla mnemotécnica: hipo = todo enlentecido y seco; hiper = todo acelerado y húmedo.'
+  },
+  {id:'SP2', sec:'supuesto',
+   text:'Según criterios OMS y SEEDO, la obesidad de grado I se corresponde con un IMC de:',
+   opts:['25,0 - 29,9.','30,0 - 34,9.','35,0 - 39,9.','40,0 - 49,9.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Clasificación OMS/SEEDO del IMC: <25 = normopeso; 25-29,9 = sobrepeso; <strong>30-34,9 = Obesidad Grado I</strong>; 35-39,9 = Obesidad Grado II; ≥40 = Obesidad Grado III/Mórbida. La paciente tiene "Obesidad grado I" como consta en la exploración del supuesto.'
+  },
+  {id:'SP3', sec:'supuesto',
+   text:'¿Cuál de las siguientes recomendaciones dietéticas indicaría para mejorar el control de la dislipemia?',
+   opts:['Reducir el consumo de ácidos grasos poliinsaturados omega 3.','Reducir el consumo de ácidos grasos monoinsaturados.','Reducir el consumo de ácidos grasos poliinsaturados omega 6.','Reducir el consumo de ácidos grasos saturados.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Para el control de la dislipemia se recomienda <strong>reducir los ácidos grasos saturados</strong> (carnes rojas, lácteos enteros, mantequilla) y grasas trans (bollería industrial). Los omega-3 (pescado azul) son BENEFICIOSOS (↓ triglicéridos, ↓ riesgo CV). Los monoinsaturados (aceite oliva) son beneficiosos. Los omega-6 también tienen efecto beneficioso si reemplazan saturados.'
+  },
+  {id:'SP4', sec:'supuesto',
+   text:'Atendiendo a los valores: pH 7,34 · pO₂ 62 mmHg · pCO₂ 46 mmHg · Bicarbonato 27 mEq/L, la paciente presenta:',
+   opts:['Alcalosis Respiratoria.','Acidosis Respiratoria.','Alcalosis Metabólica.','Acidosis Metabólica.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> Análisis: pH 7,34 → <strong>acidosis</strong>. pCO₂ 46 mmHg (↑, normal 35-45) → causa respiratoria (↑CO₂ = acidosis). Bicarbonato 27 mEq/L (↑, normal 22-26) → compensación metabólica (riñón retiene HCO₃⁻). Conclusión: <strong>acidosis respiratoria compensada</strong>. Además pO₂ 62 mmHg → insuficiencia respiratoria tipo II (hipoxemia + hipercapnia), compatible con EPOC agudizado.'
+  },
+  {id:'SP5', sec:'supuesto',
+   text:'¿Dónde se sitúa la derivación precordial V4 en el ECG?',
+   opts:['5º espacio intercostal izquierdo, línea medio clavicular.','5º espacio intercostal derecho, línea medio clavicular.','5º espacio intercostal izquierdo, línea anterior axilar.','5º espacio intercostal izquierdo, línea axilar media.'],
+   ans:0,
+   exp:'<strong>A es correcta.</strong> Posición de electrodos precordiales: V1 (4º EIC derecho paraesternal) · V2 (4º EIC izquierdo paraesternal) · V3 (entre V2 y V4) · <strong>V4 (5º EIC izquierdo, línea medioclavicular)</strong> · V5 (5º EIC, línea axilar anterior) · V6 (5º EIC, línea axilar media). V4 es el equivalente al ápex cardíaco.'
+  },
+  {id:'SP6', sec:'supuesto',
+   text:'¿Cuál de las siguientes escalas NO se utiliza para valorar el riesgo de úlceras por presión?',
+   opts:['Escala de Norton.','Escala de Oxford.','Escala Nova 5.','Escala Emina.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La <strong>Escala de Oxford</strong> es una escala de dolor (Oxford Pain Chart), no de riesgo de UPP. Las escalas para valorar riesgo de UPP son: <strong>Norton</strong> (5 ítems, ≤14 = riesgo alto), <strong>Braden</strong> (más usada internacionalmente), <strong>EMINA</strong> (española, 5 ítems), <strong>Nova 5</strong> (adaptación española). También: Waterlow.'
+  },
+  {id:'SP7', sec:'supuesto',
+   text:'El test de Allen se realiza para:',
+   opts:['Comprobar si existe una buena circulación venosa periférica.','Comprobar si hay circulación colateral antes de la punción de la arteria radial.','Comprobar si hay una buena circulación arterial en los miembros inferiores.','Comprobar si hay una buena circulación venosa en los miembros inferiores.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> El <strong>test de Allen</strong> evalúa la <strong>circulación colateral</strong> (cubital) antes de puncionar la arteria radial para gasometría arterial. Técnica: comprimir ambas arterias (radial y cubital), pedir al paciente que abra y cierre el puño hasta palidecer, soltar cubital → si la mano recupera el color en <10 segundos, Allen positivo = circulación colateral suficiente → SEGURO puncionar radial.'
+  },
+  {id:'SP8', sec:'supuesto',
+   text:'Señala el factor de riesgo que NO está relacionado con el diagnóstico enfermero 00155 "riesgo de caídas":',
+   opts:['Antecedentes de caídas.','Edad igual o superior a 65 años.','Obesidad.','Medicamentos antihipertensivos.'],
+   ans:2,
+   exp:'<strong>C es correcta.</strong> La <strong>obesidad</strong> no está recogida como factor de riesgo en el diagnóstico NANDA 00155 "Riesgo de caídas". Los factores de riesgo NANDA incluyen: edad ≥65 años, antecedentes de caídas, fármacos (antihipertensivos, diuréticos, sedantes, opioides), deterioro cognitivo, déficit visual, hipotensión ortostática, alteraciones del equilibrio/marcha, entorno inseguro.'
+  },
+  {id:'SP9', sec:'supuesto',
+   text:'En la escala de Braden con puntuación de 16 puntos, ¿cuál es la interpretación?',
+   opts:['Riesgo muy alto.','Riesgo alto.','Riesgo medio.','Riesgo bajo.'],
+   ans:3,
+   exp:'<strong>D es correcta.</strong> Escala de Braden (6-23 puntos, más baja = mayor riesgo): <strong>≤9 = riesgo muy alto</strong>; 10-12 = riesgo alto; 13-14 = riesgo moderado; 15-18 = riesgo bajo; <strong>16 → riesgo bajo</strong>; >18 = sin riesgo significativo. Puntuación 16 = riesgo bajo de UPP en esta paciente (escala Braden).'
+  },
+  {id:'SP10', sec:'supuesto',
+   text:'¿Cuál de las siguientes NO se corresponde con una intervención NIC con el diagnóstico 00001 "Alteración de la nutrición por exceso"?',
+   opts:['Monitorización de electrolitos.','Modificación de la conducta.','Ayuda para disminuir peso.','Gestión de la nutrición.'],
+   ans:0,
+   exp:'<strong>A es correcta (la que NO corresponde).</strong> La "Monitorización de electrolitos" (NIC 2000) no es una intervención prioritaria para el diagnóstico de nutrición por exceso/obesidad. Las NIC adecuadas para 00001 son: modificación de la conducta (4360), ayuda para disminuir el peso (1280), gestión de la nutrición (1100), enseñanza dieta prescrita (5614), y fomento del ejercicio (0200).'
+  },
+  {id:'SPR11', sec:'supuesto',
+   text:'[RESERVA] El déficit de vitamina B12 es una de las características de:',
+   opts:['Anemia ferropénica.','Anemia megaloblástica.','Anemia hemolítica.','Anemia sideroblástica.'],
+   ans:1,
+   exp:'<strong>B es correcta.</strong> La <strong>anemia megaloblástica</strong> se debe al déficit de vitamina B12 (cobalamina) o de folato. Se caracteriza por eritrocitos grandes (macrocitos) y precursores megaloblásticos en médula ósea. Causas de déficit B12: anemia perniciosa (↓ factor intrínseco), dieta vegetariana estricta, resección gástrica. La ferropénica = déficit de hierro. La hemolítica = destrucción excesiva de hematíes.'
+  }
+];
+
+// ─── STATE ───────────────────────────────────
+let answered = {};
+
+// ─── BUILD ───────────────────────────────────
+function buildQuestions() {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  const SECTIONS = [
+    {key:'primera', label:'PRIMERA PARTE — Cuestionario Test', count:'100 preguntas', ctx:null},
+    {key:'reserva', label:'PREGUNTAS DE RESERVA', count:'Preguntas 101-110', ctx:null},
+    {key:'supuesto', label:'SEGUNDA PARTE — Supuesto Práctico', count:'10 preguntas + 1 reserva', ctx:'supuesto'}
+  ];
+
+  const contextHTML = `
+    <div class="context-box">
+      <div class="ctx-title">📋 Caso clínico — Paciente 77 años</div>
+      <p>Mujer de 77 años acude a urgencias hospitalarias derivada por MAP por empeoramiento de sintomatología: disnea intensa y nerviosismo brusco con sofocación. Tratada en CS con metilprednisolona IM y salbutamol inhalado.</p>
+      <table>
+        <tr><td>Antecedentes</td><td>HTA, dislipemia, EPOC, insuf. venosa crónica, síndrome depresivo, apendicectomía (2001), déficit vitamina D, hipotiroidismo</td></tr>
+        <tr><td>Medicación</td><td>Omeprazol 20mg, Candesartán 16mg, Beclometasona/Formoterol 100/6mcg inh, Simvastatina 20mg, Escitalopram 20mg, Salbutamol 100mcg s.p., Lorazepam 1mg, Levotiroxina 75mcg, Optovite 1000mcg IM/mensual</td></tr>
+        <tr><td>Constantes</td><td>TA: 170/70 mmHg · FC: 91 lpm · SatO₂: 94% basal · Tª: 36,3°C</td></tr>
+        <tr><td>Exploración</td><td>Eupneica en reposo; taquipnea en decúbito 45°. ACP: rítmica sin soplos. AP: hipoventilación difusa. Obesidad grado I. EEII: edema leve bilateral, pulsos presentes</td></tr>
+        <tr><td>ECG</td><td>Ritmo sinusal 75 lpm, T negativas V1-V3, QRS estrecho</td></tr>
+        <tr><td>Analítica</td><td>pH 7,34 · pO₂ 62 mmHg · pCO₂ 46 mmHg · HCO₃⁻ 27 · PCR 0,66 · DíD 765 · Crea 1,96 · Urea 80 · Leuco 7,20 · Hb 12,6 · Plt 280.000 · INR 0,84</td></tr>
+      </table>
+    </div>`;
+
+  SECTIONS.forEach(sec => {
+    const qs = QUESTIONS.filter(q => q.sec === sec.key);
+    if (!qs.length) return;
+    const header = document.createElement('div');
+    header.className = `section-header${sec.key === 'supuesto' ? ' supuesto' : sec.key === 'reserva' ? ' reserva' : ''}`;
+    header.innerHTML = `${sec.label} <span class="section-count">${sec.count}</span>`;
+    container.appendChild(header);
+    if (sec.ctx === 'supuesto') container.insertAdjacentHTML('beforeend', contextHTML);
+    qs.forEach(q => {
+      const card = document.createElement('div');
+      card.className = 'question-card';
+      card.id = `qcard-${q.id}`;
+      const letters = ['A','B','C','D'];
+      const optHtml = q.opts.map((opt,i) => `
+        <button class="option-btn" id="opt-${q.id}-${i}" onclick="selectAnswer('${q.id}',${i})">
+          <span class="option-letter">${letters[i]}</span><span>${opt}</span>
+        </button>`).join('');
+      card.innerHTML = `
+        <div class="q-number">PREGUNTA ${q.id} <span id="badge-${q.id}"></span></div>
+        <div class="q-text">${q.text}</div>
+        <div class="options">${optHtml}</div>
+        <div class="explanation" id="exp-${q.id}">
+          <div class="exp-header">★ Comentario · Clave de respuesta</div>
+          <p>${q.exp}</p>
+        </div>`;
+      container.appendChild(card);
+    });
+  });
+}
+
+function selectAnswer(qid, sel) {
+  if (answered[qid] !== undefined) return;
+  const q = QUESTIONS.find(q => String(q.id) === String(qid));
+  answered[qid] = sel;
+  const isOk = sel === q.ans;
+  const card = document.getElementById(`qcard-${qid}`);
+  card.classList.add(isOk ? 'answered-correct' : 'answered-wrong');
+  document.getElementById(`badge-${qid}`).innerHTML =
+    `<span class="result-badge ${isOk ? 'badge-correct' : 'badge-wrong'}">${isOk ? '✓ CORRECTO' : '✗ INCORRECTO'}</span>`;
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`opt-${qid}-${i}`);
+    btn.disabled = true;
+    if (i === q.ans) btn.classList.add('correct');
+    else if (i === sel && !isOk) btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  }
+  document.getElementById(`exp-${qid}`).classList.add('show');
+  updateScore();
+}
+
+function updateScore() {
+  const total = QUESTIONS.length;
+  const ans = Object.keys(answered).length;
+  let correct = 0;
+  Object.entries(answered).forEach(([qid, sel]) => {
+    const q = QUESTIONS.find(q => String(q.id) === String(qid));
+    if (q && sel === q.ans) correct++;
+  });
+  document.getElementById('scoreDisplay').textContent = `${correct} correctas · ${ans}/${total} respondidas`;
+  document.getElementById('progressBar').style.width = (ans/total*100) + '%';
+  if (ans === total) showSummary(correct, ans);
+}
+
+function showSummary(correct, total) {
+  const wrong = total - correct;
+  const pct = Math.round((correct/total)*100);
+  document.getElementById('summaryScore').textContent = pct + '%';
+  document.getElementById('summaryDetail').textContent = `${correct} correctas de ${total} respondidas`;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statSkipped').textContent = QUESTIONS.length - total;
+  document.getElementById('summaryBox').classList.add('show');
+}
+
+function filterQ(mode, e) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  QUESTIONS.forEach(q => {
+    const card = document.getElementById(`qcard-${q.id}`);
+    if (!card) return;
+    let show = true;
+    if (mode === 'unanswered') show = answered[q.id] === undefined;
+    else if (mode === 'wrong') show = answered[q.id] !== undefined && answered[q.id] !== q.ans;
+    else if (mode === 'correct') show = answered[q.id] !== undefined && answered[q.id] === q.ans;
+    card.classList.toggle('hidden', !show);
+  });
+  document.querySelectorAll('.section-header').forEach(h => {
+    let next = h.nextElementSibling, vis = false;
+    while (next && !next.classList.contains('section-header')) {
+      if (!next.classList.contains('hidden') && next.classList.contains('question-card')) vis = true;
+      next = next.nextElementSibling;
+    }
+    h.style.display = vis ? '' : 'none';
+  });
+}
+
+function resetAll() {
+  if (!confirm('¿Reiniciar el test? Se perderán todas las respuestas.')) return;
+  answered = {};
+  document.getElementById('summaryBox').classList.remove('show');
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('scoreDisplay').textContent = '0 / 0 respondidas';
+  document.querySelectorAll('.filter-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  buildQuestions();
+}
+
+buildQuestions();
+updateScore();
+</script>
+</body>
+</html>

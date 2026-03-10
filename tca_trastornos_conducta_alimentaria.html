@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCA · Trastornos de la Conducta Alimentaria · INGESA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#3a3a8a; --ac2:#5a5aaa; --acl:#8a8acc;
+  --fondo:#f2f2f8; --sup:#ffffff;
+  --txt:#0a0a20; --soft:#3a3a5a;
+  --AN:#9a1a40;   /* anorexia: granate */
+  --BN:#1a5a8a;   /* bulimia: azul */
+  --TA:#2a7a3a;   /* atracones: verde */
+  --rojo:#c04020; --verde:#1a7a3a; --azul:#1a5a8a; --naranja:#c47a10;
+  --perla:#fffce6; --pb:#e0c020; --ph:#b08010;
+  --warn:#fff8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--txt);font-size:14px;line-height:1.55;}
+
+/* HEADER */
+.ph{background:linear-gradient(135deg,#06060f 0%,#14144a 55%,#3a3a8a 100%);padding:20px 32px 16px;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 40%,rgba(100,100,200,0.12) 0%,transparent 60%),
+  repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 41px);
+  pointer-events:none;}
+.ph h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;position:relative;}
+.ph .sub{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#9090d8;letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:2px 8px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;}
+.p1{background:var(--ac);color:#fff;} .p2{background:rgba(255,255,255,0.1);color:#bbb;}
+.pan{background:var(--AN);color:#fff;} .pbn{background:var(--BN);color:#fff;} .pta{background:var(--TA);color:#fff;}
+
+.wrap{max-width:1150px;margin:0 auto;padding:22px 18px;}
+.sh{display:flex;align-items:center;gap:10px;margin:26px 0 12px;}
+.sb{width:5px;height:30px;border-radius:3px;background:var(--ac);flex-shrink:0;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;display:block;}
+.st{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;color:#06060f;}
+.div{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:24px 0;opacity:0.2;}
+
+/* EPIDEMIOLOGÍA STATS */
+.epi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.epi-card{background:var(--sup);border-radius:10px;border:1px solid #c8c8e8;padding:13px 14px;text-align:center;}
+.epi-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--ac);line-height:1;}
+.epi-unit{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--acl);letter-spacing:1px;text-transform:uppercase;display:block;margin-top:2px;}
+.epi-desc{font-size:0.75rem;color:var(--soft);margin-top:4px;line-height:1.35;}
+
+/* COMPARATIVA AN vs BN vs TA */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.comp-card{border-radius:11px;overflow:hidden;border:2px solid;}
+.comp-head{padding:12px 15px;}
+.comp-head h3{font-family:'Playfair Display',serif;font-weight:900;font-size:1.05rem;color:#fff;}
+.comp-sub{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:rgba(255,255,255,0.65);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.comp-body{background:var(--sup);padding:13px 15px;}
+.comp-row{display:flex;gap:7px;align-items:baseline;padding:4px 0;border-bottom:1px solid #e8e8f0;font-size:0.8rem;line-height:1.4;}
+.comp-row:last-child{border-bottom:none;}
+.comp-row .ck{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;min-width:68px;color:var(--soft);flex-shrink:0;}
+.comp-row .cv{color:var(--txt);}
+.comp-row .cv strong{color:var(--txt);}
+.badge-peso{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 6px;border-radius:4px;letter-spacing:0.5px;}
+
+/* CRITERIOS DSM-5 */
+.criterios-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.crit-card{background:var(--sup);border-radius:10px;border:1px solid #c8c8e8;border-top:3px solid;overflow:hidden;}
+.crit-head{padding:9px 13px;display:flex;align-items:center;gap:8px;}
+.crit-num{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;opacity:0.2;}
+.crit-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+.crit-body{padding:10px 13px;font-size:0.8rem;line-height:1.7;color:var(--soft);}
+.crit-body strong{color:var(--txt);}
+.crit-body li{margin-left:14px;padding:1px 0;}
+.ope{display:inline-block;background:var(--ph);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.52rem;font-weight:700;padding:1px 5px;border-radius:4px;letter-spacing:0.5px;vertical-align:middle;margin-left:3px;}
+
+/* SEMÁFORO CLÍNICO */
+.semaforo{background:var(--sup);border-radius:11px;border:1px solid #c8c8e8;padding:16px 18px;margin-bottom:14px;}
+.sem-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;}
+.sem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.sem-col{border-radius:9px;padding:11px 13px;}
+.sem-col h4{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;}
+.sem-col ul{list-style:none;font-size:0.8rem;line-height:1.75;color:var(--soft);}
+.sem-col ul li::before{content:'• ';font-weight:700;}
+.sem-col ul li strong{color:var(--txt);}
+
+/* SCOFF */
+.scoff-wrap{background:var(--sup);border-radius:11px;border:1px solid #c8c8e8;padding:16px 18px;margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.scoff-q{counter-reset:scoff;}
+.scoff-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #e8e8f0;font-size:0.82rem;}
+.scoff-item:last-child{border-bottom:none;}
+.scoff-n{width:22px;height:22px;border-radius:50%;background:var(--ac);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.scoff-letter{font-family:'Playfair Display',serif;font-size:1rem;font-weight:900;color:var(--ac);flex-shrink:0;width:18px;}
+.scoff-text{color:var(--soft);}
+.scoff-text strong{color:var(--txt);}
+.scoff-result{background:#f2f2f8;border-radius:8px;padding:12px 14px;border:1px solid #c8c8e8;}
+.scoff-result h4{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:8px;}
+
+/* NANDA-NOC-NIC */
+.nnn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
+.nnn-card{background:var(--sup);border-radius:10px;border:1px solid #c8c8e8;overflow:hidden;}
+.nnn-head{padding:10px 13px;}
+.nnn-head h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#fff;}
+.nnn-head .nh{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:rgba(255,255,255,0.65);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.nnn-body{padding:10px 13px;}
+.nnn-item{padding:5px 0;border-bottom:1px solid #e8e8f4;font-size:0.79rem;line-height:1.4;color:var(--soft);}
+.nnn-item:last-child{border-bottom:none;}
+.nnn-item strong{color:var(--txt);}
+.nnn-code{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;color:var(--ac);}
+
+/* HOSPITALIZACIÓN */
+.hosp-wrap{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 9px 9px 0;padding:13px 16px;margin-bottom:14px;}
+.hosp-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rojo);margin-bottom:8px;}
+.hosp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.hosp-item{background:#fff;border-radius:7px;padding:8px 10px;border:1px solid #f0c8b0;font-size:0.79rem;color:var(--soft);}
+.hosp-item strong{color:var(--txt);display:block;margin-bottom:1px;}
+
+/* FARMACOLOGÍA */
+.farma-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+.farma-card{background:var(--sup);border-radius:9px;border:1px solid #c8c8e8;border-left:4px solid;padding:11px 13px;}
+.farma-title{font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.farma-body{font-size:0.8rem;line-height:1.65;color:var(--soft);}
+.farma-body strong{color:var(--txt);}
+
+/* TABLA */
+.tw{overflow-x:auto;margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;font-size:0.79rem;background:var(--sup);border-radius:9px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+thead tr{background:#06060f;}
+thead th{font-family:'JetBrains Mono',monospace;font-size:0.59rem;letter-spacing:1.5px;text-transform:uppercase;color:#9090cc;padding:9px 10px;text-align:left;}
+tbody tr:nth-child(odd){background:#f2f2f8;}
+tbody tr:nth-child(even){background:#fff;}
+tbody td{padding:7px 10px;border-bottom:1px solid #d8d8f0;vertical-align:top;}
+
+/* PERLAS */
+.perlas{background:var(--perla);border:1px solid var(--pb);border-radius:11px;overflow:hidden;margin:26px 0 14px;}
+.perlas-h{background:var(--ph);color:#fff;padding:9px 18px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.perlas-g{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:12px 14px;}
+.pe{padding:7px 9px;border-bottom:1px solid #e8e098;font-size:0.81rem;line-height:1.5;}
+.pe:nth-child(odd){border-right:1px solid #e8e098;}
+.pe .s{color:var(--ph);margin-right:3px;}
+.pe strong{color:#261600;}
+
+.glos{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px;}
+.gi{background:var(--sup);border-radius:7px;padding:7px 9px;border:1px solid #c8c8e8;}
+.ga{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;color:var(--ac);display:block;margin-bottom:1px;}
+.gd{font-size:0.73rem;color:var(--soft);}
+
+@media(max-width:900px){
+  .epi-grid{grid-template-columns:repeat(2,1fr);}
+  .comp-grid,.criterios-wrap,.nnn-grid,.farma-grid{grid-template-columns:1fr 1fr;}
+  .sem-grid,.hosp-grid{grid-template-columns:1fr 1fr;}
+  .scoff-wrap{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .comp-grid,.criterios-wrap,.nnn-grid,.farma-grid,.epi-grid,.sem-grid,.hosp-grid{grid-template-columns:1fr;}
+  .perlas-g{grid-template-columns:1fr;}
+  .pe:nth-child(odd){border-right:none;}
+  .glos{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="ph">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.56rem;letter-spacing:3px;text-transform:uppercase;color:#3a3a8a;margin-bottom:4px;">CÁPSULAS INGESA · SALUD MENTAL</div>
+  <h1>TCA — Trastornos de la Conducta Alimentaria</h1>
+  <div class="sub">ANOREXIA · BULIMIA · ATRACONES · CRIBADO SCOFF · NANDA-NOC-NIC · DSM-5 · PAI SSPA</div>
+  <div class="pills">
+    <span class="pill p1">INGESA 2026</span><span class="pill p2">OPE Militar</span>
+    <span class="pill pan">Anorexia</span><span class="pill pbn">Bulimia</span><span class="pill pta">Atracones</span>
+    <span class="pill p2">DSM-5</span><span class="pill p2">★ 12 Perlas</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════
+     EPIDEMIOLOGÍA
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">00 · Epidemiología</span><div class="st">Magnitud del problema — Cifras clave para el examen</div></div></div>
+
+<div class="epi-grid">
+  <div class="epi-card">
+    <div class="epi-num">7–8%</div>
+    <div class="epi-unit">Prevalencia vital TCA</div>
+    <div class="epi-desc">Población general. Cualquier TCA a lo largo de la vida.</div>
+  </div>
+  <div class="epi-card">
+    <div class="epi-num">400.000</div>
+    <div class="epi-unit">Personas en España</div>
+    <div class="epi-desc">Con TCA activo. Incremento de casos graves y de inicio &lt;12 años.</div>
+  </div>
+  <div class="epi-card">
+    <div class="epi-num">1–4%</div>
+    <div class="epi-unit">Anorexia en mujeres</div>
+    <div class="epi-desc">Prevalencia vital AN en mujeres. Menor en hombres. Bulimia 1–2%.</div>
+  </div>
+  <div class="epi-card">
+    <div class="epi-num">5,5–17,9%</div>
+    <div class="epi-unit">Jóvenes con TCA</div>
+    <div class="epi-desc">Estudios recientes en adolescentes. Conductas de riesgo hasta 27%.</div>
+  </div>
+</div>
+
+<!-- Factores de riesgo -->
+<div style="background:var(--sup);border-radius:11px;border:1px solid #c8c8e8;padding:14px 18px;margin-bottom:16px;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px;">FACTORES DE RIESGO — Los 4 Grupos</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+    <div style="background:#f8f0ff;border-radius:8px;padding:10px 12px;border-top:3px solid #7a4a9a;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:#7a4a9a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🧬 Biológicos</div>
+      <div style="font-size:0.79rem;line-height:1.65;color:var(--soft);">Antecedentes familiares TCA · ansiedad · depresión · vulnerabilidad genética · alteraciones <strong>serotonina/dopamina</strong> · pubertad (más en chicas)</div>
+    </div>
+    <div style="background:#f0f8ff;border-radius:8px;padding:10px 12px;border-top:3px solid #1a5a8a;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:#1a5a8a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🧠 Psicológicos</div>
+      <div style="font-size:0.79rem;line-height:1.65;color:var(--soft);"><strong>Baja autoestima</strong> · perfeccionismo · necesidad de control · depresión · ansiedad · TOC · historia de trauma o abuso</div>
+    </div>
+    <div style="background:#fff8f0;border-radius:8px;padding:10px 12px;border-top:3px solid #c47a10;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:#c47a10;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">📱 Socioculturales</div>
+      <div style="font-size:0.79rem;line-height:1.65;color:var(--soft);">Ideal de delgadez · presión <strong>redes sociales</strong> · bullying corporal · profesiones de riesgo (ballet, gimnasia, moda)</div>
+    </div>
+    <div style="background:#f0fff0;border-radius:8px;padding:10px 12px;border-top:3px solid #2a7a3a;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;color:#2a7a3a;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">👨‍👩‍👧 Familiares</div>
+      <div style="font-size:0.79rem;line-height:1.65;color:var(--soft);">Énfasis en apariencia · dietas frecuentes en la familia · dinámica <strong>rígida o controladora</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════
+     COMPARATIVA AN vs BN vs TA
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">01 · Comparativa</span><div class="st">Anorexia vs Bulimia vs Trastorno por Atracones — Diferencias Clave</div></div></div>
+
+<div class="comp-grid">
+
+  <!-- ANOREXIA -->
+  <div class="comp-card" style="border-color:var(--AN);">
+    <div class="comp-head" style="background:linear-gradient(135deg,#4a0818,#9a1a40);">
+      <h3>Anorexia Nerviosa</h3>
+      <div class="comp-sub">AN · Restrictiva / Atracones-Purgas</div>
+    </div>
+    <div class="comp-body">
+      <div class="comp-row"><span class="ck">Peso</span><span class="cv"><strong style="color:var(--rojo);">Bajo</strong> — IMC &lt;17,5 kg/m² (CIE-10) o &lt;85% esperado <span class="ope">OPE⭐</span></span></div>
+      <div class="comp-row"><span class="ck">Conducta</span><span class="cv">Restricción extrema · ejercicio excesivo · en subtipo purgativo: vómitos/laxantes</span></div>
+      <div class="comp-row"><span class="ck">Psíquico</span><span class="cv">Miedo intenso a engordar · <strong>distorsión imagen corporal</strong> · rasgos OC · ego-sintónico</span></div>
+      <div class="comp-row"><span class="ck">Endocrino</span><span class="cv">Amenorrea (CIE-10, no DSM-5) ⭐ · hipotermia · bradicardia · <strong>lanugo</strong> · osteoporosis</span></div>
+      <div class="comp-row"><span class="ck">Subtipos</span><span class="cv">Restrictiva · Con atracones-purgas (no igual que BN)</span></div>
+      <div class="comp-row"><span class="ck">Mortalidad</span><span class="cv"><strong style="color:var(--rojo);">Mayor mortalidad</strong> de todos los TCA. Riesgo cardíaco y suicida elevado ⭐</span></div>
+    </div>
+  </div>
+
+  <!-- BULIMIA -->
+  <div class="comp-card" style="border-color:var(--BN);">
+    <div class="comp-head" style="background:linear-gradient(135deg,#0a1a38,#1a5a8a);">
+      <h3>Bulimia Nerviosa</h3>
+      <div class="comp-sub">BN · Criterio frecuencia: ≥1/semana × 3 meses</div>
+    </div>
+    <div class="comp-body">
+      <div class="comp-row"><span class="ck">Peso</span><span class="cv"><strong style="color:var(--verde);">Normal o sobrepeso ligero</strong> — NO hay bajo peso marcado <span class="ope">OPE⭐⭐</span></span></div>
+      <div class="comp-row"><span class="ck">Atracones</span><span class="cv">Gran cantidad en poco tiempo · <strong>pérdida de control</strong> · culpa posterior</span></div>
+      <div class="comp-row"><span class="ck">Compensación</span><span class="cv">Vómitos (más frecuente) · laxantes/diuréticos · ayuno · ejercicio excesivo</span></div>
+      <div class="comp-row"><span class="ck">Complicaciones</span><span class="cv"><strong>Erosión dental</strong> · hipertrofia parotídea · <strong>hipopotasemia → arritmias</strong> ⭐ · Mallory-Weiss</span></div>
+      <div class="comp-row"><span class="ck">Frecuencia</span><span class="cv">≥1 episodio atracón + compensación / semana durante <strong>3 meses</strong> ⭐</span></div>
+      <div class="comp-row"><span class="ck">Signo Russell</span><span class="cv">Callosidades en nudillos por provocar vómitos <span class="ope">OPE</span></span></div>
+    </div>
+  </div>
+
+  <!-- ATRACONES -->
+  <div class="comp-card" style="border-color:var(--TA);">
+    <div class="comp-head" style="background:linear-gradient(135deg,#0a2810,#2a7a3a);">
+      <h3>Trastorno por Atracones</h3>
+      <div class="comp-sub">TA · BED en inglés</div>
+    </div>
+    <div class="comp-body">
+      <div class="comp-row"><span class="ck">Peso</span><span class="cv"><strong>Sobrepeso/obesidad</strong> habitual. Sin bajo peso.</span></div>
+      <div class="comp-row"><span class="ck">Clave</span><span class="cv">Atracones recurrentes con malestar intenso <strong>SIN conductas compensatorias</strong> ⭐</span></div>
+      <div class="comp-row"><span class="ck">Emocional</span><span class="cv">Comer en respuesta a emociones, no a hambre física. Vergüenza y culpa postcomer.</span></div>
+      <div class="comp-row"><span class="ck">Diferencia BN</span><span class="cv">No hay purgas, no hay vómitos, no hay laxantes. Esta es <strong>la clave diagnóstica</strong> ⭐</span></div>
+      <div class="comp-row"><span class="ck">Comorbilidad</span><span class="cv">Depresión · ansiedad · síndrome metabólico · DM2</span></div>
+      <div class="comp-row"><span class="ck">Tto</span><span class="cv">TCC + ISRS (fluoxetina) ± lisdexanfetamina (FDA aprobado) ± topiramato</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TABLA DIFERENCIAL RÁPIDA -->
+<div class="tw">
+  <table>
+    <thead><tr><th>Característica</th><th style="color:#d07090;">Anorexia Nerviosa</th><th style="color:#7090d0;">Bulimia Nerviosa</th><th style="color:#70b070;">Trastorno Atracones</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Peso corporal</strong></td><td style="color:var(--rojo);font-weight:700;">Bajo (IMC &lt;17,5) ⭐</td><td style="color:var(--verde);font-weight:700;">Normal / sobrepeso ⭐</td><td style="color:var(--naranja);font-weight:700;">Sobrepeso / obesidad ⭐</td></tr>
+      <tr><td><strong>Atracones</strong></td><td>Solo en subtipo purgativo</td><td>SÍ — característico ⭐</td><td>SÍ — característico ⭐</td></tr>
+      <tr><td><strong>Conductas compensatorias</strong></td><td>SÍ (subtipo purgativo)</td><td>SÍ — necesario ⭐</td><td><strong style="color:var(--rojo);">NO</strong> — criterio clave ⭐</td></tr>
+      <tr><td><strong>Amenorrea</strong></td><td>Frecuente (CIE-10 criterio; DSM-5 no obligatorio) ⭐</td><td>Puede aparecer</td><td>Rara</td></tr>
+      <tr><td><strong>Imagen corporal</strong></td><td>Distorsión severa (ego-sintónico)</td><td>Alterada, con culpa</td><td>Alterada, con vergüenza</td></tr>
+      <tr><td><strong>Lanugo</strong></td><td>SÍ — signo característico ⭐</td><td>No</td><td>No</td></tr>
+      <tr><td><strong>Erosión dental / parotiditis</strong></td><td>Solo subtipo purgativo</td><td>SÍ ⭐</td><td>No</td></tr>
+      <tr><td><strong>ISRS indicados</strong></td><td>Solo coadyuvante, evidencia limitada</td><td>SÍ — fluoxetina ⭐</td><td>SÍ — fluoxetina ⭐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════
+     CRITERIOS DSM-5
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">02 · Criterios DSM-5</span><div class="st">Diagnóstico Formal — Lo que el Examen Pregunta</div></div></div>
+
+<div class="criterios-wrap">
+
+  <div class="crit-card" style="border-top-color:var(--AN);">
+    <div class="crit-head">
+      <div class="crit-num" style="color:var(--AN);">AN</div>
+      <div class="crit-title" style="color:var(--AN);">Anorexia Nerviosa</div>
+    </div>
+    <div class="crit-body">
+      <strong>Criterio A:</strong> Restricción de la ingesta → <strong>peso significativamente bajo</strong> para edad, sexo y desarrollo.<br><br>
+      <strong>Criterio B:</strong> Miedo intenso a ganar peso o comportamiento persistente que interfiere con la ganancia ponderal (aunque esté en bajo peso).<br><br>
+      <strong>Criterio C:</strong> Alteración en la percepción del peso/figura o falta de reconocimiento de la gravedad del bajo peso.<br><br>
+      <strong>Subtipos:</strong>
+      <ul>
+        <li><strong>Restrictivo:</strong> no hay atracones ni purgas</li>
+        <li><strong>Atracones-purgas:</strong> episodios de atracón y/o purgas</li>
+      </ul><br>
+      <span style="background:#fff0f4;border-radius:5px;padding:4px 7px;font-size:0.78rem;display:block;border-left:3px solid var(--AN);">⭐ La amenorrea ya <strong>NO es criterio obligatorio</strong> en DSM-5 (pero sí en CIE-10 y sigue siendo muy preguntada)</span>
+    </div>
+  </div>
+
+  <div class="crit-card" style="border-top-color:var(--BN);">
+    <div class="crit-head">
+      <div class="crit-num" style="color:var(--BN);">BN</div>
+      <div class="crit-title" style="color:var(--BN);">Bulimia Nerviosa</div>
+    </div>
+    <div class="crit-body">
+      <strong>Criterio A:</strong> Episodios recurrentes de atracones: ingesta de gran cantidad en poco tiempo + <strong>pérdida de control</strong>.<br><br>
+      <strong>Criterio B:</strong> Conductas compensatorias inapropiadas recurrentes: vómitos, laxantes, diuréticos, ayuno, ejercicio excesivo.<br><br>
+      <strong>Criterio C:</strong> Al menos <strong>1 episodio/semana durante 3 meses</strong> ⭐<br><br>
+      <strong>Criterio D:</strong> Autoevaluación excesivamente influida por peso/figura.<br><br>
+      <strong>Criterio E:</strong> No se da exclusivamente en el curso de AN.<br><br>
+      <span style="background:#f0f4ff;border-radius:5px;padding:4px 7px;font-size:0.78rem;display:block;border-left:3px solid var(--BN);">⭐ Peso <strong>normal o sobrepeso</strong>: si hay bajo peso → pensar AN tipo atracones-purgas</span>
+    </div>
+  </div>
+
+  <div class="crit-card" style="border-top-color:var(--TA);">
+    <div class="crit-head">
+      <div class="crit-num" style="color:var(--TA);">TA</div>
+      <div class="crit-title" style="color:var(--TA);">Trastorno por Atracones</div>
+    </div>
+    <div class="crit-body">
+      <strong>Criterio A:</strong> Episodios recurrentes de atracones con ≥3 de los siguientes:
+      <ul>
+        <li>Comer más rápido de lo normal</li>
+        <li>Comer hasta sentirse desagradablemente lleno</li>
+        <li>Comer sin hambre física</li>
+        <li>Comer solo por vergüenza</li>
+        <li>Sentirse a disgusto consigo mismo / culpable</li>
+      </ul><br>
+      <strong>Criterio B:</strong> Malestar marcado.<br>
+      <strong>Criterio C:</strong> ≥1/semana × 3 meses.<br>
+      <strong>Criterio D:</strong> <strong>No hay conductas compensatorias</strong> ⭐ — esta es la diferencia con BN.<br><br>
+      <span style="background:#f0fff4;border-radius:5px;padding:4px 7px;font-size:0.78rem;display:block;border-left:3px solid var(--TA);">⭐ No hay purgas → se diferencia de BN. Asociado a sobrepeso/obesidad.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Otros TCA DSM-5 -->
+<div style="background:var(--sup);border-radius:11px;border:1px solid #c8c8e8;padding:14px 18px;margin-bottom:14px;">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px;">OTROS TCA — DSM-5 (Categoría completa)</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+    <div style="background:#f8f8fc;border-radius:7px;padding:9px 11px;border:1px solid #d8d8f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--ac);margin-bottom:4px;">PICA</div>
+      <div style="font-size:0.79rem;color:var(--soft);">Ingesta persistente de sustancias no nutritivas no alimentarias (tierra, hielo, tiza). Más frecuente en embarazo, DI, déficit de hierro.</div>
+    </div>
+    <div style="background:#f8f8fc;border-radius:7px;padding:9px 11px;border:1px solid #d8d8f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--ac);margin-bottom:4px;">RUMIACIÓN</div>
+      <div style="font-size:0.79rem;color:var(--soft);">Regurgitación repetida de alimentos ya ingeridos, sin náuseas ni asco. Más en lactantes y personas con DI.</div>
+    </div>
+    <div style="background:#f8f8fc;border-radius:7px;padding:9px 11px;border:1px solid #d8d8f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--ac);margin-bottom:4px;">ARFID</div>
+      <div style="font-size:0.79rem;color:var(--soft);">Trastorno de evitación/restricción de la ingesta. No hay miedo a engordar. Aversión sensorial o miedo a atragantarse. Frecuente en TEA.</div>
+    </div>
+    <div style="background:#f8f8fc;border-radius:7px;padding:9px 11px;border:1px solid #d8d8f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--ac);margin-bottom:4px;">Anorexia atípica</div>
+      <div style="font-size:0.79rem;color:var(--soft);">Cumple criterios AN pero el peso sigue en rango normal. Igualmente grave. TCA especificado.</div>
+    </div>
+    <div style="background:#f8f8fc;border-radius:7px;padding:9px 11px;border:1px solid #d8d8f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--ac);margin-bottom:4px;">S. Comedor Nocturno</div>
+      <div style="font-size:0.79rem;color:var(--soft);">Hiperfagia nocturna recurrente, con conciencia y recuerdo. Anorexia matutina compensatoria.</div>
+    </div>
+    <div style="background:#f8f8fc;border-radius:7px;padding:9px 11px;border:1px solid #d8d8f0;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;color:var(--ac);margin-bottom:4px;">BN subumbral</div>
+      <div style="font-size:0.79rem;color:var(--soft);">Frecuencia o duración menor a la requerida para BN. TCA especificado. Mismo impacto funcional.</div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════
+     CRIBADO SCOFF + SIGNOS ALARMA
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">03 · Cribado y Detección Precoz</span><div class="st">SCOFF · Signos de Alarma · Evaluación Enfermera</div></div></div>
+
+<!-- Signos de alarma -->
+<div class="semaforo" style="margin-bottom:14px;">
+  <div class="sem-title">⚠ SIGNOS DE ALARMA EN JÓVENES — Detección Precoz AP y Escuela</div>
+  <div class="sem-grid">
+    <div class="sem-col" style="background:#fff0ee;border:1px solid #f0c0b0;">
+      <h4 style="color:var(--rojo);">🔴 Signos Físicos</h4>
+      <ul style="color:var(--soft);">
+        <li><strong>Pérdida de peso</strong> llamativa o falta de ganancia en crecimiento</li>
+        <li><strong>Amenorrea</strong> / irregularidad menstrual</li>
+        <li>Lanugo, hirsutismo</li>
+        <li>Cansancio, síncopes, hipotermia</li>
+        <li>Erosión dental (vómitos)</li>
+        <li>Hipertrofia parotídea</li>
+        <li><strong>Signo de Russell</strong> (callosidades nudillos)</li>
+      </ul>
+    </div>
+    <div class="sem-col" style="background:#fffce8;border:1px solid #e8d888;">
+      <h4 style="color:#8a6010;">🟡 Signos Conductuales</h4>
+      <ul style="color:var(--soft);">
+        <li>Ritualización de la comida</li>
+        <li>Cortar en trozos muy pequeños</li>
+        <li>Excusas para no comer</li>
+        <li><strong>Desaparición al baño</strong> tras comidas ⭐</li>
+        <li>Ropa muy amplia para ocultar el cuerpo</li>
+        <li>Ejercicio físico compulsivo</li>
+        <li>Conteo obsesivo de calorías</li>
+      </ul>
+    </div>
+    <div class="sem-col" style="background:#f0f4ff;border:1px solid #c0c8e8;">
+      <h4 style="color:var(--ac);">🔵 Signos Psicosociales</h4>
+      <ul style="color:var(--soft);">
+        <li>Aislamiento social progresivo</li>
+        <li>Aumento de rendimiento escolar + actividad</li>
+        <li>Irritabilidad, cambios de humor</li>
+        <li>Preocupación excesiva por peso y figura</li>
+        <li>Baja autoestima y perfeccionismo</li>
+        <li>Rechazo a comer en público</li>
+        <li><strong>Ideación suicida</strong> — preguntar siempre ⭐</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SCOFF -->
+<div class="scoff-wrap">
+  <div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px;">CUESTIONARIO SCOFF — Cribado AN/BN en AP ⭐</div>
+    <div style="font-size:0.8rem;color:var(--soft);margin-bottom:10px;">5 preguntas · Respuesta Sí/No · <strong style="color:var(--rojo);">≥2 positivas = alta sospecha TCA</strong></div>
+    <div class="scoff-item"><span class="scoff-letter">S</span><div class="scoff-text"><strong>S</strong>ick — ¿Te provocas el <strong>vómito</strong> porque te sientes llena?</div></div>
+    <div class="scoff-item"><span class="scoff-letter">C</span><div class="scoff-text"><strong>C</strong>ontrol — ¿Has perdido el <strong>control</strong> sobre lo que comes?</div></div>
+    <div class="scoff-item"><span class="scoff-letter">O</span><div class="scoff-text"><strong>O</strong>ne stone — ¿Has perdido más de <strong>6 kg</strong> en los últimos 3 meses?</div></div>
+    <div class="scoff-item"><span class="scoff-letter">F</span><div class="scoff-text"><strong>F</strong>at — ¿Te consideras <strong>gorda</strong> cuando los demás dicen que estás delgada?</div></div>
+    <div class="scoff-item"><span class="scoff-letter">F</span><div class="scoff-text"><strong>F</strong>ood — ¿Dirías que la <strong>comida</strong> domina tu vida?</div></div>
+  </div>
+  <div>
+    <div class="scoff-result">
+      <h4>Interpretación e Instrumentos Complementarios</h4>
+      <div style="font-size:0.8rem;line-height:1.75;color:var(--soft);">
+        <strong style="color:var(--rojo);">SCOFF ≥2 positivos</strong> → derivación a valoración especializada ⭐<br><br>
+        <strong>EAT-26</strong> — Actitudes alimentarias anómalas (26 ítems). Punto de corte ≥20.<br>
+        <strong>EDI-3</strong> — Perfil psicológico, subescalas (impulso a adelgazar, bulimia, insatisfacción corporal…).<br>
+        <strong>EDE-Q</strong> — Eating Disorder Examination versión cuestionario. Exploración dimensional.<br>
+        <strong>BU-LIT-R</strong> — Específico para bulimia.<br><br>
+        <div style="background:#f0f4ff;border-radius:7px;padding:8px 10px;border:1px solid #c0c8e8;">
+          <strong style="color:var(--ac);">Evaluación básica enfermera al ingreso:</strong><br>
+          Anamnesis completa (hábitos, ejercicio, vómitos, laxantes) · Peso/talla/IMC/signos vitales · Signos somáticos · Autocuidados · Entorno familiar/escolar
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════
+     NANDA - NOC - NIC
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">04 · Plan de Cuidados</span><div class="st">NANDA · NOC · NIC — Muy Preguntable en INGESA</div></div></div>
+
+<div class="nnn-grid">
+
+  <!-- NANDA -->
+  <div class="nnn-card">
+    <div class="nnn-head" style="background:linear-gradient(135deg,#4a0818,#9a1a40);">
+      <h3>NANDA</h3>
+      <div class="nh">Diagnósticos enfermeros</div>
+    </div>
+    <div class="nnn-body">
+      <div class="nnn-item"><span class="nnn-code">00002</span> <strong>Nutrición desequilibrada:</strong> ingesta inferior a las necesidades corporales ⭐</div>
+      <div class="nnn-item"><span class="nnn-code">00118</span> <strong>Trastorno de la imagen corporal</strong> ⭐</div>
+      <div class="nnn-item"><span class="nnn-code">00146</span> <strong>Ansiedad</strong></div>
+      <div class="nnn-item"><span class="nnn-code">00120</span> <strong>Baja autoestima situacional</strong></div>
+      <div class="nnn-item"><span class="nnn-code">00011</span> Estreñimiento (por restricción)</div>
+      <div class="nnn-item"><span class="nnn-code">00004</span> Riesgo de infección</div>
+      <div class="nnn-item"><span class="nnn-code">00150</span> Riesgo de suicidio ⭐</div>
+      <div class="nnn-item"><span class="nnn-code">00052</span> Deterioro de la interacción social</div>
+    </div>
+  </div>
+
+  <!-- NOC -->
+  <div class="nnn-card">
+    <div class="nnn-head" style="background:linear-gradient(135deg,#0a2040,#1a5a8a);">
+      <h3>NOC</h3>
+      <div class="nh">Resultados esperados</div>
+    </div>
+    <div class="nnn-body">
+      <div class="nnn-item"><span class="nnn-code">1004</span> <strong>Estado nutricional</strong> — recuperación ponderal progresiva ⭐</div>
+      <div class="nnn-item"><span class="nnn-code">1200</span> <strong>Imagen corporal</strong> — percepción más realista</div>
+      <div class="nnn-item"><span class="nnn-code">1302</span> <strong>Afrontamiento de problemas</strong></div>
+      <div class="nnn-item"><span class="nnn-code">1205</span> <strong>Autoestima</strong></div>
+      <div class="nnn-item"><span class="nnn-code">0300</span> Autocuidados: AVD</div>
+      <div class="nnn-item"><span class="nnn-code">1602</span> Conducta de fomento de la salud</div>
+      <div class="nnn-item"><span class="nnn-code">2002</span> Bienestar personal</div>
+      <div class="nnn-item"><span class="nnn-code">1604</span> Participación en actividades de ocio</div>
+    </div>
+  </div>
+
+  <!-- NIC -->
+  <div class="nnn-card">
+    <div class="nnn-head" style="background:linear-gradient(135deg,#0a2810,#2a7a3a);">
+      <h3>NIC</h3>
+      <div class="nh">Intervenciones enfermeras</div>
+    </div>
+    <div class="nnn-body">
+      <div class="nnn-item"><span class="nnn-code">1030</span> <strong>Manejo de TCA</strong> ⭐ — central en la unidad</div>
+      <div class="nnn-item"><span class="nnn-code">5246</span> <strong>Asesoramiento nutricional</strong></div>
+      <div class="nnn-item"><span class="nnn-code">5220</span> <strong>Mejora de la imagen corporal</strong> ⭐</div>
+      <div class="nnn-item"><span class="nnn-code">5400</span> <strong>Potenciación de la autoestima</strong></div>
+      <div class="nnn-item"><span class="nnn-code">5510</span> Educación para la salud</div>
+      <div class="nnn-item"><span class="nnn-code">5230</span> Mejorar el afrontamiento</div>
+      <div class="nnn-item"><span class="nnn-code">5270</span> Apoyo emocional</div>
+      <div class="nnn-item"><span class="nnn-code">4370</span> Entrenamiento control de impulsos</div>
+      <div class="nnn-item"><span class="nnn-code">5820</span> Disminución de la ansiedad</div>
+      <div class="nnn-item"><span class="nnn-code">2609</span> Apoyo familiar durante tto. ⭐</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="div"></div>
+
+<!-- ══════════════════════════
+     MANEJO ENFERMERO UNIDAD TCA
+     ══════════════════════════ -->
+<div class="sh"><div class="sb"></div><div><span class="sn">05 · Manejo Enfermero</span><div class="st">Actuaciones en Unidad TCA — Las más Preguntadas</div></div></div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+  <div style="background:var(--sup);border-radius:11px;border:1px solid #c8c8e8;padding:14px 16px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:9px;">ACTITUD TERAPÉUTICA ENFERMERA</div>
+    <div style="font-size:0.82rem;line-height:1.85;color:var(--soft);">
+      ✔ Relación <strong>empática pero firme</strong>, con límites claros <span class="ope">OPE⭐</span><br>
+      ✔ <strong>Supervisión de ingestas</strong> y conducta postprandial (baños, vómitos, ejercicio oculto) ⭐<br>
+      ✔ Registro diario de ingesta, peso, conducta alimentaria y estado emocional<br>
+      ✔ <strong>Comedores terapéuticos</strong> con modificación de conducta y exposición a la comida<br>
+      ✔ Educación nutricional individual y en grupos psicoeducativos<br>
+      ✔ Acompañar <strong>durante y después</strong> de las comidas ⭐<br>
+      ✔ Supervisar acceso a baños para prevenir vómitos ⭐<br>
+      ✔ Preguntar siempre por ideación y plan suicida ⭐
+    </div>
+  </div>
+  <div style="background:var(--sup);border-radius:11px;border:1px solid #c8c8e8;padding:14px 16px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:9px;">ORGANIZACIÓN ASISTENCIAL — PAI TCA (SSPA)</div>
+    <div style="font-size:0.82rem;line-height:1.85;color:var(--soft);">
+      Los TCA son <strong>Proceso Asistencial Integrado (PAI)</strong> específico del SSPA.<br><br>
+      <strong>Itinerario PAI TCA:</strong><br>
+      ① <strong>Detección en AP</strong> (SCOFF · signos de alarma) ⭐<br>
+      ② Derivación a <strong>USMC / USMIJ</strong> (Unidad Salud Mental Comunitaria/Infanto-Juvenil)<br>
+      ③ <strong>Unidades TCA específicas</strong> (ambulatorio intensivo)<br>
+      ④ <strong>Hospital de día</strong> (tratamiento diurno)<br>
+      ⑤ <strong>Hospitalización completa</strong> si: IMC muy bajo, riesgo cardiovascular, alteraciones electrolíticas graves, fracaso ambulatorio, riesgo suicida ⭐
+    </div>
+  </div>
+</div>
+
+<!-- CRITERIOS HOSPITALIZACIÓN -->
+<div class="hosp-wrap">
+  <div class="hosp-title">⚠ CRITERIOS DE HOSPITALIZACIÓN COMPLETA — Memorizar para el Examen ⭐</div>
+  <div class="hosp-grid">
+    <div class="hosp-item"><strong>IMC muy bajo</strong> Desnutrición grave, incapacidad para comer de forma autónoma</div>
+    <div class="hosp-item"><strong>Riesgo cardiovascular</strong> Arritmias, bradicardia severa &lt;40 lpm, QTc prolongado</div>
+    <div class="hosp-item"><strong>Alteraciones electrolíticas</strong> Hipopotasemia grave (riesgo de paro cardíaco), hipoglucemia</div>
+    <div class="hosp-item"><strong>Fracaso del tto. ambulatorio</strong> Sin respuesta tras tratamiento intensivo previo adecuado</div>
+    <div class="hosp-item"><strong>Riesgo suicida o autolesivo</strong> Ideación activa con plan o intentos previos ⭐</div>
+    <div class="hosp-item"><strong>Entorno no seguro</strong> Familia no colaboradora o factores de alto riesgo en el domicilio</div>
+  </div>
+</div>
+
+<!-- TRATAMIENTO -->
+<div class="sh"><div class="sb"></div><div><span class="sn">06 · Tratamiento</span><div class="st">Abordaje Multidisciplinar y Farmacológico</div></div></div>
+
+<div class="farma-grid">
+  <div class="farma-card" style="border-left-color:#7a4a9a;">
+    <div class="farma-title" style="color:#7a4a9a;">🧠 Psicoterapia</div>
+    <div class="farma-body">
+      <strong>TCC</strong> (Terapia Cognitivo-Conductual): primera línea en BN y TA. Modificación de creencias distorsionadas sobre el cuerpo.<br><br>
+      <strong>Terapia familiar estructurada:</strong> especialmente en adolescentes. <strong>Mejora pronóstico → iniciar cuanto antes</strong> ⭐<br><br>
+      <strong>Intervenciones grupales y multifamiliares.</strong> Psicoeducación, habilidades de afrontamiento, imagen corporal.
+    </div>
+  </div>
+  <div class="farma-card" style="border-left-color:var(--naranja);">
+    <div class="farma-title" style="color:var(--naranja);">🍽️ Nutrición</div>
+    <div class="farma-body">
+      <strong>Renutrición progresiva</strong> — nunca brusca.<br><br>
+      <strong>⚠ Síndrome de realimentación:</strong> complicación grave si se reintroduce rápido → hipofosforemia, arritmias, IC. Monitorizar electrolitos ⭐<br><br>
+      Suplementos de <strong>calcio + vitamina D</strong> (osteoporosis AN).<br>Corrección de déficits de Fe, B12, folato, zinc.
+    </div>
+  </div>
+  <div class="farma-card" style="border-left-color:var(--ac);">
+    <div class="farma-title" style="color:var(--ac);">💊 Farmacología</div>
+    <div class="farma-body">
+      <strong>AN:</strong> Fármacos solo como <strong>coadyuvante</strong>, evidencia limitada. Antidepresivos, antipsicóticos atípicos (olanzapina) en casos concretos ⭐<br><br>
+      <strong>BN:</strong> <strong>Fluoxetina</strong> (ISRS) — reduce frecuencia de atracones y purgas, aprobado para BN ⭐. Dosis 60 mg/día (mayor que en depresión).<br><br>
+      <strong>TA:</strong> Fluoxetina ± topiramato ± lisdexanfetamina (FDA).
+    </div>
+  </div>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-h">⭐ PERLAS TIPO EXAMEN INGESA · TCA</div>
+  <div class="perlas-g">
+    <div class="pe"><span class="s">★</span><strong>Amenorrea: CIE-10 sí, DSM-5 NO obligatoria</strong> → En CIE-10 la amenorrea es criterio diagnóstico de AN. En DSM-5 (vigente) dejó de ser obligatoria. Pero sigue siendo signo muy preguntado y marcador de gravedad.</div>
+    <div class="pe"><span class="s">★</span><strong>Peso en BN = normal o sobrepeso</strong> → Si hay bajo peso marcado en paciente con atracones-purgas → pensar en Anorexia Nerviosa tipo atracones-purgas, NO en bulimia.</div>
+    <div class="pe"><span class="s">★</span><strong>TA vs BN: la diferencia es la conducta compensatoria</strong> → TA = atracones SIN purgas/laxantes/vómitos. BN = atracones CON compensación. Esta distinción es LA trampa del examen.</div>
+    <div class="pe"><span class="s">★</span><strong>SCOFF ≥2 positivos = derivar</strong> → Cribado de elección en AP. 5 ítems S-C-O-F-F. Puntuación ≥2 = alta sospecha, derivar a valoración especializada. Rápido y validado.</div>
+    <div class="pe"><span class="s">★</span><strong>Hipopotasemia → arritmias (bulimia)</strong> → Las purgas repetidas causan pérdida de potasio. Hipopotasemia grave → riesgo de arritmias letales. Principal causa de muerte en BN junto con el suicidio.</div>
+    <div class="pe"><span class="s">★</span><strong>Enfermería: acompañar tras comer + supervisar baños</strong> → Las dos intervenciones más preguntadas en cuidados de unidad TCA. Prevenir vómitos postprandiales y ejercicio oculto. Relación empática pero firme.</div>
+    <div class="pe"><span class="s">★</span><strong>Terapia familiar en adolescentes → mejor pronóstico</strong> → Cuanto antes se inicia la terapia familiar estructurada en pacientes adolescentes con AN, mejor pronóstico. Más eficaz que terapia individual en esa franja.</div>
+    <div class="pe"><span class="s">★</span><strong>Fluoxetina: el ISRS de los TCA</strong> → Único ISRS con indicación aprobada para BN. A dosis de 60 mg/día (doble que en depresión). En AN no hay evidencia sólida de ISRS como tratamiento primario.</div>
+    <div class="pe"><span class="s">★</span><strong>Síndrome de realimentación: riesgo en AN grave</strong> → Renutrición rápida → hipofosforemia, hipomagnesemia, hipopotasemia, IC y arritmias. Renutrición siempre progresiva + monitorización electrolítica estrecha.</div>
+    <div class="pe"><span class="s">★</span><strong>Mayor mortalidad psiquiátrica: AN</strong> → La anorexia nerviosa tiene la mayor tasa de mortalidad de todos los trastornos mentales. Causa: complicaciones somáticas (cardíacas) y suicidio. Preguntar siempre por ideación.</div>
+    <div class="pe"><span class="s">★</span><strong>NANDA 00118: Trastorno de la imagen corporal</strong> → El diagnóstico de enfermería más característico de los TCA. Junto con 00002 Nutrición desequilibrada, son los dos pilares del plan de cuidados.</div>
+    <div class="pe"><span class="s">★</span><strong>NIC 1030: Manejo de los TCA</strong> → La intervención NIC específica. Incluye supervisión de ingestas, registro de peso, control ambiental, educación nutricional y trabajo con la imagen corporal.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh"><div class="sb" style="background:#7a7a7a;"></div><div><span class="sn" style="color:#7a7a7a;">Glosario</span><div class="st" style="color:#4a4a4a;">Abreviaturas</div></div></div>
+<div class="glos">
+  <div class="gi"><span class="ga">AN</span><span class="gd">Anorexia nerviosa</span></div>
+  <div class="gi"><span class="ga">BN</span><span class="gd">Bulimia nerviosa</span></div>
+  <div class="gi"><span class="ga">TA / BED</span><span class="gd">Trastorno por atracones</span></div>
+  <div class="gi"><span class="ga">ARFID</span><span class="gd">Trastorno de restricción/evitación ingesta</span></div>
+  <div class="gi"><span class="ga">TCC</span><span class="gd">Terapia cognitivo-conductual</span></div>
+  <div class="gi"><span class="ga">SCOFF</span><span class="gd">Cuestionario cribado TCA (5 ítems)</span></div>
+  <div class="gi"><span class="ga">USMC/USMIJ</span><span class="gd">Unidad Salud Mental Comunitaria/Infanto-Juvenil</span></div>
+  <div class="gi"><span class="ga">PAI</span><span class="gd">Proceso Asistencial Integrado (SSPA)</span></div>
+  <div class="gi"><span class="ga">ISRS</span><span class="gd">Inhibidores selectivos recaptación serotonina</span></div>
+  <div class="gi"><span class="ga">IMC</span><span class="gd">Índice de masa corporal</span></div>
+  <div class="gi"><span class="ga">DI</span><span class="gd">Discapacidad intelectual</span></div>
+  <div class="gi"><span class="ga">TEA</span><span class="gd">Trastorno del espectro autista</span></div>
+</div>
+
+<div style="text-align:center;margin-top:24px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:#3a3a8a;">
+  CÁPSULAS DE REPASO · TCA · dina15sj-bot.github.io/CAPSULAS-REPASO
+</div>
+</div>
+</body>
+</html>

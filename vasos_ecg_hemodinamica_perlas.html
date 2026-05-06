@@ -3,34 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vasos Periféricos · ECG · Hemodinámica — Perlas OPE INGESA</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Vasos Periféricos · ECG · Hemodinámica — Enfermería Militar · INGESA</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f8f4f0;--surface:#fff;--accent:#c02030;--dark:#1a0808;--muted:#7a5a55;--border:#e8d8d5;--red:#c02020;--green:#1a7a3a;--blue:#1a5a8a;--pearl:#fffce6;--pearl-b:#e0c020;--warn:#fff8f0;--ant:#f0e8ff;}
+:root{
+  --bg:#f8f4f0;--surface:#fff;--accent:#c02030;--dark:#1a0808;--muted:#7a5a55;--border:#e8d8d5;
+  --red:#c02020;--green:#1a7a3a;--blue:#1a5a8a;--pearl:#fffce6;--pearl-b:#e0c020;
+  --warn:#fff8f0;--ant:#f0e8ff;--mil:#4a5a6a;--mil-dark:#2a3a4a;
+}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--dark);line-height:1.55;font-size:.87rem;}
-.ph{background:#1a0000;padding:1.8rem 2rem 1.4rem;position:relative;overflow:hidden;}
-.ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-55deg,transparent,transparent 28px,rgba(192,32,48,.07) 28px,rgba(192,32,48,.07) 56px);}
+
+/* HEADER */
+.ph{background:linear-gradient(135deg,#1a0808 0%,#c02030 55%,#e04050 100%);padding:1.8rem 2rem 1.4rem;position:relative;overflow:hidden;}
+.ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-55deg,transparent,transparent 28px,rgba(255,255,255,0.04) 28px,rgba(255,255,255,0.04) 56px);}
 .hi{max-width:1120px;margin:0 auto;position:relative;}
-.ht{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.2em;color:#ff8080;margin-bottom:.4rem;}
+.ht{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.2em;color:#ffa0a0;margin-bottom:.4rem;}
 .hm{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:#fff;line-height:1.05;margin-bottom:.35rem;}
-.hm em{color:#ff9090;font-style:italic;}
+.hm em{color:#ffb0b0;font-style:italic;}
 .hs{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:.9rem;}
 .hpills{display:flex;flex-wrap:wrap;gap:.4rem;}
-.hp{font-family:'JetBrains Mono',monospace;font-size:.52rem;padding:.15rem .6rem;border-radius:2px;border:1px solid rgba(255,128,128,.4);color:#ff8080;}
+.hp{font-family:'JetBrains Mono',monospace;font-size:.52rem;padding:.15rem .6rem;border-radius:2px;border:1px solid rgba(255,160,160,.4);color:#ffa0a0;}
+
 .main{max-width:1120px;margin:0 auto;padding:1.8rem 1.4rem 3rem;}
+
+/* SECCION */
 .sec{display:flex;align-items:center;gap:.7rem;margin:1.8rem 0 .9rem;}
 .sn{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#ecdad8;line-height:1;}
 .sl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);}
 .st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark);}
-.ev{font-family:'JetBrains Mono',monospace;font-size:.48rem;background:#fde8e8;border:1px solid #f08080;color:#b02020;padding:.07rem .38rem;border-radius:3px;display:inline-block;margin-left:.3rem;vertical-align:middle;}
+.ev-tag{font-family:'JetBrains Mono',monospace;font-size:.48rem;background:#fde8e8;border:1px solid #f08080;color:#b02020;padding:.07rem .38rem;border-radius:3px;display:inline-block;margin-left:.3rem;vertical-align:middle;}
+.mil-tag{font-family:'JetBrains Mono',monospace;font-size:.48rem;background:#e8f0f8;border:1px solid #80a0c0;color:var(--mil-dark);padding:.07rem .38rem;border-radius:3px;display:inline-block;margin-left:.3rem;vertical-align:middle;}
+.upd-tag{font-family:'JetBrains Mono',monospace;font-size:.48rem;background:#e8ffe8;border:1px solid #80c080;color:#1a5a1a;padding:.07rem .38rem;border-radius:3px;display:inline-block;margin-left:.3rem;vertical-align:middle;}
+
+/* BOXES */
 .pi{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:4px;padding:.15rem .45rem;font-size:.74rem;display:inline-block;margin-top:.2rem;}
 .wb{background:var(--warn);border-left:3px solid var(--red);border-radius:0 5px 5px 0;padding:.45rem .75rem;margin:.5rem 0;font-size:.79rem;}
 .wl{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:var(--red);margin-bottom:.15rem;}
 .ab{background:var(--ant);border:1px solid #9060d0;border-radius:6px;padding:.5rem .8rem;margin:.5rem 0;font-size:.79rem;}
 .al{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:#5a30b0;margin-bottom:.15rem;}
-/* TABLA ARTERIAS */
+.mb{background:#e8f0f8;border-left:3px solid var(--mil);border-radius:0 5px 5px 0;padding:.45rem .75rem;margin:.5rem 0;font-size:.79rem;}
+.ml{font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;color:var(--mil-dark);margin-bottom:.15rem;}
+
+/* TABLAS */
 .art-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
 .art-head{background:var(--accent);padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
 table.atbl{width:100%;border-collapse:collapse;}
@@ -43,6 +58,8 @@ table.atbl tr:hover td{background:#fff8f8;}
 .rc td:first-child{border-left:4px solid #1a7a3a;}
 .rd td:first-child{border-left:4px solid #8a4a1a;}
 .re td:first-child{border-left:4px solid #6a1a8a;}
+.rf td:first-child{border-left:4px solid var(--mil);}
+
 /* ECG */
 .ecg-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
 .ecg-head{background:#1a3a6a;padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
@@ -60,7 +77,8 @@ table.atbl tr:hover td{background:#fff8f8;}
 .st-title{font-family:'JetBrains Mono',monospace;font-size:.55rem;text-transform:uppercase;font-weight:700;margin-bottom:.25rem;}
 .st-elev .st-title{color:#c02020;}
 .st-dep .st-title{color:#1a3a8a;}
-/* GASTO CARDÍACO */
+
+/* GC */
 .gc-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
 .gc-head{background:#1a6a1a;padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
 .gc-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
@@ -73,10 +91,12 @@ table.atbl tr:hover td{background:#fff8f8;}
 .det-item{padding:.3rem .6rem;border-radius:4px;margin-bottom:.3rem;font-size:.8rem;}
 .det-vs{background:#e8f8e8;border-left:3px solid #1a7a3a;}
 .det-fc{background:#fde8e8;border-left:3px solid #c02020;}
+
 /* ALLEN + TA */
 .allen-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem;}
 .allen-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;}
 .allen-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem;}
+
 /* GLASGOW */
 .glasgow-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
 .glasgow-head{background:#4a1a6a;padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
@@ -84,28 +104,20 @@ table.gtbl{width:100%;border-collapse:collapse;}
 table.gtbl th{background:#f0e8ff;font-family:'JetBrains Mono',monospace;font-size:.5rem;text-transform:uppercase;letter-spacing:.08em;color:#4a1a6a;padding:.4rem .9rem;text-align:left;border-bottom:2px solid var(--border);}
 table.gtbl td{padding:.45rem .9rem;border-bottom:1px solid var(--border);font-size:.82rem;vertical-align:top;}
 table.gtbl tr:last-child td{border-bottom:none;}
-/* PERLAS */
-.perlas-wrap{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:10px;overflow:hidden;margin-bottom:1.4rem;}
-.perlas-head{background:#c09010;padding:.65rem 1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
-.perlas-body{display:grid;grid-template-columns:1fr 1fr;}
-.perla-item{padding:.6rem 1rem;border-bottom:1px solid #f0e890;border-right:1px solid #f0e890;font-size:.77rem;line-height:1.5;color:#4a3a08;display:flex;gap:.4rem;}
-.perla-item:nth-child(even){border-right:none;}
-.perla-item:nth-last-child(-n+2){border-bottom:none;}
-.perla-item::before{content:'★';color:#c09010;font-size:.62rem;flex-shrink:0;margin-top:.15rem;}
-.perla-item strong{color:#2a1a04;}
-.glos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;}
-.gi{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.45rem .65rem;}
-.gt{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:var(--accent);margin-bottom:.08rem;}
-.gd{font-size:.7rem;color:var(--muted);line-height:1.25;}
-@media(max-width:800px){
-.ecg-body,.gc-body,.allen-grid{grid-template-columns:1fr;}
-.st-grid{grid-template-columns:1fr;}
-.perlas-body{grid-template-columns:1fr;}
-.perla-item{border-right:none;}
-.glos-grid{grid-template-columns:repeat(2,1fr);}
-}
 
-/* ── ILUSTRACIONES ANATÓMICAS ── */
+/* VÍA IO */
+.io-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem;}
+.io-head{background:var(--mil);padding:.7rem 1.1rem;font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#fff;}
+.io-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.io-col{padding:1rem 1.2rem;border-right:1px solid var(--border);}
+.io-col:last-child{border-right:none;}
+.io-col h4{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mil-dark);margin-bottom:.5rem;}
+.io-col ul{list-style:none;padding:0;}
+.io-col ul li{font-size:.81rem;padding-left:12px;position:relative;margin-bottom:5px;color:#333;}
+.io-col ul li::before{content:'▸';position:absolute;left:0;color:var(--mil);font-size:.65rem;top:2px;}
+.io-col ul li strong{color:var(--dark);}
+
+/* ILUSTRACIONES */
 .anat-section{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.6rem;}
 .anat-section-head{padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;}
 .anat-section-body{display:grid;grid-template-columns:1fr 1fr;gap:0;}
@@ -114,39 +126,64 @@ table.gtbl tr:last-child td{border-bottom:none;}
 .anat-fig-title{font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem;text-align:center;}
 .anat-fig-caption{font-size:.68rem;color:var(--muted);margin-top:.5rem;text-align:center;max-width:280px;line-height:1.45;}
 .anat-fig svg{max-width:100%;height:auto;}
-@media(max-width:800px){.anat-section-body{grid-template-columns:1fr;}.anat-fig{border-right:none;border-bottom:1px solid var(--border);}}
 
+/* PERLAS */
+.perlas-wrap{background:var(--pearl);border:1px solid var(--pearl-b);border-radius:10px;overflow:hidden;margin-bottom:1.4rem;}
+.perlas-head{background:#b08010;padding:.65rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;}
+.perlas-body{display:grid;grid-template-columns:1fr 1fr;}
+.perla-item{padding:.6rem 1rem;border-bottom:1px solid rgba(224,192,32,0.3);border-right:1px solid rgba(224,192,32,0.3);font-size:.77rem;line-height:1.5;color:#4a3a08;}
+.perla-item:nth-child(even){border-right:none;}
+.perla-item:nth-last-child(-n+2){border-bottom:none;}
+.perla-item::before{content:'★ ';color:#b08010;font-size:.7rem;}
+.perla-item strong{color:#2a1a04;}
+
+/* GLOSARIO */
+.glos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;}
+.gi{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.45rem .65rem;}
+.gt{font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:600;color:var(--accent);margin-bottom:.08rem;}
+.gd{font-size:.7rem;color:var(--muted);line-height:1.25;}
+
+@media(max-width:800px){
+  .ecg-body,.gc-body,.allen-grid,.io-grid{grid-template-columns:1fr;}
+  .st-grid{grid-template-columns:1fr;}
+  .perlas-body{grid-template-columns:1fr;}
+  .perla-item{border-right:none!important;}
+  .glos-grid{grid-template-columns:repeat(2,1fr);}
+  .anat-section-body{grid-template-columns:1fr;}
+  .anat-fig{border-right:none;border-bottom:1px solid var(--border);}
+}
 </style>
 </head>
 <body>
+
+<!-- HEADER -->
 <div class="ph">
-<div class="hi">
-  <div class="ht">Cardiología · Hemodinámica · Urgencias · OPE INGESA</div>
-  <div class="hm">Vasos Periféricos · <em>ECG · Hemodinámica</em></div>
-  <div class="hs">Arterias clave · Gasto cardíaco · ECG · Allen · TA · Glasgow</div>
-  <div class="hpills">
-    <span class="hp">Allen antes de punción radial</span>
-    <span class="hp">GC = VS × FC</span>
-    <span class="hp">ST elevado = IAMCEST</span>
-    <span class="hp">Glasgow ≤8 = coma</span>
-    <span class="hp">Manguito pequeño → TA falsamente alta</span>
+  <div class="hi">
+    <div class="ht">🎖️ Enfermería Militar · INGESA 2026 · Cardiología · Urgencias · Hemodinámica</div>
+    <div class="hm">Vasos Periféricos · <em>ECG · Hemodinámica</em></div>
+    <div class="hs">Accesos vasculares · Vía intraósea · Gasto cardíaco · ECG · Allen · TA · Glasgow · xABCDE</div>
+    <div class="hpills">
+      <span class="hp">Allen: relleno 5–15 seg normal (OMS/WHO)</span>
+      <span class="hp">GC = VS × FC (4–8 L/min reposo)</span>
+      <span class="hp">STEMI: ICP ≤90 min primer contacto médico</span>
+      <span class="hp">Glasgow ≤8: considerar protección VA + contexto clínico</span>
+      <span class="hp">IO: si vía periférica falla en ≤90 seg (TCCC 2024)</span>
+    </div>
   </div>
-</div>
 </div>
 
 <div class="main">
 
-<!-- ═══ ILUSTRACIONES ANATÓMICAS ═══ -->
+<!-- ═══ SVG ILUSTRACIONES ═══ -->
 <div class="anat-section">
   <div class="anat-section-head" style="background:#fde8e8;border-bottom:1px solid var(--border);">
-    <span style="font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#8a1010;">🎨 Ilustraciones Anatómicas</span>
-    <span style="font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;color:var(--muted);margin-left:.5rem;">Árbol arterial · Trazado ECG normal</span>
+    <span style="font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:#8a1010;">🎨 Ilustraciones anatómicas</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.48rem;text-transform:uppercase;color:var(--muted);margin-left:.5rem;">Árbol arterial + accesos vasculares · Trazado ECG PQRST con alteraciones del ST</span>
   </div>
   <div class="anat-section-body">
-
-    <!-- FIG 1: SILUETA HUMANA CON ARTERIAS PRINCIPALES -->
+    <!-- FIG 1: ÁRBOL ARTERIAL -->
     <div class="anat-fig">
-      <div class="anat-fig-title" style="color:#c02020;">Principales arterias — acceso vascular clínico</div>
+      <div class="anat-fig-title" style="color:#c02020;">Arterias principales — accesos vasculares y tácticos</div>
       <svg viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg" style="width:260px;">
         <defs>
           <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
@@ -154,103 +191,72 @@ table.gtbl tr:last-child td{border-bottom:none;}
           </linearGradient>
         </defs>
         <rect width="260" height="380" fill="#f8f5f0" rx="8"/>
-        <text x="130" y="14" text-anchor="middle" font-size="7" fill="#c02020" font-family="JetBrains Mono" font-weight="bold">ÁRBOL ARTERIAL — ACCESOS CLÍNICOS</text>
-
-        <!-- SILUETA CORPORAL -->
-        <!-- Cabeza -->
+        <text x="130" y="13" text-anchor="middle" font-size="6.5" fill="#c02020" font-family="JetBrains Mono" font-weight="bold">ÁRBOL ARTERIAL — ACCESOS CLÍNICOS Y TÁCTICOS</text>
+        <!-- Silueta corporal -->
         <ellipse cx="130" cy="42" rx="22" ry="26" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Cuello -->
         <rect x="120" y="66" width="20" height="18" rx="3" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
-        <!-- Tronco -->
         <path d="M90,84 L80,85 L72,100 L70,165 L80,175 L180,175 L190,165 L188,100 L180,85 L170,84 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Brazo izquierdo -->
         <path d="M80,85 L60,88 L50,130 L55,165 L65,170 L72,160 L68,125 L82,92 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Brazo derecho -->
         <path d="M180,85 L200,88 L210,130 L205,165 L195,170 L188,160 L192,125 L178,92 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Antebrazo / mano izq -->
         <path d="M55,165 L50,195 L48,215 L55,220 L62,215 L65,195 L65,170 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
         <ellipse cx="53" cy="223" rx="10" ry="8" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
-        <!-- Antebrazo / mano der -->
         <path d="M205,165 L210,195 L212,215 L205,220 L198,215 L195,195 L195,170 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
         <ellipse cx="207" cy="223" rx="10" ry="8" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
-        <!-- Pelvis -->
         <path d="M80,175 L75,205 L80,215 L180,215 L185,205 L180,175 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Muslo izquierdo -->
         <path d="M80,215 L72,260 L75,295 L95,298 L100,265 L98,215 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Muslo derecho -->
         <path d="M162,215 L160,265 L165,298 L185,295 L188,260 L180,215 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1.5"/>
-        <!-- Pierna izq -->
         <path d="M75,295 L72,340 L80,348 L92,348 L100,340 L95,298 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
-        <!-- Pierna der -->
         <path d="M165,298 L160,340 L168,348 L180,348 L188,340 L185,295 Z" fill="url(#skin)" stroke="#c8a888" stroke-width="1"/>
-
-        <!-- ══ ARTERIAS ══ -->
-        <!-- Aorta (línea central) -->
+        <!-- Arterias principales -->
         <line x1="130" y1="68" x2="130" y2="205" stroke="#c02020" stroke-width="5" opacity=".7"/>
-        <!-- Carótidas (cuello) -->
         <line x1="125" y1="68" x2="115" y2="50" stroke="#e03030" stroke-width="3"/>
         <line x1="135" y1="68" x2="145" y2="50" stroke="#e03030" stroke-width="3"/>
-        <!-- Subclavia izq → braquial izq -->
         <path d="M118,90 Q95,90 78,95 Q65,100 60,115 Q56,128 58,145" fill="none" stroke="#c83030" stroke-width="3"/>
-        <!-- Subclavia der → braquial der -->
         <path d="M142,90 Q165,90 182,95 Q195,100 200,115 Q204,128 202,145" fill="none" stroke="#c83030" stroke-width="3"/>
-        <!-- Arteria radial izq (muñeca) -->
         <path d="M58,165 Q55,180 52,198" fill="none" stroke="#e05050" stroke-width="2.5"/>
-        <!-- Arteria cubital izq -->
         <path d="M62,165 Q60,180 58,198" fill="none" stroke="#e07070" stroke-width="2" stroke-dasharray="3,2"/>
-        <!-- Femoral izq -->
         <path d="M100,210 Q92,228 85,255 Q80,275 80,295" fill="none" stroke="#c82020" stroke-width="4"/>
-        <!-- Femoral der -->
         <path d="M160,210 Q168,228 175,255 Q180,275 180,295" fill="none" stroke="#c82020" stroke-width="4"/>
-        <!-- Poplítea izq -->
         <path d="M80,295 Q82,315 84,335" fill="none" stroke="#c04040" stroke-width="3"/>
-        <!-- Poplítea der -->
         <path d="M180,295 Q178,315 176,335" fill="none" stroke="#c04040" stroke-width="3"/>
-
-        <!-- ══ PUNTOS DE ACCESO / PERLAS ══ -->
-        <!-- Carótida -->
+        <!-- Puntos de acceso -->
         <circle cx="115" cy="50" r="5" fill="#c02020" stroke="white" stroke-width="1.5"/>
         <rect x="2" y="36" width="48" height="20" rx="3" fill="rgba(192,32,32,.1)"/>
         <text x="3" y="46" font-size="5.5" fill="#c02020" font-family="JetBrains Mono" font-weight="bold">Carótida</text>
-        <text x="3" y="54" font-size="5" fill="#c02020" font-family="JetBrains Mono">RCP pulso</text>
-
-        <!-- Braquial (TA) -->
+        <text x="3" y="54" font-size="5" fill="#c02020" font-family="JetBrains Mono">RCP · pulso</text>
         <circle cx="60" cy="130" r="5.5" fill="#c04020" stroke="white" stroke-width="1.5"/>
         <rect x="2" y="123" width="52" height="20" rx="3" fill="rgba(192,64,32,.1)"/>
         <text x="3" y="132" font-size="5.5" fill="#c04020" font-family="JetBrains Mono" font-weight="bold">Braquial ★</text>
         <text x="3" y="140" font-size="5" fill="#c04020" font-family="JetBrains Mono">medición TA</text>
-
-        <!-- Radial (Allen) -->
         <circle cx="52" cy="200" r="5" fill="#e04030" stroke="white" stroke-width="1.5"/>
-        <rect x="2" y="195" width="48" height="20" rx="3" fill="rgba(224,64,48,.1)"/>
+        <rect x="2" y="195" width="50" height="20" rx="3" fill="rgba(224,64,48,.1)"/>
         <text x="3" y="204" font-size="5.5" fill="#c03020" font-family="JetBrains Mono" font-weight="bold">Radial ★</text>
-        <text x="3" y="212" font-size="5" fill="#c03020" font-family="JetBrains Mono">Allen/gasometría</text>
-
-        <!-- Femoral -->
+        <text x="3" y="212" font-size="5" fill="#c03020" font-family="JetBrains Mono">Allen/AGB/IO</text>
         <circle cx="100" cy="215" r="6" fill="#9a1010" stroke="white" stroke-width="1.5"/>
         <rect x="106" y="209" width="52" height="20" rx="3" fill="rgba(154,16,16,.1)"/>
         <text x="108" y="218" font-size="5.5" fill="#8a0808" font-family="JetBrains Mono" font-weight="bold">Femoral ★</text>
-        <text x="108" y="226" font-size="5" fill="#8a0808" font-family="JetBrains Mono">shock/catéter</text>
-
-        <!-- Poplítea -->
+        <text x="108" y="226" font-size="5" fill="#8a0808" font-family="JetBrains Mono">shock·catéter</text>
         <circle cx="80" cy="298" r="5" fill="#b02020" stroke="white" stroke-width="1.5"/>
         <rect x="2" y="292" width="52" height="20" rx="3" fill="rgba(176,32,32,.1)"/>
         <text x="3" y="301" font-size="5.5" fill="#901818" font-family="JetBrains Mono" font-weight="bold">Poplítea</text>
-        <text x="3" y="309" font-size="5" fill="#901818" font-family="JetBrains Mono">post. rodilla</text>
-
+        <text x="3" y="309" font-size="5" fill="#901818" font-family="JetBrains Mono">luxación rodilla</text>
+        <!-- IO tibia proximal -->
+        <circle cx="87" cy="312" r="4.5" fill="#4a5a6a" stroke="white" stroke-width="1.5"/>
+        <rect x="94" y="306" width="62" height="20" rx="3" fill="rgba(74,90,106,.1)"/>
+        <text x="96" y="315" font-size="5.5" fill="#2a3a4a" font-family="JetBrains Mono" font-weight="bold">IO tibia prox.</text>
+        <text x="96" y="323" font-size="5" fill="#4a5a6a" font-family="JetBrains Mono">acceso táct.</text>
         <!-- Leyenda -->
-        <rect x="1" y="357" width="258" height="21" rx="3" fill="rgba(255,255,255,.85)"/>
-        <circle cx="8" cy="367" r="4" fill="#c02020"/><text x="14" y="370" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">Aorta / Art. principales</text>
-        <circle cx="122" cy="367" r="4" fill="#e03030"/><text x="128" y="370" font-size="5.5" fill="#c03030" font-family="JetBrains Mono">Ramos</text>
-        <circle cx="165" cy="367" r="4" fill="#c04020" stroke="white" stroke-width="1"/><text x="171" y="370" font-size="5.5" fill="#c04020" font-family="JetBrains Mono">★ acceso clínico clave</text>
+        <rect x="1" y="355" width="258" height="22" rx="3" fill="rgba(255,255,255,.9)"/>
+        <circle cx="8" cy="366" r="4" fill="#c02020"/><text x="14" y="369" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">Aorta/art. principales</text>
+        <circle cx="118" cy="366" r="4" fill="#c04020" stroke="white" stroke-width="1"/><text x="124" y="369" font-size="5.5" fill="#c04020" font-family="JetBrains Mono">★ acceso clave</text>
+        <circle cx="185" cy="366" r="4" fill="#4a5a6a" stroke="white" stroke-width="1"/><text x="191" y="369" font-size="5.5" fill="#4a5a6a" font-family="JetBrains Mono">IO táctica</text>
         <rect x="1" y="1" width="258" height="378" fill="none" stroke="#d0e0e0" stroke-width="1" rx="8"/>
       </svg>
-      <div class="anat-fig-caption">Arterias de acceso clínico. <strong>Radial</strong>: prueba de Allen antes de punción. <strong>Braquial</strong>: arteria sobre la que se mide la TA. <strong>Femoral</strong>: acceso central de rescate en parada.</div>
+      <div class="anat-fig-caption"><strong>Radial:</strong> Allen antes de punción (relleno 5–15 s = normal). <strong>Braquial:</strong> referencia para medición de TA. <strong>IO tibia proximal:</strong> primera alternativa si vía periférica falla en &lt;90 seg (TCCC 2024).</div>
     </div>
-
-    <!-- FIG 2: TRAZADO ECG ANOTADO -->
+    <!-- FIG 2: ECG PQRST + ST -->
     <div class="anat-fig">
-      <div class="anat-fig-title" style="color:#1a3a6a;">Trazado ECG normal — Ondas y segmentos</div>
+      <div class="anat-fig-title" style="color:#1a3a6a;">Trazado ECG normal — Ondas y segmento ST</div>
       <svg viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg" style="width:280px;">
         <defs>
           <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -259,247 +265,229 @@ table.gtbl tr:last-child td{border-bottom:none;}
           <pattern id="gridBig" width="50" height="50" patternUnits="userSpaceOnUse">
             <path d="M50,0 L0,0 L0,50" fill="none" stroke="#f0b0b0" stroke-width=".8"/>
           </pattern>
+          <marker id="arrowUp" markerWidth="6" markerHeight="6" refX="3" refY="0" orient="auto"><path d="M0,6 L3,0 L6,6 z" fill="#c04020"/></marker>
         </defs>
         <rect width="280" height="380" fill="#fff8f8" rx="8"/>
-        <text x="140" y="14" text-anchor="middle" font-size="7" fill="#1a3a6a" font-family="JetBrains Mono" font-weight="bold">TRAZADO ECG — COMPLEJO PQRST</text>
-
-        <!-- Papel de ECG (fondo cuadriculado) -->
-        <rect x="10" y="20" width="260" height="160" fill="url(#gridBig)" stroke="#e0b0b0" stroke-width="1" rx="3"/>
-        <rect x="10" y="20" width="260" height="160" fill="url(#grid)" stroke="none"/>
-
-        <!-- LÍNEA ISOELÉCTRICA -->
-        <line x1="10" y1="100" x2="270" y2="100" stroke="#d08080" stroke-width=".8" stroke-dasharray="2,2"/>
-
-        <!-- TRAZADO ECG NORMAL (un complejo PQRST) -->
-        <!-- Inicio línea base -->
-        <polyline points="
-          15,100
-          35,100
-          45,90
-          55,100
-          65,100
-          72,100
-          76,98
-          80,96
-          84,40
-          88,130
-          92,60
-          96,100
-          100,100
-          112,100
-          118,92
-          130,92
-          136,100
-          150,100
-          158,100
-          170,100
-          185,100
-          195,90
-          205,100
-          215,100
-          265,100
-        " fill="none" stroke="#c02020" stroke-width="2.5" stroke-linejoin="round"/>
-
-        <!-- ANOTACIONES DE ONDAS -->
-        <!-- Onda P -->
-        <circle cx="50" cy="89" r="3" fill="#1a6a1a" opacity=".0"/>
-        <line x1="50" y1="86" x2="50" y2="68" stroke="#1a6a1a" stroke-width="1.5" stroke-dasharray="3,2"/>
-        <rect x="30" y="58" width="40" height="22" rx="3" fill="#e8f8e8" stroke="#90c890" stroke-width="1"/>
-        <text x="50" y="69" text-anchor="middle" font-size="7.5" fill="#1a5a1a" font-family="JetBrains Mono" font-weight="bold">ONDA P</text>
-        <text x="50" y="78" text-anchor="middle" font-size="5.5" fill="#1a5a1a" font-family="JetBrains Mono">despol. auricular</text>
-
-        <!-- Intervalo PR -->
-        <line x1="35" y1="108" x2="84" y2="108" stroke="#6a6a1a" stroke-width="1.5"/>
-        <line x1="35" y1="104" x2="35" y2="112" stroke="#6a6a1a" stroke-width="1"/>
-        <line x1="84" y1="104" x2="84" y2="112" stroke="#6a6a1a" stroke-width="1"/>
-        <text x="59" y="120" text-anchor="middle" font-size="6" fill="#6a6a1a" font-family="JetBrains Mono">PR 120-200ms</text>
-
-        <!-- Complejo QRS -->
-        <line x1="84" y1="40" x2="84" y2="20" stroke="#1a3a8a" stroke-width="1.5" stroke-dasharray="3,2"/>
-        <line x1="88" y1="40" x2="88" y2="20" stroke="#1a3a8a" stroke-width="1.5" stroke-dasharray="3,2"/>
-        <rect x="62" y="22" width="55" height="22" rx="3" fill="#e8eeff" stroke="#90a8f8" stroke-width="1"/>
-        <text x="89" y="32" text-anchor="middle" font-size="7.5" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">QRS</text>
-        <text x="89" y="41" text-anchor="middle" font-size="5.5" fill="#1a3a8a" font-family="JetBrains Mono">despol. ventricul.</text>
-
-        <!-- Segmento ST -->
-        <line x1="96" y1="108" x2="136" y2="108" stroke="#c04020" stroke-width="1.5"/>
-        <line x1="96" y1="104" x2="96" y2="112" stroke="#c04020" stroke-width="1"/>
-        <line x1="136" y1="104" x2="136" y2="112" stroke="#c04020" stroke-width="1"/>
-        <text x="116" y="122" text-anchor="middle" font-size="6.5" fill="#c04020" font-family="JetBrains Mono" font-weight="bold">SEGMENTO ST ★</text>
-        <text x="116" y="131" text-anchor="middle" font-size="5.5" fill="#c04020" font-family="JetBrains Mono">isoeléctrico normal</text>
-
-        <!-- Onda T -->
-        <line x1="200" y1="88" x2="200" y2="68" stroke="#8a3a1a" stroke-width="1.5" stroke-dasharray="3,2"/>
-        <rect x="172" y="58" width="48" height="22" rx="3" fill="#fff0e8" stroke="#e0a080" stroke-width="1"/>
-        <text x="196" y="69" text-anchor="middle" font-size="7.5" fill="#8a3a1a" font-family="JetBrains Mono" font-weight="bold">ONDA T</text>
-        <text x="196" y="78" text-anchor="middle" font-size="5.5" fill="#8a3a1a" font-family="JetBrains Mono">repolariz. ventr.</text>
-
-        <!-- SECCIÓN: ST ELEVADO vs DEPRIMIDO -->
-        <rect x="10" y="192" width="260" height="175" rx="6" fill="#fff" stroke="#e0d0d0" stroke-width="1"/>
-        <text x="140" y="206" text-anchor="middle" font-size="7" fill="#1a3a6a" font-family="JetBrains Mono" font-weight="bold">ALTERACIONES DEL ST — CLAVE OPE</text>
-
-        <!-- ST ELEVADO -->
-        <rect x="16" y="212" width="115" height="148" rx="5" fill="#fde8e8" stroke="#e09090" stroke-width="1.5"/>
-        <text x="73" y="226" text-anchor="middle" font-size="7.5" fill="#9a0808" font-family="JetBrains Mono" font-weight="bold">↑ ST ELEVADO</text>
-        <!-- Mini ECG con ST elevado -->
-        <polyline points="20,275 35,275 42,275 46,255 50,310 53,250 57,275 65,275 75,265 85,265 90,275 110,275 125,275" fill="none" stroke="#c02020" stroke-width="2.5"/>
-        <line x1="20" y1="275" x2="125" y2="275" stroke="#d09090" stroke-width=".8" stroke-dasharray="2,2"/>
-        <!-- Flecha ST elevado -->
-        <line x1="78" y1="264" x2="78" y2="272" stroke="#c04020" stroke-width="2" marker-end="url(#arrowUp)"/>
-        <defs><marker id="arrowUp" markerWidth="6" markerHeight="6" refX="3" refY="0" orient="auto"><path d="M0,6 L3,0 L6,6 z" fill="#c04020"/></marker></defs>
-        <rect x="18" y="285" width="110" height="36" rx="3" fill="rgba(192,32,32,.08)"/>
-        <text x="73" y="296" text-anchor="middle" font-size="7" fill="#9a0808" font-family="JetBrains Mono" font-weight="bold">= IAMCEST</text>
-        <text x="73" y="306" text-anchor="middle" font-size="6" fill="#c02020" font-family="JetBrains Mono">Infarto transmural</text>
-        <text x="73" y="315" text-anchor="middle" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">ICP &lt;90 min</text>
-        <text x="73" y="324" text-anchor="middle" font-size="5.5" fill="#9a0808" font-family="JetBrains Mono">oclusión TOTAL</text>
-        <text x="73" y="348" text-anchor="middle" font-size="5.5" fill="#9a0808" font-family="JetBrains Mono">coronaria</text>
-
-        <!-- ST DEPRIMIDO -->
-        <rect x="139" y="212" width="126" height="148" rx="5" fill="#e8eeff" stroke="#90a8f0" stroke-width="1.5"/>
-        <text x="202" y="226" text-anchor="middle" font-size="7.5" fill="#0a2a8a" font-family="JetBrains Mono" font-weight="bold">↓ ST DEPRIMIDO</text>
-        <!-- Mini ECG con ST deprimido y T negativa -->
-        <polyline points="143,260 158,260 165,260 169,240 173,295 176,240 180,260 188,260 198,270 208,270 213,260 235,260 252,260" fill="none" stroke="#1a3a9a" stroke-width="2.5"/>
-        <line x1="143" y1="260" x2="252" y2="260" stroke="#9090d0" stroke-width=".8" stroke-dasharray="2,2"/>
-        <!-- T negativa -->
-        <polyline points="213,260 225,275 238,260" fill="none" stroke="#1a3a9a" stroke-width="2.5"/>
-        <text x="228" y="283" font-size="5.5" fill="#1a3a9a" font-family="JetBrains Mono">T neg.</text>
-        <rect x="142" y="285" width="120" height="36" rx="3" fill="rgba(26,58,138,.06)"/>
-        <text x="202" y="296" text-anchor="middle" font-size="7" fill="#0a2a8a" font-family="JetBrains Mono" font-weight="bold">= IAMSEST</text>
-        <text x="202" y="306" text-anchor="middle" font-size="6" fill="#1a3a9a" font-family="JetBrains Mono">Isquemia subendoc.</text>
-        <text x="202" y="315" text-anchor="middle" font-size="5.5" fill="#1a3a9a" font-family="JetBrains Mono">o Angina inestable</text>
-        <text x="202" y="324" text-anchor="middle" font-size="5.5" fill="#0a2a8a" font-family="JetBrains Mono">oclusión subtotal</text>
-
+        <text x="140" y="13" text-anchor="middle" font-size="6.5" fill="#1a3a6a" font-family="JetBrains Mono" font-weight="bold">COMPLEJO PQRST — ALTERACIONES ST</text>
+        <rect x="10" y="18" width="260" height="160" fill="url(#gridBig)" stroke="#e0b0b0" stroke-width="1" rx="3"/>
+        <rect x="10" y="18" width="260" height="160" fill="url(#grid)" stroke="none"/>
+        <line x1="10" y1="98" x2="270" y2="98" stroke="#d08080" stroke-width=".8" stroke-dasharray="2,2"/>
+        <!-- PQRST trazado -->
+        <polyline points="15,98 35,98 45,88 55,98 65,98 72,98 76,96 80,94 84,38 88,128 92,58 96,98 100,98 112,98 118,90 130,90 136,98 150,98 158,98 170,98 185,98 195,88 205,98 215,98 265,98" fill="none" stroke="#c02020" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- Labels -->
+        <line x1="50" y1="84" x2="50" y2="66" stroke="#1a6a1a" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <rect x="30" y="56" width="40" height="22" rx="3" fill="#e8f8e8" stroke="#90c890" stroke-width="1"/>
+        <text x="50" y="67" text-anchor="middle" font-size="7" fill="#1a5a1a" font-family="JetBrains Mono" font-weight="bold">ONDA P</text>
+        <text x="50" y="75" text-anchor="middle" font-size="5" fill="#1a5a1a" font-family="JetBrains Mono">despol.auricular</text>
+        <line x1="35" y1="106" x2="84" y2="106" stroke="#6a6a1a" stroke-width="1.5"/>
+        <line x1="35" y1="102" x2="35" y2="110" stroke="#6a6a1a" stroke-width="1"/>
+        <line x1="84" y1="102" x2="84" y2="110" stroke="#6a6a1a" stroke-width="1"/>
+        <text x="59" y="118" text-anchor="middle" font-size="5.5" fill="#6a6a1a" font-family="JetBrains Mono">PR 120–200ms</text>
+        <line x1="84" y1="38" x2="84" y2="18" stroke="#1a3a8a" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <line x1="88" y1="38" x2="88" y2="18" stroke="#1a3a8a" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <rect x="62" y="20" width="55" height="22" rx="3" fill="#e8eeff" stroke="#90a8f8" stroke-width="1"/>
+        <text x="89" y="30" text-anchor="middle" font-size="7" fill="#1a3a8a" font-family="JetBrains Mono" font-weight="bold">QRS</text>
+        <text x="89" y="39" text-anchor="middle" font-size="5" fill="#1a3a8a" font-family="JetBrains Mono">despol. ventricular</text>
+        <line x1="96" y1="106" x2="136" y2="106" stroke="#c04020" stroke-width="1.5"/>
+        <line x1="96" y1="102" x2="96" y2="110" stroke="#c04020" stroke-width="1"/>
+        <line x1="136" y1="102" x2="136" y2="110" stroke="#c04020" stroke-width="1"/>
+        <text x="116" y="120" text-anchor="middle" font-size="6" fill="#c04020" font-family="JetBrains Mono" font-weight="bold">SEGMENTO ST ★</text>
+        <text x="116" y="129" text-anchor="middle" font-size="5" fill="#c04020" font-family="JetBrains Mono">isoeléctrico normal</text>
+        <line x1="200" y1="86" x2="200" y2="66" stroke="#8a3a1a" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <rect x="172" y="56" width="48" height="22" rx="3" fill="#fff0e8" stroke="#e0a080" stroke-width="1"/>
+        <text x="196" y="67" text-anchor="middle" font-size="7" fill="#8a3a1a" font-family="JetBrains Mono" font-weight="bold">ONDA T</text>
+        <text x="196" y="75" text-anchor="middle" font-size="5" fill="#8a3a1a" font-family="JetBrains Mono">repolariz. ventr.</text>
+        <!-- SECCIÓN ST comparativa -->
+        <rect x="10" y="192" width="260" height="178" rx="6" fill="#fff" stroke="#e0d0d0" stroke-width="1"/>
+        <text x="140" y="206" text-anchor="middle" font-size="6.5" fill="#1a3a6a" font-family="JetBrains Mono" font-weight="bold">ALTERACIONES ST — CLAVE OPE</text>
+        <!-- ST elevado -->
+        <rect x="16" y="211" width="115" height="152" rx="5" fill="#fde8e8" stroke="#e09090" stroke-width="1.5"/>
+        <text x="73" y="225" text-anchor="middle" font-size="7" fill="#9a0808" font-family="JetBrains Mono" font-weight="bold">↑ ST ELEVADO</text>
+        <polyline points="20,272 35,272 42,272 46,252 50,307 53,247 57,272 65,272 75,262 85,262 90,272 110,272 125,272" fill="none" stroke="#c02020" stroke-width="2.5"/>
+        <line x1="20" y1="272" x2="125" y2="272" stroke="#d09090" stroke-width=".8" stroke-dasharray="2,2"/>
+        <line x1="78" y1="261" x2="78" y2="270" stroke="#c04020" stroke-width="2" marker-end="url(#arrowUp)"/>
+        <text x="73" y="294" text-anchor="middle" font-size="7" fill="#9a0808" font-family="JetBrains Mono" font-weight="bold">= IAMCEST / STEMI</text>
+        <text x="73" y="303" text-anchor="middle" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">Infarto transmural</text>
+        <text x="73" y="312" text-anchor="middle" font-size="5.5" fill="#c02020" font-family="JetBrains Mono">ICP ≤90 min (PCM)</text>
+        <text x="73" y="321" text-anchor="middle" font-size="5.5" fill="#9a0808" font-family="JetBrains Mono">Oclusión TOTAL</text>
+        <text x="73" y="330" text-anchor="middle" font-size="5.5" fill="#9a0808" font-family="JetBrains Mono">Umbral: ≥1mm (resto)</text>
+        <text x="73" y="339" text-anchor="middle" font-size="5.5" fill="#9a0808" font-family="JetBrains Mono">V2-V3: 2,5/2,0/1,5mm</text>
+        <text x="73" y="356" text-anchor="middle" font-size="5" fill="#7a0000" font-family="JetBrains Mono">(H&lt;40a/H≥40a/Mujer)</text>
+        <!-- ST deprimido -->
+        <rect x="139" y="211" width="126" height="152" rx="5" fill="#e8eeff" stroke="#90a8f0" stroke-width="1.5"/>
+        <text x="202" y="225" text-anchor="middle" font-size="7" fill="#0a2a8a" font-family="JetBrains Mono" font-weight="bold">↓ ST DEPRIMIDO</text>
+        <polyline points="143,258 158,258 165,258 169,238 173,293 176,238 180,258 188,258 198,268 208,268 213,258 235,258 252,258" fill="none" stroke="#1a3a9a" stroke-width="2.5"/>
+        <line x1="143" y1="258" x2="252" y2="258" stroke="#9090d0" stroke-width=".8" stroke-dasharray="2,2"/>
+        <polyline points="213,258 225,273 238,258" fill="none" stroke="#1a3a9a" stroke-width="2.5"/>
+        <text x="228" y="281" font-size="5.5" fill="#1a3a9a" font-family="JetBrains Mono">T neg.</text>
+        <text x="202" y="294" text-anchor="middle" font-size="7" fill="#0a2a8a" font-family="JetBrains Mono" font-weight="bold">= IAMSEST/AI</text>
+        <text x="202" y="303" text-anchor="middle" font-size="5.5" fill="#1a3a9a" font-family="JetBrains Mono">Isquemia subendoc.</text>
+        <text x="202" y="312" text-anchor="middle" font-size="5.5" fill="#1a3a9a" font-family="JetBrains Mono">Estratificación GRACE</text>
+        <text x="202" y="321" text-anchor="middle" font-size="5.5" fill="#0a2a8a" font-family="JetBrains Mono">Oclusión subtotal</text>
+        <text x="202" y="330" text-anchor="middle" font-size="5.5" fill="#0a2a8a" font-family="JetBrains Mono">o espasmo coronario</text>
         <rect x="1" y="1" width="278" height="378" fill="none" stroke="#d0e0e0" stroke-width="1" rx="8"/>
       </svg>
-      <div class="anat-fig-caption">Trazado ECG normal con el complejo PQRST anotado. El <strong style="color:#c04020;">segmento ST</strong> es el más crítico en urgencias: elevado → IAMCEST; deprimido + T negativa → isquemia subendocárdica (IAMSEST).</div>
+      <div class="anat-fig-caption">Complejo PQRST con segmento ST marcado. <strong style="color:#c04020;">ST ↑ ≥1mm</strong> = IAMCEST (ICP ≤90 min). <strong style="color:#1a3a8a;">ST ↓ + T neg</strong> = isquemia subendocárdica. Los umbrales en V2-V3 varían por sexo y edad (ESC 2023).</div>
     </div>
-
   </div>
 </div>
-<!-- ═══ FIN ILUSTRACIONES ═══ -->
 
-
-<!-- 1. ARTERIAS PERIFÉRICAS -->
-<div class="sec"><div class="sn">1</div><div><div class="sl">Vasos centrales y periféricos · Accesos vasculares</div><div class="st">Arterias Clave — Localización y Perla Clínica</div></div></div>
+<!-- 1. ARTERIAS -->
+<div class="sec"><div class="sn">1</div><div><div class="sl">Accesos vasculares clave</div><div class="st">Arterias principales — Localización, uso clínico y táctico</div></div></div>
 
 <div class="art-wrap">
-  <div class="art-head">🫀 Arterias clave — Clínica y acceso vascular</div>
+  <div class="art-head">🫀 Arterias clave — Clínica, acceso vascular y contexto militar</div>
   <table class="atbl">
     <thead>
       <tr><th>Arteria</th><th>Localización anatómica</th><th>Uso clínico principal</th><th>Perla OPE ★</th></tr>
     </thead>
     <tbody>
-      <tr class="ra"><td><strong>Arteria radial</strong></td><td>Cara lateral de la muñeca (lado del pulgar)</td><td>Pulso periférico, <strong>gasometría arterial</strong>, monitorización invasiva de TA</td><td><span class="pi">★ Siempre realizar la <strong>prueba de Allen</strong> antes de la punción radial para garantizar circulación colateral cubital</span></td></tr>
-      <tr class="rb"><td><strong>Arteria braquial</strong></td><td>Fosa antecubital (cara medial del brazo)</td><td>Arteria sobre la que se mide realmente la <strong>presión arterial</strong> con esfigmomanómetro</td><td><span class="pi">★ Manguito <strong>demasiado pequeño</strong> → cifras de TA falsamente <strong>ALTAS</strong></span></td></tr>
-      <tr class="rc"><td><strong>Arteria femoral</strong></td><td>Triángulo femoral (ingle)</td><td>Acceso vascular rápido en parada/shock, cateterismo, compresión hemostática</td><td><span class="pi">★ Acceso femoral de elección cuando no se consigue vía periférica en parada/shock</span></td></tr>
-      <tr class="rd"><td><strong>Arteria poplítea</strong></td><td>Fosa poplítea (cara posterior de la rodilla)</td><td>Continuación de la femoral; irrigación distal del miembro inferior</td><td><span class="pi">★ Tras luxación de rodilla: <strong>siempre revisar pulsos distales</strong> por riesgo de lesión poplítea</span></td></tr>
-      <tr class="re"><td><strong>Arteria carótida</strong></td><td>Cara lateral del cuello (triángulo carotídeo)</td><td>Pulso central en RCP, acceso vascular central</td><td><span class="pi">★ En RCP: comprobación de pulso carotídeo máx 10 seg para no demorar compresiones (ERC 2025)</span></td></tr>
+      <tr class="ra"><td><strong>Arteria radial</strong></td><td>Cara lateral de la muñeca (lado del pulgar)</td><td>Pulso periférico, <strong>gasometría arterial (AGB)</strong>, monitorización invasiva de TA, acceso IO alternativo</td><td><span class="pi">★ Siempre realizar <strong>prueba de Allen modificada</strong> antes de punción radial. Normal = relleno 5–15 s (OMS/WHO)</span></td></tr>
+      <tr class="rb"><td><strong>Arteria braquial</strong></td><td>Fosa antecubital (cara medial del brazo)</td><td>Referencia anatómica para medición de <strong>TA con esfigmomanómetro</strong></td><td><span class="pi">★ Manguito demasiado <strong>pequeño</strong> → TA falsamente <strong>ALTA</strong>. Manguito grande → falsamente baja</span></td></tr>
+      <tr class="rc"><td><strong>Arteria femoral</strong></td><td>Triángulo femoral (ingle)</td><td>Acceso vascular rápido en PCR/shock; cateterismo; compresión hemostática traumática (zona de unión)</td><td><span class="pi">★ En campo: zona de unión (junctional) — torniquete estándar no llega. Combat Gauze + presión o JETT</span></td></tr>
+      <tr class="rd"><td><strong>Arteria poplítea</strong></td><td>Fosa poplítea (cara posterior de rodilla)</td><td>Continuación de femoral; irrigación distal extremidad inferior</td><td><span class="pi">★ Tras luxación de rodilla: <strong>revisar siempre pulsos distales</strong> por riesgo lesión poplítea (lesión vascular hasta 30%)</span></td></tr>
+      <tr class="re"><td><strong>Arteria carótida</strong></td><td>Cara lateral del cuello (triángulo carotídeo)</td><td>Pulso central en RCP; verificación de retorno de circulación espontánea</td><td><span class="pi">★ ERC 2025: comprobación pulso carotídeo máx 10 seg para no demorar compresiones</span></td></tr>
+      <tr class="rf"><td><strong>Tibia proximal (IO)</strong></td><td>Cara anteromedial tibia, 2–3 cm distal tuberosidad tibial</td><td>Acceso intraóseo (IO) cuando vía periférica falla. Primera alternativa táctica.</td><td><span class="pi">★ TCCC 2024: si vía periférica falla en ≤90 seg → IO inmediata (EZ-IO). Velocidad de flujo = vía periférica con presión</span></td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- 2. PRUEBA DE ALLEN -->
-<div class="sec"><div class="sn">2</div><div><div class="sl">Seguridad en gasometría arterial</div><div class="st">Prueba de Allen — Circulación colateral cubital</div></div></div>
+<!-- 2. VÍA IO -->
+<div class="sec"><div class="sn">2</div><div><div class="sl">Acceso táctico crítico</div><div class="st">Vía Intraósea (IO) — Indicaciones, sitios y técnica <span class="mil-tag">🎖️ TCCC 2024</span></div></div></div>
+
+<div class="io-wrap">
+  <div class="io-head">🦴 Vía Intraósea (IO) — EZ-IO / Manual: indicaciones, sitios y consideraciones tácticas</div>
+  <div class="io-grid">
+    <div class="io-col">
+      <h4>📋 Indicaciones</h4>
+      <ul>
+        <li><strong>Fracaso de vía periférica</strong> en ≤90 seg (TCCC) o 2 intentos fallidos</li>
+        <li>PCR (cualquier etiología) — acceso inmediato sin demora</li>
+        <li>Shock hemorrágico grave / hemorragia masiva</li>
+        <li>Quemaduras extensas (acceso periférico imposible)</li>
+        <li>Crisis convulsiva sin acceso IV</li>
+        <li>Paciente inconsciente sin acceso venoso</li>
+      </ul>
+    </div>
+    <div class="io-col">
+      <h4>📍 Sitios de inserción (orden preferencia)</h4>
+      <ul>
+        <li><strong>Tibia proximal:</strong> cara anteromedial, 2–3 cm distal a tuberosidad tibial (1ª elección adulto y niño)</li>
+        <li><strong>Húmero proximal:</strong> cara anterolateral del cuello quirúrgico (adulto, mayor flujo)</li>
+        <li><strong>Esternón:</strong> manubrio esternal (solo adulto, dispositivo FAST-1)</li>
+        <li><strong>Tibia distal:</strong> cara medial, 2–3 cm proximal al maléolo medial</li>
+        <li><strong>Fémur distal:</strong> 2–3 cm proximal a la rótula (alternativa pediátrica)</li>
+      </ul>
+    </div>
+    <div class="io-col">
+      <h4>⚙️ Técnica y consideraciones</h4>
+      <ul>
+        <li>EZ-IO (taladro motorizado): <strong>15 mm aguja adulto</strong>, 25 mm en obesidad, 45 mm en húmero</li>
+        <li>Confirmar posición: resistencia → espacio medular (sensación de "clic"), flujo libre sin extravasación</li>
+        <li>Flujo máximo sin presión: ~10 ml/min. <strong>Con presión (300 mmHg) similar a IV periférica</strong></li>
+        <li>Todos los fármacos IV se pueden administrar IO (adrenalina, ATX, morfina, ketamina, atropina)</li>
+        <li>Máximo 24h en posición (infección). Retirar en Role 2+</li>
+        <li><strong>Contraindicación relativa:</strong> fractura ipsilateral, infección local, prótesis</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 3. ALLEN + TA -->
+<div class="sec"><div class="sn">3</div><div><div class="sl">Seguridad en gasometría arterial</div><div class="st">Prueba de Allen modificada — Circulación colateral cubital <span class="upd-tag">OMS/WHO + StatPearls 2024</span></div></div></div>
 
 <div class="allen-grid">
   <div class="allen-card">
-    <div class="allen-title" style="color:#c02020;">🖐️ Técnica de la prueba de Allen</div>
-    <ol style="padding-left:1.2rem;font-size:.81rem;line-height:1.8;">
-      <li>Comprimir simultáneamente arteria radial + cubital</li>
-      <li>Pedir al paciente que abra y cierre el puño → la mano se pone pálida</li>
-      <li>Liberar solo la arteria <strong>cubital</strong></li>
-      <li>Observar el tiempo de relleno capilar:</li>
+    <div class="allen-title" style="color:#c02020;">🖐️ Técnica de la prueba de Allen modificada</div>
+    <ol style="padding-left:1.2rem;font-size:.81rem;line-height:1.9;">
+      <li>Comprimir simultáneamente <strong>arteria radial + cubital</strong></li>
+      <li>Pedir que haga puño (30 seg) → la mano se pone pálida</li>
+      <li>Liberar únicamente la <strong>arteria cubital</strong> (comprimir radial)</li>
+      <li>Observar tiempo de relleno del arco palmar:</li>
     </ol>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem;">
       <div style="background:#e8f8e8;border:1px solid #80d080;border-radius:6px;padding:.5rem .7rem;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:#1a6a1a;margin-bottom:.2rem;">ALLEN POSITIVO (NORMAL)</div>
-        <div style="font-size:.8rem;">Relleno en <strong>&lt;7 seg</strong> → circulación colateral cubital <strong>adecuada</strong> → punción radial segura</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:#1a6a1a;margin-bottom:.2rem;">✅ POSITIVO (NORMAL)</div>
+        <div style="font-size:.8rem;">Relleno en <strong>5–15 seg</strong> → circulación colateral cubital <strong>adecuada</strong> → punción radial segura</div>
       </div>
       <div style="background:#fde8e8;border:1px solid #e08080;border-radius:6px;padding:.5rem .7rem;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:#c02020;margin-bottom:.2rem;">ALLEN NEGATIVO (ANORMAL)</div>
-        <div style="font-size:.8rem;">Relleno en <strong>&gt;7–15 seg</strong> → colateral insuficiente → NO puncionar la radial → buscar otro acceso</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;color:#c02020;margin-bottom:.2rem;">❌ NEGATIVO (ANORMAL)</div>
+        <div style="font-size:.8rem;">Relleno en <strong>&gt;15 seg</strong> o ausente → colateral insuficiente → <strong>NO puncionar la radial</strong></div>
       </div>
+    </div>
+    <div class="mb" style="margin-top:.6rem;">
+      <div class="ml">🎖️ Contexto militar / campo</div>
+      En TCCC, si la arteria radial es el único acceso disponible para IO en el brazo, se prioriza el objetivo táctico sobre el Allen. La prueba tiene limitaciones de sensibilidad (54–78%) y no predice de forma fiable isquemia tras canulación radial (StatPearls 2024).
     </div>
   </div>
   <div class="allen-card">
     <div class="allen-title" style="color:#1a5a8a;">📊 Medición correcta de la TA</div>
     <table style="width:100%;font-size:.8rem;border-collapse:collapse;">
-      <tr style="border-bottom:1px solid var(--border);">
-        <td style="padding:.3rem .5rem;font-weight:600;">Arteria de referencia</td>
-        <td style="padding:.3rem .5rem;"><strong>Braquial</strong> (fosa antecubital)</td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--border);">
-        <td style="padding:.3rem .5rem;font-weight:600;">Manguito grande</td>
-        <td style="padding:.3rem .5rem;">Cifras <span style="color:var(--green);font-weight:600;">falsamente BAJAS</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--border);">
-        <td style="padding:.3rem .5rem;font-weight:600;">Manguito pequeño</td>
-        <td style="padding:.3rem .5rem;">Cifras <span style="color:var(--red);font-weight:600;">falsamente ALTAS</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid var(--border);">
-        <td style="padding:.3rem .5rem;font-weight:600;">Posición brazo</td>
-        <td style="padding:.3rem .5rem;">A nivel del corazón; brazos elevados → falsamente baja</td>
-      </tr>
-      <tr>
-        <td style="padding:.3rem .5rem;font-weight:600;">Reposo previo</td>
-        <td style="padding:.3rem .5rem;">Mínimo 5 min sentado, espalda apoyada, piernas sin cruzar</td>
-      </tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:.3rem .5rem;font-weight:600;">Arteria de referencia</td><td style="padding:.3rem .5rem;"><strong>Braquial</strong> (fosa antecubital)</td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:.3rem .5rem;font-weight:600;">Manguito grande</td><td style="padding:.3rem .5rem;">TA <span style="color:var(--green);font-weight:600;">falsamente BAJA</span></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:.3rem .5rem;font-weight:600;">Manguito pequeño</td><td style="padding:.3rem .5rem;">TA <span style="color:var(--red);font-weight:600;">falsamente ALTA</span></td></tr>
+      <tr style="border-bottom:1px solid var(--border);"><td style="padding:.3rem .5rem;font-weight:600;">Brazo elevado</td><td style="padding:.3rem .5rem;">TA falsamente <span style="color:var(--green);font-weight:600;">baja</span></td></tr>
+      <tr><td style="padding:.3rem .5rem;font-weight:600;">Reposo previo</td><td style="padding:.3rem .5rem;">Mínimo 5 min, espalda apoyada, piernas sin cruzar</td></tr>
     </table>
     <div class="wb" style="margin-top:.6rem;">
       <div class="wl">★★ Trampa más frecuente en examen</div>
-      Manguito demasiado <strong>pequeño</strong> → TA <strong>ALTA</strong> (no baja). Manguito demasiado <strong>grande</strong> → TA <strong>BAJA</strong>.
+      Manguito demasiado <strong>pequeño</strong> → TA <strong>ALTA</strong> (no baja). Manguito grande → TA <strong>BAJA</strong>.
+    </div>
+    <div class="mb" style="margin-top:.5rem;">
+      <div class="ml">🎖️ TA objetivo en trauma militar</div>
+      Hipotensión permisiva: TAS 80–90 mmHg (trauma penetrante sin TCE). Si TCE: TAS &gt;90 mmHg siempre (TCCC/ATLS).
     </div>
   </div>
 </div>
 
-<!-- 3. ECG -->
-<div class="sec"><div class="sn">3</div><div><div class="sl">Interpretación básica OPE</div><div class="st">ECG — Segmento ST, onda T y significado clínico <span class="ev-tag">ESC 2023 ACS</span></div></div></div>
+<!-- 4. ECG -->
+<div class="sec"><div class="sn">4</div><div><div class="sl">Interpretación básica OPE</div><div class="st">ECG — Ondas, segmento ST y significado clínico <span class="ev-tag">ESC 2023 ACS</span></div></div></div>
 
 <div class="ecg-wrap">
-  <div class="ecg-head">📈 ECG — Ondas y significado clínico</div>
+  <div class="ecg-head">📈 ECG — Ondas PQRST y alteraciones del segmento ST</div>
   <div class="ecg-body">
     <div class="ecg-ondas">
       <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.6rem;">Ondas del ECG y su significado</div>
-      <div class="onda-row"><span class="onda-label">P</span><span class="onda-def">Despolarización auricular. Duración normal &lt;120 ms. Ausente en FA.</span></div>
-      <div class="onda-row"><span class="onda-label">PR</span><span class="onda-def">Conducción AV. Normal 120–200 ms. Prolongado en BAV 1.º grado.</span></div>
-      <div class="onda-row"><span class="onda-label">QRS</span><span class="onda-def">Despolarización ventricular. Normal &lt;120 ms. Ancho en BCRDHH/BCRI.</span></div>
-      <div class="onda-row"><span class="onda-label" style="color:#c02020;">ST</span><span class="onda-def"><strong>Repolarización ventricular temprana</strong>. El segmento ST es el más crítico en urgencias. Normal: isoeléctrico (±0,5 mm).</span></div>
-      <div class="onda-row"><span class="onda-label">T</span><span class="onda-def"><strong>Repolarización ventricular tardía</strong>. Normalmente positiva (concordante con QRS). T negativa = isquemia o sobrecarga.</span></div>
-      <div class="onda-row"><span class="onda-label">QT</span><span class="onda-def">Desde inicio Q hasta final T. QTc &gt;450 ms (♂) / &gt;460 ms (♀) = prolongado → riesgo arritmia.</span></div>
+      <div class="onda-row"><span class="onda-label">P</span><span class="onda-def">Despolarización auricular. Duración normal &lt;120 ms. <strong>Ausente en FA</strong>.</span></div>
+      <div class="onda-row"><span class="onda-label">PR</span><span class="onda-def">Conducción AV. Normal 120–200 ms. <strong>Prolongado en BAV 1.º grado</strong> (&gt;200 ms).</span></div>
+      <div class="onda-row"><span class="onda-label">QRS</span><span class="onda-def">Despolarización ventricular. Normal &lt;120 ms. <strong>Ancho (&gt;120 ms) en BCRDHH/BCRIHH</strong>.</span></div>
+      <div class="onda-row"><span class="onda-label" style="color:#c02020;">ST</span><span class="onda-def"><strong>Repolarización ventricular temprana</strong>. El segmento más crítico en urgencias. Normal: isoeléctrico (±0,5 mm). <strong>↑ = IAMCEST · ↓ = IAMSEST</strong>.</span></div>
+      <div class="onda-row"><span class="onda-label">T</span><span class="onda-def">Repolarización ventricular tardía. Normalmente positiva (concordante QRS). <strong>T negativa = isquemia / sobrecarga</strong>. T picuda = hiperpotasemia o isquemia hiperaguda.</span></div>
+      <div class="onda-row"><span class="onda-label">QT</span><span class="onda-def">Inicio Q → final T. QTc &gt;450 ms (♂) / &gt;460 ms (♀) = prolongado → riesgo arritmia. <strong>Causa: fármacos (amiodarona, haloperidol, quinolonas), hipopotasemia</strong>.</span></div>
     </div>
     <div class="ecg-clinica">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.5rem;">Alteraciones del segmento ST</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.5rem;">Alteraciones del segmento ST — ESC 2023</div>
       <div class="st-grid">
         <div class="st-card st-elev">
-          <div class="st-title">↑ ST ELEVADO (≥1mm)</div>
-          <strong>IAMCEST</strong> = infarto transmural<br>
-          <span style="font-size:.76rem;">Activar código IAM. Reperfusión urgente &lt;90 min (ICP primaria).</span>
-          <div class="pi" style="margin-top:.3rem;">★ Causa: oclusión total de coronaria</div>
+          <div class="st-title">↑ ST ELEVADO → IAMCEST</div>
+          <strong>Infarto transmural</strong>. Oclusión total de coronaria.<br>
+          <span style="font-size:.76rem;">ICP primaria: objetivo <strong>≤90 min desde PCM</strong> (≤60 min en alto riesgo o IAM anterior extenso precoz).</span>
+          <div class="pi" style="margin-top:.3rem;">Umbral: ≥1mm resto derivaciones. V2-V3: ≥2,5mm H&lt;40a / ≥2,0mm H≥40a / ≥1,5mm mujeres</div>
         </div>
         <div class="st-card st-dep">
-          <div class="st-title">↓ ST DEPRIMIDO + T NEG</div>
-          Isquemia <strong>subendocárdica</strong><br>
-          <span style="font-size:.76rem;">IAMSEST o angina inestable. Estratificación de riesgo (GRACE score).</span>
-          <div class="pi" style="margin-top:.3rem;">★ Causa: oclusión subtotal o espasmo</div>
+          <div class="st-title">↓ ST DEPRIMIDO → IAMSEST / AI</div>
+          Isquemia <strong>subendocárdica</strong>. Oclusión subtotal o espasmo.<br>
+          <span style="font-size:.76rem;">Estratificación riesgo (GRACE score). Troponinas ultra-sensibles en 0–1h o 0–3h.</span>
+          <div class="pi" style="margin-top:.3rem;">SCA = término clínico inicial. IAM solo si troponinas &gt;p99 + contexto isquémico</div>
         </div>
       </div>
       <div class="ab" style="margin-top:.7rem;">
-        <div class="al">🔑 Clínica del IAM</div>
-        Dolor torácico opresivo + irradiación a brazo izq/mandíbula/epigastrio + diaforesis + náuseas. <strong>Biomarcadores:</strong> Troponina I/T ultra-sensible (rise & fall en 0-1h o 0-3h).
+        <div class="al">🔑 Clínica del IAM + biomarcadores</div>
+        Dolor torácico opresivo ± irradiación a brazo izq/mandíbula/epigastrio + diaforesis + náuseas. <strong>Troponina I/T ultra-sensible</strong>: patrón rise & fall en protocolo 0-1h o 0-3h (ESC 2023).
       </div>
       <div class="wb">
         <div class="wl">Asma leve → alcalosis respiratoria</div>
-        En crisis de asma <strong>leve</strong>: hiperventilación → <strong>hipocapnia + alcalosis respiratoria</strong>. Si el CO₂ empieza a subir (normalizarse) en asma → signo de agotamiento = gravedad.
+        Crisis de asma <strong>leve</strong>: hiperventilación → <strong>hipocapnia + alcalosis respiratoria</strong>. Si CO₂ empieza a normalizarse → agotamiento = <strong>signo de gravedad inminente</strong>.
       </div>
     </div>
   </div>
 </div>
 
-<!-- 4. GASTO CARDÍACO -->
-<div class="sec"><div class="sn">4</div><div><div class="sl">Hemodinámica básica</div><div class="st">Gasto Cardíaco — Fórmula y determinantes</div></div></div>
+<!-- 5. GASTO CARDÍACO -->
+<div class="sec"><div class="sn">5</div><div><div class="sl">Hemodinámica básica</div><div class="st">Gasto Cardíaco — Fórmula, determinantes y estados alterados</div></div></div>
 
 <div class="gc-wrap">
-  <div class="gc-head">💓 Gasto Cardíaco (GC) — Fórmula de Fick y determinantes</div>
+  <div class="gc-head">💓 Gasto Cardíaco (GC) — Fórmula, Fick y determinantes del VS</div>
   <div class="gc-body">
     <div class="gc-formula">
       <div class="formula-box">
@@ -507,92 +495,109 @@ table.gtbl tr:last-child td{border-bottom:none;}
         <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#1a4a1a;margin-top:.3rem;text-transform:uppercase;letter-spacing:.1em;">Normal: 4–8 L/min en reposo</div>
       </div>
       <div style="font-size:.8rem;text-align:left;width:100%;">
-        <p style="margin-bottom:.4rem;"><strong>Índice Cardíaco (IC) = GC / SC</strong> (más preciso por superficie corporal)</p>
-        <p>Normal IC: 2,2 – 4,0 L/min/m²</p>
+        <p style="margin-bottom:.4rem;"><strong>Índice Cardíaco (IC) = GC / SC</strong><br>Normal IC: 2,2–4,0 L/min/m²</p>
+        <p style="margin-bottom:.4rem;"><strong>TA media (TAM)</strong> = TAD + (TAS–TAD)/3<br>Normal: 70–105 mmHg</p>
+        <p><strong>RVS</strong> = (TAM – PVC) / GC × 80<br>↑ en shock vasoconstrictor · ↓ en séptico</p>
       </div>
     </div>
     <div class="gc-determ">
       <div class="determ-title">Determinantes del volumen sistólico</div>
       <div class="det-item det-vs"><strong>Precarga (↑ retorno venoso)</strong> → ↑ VS (ley de Frank-Starling)</div>
-      <div class="det-item det-fc"><strong>Postcarga (↑ resistencia arterial)</strong> → ↓ VS (el corazón trabaja más)</div>
-      <div class="det-item" style="background:#e8f0ff;border-left:3px solid #1a5a8a;"><strong>Contractilidad</strong> → capacidad intrínseca del miocardio de generar fuerza</div>
+      <div class="det-item det-fc"><strong>Postcarga (↑ RVS)</strong> → ↓ VS (corazón trabaja más contra resistencia)</div>
+      <div class="det-item" style="background:#e8f0ff;border-left:3px solid #1a5a8a;"><strong>Contractilidad</strong> → capacidad intrínseca del miocardio de generar fuerza (inotrópicos +: dopamina, dobutamina)</div>
       <div style="margin-top:.8rem;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.52rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.4rem;">Estados de GC alterado</div>
         <table style="width:100%;font-size:.79rem;border-collapse:collapse;">
           <tr style="border-bottom:1px solid var(--border);"><td style="padding:.25rem .5rem;font-weight:600;">Shock cardiogénico</td><td style="padding:.25rem .5rem;">GC ↓, PVC ↑, PCP ↑ (fallo de bomba)</td></tr>
-          <tr style="border-bottom:1px solid var(--border);"><td style="padding:.25rem .5rem;font-weight:600;">Shock séptico</td><td style="padding:.25rem .5rem;">GC ↑ (inicial), RVS ↓ (vasodilatación)</td></tr>
-          <tr><td style="padding:.25rem .5rem;font-weight:600;">Shock hipovolémico</td><td style="padding:.25rem .5rem;">GC ↓, PVC ↓, FC ↑ (compensación)</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:.25rem .5rem;font-weight:600;">Shock séptico</td><td style="padding:.25rem .5rem;">GC ↑ (inicial), RVS ↓ (vasodilatación distributiva)</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:.25rem .5rem;font-weight:600;">Shock hipovolémico</td><td style="padding:.25rem .5rem;">GC ↓, PVC ↓, FC ↑ (compensación simpática)</td></tr>
+          <tr><td style="padding:.25rem .5rem;font-weight:600;">Shock neurogénico</td><td style="padding:.25rem .5rem;">GC ↓, FC ↓ (bradicardia), RVS ↓ (pérdida tono simpático)</td></tr>
         </table>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 5. GLASGOW -->
-<div class="sec"><div class="sn">5</div><div><div class="sl">Escala neurológica universal</div><div class="st">Escala de Glasgow — GCS <span class="ev-tag">Brain Trauma Found. 2023</span></div></div></div>
+<!-- 6. GLASGOW -->
+<div class="sec"><div class="sn">6</div><div><div class="sl">Escala neurológica universal</div><div class="st">Escala de Glasgow (GCS) — Valoración y aplicación en trauma <span class="ev-tag">BTF 2023 · ATLS 10ª</span></div></div></div>
 
 <div class="glasgow-wrap">
   <div class="glasgow-head">🧠 Escala de Coma de Glasgow (GCS) — Rango 3–15</div>
   <table class="gtbl">
     <thead>
-      <tr><th>Componente</th><th>Respuesta</th><th>Puntos</th><th>Clave OPE</th></tr>
+      <tr><th>Componente</th><th>Respuesta</th><th>Puntos</th><th>Clave clínica</th></tr>
     </thead>
     <tbody>
-      <tr><td rowspan="4" style="font-weight:700;color:#4a1a6a;border-left:4px solid #4a1a6a;vertical-align:top;">Apertura Ocular (O)</td><td>Espontánea</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;">4</td><td rowspan="4" style="font-size:.79rem;">Máximo: <strong>4</strong>. Mínimo: <strong>1</strong> (no responde)</td></tr>
-      <tr><td>Al sonido / órdenes verbales</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#6a6a1a;">3</td></tr>
+      <tr><td rowspan="4" style="font-weight:700;color:#4a1a6a;border-left:4px solid #4a1a6a;vertical-align:top;">Apertura Ocular (O)</td><td>Espontánea</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;">4</td><td rowspan="4" style="font-size:.79rem;">Máx: <strong>4</strong> · Mín: <strong>1</strong></td></tr>
+      <tr><td>Al sonido / orden verbal</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#6a6a1a;">3</td></tr>
       <tr><td>Al dolor</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c06010;">2</td></tr>
       <tr style="border-bottom:2px solid var(--border);"><td>No responde</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;">1</td></tr>
-      <tr><td rowspan="5" style="font-weight:700;color:#1a5a8a;border-left:4px solid #1a5a8a;vertical-align:top;">Respuesta Verbal (V)</td><td>Orientado</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;">5</td><td rowspan="5" style="font-size:.79rem;">Máximo: <strong>5</strong>. Mínimo: <strong>1</strong> (no responde)</td></tr>
+      <tr><td rowspan="5" style="font-weight:700;color:#1a5a8a;border-left:4px solid #1a5a8a;vertical-align:top;">Respuesta Verbal (V)</td><td>Orientado</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;">5</td><td rowspan="5" style="font-size:.79rem;">Máx: <strong>5</strong> · Mín: <strong>1</strong></td></tr>
       <tr><td>Confuso</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#6a8a1a;">4</td></tr>
       <tr><td>Palabras inapropiadas</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#6a6a1a;">3</td></tr>
       <tr><td>Sonidos incomprensibles</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c06010;">2</td></tr>
       <tr style="border-bottom:2px solid var(--border);"><td>No responde</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;">1</td></tr>
-      <tr><td rowspan="6" style="font-weight:700;color:#1a7a3a;border-left:4px solid #1a7a3a;vertical-align:top;">Respuesta Motora (M)</td><td>Obedece órdenes</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;">6</td><td rowspan="6" style="font-size:.79rem;">Máximo: <strong>6</strong>. Mínimo: <strong>1</strong> (no responde)</td></tr>
+      <tr><td rowspan="6" style="font-weight:700;color:#1a7a3a;border-left:4px solid #1a7a3a;vertical-align:top;">Respuesta Motora (M)</td><td>Obedece órdenes</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;">6</td><td rowspan="6" style="font-size:.79rem;">Máx: <strong>6</strong> · Mín: <strong>1</strong></td></tr>
       <tr><td>Localiza el dolor</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#4a8a1a;">5</td></tr>
       <tr><td>Retirada al dolor</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#8a8a1a;">4</td></tr>
-      <tr><td>Flexión anormal (decorticación)</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c06010;">3</td></tr>
-      <tr><td>Extensión anormal (descerebración)</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c04020;">2</td></tr>
+      <tr><td>Flexión anormal — decorticación</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c06010;">3</td></tr>
+      <tr><td>Extensión anormal — descerebración</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c04020;">2</td></tr>
       <tr><td>No responde</td><td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;">1</td></tr>
     </tbody>
   </table>
-  <div style="padding:.7rem 1rem;background:#f8f0ff;border-top:2px solid var(--border);display:flex;gap:1.5rem;flex-wrap:wrap;">
-    <div style="font-size:.8rem;"><strong>Puntuación mínima posible:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;font-size:1rem;">3</span></div>
-    <div style="font-size:.8rem;"><strong>Puntuación máxima posible:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;font-size:1rem;">15</span></div>
-    <div style="font-size:.8rem;"><strong>Coma:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;">GCS ≤8</span></div>
-    <div style="font-size:.8rem;"><strong>Intubación:</strong> GCS ≤8 generalmente indica necesidad de protección vía aérea</div>
+  <div style="padding:.7rem 1rem;background:#f8f0ff;border-top:2px solid var(--border);display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;">
+    <div style="font-size:.8rem;"><strong>Mínimo posible:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;font-size:1rem;">3</span></div>
+    <div style="font-size:.8rem;"><strong>Máximo posible:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a6a1a;font-size:1rem;">15</span></div>
+    <div style="font-size:.8rem;"><strong>TCE leve:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;">GCS 13–15</span></div>
+    <div style="font-size:.8rem;"><strong>TCE moderado:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;">GCS 9–12</span></div>
+    <div style="font-size:.8rem;"><strong>TCE grave / coma:</strong> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#c02020;">GCS ≤8</span></div>
+  </div>
+  <div class="wb" style="margin:.5rem .9rem .7rem;">
+    <div class="wl">⚠️ GCS ≤8 e intubación — matiz clave (ATLS 10ª · BTF 2023)</div>
+    GCS ≤8 indica <strong>TCE grave y coma</strong>, y orienta a proteger la vía aérea. Sin embargo, <strong>la intubación debe basarse en el cuadro clínico global</strong>, no únicamente en el número: valorar dinámica (deterioro rápido), capacidad de proteger VA, SpO₂ y evidencia de hernia cerebral. Evidencia reciente cuestiona la intubación rutinaria inmediata en GCS 6–8 en centros hospitalarios. En campo (TCCC): si GCS ≤8 + apnea o VA no protegida → cricotiroidotomía o NPA, según recursos.
   </div>
 </div>
 
 <!-- PERLAS -->
-<div class="sec"><div class="sn">⭐</div><div><div class="sl">Sección obligatoria</div><div class="st">Perlas tipo examen INGESA / OPE Militar</div></div></div>
+<div class="sec"><div class="sn">⭐</div><div><div class="sl">Sección obligatoria — 12 perlas</div><div class="st">Perlas tipo examen INGESA 2026 / Enfermería Militar</div></div></div>
 
 <div class="perlas-wrap">
-  <div class="perlas-head">⭐ Perlas — Vasos, ECG y Hemodinámica</div>
+  <div class="perlas-head">⭐ Perlas — Vasos · ECG · Hemodinámica · IO · Glasgow</div>
   <div class="perlas-body">
-    <div class="perla-item"><strong>Prueba de Allen</strong> siempre antes de punción radial. Positivo (normal) = relleno &lt;7 seg. Si negativo → buscar otro acceso.</div>
-    <div class="perla-item"><strong>Arteria sobre la que se mide la TA</strong> = braquial (fosa antecubital), aunque el manguito rodea el brazo.</div>
-    <div class="perla-item"><strong>Manguito pequeño → TA falsamente ALTA</strong>. Manguito grande → TA falsamente baja. La más preguntada: el pequeño.</div>
-    <div class="perla-item"><strong>GC = VS × FC</strong>. Si la opción incluye esa multiplicación → suele ser la correcta. Normal 4–8 L/min en reposo.</div>
-    <div class="perla-item"><strong>ST elevado ≥1mm</strong> = IAMCEST (infarto transmural). Reperfusión urgente &lt;90 min ICP primaria (ESC 2023).</div>
-    <div class="perla-item"><strong>ST deprimido + T negativa</strong> = isquemia subendocárdica (IAMSEST o angina inestable). No confundir con IAMCEST.</div>
-    <div class="perla-item"><strong>Glasgow mínimo = 3</strong> (peor posible), <strong>máximo = 15</strong>. Glasgow ≤8 = coma = indicación de protección vía aérea.</div>
-    <div class="perla-item"><strong>Asma leve</strong> → hiperventilación → hipocapnia + <strong>alcalosis respiratoria</strong>. Si el CO₂ sube (normaliza) → signo de gravedad.</div>
-    <div class="perla-item"><strong>Luxación de rodilla</strong> → siempre revisar pulsos distales por riesgo de lesión de arteria poplítea (fosa poplítea).</div>
-    <div class="perla-item"><strong>Arteria femoral</strong> = triángulo femoral = acceso central de rescate en parada/shock cuando falla vía periférica.</div>
+    <div class="perla-item"><strong>Prueba de Allen — umbral correcto:</strong> relleno ≤15 seg = normal (positivo). El umbral de &lt;7 seg es más estricto; la OMS/WHO establece 5–15 seg como rango normal. Negativo = &gt;15 seg → buscar otro acceso vascular.</div>
+    <div class="perla-item"><strong>Arteria sobre la que se mide la TA</strong> = braquial (fosa antecubital), aunque el manguito rodea el brazo. Trampa: manguito <strong>pequeño → TA ALTA</strong>; manguito grande → TA baja.</div>
+    <div class="perla-item"><strong>GC = VS × FC</strong>. Normal 4–8 L/min reposo. Índice cardíaco (IC) = GC/SC → normal 2,2–4,0 L/min/m². El IC es más preciso al corregir por superficie corporal.</div>
+    <div class="perla-item"><strong>IAMCEST — objetivo ICP:</strong> ≤90 min desde primer contacto médico (PCM). En IAM anterior extenso de presentación precoz (&lt;2h inicio síntomas): ≤60 min. Umbral ST en V2-V3: 2,5/2,0/1,5mm (H&lt;40a/H≥40a/mujer) — ESC 2023.</div>
+    <div class="perla-item"><strong>T picuda + simétrica</strong> = isquemia hiperaguda o hiperpotasemia. <strong>T bifásica o invertida en V2-V3 en paciente sin dolor</strong> = síndrome de Wellens (estenosis crítica DA) → alto riesgo IAM inminente. NO hacer prueba de esfuerzo.</div>
+    <div class="perla-item"><strong>Asma leve</strong> → hiperventilación → hipocapnia → <strong>alcalosis respiratoria</strong>. Si CO₂ sube (normaliza) → agotamiento = grave. Es el patrón gasométrico más preguntado en crisis de asma leve.</div>
+    <div class="perla-item"><strong>Glasgow mínimo = 3</strong> (no cero), <strong>máximo = 15</strong>. GCS ≤8 = TCE grave / coma. La intubación a GCS ≤8 es una guía, no una regla absoluta: depende del contexto clínico y dinamismo neurológico (BTF 2023 / ATLS 10ª).</div>
+    <div class="perla-item"><strong>Luxación de rodilla</strong> → revisar siempre pulsos distales y reasteias colaterales: la arteria poplítea se lesiona en hasta el 30–40% de las luxaciones vasculares. Si no hay pulso → emergencia vascular.</div>
+    <div class="perla-item"><strong>Vía intraósea (IO) en campo — TCCC 2024:</strong> si vía periférica falla en ≤90 seg → IO inmediata. Sitio 1.ª elección: <strong>tibia proximal</strong> (cara anteromedial, 2–3 cm distal a tuberosidad). Con presión 300 mmHg = flujo equivalente a IV periférica.</div>
+    <div class="perla-item"><strong>Shock neurogénico</strong> (lesión medular alta): hipotensión + bradicardia + vasodilatación (extremidades calientes). Diferencia clave vs hipovolémico: en neurogénico FC ↓ (no compensación taquicárdica).</div>
+    <div class="perla-item"><strong>Arteria femoral y zona de unión:</strong> el torniquete estándar (CAT/SOFTT-W) no llega a la ingle/axila. Tratamiento: Combat Gauze + presión 3 min o JETT (junctional tourniquet). La femoral es también el acceso de rescate en PCR cuando el periférico falla.</div>
+    <div class="perla-item"><strong>QTc prolongado:</strong> &gt;450 ms en hombres, &gt;460 ms en mujeres → riesgo de torsades de pointes (arritmia ventricular polimórfica). Causas: amiodarona, haloperidol, eritromicina, levofloxacino, hipopotasemia, hipocalcemia.</div>
   </div>
 </div>
 
 <!-- GLOSARIO -->
-<div class="sec"><div class="sn">G</div><div><div class="sl">Términos</div><div class="st">Glosario</div></div></div>
+<div class="sec"><div class="sn">G</div><div><div class="sl">Términos</div><div class="st">Glosario de abreviaturas</div></div></div>
 <div class="glos-grid">
   <div class="gi"><div class="gt">GC</div><div class="gd">Gasto Cardíaco (L/min)</div></div>
   <div class="gi"><div class="gt">VS</div><div class="gd">Volumen Sistólico (ml/latido)</div></div>
   <div class="gi"><div class="gt">FC</div><div class="gd">Frecuencia Cardíaca</div></div>
-  <div class="gi"><div class="gt">IAMCEST</div><div class="gd">IAM con elevación ST</div></div>
+  <div class="gi"><div class="gt">IC</div><div class="gd">Índice Cardíaco (GC/SC)</div></div>
+  <div class="gi"><div class="gt">IAMCEST</div><div class="gd">IAM con elevación ST (STEMI)</div></div>
   <div class="gi"><div class="gt">ICP</div><div class="gd">Interv. Coronaria Percutánea</div></div>
+  <div class="gi"><div class="gt">PCM</div><div class="gd">Primer Contacto Médico</div></div>
   <div class="gi"><div class="gt">GCS</div><div class="gd">Glasgow Coma Scale</div></div>
   <div class="gi"><div class="gt">RVS</div><div class="gd">Resistencias Vasculares Sistémicas</div></div>
-  <div class="gi"><div class="gt">PCP</div><div class="gd">Presión Capilar Pulmonar</div></div>
+  <div class="gi"><div class="gt">PCP</div><div class="gd">Presión Capilar Pulmonar (cuña)</div></div>
+  <div class="gi"><div class="gt">AGB</div><div class="gd">Gasometría Arterial de Sangre</div></div>
+  <div class="gi"><div class="gt">IO</div><div class="gd">Vía Intraósea</div></div>
+  <div class="gi"><div class="gt">JETT</div><div class="gd">Junctional Emergency Treatment Tool</div></div>
+  <div class="gi"><div class="gt">TCE</div><div class="gd">Traumatismo Craneoencefálico</div></div>
+  <div class="gi"><div class="gt">TAM</div><div class="gd">Tensión Arterial Media</div></div>
+  <div class="gi"><div class="gt">NPA</div><div class="gd">Cánula Nasofaríngea (nasopharyngeal airway)</div></div>
 </div>
 
 </div>

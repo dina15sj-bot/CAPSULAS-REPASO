@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NRBC: Agentes Químicos de Guerra · Antídotos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--acento:#8a4a10;--acento-dark:#5a2e08;--acento-light:#b06828;--acento-pale:#f5ede4;--acento-mid:#d4844a;--col-nervios:#8a1a1a;--col-vesic:#7a1a8a;--col-asfixia:#1a5a8a;--col-sangre:#c04820;--col-incapac:#2a6a2a;--rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--naranja:#e07020;--purpura:#7040c0;--amarillo-perla:#fffce6;--borde-perla:#e0c020;--fondo:#f8f5f0;--blanco:#ffffff;--texto:#1a1a1a;--texto-m:#444444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--texto);font-size:15px;line-height:1.55;}
+.header{background:linear-gradient(135deg,var(--acento-dark) 0%,var(--acento) 55%,var(--acento-light) 100%);color:#fff;padding:28px 40px 24px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(60deg,transparent,transparent 12px,rgba(255,255,255,0.03) 12px,rgba(255,255,255,0.03) 24px);}
+.header::after{content:'☣';position:absolute;right:40px;top:50%;transform:translateY(-50%);font-size:7rem;opacity:0.07;pointer-events:none;}
+.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.header-top{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.header-icon{font-size:2.6rem;background:rgba(255,255,255,0.15);padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);}
+.header-text h1{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;line-height:1.15;}
+.header-text h1 span{color:#f0c898;}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-top:5px;}
+.header-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:3px 12px;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;}
+.container{max-width:1100px;margin:0 auto;padding:28px 20px;}
+.sec-header{background:var(--acento);color:#fff;padding:9px 18px;border-radius:6px 6px 0 0;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+.sec-body{background:var(--blanco);border:1px solid #ddd;border-top:none;border-radius:0 0 8px 8px;padding:20px;margin-bottom:24px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--acento-dark);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--acento-pale);}
+.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.intro-card{border-radius:8px;padding:14px;border:2px solid;text-align:center;}
+.intro-card.N{border-color:#1a1a8a;background:#f0f0ff;} .intro-card.R{border-color:#8a1a1a;background:#fff0f0;} .intro-card.B{border-color:#1a6a2a;background:#f0fff4;} .intro-card.C{border-color:var(--acento);background:var(--acento-pale);}
+.intro-card .letra{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;line-height:1;margin-bottom:4px;}
+.intro-card.N .letra{color:#1a1a8a;} .intro-card.R .letra{color:#8a1a1a;} .intro-card.B .letra{color:#1a6a2a;} .intro-card.C .letra{color:var(--acento);}
+.intro-card h3{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.intro-card.N h3{color:#1a1a8a;} .intro-card.R h3{color:#8a1a1a;} .intro-card.B h3{color:#1a6a2a;} .intro-card.C h3{color:var(--acento-dark);}
+.intro-card p{font-size:0.82rem;color:var(--texto-m);}
+.tabla-ag,.tabla-dosis{width:100%;border-collapse:collapse;font-size:0.83rem;margin-bottom:16px;}
+.tabla-ag thead th,.tabla-dosis thead th{padding:9px 12px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--acento);}
+.tabla-ag thead th:first-child,.tabla-dosis thead th:first-child{background:var(--acento-dark);color:#fff;}
+.tabla-ag thead th:not(:first-child),.tabla-dosis thead th:not(:first-child){background:var(--acento-pale);color:var(--acento-dark);}
+.tabla-ag tbody tr,.tabla-dosis tbody tr{border-bottom:1px solid #eee;}
+.tabla-ag tbody tr:hover,.tabla-dosis tbody tr:nth-child(even){background:#fafafa;}
+.tabla-ag td,.tabla-dosis td{padding:8px 12px;vertical-align:top;}
+.tabla-ag td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;white-space:nowrap;}
+.tabla-dosis td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;color:var(--purpura);}
+.ag-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;}
+.dot-nervios{background:var(--col-nervios);} .dot-vesic{background:var(--col-vesic);} .dot-asfixia{background:var(--col-asfixia);} .dot-sangre{background:var(--col-sangre);}
+.agente-card{border-radius:8px;overflow:hidden;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.08);border:1px solid #e0e0e0;}
+.agente-head{padding:12px 18px;color:#fff;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.agente-head.nervios{background:var(--col-nervios);} .agente-head.vesicante{background:var(--col-vesic);} .agente-head.asfixia{background:var(--col-asfixia);} .agente-head.sangre{background:var(--col-sangre);}
+.agente-head h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;}
+.agente-head .cat-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;background:rgba(255,255,255,0.2);padding:2px 10px;border-radius:10px;}
+.agente-head .ejemplos{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:rgba(255,255,255,0.85);margin-left:auto;}
+.agente-body{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--blanco);}
+.agente-col{padding:14px 16px;border-right:1px solid #eee;} .agente-col:last-child{border-right:none;}
+.agente-col h4{font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:var(--texto-m);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #eee;}
+.agente-col ul{list-style:none;} .agente-col ul li{font-size:0.85rem;color:var(--texto-m);margin-bottom:5px;padding-left:14px;position:relative;}
+.agente-col ul li::before{content:'·';position:absolute;left:0;color:var(--acento-mid);font-weight:700;}
+.agente-col ul li strong{color:var(--texto);}
+.agente-antidoto{background:#f0e8ff;border-top:1px solid #e0e0e0;padding:12px 16px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+.antidoto-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:var(--purpura);white-space:nowrap;margin-top:2px;}
+.antidoto-texto{font-size:0.87rem;color:var(--texto);flex:1;} .antidoto-texto strong{color:var(--purpura);} .antidoto-texto em{color:var(--acento-dark);font-style:normal;font-weight:600;}
+.antidotos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:18px;}
+.antidoto-card{background:var(--blanco);border:1px solid #ddd;border-radius:8px;overflow:hidden;}
+.antidoto-card-head{padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#fff;}
+.antidoto-card-head.atropina{background:var(--col-nervios);} .antidoto-card-head.pralidoxima{background:#9a3a10;} .antidoto-card-head.diazepam{background:var(--purpura);}
+.antidoto-card-head.nac{background:var(--col-vesic);} .antidoto-card-head.hidrox{background:var(--col-sangre);} .antidoto-card-head.bae{background:#1a6a6a;}
+.antidoto-card-body{padding:14px;}
+.dosis-row{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #f0f0f0;}
+.dosis-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;color:var(--texto-m);min-width:80px;font-weight:600;}
+.dosis-valor{font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;color:var(--texto);}
+.mecanismo-text{font-size:0.84rem;color:var(--texto-m);margin-bottom:8px;} .mecanismo-text strong{color:var(--texto);}
+.indicacion-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.63rem;font-weight:700;padding:2px 8px;border-radius:10px;margin:2px 3px 2px 0;}
+.ib-nervios{background:#fff0ee;color:var(--col-nervios);border:1px solid var(--col-nervios);}
+.ib-vesic{background:#f8f0ff;color:var(--col-vesic);border:1px solid var(--col-vesic);}
+.ib-sangre{background:#fff5ee;color:var(--col-sangre);border:1px solid var(--col-sangre);}
+.descon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
+.descon-card{background:var(--blanco);border:1px solid #ddd;border-radius:8px;overflow:hidden;}
+.descon-head{background:var(--acento);color:#fff;padding:8px 12px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
+.descon-body{padding:12px;font-size:0.83rem;color:var(--texto-m);} .descon-body p{margin-bottom:5px;} .descon-body strong{color:var(--texto);display:block;margin-bottom:4px;}
+.epi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.epi-card{border-radius:8px;padding:12px;text-align:center;border:2px solid;}
+.epi-card.A{border-color:#8a1a1a;background:#fff0f0;} .epi-card.B{border-color:var(--acento);background:var(--acento-pale);}
+.epi-card.C{border-color:#1a5a8a;background:#f0f5ff;} .epi-card.D{border-color:#1a7a3a;background:#f0fff4;}
+.epi-nivel{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:4px;}
+.epi-card.A .epi-nivel{color:#8a1a1a;} .epi-card.B .epi-nivel{color:var(--acento);} .epi-card.C .epi-nivel{color:#1a5a8a;} .epi-card.D .epi-nivel{color:#1a7a3a;}
+.epi-nombre{font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.epi-card.A .epi-nombre{color:#8a1a1a;} .epi-card.B .epi-nombre{color:var(--acento-dark);} .epi-card.C .epi-nombre{color:#1a5a8a;} .epi-card.D .epi-nombre{color:#1a7a3a;}
+.epi-desc{font-size:0.78rem;color:var(--texto-m);}
+.advertencia{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.advertencia strong{color:var(--rojo);}
+.nota-clave{background:#f0e8ff;border-left:4px solid var(--purpura);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.nota-clave strong{color:var(--purpura);}
+.badge-otan{display:inline-block;background:#1a3a8a;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+.perlas-section{background:var(--amarillo-perla);border:1px solid var(--borde-perla);border-radius:8px;overflow:hidden;margin-bottom:24px;}
+.perlas-header{background:#b08010;color:#fff;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+.perlas-grid{display:grid;grid-template-columns:1fr 1fr;}
+.perla-item{padding:13px 18px;border-bottom:1px solid rgba(224,192,32,0.3);border-right:1px solid rgba(224,192,32,0.3);font-size:0.87rem;line-height:1.5;}
+.perla-item:nth-child(even){border-right:none;}
+.perla-item:last-child,.perla-item:nth-last-child(2):nth-child(odd){border-bottom:none;}
+.perla-item .estrella{color:#b08010;font-size:1rem;}
+.perla-item strong{color:var(--acento-dark);}
+.glosario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.glos-item{background:var(--blanco);border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:0.82rem;}
+.glos-item dt{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:var(--acento);margin-bottom:2px;}
+.glos-item dd{color:var(--texto-m);}
+.fuentes-bar{background:var(--acento-pale);border:1px solid #d4b898;border-radius:6px;padding:8px 14px;font-size:0.78rem;color:var(--acento-dark);margin-bottom:20px;font-family:'JetBrains Mono',monospace;}
+@media(max-width:800px){
+.header{padding:20px 16px;}.header::after{display:none;}.header-text h1{font-size:1.5rem;}
+.intro-grid{grid-template-columns:repeat(2,1fr);}
+.agente-body{grid-template-columns:1fr;}.agente-col{border-right:none;border-bottom:1px solid #eee;}.agente-col:last-child{border-bottom:none;}
+.antidotos-grid{grid-template-columns:1fr;}
+.descon-grid,.epi-grid{grid-template-columns:repeat(2,1fr);}
+.perlas-grid{grid-template-columns:1fr;}.perla-item{border-right:none!important;}
+.glosario-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:480px){.intro-grid,.descon-grid,.epi-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="header-icon">&#9763;&#65039;</div>
+      <div class="header-text">
+        <h1>NRBC <span>Agentes Qu&#237;micos de Guerra</span></h1>
+        <div class="header-sub">Agentes nerviosos &#183; Vesicantes &#183; Asfixiantes &#183; Acci&#243;n sangre &#183; Ant&#237;dotos &#183; Descontaminaci&#243;n &#183; EPI</div>
+      </div>
+    </div>
+    <div class="header-pills">
+      <span class="pill">&#127894;&#65039; Enfermer&#237;a Militar</span>
+      <span class="pill">&#9763; NRBC / CBRN</span>
+      <span class="pill">&#128137; Ant&#237;dotos urgentes</span>
+      <span class="pill">&#128562; NATO STANAG 2083</span>
+      <span class="pill">&#128203; INGESA 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="fuentes-bar">&#128218; FUENTES: NATO AMedP-8(C) &#183; FM 4-02.7 US Army CBRN Medical Support &#183; ATSDR Medical Management Guidelines 2024 &#183; NATO CHEMM &#183; Manual NRBC Sanidad Militar Espa&#241;ola &#183; OPCW Technical Secretariat &#183; Protocolos SNS Espa&#241;a emergencias NRBC &#183; PHTLS 10&#170; ed. 2023</div>
+
+<!-- 01 NRBC MARCO -->
+<div class="sec-header">&#128204; 01 &#8212; Marco NRBC: definici&#243;n y clasificaci&#243;n</div>
+<div class="sec-body">
+  <div class="sec-title">Acr&#243;nimo NRBC / NATO: CBRN</div>
+  <div class="intro-grid">
+    <div class="intro-card N"><div class="letra">N</div><h3>Nuclear</h3><p>Explosi&#243;n nuclear, bomba sucia. Radiaci&#243;n ionizante masiva, onda expansiva, EMP.</p></div>
+    <div class="intro-card R"><div class="letra">R</div><h3>Radiol&#243;gico</h3><p>Dispersi&#243;n radiactiva sin explosi&#243;n nuclear. Contaminaci&#243;n alfa, beta, gamma.</p></div>
+    <div class="intro-card B"><div class="letra">B</div><h3>Biol&#243;gico</h3><p>Bacterias, virus, toxinas (&#225;ntrax, viruela, botulismo). Latencia horas-d&#237;as.</p></div>
+    <div class="intro-card C"><div class="letra">C</div><h3>Qu&#237;mico</h3><p>Agentes t&#243;xicos de combate. <strong>Efecto inmediato o en minutos.</strong> Foco de este recurso.</p></div>
+  </div>
+  <div class="sec-title">Clasificaci&#243;n de agentes qu&#237;micos de guerra</div>
+  <table class="tabla-ag">
+    <thead><tr><th>Clase</th><th>Mecanismo</th><th>Ejemplos clave</th><th>C&#243;digo NATO</th><th>Inicio s&#237;ntomas</th></tr></thead>
+    <tbody>
+      <tr><td><span class="ag-dot dot-nervios"></span>Nerviosos</td><td>Inhibici&#243;n irreversible acetilcolinesterasa &#8594; ac&#250;mulo ACh</td><td>Sar&#237;n (GB), Som&#225;n (GD), Tab&#250;n (GA), VX, Novichok</td><td>G-agents / V-agents</td><td>Segundos&#8211;minutos (inhalaci&#243;n)</td></tr>
+      <tr><td><span class="ag-dot dot-vesic"></span>Vesicantes</td><td>Alquilaci&#243;n ADN, da&#241;o epitelial directo</td><td>Gas mostaza (HD), Lewisita (L), Nitr&#243;geno mostaza (HN)</td><td>Blister agents</td><td>2&#8211;24h (mostaza); inmediato (lewisita)</td></tr>
+      <tr><td><span class="ag-dot dot-asfixia"></span>Asfixiantes</td><td>Lesi&#243;n pulmonar directa &#8594; EAP t&#243;xico</td><td>Fosgeno (CG), Difosgeno (DP), Clorina (Cl&#8322;)</td><td>Choking agents</td><td>4&#8211;24h latencia (fosgeno)</td></tr>
+      <tr><td><span class="ag-dot dot-sangre"></span>Ac. sangre</td><td>Bloqueo cadena respiratoria mitocondrial (citoc. oxidasa)</td><td>&#193;c. cianhídrico (AC), Cloruro cian&#243;geno (CK)</td><td>Blood agents</td><td>Segundos&#8211;minutos</td></tr>
+      <tr><td style="color:var(--col-incapac)">&#9632; Incapacitantes</td><td>Bloqueo muscar&#237;nico central o lacrim&#243;genos</td><td>BZ, CS (gas lacrim&#243;geno), CN</td><td>Incapacitating agents</td><td>Minutos</td></tr>
+    </tbody>
+  </table>
+  <div class="advertencia"><strong>&#9888;&#65039; Para el examen:</strong> Armas qu&#237;micas prohibidas por la <strong>Convenci&#243;n de Armas Qu&#237;micas (1993)</strong>, 193 pa&#237;ses. Organismo supervisor: <strong>OPAQ (OPCW)</strong>, sede La Haya &#8212; Premio Nobel Paz 2013. No confundir con ONU.</div>
+</div>
+
+<!-- 02 AGENTES NERVIOSOS -->
+<div class="sec-header">&#128308; 02 &#8212; Agentes nerviosos: organofosforados de combate</div>
+<div class="sec-body">
+  <div class="agente-card">
+    <div class="agente-head nervios">
+      <h3>Agentes del Grupo G y V &#8212; Organofosforados de combate</h3>
+      <span class="cat-label">Nerviosos</span>
+      <span class="ejemplos">Sar&#237;n &#183; Som&#225;n &#183; Tab&#250;n &#183; VX &#183; Novichok</span>
+    </div>
+    <div class="agente-body">
+      <div class="agente-col">
+        <h4>&#9881;&#65039; Mecanismo</h4>
+        <ul>
+          <li><strong>Inhiben irreversiblemente</strong> la acetilcolinesterasa (AChE)</li>
+          <li>Ac&#250;mulo de <strong>ACh</strong> en sinapsis muscar&#237;nicas, nicot&#237;nicas y SNC</li>
+          <li>Uni&#243;n covalente &#8594; irreversible si no se trata a tiempo (<strong>"aging"</strong>)</li>
+          <li>VX: <strong>m&#225;s letal</strong>, absorci&#243;n cut&#225;nea excelente, persistente</li>
+          <li>Sar&#237;n: <strong>m&#225;s vol&#225;til</strong>, inhalaci&#243;n principal v&#237;a</li>
+          <li>Novichok: 5&#8211;10&#215; m&#225;s potente que VX</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#129760; Cl&#237;nica MUSCAR&#205;NICA (DUMBELS)</h4>
+        <ul>
+          <li><strong>D</strong>efecaci&#243;n / diarrea</li>
+          <li><strong>U</strong>rinaci&#243;n (incontinencia)</li>
+          <li><strong>M</strong>iosis &#9733; <strong>SIGNO M&#193;S PRECOZ</strong></li>
+          <li><strong>B</strong>radicardia, Broncospasmo, Bronquiorrea</li>
+          <li><strong>E</strong>m&#233;sis (v&#243;mitos)</li>
+          <li><strong>L</strong>agrimeo, Letargia</li>
+          <li><strong>S</strong>alivaci&#243;n, Sudoraci&#243;n profusa</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#128170; Cl&#237;nica NICOT&#205;NICA + SNC</h4>
+        <ul>
+          <li><strong>Nicot&#237;nico:</strong> fasciculaciones, debilidad, par&#225;lisis fl&#225;ccida</li>
+          <li><strong>SNC:</strong> ansiedad, confusi&#243;n, convulsiones, coma</li>
+          <li><strong>Muerte:</strong> par&#225;lisis resp. + broncoespasmo + hipersecrecion</li>
+          <li>Fasciculaciones = <strong>signo nicot&#237;nico temprano</strong></li>
+          <li>Dosis bajas: rinorrea + lagrimeo + visi&#243;n borrosa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="agente-antidoto">
+      <span class="antidoto-label">&#128273; ANT&#205;DOTO</span>
+      <span class="antidoto-texto">
+        <strong>1&#170; l&#237;nea: Atropina</strong> 2&#8211;4 mg IV/IM cada 5&#8211;10 min hasta secar secreciones bronquiales (NO hasta midriasis). Exposici&#243;n masiva: hasta 20&#8211;100 mg.
+        <strong>2&#170; l&#237;nea: Pralidoxima (2-PAM)</strong> 1&#8211;2 g IV en 15 min &#8594; regenera AChE antes del <em>aging</em> (Sar&#237;n: ~5h; Som&#225;n: 2&#8211;6 min; VX: ~48h).
+        <strong>3&#170; l&#237;nea: Diazepam</strong> 5&#8211;10 mg IV para convulsiones. <em>Autoinyector militar: MARK 1 (atropina 2mg + pralidoxima 600mg).</em>
+      </span>
+    </div>
+  </div>
+  <div class="nota-clave"><strong>&#128273; DUMBELS:</strong> Diarrea &#183; Urinaci&#243;n &#183; Miosis &#183; Bradicardia/Broncospasmo &#183; Em&#233;sis &#183; Lagrimeo &#183; Salivaci&#243;n/Sudoraci&#243;n. <strong>Miosis = signo m&#225;s precoz y constante.</strong> Endpoint de atropina = secreciones bronquiales secas + FC &gt;80 lpm. NO usar midriasis como objetivo.</div>
+
+  <div class="sec-title">Tipos de agentes nerviosos y aging</div>
+  <table class="tabla-dosis">
+    <thead><tr><th>Agente</th><th>C&#243;digo</th><th>Volatilidad</th><th>V&#237;a principal</th><th>Aging AChE</th><th>Particularidad</th></tr></thead>
+    <tbody>
+      <tr><td>Sar&#237;n</td><td>GB</td><td>Alta (vapor)</td><td>Inhalaci&#243;n</td><td>~5 horas</td><td>Metro Tokio 1995. No persistente.</td></tr>
+      <tr><td>Som&#225;n</td><td>GD</td><td>Moderada</td><td>Inhalaci&#243;n/cut&#225;nea</td><td><strong>2&#8211;6 min &#9888;</strong></td><td>Aging ultrarr&#225;pido &#8594; pralidoxima ineficaz muy pronto</td></tr>
+      <tr><td>Tab&#250;n</td><td>GA</td><td>Moderada</td><td>Inhalaci&#243;n/cut&#225;nea</td><td>~14 horas</td><td>Primera arma nerviosa sintetizada (1936)</td></tr>
+      <tr><td>VX</td><td>VX</td><td>Muy baja (aceitoso)</td><td><strong>Cut&#225;nea</strong></td><td>~48 horas</td><td>El m&#225;s letal. Persistente d&#237;as&#8211;semanas.</td></tr>
+      <tr><td>Novichok</td><td>A-230+</td><td>Variable</td><td>Cut&#225;nea/inhalaci&#243;n</td><td>R&#225;pido</td><td>5&#8211;10&#215; m&#225;s potente que VX. Salisbury 2018.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 03 VESICANTES -->
+<div class="sec-header">&#128995; 03 &#8212; Agentes vesicantes (blister agents)</div>
+<div class="sec-body">
+  <div class="agente-card">
+    <div class="agente-head vesicante">
+      <h3>Gas Mostaza (HD) &#8212; Iperita</h3>
+      <span class="cat-label">Vesicante principal</span>
+      <span class="ejemplos">Sulfur Mustard &#183; Dichlorodiethyl sulfide</span>
+    </div>
+    <div class="agente-body">
+      <div class="agente-col">
+        <h4>&#9881;&#65039; Mecanismo</h4>
+        <ul>
+          <li><strong>Alquilaci&#243;n del ADN</strong> &#8594; muerte celular programada</li>
+          <li>Epitelio, c&#243;rnea, v&#237;as resp., m&#233;dula &#243;sea</li>
+          <li><strong>Latencia 2&#8211;24 horas</strong> &#8594; sin dolor inmediato</li>
+          <li>Olor: <strong>ajo / mostaza</strong></li>
+          <li>Persiste en ambiente: <strong>d&#237;as&#8211;semanas</strong> en fr&#237;o</li>
+          <li><strong>Sin ant&#237;doto espec&#237;fico</strong></li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#129657; Cl&#237;nica (con latencia)</h4>
+        <ul>
+          <li><strong>Piel:</strong> eritema &#8594; ampollas &#8594; &#250;lceras (2&#8211;24h)</li>
+          <li><strong>Ojos:</strong> fotofobia, blefaroespasmo, queratitis, ceguera temporal</li>
+          <li><strong>V&#237;as resp.:</strong> rinorrea, bronquitis qu&#237;mica, neumonitis</li>
+          <li><strong>Sist&#233;mico:</strong> leucopenia, aplasia medular (dosis alta)</li>
+          <li>Pocas muertes agudas, <strong>alta morbilidad</strong></li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#128680; Caracter&#237;sticas &#250;nicas</h4>
+        <ul>
+          <li>Principal amenaza: <strong>cut&#225;nea y ocular</strong></li>
+          <li>Penetra ropa NBQ en exposici&#243;n prolongada</li>
+          <li>Usado WWI (1917), Ir&#225;n-Iraq (1980s)</u></li>
+          <li>Carcin&#243;geno IARC Grupo 1</li>
+          <li>Ampolla: l&#237;quido claro = <strong>exudado (NO el agente)</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="agente-antidoto">
+      <span class="antidoto-label">&#9888;&#65039; SIN ANT&#205;DOTO</span>
+      <span class="antidoto-texto"><strong>NO existe ant&#237;doto para mostaza.</strong> <em>Descontaminaci&#243;n inmediata</em> = primer 2 min reduce da&#241;o hasta 80%. <strong>BAL NO es eficaz en mostaza</strong> (solo en lewisita). Manejo: ap&#243;sitos no adhesivos, soporte resp., control dolor, profilaxis infecci&#243;n.</span>
+    </div>
+  </div>
+
+  <div class="agente-card">
+    <div class="agente-head vesicante">
+      <h3>Lewisita (L) &#8212; Vesicante arsenical</h3>
+      <span class="cat-label">Vesicante ars&#233;nico</span>
+      <span class="ejemplos">2-Chlorovinyldichloroarsine</span>
+    </div>
+    <div class="agente-body">
+      <div class="agente-col">
+        <h4>&#9881;&#65039; Mecanismo</h4>
+        <ul>
+          <li>Compuesto organometálico de <strong>ars&#233;nico</strong></li>
+          <li>Inhibe enzimas sulfhidrilo (SH) &#8594; bloqueo metab&#243;lico</li>
+          <li>Dolor e irritaci&#243;n <strong>INMEDIATOS</strong></li>
+          <li>Olor: <strong>geranio / hierba verde</strong></li>
+          <li>Vasodilata sist&#233;micamente &#8594; <strong>shock lewis&#237;tico</strong></li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#129657; Cl&#237;nica</h4>
+        <ul>
+          <li><strong>Piel:</strong> dolor inmediato, eritema 30 min, ampollas 12h</li>
+          <li><strong>Ojos:</strong> blefarospasmo severo, edema palpebral inmediato</li>
+          <li><strong>Sist&#233;mico:</strong> hipotensión, edema pulmonar, shock</li>
+          <li>Absorci&#243;n sist&#233;mica &#8594; intoxicaci&#243;n ars&#233;nico</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#128273; Diferencia clave vs Mostaza</h4>
+        <ul>
+          <li>Lewisita: <strong>dolor INMEDIATO</strong></li>
+          <li>Mostaza: <strong>dolor diferido 2&#8211;24h</strong></li>
+          <li>Lewisita: <strong>ant&#237;doto BAL disponible</strong></li>
+          <li>Mostaza: sin ant&#237;doto</li>
+          <li>Lewisita: shock CV &#8594; repos. IV urgente</li>
+        </ul>
+      </div>
+    </div>
+    <div class="agente-antidoto">
+      <span class="antidoto-label">&#128273; ANT&#205;DOTO</span>
+      <span class="antidoto-texto"><strong>BAL (British Anti-Lewisite / Dimercaprol)</strong>: 3 mg/kg IM cada 4h &#215;2 dosis; luego c/6&#8211;12h. <em>Alternativa moderna: DMSA</em> 10 mg/kg VO c/8h &#215; 5 d&#237;as &#8212; m&#225;s seguro. <strong>BAL contraindicado en insuf. hep&#225;tica y con hierro concomitante.</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- 04 ASFIXIANTES Y SANGRE -->
+<div class="sec-header">&#128309; 04 &#8212; Asfixiantes pulmonares y agentes de acci&#243;n sobre la sangre</div>
+<div class="sec-body">
+  <div class="agente-card">
+    <div class="agente-head asfixia">
+      <h3>Agentes Asfixiantes: Fosgeno (CG) y Clorina (Cl&#8322;)</h3>
+      <span class="cat-label">Choking agents</span>
+      <span class="ejemplos">Fosgeno &#183; Difosgeno &#183; Gas cloro</span>
+    </div>
+    <div class="agente-body">
+      <div class="agente-col">
+        <h4>&#9881;&#65039; Mecanismo</h4>
+        <ul>
+          <li>Fosgeno: reacci&#243;n con grupos amina/SH &#8594; <strong>da&#241;o epitelio alveolar</strong></li>
+          <li>&#8593; permeabilidad capilar pulmonar &#8594; <strong>EAP no cardiog&#233;nico</strong></li>
+          <li>Clorina: irritante directo + hipoclorito tisular</li>
+          <li>Olor fosgeno: <strong>heno reci&#233;n cortado</strong></li>
+          <li>Olor clorina: <strong>lej&#237;a / piscina</strong></li>
+          <li><strong>Latencia 4&#8211;24h</strong> para EAP (agente furtivo)</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#129657; Cl&#237;nica</h4>
+        <ul>
+          <li>Fase I (0&#8211;4h): irritaci&#243;n leve ojos/nariz, tos</li>
+          <li>Fase II: aparente mejor&#237;a (<strong>latencia enga&#241;osa</strong>)</li>
+          <li>Fase III (4&#8211;24h): <strong>EAP s&#250;bito</strong>, cianosis, hipoxia grave</li>
+          <li>Fosgeno = <strong>80&#8211;85% muertes qu&#237;micas WWI</strong></li>
+          <li>Tard&#237;o: ARDS, neumon&#237;a bacteriana secundaria</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#128681; Manejo</h4>
+        <ul>
+          <li><strong>Reposo absoluto</strong> &#8594; el ejercicio precipita EAP</li>
+          <li>O&#8322; humidificado, VM si EAP establecido</li>
+          <li>Broncodilatadores (&#946;&#8322; agonistas)</li>
+          <li>Corticoides sist&#233;micos (pr&#225;ctica cl&#237;nica)</li>
+          <li><strong>NO diur&#233;ticos agresivos</strong> (EAP no cardiog&#233;nico)</li>
+          <li>Observaci&#243;n m&#237;nima <strong>24h</strong> aunque asintom&#225;tico</li>
+        </ul>
+      </div>
+    </div>
+    <div class="agente-antidoto">
+      <span class="antidoto-label">&#9888;&#65039; SIN ANT&#205;DOTO</span>
+      <span class="antidoto-texto">No existe ant&#237;doto para fosgeno ni clorina. Tratamiento: retirada inmediata + descontaminaci&#243;n + soporte ventilatorio. <strong>Observaci&#243;n 24h m&#237;nima</strong> por latencia del EAP aunque el paciente est&#233; asintom&#225;tico.</span>
+    </div>
+  </div>
+
+  <div class="agente-card">
+    <div class="agente-head sangre">
+      <h3>Agentes de Acci&#243;n sobre la Sangre: Cianuro</h3>
+      <span class="cat-label">Blood agents</span>
+      <span class="ejemplos">HCN (&#225;c. cianh&#237;drico) &#183; Cloruro cian&#243;geno (CK)</span>
+    </div>
+    <div class="agente-body">
+      <div class="agente-col">
+        <h4>&#9881;&#65039; Mecanismo</h4>
+        <ul>
+          <li>Bloquea <strong>citocromo c oxidasa</strong> (complejo IV mitocondrial)</li>
+          <li>C&#233;lulas incapaces de usar O&#8322; &#8594; <strong>hipoxia histot&#243;xica</strong></li>
+          <li>O&#8322; arterial normal, tisular = 0 &#8594; sangre venosa <strong>roja brillante</strong></li>
+          <li>Olor: <strong>almendras amargas</strong> (30% no perciben)</li>
+          <li>Inicio: <strong>segundos&#8211;minutos</strong> por inhalaci&#243;n</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#129657; Cl&#237;nica</h4>
+        <ul>
+          <li>Ansiedad, cefal&#233;a, v&#233;rtigo, taquipnea refleja</li>
+          <li>Convulsiones, p&#233;rdida de consciencia</li>
+          <li>Bradipnea &#8594; paro respiratorio &#8594; PCR</li>
+          <li><strong>Sangre venosa roja</strong> (O&#8322; no utilizado)</li>
+          <li><strong>Lactato &gt;8&#8211;10 mmol/L</strong> (acidosis l&#225;ctica)</li>
+          <li>Muerte en <strong>minutos</strong> sin tratamiento</li>
+        </ul>
+      </div>
+      <div class="agente-col">
+        <h4>&#128273; Diferencial con CO</h4>
+        <ul>
+          <li>CO: carboxihemoglobina &#8593;</li>
+          <li>CN: SatO&#8322; normal/alta; lactato muy elevado</li>
+          <li>Ambos: piel rosada/roja, inconsciencia</li>
+          <li>Incendio + lactato &gt;10 mmol/L &#8594; <strong>sospechar CN</strong></li>
+          <li>Ant&#237;dotos distintos: CO &#8594; O&#8322; hiperb&#225;rico; CN &#8594; Hidroxocobalamina</li>
+        </ul>
+      </div>
+    </div>
+    <div class="agente-antidoto">
+      <span class="antidoto-label">&#128273; ANT&#205;DOTO</span>
+      <span class="antidoto-texto"><strong>1&#170; elecci&#243;n: Hidroxocobalamina (Cyanokit&#174;)</strong> 5 g IV en 15 min (adulto); pedi&#225;trico 70 mg/kg. Quelaci&#243;n directa CN&#8315; &#8594; cianocobalamina excretable. Sin metahemoglobinemia: <em>segura si hay CO concomitante (incendios).</em> <strong>2&#170; l&#237;nea: Tiosulfato s&#243;dico</strong> 12,5 g IV. <strong>Nitritos (hist&#243;rico, en desuso): </strong>forman metahemoglobina &#8212; peligrosos si CO coexiste.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 05 TABLA ANTÍDOTOS -->
+<div class="sec-header">&#128137; 05 &#8212; Tabla maestra de ant&#237;dotos</div>
+<div class="sec-body">
+  <div class="antidotos-grid">
+    <div class="antidoto-card">
+      <div class="antidoto-card-head atropina">&#128308; ATROPINA &#8212; 1&#170; l&#237;nea agentes nerviosos</div>
+      <div class="antidoto-card-body">
+        <div class="dosis-row"><span class="dosis-label">Indicaci&#243;n</span><span class="dosis-valor">Agentes nerviosos (organofosforados)</span></div>
+        <div class="dosis-row"><span class="dosis-label">Dosis inicial</span><span class="dosis-valor">2&#8211;4 mg IV/IM (adulto)</span></div>
+        <div class="dosis-row"><span class="dosis-label">Repetici&#243;n</span><span class="dosis-valor">Cada 5&#8211;10 min hasta secar secreciones</span></div>
+        <div class="dosis-row"><span class="dosis-label">Dosis total</span><span class="dosis-valor">Sin l&#237;mite; hasta 20&#8211;100 mg en masivos</span></div>
+        <div class="dosis-row"><span class="dosis-label">Pedi&#225;trico</span><span class="dosis-valor">0,05&#8211;0,1 mg/kg IV/IM</span></div>
+        <div class="mecanismo-text"><strong>Mecanismo:</strong> Antagonista muscar&#237;nico competitivo. NO revierte efectos nicot&#237;nicos (fasciculaciones).</div>
+        <div class="mecanismo-text"><strong>Endpoint:</strong> Secreciones bronquiales secas + FC &gt;80 lpm. <strong>NO usar midriasis.</strong></div>
+        <span class="indicacion-badge ib-nervios">Sar&#237;n</span><span class="indicacion-badge ib-nervios">Som&#225;n</span><span class="indicacion-badge ib-nervios">VX</span><span class="indicacion-badge ib-nervios">Novichok</span>
+      </div>
+    </div>
+    <div class="antidoto-card">
+      <div class="antidoto-card-head pralidoxima">&#128308; PRALIDOXIMA (2-PAM) &#8212; Reactivador AChE</div>
+      <div class="antidoto-card-body">
+        <div class="dosis-row"><span class="dosis-label">Indicaci&#243;n</span><span class="dosis-valor">Agentes nerviosos (antes del aging)</span></div>
+        <div class="dosis-row"><span class="dosis-label">Dosis adulto</span><span class="dosis-valor">1&#8211;2 g IV en 15&#8211;30 min</span></div>
+        <div class="dosis-row"><span class="dosis-label">Mantenimiento</span><span class="dosis-valor">200&#8211;400 mg/h IV hasta 12&#8211;24h</span></div>
+        <div class="dosis-row"><span class="dosis-label">Ventana &#250;til</span><span class="dosis-valor">Som&#225;n: 2&#8211;6 min &#9888; | Sar&#237;n: ~5h | VX: ~48h</span></div>
+        <div class="mecanismo-text"><strong>Mecanismo:</strong> Regenera AChE fosforilada. Actúa sobre receptores nicot&#237;nicos. Solo eficaz <strong>antes del aging.</strong></div>
+        <div class="mecanismo-text"><strong>RAM:</strong> Hipertensi&#243;n si infusi&#243;n r&#225;pida. CI: miastenia gravis.</div>
+        <span class="indicacion-badge ib-nervios">Sar&#237;n &#10003;</span><span class="indicacion-badge ib-nervios">VX &#10003;&#10003;</span><span class="indicacion-badge ib-nervios">Som&#225;n &#9888; ventana m&#237;nima</span>
+      </div>
+    </div>
+    <div class="antidoto-card">
+      <div class="antidoto-card-head diazepam">&#128995; DIAZEPAM / MIDAZOLAM &#8212; Convulsiones</div>
+      <div class="antidoto-card-body">
+        <div class="dosis-row"><span class="dosis-label">Indicaci&#243;n</span><span class="dosis-valor">Convulsiones por agentes nerviosos</span></div>
+        <div class="dosis-row"><span class="dosis-label">Diazepam</span><span class="dosis-valor">5&#8211;10 mg IV (hasta 30 mg)</span></div>
+        <div class="dosis-row"><span class="dosis-label">Midazolam</span><span class="dosis-valor">10 mg IM (campo, sin v&#237;a IV)</span></div>
+        <div class="dosis-row"><span class="dosis-label">Pedi&#225;trico</span><span class="dosis-valor">0,3&#8211;0,5 mg/kg IV/rectal</span></div>
+        <div class="mecanismo-text"><strong>Mecanismo:</strong> GABA-A agonista. <strong>NO usar fenitoi&#769;na</strong> como 1&#170; l&#237;nea (ineficaz: convulsiones por ACh, no epilepsia cl&#225;sica).</div>
+        <div class="mecanismo-text"><strong>Autoinyector militar:</strong> Convpen&#174; (diazepam 10mg IM) &#8212; muslo lateral incluso a trav&#233;s de ropa.</div>
+        <span class="indicacion-badge ib-nervios">Sar&#237;n</span><span class="indicacion-badge ib-nervios">VX</span><span class="indicacion-badge ib-nervios">Novichok</span>
+      </div>
+    </div>
+    <div class="antidoto-card">
+      <div class="antidoto-card-head hidrox">&#128992; HIDROXOCOBALAMINA &#8212; Cianuro 1&#170; elecci&#243;n</div>
+      <div class="antidoto-card-body">
+        <div class="dosis-row"><span class="dosis-label">Indicaci&#243;n</span><span class="dosis-valor">Intoxicaci&#243;n por cianuro</span></div>
+        <div class="dosis-row"><span class="dosis-label">Dosis adulto</span><span class="dosis-valor">5 g IV en 15 min (Cyanokit&#174;)</span></div>
+        <div class="dosis-row"><span class="dosis-label">2&#170; dosis</span><span class="dosis-valor">5 g adicionales si grave</span></div>
+        <div class="dosis-row"><span class="dosis-label">Pedi&#225;trico</span><span class="dosis-valor">70 mg/kg IV</span></div>
+        <div class="dosis-row"><span class="dosis-label">RAM</span><span class="dosis-valor">Cromaturia roja, eritema cut&#225;neo (inocuos)</span></div>
+        <div class="mecanismo-text"><strong>Mecanismo:</strong> Quelaci&#243;n directa CN&#8315; &#8594; cianocobalamina excretable renal. Sin metahemoglobinemia.</div>
+        <div class="mecanismo-text"><strong>Ventaja clave:</strong> Compatible con CO concomitante (incendios). <strong>1&#170; elecci&#243;n en v&#237;ctimas de incendio.</strong></div>
+        <span class="indicacion-badge ib-sangre">HCN</span><span class="indicacion-badge ib-sangre">Cloruro cian&#243;geno</span><span class="indicacion-badge ib-sangre">Incendio+lactato&gt;10</span>
+      </div>
+    </div>
+    <div class="antidoto-card">
+      <div class="antidoto-card-head bae">&#128309; BAL / DMSA &#8212; Lewisita (ars&#233;nico)</div>
+      <div class="antidoto-card-body">
+        <div class="dosis-row"><span class="dosis-label">Indicaci&#243;n</span><span class="dosis-valor">Lewisita, intoxicaci&#243;n ars&#233;nico</span></div>
+        <div class="dosis-row"><span class="dosis-label">BAL (IM)</span><span class="dosis-valor">3 mg/kg IM c/4h &#215;2; luego c/6&#8211;12h</span></div>
+        <div class="dosis-row"><span class="dosis-label">DMSA (VO)</span><span class="dosis-valor">10 mg/kg c/8h &#215; 5 d&#237;as</span></div>
+        <div class="mecanismo-text"><strong>Mecanismo BAL:</strong> Quelante bidentado &#8594; complejo estable ars&#233;nico excretable. Restaura enzimas SH inhibidas.</div>
+        <div class="mecanismo-text"><strong>CI BAL:</strong> Insuf. hep&#225;tica; hierro concomitante. DMSA m&#225;s seguro y oral. <strong>NO eficaz en mostaza.</strong></div>
+        <span class="indicacion-badge ib-vesic">Lewisita &#10003;</span><span class="indicacion-badge ib-vesic">NO para mostaza</span>
+      </div>
+    </div>
+    <div class="antidoto-card">
+      <div class="antidoto-card-head nac">&#128995; TIOSULFATO S&#211;DICO &#8212; Cianuro 2&#170; l&#237;nea</div>
+      <div class="antidoto-card-body">
+        <div class="dosis-row"><span class="dosis-label">Indicaci&#243;n</span><span class="dosis-valor">Cianuro (2&#170; l&#237;nea o combinado)</span></div>
+        <div class="dosis-row"><span class="dosis-label">Dosis</span><span class="dosis-valor">12,5 g IV (25 ml sol. 50%) en 10 min</span></div>
+        <div class="dosis-row"><span class="dosis-label">Pedi&#225;trico</span><span class="dosis-valor">412,5 mg/kg IV</span></div>
+        <div class="mecanismo-text"><strong>Mecanismo:</strong> Donador de azufre &#8594; rhodanasa hep&#225;tica convierte CN&#8315; en tiocianato (eliminaci&#243;n renal). M&#225;s lento que hidroxocobalamina.</div>
+        <div class="mecanismo-text"><strong>Nitritos (hist&#243;rico):</strong> forman metahemoglobina. <strong>Peligrosos si CO coexiste.</strong> En desuso como 1&#170; l&#237;nea.</div>
+        <span class="indicacion-badge ib-sangre">HCN</span><span class="indicacion-badge ib-sangre">Sin CO concomitante</span>
+      </div>
+    </div>
+  </div>
+  <div class="nota-clave"><strong>&#128273; Resumen ant&#237;dotos para examen:</strong> Nerviosos &#8594; <strong>Atropina + Pralidoxima + Diazepam</strong>. Lewisita &#8594; <strong>BAL / DMSA</strong> (NO para mostaza). Mostaza &#8594; <strong>Sin ant&#237;doto</strong>. Cianuro &#8594; <strong>Hidroxocobalamina</strong> (1&#170;) + Tiosulfato (2&#170;). Fosgeno/Clorina &#8594; <strong>Sin ant&#237;doto</strong> (O&#8322; + VM).</div>
+</div>
+
+<!-- 06 DESCONTAMINACIÓN Y EPI -->
+<div class="sec-header">&#128703; 06 &#8212; Descontaminaci&#243;n y EPI: principios operativos</div>
+<div class="sec-body">
+  <div class="sec-title">Niveles de descontaminaci&#243;n <span class="badge-otan">NATO</span></div>
+  <div class="descon-grid">
+    <div class="descon-card"><div class="descon-head">Nivel 1 &#183; Inmediata</div><div class="descon-body"><strong>&lt;1&#8211;2 min tras exposici&#243;n</strong><p>Retirar ropa exterior (~80% contaminante)</p><p>Irrigaci&#243;n agua fr&#237;a: ojos 15 min, piel 10 min</p><p><strong>NO frotar</strong> &#8594; extiende el agente</p><p>Alejarse de zona caliente primero</p></div></div>
+    <div class="descon-card"><div class="descon-head">Nivel 2 &#183; Campo</div><div class="descon-body"><strong>2&#8211;10 min tras retiro</strong><p>Corredor de descontaminaci&#243;n estructurado</p><p>Fuller's earth (agentes vol&#225;tiles)</p><p>Jab&#243;n + agua tibia &gt; agua sola</p><p>Hipolorito 0,5% (NO en ojos)</p></div></div>
+    <div class="descon-card"><div class="descon-head">Nivel 3 &#183; Hospitalaria</div><div class="descon-body"><strong>Llegada al hospital</strong><p><strong>Zona EXTERNA al hospital</strong></p><p>Ducha completa con jab&#243;n neutro</p><p>Personal con EPI nivel B m&#237;nimo</p><p>Agua residual &#8594; contenci&#243;n</p></div></div>
+    <div class="descon-card"><div class="descon-head">Nivel 4 &#183; T&#233;cnica</div><div class="descon-body"><strong>Equipos y veh&#237;culos</strong><p>Especialistas NRBC</p><p>STB (supertropical bleach)</p><p>Neutralizaci&#243;n qu&#237;mica por agente</p><p>Detectores: M8A1 / AP2C</p></div></div>
+  </div>
+  <div class="sec-title">Niveles de EPI NRBC</div>
+  <div class="epi-grid">
+    <div class="epi-card A"><div class="epi-nivel">A</div><div class="epi-nombre">M&#225;ximo</div><div class="epi-desc">Traje encapsulado presi&#243;n positiva + SCBA. Zona caliente desconocida. Protecci&#243;n m&#225;xima vapor/l&#237;quido.</div></div>
+    <div class="epi-card B"><div class="epi-nivel">B</div><div class="epi-nombre">Resp. alta</div><div class="epi-desc">SCBA + traje salpicaduras (no encapsulado). Zona tibia, vapores conocidos. Habitual sanidad militar.</div></div>
+    <div class="epi-card C"><div class="epi-nivel">C</div><div class="epi-nombre">Resp. media</div><div class="epi-desc">M&#225;scara filtrante (PAPR/full-face) + Tyvek. Zona fr&#237;a, contaminante conocido. El m&#225;s usado en hospitales.</div></div>
+    <div class="epi-card D"><div class="epi-nivel">D</div><div class="epi-nombre">M&#237;nimo</div><div class="epi-desc">Uniforme + guantes + gafas. Solo si ausencia confirmada de contaminaci&#243;n. Zona segura.</div></div>
+  </div>
+  <div class="advertencia"><strong>&#9888;&#65039; Regla de oro NRBC:</strong> <strong>Ning&#250;n paciente NRBC entra al hospital sin descontaminaci&#243;n previa.</strong> Una v&#237;ctima no descontaminada puede contaminar toda el &#225;rea de urgencias y al personal sanitario. &#193;rea de descontaminaci&#243;n: <strong>exterior, antes del triaje hospitalario.</strong></div>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas-section">
+  <div class="perlas-header">&#11088; PERLAS TIPO EXAMEN &#8212; NRBC: AGENTES QU&#205;MICOS DE GUERRA Y ANT&#205;DOTOS</div>
+  <div class="perlas-grid">
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>DUMBELS (agentes nerviosos)</strong> &#8594; Diarrea &#183; Urinaci&#243;n &#183; Miosis &#183; Bradicardia/Broncospasmo &#183; Em&#233;sis &#183; Lagrimeo &#183; Salivaci&#243;n/Sudoraci&#243;n. <strong>Miosis = signo m&#225;s precoz y constante</strong> en agentes nerviosos.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Endpoint de la atropina</strong> &#8594; <strong>Secar secreciones bronquiales</strong>, NO midriasis. Continuar hasta FC &gt;80 lpm + v&#237;as respiratorias secas. Sin l&#237;mite de dosis en exposici&#243;n masiva.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Aging del Som&#225;n</strong> &#8594; <strong>2&#8211;6 minutos</strong> &#8594; pralidoxima pr&#225;cticamente in&#250;til si no se administra inmediatamente. Sar&#237;n: ~5h. VX: ~48h. Siempre administrar lo antes posible.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Gas mostaza vs Lewisita &#8212; trampa frecuente</strong> &#8594; Mostaza: <strong>latencia 2&#8211;24h, sin ant&#237;doto</strong>. Lewisita: <strong>dolor inmediato, ant&#237;doto BAL</strong>. BAL NO sirve para mostaza. Pregunta cl&#225;sica en examen militar.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Ant&#237;doto cianuro 1&#170; elecci&#243;n</strong> &#8594; <strong>Hidroxocobalamina (Cyanokit&#174;) 5 g IV</strong>. No forma metahemoglobina &#8594; <strong>segura con CO concomitante</strong>. Nitritos: en desuso. Colorea orina de rojo (inocuo, no confundir con hematuria).</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Hipoxia histot&#243;xica por cianuro</strong> &#8594; SatO&#8322; normal o elevada + sangre venosa roja brillante + <strong>lactato &gt;8&#8211;10 mmol/L</strong>. Incendio con lactato &gt;10 &#8594; sospechar CN aunque SatO&#8322; sea normal.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Fosgeno: latencia enga&#241;osa</strong> &#8594; S&#237;ntomas leves &#8594; aparente mejor&#237;a &#8594; <strong>EAP s&#250;bito a 4&#8211;24h</strong>. Cualquier exposici&#243;n exige observaci&#243;n m&#237;nima <strong>24h</strong>. Fosgeno caus&#243; el 80&#8211;85% de muertes qu&#237;micas en la 1&#170; Guerra Mundial.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Convulsiones por agentes nerviosos</strong> &#8594; <strong>Diazepam 5&#8211;10 mg IV</strong> (o Midazolam 10 mg IM en campo). <strong>NO fenitoi&#769;na</strong> &#8212; ineficaz en este contexto (convulsiones por exceso ACh, no epilepsia).</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Agente m&#225;s letal / m&#225;s vol&#225;til / m&#225;s potente</strong> &#8594; M&#225;s letal: <strong>VX</strong>. M&#225;s vol&#225;til: <strong>Sar&#237;n (GB)</strong>. M&#225;s potente conocido: <strong>Novichok</strong> (5&#8211;10&#215; VX). Primera arma nerviosa: <strong>Tab&#250;n (1936)</strong>.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Descontaminaci&#243;n inmediata</strong> &#8594; Retirar ropa exterior elimina <strong>~80% del contaminante</strong>. Agua fr&#237;a (no caliente: vasodilata &#8594; mayor absorci&#243;n). <strong>NO frotar</strong>. El gesto individual m&#225;s eficaz antes que cualquier ant&#237;doto.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>Organismo supervisor armas qu&#237;micas</strong> &#8594; <strong>OPAQ (OPCW)</strong>, sede La Haya, Premio Nobel Paz 2013. Convencion de Armas Qu&#237;micas 1993, 193 pa&#237;ses. No es la ONU directamente.</div>
+    <div class="perla-item"><span class="estrella">&#9733;</span> <strong>EPI hospitalario m&#237;nimo en descontaminaci&#243;n</strong> &#8594; Nivel <strong>C</strong> (m&#225;scara filtrante + Tyvek). Si agente desconocido: nivel B. Regla de oro: <strong>ning&#250;n paciente NRBC entra sin descontaminaci&#243;n previa</strong>.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sec-header">&#128214; Glosario de abreviaturas</div>
+<div class="sec-body">
+  <dl class="glosario-grid">
+    <div class="glos-item"><dt>NRBC</dt><dd>Nuclear, Radiol&#243;gico, Biol&#243;gico, Qu&#237;mico</dd></div>
+    <div class="glos-item"><dt>CBRN</dt><dd>Chemical, Biological, Radiological, Nuclear (NATO)</dd></div>
+    <div class="glos-item"><dt>AChE</dt><dd>Acetilcolinesterasa</dd></div>
+    <div class="glos-item"><dt>ACh</dt><dd>Acetilcolina</dd></div>
+    <div class="glos-item"><dt>2-PAM</dt><dd>Pralidoxima (cloruro)</dd></div>
+    <div class="glos-item"><dt>BAL</dt><dd>British Anti-Lewisite / Dimercaprol</dd></div>
+    <div class="glos-item"><dt>DMSA</dt><dd>&#193;cido dimercaptosuccínico (quelante oral)</dd></div>
+    <div class="glos-item"><dt>EAP</dt><dd>Edema Agudo de Pulm&#243;n</dd></div>
+    <div class="glos-item"><dt>HCN</dt><dd>&#193;cido cianh&#237;drico</dd></div>
+    <div class="glos-item"><dt>HD</dt><dd>Gas mostaza (Sulfur Mustard / Iperita)</dd></div>
+    <div class="glos-item"><dt>GB</dt><dd>Sar&#237;n (agente nervioso G)</dd></div>
+    <div class="glos-item"><dt>GD</dt><dd>Som&#225;n (agente nervioso G)</dd></div>
+    <div class="glos-item"><dt>VX</dt><dd>Agente nervioso V m&#225;s potente</dd></div>
+    <div class="glos-item"><dt>OPAQ</dt><dd>Org. Prohibici&#243;n Armas Qu&#237;micas (OPCW)</dd></div>
+    <div class="glos-item"><dt>EPI</dt><dd>Equipo de Protecci&#243;n Individual</dd></div>
+    <div class="glos-item"><dt>SCBA</dt><dd>Self-Contained Breathing Apparatus</dd></div>
+    <div class="glos-item"><dt>PAPR</dt><dd>Powered Air-Purifying Respirator</dd></div>
+    <div class="glos-item"><dt>STB</dt><dd>Supertropical Bleach (descontaminante)</dd></div>
+    <div class="glos-item"><dt>Aging</dt><dd>Uni&#243;n covalente irreversible AChE-OF</dd></div>
+    <div class="glos-item"><dt>CG</dt><dd>Fosgeno (choking agent)</dd></div>
+  </dl>
+</div>
+
+</div>
+</body>
+</html>

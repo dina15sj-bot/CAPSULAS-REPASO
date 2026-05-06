@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trauma Avanzado: Blast Injury · Lesiones Balísticas · Torniquete</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --acento:#4a5a6a;--acento-dark:#2a3a4a;--acento-light:#6a7a8a;--acento-pale:#edf0f3;--acento-mid:#8a9aaa;
+  --rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--naranja:#e07020;--purpura:#7040c0;--amarillo:#c09010;
+  --blast1:#8a1a1a;--blast2:#7a4a10;--blast3:#1a5a8a;--blast4:#1a6a3a;
+  --amarillo-perla:#fffce6;--borde-perla:#e0c020;
+  --fondo:#f5f7f8;--blanco:#ffffff;--texto:#1a1a1a;--texto-m:#444444;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--texto);font-size:15px;line-height:1.55;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--acento-dark) 0%,var(--acento) 60%,var(--acento-light) 100%);color:#fff;padding:28px 40px 24px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 20px,rgba(255,255,255,0.025) 20px,rgba(255,255,255,0.025) 40px);}
+.header::after{content:'🎯';position:absolute;right:36px;top:50%;transform:translateY(-50%);font-size:6rem;opacity:0.08;pointer-events:none;}
+.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.header-top{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.header-icon{font-size:2.5rem;background:rgba(255,255,255,0.15);padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);}
+.header-text h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.15;}
+.header-text h1 span{color:#b8ccd8;}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:0.71rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-top:5px;}
+.header-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.pill{background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);border-radius:20px;padding:3px 12px;font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.08em;text-transform:uppercase;}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:28px 20px;}
+.sec-header{background:var(--acento);color:#fff;padding:9px 18px;border-radius:6px 6px 0 0;font-family:'JetBrains Mono',monospace;font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+.sec-body{background:var(--blanco);border:1px solid #d8dde2;border-top:none;border-radius:0 0 8px 8px;padding:20px;margin-bottom:24px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--acento-dark);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--acento-pale);}
+
+/* FUENTES */
+.fuentes-bar{background:var(--acento-pale);border:1px solid #c8d4dc;border-radius:6px;padding:8px 14px;font-size:0.78rem;color:var(--acento-dark);margin-bottom:20px;font-family:'JetBrains Mono',monospace;}
+
+/* INTRO 3 cols */
+.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+.intro-card{background:var(--blanco);border:1px solid #d8dde2;border-top:4px solid var(--acento);border-radius:8px;padding:16px;}
+.intro-card h3{font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--acento);margin-bottom:8px;}
+.intro-card p{font-size:0.88rem;color:var(--texto-m);}
+.intro-card strong{color:var(--texto);}
+
+/* BLAST FASES */
+.blast-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.blast-card{border-radius:8px;overflow:hidden;border:1px solid #d8dde2;}
+.blast-head{padding:10px 12px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;text-align:center;}
+.blast-head.b1{background:var(--blast1);}
+.blast-head.b2{background:var(--blast2);}
+.blast-head.b3{background:var(--blast3);}
+.blast-head.b4{background:var(--blast4);}
+.blast-body{padding:12px;font-size:0.83rem;color:var(--texto-m);background:var(--blanco);}
+.blast-body strong{color:var(--texto);display:block;margin-bottom:5px;}
+.blast-body ul{list-style:none;padding:0;}
+.blast-body ul li{padding-left:14px;position:relative;margin-bottom:4px;}
+.blast-body ul li::before{content:'·';position:absolute;left:0;color:var(--acento-mid);font-weight:700;}
+
+/* TABLA general */
+.tabla{width:100%;border-collapse:collapse;font-size:0.83rem;margin-bottom:16px;}
+.tabla thead th{padding:9px 12px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.64rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--acento);}
+.tabla thead th:first-child{background:var(--acento-dark);color:#fff;}
+.tabla thead th:not(:first-child){background:var(--acento-pale);color:var(--acento-dark);}
+.tabla tbody tr{border-bottom:1px solid #eee;}
+.tabla tbody tr:nth-child(even){background:#f8fafb;}
+.tabla tbody tr:hover{background:#f0f4f7;}
+.tabla td{padding:8px 12px;vertical-align:top;}
+.tabla td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;color:var(--acento-dark);}
+
+/* BALISTICO CARDS */
+.balistico-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+.balistico-card{background:var(--blanco);border:1px solid #d8dde2;border-radius:8px;overflow:hidden;}
+.balistico-head{padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#fff;}
+.balistico-head.alta{background:#6a2a1a;}
+.balistico-head.baja{background:var(--acento);}
+.balistico-body{padding:14px 16px;}
+.balistico-body p{font-size:0.85rem;color:var(--texto-m);margin-bottom:8px;}
+.balistico-body strong{color:var(--texto);}
+.balistico-body ul{list-style:none;padding:0;}
+.balistico-body ul li{font-size:0.84rem;color:var(--texto-m);padding-left:14px;position:relative;margin-bottom:5px;}
+.balistico-body ul li::before{content:'▸';position:absolute;left:0;color:var(--acento-mid);font-size:0.7rem;top:2px;}
+.balistico-body ul li strong{color:var(--texto);}
+
+/* TORNIQUETE PASOS */
+.pasos-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:18px;}
+.paso-card{background:var(--blanco);border:1px solid #d8dde2;border-radius:8px;overflow:hidden;text-align:center;}
+.paso-num-big{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--acento-dark);background:var(--acento-pale);padding:10px 8px 6px;line-height:1;}
+.paso-text-small{font-size:0.78rem;color:var(--texto-m);padding:8px 6px;line-height:1.35;}
+.paso-text-small strong{color:var(--texto);display:block;font-size:0.8rem;margin-bottom:3px;}
+
+/* TORNIQUETES TIPOS */
+.torniquetes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+.torn-card{background:var(--blanco);border:1px solid #d8dde2;border-radius:8px;overflow:hidden;}
+.torn-head{padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--acento);}
+.torn-head.cat{background:var(--rojo);}
+.torn-head.softt{background:var(--acento-dark);}
+.torn-head.junctional{background:#5a3a8a;}
+.torn-body{padding:12px 14px;font-size:0.84rem;color:var(--texto-m);}
+.torn-body p{margin-bottom:6px;}
+.torn-body strong{color:var(--texto);}
+.torn-data{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.torn-data-row{display:flex;align-items:baseline;gap:8px;}
+.torn-data-label{font-family:'JetBrains Mono',monospace;font-size:0.63rem;text-transform:uppercase;color:var(--acento-mid);min-width:70px;}
+.torn-data-val{font-family:'JetBrains Mono',monospace;font-size:0.82rem;font-weight:700;color:var(--texto);}
+
+/* XABCDE */
+.xabcde-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:18px;}
+.xabcde-card{background:var(--blanco);border:1px solid #d8dde2;border-radius:8px;overflow:hidden;text-align:center;}
+.xabcde-letra{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;padding:10px 8px 6px;line-height:1;}
+.xabcde-card:nth-child(1) .xabcde-letra{color:var(--rojo);background:#fff0ee;}
+.xabcde-card:nth-child(2) .xabcde-letra{color:#7a2a10;background:#fff5f0;}
+.xabcde-card:nth-child(3) .xabcde-letra{color:var(--azul);background:#f0f5ff;}
+.xabcde-card:nth-child(4) .xabcde-letra{color:var(--acento-dark);background:var(--acento-pale);}
+.xabcde-card:nth-child(5) .xabcde-letra{color:#4a2a8a;background:#f5f0ff;}
+.xabcde-card:nth-child(6) .xabcde-letra{color:var(--verde);background:#f0fff4;}
+.xabcde-desc{font-size:0.75rem;color:var(--texto-m);padding:7px 6px;line-height:1.3;}
+.xabcde-desc strong{color:var(--texto);display:block;font-size:0.77rem;margin-bottom:2px;}
+
+/* HEMOSTASIA TOPICA */
+.hemo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.hemo-card{background:var(--blanco);border:1px solid #d8dde2;border-left:4px solid var(--rojo);border-radius:0 8px 8px 0;padding:14px;}
+.hemo-card h4{font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--rojo);margin-bottom:8px;}
+.hemo-card p{font-size:0.84rem;color:var(--texto-m);}
+.hemo-card strong{color:var(--texto);}
+
+/* FLUIDOS */
+.fluidos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.fluido-card{background:var(--blanco);border:1px solid #d8dde2;border-top:4px solid;border-radius:8px;padding:14px;}
+.fluido-card.permitida{border-top-color:var(--verde);}
+.fluido-card.cuidado{border-top-color:var(--naranja);}
+.fluido-card.contraindicado{border-top-color:var(--rojo);}
+.fluido-card h4{font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.fluido-card.permitida h4{color:var(--verde);}
+.fluido-card.cuidado h4{color:var(--naranja);}
+.fluido-card.contraindicado h4{color:var(--rojo);}
+.fluido-card p{font-size:0.84rem;color:var(--texto-m);}
+.fluido-card strong{color:var(--texto);}
+
+/* ALERTAS */
+.advertencia{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.advertencia strong{color:var(--rojo);}
+.nota-clave{background:#f0e8ff;border-left:4px solid var(--purpura);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.nota-clave strong{color:var(--purpura);}
+.nota-acero{background:var(--acento-pale);border-left:4px solid var(--acento);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.nota-acero strong{color:var(--acento-dark);}
+
+/* BADGE */
+.badge-otan{display:inline-block;background:#1a3a8a;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+.badge-tccc{display:inline-block;background:var(--rojo);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+.badge-atls{display:inline-block;background:var(--acento-dark);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+
+/* PERLAS */
+.perlas-section{background:var(--amarillo-perla);border:1px solid var(--borde-perla);border-radius:8px;overflow:hidden;margin-bottom:24px;}
+.perlas-header{background:#b08010;color:#fff;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+.perlas-grid{display:grid;grid-template-columns:1fr 1fr;}
+.perla-item{padding:13px 18px;border-bottom:1px solid rgba(224,192,32,0.3);border-right:1px solid rgba(224,192,32,0.3);font-size:0.87rem;line-height:1.5;}
+.perla-item:nth-child(even){border-right:none;}
+.perla-item:last-child,.perla-item:nth-last-child(2):nth-child(odd){border-bottom:none;}
+.perla-item .estrella{color:#b08010;}
+.perla-item strong{color:var(--acento-dark);}
+
+/* GLOSARIO */
+.glosario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.glos-item{background:var(--blanco);border:1px solid #d8dde2;border-radius:6px;padding:8px 10px;font-size:0.82rem;}
+.glos-item dt{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:var(--acento);margin-bottom:2px;}
+.glos-item dd{color:var(--texto-m);}
+
+@media(max-width:800px){
+  .header{padding:20px 16px;}.header::after{display:none;}.header-text h1{font-size:1.5rem;}
+  .intro-grid,.hemo-grid,.fluidos-grid,.torniquetes-grid{grid-template-columns:1fr;}
+  .blast-grid{grid-template-columns:repeat(2,1fr);}
+  .balistico-grid{grid-template-columns:1fr;}
+  .pasos-grid{grid-template-columns:repeat(3,1fr);}
+  .xabcde-grid{grid-template-columns:repeat(3,1fr);}
+  .perlas-grid{grid-template-columns:1fr;}.perla-item{border-right:none!important;}
+  .glosario-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:480px){
+  .blast-grid,.pasos-grid,.xabcde-grid{grid-template-columns:repeat(2,1fr);}
+  .glosario-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="header-icon">💥</div>
+      <div class="header-text">
+        <h1>Trauma Avanzado <span>Blast · Balístico · Torniquete</span></h1>
+        <div class="header-sub">Blast injury · Lesiones balísticas · Hemostasia táctica · xABCDE · Torniquetes CAT/SOFTT-W · Hipotensión permisiva · Damage control</div>
+      </div>
+    </div>
+    <div class="header-pills">
+      <span class="pill">🎖️ Enfermería Militar</span>
+      <span class="pill">⚕️ TCCC CoTCCC 2024</span>
+      <span class="pill">🏥 ATLS 10ª ed.</span>
+      <span class="pill">🔱 NATO STANAG</span>
+      <span class="pill">📋 INGESA 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="fuentes-bar">📚 FUENTES: PHTLS 10ª ed. 2023 · ATLS 10ª ed. 2018 · TCCC CoTCCC Guidelines 2024 · NATO AMedP-22 Combat Trauma · Battlefield Advanced Trauma Life Support (BATLS) · JTS Clinical Practice Guidelines 2024 · ERC 2021 Trauma Resuscitation · Survivng Sepsis Campaign 2023</div>
+
+<!-- ══ 01. PRINCIPIOS GENERALES ══ -->
+<div class="sec-header">📌 01 — Principios del trauma de combate: xABCDE y control de daños</div>
+<div class="sec-body">
+  <div class="sec-title">xABCDE: protocolo de actuación en trauma militar <span class="badge-tccc">TCCC</span></div>
+  <div class="xabcde-grid">
+    <div class="xabcde-card">
+      <div class="xabcde-letra">x</div>
+      <div class="xabcde-desc"><strong>Hemorragia Exsanguinante</strong>Torniquete en extremidades · Hemostáticos en zona de unión · Presión directa. PRIMERO que vía aérea.</div>
+    </div>
+    <div class="xabcde-card">
+      <div class="xabcde-letra">A</div>
+      <div class="xabcde-desc"><strong>Airway</strong>Vía aérea permeable. NPA · posición lateral · cricotiroidotomía de emergencia si precisa.</div>
+    </div>
+    <div class="xabcde-card">
+      <div class="xabcde-letra">B</div>
+      <div class="xabcde-desc"><strong>Breathing</strong>Neumotórax tensión → aguja 2º EIC LMC. Heridas abiertas tórax → sello HyFin® Vent.</div>
+    </div>
+    <div class="xabcde-card">
+      <div class="xabcde-letra">C</div>
+      <div class="xabcde-desc"><strong>Circulation</strong>Control hemorragia residual · Vía IO si periférica falla &lt;90 seg · Fluidos hipotensión permisiva.</div>
+    </div>
+    <div class="xabcde-card">
+      <div class="xabcde-letra">D</div>
+      <div class="xabcde-desc"><strong>Disability</strong>AVPU / GCS · Pupilas · Control glucemia · Analgesia TCCC · Prevenir hipotermia.</div>
+    </div>
+    <div class="xabcde-card">
+      <div class="xabcde-letra">E</div>
+      <div class="xabcde-desc"><strong>Exposure</strong>Desvestir con preservar dignidad · Inspección dorsal · Cubierta isotérmica · Hipotermia = letal.</div>
+    </div>
+  </div>
+
+  <div class="nota-clave">
+    <strong>🔑 xABCDE vs ABCDE civil — pregunta de examen:</strong> En TCCC, la <strong>x (hemorragia eXsanguinante) va ANTES que la vía aérea</strong> porque la hemorragia es la causa n.º 1 de muerte prevenible en combate. En ATLS civil se usa ABCDE clásico con A como primera prioridad.
+  </div>
+
+  <div class="sec-title">Tríada letal del trauma y damage control resuscitation (DCR)</div>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <h3>⚠️ Tríada Letal (HAC)</h3>
+      <p><strong>Hipotermia + Acidosis + Coagulopatía.</strong> Cada componente amplifica los otros: hipotermia → inactiva factores coagulación → coagulopatía → más hemorragia → acidosis → más hipotermia. Romper el círculo = prioridad en DCR.</p>
+    </div>
+    <div class="intro-card">
+      <h3>🩸 DCR — Damage Control</h3>
+      <p><strong>Hipotensión permisiva</strong> (TAS 80–90 sin TCE) + <strong>hemostasia precoz</strong> (torniquete, compresión) + <strong>transfusión de componentes</strong> (plasma:plaquetas:concentrado 1:1:1) + <strong>prevención hipotermia</strong>. Cristaloides mínimos.</p>
+    </div>
+    <div class="intro-card">
+      <h3>⏱️ Regla de Oro</h3>
+      <p><strong>60 minutos</strong> desde el punto de lesión hasta cirugía definitiva (Role 2E o Role 3). En campo: estabilizar, no tratar definitivamente. El objetivo de TCCC es llevar al paciente vivo a cirugía, no curarle en campo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 02. BLAST INJURY ══ -->
+<div class="sec-header">💥 02 — Blast Injury: lesiones por onda expansiva</div>
+<div class="sec-body">
+  <div class="sec-title">Definición y mecanismo</div>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <h3>Definición</h3>
+      <p><strong>Blast injury</strong>: lesión producida por una explosión. Genera simultáneamente una onda de presión (blast wave), fragmentos proyectados, calor y desplazamiento corporal. El <strong>pulmón de blast</strong> es la lesión interna más característica y potencialmente fatal.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Física del blast</h3>
+      <p>La explosión genera una <strong>onda de sobrepresión</strong> (overpressure wave) que viaja a &gt;1000 m/s en aire. Afecta preferentemente a <strong>órganos con interfaz gas-líquido</strong>: pulmón, intestino, oído medio. Amplificada en espacios cerrados (vehículo, edificio).</p>
+    </div>
+    <div class="intro-card">
+      <h3>Epidemiología</h3>
+      <p>Principal causa de trauma en conflictos modernos (IED, cohetes, minas). Puede afectar múltiples órganos simultáneamente. Hasta <strong>75% de bajas</strong> en conflictos recientes (Irak, Afganistán) tienen componente de blast.</p>
+    </div>
+  </div>
+
+  <div class="sec-title">Las 4 categorías de lesión por blast</div>
+  <div class="blast-grid">
+    <div class="blast-card">
+      <div class="blast-head b1">1ª Onda · Primary</div>
+      <div class="blast-body">
+        <strong>Onda de presión directa</strong>
+        <ul>
+          <li><strong>Pulmón de blast</strong> (más grave): hemorragia alveolar, EAP no cardiogénico, ARDS</li>
+          <li><strong>Perforación timpánica</strong> (&gt;35 kPa; el tímpano es el "detector" de blast)</li>
+          <li>Contusión intestinal, perforación</li>
+          <li>Embolia gaseosa → ACV, IAM</li>
+          <li>Trauma ocular: uveítis, desprendimiento retina</li>
+        </ul>
+      </div>
+    </div>
+    <div class="blast-card">
+      <div class="blast-head b2">2ª Fragmentos · Secondary</div>
+      <div class="blast-body">
+        <strong>Proyectiles del entorno</strong>
+        <ul>
+          <li>Fragmentos del propio artefacto (metralla)</li>
+          <li>Objetos del entorno (cristales, escombros)</li>
+          <li>Heridas penetrantes múltiples</li>
+          <li>Similares a lesiones balísticas pero <strong>múltiples y variadas</strong></li>
+          <li>Causa más frecuente de baja en blast</li>
+        </ul>
+      </div>
+    </div>
+    <div class="blast-card">
+      <div class="blast-head b3">3ª Desplazamiento · Tertiary</div>
+      <div class="blast-body">
+        <strong>Impacto corporal tras vuelo</strong>
+        <ul>
+          <li>Cuerpo es proyectado por la onda</li>
+          <li>Fracturas por impacto</li>
+          <li>TCE (traumatismo craneoencefálico)</li>
+          <li>Amputaciones traumáticas</li>
+          <li>Lesiones similares a accidente de tráfico de alta energía</li>
+        </ul>
+      </div>
+    </div>
+    <div class="blast-card">
+      <div class="blast-head b4">4ª Varios · Quaternary</div>
+      <div class="blast-body">
+        <strong>Todo lo demás</strong>
+        <ul>
+          <li>Quemaduras (flash, llama, radiación)</li>
+          <li>Tóxicos inhalados (CO, NRBC)</li>
+          <li>Aplastamiento estructural</li>
+          <li>Trauma psicológico agudo</li>
+          <li>Exacerbación de enfermedades previas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="advertencia">
+    <strong>⚠️ Pulmón de blast — trampa clásica:</strong> El paciente puede llegar <strong>asintomático o con síntomas leves</strong> y deteriorarse de forma brusca en las primeras 24–48h (EAP, ARDS). <strong>Todo expuesto a blast con mecanismo de onda primaria debe ser observado mínimo 24h</strong>, aunque el examen inicial sea normal. El tímpano roto = evidencia de exposición a onda primaria.
+  </div>
+
+  <div class="sec-title">Pulmón de blast: criterios diagnósticos y manejo</div>
+  <table class="tabla">
+    <thead><tr><th>Parámetro</th><th>Detalle</th><th>Manejo</th></tr></thead>
+    <tbody>
+      <tr><td>Clínica</td><td>Disnea, hemoptisis, hipoxia, dolor torácico. Puede debutar con síntomas leves.</td><td>Monitorización SatO₂ continua, Rx tórax seriada</td></tr>
+      <tr><td>Imagen</td><td>Rx: infiltrados bilaterales "en mariposa". TC: contusión pulmonar bilateral, neumotórax oculto</td><td>TC tórax de elección si disponible</td></tr>
+      <tr><td>Ventilación</td><td>Estrategia de <strong>protección pulmonar</strong>: VC bajo (6 ml/kg), PEEP moderada</td><td>Evitar PIM elevada → riesgo baro/volutrauma + embolia gaseosa</td></tr>
+      <tr><td>Fluidos</td><td>Restricción hídrica relativa → no sobrecargar → empeora EAP</td><td>Cristaloides mínimos; preferir coloides/plasma</td></tr>
+      <tr><td>O₂ hiperbárico</td><td>Útil en embolia gaseosa arterial por blast</td><td>Si disponible y estable para traslado</td></tr>
+      <tr><td>Neumotórax tensión</td><td>Frecuente tras blast. Sospechar si deterioro brusco + ingurgitación yugular + hipotensión</td><td>Descompresión aguja 2º EIC LMC inmediata</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title">Trauma craneoencefálico (mTBI) relacionado con blast <span class="badge-tccc">TCCC</span></div>
+  <div class="nota-acero">
+    <strong>🔑 mTBI por blast:</strong> El <strong>traumatismo craneoencefálico leve inducido por blast</strong> (mild TBI / blast TBI) es la "firma de las guerras modernas". Puede no tener lesión externa visible. Sospechar en todo expuesto a blast con: confusión transitoria, amnesia del evento, cefalea persistente, acúfenos, visión borrosa. <strong>En TCE: NO aplicar hipotensión permisiva → TAS objetivo &gt;90 mmHg</strong> para mantener PPC (Presión de Perfusión Cerebral).
+  </div>
+</div>
+
+<!-- ══ 03. LESIONES BALÍSTICAS ══ -->
+<div class="sec-header">🎯 03 — Lesiones balísticas: física y patrones de herida</div>
+<div class="sec-body">
+  <div class="sec-title">Balística terminal: mecanismo de daño tisular</div>
+  <div class="balistico-grid">
+    <div class="balistico-card">
+      <div class="balistico-head alta">Armas de alta velocidad (&gt;600 m/s) — rifles militares</div>
+      <div class="balistico-body">
+        <p><strong>Energía cinética = ½ mv²</strong> → la velocidad es el factor determinante del daño.</p>
+        <ul>
+          <li><strong>Cavitación permanente:</strong> canal de destrucción directa del proyectil</li>
+          <li><strong>Cavitación temporal:</strong> expansión y colapso rápido → destrucción tisular circundante (puede ser 10–30× el diámetro del proyectil)</li>
+          <li>Tejidos elásticos (músculo, pulmón): toleran mejor la cavitación temporal</li>
+          <li>Tejidos frágiles (<strong>hígado, cerebro, hueso</strong>): destrucción masiva por cavitación</li>
+          <li>Orificio de salida &gt; orificio de entrada (regla general, con excepciones)</li>
+          <li>Fragmentación del proyectil → múltiples canales secundarios</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>Ejemplos:</strong> M4/M16 (5,56mm), AK-47 (7,62mm), M240 (7,62mm OTAN)</p>
+      </div>
+    </div>
+    <div class="balistico-card">
+      <div class="balistico-head baja">Armas de baja velocidad (&lt;600 m/s) — pistolas y armas cortas</div>
+      <div class="balistico-body">
+        <p>Menor energía cinética → daño limitado al canal permanente. <strong>Sin cavitación temporal significativa.</strong></p>
+        <ul>
+          <li>Canal de herida estrecho, predecible</li>
+          <li>Herida de entrada ≈ herida de salida (o sin salida)</li>
+          <li>Proyectil puede quedar retenido → localizar por Rx antes de extraer</li>
+          <li>Tejido circundante relativamente preservado</li>
+          <li>Menos hemorragia masiva que alta velocidad (salvo herida vascular directa)</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>Ejemplos:</strong> Pistola 9mm, .45 ACP, revólver .357</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Tipos de herida balística y manejo <span class="badge-atls">ATLS</span></div>
+  <table class="tabla">
+    <thead><tr><th>Tipo herida</th><th>Características</th><th>Manejo prioritario</th><th>Error a evitar</th></tr></thead>
+    <tbody>
+      <tr><td>Penetrante tórax</td><td>Herida "soplante" (succionante). Neumotórax abierto → colapso pulmonar → fallo respiratorio</td><td>Sello oclusivo con válvula (HyFin® Vent / Asherman) en campo. Drenaje intercostal en hospital</td><td>Cerrar herméticamente sin válvula → riesgo neumotórax tensión</td></tr>
+      <tr><td>Penetrante abdomen</td><td>Alta energía → lesión multivisceral. Evisceración posible. Peritonitis tardía</td><td>Cubrir vísceras con gasas húmedas. NO reintroducir. Cirugía DCO urgente</td><td>Palpar abdomen agresivamente → descompresión → shock</td></tr>
+      <tr><td>Penetrante cuello</td><td>Zonas I/II/III. Riesgo vascular (carótida, yugular), aerodigestivo (tráquea, esófago)</td><td>Compresión directa (NO torniquete). Estabilizar VA. Angio-TC si estable</td><td>Exploración ciega de cuello → hemorragia masiva</td></tr>
+      <tr><td>Zona de unión (junctional)</td><td>Axila, ingle, cuello. No torniqueteable con dispositivo estándar</td><td>Combat Gauze + presión directa prolongada. JETT (junctional tourniquet) si disponible</td><td>Retirar el apósito hemostático a revisar → reinicia hemorragia</td></tr>
+      <tr><td>Penetrante craneal</td><td>TCE penetrante. Alta mortalidad. GCS &lt;8 = intubación si recursos disponibles</td><td>Mantener TAS &gt;90 mmHg. No hiperoxia (SpO₂ 94–98%). Evitar hipocapnia</td><td>Hipotensión permisiva en TCE → isquemia cerebral</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title">Amputaciones traumáticas de combate</div>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <h3>Mecanismo</h3>
+      <p>Principal causa: <strong>IED (dispositivo explosivo improvisado)</strong>. Las amputaciones por blast pueden ser: completas (inmediatas) o incompletas (devascularizadas → amputación funcional). Las amputaciones dobles y triples tienen mortalidad muy alta sin torniquete precoz.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Manejo inmediato</h3>
+      <p><strong>Torniquete inmediato</strong> en la extremidad amputada (incluso si parece no haber hemorragia activa → puede ser masiva en minutos). Colocar <strong>10–15 cm proximal</strong> al muñón. Anotar hora. No retirar en campo.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Síndrome por aplastamiento</h3>
+      <p>Si extremidad comprimida &gt;60 min: riesgo de <strong>rabdomiólisis + hiperpotasemia + fallo renal agudo</strong> al liberar. Fluidoterapia agresiva previa a extracción. Orina objetivo &gt;300 ml/h. ECG (T picudas = hiperpotasemia).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 04. TORNIQUETE ══ -->
+<div class="sec-header">🩸 04 — Torniquete: indicaciones, técnica y tipos</div>
+<div class="sec-body">
+  <div class="sec-title">Indicaciones del torniquete <span class="badge-tccc">TCCC</span></div>
+
+  <div class="intro-grid">
+    <div class="intro-card">
+      <h3>✅ Indicaciones</h3>
+      <p>Hemorragia masiva en <strong>extremidades</strong> no controlada con presión directa. Amputaciones traumáticas. Heridas con fragmentos múltiples. Zona de combate activo (zona caliente) sin posibilidad de presión directa sostenida. Lesiones vasculares con pulso distal ausente.</p>
+    </div>
+    <div class="intro-card">
+      <h3>⚠️ Contraindicaciones relativas</h3>
+      <p><strong>No hay contraindicaciones absolutas</strong> en zona de combate si la alternativa es muerte por hemorragia. Relativas: articulaciones (evitar sobre rodilla/codo → alternativa: presión + hemostático). <strong>NUNCA en torso, cuello o cabeza</strong> → usar hemostáticos + presión.</p>
+    </div>
+    <div class="intro-card">
+      <h3>⏰ Tiempo límite</h3>
+      <p>Convertir en <strong>&lt;2 horas</strong> si el sangrado se puede controlar con hemostáticos. <strong>NO retirar si lleva &gt;6 horas</strong> sin monitorización médica y laboratorio (riesgo síndrome reperfusión). La TCCC 2024 establece: convertir &lt;2h; si &gt;6h solo con supervisión médica y laboratorio. Anotar hora con rotulador permanente en el torniquete y en la tarjeta de baja. <span style="background:#e07020;color:#fff;font-family:JetBrains Mono,monospace;font-size:0.62rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px;">TCCC 2024</span></p>
+    </div>
+  </div>
+
+  <div class="sec-title">Técnica de aplicación — pasos clave</div>
+  <div class="pasos-grid">
+    <div class="paso-card">
+      <div class="paso-num-big">1</div>
+      <div class="paso-text-small"><strong>Localizar</strong>Extremidad afectada. Exposición de la zona si posible.</div>
+    </div>
+    <div class="paso-card">
+      <div class="paso-num-big">2</div>
+      <div class="paso-text-small"><strong>Posición</strong>5–7 cm proximal a la herida (no sobre articulación).</div>
+    </div>
+    <div class="paso-card">
+      <div class="paso-num-big">3</div>
+      <div class="paso-text-small"><strong>Pasar y tensar</strong>Velcro libre (CAT) o banda (SOFTT-W) alrededor del miembro.</div>
+    </div>
+    <div class="paso-card">
+      <div class="paso-num-big">4</div>
+      <div class="paso-text-small"><strong>Girar cabestrante</strong>Hasta control de hemorragia y pulso distal ausente.</div>
+    </div>
+    <div class="paso-card">
+      <div class="paso-num-big">5</div>
+      <div class="paso-text-small"><strong>Bloquear y fijar</strong>Clip de seguridad. Asegurar la varilla con velcro de retención.</div>
+    </div>
+    <div class="paso-card">
+      <div class="paso-num-big">6</div>
+      <div class="paso-text-small"><strong>Anotar hora</strong>Rotular en el torniquete y/o en la frente del paciente. Jamás cubrir.</div>
+    </div>
+  </div>
+
+  <div class="advertencia">
+    <strong>⚠️ Errores más frecuentes con torniquete:</strong> (1) Colocar demasiado distal (sobre la herida → ineficaz). (2) No tensar suficiente → solo comprime venas, no arterias → aumenta sangrado. (3) Cubrir con ropa → imposible evaluar. (4) No anotar la hora → desconocimiento de tiempo de isquemia. (5) Retirar en campo sin control quirúrgico → rebote hemorrágico.
+  </div>
+
+  <div class="sec-title">Tipos de torniquetes de combate</div>
+  <div class="torniquetes-grid">
+    <div class="torn-card">
+      <div class="torn-head cat">CAT — Combat Application Tourniquet</div>
+      <div class="torn-body">
+        <p><strong>Torniquete de referencia TCCC</strong>. Sistema de un solo brazo con varilla (windlass) y velcro. Puede aplicarse con una sola mano (autoaplicación).</p>
+        <div class="torn-data">
+          <div class="torn-data-row"><span class="torn-data-label">Versión actual</span><span class="torn-data-val">Gen 7 (2024)</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Ancho banda</span><span class="torn-data-val">3,8 cm</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Autoaplicación</span><span class="torn-data-val">✓ Posible</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Uso</span><span class="torn-data-val">EXTREMIDADES exclusivamente</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="torn-card">
+      <div class="torn-head softt">SOFTT-W — Special Operations Forces Tourniquet</div>
+      <div class="torn-body">
+        <p>Torniquete de referencia para operaciones especiales. Doble banda → mayor superficie de contacto → menos daño tisular. Útil en muslos muy anchos.</p>
+        <div class="torn-data">
+          <div class="torn-data-row"><span class="torn-data-label">Ventaja</span><span class="torn-data-val">Doble banda = mayor presión</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Ancho banda</span><span class="torn-data-val">2×3,8 cm</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Muslos grandes</span><span class="torn-data-val">✓ Más efectivo que CAT</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Autoaplicación</span><span class="torn-data-val">Más difícil que CAT</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="torn-card">
+      <div class="torn-head junctional">JETT / SAM-JT — Torniquete junctional</div>
+      <div class="torn-body">
+        <p>Para zonas <strong>no torniqueteables</strong> con dispositivos estándar: ingle, axila, cuello (con adaptadores). Aplica presión directa controlada sobre vasos femorales o axilares.</p>
+        <div class="torn-data">
+          <div class="torn-data-row"><span class="torn-data-label">Indicación</span><span class="torn-data-val">Zona de unión (junctional)</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Mecanismo</span><span class="torn-data-val">Compresión directa vascular</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Alternativa</span><span class="torn-data-val">Combat Gauze + presión 3 min</span></div>
+          <div class="torn-data-row"><span class="torn-data-label">Uso</span><span class="torn-data-val">Role 1+ (medic entrenado)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 05. HEMOSTASIA TÓPICA ══ -->
+<div class="sec-header">🩹 05 — Hemostasia tópica y control de hemorragia en zonas no torniqueteables</div>
+<div class="sec-body">
+  <div class="sec-title">Agentes hemostáticos tópicos <span class="badge-tccc">TCCC 2024</span></div>
+  <div class="hemo-grid">
+    <div class="hemo-card">
+      <h4>Combat Gauze™ (1ª elección TCCC)</h4>
+      <p><strong>Kaolín</strong> impregnado en gasa. Activa la cascada de coagulación por contacto. No exotérmico (sin riesgo de quemadura). <strong>Aplicar empacando profundamente en la herida + presión directa mínima 3 minutos</strong> (antes 5 min, ahora 3 min según CoTCCC 2024). Dejar in situ, no retirar.</p>
+      <p style="margin-top:6px;"><strong>Indicación:</strong> Zonas de unión (ingle, axila) y heridas no torniqueteables.</p>
+    </div>
+    <div class="hemo-card">
+      <h4>Celox™ / ChitoGauze™</h4>
+      <p><strong>Quitosano</strong> (polisacárido natural). Forma gel hemostático al contacto con sangre. Efectivo también en pacientes anticoagulados y en hipotermia (a diferencia del kaolín que requiere factores de coagulación funcionales).</p>
+      <p style="margin-top:6px;"><strong>Ventaja:</strong> Útil en pacientes anticoagulados o con coagulopatía de trauma.</p>
+    </div>
+    <div class="hemo-card">
+      <h4>Técnica de empaquetamiento (wound packing)</h4>
+      <p><strong>Pasos:</strong> (1) Identificar el punto sangrante. (2) Introducir el agente hemostático con dedo o instrumento empujando hasta el fondo de la herida. (3) Empacar completamente sin dejar espacios muertos. (4) <strong>Presión directa firme 3 min sin levantar.</strong> (5) Vendaje compresivo sobre el empaquetamiento. NO retirar hasta Role 2+.</p>
+    </div>
+  </div>
+
+  <div class="sec-title">Control de hemorragia: escalera de decisión</div>
+  <table class="tabla">
+    <thead><tr><th>Situación</th><th>Primera opción</th><th>Segunda opción</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr><td>Extremidad (muslo, pierna, brazo)</td><td>Torniquete CAT/SOFTT-W</td><td>Torniquete + empaquetamiento si fuga</td><td>5–7 cm proximal a herida</td></tr>
+      <tr><td>Zona de unión (ingle/axila)</td><td>Combat Gauze + presión 3 min</td><td>JETT / SAM-JT si disponible</td><td>NO torniquete estándar</td></tr>
+      <tr><td>Tórax penetrante</td><td>Sello HyFin® Vent</td><td>Aguja descompresión si tensión</td><td>Nunca cerrar herméticamente sin válvula</td></tr>
+      <tr><td>Abdomen penetrante</td><td>Empaquetamiento con gasa húmeda</td><td>Cinturón pélvico (si fx pelvis)</td><td>No reintroducir vísceras</td></tr>
+      <tr><td>Cuello</td><td>Presión directa manual</td><td>Empaquetamiento + vendaje 8</td><td>NUNCA torniquete cervical</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══ 06. FLUIDOS Y REANIMACIÓN ══ -->
+<div class="sec-header">💉 06 — Reanimación con fluidos: hipotensión permisiva y DCR</div>
+<div class="sec-body">
+  <div class="sec-title">Hipotensión permisiva: objetivos por tipo de trauma</div>
+  <div class="fluidos-grid">
+    <div class="fluido-card permitida">
+      <h4>✅ Trauma penetrante sin TCE</h4>
+      <p><strong>TAS objetivo: 80–90 mmHg</strong></p>
+      <p>Hipotensión permisiva protege el coágulo formado. Cristaloides mínimos (≤1 L). Preferir plasma → ratio 1:1:1 (plasma:plaquetas:concentrado).</p>
+      <p style="margin-top:6px;"><strong>Fundamento:</strong> Reposición agresiva → diluye factores, hipoterma los fluidos fríos → coagulopatía.</p>
+    </div>
+    <div class="fluido-card cuidado">
+      <h4>⚠️ Trauma cerrado sin TCE</h4>
+      <p><strong>TAS objetivo: 90–100 mmHg</strong></p>
+      <p>Mayor umbral que en penetrante. Toleran peor la hipotensión por mayor reserva vascular comprometida. Fluidos más generosos, vigilar signos de hipoperfusión (lactato, diuresis).</p>
+      <p style="margin-top:6px;"><strong>Atención:</strong> Fractura de pelvis → posibilidad de hemorragia retroperitoneal masiva oculta.</p>
+    </div>
+    <div class="fluido-card contraindicado">
+      <h4>🛑 Trauma con TCE (cualquier tipo)</h4>
+      <p><strong>TAS objetivo: &gt;90 mmHg siempre</strong></p>
+      <p>La hipotensión en TCE → hipoperfusión cerebral → isquemia secundaria → desenlace neurológico catastrófico. TAS &lt;90 mmHg en TCE <strong>DUPLICA la mortalidad</strong>.</p>
+      <p style="margin-top:6px;"><strong>NO aplicar hipotensión permisiva en TCE en ningún caso.</strong></p>
+    </div>
+  </div>
+
+  <div class="sec-title">Fluidos de elección en trauma de combate <span class="badge-tccc">TCCC</span></div>
+  <table class="tabla">
+    <thead><tr><th>Fluido</th><th>Prioridad</th><th>Dosis / Vía</th><th>Ventaja</th><th>Observación</th></tr></thead>
+    <tbody>
+      <tr><td>Plasma fresco congelado (PFC)</td><td style="color:var(--verde);font-weight:700;">1ª elección</td><td>Disponible Role 2+. Ratio 1:1 con CGR</td><td>Contiene todos los factores de coagulación. Resucitación hemostática.</td><td>Requiere descongelación 30–40 min. Logística complicada en campo.</td></tr>
+      <tr><td>Concentrado globulos rojos (CGR)</td><td style="color:var(--verde);font-weight:700;">1ª elección</td><td>En ratio con PFC y plaquetas</td><td>Restaura capacidad transportadora O₂</td><td>Ratio ideal: PFC:Plaquetas:CGR = 1:1:1</td></tr>
+      <tr><td>Ácido tranexámico (ATX)</td><td style="color:var(--naranja);font-weight:700;">Precoz obligatorio</td><td><strong>2 g IV lento en 10 min en <strong>1 g IV en 10 min en &lt;3h del trauma</strong>. 2ª dosis 1 g IV en 8hlt;3h del trauma</strong> (protocolo TCCC). Civil: 1 g + 1 g en 8h (CRASH-2)</td><td>Antifibrinolítico → estabiliza coágulo → reduce mortalidad 15% (CRASH-2)</td><td>INEFICAZ si &gt;3h del trauma. No administrar tardío.</td></tr>
+      <tr><td>Hextend (Hetastarch 6%)</td><td style="color:var(--azul);font-weight:700;">Campo (Role 1)</td><td>500 ml IV si PFC no disponible</td><td>Expansor plasmático disponible en campo. Sin efectos anticoagulantes marcados.</td><td>No más de 1 L total. Alternativa hasta llegar a Role 2+.</td></tr>
+      <tr><td>Suero salino normal / Ringer Lactato</td><td style="color:var(--rojo);font-weight:700;">Evitar en exceso</td><td>≤1 L si imprescindible</td><td>Disponible universalmente</td><td>Grandes volúmenes → acidosis hiperclorémica (SF) + dilución factores + hipotermia.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nota-acero">
+    <strong>🔑 Ácido tranexámico (ATX) en trauma — recordar:</strong> "Si sangra y tiene &lt;3h del trauma, dar ATX". Estudios CRASH-2 y MATTERs demuestran reducción de mortalidad. <strong>Protocolo TCCC (desde 2020): dosis única de 2 g IV lento</strong> (push en 10 min). Protocolo civil/CRASH-2: 1 g en 10 min + 2ª dosis 1 g en 8h. <strong>Ventana: &lt;3h del trauma.</strong> TXA también indicado en TCE grave con hemorragia intracraneal (evidencia creciente desde 2024). <span style="display:inline-block;background:var(--naranja);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px;">ACTUALIZADA</span>
+  </div>
+</div>
+
+<!-- ══ PERLAS ══ -->
+<div class="perlas-section">
+  <div class="perlas-header">⭐ PERLAS TIPO EXAMEN — TRAUMA AVANZADO: BLAST · BALÍSTICO · TORNIQUETE</div>
+  <div class="perlas-grid">
+    <div class="perla-item"><span class="estrella">★</span> <strong>Causa n.º 1 de muerte prevenible en combate</strong> → <strong>Hemorragia masiva en extremidades</strong>. Por eso el protocolo TCCC pone la x (hemorragia eXsanguinante) ANTES que la vía aérea. Regla de oro: torniquete en &lt;3 min.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>xABCDE vs ABCDE civil</strong> → xABCDE coloca hemorragia exsanguinante primero. ABCDE clásico civil pone vía aérea primero. Diferencia fundamental del trauma militar. Trampa de examen muy habitual.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Torniquete: colocación correcta</strong> → <strong>5–7 cm proximal</strong> a la herida. No sobre articulaciones. Tensar hasta control de hemorragia Y pulso distal ausente. Anotar hora. TCCC 2024: convertir en <strong>&lt;2 h</strong> si es posible. <strong>NO retirar si &gt;6 h</strong> sin laboratorio y monitorización médica. Conversión &gt;2h: solo personal médico entrenado.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Error más frecuente con torniquete</strong> → Colocar demasiado flojo: comprime solo venas (↑ sangrado venoso) pero no arterias. El torniquete debe ser doloroso para ser eficaz. El segundo error más frecuente: no anotar la hora de colocación.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Blast injury: las 4 fases</strong> → <strong>1ª (primaria): onda de presión</strong> → pulmón/tímpano/intestino. 2ª (secundaria): fragmentos. 3ª (terciaria): desplazamiento corporal. 4ª (cuaternaria): quemaduras/tóxicos. Causa más frecuente de baja: fragmentos (2ª).</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Pulmón de blast: trampa clásica</strong> → Paciente llega aparentemente bien → deterioro brusco en 24–48h (EAP, ARDS). <strong>Observación mínima 24h obligatoria</strong> aunque asintomático. Tímpano roto = evidencia de exposición a onda primaria.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Hipotensión permisiva: NO en TCE</strong> → Trauma penetrante sin TCE: TAS 80–90 mmHg. Trauma con TCE: <strong>TAS &gt;90 mmHg siempre</strong>. Hipotensión en TCE duplica mortalidad. Nunca aplicar permisiva a ciegas sin descartar TCE.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Ácido tranexámico: ventana de eficacia</strong> → <strong>&lt;3 horas desde el trauma</strong>. <strong>TCCC: 2 g dosis única IV lento</strong>. Civil/CRASH-2: 1g + 1g en 8h. Ineficaz (y potencialmente perjudicial) si &gt;3h. CRASH-2: reduce mortalidad ~15%. TCCC usa <strong>2 g dosis única IV lento</strong> (desde 2020). Incluido en botiquín sanitario de combate.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Tríada letal del trauma (HAC)</strong> → <strong>Hipotermia + Acidosis + Coagulopatía</strong>. Círculo vicioso: cada componente empeora a los otros. Damage Control Resuscitation (DCR): cortar el círculo con hemostasia, calor, plasma. NO cristaloides masivos.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Herida torácica penetrante: sello con válvula</strong> → Sello oclusivo con <strong>válvula unidireccional</strong> (HyFin® Vent, Asherman Chest Seal). Cerrar sin válvula → acumula aire → neumotórax a tensión. La válvula permite exhalar aire pero no inhalar.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Combat Gauze: técnica correcta</strong> → Hemostático de 1ª elección TCCC (kaolín). Empacar profundamente hasta el fondo de la herida → presión directa <strong>3 minutos continuos</strong> sin levantar. No retirar en campo. Dejar in situ hasta Role 2+.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Cavitación temporal en armas de alta velocidad</strong> → La cavitación temporal puede ser 10–30× el diámetro del proyectil. Destruye tejido frágil (hígado, cerebro) mucho más allá del canal visible. El orificio de entrada subestima gravemente el daño real.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sec-header">📖 Glosario de abreviaturas</div>
+<div class="sec-body">
+  <dl class="glosario-grid">
+    <div class="glos-item"><dt>TCCC</dt><dd>Tactical Combat Casualty Care</dd></div>
+    <div class="glos-item"><dt>DCR</dt><dd>Damage Control Resuscitation</dd></div>
+    <div class="glos-item"><dt>DCO</dt><dd>Damage Control Surgery</dd></div>
+    <div class="glos-item"><dt>IED</dt><dd>Improvised Explosive Device</dd></div>
+    <div class="glos-item"><dt>mTBI</dt><dd>Mild Traumatic Brain Injury</dd></div>
+    <div class="glos-item"><dt>HAC</dt><dd>Hipotermia + Acidosis + Coagulopatía</dd></div>
+    <div class="glos-item"><dt>ATX</dt><dd>Ácido tranexámico</dd></div>
+    <div class="glos-item"><dt>CAT</dt><dd>Combat Application Tourniquet</dd></div>
+    <div class="glos-item"><dt>SOFTT-W</dt><dd>Special Operations Forces Tourniquet-Wide</dd></div>
+    <div class="glos-item"><dt>JETT</dt><dd>Junctional Emergency Treatment Tool</dd></div>
+    <div class="glos-item"><dt>PFC</dt><dd>Plasma Fresco Congelado</dd></div>
+    <div class="glos-item"><dt>CGR</dt><dd>Concentrado de Glóbulos Rojos</dd></div>
+    <div class="glos-item"><dt>NPA</dt><dd>Nasopharyngeal Airway (cánula nasofaríngea)</dd></div>
+    <div class="glos-item"><dt>EIC LMC</dt><dd>2º Espacio Intercostal, Línea Medioclavicular</dd></div>
+    <div class="glos-item"><dt>PPC</dt><dd>Presión de Perfusión Cerebral</dd></div>
+    <div class="glos-item"><dt>IO</dt><dd>Vía Intraósea</dd></div>
+    <div class="glos-item"><dt>EAP</dt><dd>Edema Agudo de Pulmón</dd></div>
+    <div class="glos-item"><dt>TCE</dt><dd>Traumatismo Craneoencefálico</dd></div>
+    <div class="glos-item"><dt>ARDS</dt><dd>Acute Respiratory Distress Syndrome</dd></div>
+    <div class="glos-item"><dt>ATLS</dt><dd>Advanced Trauma Life Support</dd></div>
+  </dl>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECG: Isquemia · Lesión · IAM · Código IAM</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --acento:#c02030;--acento-dark:#7a1020;--acento-light:#e04050;--acento-pale:#fdf0f2;
+  --isquemia:#c09010;--lesion:#c04020;--necrosis:#4a1a1a;
+  --rojo:#c04020;--verde:#1a7a3a;--azul:#1a5a8a;--naranja:#e07020;--purpura:#7040c0;
+  --da:#c03020;--cd:#1a5a8a;--cx:#2a7a2a;--tci:#6a1a8a;
+  --amarillo-perla:#fffce6;--borde-perla:#e0c020;
+  --fondo:#f8f5f0;--blanco:#ffffff;--texto:#1a1a1a;--texto-m:#444444;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--fondo);color:var(--texto);font-size:15px;line-height:1.55;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--acento-dark) 0%,var(--acento) 60%,var(--acento-light) 100%);color:#fff;padding:28px 40px 24px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(255,255,255,0.03) 18px,rgba(255,255,255,0.03) 36px);}
+.header-ecg{position:absolute;bottom:0;right:0;left:0;height:40px;opacity:0.12;overflow:hidden;}
+.header-ecg svg{width:100%;height:100%;}
+.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.header-top{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.header-icon{font-size:2.5rem;background:rgba(255,255,255,0.15);padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);}
+.header-text h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1.15;}
+.header-text h1 span{color:#f8b8c0;}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:0.71rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-top:5px;}
+.header-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.pill{background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);border-radius:20px;padding:3px 12px;font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.08em;text-transform:uppercase;}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:28px 20px;}
+.sec-header{background:var(--acento);color:#fff;padding:9px 18px;border-radius:6px 6px 0 0;font-family:'JetBrains Mono',monospace;font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+.sec-body{background:var(--blanco);border:1px solid #ddd;border-top:none;border-radius:0 0 8px 8px;padding:20px;margin-bottom:24px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;color:var(--acento-dark);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--acento-pale);}
+.fuentes-bar{background:var(--acento-pale);border:1px solid #e8c0c4;border-radius:6px;padding:8px 14px;font-size:0.78rem;color:var(--acento-dark);margin-bottom:20px;font-family:'JetBrains Mono',monospace;}
+
+/* PROGRESIÓN ISQUEMIA-LESIÓN-NECROSIS */
+.progresion{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:20px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.prog-card{padding:20px;position:relative;}
+.prog-card.isquemia{background:#fffbf0;border:1px solid #e8d060;border-right:none;}
+.prog-card.lesion{background:#fff5f0;border:1px solid #e08060;border-right:none;}
+.prog-card.necrosis{background:#fff0f0;border:1px solid var(--acento);}
+.prog-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;line-height:1;margin-bottom:8px;opacity:0.15;position:absolute;top:10px;right:14px;}
+.prog-card.isquemia .prog-num{color:var(--isquemia);}
+.prog-card.lesion .prog-num{color:var(--lesion);}
+.prog-card.necrosis .prog-num{color:var(--necrosis);}
+.prog-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:4px;}
+.prog-card.isquemia .prog-title{color:var(--isquemia);}
+.prog-card.lesion .prog-title{color:var(--lesion);}
+.prog-card.necrosis .prog-title{color:var(--acento-dark);}
+.prog-ekgloc{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+.prog-card.isquemia .prog-ekgloc{color:var(--isquemia);}
+.prog-card.lesion .prog-ekgloc{color:var(--lesion);}
+.prog-card.necrosis .prog-ekgloc{color:var(--acento-dark);}
+.prog-body{font-size:0.85rem;color:var(--texto-m);}
+.prog-body strong{color:var(--texto);}
+.prog-rev{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:8px;}
+.rev-total{background:#e8fff0;color:var(--verde);border:1px solid var(--verde);}
+.rev-parcial{background:#fff8e8;color:var(--naranja);border:1px solid var(--naranja);}
+.rev-irrev{background:#fff0f0;color:var(--acento);border:1px solid var(--acento);}
+
+/* ECG VISUAL */
+.ecg-onda{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.85rem;font-weight:700;padding:3px 10px;border-radius:6px;margin:2px 3px;}
+.onda-t{background:#fff8e0;color:var(--isquemia);border:1px solid var(--isquemia);}
+.onda-st{background:#fff0ee;color:var(--lesion);border:1px solid var(--lesion);}
+.onda-q{background:#f5e8e8;color:var(--acento-dark);border:1px solid var(--acento-dark);}
+.onda-trop{background:#f0e8ff;color:var(--purpura);border:1px solid var(--purpura);}
+
+/* TABLA RESUMEN */
+.tabla-resumen{width:100%;border-collapse:collapse;font-size:0.85rem;margin-bottom:16px;}
+.tabla-resumen thead th{padding:10px 14px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;border-bottom:3px solid var(--acento);}
+.tabla-resumen thead th:first-child{background:var(--acento-dark);color:#fff;}
+.tabla-resumen thead th:not(:first-child){background:var(--acento-pale);color:var(--acento-dark);}
+.tabla-resumen tbody tr{border-bottom:1px solid #eee;}
+.tabla-resumen tbody tr.row-isq{background:#fffdf0;}
+.tabla-resumen tbody tr.row-les{background:#fff8f5;}
+.tabla-resumen tbody tr.row-nec{background:#fff2f2;}
+.tabla-resumen td{padding:10px 14px;vertical-align:middle;}
+.tabla-resumen td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.78rem;font-weight:700;}
+.row-isq td:first-child{color:var(--isquemia);}
+.row-les td:first-child{color:var(--lesion);}
+.row-nec td:first-child{color:var(--acento-dark);}
+
+/* TABLA DERIVACIONES */
+.tabla{width:100%;border-collapse:collapse;font-size:0.83rem;margin-bottom:16px;}
+.tabla thead th{padding:9px 12px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:0.64rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--acento);}
+.tabla thead th:first-child{background:var(--acento-dark);color:#fff;}
+.tabla thead th:not(:first-child){background:var(--acento-pale);color:var(--acento-dark);}
+.tabla tbody tr{border-bottom:1px solid #eee;}
+.tabla tbody tr:nth-child(even){background:#fafafa;}
+.tabla tbody tr:hover{background:var(--acento-pale);}
+.tabla td{padding:8px 12px;vertical-align:top;}
+.tabla td:first-child{font-family:'JetBrains Mono',monospace;font-size:0.73rem;font-weight:700;white-space:nowrap;}
+.art-da{color:var(--da);}.art-cd{color:var(--cd);}.art-cx{color:var(--cx);}.art-tci{color:var(--tci);}
+
+/* ARTERIA DOTS */
+.art-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.ab-da{background:#fff0ee;color:var(--da);border:1px solid var(--da);}
+.ab-cd{background:#f0f5ff;color:var(--cd);border:1px solid var(--cd);}
+.ab-cx{background:#f0fff4;color:var(--cx);border:1px solid var(--cx);}
+.ab-tci{background:#f8f0ff;color:var(--tci);border:1px solid var(--tci);}
+
+/* UMBRALES ST */
+.umbrales-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.umbral-card{background:var(--blanco);border:1px solid #ddd;border-radius:8px;overflow:hidden;text-align:center;}
+.umbral-head{padding:9px 10px;font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--acento);}
+.umbral-valor{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--acento-dark);padding:12px 8px 6px;line-height:1;}
+.umbral-desc{font-size:0.8rem;color:var(--texto-m);padding:6px 8px 12px;}
+
+/* DERIVACIONES ESPECIALES */
+.der-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.der-card{background:var(--blanco);border:1px solid #ddd;border-radius:8px;overflow:hidden;}
+.der-head{padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;color:#fff;}
+.der-head.post{background:#5a2a7a;}
+.der-head.vd{background:var(--cd);}
+.der-body{padding:14px 16px;}
+.der-body p{font-size:0.85rem;color:var(--texto-m);margin-bottom:6px;}
+.der-body strong{color:var(--texto);}
+.der-puntos{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.der-punto{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:6px;}
+.dp-post{background:#f5e8ff;color:#5a2a7a;border:1px solid #5a2a7a;}
+.dp-vd{background:#e8f0ff;color:var(--cd);border:1px solid var(--cd);}
+.criterio-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:6px;background:var(--acento-pale);color:var(--acento-dark);border:1px solid var(--acento);margin-top:6px;}
+
+/* PATRONES ENGAÑOSOS */
+.patron-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.patron-card{background:var(--blanco);border:1px solid #ddd;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.patron-head{padding:10px 14px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
+.ph-winter{background:#8a2a10;}
+.ph-wellens{background:#4a1a7a;}
+.ph-bcrihh{background:#1a4a6a;}
+.patron-body{padding:14px;}
+.patron-body p{font-size:0.84rem;color:var(--texto-m);margin-bottom:7px;}
+.patron-body strong{color:var(--texto);}
+.patron-ekgloc{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;margin-bottom:6px;}
+.patron-body ul{list-style:none;padding:0;}
+.patron-body ul li{font-size:0.83rem;color:var(--texto-m);padding-left:14px;position:relative;margin-bottom:4px;}
+.patron-body ul li::before{content:'▸';position:absolute;left:0;color:var(--acento);font-size:0.65rem;top:3px;}
+.patron-body ul li strong{color:var(--texto);}
+.patron-alerta{background:var(--acento-pale);border-left:3px solid var(--acento);border-radius:0 6px 6px 0;padding:6px 10px;margin-top:8px;font-size:0.82rem;color:var(--acento-dark);font-weight:600;}
+
+/* FISIOPATOLOGÍA */
+.fisio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.fisio-card{background:var(--blanco);border:1px solid #ddd;border-top:4px solid var(--acento);border-radius:8px;padding:14px;}
+.fisio-card h3{font-family:'JetBrains Mono',monospace;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--acento);margin-bottom:8px;}
+.fisio-card p{font-size:0.85rem;color:var(--texto-m);}
+.fisio-card strong{color:var(--texto);}
+
+/* ALERTAS */
+.advertencia{background:#fff8f0;border-left:4px solid var(--rojo);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.advertencia strong{color:var(--rojo);}
+.nota-clave{background:#f0e8ff;border-left:4px solid var(--purpura);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.nota-clave strong{color:var(--purpura);}
+.nota-roja{background:var(--acento-pale);border-left:4px solid var(--acento);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:0.88rem;}
+.nota-roja strong{color:var(--acento-dark);}
+
+/* PERLAS */
+.perlas-section{background:var(--amarillo-perla);border:1px solid var(--borde-perla);border-radius:8px;overflow:hidden;margin-bottom:24px;}
+.perlas-header{background:#b08010;color:#fff;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:0.71rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px;}
+.perlas-grid{display:grid;grid-template-columns:1fr 1fr;}
+.perla-item{padding:13px 18px;border-bottom:1px solid rgba(224,192,32,0.3);border-right:1px solid rgba(224,192,32,0.3);font-size:0.87rem;line-height:1.5;}
+.perla-item:nth-child(even){border-right:none;}
+.perla-item:last-child,.perla-item:nth-last-child(2):nth-child(odd){border-bottom:none;}
+.perla-item .estrella{color:#b08010;}
+.perla-item strong{color:var(--acento-dark);}
+
+/* GLOSARIO */
+.glosario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.glos-item{background:var(--blanco);border:1px solid #ddd;border-radius:6px;padding:8px 10px;font-size:0.82rem;}
+.glos-item dt{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;color:var(--acento);margin-bottom:2px;}
+.glos-item dd{color:var(--texto-m);}
+
+/* BADGE */
+.badge-esc{display:inline-block;background:var(--acento-dark);color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+.badge-guia{display:inline-block;background:#1a3a8a;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle;}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .header{padding:20px 16px;}.header-text h1{font-size:1.5rem;}
+  .progresion,.patron-grid,.fisio-grid{grid-template-columns:1fr;}
+  .umbrales-grid{grid-template-columns:repeat(2,1fr);}
+  .der-grid{grid-template-columns:1fr;}
+  .perlas-grid{grid-template-columns:1fr;}.perla-item{border-right:none!important;}
+  .glosario-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:480px){.umbrales-grid,.glosario-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="header-icon">❤️</div>
+      <div class="header-text">
+        <h1>ECG <span>Isquemia · Lesión · IAM · Código IAM</span></h1>
+        <div class="header-sub">Fisiopatología coronaria · Progresión isquemia–lesión–necrosis · Localización · Patrones equivalentes SCACEST · Criterios de activación</div>
+      </div>
+    </div>
+    <div class="header-pills">
+      <span class="pill">❤️ Cardiología</span>
+      <span class="pill">📋 ESC 2023</span>
+      <span class="pill">⚡ Código IAM</span>
+      <span class="pill">🎯 INGESA 2026</span>
+      <span class="pill">🏥 4ª Def. Universal IAM</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="fuentes-bar">📚 FUENTES: ESC Guidelines STEMI 2023 · ESC Guidelines NSTEMI 2020 · 4ª Definición Universal del IAM (ESC/ACC/AHA/WHF 2018) · ACC/AHA Guidelines ACS 2022 · Sociedad Española de Cardiología (SEC) Código IAM</div>
+
+<!-- ══ 01. FISIOPATOLOGÍA ══ -->
+<div class="sec-header">🫀 01 — Fisiopatología: circulación coronaria y disbalance O₂</div>
+<div class="sec-body">
+  <div class="sec-title">Perfusión coronaria: lo que diferencia al corazón del resto del cuerpo</div>
+  <div class="fisio-grid">
+    <div class="fisio-card">
+      <h3>Perfusión diastólica</h3>
+      <p>El miocardio se nutre <strong>principalmente durante la diástole</strong> ventricular, al contrario que el resto del organismo (que se perfunde en sístole). Al relajarse el ventrículo, la presión aórtica fuerza sangre hacia las coronarias. En taquicardias extremas → diástole muy corta → <strong>isquemia por hipoperfusión</strong>.</p>
+    </div>
+    <div class="fisio-card">
+      <h3>Disbalance Oferta/Demanda</h3>
+      <p>El IAM se define fisiopatológicamente como <strong>necrosis por isquemia por desequilibrio entre oferta y demanda de O₂ miocárdico</strong>. Oferta reducida por: placa, trombo, espasmo. Demanda aumentada por: taquicardia, HTA, hipertrofia. <strong>Tipo 1:</strong> placa rota. <strong>Tipo 2:</strong> oferta-demanda.</p>
+    </div>
+    <div class="fisio-card">
+      <h3>Seno coronario</h3>
+      <p>Vena principal que recoge sangre desoxigenada del miocardio y la drena en la <strong>aurícula derecha</strong>. La obstrucción arterial impide el ciclo de perfusión y drenaje. El resultado: acumulación de metabolitos, alteración iónica de la membrana → <strong>cambios eléctricos visibles en el EKG</strong> (isquemia → lesión → necrosis).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 02. PROGRESIÓN I-L-N ══ -->
+<div class="sec-header">📈 02 — Progresión: Isquemia → Lesión → Necrosis</div>
+<div class="sec-body">
+  <div class="sec-title">Los tres estadios en el EKG</div>
+  <div class="progresion">
+    <div class="prog-card isquemia">
+      <div class="prog-num">1</div>
+      <div class="prog-title">Isquemia</div>
+      <div class="prog-ekgloc">📍 Localización EKG → Onda T</div>
+      <div class="prog-body">
+        <p><strong>Fisiopatología:</strong> Desequilibrio oferta/demanda O₂. Célula viva pero hipóxica. Alteración de la repolarización ventricular → se refleja en la onda T.</p>
+        <p style="margin-top:8px;"><strong>Patrones:</strong></p>
+        <ul style="margin-top:4px;list-style:none;padding:0;">
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;font-size:0.84rem;color:var(--texto-m);">
+            <span style="position:absolute;left:0;color:var(--isquemia);">▸</span>
+            <strong>T picudas y simétricas</strong> → isquemia hiperaguda (De Winter)
+          </li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;font-size:0.84rem;color:var(--texto-m);">
+            <span style="position:absolute;left:0;color:var(--isquemia);">▸</span>
+            <strong>T invertidas o bifásicas</strong> → reperfusión/estenosis crítica (Wellens)
+          </li>
+        </ul>
+        <span class="prog-rev rev-total">✓ Reversible — Reperfusión rápida</span>
+      </div>
+    </div>
+    <div class="prog-card lesion">
+      <div class="prog-num">2</div>
+      <div class="prog-title">Lesión</div>
+      <div class="prog-ekgloc">📍 Localización EKG → Segmento ST (Punto J)</div>
+      <div class="prog-body">
+        <p><strong>Fisiopatología:</strong> Daño celular persistente. Altera la despolarización y repolarización ventricular. El punto J (unión QRS-ST) se desplaza.</p>
+        <p style="margin-top:8px;"><strong>Tipos:</strong></p>
+        <ul style="margin-top:4px;list-style:none;padding:0;">
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;font-size:0.84rem;color:var(--texto-m);">
+            <span style="position:absolute;left:0;color:var(--lesion);">▸</span>
+            <strong>↑ ST convexo</strong> → subepicárdica → SCACEST → oclusión total
+          </li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;font-size:0.84rem;color:var(--texto-m);">
+            <span style="position:absolute;left:0;color:var(--lesion);">▸</span>
+            <strong>↓ ST</strong> → subendocárdica → SCASEST → no oclusión total
+          </li>
+        </ul>
+        <span class="prog-rev rev-parcial">⚡ Parcialmente reversible — Tiempo-dependiente</span>
+      </div>
+    </div>
+    <div class="prog-card necrosis">
+      <div class="prog-num">3</div>
+      <div class="prog-title">Necrosis (IAM)</div>
+      <div class="prog-ekgloc">📍 Localización EKG → Onda Q + Troponinas</div>
+      <div class="prog-body">
+        <p><strong>Fisiopatología:</strong> Muerte celular de cardiomiocitos por isquemia prolongada. Irreversible. El tejido necrótico no conduce electricidad → ventana eléctrica → onda Q.</p>
+        <p style="margin-top:8px;"><strong>Criterio diagnóstico (4ª Def. Universal):</strong></p>
+        <ul style="margin-top:4px;list-style:none;padding:0;">
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;font-size:0.84rem;color:var(--texto-m);">
+            <span style="position:absolute;left:0;color:var(--acento-dark);">▸</span>
+            <strong>Troponinas &gt; p99</strong> + evidencia clínica/EKG
+          </li>
+          <li style="padding-left:14px;position:relative;margin-bottom:4px;font-size:0.84rem;color:var(--texto-m);">
+            <span style="position:absolute;left:0;color:var(--acento-dark);">▸</span>
+            <strong>Onda Q</strong> ancha (&gt;40 ms) y profunda (&gt;25% onda R)
+          </li>
+        </ul>
+        <span class="prog-rev rev-irrev">✗ Irreversible — Necrosis establecida</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Tabla resumen para memorización rápida</div>
+  <table class="tabla-resumen">
+    <thead>
+      <tr>
+        <th>Estado</th>
+        <th>Localización EKG</th>
+        <th>Significado clínico</th>
+        <th>Reversibilidad</th>
+        <th>Clave de examen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-isq">
+        <td>ISQUEMIA</td>
+        <td><span class="ecg-onda onda-t">Onda T</span></td>
+        <td>Déficit O₂ · oferta/demanda alterada</td>
+        <td><span style="color:var(--verde);font-weight:700;">✓ Total</span></td>
+        <td>T picudas (hiperaguda) · T invertidas (Wellens)</td>
+      </tr>
+      <tr class="row-les">
+        <td>LESIÓN</td>
+        <td><span class="ecg-onda onda-st">Segmento ST · Punto J</span></td>
+        <td>Daño celular agudo · despolarización alterada</td>
+        <td><span style="color:var(--naranja);font-weight:700;">⚡ Parcial</span></td>
+        <td>↑ST convexo (SCACEST) · ↓ST (SCASEST)</td>
+      </tr>
+      <tr class="row-nec">
+        <td>NECROSIS · IAM</td>
+        <td><span class="ecg-onda onda-q">Onda Q</span> <span class="ecg-onda onda-trop">Troponinas</span></td>
+        <td>Muerte celular irreversible · ventana eléctrica</td>
+        <td><span style="color:var(--acento);font-weight:700;">✗ Irreversible</span></td>
+        <td>Q ancha &gt;40ms · Troponinas &gt; p99</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="nota-roja">
+    <strong>🔑 SCA vs IAM:</strong> El <strong>Síndrome Coronario Agudo (SCA)</strong> es el término clínico inicial de presentación. Solo se denomina <strong>IAM</strong> cuando existe confirmación de necrosis mediante <strong>troponinas positivas (&gt; p99)</strong> con evidencia de isquemia. Sin troponinas positivas → Angina inestable (SCASEST sin necrosis).
+  </div>
+</div>
+
+<!-- ══ 03. CRITERIOS CÓDIGO IAM ══ -->
+<div class="sec-header">🚨 03 — Criterios de activación Código IAM: elevación del Punto J</div>
+<div class="sec-body">
+  <div class="sec-title">Umbral de elevación del ST por derivaciones <span class="badge-esc">ESC 2023</span></div>
+
+  <div class="umbrales-grid">
+    <div class="umbral-card">
+      <div class="umbral-head">Hombres &lt; 40 años · V2-V3</div>
+      <div class="umbral-valor">≥2,5mm</div>
+      <div class="umbral-desc">El umbral más alto. Varones jóvenes tienen repolarización precoz fisiológica → umbral elevado para evitar falsos positivos.</div>
+    </div>
+    <div class="umbral-card">
+      <div class="umbral-head">Hombres ≥ 40 años · V2-V3</div>
+      <div class="umbral-valor">≥2,0mm</div>
+      <div class="umbral-desc">Umbral estándar en varones adultos para precordiales centrales (V2-V3), las más sensibles al SCACEST anterior.</div>
+    </div>
+    <div class="umbral-card">
+      <div class="umbral-head">Mujeres (cualquier edad) · V2-V3</div>
+      <div class="umbral-valor">≥1,5mm</div>
+      <div class="umbral-desc">Umbral menor porque las mujeres tienen menor voltaje basal en V2-V3. Un 1,5mm en mujer equivale clínicamente a 2mm en varón.</div>
+    </div>
+    <div class="umbral-card">
+      <div class="umbral-head">Resto derivaciones · Todas</div>
+      <div class="umbral-valor">≥1,0mm</div>
+      <div class="umbral-desc">Umbral universal para todas las demás derivaciones (I, II, III, aVF, aVL, aVR, V1, V4-V6). En ≥2 derivaciones contiguas.</div>
+    </div>
+  </div>
+
+  <div class="nota-clave">
+    <strong>🔑 Regla de las 2 derivaciones contiguas:</strong> La elevación debe aparecer en <strong>al menos 2 derivaciones anatómicamente contiguas</strong> para activar Código IAM. Una sola derivación elevada no es suficiente (puede ser artefacto, posición de electrodo, repolarización precoz). Contiguas = misma cara del corazón (ver sección de localización).
+  </div>
+</div>
+
+<!-- ══ 04. LOCALIZACIÓN ══ -->
+<div class="sec-header">🗺️ 04 — Anatomía y derivaciones: localización del daño</div>
+<div class="sec-body">
+  <div class="sec-title">Mapa coronario-electrocardiográfico</div>
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>Cara del corazón</th>
+        <th>Derivaciones EKG</th>
+        <th>Arteria afectada</th>
+        <th>Riesgo específico</th>
+        <th>Acción adicional</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="art-da">Anterior / Septal</td>
+        <td><strong>V1 – V4</strong></td>
+        <td><span class="art-badge ab-da">DA — Descendente Anterior</span></td>
+        <td>Insuficiencia cardíaca aguda, BCRI de nova, arritmias ventriculares (TV, FV), bloqueos AV avanzados</td>
+        <td>Monitorización continua. Desfibrilador a mano.</td>
+      </tr>
+      <tr>
+        <td class="art-cd">Inferior</td>
+        <td><strong>II, III, aVF</strong></td>
+        <td><span class="art-badge ab-cd">CD — Coronaria Derecha</span></td>
+        <td>Bradicardia sinusal, bloqueo AV (I-II-III grado), hipotensión, IAM VD concomitante (40%)</td>
+        <td><strong>SIEMPRE hacer derivaciones derechas</strong> (V3R-V4R). Cuidado con nitratos si VD afectado.</td>
+      </tr>
+      <tr>
+        <td class="art-cx">Lateral</td>
+        <td><strong>I, aVL, V5, V6</strong></td>
+        <td><span class="art-badge ab-cx">Cx — Circunfleja</span></td>
+        <td>Puede ser sutil. La circunfleja está "alejada" de las precordiales estándar → EKG puede ser normal o con cambios mínimos</td>
+        <td>Si sospecha clínica → derivaciones posteriores V7-V9. Buscar imagen en espejo en V1-V3.</td>
+      </tr>
+      <tr>
+        <td class="art-tci">Tronco Común (TCI)</td>
+        <td><strong>↑aVR + ↓ ≥6 leads</strong></td>
+        <td><span class="art-badge ab-tci">TCI — Tronco Izquierdo</span></td>
+        <td>Patrón: elevación aVR &gt;1mm + descenso difuso en ≥6 derivaciones. Extrema gravedad. Alta mortalidad. Equivale a "Widowmaker"</td>
+        <td>Activación inmediata. ICP primaria o cirugía urgente. No demorar.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="advertencia">
+    <strong>⚠️ IAM inferior → SIEMPRE derivaciones derechas:</strong> El 40% de los IAM inferiores (por oclusión de CD) afectan también al <strong>ventrículo derecho (IAM-VD)</strong>. El IAM-VD presenta hipotensión, pero en este caso <strong>los nitratos y diuréticos están CONTRAINDICADOS</strong> (el VD depende de la precarga). El tratamiento es reposición de volumen. Sin V3R-V4R, no puedes detectarlo.
+  </div>
+</div>
+
+<!-- ══ 05. DERIVACIONES ESPECIALES ══ -->
+<div class="sec-header">🔭 05 — Derivaciones especiales: lo que el EKG de 12 no ve</div>
+<div class="sec-body">
+  <div class="sec-title">Cuando el EKG estándar es insuficiente</div>
+  <div class="der-grid">
+    <div class="der-card">
+      <div class="der-head post">Cara Posterior — V7, V8, V9</div>
+      <div class="der-body">
+        <p><strong>¿Cuándo realizarlas?</strong> Si observas <strong>descenso del ST en V1-V3</strong> con clínica de SCA → puede ser imagen en espejo de elevación posterior.</p>
+        <p><strong>Colocación de electrodos:</strong></p>
+        <div class="der-puntos">
+          <span class="der-punto dp-post">V7 — Línea axilar posterior</span>
+          <span class="der-punto dp-post">V8 — Ángulo de la escápula</span>
+          <span class="der-punto dp-post">V9 — Línea paravertebral izq.</span>
+        </div>
+        <p style="margin-top:10px;"><strong>Arteria implicada:</strong> Circunfleja (Cx) dominante o Coronaria Derecha (CD) posterior.</p>
+        <div class="criterio-badge">Criterio: Elevación ≥ 0,5 mm en ≥2 derivaciones</div>
+        <p style="margin-top:8px;font-size:0.83rem;color:var(--texto-m);">⚠️ Umbral <strong>más bajo que el estándar</strong> (0,5mm) porque el alejamiento de los electrodos atenúa la señal.</p>
+      </div>
+    </div>
+    <div class="der-card">
+      <div class="der-head vd">Ventrículo Derecho — V3R, V4R</div>
+      <div class="der-body">
+        <p><strong>¿Cuándo realizarlas?</strong> <strong>SIEMPRE</strong> que exista un IAM inferior (elevación en II, III, aVF). Regla sin excepciones.</p>
+        <p><strong>Colocación de electrodos:</strong></p>
+        <div class="der-puntos">
+          <span class="der-punto dp-vd">V3R — Simétrico a V3, lado derecho</span>
+          <span class="der-punto dp-vd">V4R — Simétrico a V4, lado derecho</span>
+        </div>
+        <p style="margin-top:10px;"><strong>¿Por qué V4R especialmente?</strong> Es la más sensible y específica para IAM-VD. Si hay duda, V4R es la clave.</p>
+        <div class="criterio-badge">Criterio: Elevación ≥ 0,5 mm (≥ 1mm en varones &lt;30 años)</div>
+        <p style="margin-top:8px;font-size:0.83rem;color:var(--texto-m);">⚠️ La elevación en V4R es <strong>transitoria</strong>: puede normalizarse en 10 min. Registrar el EKG precozmente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 06. PATRONES ENGAÑOSOS ══ -->
+<div class="sec-header">⚡ 06 — Patrones equivalentes SCACEST: sin elevación clásica del ST</div>
+<div class="sec-body">
+  <div class="sec-title">Dibujos que exigen activación inmediata aunque no haya ↑ST clásico <span class="badge-guia">ESC 2023</span></div>
+  <div class="patron-grid">
+    <div class="patron-card">
+      <div class="patron-head ph-winter">Patrón de De Winter</div>
+      <div class="patron-body">
+        <div class="patron-ekgloc">📍 Derivaciones: V1–V6 (precordiales)</div>
+        <p><strong>Descripción EKG:</strong></p>
+        <ul>
+          <li><strong>Descenso del ST</strong> (1–3 mm) en el punto J de V1-V6</li>
+          <li>Seguido de <strong>ondas T picudas, positivas y simétricas</strong></li>
+          <li>Puede haber leve elevación de ST en aVR</li>
+          <li>El QRS es generalmente estrecho</li>
+        </ul>
+        <p style="margin-top:8px;font-size:0.83rem;"><strong>Significado:</strong> Oclusión aguda de la <strong>DA proximal</strong>. Equivale hemodinámicamente a SCACEST anterior masivo.</p>
+        <div class="patron-alerta">🚨 Activación Código IAM inmediata. Misma urgencia que ↑ST.</div>
+      </div>
+    </div>
+    <div class="patron-card">
+      <div class="patron-head ph-wellens">Síndrome de Wellens</div>
+      <div class="patron-body">
+        <div class="patron-ekgloc">📍 Derivaciones: V2–V3 principalmente</div>
+        <p><strong>Dos tipos:</strong></p>
+        <ul>
+          <li><strong>Tipo A (bifásico):</strong> Ondas T bifásicas en V2-V3 (primero positiva luego negativa). Más específico.</li>
+          <li><strong>Tipo B (invertido):</strong> Ondas T profunda y simétricamente invertidas en V2-V3.</li>
+          <li>Aparece <strong>cuando el paciente NO tiene dolor</strong> (reperfusión espontánea transitoria)</li>
+          <li>ST normal o mínimamente elevado</li>
+        </ul>
+        <p style="margin-top:8px;font-size:0.83rem;"><strong>Significado:</strong> Estenosis crítica de <strong>DA proximal</strong>. Alto riesgo de IAM anterior masivo inminente si no se actúa.</p>
+        <div class="patron-alerta">⚠️ No hacer prueba de esfuerzo — puede precipitar IAM. ICP urgente.</div>
+      </div>
+    </div>
+    <div class="patron-card">
+      <div class="patron-head ph-bcrihh">Bloqueo de Rama + Dolor</div>
+      <div class="patron-body">
+        <div class="patron-ekgloc">📍 Todas las derivaciones (QRS ancho)</div>
+        <p><strong>BCRIHH de nueva aparición:</strong></p>
+        <ul>
+          <li>QRS &gt;120 ms con morfología de bloqueo izquierdo</li>
+          <li>En contexto de <strong>dolor torácico agudo</strong> o clínica compatible</li>
+          <li>Criterios de Sgarbossa pueden ayudar a identificar IAM subyacente</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>BCRDHH + contexto clínico:</strong></p>
+        <ul>
+          <li>Menos frecuente como equivalente, pero debe considerarse con clínica compatible</li>
+        </ul>
+        <div class="patron-alerta">🚨 BCRIHH nuevo + dolor = Código IAM hasta demostrar lo contrario.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nota-clave">
+    <strong>🔑 Ondas Q y reperfusión — Guías ESC 2023:</strong> La presencia de <strong>ondas Q patológicas NO debe retrasar la estrategia de reperfusión</strong>. Las ondas Q indican necrosis establecida, pero puede existir tejido viable ("miocardio hibernado" o "aturdido") que se recupere con reperfusión. El tiempo es músculo — actuar siempre.
+  </div>
+</div>
+
+<!-- ══ PERLAS ══ -->
+<div class="perlas-section">
+  <div class="perlas-header">⭐ PERLAS TIPO EXAMEN — ECG: ISQUEMIA · LESIÓN · IAM · CÓDIGO IAM</div>
+  <div class="perlas-grid">
+    <div class="perla-item"><span class="estrella">★</span> <strong>Localización EKG de cada estadio</strong> → Isquemia: <strong>onda T</strong>. Lesión: <strong>segmento ST / punto J</strong>. Necrosis: <strong>onda Q + troponinas</strong>. Memorizar: T → ST → Q, en ese orden de progresión temporal.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Perfusión coronaria: cuándo ocurre</strong> → El miocardio se perfunde <strong>durante la diástole</strong> (no la sístole, al contrario que otros órganos). En taquicardias extremas → diástole corta → riesgo de isquemia incluso sin placa.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Umbral ST en V2-V3: diferencias por sexo y edad</strong> → Hombres &lt;40a: <strong>≥2,5mm</strong>. Hombres ≥40a: <strong>≥2,0mm</strong>. Mujeres (cualquier edad): <strong>≥1,5mm</strong>. Resto derivaciones: ≥1mm. Pregunta clásica OPE con cuatro opciones exactas.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>IAM inferior → derivadas derechas SIEMPRE</strong> → El 40% de IAM por oclusión CD tienen afectación de VD. IAM-VD: hipotensión + ingurgitación yugular + V4R elevado. <strong>Nitratos y diuréticos contraindicados</strong> → la hipotensión se trata con volumen.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Patrón de De Winter</strong> → Descenso ST + ondas T <strong>picudas, simétricas y positivas</strong> en V1-V6. Indica oclusión total de DA proximal. <strong>Sin elevación del ST</strong> pero equivale a SCACEST masivo. Activar Código IAM.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Síndrome de Wellens</strong> → T bifásicas (tipo A) o T profundamente invertidas (tipo B) en <strong>V2-V3 cuando el paciente está SIN dolor</strong>. Estenosis crítica DA proximal. <strong>No hacer prueba de esfuerzo</strong> → puede precipitar IAM masivo.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Cara posterior: cuándo y cómo</strong> → Descenso ST en V1-V3 = posible imagen en espejo de cara posterior. Colocar V7 (axilar posterior), V8 (escápula), V9 (paravertebral). Criterio: <strong>≥0,5 mm</strong> (umbral más bajo por distancia).</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Tronco Común (TCI): patrón</strong> → Elevación de <strong>aVR &gt;1mm + descenso ST difuso en ≥6 derivaciones</strong>. Gravísimo. Alta mortalidad. Indica isquemia global de todo el VI. Requiere activación inmediata y revascularización quirúrgica o ICP emergente.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>BCRIHH nuevo + dolor = Código IAM</strong> → El BCRIHH de nueva aparición en contexto de dolor torácico se trata como SCACEST hasta demostrar lo contrario (Criterios de Sgarbossa pueden ayudar pero no excluyen). <strong>No esperar troponinas para activar.</strong></div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>4ª Definición Universal del IAM</strong> → Requiere <strong>troponinas &gt; p99 del límite superior de referencia</strong> + al menos uno de: síntomas, cambios EKG, imagen de pérdida miocardio, trombo en coronaria. Solo troponinas elevadas sin contexto = lesión miocárdica, no IAM.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>Ondas Q y reperfusión — ESC 2023</strong> → La presencia de ondas Q patológicas <strong>NO debe retrasar la reperfusión</strong>. Puede existir miocardio hibernado/aturdido viable. "El tiempo es músculo": actuar siempre aunque haya ondas Q establecidas.</div>
+    <div class="perla-item"><span class="estrella">★</span> <strong>ST ↑ convexo vs ↓ descenso</strong> → Elevación convexa ("cúpula") → lesión subepicárdica → oclusión total → SCACEST. Descenso ST → lesión subendocárdica → no oclusión total → SCASEST. La forma del ST (cóncavo vs convexo) también importa: cóncavo puede ser pericarditis.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sec-header">📖 Glosario de abreviaturas</div>
+<div class="sec-body">
+  <dl class="glosario-grid">
+    <div class="glos-item"><dt>SCA</dt><dd>Síndrome Coronario Agudo</dd></div>
+    <div class="glos-item"><dt>SCACEST</dt><dd>SCA Con Elevación del ST</dd></div>
+    <div class="glos-item"><dt>SCASEST</dt><dd>SCA Sin Elevación del ST</dd></div>
+    <div class="glos-item"><dt>IAM</dt><dd>Infarto Agudo de Miocardio</dd></div>
+    <div class="glos-item"><dt>DA</dt><dd>Arteria Descendente Anterior</dd></div>
+    <div class="glos-item"><dt>CD</dt><dd>Arteria Coronaria Derecha</dd></div>
+    <div class="glos-item"><dt>Cx</dt><dd>Arteria Circunfleja</dd></div>
+    <div class="glos-item"><dt>TCI</dt><dd>Tronco Común Izquierdo</dd></div>
+    <div class="glos-item"><dt>IAM-VD</dt><dd>IAM con afectación Ventrículo Derecho</dd></div>
+    <div class="glos-item"><dt>ICP</dt><dd>Intervención Coronaria Percutánea (cateterismo)</dd></div>
+    <div class="glos-item"><dt>BCRIHH</dt><dd>Bloqueo Completo de Rama Izquierda del Haz de His</dd></div>
+    <div class="glos-item"><dt>BCRDHH</dt><dd>Bloqueo Completo de Rama Derecha</dd></div>
+    <div class="glos-item"><dt>p99</dt><dd>Percentil 99 del límite superior de referencia</dd></div>
+    <div class="glos-item"><dt>PPC</dt><dd>Presión de Perfusión Coronaria</dd></div>
+    <div class="glos-item"><dt>TV</dt><dd>Taquicardia Ventricular</dd></div>
+    <div class="glos-item"><dt>FV</dt><dd>Fibrilación Ventricular</dd></div>
+    <div class="glos-item"><dt>EKG/ECG</dt><dd>Electrocardiograma</dd></div>
+    <div class="glos-item"><dt>aVR</dt><dd>Derivación augmented Voltage Right</dd></div>
+    <div class="glos-item"><dt>V4R</dt><dd>Derivación precordial derecha (VD)</dd></div>
+    <div class="glos-item"><dt>mTBI</dt><dd>Mild Traumatic Brain Injury</dd></div>
+  </dl>
+</div>
+
+</div>
+</body>
+</html>

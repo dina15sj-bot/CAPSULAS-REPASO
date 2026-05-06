@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triage: START · META · SIEVE/SORT · Zona Operaciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --acento: #4a6a2a;
+    --acento-dark: #2e4218;
+    --acento-light: #6a8a4a;
+    --acento-pale: #eef3e8;
+    --rojo: #c04020;
+    --verde: #1a7a3a;
+    --azul: #1a5a8a;
+    --amarillo-perla: #fffce6;
+    --borde-perla: #e0c020;
+    --fondo: #f8f5f0;
+    --blanco: #ffffff;
+    --texto: #1a1a1a;
+    --texto-medio: #444444;
+    --naranja: #e07020;
+    --purpura: #7040c0;
+    /* Categorías triage */
+    --t1: #c04020;   /* Inmediato */
+    --t2: #e0a020;   /* Diferido */
+    --t3: #2a7a2a;   /* Mínimo */
+    --t0: #1a1a1a;   /* Expectante */
+    --t-fallecido: #444444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--acento-dark) 0%, var(--acento) 60%, var(--acento-light) 100%);
+    color: #fff;
+    padding: 28px 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,255,255,0.04) 8px,
+      rgba(255,255,255,0.04) 16px
+    );
+  }
+  .header-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+  .header-top { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+  .header-icon {
+    font-size: 2.8rem;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.1rem;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+  .header-text h1 span { color: #c8d8a8; }
+  .header-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-top: 5px;
+  }
+  .header-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 14px;
+  }
+  .pill {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+
+  /* ── SECTION HEADERS ── */
+  .sec-header {
+    background: var(--acento);
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 6px 6px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-body {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--acento-dark);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--acento-pale);
+  }
+
+  /* ── INTRODUCCIÓN GRID ── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .intro-card {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-top: 4px solid var(--acento);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .intro-card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin-bottom: 8px;
+  }
+  .intro-card p { font-size: 0.9rem; color: var(--texto-medio); }
+  .intro-card strong { color: var(--texto); }
+
+  /* ── CATEGORÍAS TRIAGE ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .cat-card {
+    border-radius: 8px;
+    padding: 14px 12px;
+    text-align: center;
+    border: 2px solid;
+  }
+  .cat-card.t1 { background: #fff5f3; border-color: var(--t1); }
+  .cat-card.t2 { background: #fffbf0; border-color: var(--t2); }
+  .cat-card.t3 { background: #f0fff4; border-color: var(--t3); }
+  .cat-card.t0 { background: #f5f5f5; border-color: var(--t0); }
+  .cat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .cat-card.t1 .cat-label { color: var(--t1); }
+  .cat-card.t2 .cat-label { color: var(--t2); }
+  .cat-card.t3 .cat-label { color: var(--t3); }
+  .cat-card.t0 .cat-label { color: var(--t0); }
+  .cat-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .cat-card.t1 .cat-name { color: var(--t1); }
+  .cat-card.t2 .cat-name { color: var(--t2); }
+  .cat-card.t3 .cat-name { color: var(--t3); }
+  .cat-card.t0 .cat-name { color: var(--t0); }
+  .cat-desc { font-size: 0.82rem; color: var(--texto-medio); }
+
+  /* ── ALGORITMO START ── */
+  .algoritmo-start {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .algo-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+  }
+  .algo-pregunta {
+    background: var(--acento-pale);
+    border-right: 3px solid var(--acento);
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    min-width: 240px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .algo-pregunta .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background: var(--acento);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .algo-respuestas {
+    display: flex;
+    flex: 1;
+  }
+  .algo-resp {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-right: 1px solid #e0e0e0;
+  }
+  .algo-resp:last-child { border-right: none; }
+  .algo-resp.no { background: #fff5f3; }
+  .algo-resp.si { background: #f0fff4; }
+  .resp-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .resp-badge.rojo { background: var(--t1); color: #fff; }
+  .resp-badge.amarillo { background: var(--t2); color: #fff; }
+  .resp-badge.verde { background: var(--t3); color: #fff; }
+  .resp-badge.negro { background: var(--t0); color: #fff; }
+  .resp-badge.continua { background: var(--acento); color: #fff; }
+
+  /* ── TABLA COMPARATIVA ── */
+  .tabla-comp {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+  .tabla-comp thead th {
+    padding: 10px 12px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 2px solid var(--acento);
+  }
+  .tabla-comp thead th:first-child { background: var(--acento-dark); color: #fff; }
+  .tabla-comp thead th:not(:first-child) { background: var(--acento-pale); color: var(--acento-dark); }
+  .tabla-comp tbody tr { border-bottom: 1px solid #eee; }
+  .tabla-comp tbody tr:hover { background: #fafafa; }
+  .tabla-comp td { padding: 9px 12px; vertical-align: top; }
+  .tabla-comp td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--acento-dark);
+    background: var(--acento-pale);
+    white-space: nowrap;
+  }
+  .cat-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  .dot-rojo { background: var(--t1); }
+  .dot-amarillo { background: var(--t2); }
+  .dot-verde { background: var(--t3); }
+  .dot-negro { background: var(--t0); }
+
+  /* ── META GRID ── */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .meta-card {
+    background: var(--blanco);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .meta-card-head {
+    padding: 10px 12px;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+  }
+  .meta-card-head.t1 { background: var(--t1); }
+  .meta-card-head.t2 { background: var(--t2); }
+  .meta-card-head.t3 { background: var(--t3); }
+  .meta-card-head.t0 { background: var(--t0); }
+  .meta-card-body { padding: 12px; font-size: 0.83rem; color: var(--texto-medio); }
+  .meta-card-body ul { padding-left: 16px; }
+  .meta-card-body li { margin-bottom: 4px; }
+  .meta-card-body strong { color: var(--texto); display: block; margin-bottom: 6px; }
+
+  /* ── SIEVE/SORT PASOS ── */
+  .sieve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+  .sieve-fase {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .sieve-fase-head {
+    padding: 10px 16px;
+    background: var(--acento);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sieve-fase-body { padding: 14px 16px; }
+  .paso-list { list-style: none; }
+  .paso-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.87rem;
+  }
+  .paso-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--acento);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+    min-width: 30px;
+    text-align: center;
+    margin-top: 1px;
+  }
+  .paso-text { flex: 1; }
+  .paso-text strong { color: var(--acento-dark); }
+  .resultado-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .rb-rojo { background: #fff0ee; color: var(--t1); border: 1px solid var(--t1); }
+  .rb-amarillo { background: #fffbf0; color: #b07010; border: 1px solid var(--t2); }
+  .rb-verde { background: #f0fff4; color: #1a6a2a; border: 1px solid var(--t3); }
+  .rb-negro { background: #f0f0f0; color: #333; border: 1px solid #999; }
+
+  /* ── ZONA OPERACIONES ── */
+  .zonas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .zona-card {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .zona-head {
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .zona-head.caliente { background: #8a1a1a; }
+  .zona-head.tibia { background: #8a5a1a; }
+  .zona-head.fria { background: var(--acento); }
+  .zona-body { padding: 12px 14px; font-size: 0.85rem; color: var(--texto-medio); }
+  .zona-body p { margin-bottom: 6px; }
+  .zona-body strong { color: var(--texto); }
+
+  /* ── TCCC PRINCIPIOS ── */
+  .tccc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .tccc-card {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-left: 4px solid var(--acento);
+    border-radius: 0 8px 8px 0;
+    padding: 14px;
+  }
+  .tccc-card h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin-bottom: 6px;
+  }
+  .tccc-card p { font-size: 0.85rem; color: var(--texto-medio); }
+
+  /* ── ADVERTENCIA ── */
+  .advertencia {
+    background: #fff8f0;
+    border-left: 4px solid var(--rojo);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 0.88rem;
+  }
+  .advertencia strong { color: var(--rojo); }
+
+  /* ── NOTA IMPORTANTE ── */
+  .nota-clave {
+    background: #f0e8ff;
+    border-left: 4px solid var(--purpura);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 0.88rem;
+  }
+  .nota-clave strong { color: var(--purpura); }
+
+  /* ── DIFERENCIAS CIVILES vs MILITARES ── */
+  .diferencias-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+  }
+  .diferencias-tabla thead th {
+    padding: 9px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 2px solid var(--acento);
+  }
+  .diferencias-tabla thead th:first-child { background: #f5f5f5; color: var(--texto-medio); }
+  .diferencias-tabla thead th:nth-child(2) { background: #e8f0ff; color: #1a3a8a; }
+  .diferencias-tabla thead th:nth-child(3) { background: var(--acento-pale); color: var(--acento-dark); }
+  .diferencias-tabla tbody tr { border-bottom: 1px solid #eee; }
+  .diferencias-tabla tbody tr:nth-child(even) { background: #fafafa; }
+  .diferencias-tabla td { padding: 9px 14px; vertical-align: top; }
+  .diferencias-tabla td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.73rem;
+    font-weight: 700;
+    color: var(--texto-medio);
+  }
+
+  /* ── BADGE NOVEDAD ── */
+  .badge-nov {
+    display: inline-block;
+    background: var(--naranja);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  .badge-otan {
+    display: inline-block;
+    background: #1a3a8a;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+
+  /* ── PERLAS ── */
+  .perlas-section {
+    background: var(--amarillo-perla);
+    border: 1px solid var(--borde-perla);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .perlas-header {
+    background: #b08010;
+    color: #fff;
+    padding: 10px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .perlas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .perla-item {
+    padding: 13px 18px;
+    border-bottom: 1px solid rgba(224,192,32,0.3);
+    border-right: 1px solid rgba(224,192,32,0.3);
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .perla-item:nth-child(even) { border-right: none; }
+  .perla-item:last-child, .perla-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+  .perla-item .estrella { color: #b08010; font-size: 1rem; }
+  .perla-item strong { color: var(--acento-dark); }
+
+  /* ── GLOSARIO ── */
+  .glosario-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .glos-item {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+  .glos-item dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--acento);
+    margin-bottom: 2px;
+  }
+  .glos-item dd { color: var(--texto-medio); }
+
+  /* ── FUENTES ── */
+  .fuentes-bar {
+    background: var(--acento-pale);
+    border: 1px solid #ccd8b8;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    color: var(--acento-dark);
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 800px) {
+    .header { padding: 20px 16px 18px; }
+    .header-text h1 { font-size: 1.5rem; }
+    .intro-grid, .cat-grid, .meta-grid, .zonas-grid, .tccc-grid { grid-template-columns: 1fr 1fr; }
+    .sieve-grid { grid-template-columns: 1fr; }
+    .perlas-grid { grid-template-columns: 1fr; }
+    .perla-item { border-right: none !important; }
+    .glosario-grid { grid-template-columns: repeat(2, 1fr); }
+    .algo-pregunta { min-width: 160px; font-size: 0.8rem; }
+  }
+  @media (max-width: 480px) {
+    .intro-grid, .cat-grid, .meta-grid, .zonas-grid, .tccc-grid { grid-template-columns: 1fr; }
+    .algo-respuestas { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="header-icon">🎖️</div>
+      <div class="header-text">
+        <h1>Triage <span>Sistemas & Zona de Operaciones</span></h1>
+        <div class="header-sub">START · META · SIEVE/SORT · TCCC · Triage Militar NATO</div>
+      </div>
+    </div>
+    <div class="header-pills">
+      <span class="pill">🎯 Enfermería Militar</span>
+      <span class="pill">📋 INGESA 2026</span>
+      <span class="pill">🏥 START 2001</span>
+      <span class="pill">🔱 NATO STANAG 2879</span>
+      <span class="pill">⚕️ TCCC CoTCCC</span>
+      <span class="pill">🟢 Verde Oliva · #4a6a2a</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════ FUENTES ══════════════════ -->
+<div class="fuentes-bar">
+  📚 FUENTES: Simple Triage and Rapid Treatment (SALT) 2008 · START Method (Bossert 2001) · NATO STANAG 2879 (triage) · TCCC CoTCCC Guidelines 2024 · PHTLS 10th ed. 2023 · ATLS 10th ed. 2018 · ESP: Plan de Emergencias Externas INGESA · Protocolo SAMU-Ceuta
+</div>
+
+<!-- ══════════════════ 1. CONCEPTOS GENERALES ══════════════════ -->
+<div class="sec-header">📌 01 — Conceptos generales de triage</div>
+<div class="sec-body">
+  <div class="sec-title">Definición y principios fundamentales</div>
+  <div class="intro-grid">
+    <div class="intro-card">
+      <h3>Definición</h3>
+      <p><strong>Triage</strong> (del francés <em>trier</em> = clasificar): proceso de clasificación de víctimas en situaciones de múltiples víctimas o desastre para priorizar la atención según <strong>gravedad y posibilidad de supervivencia</strong> con los recursos disponibles.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Objetivo principal</h3>
+      <p>Conseguir el <strong>mayor beneficio para el mayor número</strong> de víctimas. En desastres, el principio utilitarista sustituye al principio habitual de atender primero al más grave.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Cuándo se aplica</h3>
+      <p><strong>IMV:</strong> ≥ 3 víctimas que superan capacidad asistencial inmediata.<br><strong>Catástrofe:</strong> desequilibrio grave demanda–recursos.<br><strong>Combate:</strong> cualquier situación de bajas en zona de operaciones.</p>
+    </div>
+  </div>
+
+  <div class="sec-title">Categorías universales de triage</div>
+  <div class="cat-grid">
+    <div class="cat-card t1">
+      <div class="cat-label">T1</div>
+      <div class="cat-name">🔴 Inmediato</div>
+      <div class="cat-desc">Lesión grave con riesgo vital. Supervivencia posible con atención inmediata. Prioridad máxima.</div>
+    </div>
+    <div class="cat-card t2">
+      <div class="cat-label">T2</div>
+      <div class="cat-name">🟡 Diferido / Urgente</div>
+      <div class="cat-desc">Lesión grave pero puede esperar minutos–horas sin deterioro fatal. Segunda prioridad.</div>
+    </div>
+    <div class="cat-card t3">
+      <div class="cat-label">T3</div>
+      <div class="cat-name">🟢 Mínimo / Leve</div>
+      <div class="cat-desc">Lesión leve, puede caminar o autoevacuarse. Atención diferible horas. Tercera prioridad.</div>
+    </div>
+    <div class="cat-card t0">
+      <div class="cat-label">T0</div>
+      <div class="cat-name">⬛ Expectante / Fallecido</div>
+      <div class="cat-desc">Lesiones incompatibles con supervivencia o fallecido. Cuidados paliativos si recursos permiten.</div>
+    </div>
+  </div>
+
+  <div class="advertencia">
+    <strong>⚠️ Trampa clásica de examen:</strong> La categoría <strong>T0 (expectante) NO es sinónimo de fallecido</strong>. Un expectante puede estar vivo pero con lesiones que no son compatibles con supervivencia dado el contexto de recursos disponibles. Si los recursos mejoran, pueden ser reclasificados.
+  </div>
+</div>
+
+<!-- ══════════════════ 2. SISTEMA START ══════════════════ -->
+<div class="sec-header">🚨 02 — Sistema START (Simple Triage And Rapid Treatment)</div>
+<div class="sec-body">
+  <div class="sec-title">Origen y características</div>
+  <div class="intro-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="intro-card">
+      <h3>Origen</h3>
+      <p>Desarrollado en <strong>Newport Beach Fire Dept, California (1983)</strong>. Es el sistema de triage prehospitalario más usado en el mundo occidental. Adaptado para uso por primeros respondedores con entrenamiento básico.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Tiempo</h3>
+      <p><strong>&lt; 60 segundos por víctima.</strong> Diseñado para clasificar rápidamente sin tratamiento (solo desobstrucción de vía aérea y control de hemorragia masiva con torniquete en versión actualizada).</p>
+    </div>
+    <div class="intro-card">
+      <h3>Aplicación</h3>
+      <p>Incidentes con <strong>múltiples víctimas civiles (IMV)</strong>: accidentes de tráfico, catástrofes naturales, atentados. Base de los Planes de Emergencias Externas en España (INGESA incluido).</p>
+    </div>
+  </div>
+
+  <div class="sec-title">Algoritmo START — Pasos secuenciales</div>
+  <div class="algoritmo-start">
+    <div class="algo-row">
+      <div class="algo-pregunta">
+        <span class="q-num">PASO 0</span>
+        ¿Puede caminar?
+      </div>
+      <div class="algo-respuestas">
+        <div class="algo-resp si">
+          ✅ SÍ → <span class="resp-badge verde">T3 · VERDE</span> Mínimo. Pide que vayan a zona segura.
+        </div>
+        <div class="algo-resp no">
+          ❌ NO → Continúa valoración en el suelo
+        </div>
+      </div>
+    </div>
+
+    <div class="algo-row">
+      <div class="algo-pregunta">
+        <span class="q-num">PASO 1</span>
+        ¿Respira espontáneamente?
+      </div>
+      <div class="algo-respuestas">
+        <div class="algo-resp no">
+          ❌ NO → Reposiciona VA (apertura manual). Si no respira: <span class="resp-badge negro">T0 · NEGRO</span>
+        </div>
+        <div class="algo-resp si">
+          ✅ SÍ → Continúa paso 2
+        </div>
+      </div>
+    </div>
+
+    <div class="algo-row">
+      <div class="algo-pregunta">
+        <span class="q-num">PASO 2</span>
+        Frecuencia respiratoria
+      </div>
+      <div class="algo-respuestas">
+        <div class="algo-resp no">
+          &lt; 10 ó &gt; 30 rpm → <span class="resp-badge rojo">T1 · ROJO</span>
+        </div>
+        <div class="algo-resp si">
+          10–30 rpm → Continúa paso 3
+        </div>
+      </div>
+    </div>
+
+    <div class="algo-row">
+      <div class="algo-pregunta">
+        <span class="q-num">PASO 3</span>
+        Pulso radial / Relleno capilar
+      </div>
+      <div class="algo-respuestas">
+        <div class="algo-resp no">
+          Ausente / RC &gt; 2 seg → <span class="resp-badge rojo">T1 · ROJO</span> Control hemorragia
+        </div>
+        <div class="algo-resp si">
+          Presente / RC ≤ 2 seg → Continúa paso 4
+        </div>
+      </div>
+    </div>
+
+    <div class="algo-row">
+      <div class="algo-pregunta">
+        <span class="q-num">PASO 4</span>
+        Estado neurológico (AVPU)
+      </div>
+      <div class="algo-respuestas">
+        <div class="algo-resp no">
+          No obedece órdenes simples (P o U) → <span class="resp-badge rojo">T1 · ROJO</span>
+        </div>
+        <div class="algo-resp si">
+          Obedece órdenes (A o V) → <span class="resp-badge amarillo">T2 · AMARILLO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nota-clave">
+    <strong>🔑 Regla mnemotécnica START:</strong> <strong>R</strong>espiración → <strong>P</strong>erfusión → <strong>N</strong>eurológico (RPN). En START clásico, el <strong>relleno capilar (RC &gt;2s)</strong> equivale a pulso radial ausente. Versiones actualizadas usan directamente <strong>pulso radial</strong>.
+  </div>
+
+  <div class="sec-title">START Pediátrico: JumpSTART</div>
+  <div class="advertencia">
+    <strong>⚠️ JumpSTART (para &lt; 8 años):</strong> Diferencia clave: si no respira tras apertura de VA → <strong>dar 5 ventilaciones de rescate</strong> antes de clasificar negro. Si respira tras ventilaciones → T1. El umbral de FR es diferente: &lt;15 ó &gt;45 rpm = T1.
+  </div>
+</div>
+
+<!-- ══════════════════ 3. SISTEMA META ══════════════════ -->
+<div class="sec-header">🇪🇸 03 — Sistema META (Método Español de Triage Avanzado)</div>
+<div class="sec-body">
+  <div class="sec-title">Características del sistema META</div>
+  <div class="intro-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="intro-card">
+      <h3>Origen español</h3>
+      <p>Desarrollado por el <strong>SAMUR-PC Madrid</strong> y adoptado por sistemas de emergencias españoles. Base del triage en <strong>Planes de Emergencia Externas</strong> en muchas CC.AA. Es el sistema más usado en el contexto de preparación OPE España.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Diferencias vs START</h3>
+      <p>META utiliza <strong>4 categorías explícitas</strong> (I, II, III, 0) con criterios más detallados para T2 (diferido). Permite mayor <strong>estratificación clínica</strong> y es más adecuado para médicos y enfermeras avanzados.</p>
+    </div>
+    <div class="intro-card">
+      <h3>Fases</h3>
+      <p>META se aplica en <strong>triage de campo</strong> (zona de rescate), <strong>puesto médico avanzado (PMA)</strong> y <strong>triage hospitalario</strong>. Cada fase puede reclasificar la víctima.</p>
+    </div>
+  </div>
+
+  <div class="sec-title">Categorías META detalladas</div>
+  <div class="meta-grid">
+    <div class="meta-card">
+      <div class="meta-card-head t1">I · INMEDIATO 🔴</div>
+      <div class="meta-card-body">
+        <strong>Criterios:</strong>
+        <ul>
+          <li>FR &lt;10 ó &gt;30 rpm</li>
+          <li>SatO₂ &lt;90% con O₂</li>
+          <li>Pulso radial ausente</li>
+          <li>GCS ≤ 13</li>
+          <li>Shock hipovolémico activo</li>
+          <li>Neumotórax a tensión</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta-card">
+      <div class="meta-card-head t2">II · URGENTE 🟡</div>
+      <div class="meta-card-body">
+        <strong>Criterios:</strong>
+        <ul>
+          <li>FR 10–30 rpm</li>
+          <li>SatO₂ 90–95%</li>
+          <li>Pulso radial presente</li>
+          <li>GCS 14–15</li>
+          <li>Fractura de huesos largos</li>
+          <li>Quemaduras 20–60% SCQ</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta-card">
+      <div class="meta-card-head t3">III · DEMORADO 🟢</div>
+      <div class="meta-card-body">
+        <strong>Criterios:</strong>
+        <ul>
+          <li>Víctimas que caminan</li>
+          <li>Heridas leves</li>
+          <li>Contusiones sin fractura</li>
+          <li>FR, pulso y NC normales</li>
+          <li>Quemaduras &lt;20% SCQ</li>
+        </ul>
+      </div>
+    </div>
+    <div class="meta-card">
+      <div class="meta-card-head t0">0 · EXPECTANTE ⬛</div>
+      <div class="meta-card-body">
+        <strong>Criterios:</strong>
+        <ul>
+          <li>Lesiones incompatibles con vida</li>
+          <li>TCE grave con midriasis bilateral</li>
+          <li>Quemaduras &gt;60% SCQ</li>
+          <li>Aplastamiento torácico masivo</li>
+          <li>Ausencia de pulso y apnea</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Comparativa START vs META</div>
+  <table class="tabla-comp">
+    <thead>
+      <tr>
+        <th>Parámetro</th>
+        <th>START</th>
+        <th>META</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Origen</td>
+        <td>EE.UU. 1983 (Newport Beach)</td>
+        <td>España — SAMUR Madrid</td>
+      </tr>
+      <tr>
+        <td>Tiempo/víctima</td>
+        <td>&lt; 60 segundos</td>
+        <td>1–3 minutos (más detallado)</td>
+      </tr>
+      <tr>
+        <td>Nivel aplicador</td>
+        <td>Primeros respondedores básicos</td>
+        <td>Enfermeras/médicos emergencias</td>
+      </tr>
+      <tr>
+        <td>Parámetros</td>
+        <td>3: FR, pulso/RC, AVPU</td>
+        <td>5+: FR, SatO₂, pulso, GCS, lesión</td>
+      </tr>
+      <tr>
+        <td>Categoría T2</td>
+        <td>Solo obedece órdenes</td>
+        <td>Criterios específicos de lesión</td>
+      </tr>
+      <tr>
+        <td>Uso en España</td>
+        <td>Base de planes de emergencia</td>
+        <td>PMA, hospitales, SAMUR</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════ 4. SIEVE / SORT ══════════════════ -->
+<div class="sec-header">🔱 04 — SIEVE / SORT (Sistema NATO/Militar)</div>
+<div class="sec-body">
+  <div class="sec-title">Sistema SIEVE + SORT: triage en dos fases</div>
+  <div class="intro-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="intro-card">
+      <h3>Contexto</h3>
+      <p>Sistema de triage adoptado por la <strong>OTAN (NATO STANAG 2879)</strong> y Reino Unido (NHS Major Incident). Es el estándar para misiones militares internacionales y hospitales militares de campaña.</p>
+    </div>
+    <div class="intro-card">
+      <h3>SIEVE</h3>
+      <p><strong>Triage de campo rápido</strong> (primera clasificación). Similar a START pero con terminología OTAN. Objetivo: clasificar en &lt;30 segundos. Aplicado en punto de lesión o puesto de socorro de combate.</p>
+    </div>
+    <div class="intro-card">
+      <h3>SORT</h3>
+      <p><strong>Secondary triage</strong> (clasificación secundaria). Usa el índice <strong>RTS (Revised Trauma Score)</strong> para estratificación más precisa en el PMA o role 2. Permite priorizar evacuación (MEDEVAC).</p>
+    </div>
+  </div>
+
+  <div class="sieve-grid">
+    <div class="sieve-fase">
+      <div class="sieve-fase-head">
+        🔍 SIEVE — Triage Primario de Campo
+      </div>
+      <div class="sieve-fase-body">
+        <ul class="paso-list">
+          <li>
+            <span class="paso-num">P0</span>
+            <div class="paso-text"><strong>¿Puede caminar?</strong> → SÍ <span class="resultado-badge rb-verde">T3 · VERDE</span></div>
+          </li>
+          <li>
+            <span class="paso-num">P1</span>
+            <div class="paso-text"><strong>¿Respira?</strong> → NO (tras apertura VA) <span class="resultado-badge rb-negro">T0 · NEGRO</span></div>
+          </li>
+          <li>
+            <span class="paso-num">P2</span>
+            <div class="paso-text"><strong>FR:</strong> &lt;10 ó &gt;30 rpm <span class="resultado-badge rb-rojo">T1 · ROJO</span></div>
+          </li>
+          <li>
+            <span class="paso-num">P3</span>
+            <div class="paso-text"><strong>Pulso radial:</strong> ausente <span class="resultado-badge rb-rojo">T1 · ROJO</span> / presente → P4</div>
+          </li>
+          <li>
+            <span class="paso-num">P4</span>
+            <div class="paso-text"><strong>AVPU:</strong> P ó U <span class="resultado-badge rb-rojo">T1 · ROJO</span> | A ó V <span class="resultado-badge rb-amarillo">T2 · AMARILLO</span></div>
+          </li>
+        </ul>
+        <div class="nota-clave" style="margin-top:10px; margin-bottom:0;">
+          <strong>🔑 SIEVE ≈ START:</strong> Algoritmo prácticamente idéntico a START con terminología NATO. Los exámenes militares pueden usar cualquiera de los dos nombres.
+        </div>
+      </div>
+    </div>
+
+    <div class="sieve-fase">
+      <div class="sieve-fase-head">
+        📊 SORT — Triage Secundario con RTS
+      </div>
+      <div class="sieve-fase-body">
+        <p style="font-size:0.85rem; margin-bottom:10px; color: var(--texto-medio);">El <strong>Revised Trauma Score (RTS)</strong> usa 3 parámetros con ponderación:</p>
+        <table style="width:100%; border-collapse:collapse; font-size:0.82rem; margin-bottom:12px;">
+          <thead>
+            <tr>
+              <th style="padding:6px; background:var(--acento-pale); color:var(--acento-dark); font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.08em; text-align:left;">Valor</th>
+              <th style="padding:6px; background:var(--acento-pale); color:var(--acento-dark); font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.08em; text-align:left;">GCS</th>
+              <th style="padding:6px; background:var(--acento-pale); color:var(--acento-dark); font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.08em; text-align:left;">TAS sistólica</th>
+              <th style="padding:6px; background:var(--acento-pale); color:var(--acento-dark); font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:0.08em; text-align:left;">FR (rpm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #eee;"><td style="padding:5px 6px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--acento);">4</td><td style="padding:5px 6px;">13–15</td><td style="padding:5px 6px;">&gt;89 mmHg</td><td style="padding:5px 6px;">10–29</td></tr>
+            <tr style="border-bottom:1px solid #eee;"><td style="padding:5px 6px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--acento);">3</td><td style="padding:5px 6px;">9–12</td><td style="padding:5px 6px;">76–89</td><td style="padding:5px 6px;">&gt;29</td></tr>
+            <tr style="border-bottom:1px solid #eee;"><td style="padding:5px 6px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--acento);">2</td><td style="padding:5px 6px;">6–8</td><td style="padding:5px 6px;">50–75</td><td style="padding:5px 6px;">6–9</td></tr>
+            <tr style="border-bottom:1px solid #eee;"><td style="padding:5px 6px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--acento);">1</td><td style="padding:5px 6px;">4–5</td><td style="padding:5px 6px;">1–49</td><td style="padding:5px 6px;">1–5</td></tr>
+            <tr><td style="padding:5px 6px; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--acento);">0</td><td style="padding:5px 6px;">3</td><td style="padding:5px 6px;">0</td><td style="padding:5px 6px;">0</td></tr>
+          </tbody>
+        </table>
+        <ul class="paso-list">
+          <li><span class="paso-num">RTS</span><div class="paso-text"><strong>RTS = 0:</strong> <span class="resultado-badge rb-negro">T0 · Expectante/Fallecido</span></div></li>
+          <li><span class="paso-num">RTS</span><div class="paso-text"><strong>RTS 1–3:</strong> <span class="resultado-badge rb-rojo">T1 · Inmediato</span></div></li>
+          <li><span class="paso-num">RTS</span><div class="paso-text"><strong>RTS 4–10:</strong> <span class="resultado-badge rb-amarillo">T2 · Diferido</span></div></li>
+          <li><span class="paso-num">RTS</span><div class="paso-text"><strong>RTS 11–12:</strong> <span class="resultado-badge rb-verde">T3 · Mínimo</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="nota-clave">
+    <strong>🔑 Para el examen:</strong> SIEVE = triage primario rápido (campo) | SORT = triage secundario con RTS (PMA). La diferencia clave de SORT es que usa una <strong>puntuación objetiva (RTS)</strong>, no solo criterios clínicos subjetivos. RTS máximo = 12 (normal). RTS = 0 → fallecido o expectante.
+  </div>
+</div>
+
+<!-- ══════════════════ 5. TRIAGE ZONA OPERACIONES ══════════════════ -->
+<div class="sec-header">🎖️ 05 — Triage en Zona de Operaciones (TCCC / NATO)</div>
+<div class="sec-body">
+  <div class="sec-title">Estructura de roles NATO y puntos de triage</div>
+
+  <div class="zonas-grid">
+    <div class="zona-card">
+      <div class="zona-head caliente">🔥 ZONA CALIENTE (Care Under Fire)</div>
+      <div class="zona-body">
+        <p><strong>Definición:</strong> Bajo fuego activo. Zona no segura.</p>
+        <p><strong>Triage:</strong> Mínimo — solo identificar T0 (fallecidos). No clasificar en campo de fuego.</p>
+        <p><strong>Intervención permitida:</strong> Control hemorragia masiva (torniquete), arrastrar a cubierto. NO mover a expectantes bajo fuego.</p>
+        <p><strong>Tiempo:</strong> Segundos. Prioridad = seguridad propia y del paciente.</p>
+      </div>
+    </div>
+    <div class="zona-card">
+      <div class="zona-head tibia">⚠️ ZONA TIBIA (Tactical Field Care)</div>
+      <div class="zona-body">
+        <p><strong>Definición:</strong> Zona relativamente segura pero con amenaza persistente.</p>
+        <p><strong>Triage:</strong> SIEVE completo. Clasificación T1/T2/T3/T0.</p>
+        <p><strong>Intervención:</strong> TCCC completo: vía aérea, neumotórax, torniquete definitivo, vía IO, fluidos, analgesia.</p>
+        <p><strong>Tiempo:</strong> Minutos. Objetivo = estabilizar para evacuación.</p>
+      </div>
+    </div>
+    <div class="zona-card">
+      <div class="zona-head fria">✅ ZONA FRÍA / PMA (CASEVAC/MEDEVAC)</div>
+      <div class="zona-body">
+        <p><strong>Definición:</strong> Puesto Médico Avanzado (Role 1–2). Zona segura.</p>
+        <p><strong>Triage:</strong> SORT con RTS. Reclasificación y priorización de evacuación.</p>
+        <p><strong>Intervención:</strong> Atención definitiva provisional, hemostasia quirúrgica, estabilización para MEDEVAC.</p>
+        <p><strong>Tiempo:</strong> Horas. Preparación para transporte a Role 2/3.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Roles de atención sanitaria NATO <span class="badge-otan">NATO STANAG</span></div>
+  <table class="tabla-comp">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Denominación</th>
+        <th>Capacidades clave</th>
+        <th>Personal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Role 1</td>
+        <td>Primer eslabón sanitario</td>
+        <td>Primeros auxilios, TCCC, estabilización básica, punto lesión</td>
+        <td>Sanitario de combate (combat medic / DUE)</td>
+      </tr>
+      <tr>
+        <td>Role 2</td>
+        <td>Puesto Médico Avanzado</td>
+        <td>Cirugía de control de daños (R2E), transfusión, UCI básica, diagnóstico</td>
+        <td>Médico + enfermeras + cirujano (R2E)</td>
+      </tr>
+      <tr>
+        <td>Role 3</td>
+        <td>Hospital de campaña multinacional</td>
+        <td>Especialidades, UCI, cirugía compleja, banco de sangre completo</td>
+        <td>Equipo multidisciplinar NATO</td>
+      </tr>
+      <tr>
+        <td>Role 4</td>
+        <td>Hospital nacional de referencia</td>
+        <td>Rehabilitación, cirugía reconstructiva, alta complejidad</td>
+        <td>Hospital terciario en país origen</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title">TCCC — Tactical Combat Casualty Care <span class="badge-nov">CoTCCC 2024</span></div>
+  <div class="tccc-grid">
+    <div class="tccc-card">
+      <h4>Prioridad 1 · HEMORRAGIA</h4>
+      <p><strong>Causa 1ª de muerte prevenible en combate.</strong> Torniquete en extremidades (CAT/SOFTT-W): aplicar en los primeros 3 minutos. Hemostáticos: Combat Gauze (caolín) en zonas no torniqueteables. Presión directa.</p>
+    </div>
+    <div class="tccc-card">
+      <h4>Prioridad 2 · VÍA AÉREA</h4>
+      <p>NPA (nasopharyngeal airway) como primera elección en campo. Posición lateral si inconsciente. Crikotiroidotomía de emergencia si fallo. En TCCC, la vía aérea es 2ª prioridad (la hemorragia mata antes).</p>
+    </div>
+    <div class="tccc-card">
+      <h4>Prioridad 3 · RESPIRACIÓN</h4>
+      <p><strong>Neumotórax a tensión:</strong> principal causa de muerte prevenible por compromiso respiratorio. Descompresión con aguja (2º EIC LMC) o válvula Heimlich. Oclusivo para heridas penetrantes de tórax (HyFin Vent).</p>
+    </div>
+    <div class="tccc-card">
+      <h4>Prioridad 4 · HIPOTERMIA</h4>
+      <p>Tríada letal combate: <strong>hipotermia + acidosis + coagulopatía.</strong> Envoltura isotérmica (wet guard). No administrar líquidos fríos. Objetivo temperatura central &gt;35°C antes de evacuación.</p>
+    </div>
+    <div class="tccc-card">
+      <h4>Fluidos en combate</h4>
+      <p><strong>Hipotensión permisiva:</strong> TAS objetivo 80–90 mmHg en trauma penetrante sin TCE (evitar dilución coágulo). Fluido de elección: <strong>plasma fresco congelado</strong> (si disponible) o Hextend. Cristaloides mínimos.</p>
+    </div>
+    <div class="tccc-card">
+      <h4>Analgesia TCCC</h4>
+      <p>Escala: (1) Meloxicam VO si leve y puede combatir. (2) <strong>Fentanilo transmucoso</strong> (OTFC 800 mcg) si moderado. (3) Ketamina IV/IM si grave. Morfina solo en Phase 3 (PMA). Evitar opioides si puede combatir.</p>
+    </div>
+  </div>
+
+  <div class="advertencia">
+    <strong>⚠️ Diferencia TCCC vs triage civil:</strong> En TCCC, la categoría expectante en zona caliente significa "<strong>no me arriesgo a mí mismo por salvar a alguien que no sobrevivirá</strong>" — el militar sanitario también es recurso escaso. En civil, el expectante recibe cuidados paliativos si hay personal disponible.
+  </div>
+</div>
+
+<!-- ══════════════════ 6. DIFERENCIAS CIVIL vs MILITAR ══════════════════ -->
+<div class="sec-header">⚖️ 06 — Comparativa sistemas: Civil vs Militar</div>
+<div class="sec-body">
+  <table class="diferencias-tabla">
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>🏥 SISTEMAS CIVILES (START · META)</th>
+        <th>🎖️ SISTEMAS MILITARES (SIEVE/SORT · TCCC)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Seguridad escena</td>
+        <td>Asumida segura; emergencia puntual</td>
+        <td>Amenaza persistente; zonas caliente/tibia/fría</td>
+      </tr>
+      <tr>
+        <td>Primer gesto</td>
+        <td>Apertura vía aérea (si apnea)</td>
+        <td>Control hemorragia masiva con torniquete (HEMORRAGIA PRIMERO)</td>
+      </tr>
+      <tr>
+        <td>Categoría expectante</td>
+        <td>Cuidados paliativos básicos si recursos</td>
+        <td>Abandono temporal en zona caliente; reevaluación en zona fría</td>
+      </tr>
+      <tr>
+        <td>Fluidos</td>
+        <td>Cristaloides agresivos (SF, RL)</td>
+        <td>Hipotensión permisiva; plasma &gt; cristaloides</td>
+      </tr>
+      <tr>
+        <td>Analgesia</td>
+        <td>Morfina IV + AINE</td>
+        <td>Fentanilo OTFC → Ketamina (preservar combatividad)</td>
+      </tr>
+      <tr>
+        <td>Evacuación</td>
+        <td>SAMU/ambulancia (< 15 min idealmente)</td>
+        <td>CASEVAC (no médico) / MEDEVAC (médico a bordo); Regla de Oro 1h</td>
+      </tr>
+      <tr>
+        <td>Vía acceso vascular</td>
+        <td>Vía periférica primera elección</td>
+        <td>Vía intraósea (IO) si no hay periférica en &lt;90 seg</td>
+      </tr>
+      <tr>
+        <td>Neumotórax tensión</td>
+        <td>Solo decompresión en hospital</td>
+        <td>Descompresión con aguja en campo (2º EIC LMC)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="nota-clave">
+    <strong>🔑 XABCDE vs ABCDE en combate:</strong> El acrónimo TCCC usa <strong>xABCDE</strong> donde la <strong>x = hemorragia eXanguinante</strong> (control primero). En civil se usa ABCDE clásico. Este cambio de orden es <strong>pregunta habitual en examen de enfermería militar</strong>.
+  </div>
+</div>
+
+<!-- ══════════════════ PERLAS ══════════════════ -->
+<div class="perlas-section">
+  <div class="perlas-header">⭐ PERLAS TIPO EXAMEN — TRIAGE: START · META · SIEVE/SORT · ZONA OPERACIONES</div>
+  <div class="perlas-grid">
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>Causa 1ª muerte prevenible en combate</strong> → <strong>Hemorragia masiva</strong> (no obstrucción VA como en civil). Por eso TCCC pone torniquete antes que apertura VA.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>START: FR límite para T1 rojo</strong> → <strong>&lt;10 ó &gt;30 rpm</strong>. El límite inferior (apnea/bradipnea) también es T1 en START (no negro, si respira aunque sea lento).
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>T0 expectante ≠ fallecido</strong> → Expectante: vivo pero lesiones incompatibles con supervivencia dado contexto. Puede reclasificarse si mejoran recursos. Fallecido: sin respiración tras maniobra.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>JumpSTART vs START: diferencia clave</strong> → En JumpSTART (&lt;8 años) si no respira → <strong>5 ventilaciones de rescate</strong> antes de clasificar negro. En adultos: apertura VA → no respira = negro directo.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>SIEVE vs SORT</strong> → SIEVE = triage <strong>primario</strong> rápido de campo (≈START). SORT = triage <strong>secundario</strong> con RTS en PMA. SORT usa puntuación objetiva, SIEVE usa criterios clínicos directos.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>RTS (Revised Trauma Score): rango</strong> → 0 a 12. <strong>RTS 0 = expectante/fallecido. RTS 11–12 = verde/mínimo.</strong> A menor RTS, mayor gravedad. Parámetros: GCS + TAS + FR.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>Torniquete en zona caliente</strong> → Aplicar en los <strong>primeros 3 minutos</strong>. Colocación: <strong>5–7 cm proximal a la herida</strong> (TCCC). Anotar hora en el torniquete. No retirar en campo — solo en Role 2+.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>xABCDE en combate</strong> → La <strong>x</strong> = hemorragia eXanguinante (control primero). Diferencia fundamental con ABCDE civil donde A (airway) es lo primero. Pregunta trampa muy frecuente en examen militar.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>Hipotensión permisiva en trauma penetrante</strong> → TAS objetivo <strong>80–90 mmHg</strong> (no normalizar). Excepciones: <strong>TCE → TAS &gt;90 mmHg</strong> (para mantener PPC). No aplica en trauma cerrado masivo.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>Neumotórax a tensión en TCCC</strong> → Descompresión con aguja en <strong>2º EIC LMC</strong> (línea medioclavicular). Alternativa: 4º–5º EIC línea axilar anterior. En civil solo se hace en hospital. En campo militar es intervención de Role 1.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>Analgesia TCCC: orden correcto</strong> → (1) Meloxicam VO (combatiente activo leve). (2) <strong>Fentanilo OTFC 800 mcg transmucoso</strong> (moderado). (3) Ketamina IV 0,5 mg/kg (grave). Morfina solo en PMA (Role 1+). La ketamina preserva consciencia y no deprime respiración.
+    </div>
+    <div class="perla-item">
+      <span class="estrella">★</span> <strong>Tríada letal del trauma de combate</strong> → <strong>Hipotermia + Acidosis + Coagulopatía</strong> (HAC). Cada componente potencia a los otros. La hipotermia inactiva factores de coagulación → profundiza coagulopatía → más hemorragia → más acidosis.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ GLOSARIO ══════════════════ -->
+<div class="sec-header">📖 GLOSARIO DE ABREVIATURAS</div>
+<div class="sec-body">
+  <dl class="glosario-grid">
+    <div class="glos-item"><dt>START</dt><dd>Simple Triage And Rapid Treatment</dd></div>
+    <div class="glos-item"><dt>META</dt><dd>Método Español de Triage Avanzado</dd></div>
+    <div class="glos-item"><dt>SIEVE</dt><dd>Triage primario campo NATO</dd></div>
+    <div class="glos-item"><dt>SORT</dt><dd>Secondary triage con RTS (NATO)</dd></div>
+    <div class="glos-item"><dt>RTS</dt><dd>Revised Trauma Score</dd></div>
+    <div class="glos-item"><dt>TCCC</dt><dd>Tactical Combat Casualty Care</dd></div>
+    <div class="glos-item"><dt>CoTCCC</dt><dd>Committee on TCCC (guía oficial)</dd></div>
+    <div class="glos-item"><dt>MEDEVAC</dt><dd>Medical Evacuation (con personal médico)</dd></div>
+    <div class="glos-item"><dt>CASEVAC</dt><dd>Casualty Evacuation (sin personal médico)</dd></div>
+    <div class="glos-item"><dt>PMA</dt><dd>Puesto Médico Avanzado</dd></div>
+    <div class="glos-item"><dt>IMV</dt><dd>Incidente con Múltiples Víctimas</dd></div>
+    <div class="glos-item"><dt>xABCDE</dt><dd>Protocolo TCCC (x=hemorragia primero)</dd></div>
+    <div class="glos-item"><dt>NPA</dt><dd>Nasopharyngeal Airway (cánula nasofaríngea)</dd></div>
+    <div class="glos-item"><dt>OTFC</dt><dd>Oral Transmucosal Fentanyl Citrate</dd></div>
+    <div class="glos-item"><dt>CAT</dt><dd>Combat Application Tourniquet</dd></div>
+    <div class="glos-item"><dt>SCQ</dt><dd>Superficie Corporal Quemada</dd></div>
+    <div class="glos-item"><dt>HAC</dt><dd>Hipotermia + Acidosis + Coagulopatía</dd></div>
+    <div class="glos-item"><dt>STANAG</dt><dd>Standardization Agreement (NATO)</dd></div>
+    <div class="glos-item"><dt>RC</dt><dd>Relleno/Relleno capilar</dd></div>
+    <div class="glos-item"><dt>AVPU</dt><dd>Alert-Voice-Pain-Unresponsive</dd></div>
+  </dl>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

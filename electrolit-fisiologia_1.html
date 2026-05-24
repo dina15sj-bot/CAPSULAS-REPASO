@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hidroelectrolítico — Fisiopatología Clínica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1eb;
+  --surface: #faf8f4;
+  --surface2: #ede9df;
+  --border: rgba(60,50,30,0.12);
+  --border-strong: rgba(60,50,30,0.22);
+  --text: #1a160e;
+  --text-2: #5a5244;
+  --text-3: #8a7e6e;
+  --na: #1a5fa8;  --na-bg: #e8f2fc; --na-light: #c8e0f8;
+  --k:  #b84020;  --k-bg:  #fdeee9; --k-light:  #f9cfc5;
+  --ca: #3d7a1a;  --ca-bg: #eaf5e0; --ca-light: #c8ebb0;
+  --mg: #966010;  --mg-bg: #fdf0d8; --mg-light: #f5d898;
+  --ab: #5a3a8a;  --ab-bg: #f0ebfa; --ab-light: #d8c8f4;
+  --gas:#1a6e6e;  --gas-bg:#e4f4f4; --gas-light:#a8dede;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* HEADER */
+header { background: var(--text); color: var(--bg); padding: 3rem 2.5rem 2.5rem; position: relative; overflow: hidden; }
+header::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-55deg,transparent,transparent 18px,rgba(255,255,255,0.03) 18px,rgba(255,255,255,0.03) 19px); }
+.header-inner { position: relative; max-width: 960px; margin: 0 auto; }
+.header-tag { font-family:'Syne',sans-serif; font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:1rem; }
+header h1 { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:700; line-height:1.1; margin-bottom:.75rem; }
+header h1 span { color:rgba(255,255,255,0.35); }
+header p { font-size:.95rem; color:rgba(255,255,255,0.55); max-width:520px; line-height:1.6; }
+.ion-pills { display:flex; gap:8px; margin-top:2rem; flex-wrap:wrap; }
+.ion-pill { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; padding:5px 14px; border-radius:100px; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.6); cursor:pointer; transition:all .2s; background:transparent; }
+.ion-pill:hover { border-color:rgba(255,255,255,0.4); color:#fff; }
+.ion-pill.active-na { background:var(--na); border-color:var(--na); color:#fff; }
+.ion-pill.active-k  { background:var(--k);  border-color:var(--k);  color:#fff; }
+.ion-pill.active-ca { background:var(--ca); border-color:var(--ca); color:#fff; }
+.ion-pill.active-mg { background:var(--mg); border-color:var(--mg); color:#fff; }
+.ion-pill.active-ab { background:var(--ab); border-color:var(--ab); color:#fff; }
+.ion-pill.active-gas{ background:var(--gas);border-color:var(--gas);color:#fff; }
+
+/* MAIN */
+main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+/* TABS */
+.tabs { display:flex; gap:0; margin-bottom:2.5rem; border-bottom:1px solid var(--border-strong); overflow-x:auto; }
+.tab-btn { font-family:'Syne',sans-serif; font-size:13px; font-weight:600; padding:12px 18px; border:none; border-bottom:2px solid transparent; background:transparent; color:var(--text-3); cursor:pointer; white-space:nowrap; transition:all .18s; margin-bottom:-1px; }
+.tab-btn:hover { color:var(--text-2); }
+.tab-btn.active { color:var(--text); border-bottom-color:var(--text); }
+.tab-btn.active[data-panel="Na"]  { color:var(--na);  border-bottom-color:var(--na); }
+.tab-btn.active[data-panel="K"]   { color:var(--k);   border-bottom-color:var(--k); }
+.tab-btn.active[data-panel="Ca"]  { color:var(--ca);  border-bottom-color:var(--ca); }
+.tab-btn.active[data-panel="Mg"]  { color:var(--mg);  border-bottom-color:var(--mg); }
+.tab-btn.active[data-panel="AB"]  { color:var(--ab);  border-bottom-color:var(--ab); }
+.tab-btn.active[data-panel="GAS"] { color:var(--gas); border-bottom-color:var(--gas); }
+
+/* PANELS */
+.panel { display:none; animation:fadeUp .25s ease; }
+.panel.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ION HERO */
+.ion-hero { display:flex; align-items:flex-end; gap:1rem; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
+.ion-symbol-big { font-family:'Syne',sans-serif; font-size:4rem; font-weight:700; line-height:1; }
+.ion-hero-text h2 { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:700; line-height:1.2; }
+.ion-hero-text p { font-size:.9rem; color:var(--text-2); margin-top:4px; }
+.color-na{color:var(--na)} .color-k{color:var(--k)} .color-ca{color:var(--ca)} .color-mg{color:var(--mg)} .color-ab{color:var(--ab)} .color-gas{color:var(--gas)}
+
+/* GRIDS */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.four-col { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; margin-bottom:14px; }
+@media(max-width:640px){ .two-col,.four-col{ grid-template-columns:1fr; } }
+@media(max-width:800px) and (min-width:641px){ .four-col{ grid-template-columns:1fr 1fr; } }
+
+/* CARDS */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; }
+.card-label { font-family:'Syne',sans-serif; font-size:10px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px; }
+.card h3 { font-family:'Syne',sans-serif; font-size:1rem; font-weight:600; margin-bottom:12px; line-height:1.3; }
+.card ul { list-style:none; padding:0; }
+.card ul li { font-size:.875rem; color:var(--text-2); padding:4px 0 4px 1.1rem; position:relative; line-height:1.5; }
+.card ul li::before { content:'→'; position:absolute; left:0; color:var(--text-3); font-size:.8rem; }
+.card ul li strong { color:var(--text); font-weight:500; }
+
+/* COLORED CARDS */
+.card-na-lo { background:var(--na-bg); border-color:var(--na-light); }
+.card-na-hi { background:#fdeee9; border-color:#f9cfc5; }
+.card-k-lo  { background:var(--na-bg); border-color:var(--na-light); }
+.card-k-hi  { background:var(--k-bg); border-color:var(--k-light); }
+.card-ca-lo { background:var(--ca-bg); border-color:var(--ca-light); }
+.card-ca-hi { background:#fdeee9; border-color:#f9cfc5; }
+.card-ab    { background:var(--ab-bg); border-color:var(--ab-light); }
+.card-gas   { background:var(--gas-bg); border-color:var(--gas-light); }
+
+/* BADGE */
+.badge-hipo { display:inline-block; font-family:'Syne',sans-serif; font-size:11px; font-weight:600; padding:3px 10px; border-radius:100px; margin-bottom:10px; }
+.badge-hipo.na    { background:var(--na); color:#fff; }
+.badge-hipo.k-lo  { background:var(--na); color:#fff; }
+.badge-hipo.k-hi  { background:var(--k);  color:#fff; }
+.badge-hipo.ca-lo { background:var(--ca); color:#fff; }
+.badge-hipo.ca-hi { background:var(--k);  color:#fff; }
+.badge-hipo.ab    { background:var(--ab); color:#fff; }
+.badge-hipo.gas   { background:var(--gas);color:#fff; }
+
+/* SECTION TITLE */
+.section-title { font-family:'Syne',sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); margin:1.75rem 0 .75rem; }
+
+/* PEARL */
+.pearl { border-radius:10px; padding:1.25rem 1.5rem; margin-top:1.5rem; position:relative; overflow:hidden; }
+.pearl::before { content:''; position:absolute; left:0;top:0;bottom:0; width:3px; }
+.pearl-na{background:var(--na-bg)} .pearl-na::before{background:var(--na)}
+.pearl-k {background:var(--k-bg)}  .pearl-k::before {background:var(--k)}
+.pearl-ca{background:var(--ca-bg)} .pearl-ca::before{background:var(--ca)}
+.pearl-mg{background:var(--mg-bg)} .pearl-mg::before{background:var(--mg)}
+.pearl-ab{background:var(--ab-bg)} .pearl-ab::before{background:var(--ab)}
+.pearl-gas{background:var(--gas-bg)}.pearl-gas::before{background:var(--gas)}
+.pearl-head { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
+.pearl-na .pearl-head{color:var(--na)} .pearl-k .pearl-head{color:var(--k)} .pearl-ca .pearl-head{color:var(--ca)} .pearl-mg .pearl-head{color:var(--mg)} .pearl-ab .pearl-head{color:var(--ab)} .pearl-gas .pearl-head{color:var(--gas)}
+.pearl p { font-size:.875rem; color:var(--text-2); line-height:1.7; }
+.pearl p+p { margin-top:8px; }
+.pearl strong { color:var(--text); font-weight:500; }
+
+/* STEP NUM */
+.step-num { display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; background:var(--k); color:#fff; font-size:10px; font-weight:700; margin-right:4px; flex-shrink:0; }
+.step-num.ab  { background:var(--ab); }
+.step-num.gas { background:var(--gas); }
+
+/* VIA CARDS */
+.via-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; }
+.via-badge { font-family:'Syne',sans-serif; font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; padding:3px 8px; border-radius:4px; margin-bottom:8px; display:inline-block; }
+.via-badge.cronica { background:var(--surface2); color:var(--text-3); }
+.via-badge.aguda   { background:var(--k-bg); color:var(--k); }
+.via-card h3 { font-family:'Syne',sans-serif; font-size:.95rem; font-weight:600; margin-bottom:10px; }
+
+/* LI helper (inline) */
+.li { padding:3px 0 3px 1.1rem; position:relative; font-size:.875rem; color:var(--text-2); line-height:1.5; }
+.li::before { content:'→'; position:absolute; left:0; color:var(--text-3); font-size:.8rem; }
+.li strong { color:var(--text); font-weight:500; }
+
+/* VALUES TABLE */
+.val-table { width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:14px; }
+.val-table th { font-family:'Syne',sans-serif; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); text-align:left; padding:8px 10px; border-bottom:1px solid var(--border-strong); }
+.val-table td { padding:9px 10px; border-bottom:1px solid var(--border); color:var(--text-2); line-height:1.5; vertical-align:top; }
+.val-table tr:last-child td { border-bottom:none; }
+.val-table td:first-child { font-weight:500; color:var(--text); white-space:nowrap; }
+.val-pill { display:inline-block; font-size:11px; font-weight:600; padding:2px 9px; border-radius:100px; }
+.val-low  { background:var(--na-bg); color:var(--na); border:1px solid var(--na-light); }
+.val-high { background:var(--k-bg);  color:var(--k);  border:1px solid var(--k-light); }
+.val-norm { background:var(--ca-bg); color:var(--ca); border:1px solid var(--ca-light); }
+
+/* ÁRBOL DIAGNÓSTICO */
+.tree { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; margin-bottom:14px; }
+.tree-q { font-family:'Syne',sans-serif; font-weight:600; font-size:.95rem; color:var(--text); margin-bottom:10px; }
+.tree-branch { display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; }
+.tree-arm { flex:1; min-width:180px; background:var(--surface2); border-radius:8px; padding:.75rem 1rem; border:1px solid var(--border); }
+.tree-cond { font-size:.78rem; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; }
+.tree-dx { font-family:'Syne',sans-serif; font-size:.9rem; font-weight:600; color:var(--text); margin-bottom:4px; }
+.tree-ex { font-size:.8rem; color:var(--text-2); }
+
+/* ÁRBOL GASOMETRÍA */
+.step-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.1rem 1.25rem; margin-bottom:10px; display:flex; gap:12px; align-items:flex-start; }
+.step-circle { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:14px; flex-shrink:0; margin-top:2px; }
+.step-circle.gas { background:var(--gas); color:#fff; }
+.step-body h3 { font-family:'Syne',sans-serif; font-size:.95rem; font-weight:600; margin-bottom:6px; }
+.step-body p { font-size:.85rem; color:var(--text-2); line-height:1.6; }
+.step-body strong { color:var(--text); font-weight:500; }
+
+/* TRUCO OPOSITOR */
+.truco { background:var(--text); border-radius:12px; padding:1.5rem; margin-top:1.5rem; }
+.truco-title { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:1rem; }
+.truco-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media(max-width:500px){ .truco-grid{grid-template-columns:1fr} }
+.truco-item { border-top:1px solid rgba(255,255,255,0.1); padding-top:10px; }
+.truco-cue { font-size:.8rem; color:rgba(255,255,255,0.45); margin-bottom:3px; font-style:italic; }
+.truco-dx { font-family:'Syne',sans-serif; font-size:.95rem; font-weight:600; color:#fff; }
+
+/* RULE BOX */
+.rule-box { background:var(--surface2); border:1px solid var(--border-strong); border-radius:10px; padding:1.1rem 1.4rem; margin-top:1.5rem; font-size:.875rem; color:var(--text-2); line-height:1.7; }
+.rule-box strong { color:var(--text); font-weight:500; }
+
+/* MNEMO */
+.mnemo { background:var(--text); color:var(--bg); border-radius:12px; padding:1.75rem; margin-top:2rem; }
+.mnemo-title { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:1rem; }
+.mnemo-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media(max-width:480px){ .mnemo-grid{grid-template-columns:1fr} }
+.mnemo-item { border-top:1px solid rgba(255,255,255,0.1); padding-top:10px; }
+.mnemo-ion { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:4px; }
+.mnemo-text { font-size:.8rem; color:rgba(255,255,255,0.5); line-height:1.5; }
+
+/* FOOTER */
+footer { text-align:center; padding:2rem; font-size:.8rem; color:var(--text-3); border-top:1px solid var(--border); }
+footer strong { color:var(--text-2); font-weight:500; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-tag">EVIDENCIA PROTOTOOLS · Urgencias &amp; OPE Militar 2026</div>
+    <h1>Hidroelectrolítico<br><span>Fisiopatología clínica</span></h1>
+    <p>Regla de oro: deduce la clínica sin memorizar síntomas. Cada ion tiene un mecanismo; cada mecanismo explica el 90% de las preguntas.</p>
+    <div class="ion-pills">
+      <button class="ion-pill active-na" onclick="switchPanel('Na')">Na⁺ — Volumen</button>
+      <button class="ion-pill" onclick="switchPanel('K')">K⁺ — Electricidad</button>
+      <button class="ion-pill" onclick="switchPanel('Ca')">Ca²⁺ — Estabilizador</button>
+      <button class="ion-pill" onclick="switchPanel('Mg')">Mg²⁺ — Capataz</button>
+      <button class="ion-pill" onclick="switchPanel('AB')">Ácido-Base</button>
+      <button class="ion-pill" onclick="switchPanel('GAS')">Gasometría</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="tabs">
+    <button class="tab-btn active" data-panel="Na"  onclick="switchPanel('Na')">Na⁺</button>
+    <button class="tab-btn" data-panel="K"   onclick="switchPanel('K')">K⁺</button>
+    <button class="tab-btn" data-panel="Ca"  onclick="switchPanel('Ca')">Ca²⁺</button>
+    <button class="tab-btn" data-panel="Mg"  onclick="switchPanel('Mg')">Mg²⁺</button>
+    <button class="tab-btn" data-panel="AB"  onclick="switchPanel('AB')">Ácido-Base</button>
+    <button class="tab-btn" data-panel="GAS" onclick="switchPanel('GAS')">Gasometría</button>
+  </div>
+
+  <!-- ══ SODIO ══ -->
+  <div class="panel active" id="panel-Na">
+    <div class="ion-hero">
+      <div class="ion-symbol-big color-na">Na⁺</div>
+      <div class="ion-hero-text">
+        <h2>Sodio = Volumen</h2>
+        <p>Jefe del agua extracelular — el problema es el agua, no el sodio</p>
+      </div>
+    </div>
+
+    <p class="section-title">Valores de referencia</p>
+    <table class="val-table">
+      <tr><th>Alteración</th><th>Valor</th><th>Diagnóstico rápido</th></tr>
+      <tr><td>Hiponatremia</td><td><span class="val-pill val-low">&lt; 135 mEq/L</span></td><td>¿Edemas? → Dilución &nbsp;|&nbsp; ¿Boca seca / hipotensión? → Depleción</td></tr>
+      <tr><td>Normal</td><td><span class="val-pill val-norm">135 – 145 mEq/L</span></td><td>—</td></tr>
+      <tr><td>Hipernatremia</td><td><span class="val-pill val-high">&gt; 145 mEq/L</span></td><td>¿Deshidratado? → pérdida de agua libre (Diabetes Insípida, golpe de calor)</td></tr>
+    </table>
+
+    <p class="section-title">Árbol diagnóstico del Na⁺</p>
+    <div class="tree">
+      <div class="tree-q">Hiponatremia (&lt; 135) — ¿Qué tiene el paciente?</div>
+      <div class="tree-branch">
+        <div class="tree-arm">
+          <div class="tree-cond">¿Edemas?</div>
+          <div class="tree-dx">Dilución</div>
+          <div class="tree-ex">Insuficiencia cardíaca, cirrosis, síndrome nefrótico. El cuerpo retiene más agua que sodio.</div>
+        </div>
+        <div class="tree-arm">
+          <div class="tree-cond">¿Boca seca / hipotenso?</div>
+          <div class="tree-dx">Depleción</div>
+          <div class="tree-ex">Vómitos, diarrea, diuréticos. Pierde sodio y agua, pero más sodio.</div>
+        </div>
+        <div class="tree-arm">
+          <div class="tree-cond">¿Aspecto normal / euvolémico?</div>
+          <div class="tree-dx">SIADH</div>
+          <div class="tree-ex">TCE, ca. pulmón, fármacos. Retiene agua libre sin edemas periféricos.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-title">Dos dimensiones del sodio</p>
+    <div class="two-col">
+      <div class="card card-na-lo">
+        <div class="card-label">Cantidad total → presión vascular</div>
+        <h3>Pulmón · piernas · vasos</h3>
+        <ul>
+          <li><strong>↑ Sodio total:</strong> retención de agua, HTA, edemas, EAP</li>
+          <li><strong>↓ Sodio total:</strong> hipotensión, shock hipovolémico</li>
+        </ul>
+      </div>
+      <div class="card card-na-hi">
+        <div class="card-label">Concentración sérica → volumen celular</div>
+        <h3>Cerebro · consciencia · neurología</h3>
+        <ul>
+          <li><strong>Hiponatremia:</strong> agua entra en neurona → edema cerebral → letargia, convulsiones, coma</li>
+          <li><strong>Hipernatremia:</strong> agua sale → deshidratación → hemorragia cerebral</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="section-title">Vía crónica vs vía aguda</p>
+    <div class="two-col">
+      <div class="via-card">
+        <span class="via-badge cronica">Vía crónica</span>
+        <h3>El volumen ataca primero</h3>
+        <div class="li">IC / ERC / cirrosis: riñón activa SRAA</div>
+        <div class="li">Primero: HTA, edemas, EAP</div>
+        <div class="li">Después: hiponatremia dilucional</div>
+      </div>
+      <div class="via-card">
+        <span class="via-badge aguda">Vía aguda</span>
+        <h3>La ósmosis ataca primero</h3>
+        <div class="li">TCE grave → SIADH: hiponatremia euvolémica sin edemas</div>
+        <div class="li">Golpe de calor / Diabetes Insípida: hipernatremia aguda</div>
+        <div class="li">Daño cerebral antes que edemas periféricos</div>
+      </div>
+    </div>
+
+    <div class="pearl pearl-na">
+      <div class="pearl-head">⚠ Mielinólisis pontina — regla de corrección</div>
+      <p>Nunca corregir más de <strong>0,5–1 mEq/L/hora</strong> ni más de <strong>10–12 mEq en 24 h</strong>.</p>
+      <p>Hiponatremia corregida rápido → desmielinización osmótica → <strong>síndrome de cautiverio</strong> (tetraplejia + mutismo).</p>
+      <p>Hipernatremia corregida rápido → <strong>edema cerebral iatrogénico</strong>.</p>
+    </div>
+
+    <div class="rule-box">
+      <strong>Truco de examen:</strong> ¿crepitantes / fóvea / PVC alta? → aplica VOLUMEN (furosemida). ¿Letargia / convulsiones / coma? → aplica ÓSMOSIS (suero elegido con precisión, corrección lenta).
+    </div>
+  </div>
+
+  <!-- ══ POTASIO ══ -->
+  <div class="panel" id="panel-K">
+    <div class="ion-hero">
+      <div class="ion-symbol-big color-k">K⁺</div>
+      <div class="ion-hero-text">
+        <h2>Potasio = Electricidad pura</h2>
+        <p>Jefe del corazón — determina el potencial de membrana en reposo</p>
+      </div>
+    </div>
+
+    <p class="section-title">Valores de referencia</p>
+    <table class="val-table">
+      <tr><th>Alteración</th><th>Valor</th><th>ECG clave</th></tr>
+      <tr><td>Hipopotasemia</td><td><span class="val-pill val-low">&lt; 3,5 mEq/L</span></td><td>Onda U · aplanamiento de la T</td></tr>
+      <tr><td>Normal</td><td><span class="val-pill val-norm">3,5 – 5,0 mEq/L</span></td><td>—</td></tr>
+      <tr><td>Hiperpotasemia</td><td><span class="val-pill val-high">&gt; 5,0 mEq/L</span></td><td>Ondas T picudas · ensanchamiento QRS · asistolia</td></tr>
+    </table>
+
+    <p class="section-title">Clínica por mecanismo</p>
+    <div class="two-col">
+      <div class="card card-k-lo">
+        <span class="badge-hipo k-lo">Hipopotasemia</span>
+        <h3>Hiperpolarización → cuesta arrancar</h3>
+        <ul>
+          <li>Debilidad muscular extrema / parálisis flácida</li>
+          <li>Íleo paralítico</li>
+          <li>ECG: <strong>onda U + aplanamiento de la T</strong></li>
+          <li>Potencia toxicidad de digoxina</li>
+        </ul>
+        <div style="margin-top:12px;padding:10px;background:rgba(255,255,255,0.6);border-radius:8px;font-size:.8rem;color:var(--text-2);">
+          Ritmo máximo KCl IV: <strong>20 mEq/hora</strong>
+        </div>
+      </div>
+      <div class="card card-k-hi">
+        <span class="badge-hipo k-hi">Hiperpotasemia</span>
+        <h3>Despolarización parcial → inestabilidad</h3>
+        <ul>
+          <li>ECG: <strong>ondas T picudas</strong></li>
+          <li>Ensanchamiento del QRS</li>
+          <li><strong>Parada cardíaca</strong> (asistolia)</li>
+        </ul>
+        <p style="font-size:.8rem;color:var(--text-3);margin-top:10px;font-weight:500;">Secuencia de urgencia:</p>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
+          <div style="font-size:.8rem;color:var(--text-2);"><span class="step-num">1</span> <strong>Gluconato cálcico</strong> — estabiliza membrana (no baja K⁺)</div>
+          <div style="font-size:.8rem;color:var(--text-2);"><span class="step-num">2</span> <strong>Insulina + glucosa</strong> — empuja K⁺ a célula</div>
+          <div style="font-size:.8rem;color:var(--text-2);"><span class="step-num">3</span> <strong>Salbutamol neb.</strong> — mismo mecanismo celular</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-title">Vía crónica vs vía aguda</p>
+    <div class="two-col">
+      <div class="via-card">
+        <span class="via-badge cronica">Vía crónica — ERC</span>
+        <h3>Tolerancia eléctrica</h3>
+        <div class="li">Riñón deja de eliminar K⁺ gradualmente durante años</div>
+        <div class="li">Corazón se adapta → K⁺ 6 mEq/L sin arritmia fulminante</div>
+        <div class="li">Daño silente y progresivo</div>
+      </div>
+      <div class="via-card">
+        <span class="via-badge aguda">Vía aguda — Trauma / IMV</span>
+        <h3>Parada sin tiempo de adaptación</h3>
+        <div class="li">Rabdomiólisis: células musculares vuelcan K⁺ en minutos</div>
+        <div class="li">K⁺ 6 mEq/L agudo = ondas T picudas → parada inminente</div>
+        <div class="li">El corazón no tiene tiempo de adaptarse</div>
+      </div>
+    </div>
+
+    <p class="section-title">Addison vs Cushing — aplicando la regla</p>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-label">Cushing — exceso de cortisol / aldosterona</div>
+        <ul>
+          <li>Retiene Na⁺ → retiene agua → <strong>HTA, edemas, cara luna llena</strong></li>
+          <li>Tira K⁺ → <strong>hipopotasemia → debilidad, miopatía, íleo</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Addison — déficit de aldosterona</div>
+        <ul>
+          <li>Pierde Na⁺ → pierde agua → <strong>hipotensión, shock, crisis addisoniana</strong></li>
+          <li>Retiene K⁺ → <strong>hiperpotasemia → arritmias, ondas T picudas</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pearl pearl-k">
+      <div class="pearl-head">Perla OPE — IMV / Derrumbamiento militar</div>
+      <p>Paciente atrapado liberado súbitamente → entra en parada cardíaca → diagnóstico retrospectivo casi seguro: <strong>hiperpotasemia aguda letal por síndrome de aplastamiento (rabdomiólisis)</strong>.</p>
+      <p>Ante <strong>hipopotasemia refractaria</strong>: mide niveles de Mg²⁺ antes de añadir más K⁺ — sin magnesio el riñón tira el potasio que le pones.</p>
+    </div>
+  </div>
+
+  <!-- ══ CALCIO ══ -->
+  <div class="panel" id="panel-Ca">
+    <div class="ion-hero">
+      <div class="ion-symbol-big color-ca">Ca²⁺</div>
+      <div class="ion-hero-text">
+        <h2>Calcio = El freno de mano</h2>
+        <p>Estabilizador de membrana — mantiene a raya la excitabilidad</p>
+      </div>
+    </div>
+
+    <p class="section-title">Valores de referencia</p>
+    <table class="val-table">
+      <tr><th>Alteración</th><th>Valor</th><th>Clínica clave</th></tr>
+      <tr><td>Hipocalcemia</td><td><span class="val-pill val-low">&lt; 8,5 mg/dL</span></td><td>Tetania · Chvostek · Trousseau · laringoespasmo</td></tr>
+      <tr><td>Normal</td><td><span class="val-pill val-norm">8,5 – 10,5 mg/dL</span></td><td>—</td></tr>
+      <tr><td>Hipercalcemia</td><td><span class="val-pill val-high">&gt; 10,5 mg/dL</span></td><td>Estreñimiento · hiporreflexia · obnubilación · cólicos</td></tr>
+    </table>
+
+    <p class="section-title">Clínica por mecanismo</p>
+    <div class="two-col">
+      <div class="card card-ca-lo">
+        <span class="badge-hipo ca-lo">Hipocalcemia</span>
+        <h3>Freno roto → hiperexcitabilidad</h3>
+        <ul>
+          <li>Tetania, espasmos musculares</li>
+          <li><strong>Signo de Chvostek:</strong> espasmo facial al percutir el nervio facial</li>
+          <li><strong>Signo de Trousseau:</strong> espasmo carpopedal con manguito inflado</li>
+          <li><strong>Laringoespasmo:</strong> emergencia de vía aérea</li>
+          <li>Arritmias</li>
+        </ul>
+      </div>
+      <div class="card card-ca-hi">
+        <span class="badge-hipo ca-hi">Hipercalcemia</span>
+        <h3>Freno bloqueado → el paciente se apaga</h3>
+        <ul>
+          <li>Letargia, confusión, obnubilación</li>
+          <li>Estreñimiento, náuseas</li>
+          <li>Hiporreflexia</li>
+          <li>Cálculos renales (cólicos nefríticos)</li>
+          <li>Osteoporosis / fracturas patológicas</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="section-title">Vía crónica vs vía aguda</p>
+    <div class="two-col">
+      <div class="via-card">
+        <span class="via-badge cronica">Vía crónica</span>
+        <h3>El hueso ataca primero</h3>
+        <div class="li">Hiperparatiroidismo primario: Ca²⁺ sale del hueso durante años</div>
+        <div class="li">Clínica estructural: osteoporosis + fracturas + cólicos nefríticos</div>
+        <div class="li">Mnemotecnia: <em>"piedras, huesos y abdomen"</em></div>
+      </div>
+      <div class="via-card">
+        <span class="via-badge aguda">Vía aguda</span>
+        <h3>El músculo / nervio ataca primero</h3>
+        <div class="li">Tiroidectomía → ablación accidental de paratiroides</div>
+        <div class="li">Ca²⁺ se desploma en 24 h — sin daño óseo</div>
+        <div class="li">Urgencia neuromuscular: tetania → laringoespasmo → asfixia</div>
+      </div>
+    </div>
+
+    <div class="pearl pearl-ca">
+      <div class="pearl-head">Perla OPE — Postoperatorio de cirugía cervical</div>
+      <p>Estridor respiratorio en el postoperatorio inmediato de tiroidectomía / paratiroidectomía →</p>
+      <p><strong>No pienses primero en hematoma. Piensa en hipocalcemia aguda severa</strong> por ablación de paratiroides. Tratamiento: gluconato cálcico IV.</p>
+      <p style="margin-top:8px;font-style:italic;">Mnemotecnia: crónico = piedras (hueso) · agudo = asfixia (laringoespasmo)</p>
+    </div>
+
+    <div class="rule-box">
+      <strong>Relación con Mg²⁺:</strong> Sin magnesio, la paratiroides no puede segregar PTH → hipocalcemia refractaria aunque se reponga Ca²⁺. Ante hipocalcemia que no corrige, mide Mg²⁺.
+    </div>
+  </div>
+
+  <!-- ══ MAGNESIO ══ -->
+  <div class="panel" id="panel-Mg">
+    <div class="ion-hero">
+      <div class="ion-symbol-big color-mg">Mg²⁺</div>
+      <div class="ion-hero-text">
+        <h2>Magnesio = El capataz invisible</h2>
+        <p>Cofactor de la bomba Na⁺/K⁺ ATPasa y de la PTH — nunca da la cara solo</p>
+      </div>
+    </div>
+
+    <p class="section-title">Valores de referencia</p>
+    <table class="val-table">
+      <tr><th>Alteración</th><th>Valor</th><th>Clínica clave</th></tr>
+      <tr><td>Hipomagnesemia</td><td><span class="val-pill val-low">&lt; 1,7 mg/dL</span></td><td>Hipopotasemia + hipocalcemia refractarias — la pieza que falta</td></tr>
+      <tr><td>Normal</td><td><span class="val-pill val-norm">1,7 – 2,2 mg/dL</span></td><td>—</td></tr>
+      <tr><td>Hipermagnesemia</td><td><span class="val-pill val-high">&gt; 2,2 mg/dL</span></td><td>Hiporreflexia profunda · parálisis respiratoria (casi exclusivo de IR + sales Mg)</td></tr>
+    </table>
+
+    <div class="card" style="margin-bottom:14px;background:var(--mg-bg);border-color:var(--mg-light);">
+      <div class="card-label">Por qué el Mg²⁺ manda sobre el resto</div>
+      <ul>
+        <li><strong>Sin Mg²⁺,</strong> la bomba Na⁺/K⁺ ATPasa no tiene combustible → por mucho K⁺ que infundas, el riñón lo elimina</li>
+        <li><strong>Sin Mg²⁺,</strong> la paratiroides se paraliza → no segrega PTH → Ca²⁺ en sangre cae en picado</li>
+        <li>Resultado: hipopotasemia + hipocalcemia que <strong>no corrigen</strong> aunque repongas ambos iones</li>
+      </ul>
+    </div>
+
+    <p class="section-title">Vía crónica vs vía aguda</p>
+    <div class="two-col">
+      <div class="via-card">
+        <span class="via-badge cronica">Vía crónica — El encubridor</span>
+        <h3>Alcohólico / desnutrido</h3>
+        <div class="li">Mg²⁺ por los suelos → hipopotasemia + hipocalcemia</div>
+        <div class="li">Trampa clásica: sueros de K⁺ y Ca²⁺ durante días sin mejora</div>
+        <div class="li">Clave: <strong>reponer Mg²⁺ primero</strong></div>
+      </div>
+      <div class="via-card">
+        <span class="via-badge aguda">Vía aguda — El botón de reinicio</span>
+        <h3>Sulfato de Mg²⁺ IV</h3>
+        <div class="li">Independiente de los niveles séricos</div>
+        <div class="li">Estabiliza membrana cardíaca y neuronal</div>
+        <div class="li">Elección en <strong>torsades de pointes</strong></div>
+        <div class="li">Elección en <strong>eclampsia / preeclampsia grave</strong></div>
+      </div>
+    </div>
+
+    <p class="section-title">Las dos emergencias del Mg²⁺</p>
+    <div class="two-col">
+      <div class="card" style="border-left:3px solid var(--k);border-radius:0 12px 12px 0;">
+        <div class="card-label">Urgencia cardíaca</div>
+        <h3>Torsades de pointes</h3>
+        <p style="font-size:.875rem;color:var(--text-2);line-height:1.6;margin-top:6px;">Taquicardia ventricular polimorfa. QRS que rota su eje alrededor de la línea isoeléctrica. <strong>Sulfato de Mg²⁺ IV = tratamiento de elección</strong>, incluso con Mg sérico normal.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--mg);border-radius:0 12px 12px 0;">
+        <div class="card-label">Urgencia obstétrica</div>
+        <h3>Eclampsia</h3>
+        <p style="font-size:.875rem;color:var(--text-2);line-height:1.6;margin-top:6px;">Convulsiones en la embarazada con preeclampsia. <strong>Sulfato de Mg²⁺ IV = tratamiento de elección</strong>. Actúa estabilizando la membrana neuronal, no como antiepiléptico clásico.</p>
+      </div>
+    </div>
+
+    <div class="pearl pearl-mg">
+      <div class="pearl-head">Perla OPE — La trampa del Mg²⁺</div>
+      <p>Ante <strong>hipopotasemia refractaria</strong>: pide niveles de Mg²⁺ antes de seguir añadiendo K⁺ en el suero.</p>
+      <p>Ante <strong>hipocalcemia refractaria</strong>: lo mismo — sin Mg²⁺ la PTH no se segrega y el calcio sigue cayendo.</p>
+    </div>
+  </div>
+
+  <!-- ══ ÁCIDO-BASE ══ -->
+  <div class="panel" id="panel-AB">
+    <div class="ion-hero">
+      <div class="ion-symbol-big color-ab">pH</div>
+      <div class="ion-hero-text">
+        <h2>Equilibrio ácido-base</h2>
+        <p>El balancín electrolítico — lo que el pH hace al K⁺ y al Ca²⁺</p>
+      </div>
+    </div>
+
+    <p class="section-title">Valores normales — memorizar estos tres</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div class="card card-ab" style="text-align:center;">
+        <div class="card-label">pH</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;color:var(--ab);">7,35 – 7,45</div>
+      </div>
+      <div class="card card-ab" style="text-align:center;">
+        <div class="card-label">pCO₂ — el pulmón</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;color:var(--ab);">35 – 45 mmHg</div>
+      </div>
+      <div class="card card-ab" style="text-align:center;">
+        <div class="card-label">HCO₃⁻ — el riñón</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;color:var(--ab);">22 – 26 mEq/L</div>
+      </div>
+    </div>
+
+    <p class="section-title">Las 4 alteraciones primarias</p>
+    <div class="four-col">
+      <div class="card">
+        <div class="card-label">1</div>
+        <h3 style="color:var(--k)">Acidosis metabólica</h3>
+        <ul>
+          <li>pH &lt; 7,35</li>
+          <li>HCO₃⁻ bajo</li>
+          <li>CAD, acidosis láctica</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">2</div>
+        <h3 style="color:var(--na)">Alcalosis metabólica</h3>
+        <ul>
+          <li>pH &gt; 7,45</li>
+          <li>HCO₃⁻ alto</li>
+          <li>Vómitos, diuréticos</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">3</div>
+        <h3 style="color:var(--k)">Acidosis respiratoria</h3>
+        <ul>
+          <li>pH &lt; 7,35</li>
+          <li>pCO₂ alta</li>
+          <li>Hipoventilación, EPOC</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">4</div>
+        <h3 style="color:var(--na)">Alcalosis respiratoria</h3>
+        <ul>
+          <li>pH &gt; 7,45</li>
+          <li>pCO₂ baja</li>
+          <li>Ansiedad, dolor, altitud</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="section-title">El puente electrolito-pH — la clave de la pregunta OPE</p>
+    <div class="two-col">
+      <div class="card" style="border-left:3px solid var(--k);border-radius:0 12px 12px 0;">
+        <div class="card-label">Acidosis metabólica</div>
+        <h3>→ Hiperpotasemia</h3>
+        <p style="font-size:.875rem;color:var(--text-2);line-height:1.6;margin-top:6px;">El exceso de H⁺ entra en la célula para ser tamponado. Para mantener la neutralidad eléctrica de la membrana, el K⁺ sale hacia la sangre. <strong>Siempre que veas una acidosis grave, espera un potasio alto.</strong></p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--na);border-radius:0 12px 12px 0;">
+        <div class="card-label">Alcalosis metabólica</div>
+        <h3>→ Hipopotasemia + Hipocalcemia</h3>
+        <p style="font-size:.875rem;color:var(--text-2);line-height:1.6;margin-top:6px;">El K⁺ entra a la célula (efecto inverso). Además, en alcalosis el calcio se une más a la albúmina → <strong>cae el calcio ionizado libre → tetania</strong>, aunque el calcio total sea normal.</p>
+      </div>
+    </div>
+
+    <div class="pearl pearl-ab">
+      <div class="pearl-head">Perla OPE — La regla de los vómitos</div>
+      <p>Paciente con <strong>vómitos de repetición o estenosis pilórica</strong>: marca siempre <strong>alcalosis metabólica + hipopotasemia</strong>.</p>
+      <p>Secuencia: pierdes HCl por el vómito → pH sube → riñón retiene H⁺ y tira K⁺ por la orina → hipopotasemia.</p>
+    </div>
+
+    <div class="truco">
+      <div class="truco-title">Truco del opositor eficiente — deduce por clínica, no por valor</div>
+      <div class="truco-grid">
+        <div class="truco-item">
+          <div class="truco-cue">"Paciente con Trousseau positivo"</div>
+          <div class="truco-dx">→ Marca Hipocalcemia</div>
+        </div>
+        <div class="truco-item">
+          <div class="truco-cue">"Paciente con onda T picuda en ECG"</div>
+          <div class="truco-dx">→ Marca Hiperpotasemia</div>
+        </div>
+        <div class="truco-item">
+          <div class="truco-cue">"Paciente con onda U en ECG"</div>
+          <div class="truco-dx">→ Marca Hipopotasemia</div>
+        </div>
+        <div class="truco-item">
+          <div class="truco-cue">"Paciente con letargia + convulsiones"</div>
+          <div class="truco-dx">→ Marca Hiponatremia aguda</div>
+        </div>
+        <div class="truco-item">
+          <div class="truco-cue">"Vómitos de repetición + debilidad"</div>
+          <div class="truco-dx">→ Alcalosis metabólica + K⁺ bajo</div>
+        </div>
+        <div class="truco-item">
+          <div class="truco-cue">"Acidosis grave en analítica"</div>
+          <div class="truco-dx">→ Espera K⁺ alto en la misma analítica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ GASOMETRÍA ══ -->
+  <div class="panel" id="panel-GAS">
+    <div class="ion-hero">
+      <div class="ion-symbol-big color-gas">ABG</div>
+      <div class="ion-hero-text">
+        <h2>Gasometría arterial en 4 pasos</h2>
+        <p>Técnica de 10 segundos — nunca falla una si sigues el orden</p>
+      </div>
+    </div>
+
+    <p class="section-title">El método de los 4 pasos</p>
+
+    <div class="step-card">
+      <div class="step-circle gas">1</div>
+      <div class="step-body">
+        <h3>¿El pH está ácido o alcalino?</h3>
+        <p><strong>pH &lt; 7,35</strong> = Acidosis &nbsp;|&nbsp; <strong>pH &gt; 7,45</strong> = Alcalosis. Este paso te da la dirección del problema. Todo lo demás confirma el mecanismo.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-circle gas">2</div>
+      <div class="step-body">
+        <h3>¿Quién es el culpable — respiratorio o metabólico?</h3>
+        <p>El parámetro que se mueve <strong>en la misma dirección que el pH</strong> es el causante:</p>
+        <p style="margin-top:8px;"><strong>pH bajo + pCO₂ alta</strong> = Acidosis respiratoria (el pulmón retiene CO₂)</p>
+        <p><strong>pH bajo + HCO₃⁻ bajo</strong> = Acidosis metabólica (el riñón pierde bicarbonato)</p>
+        <p><strong>pH alto + pCO₂ baja</strong> = Alcalosis respiratoria (hiperventilación)</p>
+        <p><strong>pH alto + HCO₃⁻ alto</strong> = Alcalosis metabólica (vómitos, diuréticos)</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-circle gas">3</div>
+      <div class="step-body">
+        <h3>¿Hay compensación?</h3>
+        <p>Si el sistema <strong>opuesto</strong> se mueve en dirección contraria para normalizar el pH, hay compensación.</p>
+        <p style="margin-top:6px;">Ejemplo: acidosis metabólica → el paciente hiperventila → pCO₂ baja → compensa subiendo el pH. <strong>La compensación nunca corrige el pH completamente</strong> — si el pH está normal, hay un trastorno mixto o ya se ha corregido.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-circle gas">4</div>
+      <div class="step-body">
+        <h3>Memoria táctica — los casos clínicos tipo</h3>
+        <p><strong>EPOC descompensado:</strong> Acidosis respiratoria crónica. pCO₂ alta + HCO₃⁻ alto (el riñón lleva meses reteniendo bicarbonato para compensar). El pH puede estar casi normal.</p>
+        <p style="margin-top:6px;"><strong>Intoxicación por AINEs / aspirina:</strong> Acidosis metabólica con brecha aniónica aumentada.</p>
+        <p style="margin-top:6px;"><strong>Estenosis pilórica / vómitos:</strong> Alcalosis metabólica + hipopotasemia. Pierdes HCl → pH sube → riñón retiene H⁺ y tira K⁺.</p>
+      </div>
+    </div>
+
+    <p class="section-title">Guía rápida de interpretación</p>
+    <table class="val-table">
+      <tr><th>pH</th><th>pCO₂</th><th>HCO₃⁻</th><th>Diagnóstico</th><th>Causa tipo</th></tr>
+      <tr><td><span class="val-pill val-low">↓ bajo</span></td><td><span class="val-pill val-high">↑ alta</span></td><td>Normal / ↑</td><td>Acidosis respiratoria</td><td>EPOC, hipoventilación</td></tr>
+      <tr><td><span class="val-pill val-low">↓ bajo</span></td><td>Normal / ↓</td><td><span class="val-pill val-low">↓ bajo</span></td><td>Acidosis metabólica</td><td>CAD, acidosis láctica, AINEs</td></tr>
+      <tr><td><span class="val-pill val-norm">↑ alto</span></td><td><span class="val-pill val-low">↓ baja</span></td><td>Normal / ↓</td><td>Alcalosis respiratoria</td><td>Ansiedad, dolor, altitud</td></tr>
+      <tr><td><span class="val-pill val-norm">↑ alto</span></td><td>Normal / ↑</td><td><span class="val-pill val-norm">↑ alto</span></td><td>Alcalosis metabólica</td><td>Vómitos, diuréticos, estenosis pilórica</td></tr>
+    </table>
+
+    <div class="pearl pearl-gas">
+      <div class="pearl-head">Perla OPE — EPOC y la trampa del bicarbonato</div>
+      <p>El paciente con EPOC crónico tiene <strong>pCO₂ habitualmente alta y HCO₃⁻ alto</strong> de base (compensación renal crónica). Si llega a urgencias con pH normal pero pCO₂ 60 y HCO₃⁻ 36, no es "normal" — es una acidosis respiratoria crónica compensada.</p>
+      <p style="margin-top:8px;">Trampa: si le das O₂ al 100%, le quitas el <em>estímulo hipóxico</em> que es su único motor respiratorio → hipoventila más → pCO₂ sube → acidosis respiratoria aguda sobre crónica.</p>
+    </div>
+
+    <div class="rule-box">
+      <strong>Conexión con electrolitos:</strong> Acidosis grave → hiperpotasemia (K⁺ sale de célula). Alcalosis → hipopotasemia + hipocalcemia ionizada (Ca²⁺ se une más a albúmina). En cualquier gasometría con alteración ácido-base, revisa siempre el K⁺ y el Ca²⁺ ionizado.
+    </div>
+  </div>
+
+  <!-- ══ MNEMOTECNIA CIERRE ══ -->
+  <div class="mnemo">
+    <div class="mnemo-title">Cierre — las seis reglas de oro</div>
+    <div class="mnemo-grid">
+      <div class="mnemo-item">
+        <div class="mnemo-ion" style="color:#6db3f2">Na⁺</div>
+        <div class="mnemo-text">Tiempo rápido = cerebro (ósmosis). Tiempo lento = pulmón / edemas (volumen).</div>
+      </div>
+      <div class="mnemo-item">
+        <div class="mnemo-ion" style="color:#f08060">K⁺</div>
+        <div class="mnemo-text">Crónico = tolerancia eléctrica. Agudo (trauma / aplastamiento) = parada cardíaca.</div>
+      </div>
+      <div class="mnemo-item">
+        <div class="mnemo-ion" style="color:#80c860">Ca²⁺</div>
+        <div class="mnemo-text">Hueso crónico = piedras y fracturas. Músculo agudo = asfixia por laringoespasmo.</div>
+      </div>
+      <div class="mnemo-item">
+        <div class="mnemo-ion" style="color:#e8b850">Mg²⁺</div>
+        <div class="mnemo-text">Antídoto de la arritmia caótica (torsades) y de las convulsiones obstétricas (eclampsia).</div>
+      </div>
+      <div class="mnemo-item">
+        <div class="mnemo-ion" style="color:#b89ae0">Acidosis</div>
+        <div class="mnemo-text">→ K⁺ sube. Alcalosis → K⁺ baja + Ca²⁺ ionizado baja (tetania sin hipocalcemia "real").</div>
+      </div>
+      <div class="mnemo-item">
+        <div class="mnemo-ion" style="color:#60c0c0">Gasometría</div>
+        <div class="mnemo-text">4 pasos: pH → culpable (pCO₂ o HCO₃⁻) → compensación → caso clínico tipo.</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>EVIDENCIA PROTOTOOLS</strong> · Sheila San Juan Ahmed · OPE Militar Enfermería 2026<br>
+  Recurso de estudio — no sustituye bibliografía oficial ni protocolos institucionales
+</footer>
+
+<script>
+const IONS = ['Na','K','Ca','Mg','AB','GAS'];
+function switchPanel(ion) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ion-pill').forEach(b => {
+    IONS.forEach(i => b.classList.remove('active-'+i.toLowerCase()));
+  });
+  document.getElementById('panel-' + ion).classList.add('active');
+  document.querySelector('.tab-btn[data-panel="' + ion + '"]').classList.add('active');
+  const pill = document.querySelector('.ion-pill[onclick*="\''+ion+'\'"]');
+  if(pill) pill.classList.add('active-' + ion.toLowerCase());
+}
+</script>
+</body>
+</html>

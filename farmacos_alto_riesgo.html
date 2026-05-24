@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fármacos de Alto Riesgo — Farmacología Clínica Enfermería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5f0;--surface:#ffffff;--border:#e0d8cc;--text:#1a1510;--muted:#7a6f60;
+  --ac:#c47a10;--ac-bg:#fdf0d8;--ac-light:#f5d898;
+  --danger:#c02030;--danger-bg:#fdf0f0;
+  --ok:#1a7a3a;--ok-bg:#f0faf0;
+  --warn:#c07010;--warn-bg:#fff8ec;
+  --info:#1a5a8a;--info-bg:#f0f6fc;
+  --purple:#7040c0;--purple-bg:#f0e8ff;
+  --warm:#eeeae3;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* HEADER */
+.header{background:#2a1800;color:white;padding:2rem 2.5rem 1.8rem;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 30px,rgba(196,122,16,0.06) 30px,rgba(196,122,16,0.06) 31px);}
+.header-inner{position:relative;max-width:1000px;margin:0 auto;}
+.header-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ac-light);margin-bottom:0.7rem;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;}
+.header h1 span{color:var(--ac);}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:rgba(255,255,255,0.5);letter-spacing:0.1em;margin-bottom:1rem;}
+.pills{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.58rem;padding:0.2rem 0.7rem;border-radius:20px;border:1px solid;letter-spacing:0.08em;}
+.pill-warn{color:var(--ac);border-color:var(--ac);background:rgba(196,122,16,0.15);}
+.pill-danger{color:#f08080;border-color:#c04040;background:rgba(192,32,48,0.15);}
+.pill-info{color:#80b8e0;border-color:#407090;background:rgba(26,90,138,0.15);}
+
+/* LAYOUT */
+main{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+
+/* SECCIÓN */
+.sh{display:flex;align-items:stretch;gap:0;margin:2rem 0 1rem;border-radius:6px;overflow:hidden;}
+.sb{width:5px;background:var(--ac);flex-shrink:0;}
+.sh>div{background:var(--ac-bg);padding:0.7rem 1rem;flex:1;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--ac);font-weight:600;}
+.st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);}
+
+/* ALERTA ISMP */
+.ismp-box{background:#fff0ee;border:2px solid var(--danger);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.ismp-icon{font-size:1.6rem;flex-shrink:0;}
+.ismp-text h3{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--danger);margin-bottom:0.3rem;}
+.ismp-text p{font-size:0.82rem;color:var(--text);line-height:1.5;}
+
+/* TABLA FÁRMACO */
+.drug-table{width:100%;border-collapse:collapse;margin-bottom:1.2rem;font-size:0.8rem;}
+.drug-table th{background:#2a1800;color:white;font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.5rem 0.7rem;text-align:left;}
+.drug-table td{padding:0.5rem 0.7rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.drug-table tr:nth-child(even){background:var(--warm);}
+.drug-table tr:hover{background:var(--ac-bg);}
+.drug-name{font-weight:700;color:#2a1800;}
+.dose-tag{font-family:'JetBrains Mono',monospace;font-size:0.65rem;background:var(--info-bg);color:var(--info);border:1px solid #90b8d8;border-radius:3px;padding:0.1rem 0.35rem;white-space:nowrap;}
+.danger-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:var(--danger-bg);color:var(--danger);border:1px solid #d08080;border-radius:3px;padding:0.1rem 0.35rem;}
+.antidote-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:var(--purple-bg);color:var(--purple);border:1px solid #b090e0;border-radius:3px;padding:0.1rem 0.35rem;}
+
+/* CARDS GRID */
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+.cards-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+@media(max-width:680px){.cards-2,.cards-3{grid-template-columns:1fr;}}
+@media(max-width:800px) and (min-width:681px){.cards-3{grid-template-columns:1fr 1fr;}}
+
+.drug-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.drug-card-header{padding:0.6rem 0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.drug-card-body{padding:0.7rem 0.9rem;}
+.drug-card-body ul{padding-left:1rem;}
+.drug-card-body li{font-size:0.78rem;line-height:1.5;color:var(--text);margin-bottom:0.15rem;}
+.drug-card-body li span{color:var(--danger);font-weight:600;}
+.dc-name{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;}
+.dc-tag{font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.12em;color:white;padding:0.1rem 0.4rem;border-radius:2px;}
+
+/* INTERACCIONES */
+.inter-table{width:100%;border-collapse:collapse;font-size:0.78rem;margin-bottom:1rem;}
+.inter-table th{background:#1a2a3a;color:white;font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.45rem 0.6rem;text-align:left;}
+.inter-table td{padding:0.45rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+.inter-table tr:nth-child(even){background:#f8f5f0;}
+.sev-grave{background:#fdf0f0;color:var(--danger);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:3px;border:1px solid #d08080;}
+.sev-mod{background:#fff8ec;color:#c07010;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:3px;border:1px solid #e0a060;}
+.sev-leve{background:#f0faf0;color:var(--ok);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:3px;border:1px solid #70b070;}
+
+/* VÍAS ADMINISTRACIÓN */
+.via-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.8rem;margin-bottom:1rem;}
+.via-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.7rem 0.9rem;}
+.via-title{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:0.4rem;}
+.via-card ul{padding-left:0.9rem;}
+.via-card li{font-size:0.75rem;line-height:1.5;color:var(--muted);}
+.via-card li strong{color:var(--text);}
+
+/* REGLA 5C */
+.cincos{display:grid;grid-template-columns:repeat(5,1fr);gap:0.6rem;margin-bottom:1.2rem;}
+@media(max-width:680px){.cincos{grid-template-columns:repeat(3,1fr);}}
+.cinco-card{background:var(--ac-bg);border:2px solid var(--ac-light);border-radius:8px;padding:0.7rem 0.6rem;text-align:center;}
+.cinco-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--ac);line-height:1;}
+.cinco-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:#7a5010;margin-top:0.2rem;}
+.cinco-desc{font-size:0.7rem;color:var(--muted);margin-top:0.3rem;line-height:1.3;}
+
+/* PERLAS */
+.perlas{background:#fffce6;border:1px solid #e0c020;border-radius:10px;overflow:hidden;margin-top:2rem;}
+.perlas-header{background:#c09010;color:white;padding:0.7rem 1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.2em;display:flex;align-items:center;gap:0.5rem;}
+.perlas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;}
+@media(max-width:600px){.perlas-grid{grid-template-columns:1fr;}}
+.perla{padding:0.8rem 1.1rem;border-bottom:1px solid #e8d870;font-size:0.8rem;line-height:1.5;}
+.perla:nth-child(odd){border-right:1px solid #e8d870;}
+.perla strong{color:#2a1800;}
+
+/* ANTÍDOTOS */
+.antidotos{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem;}
+@media(max-width:600px){.antidotos{grid-template-columns:1fr;}}
+.antidoto-card{background:var(--purple-bg);border:1px solid #c0a0e8;border-radius:8px;padding:0.8rem 1rem;}
+.antidoto-card h4{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--purple);margin-bottom:0.4rem;}
+.antidoto-card p{font-size:0.78rem;line-height:1.5;color:var(--text);}
+
+/* GLOSARIO */
+.glosario{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.6rem;margin-top:1rem;}
+.glosa{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.7rem;}
+.glosa dt{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;}
+.glosa dd{font-size:0.75rem;color:var(--muted);margin-top:0.1rem;line-height:1.4;}
+
+@media(max-width:800px){main{padding:1rem 1rem 3rem;}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">Cápsulas de Repaso · Farmacología Clínica</div>
+    <h1>Fármacos de <span>Alto Riesgo</span> e Interacciones</h1>
+    <div class="header-sub">ISMP · Vías de administración · Antídotos · Regla de los 5 Correctos</div>
+    <div class="pills">
+      <span class="pill pill-danger">⚠ ISMP High-Alert Medications</span>
+      <span class="pill pill-warn">Insulinas · Heparina · KCl iv · Opioides</span>
+      <span class="pill pill-info">Anticoagulantes · Electrolitos iv · Quimioterapia</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ISMP BOX -->
+<div class="ismp-box">
+  <div class="ismp-icon">⚠️</div>
+  <div class="ismp-text">
+    <h3>Fármacos de alto riesgo — Definición ISMP</h3>
+    <p>El <strong>Institute for Safe Medication Practices (ISMP)</strong> define los fármacos de alto riesgo (high-alert medications) como aquellos que, cuando se usan de forma errónea, presentan una <strong>probabilidad elevada de causar daño grave o mortal</strong> al paciente. No son los que producen más errores, sino los que producen las consecuencias más graves cuando el error ocurre. El <strong>ISMP-España</strong> publica listas específicas para el contexto sanitario español.</p>
+  </div>
+</div>
+
+<!-- ══════════════ 01. LISTA ISMP ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">01 · Lista ISMP</span>
+  <div class="st">Categorías de Fármacos de Alto Riesgo — ISMP España</div>
+</div></div>
+
+<table class="drug-table">
+  <thead>
+    <tr>
+      <th>Categoría ISMP</th>
+      <th>Ejemplos principales</th>
+      <th>Riesgo principal</th>
+      <th>Medida preventiva clave</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="drug-name">Insulinas</span></td>
+      <td>Insulina rápida (Regular), NPH, análogos (glargina, lispro, aspart)</td>
+      <td><span class="danger-tag">Hipoglucemia grave</span></td>
+      <td>Doble verificación independiente · nunca mezclar análogos · identificar tipo exacto</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Anticoagulantes</span></td>
+      <td>Heparina Na iv, HBPM (enoxaparina), warfarina, acenocumarol, NACOs (rivaroxabán, apixabán, dabigatrán)</td>
+      <td><span class="danger-tag">Hemorragia mayor</span></td>
+      <td>Control INR/anti-Xa · antídotos disponibles · sin AINE concomitante</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Opioides</span></td>
+      <td>Morfina, fentanilo, tramadol, codeína, oxicodona, petidina</td>
+      <td><span class="danger-tag">Depresión respiratoria</span></td>
+      <td>Naloxona accesible · monitorizar FR y SatO₂ · ajustar en IR/IH</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Electrolitos concentrados iv</span></td>
+      <td><strong>Cloruro potásico (KCl) ≥2 mEq/ml</strong>, NaCl hipertónico, MgSO₄ iv</td>
+      <td><span class="danger-tag">Parada cardíaca</span></td>
+      <td>Solo en UCI · nunca en planta sin diluir · velocidad máxima 10–20 mEq/h</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Quimioterapia antineoplásica</span></td>
+      <td>Metotrexato, vincristina, ciclofosfamida, 5-FU, platinos</td>
+      <td><span class="danger-tag">Toxicidad sistémica grave</span></td>
+      <td>Protocolos específicos · solo personal formado · extravasación → algoritmo inmediato</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Hipoglucemiantes orales</span></td>
+      <td>Glibenclamida, glipizida (sulfonilureas). Metformina (riesgo acidosis láctica)</td>
+      <td><span class="danger-tag">Hipoglucemia</span></td>
+      <td>Sulfonilureas: máximo riesgo hipoglucemia · metformina: suspender antes de contraste yodado</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Inotrópicos iv</span></td>
+      <td>Digoxina iv, dopamina, dobutamina, noradrenalina, adrenalina</td>
+      <td><span class="danger-tag">Arritmias · isquemia</span></td>
+      <td>Monitorización continua ECG · bombas de infusión obligatorias · control K⁺</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Agentes neuromusculares bloqueantes</span></td>
+      <td>Succinilcolina, vecuronio, rocuronio, atracurio</td>
+      <td><span class="danger-tag">Apnea · muerte</span></td>
+      <td>Solo anestesia/UCI · nunca sin intubación preparada · etiquetado diferenciado</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Sedantes iv y anestésicos</span></td>
+      <td>Propofol, midazolam iv, ketamina, tiopental</td>
+      <td><span class="danger-tag">Depresión SNC/respiratoria</span></td>
+      <td>Monitorización continua · flumazenil disponible · no diluir propofol con agua destilada</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Trombolíticos</span></td>
+      <td>Alteplasa (rt-PA), tenecteplasa, estreptoquinasa</td>
+      <td><span class="danger-tag">Hemorragia intracraneal</span></td>
+      <td>Verificar contraindicaciones absolutas · no mezclar con heparina en misma vía · protocolo código ictus</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══════════════ 02. INSULINAS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">02 · Insulinas</span>
+  <div class="st">Tipos, Cinética y Errores Críticos</div>
+</div></div>
+
+<div class="cards-3">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fff0ee;">
+      <span style="font-size:1.4rem;">⚡</span>
+      <div><div class="dc-tag" style="background:#c02030;">ULTRARRÁPIDA</div><div class="dc-name">Análogos de acción rápida</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Ejemplos:</strong> Lispro (Humalog), Aspart (NovoRapid), Glulisina (Apidra)</li>
+        <li><strong>Inicio:</strong> 10–15 min · Pico: 1–2 h · Duración: 3–5 h</li>
+        <li><strong>Uso:</strong> Antes de las comidas (1–5 min antes o justo tras comer)</li>
+        <li><span>Error frecuente:</span> Administrar sin comida preparada → hipoglucemia grave</li>
+        <li><strong>Aspecto:</strong> Límpida e incolora</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fff8ec;">
+      <span style="font-size:1.4rem;">💉</span>
+      <div><div class="dc-tag" style="background:#c07010;">RÁPIDA</div><div class="dc-name">Insulina Regular (humana)</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Ejemplos:</strong> Actrapid, Humulin Regular</li>
+        <li><strong>Inicio:</strong> 30–60 min · Pico: 2–4 h · Duración: 6–8 h</li>
+        <li><strong>Uso:</strong> Preprandial (30 min antes) · única apta para iv</li>
+        <li><span>Error frecuente:</span> Confundir con NPH (aspecto lechoso) → sobredosis iv</li>
+        <li><strong>Aspecto:</strong> Límpida (NUNCA turbia si es Regular)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0f6fc;">
+      <span style="font-size:1.4rem;">🌙</span>
+      <div><div class="dc-tag" style="background:#1a5a8a;">LENTA / BASAL</div><div class="dc-name">NPH y análogos basales</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>NPH:</strong> Inicio 2 h · Pico 6–10 h · Duración 16–24 h · <em>Aspecto lechoso</em></li>
+        <li><strong>Glargina (Lantus):</strong> Sin pico · 24 h · Límpida · NO mezclar</li>
+        <li><strong>Detemir (Levemir):</strong> Sin pico · 18–22 h</li>
+        <li><span>Error frecuente:</span> Mezclar glargina con otra insulina → precipitación</li>
+        <li><strong>NPH:</strong> Agitar suavemente (NO vigorosamente) antes de administrar</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="ismp-box" style="border-color:var(--warn);background:var(--warn-bg);">
+  <div class="ismp-icon">🔑</div>
+  <div class="ismp-text">
+    <h3>Reglas absolutas de las insulinas</h3>
+    <p><strong>1.</strong> Solo la insulina Regular/cristalina puede administrarse por vía iv. <strong>2.</strong> NPH y análogos basales: NUNCA iv. <strong>3.</strong> Glargina y detemir: NUNCA mezclar con otras insulinas. <strong>4.</strong> Unidades de insulina NO son equivalentes a mililitros — usar siempre jeringa insulínica (UI). <strong>5.</strong> En hipoglucemia grave (consciente): 15–20 g glucosa oral; inconsciente: glucosa 33% iv o glucagón 1 mg im/sc.</p>
+  </div>
+</div>
+
+<!-- ══════════════ 03. ANTICOAGULANTES ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">03 · Anticoagulantes</span>
+  <div class="st">Heparina, HBPM, Antivitamina K y NACOs</div>
+</div></div>
+
+<table class="drug-table">
+  <thead>
+    <tr>
+      <th>Fármaco</th>
+      <th>Mecanismo</th>
+      <th>Monitorización</th>
+      <th>Antídoto</th>
+      <th>Reversor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="drug-name">Heparina sódica (HNF)</span></td>
+      <td>Anti-Xa + Anti-IIa (inactiva AT-III)</td>
+      <td><span class="dose-tag">TTPa: 1,5–2,5 × control</span></td>
+      <td><span class="antidote-tag">🔑 Protamina 1 mg/100 UI heparina</span></td>
+      <td>Protamina sulfato iv lento</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Enoxaparina (HBPM)</span></td>
+      <td>Anti-Xa predominante</td>
+      <td><span class="dose-tag">Anti-Xa (si IR/obesidad/embarazo)</span></td>
+      <td><span class="antidote-tag">🔑 Protamina (parcial, 60%)</span></td>
+      <td>Protamina (neutralización incompleta)</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Acenocumarol / Warfarina</span></td>
+      <td>Antagoniza vitamina K (inhibe factores II, VII, IX, X)</td>
+      <td><span class="dose-tag">INR objetivo: 2–3 (válvulas: 2,5–3,5)</span></td>
+      <td><span class="antidote-tag">🔑 Vitamina K (lenta, 6–12 h) + CCP</span></td>
+      <td>Vitamina K iv/oral · CCP (complejo protrombínico)</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Dabigatrán (NACO)</span></td>
+      <td>Inhibidor directo trombina (IIa)</td>
+      <td>No requiere (TTPa/ECT si sospecha toxicidad)</td>
+      <td><span class="antidote-tag">🔑 Idarucizumab (Praxbind) 5 g iv</span></td>
+      <td>Idarucizumab — antídoto específico</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Rivaroxabán / Apixabán (NACOs)</span></td>
+      <td>Inhibidores directos factor Xa</td>
+      <td>No requiere (anti-Xa específico si toxicidad)</td>
+      <td><span class="antidote-tag">🔑 Andexanet alfa (anti-Xa)</span></td>
+      <td>Andexanet alfa · CCP 4 factores si no disponible</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="cards-2">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fdf0f0;">
+      <span style="font-size:1.3rem;">🩸</span>
+      <div><div class="dc-tag" style="background:#c02030;">HEPARINA IV</div><div class="dc-name">Perfusión de heparina sódica</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Bolo inicial:</strong> 80 UI/kg iv (máx. 5.000 UI) en trombosis aguda</li>
+        <li><strong>Perfusión:</strong> 18 UI/kg/h → ajustar por TTPa cada 6 h</li>
+        <li><strong>Control TTPa:</strong> 4–6 h tras inicio o cambio de dosis</li>
+        <li><span>Error crítico:</span> Mezclar en la misma vía con ácidos (pH incompatible)</li>
+        <li><strong>Interacción grave:</strong> + AINE → riesgo hemorrágico multiplicado</li>
+        <li><strong>TIH:</strong> Trombocitopenia inducida por heparina → suspender si plaquetas caen &gt;50% (días 5–14)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0faf0;">
+      <span style="font-size:1.3rem;">📋</span>
+      <div><div class="dc-tag" style="background:#1a7a3a;">HBPM</div><div class="dc-name">Enoxaparina — Claves prácticas</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Dosis terapéutica:</strong> 1 mg/kg/12 h sc (o 1,5 mg/kg/24 h)</li>
+        <li><strong>Profilaxis:</strong> 20–40 mg sc/24 h según riesgo</li>
+        <li><strong>Vía:</strong> Subcutánea en pliegue abdominal · NO en músculo</li>
+        <li><strong>Ajuste en IR:</strong> ClCr &lt;30 ml/min → reducir dosis o cambiar a HNF</li>
+        <li><span>Error frecuente:</span> Administrar en misma jeringa que insulina</li>
+        <li><strong>Contraindicación:</strong> Pesas &gt;90 kg sin ajuste → subdosificación</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 04. KCl Y ELECTROLITOS CONCENTRADOS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">04 · Electrolitos Concentrados iv</span>
+  <div class="st">KCl, NaCl Hipertónico y MgSO₄ — Los Más Letales</div>
+</div></div>
+
+<div class="ismp-box">
+  <div class="ismp-icon">💀</div>
+  <div class="ismp-text">
+    <h3>KCl concentrado — El electrolito más peligroso</h3>
+    <p>El <strong>cloruro potásico (KCl) &gt;2 mEq/ml</strong> está en la lista ISMP de fármacos que nunca deben estar disponibles sin restricciones. La administración iv rápida o sin diluir produce <strong>fibrilación ventricular y muerte</strong>. Todos los viales concentrados deben estar bajo custodia farmacéutica y nunca en zonas de acceso libre de planta.</p>
+  </div>
+</div>
+
+<table class="drug-table">
+  <thead>
+    <tr><th>Electrolito</th><th>Indicación principal</th><th>Velocidad máxima iv</th><th>Complicación si error</th><th>Control</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="drug-name">KCl iv</span></td>
+      <td>Hipopotasemia sintomática (K⁺ &lt;3 mEq/l)</td>
+      <td><span class="dose-tag">Máx. 10–20 mEq/h (central: máx. 40 mEq/h)</span></td>
+      <td><span class="danger-tag">FV → muerte</span></td>
+      <td>ECG continuo · K⁺ seriado · nunca iv directo</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">NaCl 3% (hipertónico)</span></td>
+      <td>Hiponatremia severa sintomática, edema cerebral</td>
+      <td><span class="dose-tag">1–2 ml/kg/h · corrección &lt;10 mEq/24 h</span></td>
+      <td><span class="danger-tag">Mielinólisis central póntica</span></td>
+      <td>Na⁺ cada 2 h al inicio · solo UCI</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">MgSO₄ iv</span></td>
+      <td>Eclampsia, torsades de pointes, hipomagnesemia</td>
+      <td><span class="dose-tag">Carga: 1–4 g en 20 min · mantenimiento: 1–2 g/h</span></td>
+      <td><span class="danger-tag">Depresión respiratoria · bloqueo cardíaco</span></td>
+      <td>Reflejos rotulianos (desaparecen antes que depresión resp.) · Antídoto: <span class="antidote-tag">🔑 Gluconato cálcico 1 g iv</span></td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Calcio iv</span></td>
+      <td>Hipocalcemia grave, hiperkalemia (cardioprotección), toxicidad MgSO₄</td>
+      <td><span class="dose-tag">Gluconato cálcico 10%: 10–20 ml lento en 10 min</span></td>
+      <td><span class="danger-tag">Necrosis tisular si extravasación</span></td>
+      <td>Vía central preferida · ECG · NO mezclar con bicarbonato (precipita)</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══════════════ 05. OPIOIDES ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">05 · Opioides</span>
+  <div class="st">Morfina, Fentanilo, Tramadol — Manejo Seguro</div>
+</div></div>
+
+<div class="cards-2">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fff0ee;">
+      <span style="font-size:1.3rem;">🌹</span>
+      <div><div class="dc-tag" style="background:#c02030;">OPIOIDE MAYOR</div><div class="dc-name">Morfina — Referencia de potencia</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Dosis oral:</strong> 5–10 mg/4 h · iv: 2–5 mg lento (5 min)</li>
+        <li><strong>Equivalencia:</strong> Morfina oral 30 mg = Morfina iv 10 mg = Oxicodona oral 20 mg</li>
+        <li><strong>Depresión resp.:</strong> FR &lt;8 rpm → <span style="color:var(--purple);font-weight:700;">Naloxona 0,4 mg iv/im</span></li>
+        <li><span>Ajuste IR:</span> Reducir dosis · acumulación de metabolitos activos</li>
+        <li><strong>Náuseas:</strong> Frecuentes al inicio → metoclopramida, ondansetrón</li>
+        <li><strong>Estreñimiento:</strong> Universal → laxantes profilácticos desde el inicio</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fff0ee;">
+      <span style="font-size:1.3rem;">⚡</span>
+      <div><div class="dc-tag" style="background:#8a1a1a;">OPIOIDE POTENTE</div><div class="dc-name">Fentanilo — 100× más potente que morfina</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Parche transdérmico:</strong> Latencia 12–24 h para efecto completo</li>
+        <li><strong>iv:</strong> 25–100 mcg lento · inicio inmediato · duración 30–60 min</li>
+        <li><span>Error crítico:</span> Confundir mcg con mg → sobredosis 1000×</li>
+        <li><strong>Parche:</strong> Cambiar cada 72 h · retirar en fiebre alta (↑ absorción)</li>
+        <li><strong>Síndrome serotoninérgico:</strong> Con ISRS/IRSN → fiebre, mioclonías, confusión</li>
+        <li><strong>Antídoto:</strong> <span style="color:var(--purple);font-weight:700;">Naloxona 0,4–2 mg iv</span> (vida media corta → puede necesitar infusión)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 06. ANTÍDOTOS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">06 · Antídotos Clave</span>
+  <div class="st">Los Que Debe Conocer para el Examen</div>
+</div></div>
+
+<div class="antidotos">
+  <div class="antidoto-card">
+    <h4>🔑 Opioides → Naloxona</h4>
+    <p><strong>Dosis:</strong> 0,4–2 mg iv/im/sc · repetir cada 2–3 min hasta FR &gt;10 rpm. Vida media corta (30–80 min) vs opiáceos de vida larga → vigilar rebote. En toxicómanos: dosis bajas (0,1 mg) para evitar síndrome abstinencia.</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 Benzodiazepinas → Flumazenil</h4>
+    <p><strong>Dosis:</strong> 0,2 mg iv en 30 seg; repetir 0,1 mg/min hasta máx. 1 mg. Vida media corta (1 h) → riesgo re-sedación. <strong>Contraindicado</strong> en epilepsia tratada con BZD (convulsiones de rebote) y si sobredosis mixta con ADT (convulsiones).</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 Heparina → Protamina</h4>
+    <p><strong>Dosis:</strong> 1 mg protamina neutraliza 100 UI heparina. Máx. 50 mg iv en 10 min. Para HBPM: neutralización parcial (~60%). Reacción adversa: hipotensión, bradicardia, anafilaxia. Preparar soporte.</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 Warfarina/Acenocumarol → Vitamina K + CCP</h4>
+    <p>Vitamina K oral/iv: inicio de acción 6–12 h (iv más rápido, riesgo anafilaxia). Para reversión urgente: <strong>Complejo Protrombínico (CCP)</strong> 25–50 UI/kg iv → corrección en minutos. INR objetivo tras reversión: &lt;1,5.</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 Dabigatrán → Idarucizumab</h4>
+    <p><strong>Praxbind® 5 g iv</strong> en dos bolos de 2,5 g consecutivos. Revierte en minutos. Indicado en hemorragia grave o cirugía urgente. No actúa sobre anti-Xa (rivaroxabán/apixabán).</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 MgSO₄ → Gluconato Cálcico</h4>
+    <p><strong>10 ml de gluconato cálcico 10% iv lento</strong> en 10 min. Indicado en: depresión respiratoria, arreflexia, bradicardia por hipermagnesemia. Signos de alarma previos a toxicidad: desaparición reflejo rotuliano (Mg &gt;3,5 mEq/l).</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 Paracetamol → N-acetilcisteína</h4>
+    <p><strong>N-acetilcisteína iv:</strong> 150 mg/kg en 60 min → 50 mg/kg en 4 h → 100 mg/kg en 16 h. Efectiva si se administra antes de 10–12 h. El nomograma de Rumack-Matthew determina la necesidad de tratamiento.</p>
+  </div>
+  <div class="antidoto-card">
+    <h4>🔑 Organofosforados → Atropina + Pralidoxima</h4>
+    <p><strong>Atropina:</strong> 2–4 mg iv cada 5–10 min hasta secar secreciones (no FC). <strong>Pralidoxima:</strong> 1–2 g iv en 30 min si &lt;24–48 h de exposición (reactiva acetilcolinesterasa). Síndrome colinérgico: SLUDGE (Sialorrea, Lagrimeo, Urgencia miccional, Diarrea, GI, Emesis).</p>
+  </div>
+</div>
+
+<!-- ══════════════ 07. INTERACCIONES ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">07 · Interacciones Farmacológicas</span>
+  <div class="st">Las Más Peligrosas en el Contexto Clínico</div>
+</div></div>
+
+<table class="inter-table">
+  <thead>
+    <tr><th>Fármaco A</th><th>+ Fármaco B</th><th>Consecuencia</th><th>Gravedad</th><th>Acción</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Warfarina</strong></td><td>AINE (ibuprofeno, naproxeno)</td><td>↑↑ riesgo hemorragia GI grave (doble mecanismo: antiagregante + ↑ INR)</td><td><span class="sev-grave">GRAVE</span></td><td>Contraindicado · usar paracetamol</td></tr>
+    <tr><td><strong>IECA (enalapril)</strong></td><td>ARA-II + diurético</td><td>Hiperpotasemia grave + hipotensión severa (triple whammy: IR aguda)</td><td><span class="sev-grave">GRAVE</span></td><td>Evitar triple combinación</td></tr>
+    <tr><td><strong>Metformina</strong></td><td>Contraste yodado iv</td><td>Acidosis láctica por ↓ excreción renal de metformina</td><td><span class="sev-grave">GRAVE</span></td><td>Suspender 48 h antes y tras contraste</td></tr>
+    <tr><td><strong>ISRS (fluoxetina)</strong></td><td>Tramadol / triptanes / IMAO</td><td>Síndrome serotoninérgico: fiebre, mioclonías, confusión, taquicardia</td><td><span class="sev-grave">GRAVE</span></td><td>Contraindicado con IMAO · evitar tramadol</td></tr>
+    <tr><td><strong>Digoxina</strong></td><td>Hipopotasemia (diuréticos)</td><td>↑ Toxicidad digitálica: bloqueos, arritmias ventriculares</td><td><span class="sev-grave">GRAVE</span></td><td>Mantener K⁺ 3,5–5 mEq/l</td></tr>
+    <tr><td><strong>Estatinas</strong></td><td>Fibratos (gemfibrozilo)</td><td>↑↑ Riesgo rabdomiólisis → IRA mioglobinúrica</td><td><span class="sev-grave">GRAVE</span></td><td>Evitar combinación · usar fenofibrato si necesario</td></tr>
+    <tr><td><strong>Metrotexato</strong></td><td>AINE / TMP-SMX</td><td>↑ Toxicidad hematológica por competencia renal</td><td><span class="sev-grave">GRAVE</span></td><td>Contraindicado · separar administraciones</td></tr>
+    <tr><td><strong>Quinolonas / macrólidos</strong></td><td>Amiodarona / antipsicóticos</td><td>Prolongación QT → torsades de pointes → FV</td><td><span class="sev-mod">MODERADA</span></td><td>ECG previo · evitar combinaciones QT</td></tr>
+    <tr><td><strong>Rifampicina</strong></td><td>Anticonceptivos orales</td><td>↓ Niveles ACO por inducción enzimática CYP3A4 → fallo anticonceptivo</td><td><span class="sev-mod">MODERADA</span></td><td>Anticonceptivo alternativo durante y 1 mes después</td></tr>
+    <tr><td><strong>Alopurinol</strong></td><td>Azatioprina / mercaptopurina</td><td>↑ Toxicidad hematológica (inhibe xantina oxidasa → ↑ niveles)</td><td><span class="sev-grave">GRAVE</span></td><td>Reducir dosis azatioprina al 25–30%</td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════ 08. VÍAS DE ADMINISTRACIÓN ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">08 · Vías de Administración</span>
+  <div class="st">Características, Ventajas y Precauciones</div>
+</div></div>
+
+<div class="via-grid">
+  <div class="via-card">
+    <div class="via-title" style="color:#c02030;">💉 Intravenosa (iv)</div>
+    <ul>
+      <li><strong>Biodisponibilidad:</strong> 100%</li>
+      <li><strong>Inicio:</strong> Inmediato (30 seg–1 min)</li>
+      <li><strong>Riesgo:</strong> Flebitis, embolia, extravasación</li>
+      <li><strong>Velocidad:</strong> Controlar siempre</li>
+      <li>No rectificable una vez inyectado</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#c07010;">💉 Intramuscular (im)</div>
+    <ul>
+      <li><strong>Absorción:</strong> 15–30 min</li>
+      <li><strong>Vástago deltoide:</strong> &lt;2 ml</li>
+      <li><strong>Glúteo:</strong> &lt;5 ml · cuadrante sup-ext</li>
+      <li><strong>Contraindicado:</strong> Anticoagulados</li>
+      <li>Riesgo: hematoma, lesión nervio ciático</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#1a7a3a;">💉 Subcutánea (sc)</div>
+    <ul>
+      <li><strong>Absorción:</strong> Lenta y sostenida</li>
+      <li><strong>Volumen:</strong> Máx. 1 ml</li>
+      <li><strong>Uso:</strong> Insulina, HBPM, vacunas</li>
+      <li><strong>Rotación:</strong> Sitios de punción obligatoria</li>
+      <li>Lipodistrofia si no se rota</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#1a5a8a;">💊 Oral</div>
+    <ul>
+      <li><strong>Biodisponibilidad:</strong> Variable (5–100%)</li>
+      <li><strong>Efecto primer paso:</strong> Metabolismo hepático</li>
+      <li><strong>Interacciones:</strong> Alimentos, pH gástrico</li>
+      <li>Comprimidos de liberación prolongada: no triturar</li>
+      <li>Captopril: tomar en ayunas</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#5a1a8a;">🩹 Transdérmica</div>
+    <ul>
+      <li><strong>Inicio:</strong> Lento (horas)</li>
+      <li><strong>Uso:</strong> Fentanilo, nitroglicerina, estrógenos</li>
+      <li>Fiebre: ↑ absorción → toxicidad</li>
+      <li>Rotar zona de aplicación</li>
+      <li>Retirar parche anterior siempre</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#2a6a4a;">🫁 Inhalatoria</div>
+    <ul>
+      <li><strong>Inicio:</strong> Muy rápido (min)</li>
+      <li><strong>Ventaja:</strong> Efecto local, mínima absorción sistémica</li>
+      <li><strong>Técnica:</strong> Clave para eficacia</li>
+      <li>MDI: cámara espaciadora en niños/ancianos</li>
+      <li>Budesonida: enjuague bucal tras usar</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#7a5010;">🧠 Intratecal / Epidural</div>
+    <ul>
+      <li><strong>Solo:</strong> Fármacos sin conservantes</li>
+      <li>Vincristina intratecal → MORTAL</li>
+      <li>Morfina epidural: 1/10 dosis iv</li>
+      <li>Requiere personal entrenado</li>
+      <li>Error → consecuencias catastróficas</li>
+    </ul>
+  </div>
+  <div class="via-card">
+    <div class="via-title" style="color:#c02030;">❤️ Intraósea (io)</div>
+    <ul>
+      <li><strong>Emergencias:</strong> Si no hay acceso iv</li>
+      <li>Mismas dosis que iv</li>
+      <li>Inicio de acción similar a iv</li>
+      <li>EVO-Bisagra, tibial proximal</li>
+      <li>Máx. 24 h · reemplazar por iv</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ 09. REGLA 5 CORRECTOS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">09 · Seguridad en Medicación</span>
+  <div class="st">La Regla de los 5 (o 10) Correctos — ISMP</div>
+</div></div>
+
+<div class="cincos">
+  <div class="cinco-card"><div class="cinco-num">1</div><div class="cinco-label">Paciente</div><div class="cinco-desc">Identificación con 2 datos (nombre + fecha nacimiento o HC)</div></div>
+  <div class="cinco-card"><div class="cinco-num">2</div><div class="cinco-label">Medicamento</div><div class="cinco-desc">Nombre correcto · concentración · no abreviaturas</div></div>
+  <div class="cinco-card"><div class="cinco-num">3</div><div class="cinco-label">Dosis</div><div class="cinco-desc">Calculada · doble verificación en alto riesgo</div></div>
+  <div class="cinco-card"><div class="cinco-num">4</div><div class="cinco-label">Vía</div><div class="cinco-desc">Correcta para el fármaco · no intercambiar oral/iv</div></div>
+  <div class="cinco-card"><div class="cinco-num">5</div><div class="cinco-label">Hora</div><div class="cinco-desc">Momento correcto · frecuencia correcta · duración</div></div>
+</div>
+
+<div class="cards-2">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0f6fc;">
+      <span style="font-size:1.3rem;">✅</span>
+      <div><div class="dc-tag" style="background:#1a5a8a;">CORRECTOS ADICIONALES</div><div class="dc-name">Los 5 correctos extendidos</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>6.º Registro:</strong> Documentar siempre administración</li>
+        <li><strong>7.º Acción:</strong> Conocer mecanismo y por qué se administra</li>
+        <li><strong>8.º Forma:</strong> Comprimido, solución, parche, etc. correctos</li>
+        <li><strong>9.º Respuesta:</strong> Evaluar efecto del fármaco administrado</li>
+        <li><strong>10.º Educación:</strong> Informar al paciente de lo que se administra</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fff0ee;">
+      <span style="font-size:1.3rem;">🚫</span>
+      <div><div class="dc-tag" style="background:#c02030;">ERRORES FRECUENTES</div><div class="dc-name">Tipos de error de medicación</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>LASA:</strong> Look-Alike Sound-Alike → fármacos de nombre similar</li>
+        <li><strong>Transcripción:</strong> Error al copiar la prescripción</li>
+        <li><strong>Administración:</strong> Vía equivocada, velocidad incorrecta</li>
+        <li><strong>Dispensación:</strong> Farmacia entrega dosis/envase incorrecto</li>
+        <li><strong>Monitorización:</strong> No controlar niveles o efectos adversos</li>
+        <li><strong>Conciliación:</strong> No revisar medicación crónica al ingreso</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PERLAS ══════════════ -->
+<div class="perlas">
+  <div class="perlas-header">⭐ Perlas tipo examen INGESA / Enfermería Militar</div>
+  <div class="perlas-grid">
+    <div class="perla">★ <strong>Único opioide con antídoto específico</strong> → Naloxona. Revierte depresión respiratoria. Dosis 0,4 mg iv. Vida media corta: vigilar rebote con opioides de acción larga.</div>
+    <div class="perla">★ <strong>KCl concentrado administrado iv directo</strong> → Parada cardíaca por FV. Siempre diluir, máx. 10–20 mEq/h en vía periférica. Es el electrolito de alto riesgo por excelencia.</div>
+    <div class="perla">★ <strong>Única insulina que puede administrarse iv</strong> → Insulina Regular (cristalina). Las demás insulinas (NPH, análogos basales) están contraindicadas por vía iv.</div>
+    <div class="perla">★ <strong>Antídoto de la heparina no fraccionada</strong> → Protamina sulfato. 1 mg protamina neutraliza 100 UI heparina. Administración lenta (riesgo hipotensión y anafilaxia).</div>
+    <div class="perla">★ <strong>Antídoto del dabigatrán (NACO anti-IIa)</strong> → Idarucizumab (Praxbind) 5 g iv. Específico para dabigatrán, no actúa sobre anti-Xa (rivaroxabán, apixabán).</div>
+    <div class="perla">★ <strong>Metformina + contraste yodado</strong> → Suspender 48 h antes y 48 h después para prevenir acidosis láctica. Especialmente en IR o deshidratación.</div>
+    <div class="perla">★ <strong>Signo de alarma previo a toxicidad por MgSO₄</strong> → Desaparición del reflejo rotuliano (Mg &gt;3,5–4 mEq/l). Antes que la depresión respiratoria. Antídoto: gluconato cálcico.</div>
+    <div class="perla">★ <strong>Síndrome serotoninérgico</strong> → ISRS + tramadol/fentanilo/triptán/IMAO → fiebre, mioclonías, confusión, diaforesis. Tratamiento: retirar fármaco + ciproheptadina.</div>
+    <div class="perla">★ <strong>Warfarina: reversor urgente</strong> → CCP (complejo protrombínico) + vitamina K iv. CCP actúa en minutos; vitamina K sola tarda 6–12 h. En emergencias: primero CCP.</div>
+    <div class="perla">★ <strong>Digoxina + hipopotasemia</strong> → Toxicidad digitálica aumentada. El K⁺ bajo aumenta la unión de digoxina a Na⁺/K⁺-ATPasa → bradiarritmias, bloqueos. Mantener K⁺ &gt;3,5 mEq/l.</div>
+    <div class="perla">★ <strong>Vincristina intratecal</strong> → Error siempre fatal. Debe marcarse "SOLO IV" con etiqueta especial. Uno de los errores más graves documentados en farmacología oncológica.</div>
+    <div class="perla">★ <strong>Regla de los 5 correctos</strong> → Paciente, Medicamento, Dosis, Vía, Hora. El error de medicación más frecuente en hospitalización es de dosis (30%) seguido de vía (20%).</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh" style="margin-top:2rem;"><div class="sb"></div><div>
+  <span class="sn">Glosario</span>
+  <div class="st">Abreviaturas y Términos Clave</div>
+</div></div>
+<div class="glosario">
+  <dl class="glosa"><dt>ISMP</dt><dd>Institute for Safe Medication Practices — organismo referencia seguridad medicación</dd></dl>
+  <dl class="glosa"><dt>LASA</dt><dd>Look-Alike Sound-Alike — fármacos similares en nombre o apariencia</dd></dl>
+  <dl class="glosa"><dt>TTPa</dt><dd>Tiempo de Tromboplastina Parcial activada — monitorización HNF</dd></dl>
+  <dl class="glosa"><dt>INR</dt><dd>International Normalized Ratio — monitorización AVK (warfarina)</dd></dl>
+  <dl class="glosa"><dt>HNF</dt><dd>Heparina No Fraccionada — heparina sódica iv o sc</dd></dl>
+  <dl class="glosa"><dt>HBPM</dt><dd>Heparina de Bajo Peso Molecular — enoxaparina, tinzaparina, dalteparina</dd></dl>
+  <dl class="glosa"><dt>NACO</dt><dd>Nuevos Anticoagulantes Orales — dabigatrán, rivaroxabán, apixabán</dd></dl>
+  <dl class="glosa"><dt>CCP</dt><dd>Complejo Protrombínico Concentrado — reversor anticoagulación urgente</dd></dl>
+  <dl class="glosa"><dt>TIH</dt><dd>Trombocitopenia Inducida por Heparina — días 5–14, paradójicamente trombótica</dd></dl>
+  <dl class="glosa"><dt>AVK</dt><dd>Antivitamina K — warfarina, acenocumarol</dd></dl>
+  <dl class="glosa"><dt>SLUDGE</dt><dd>Síndrome colinérgico: Sialorrea, Lagrimeo, Urgencia, Diarrea, GI, Emesis</dd></dl>
+  <dl class="glosa"><dt>UI</dt><dd>Unidades Internacionales — heparina, insulina. NO equivalentes a ml ni mg</dd></dl>
+</div>
+
+</main>
+</body>
+</html>

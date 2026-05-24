@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psicofarmacología y Trastornos Mentales — Salud Mental Enfermería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f8;--surface:#ffffff;--border:#ddd8e8;--text:#1a1520;--muted:#6a6278;
+  --ac:#4a2a7a;--ac2:#7a3a9a;--ac-bg:#f0e8ff;--ac-light:#d8c0f8;
+  --danger:#c02030;--danger-bg:#fdf0f0;
+  --ok:#1a7a3a;--ok-bg:#f0faf0;
+  --warn:#c07010;--warn-bg:#fff8ec;
+  --info:#1a5a8a;--info-bg:#f0f6fc;
+  --warm:#eeeae8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+.header{background:linear-gradient(135deg,#1a0a2e 0%,#2d1060 60%,#1a1a5a 100%);color:white;padding:2rem 2.5rem 1.8rem;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(180,100,255,0.15) 0%,transparent 60%);}
+.header-inner{position:relative;max-width:1000px;margin:0 auto;}
+.header-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ac-light);margin-bottom:0.7rem;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;}
+.header h1 span{color:#c090ff;}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:rgba(255,255,255,0.5);letter-spacing:0.1em;margin-bottom:1rem;}
+.pills{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.57rem;padding:0.2rem 0.7rem;border-radius:20px;border:1px solid rgba(180,130,255,0.4);color:rgba(220,180,255,0.9);background:rgba(180,100,255,0.1);}
+
+main{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+
+.sh{display:flex;align-items:stretch;gap:0;margin:2rem 0 1rem;border-radius:6px;overflow:hidden;}
+.sb{width:5px;background:var(--ac);flex-shrink:0;}
+.sh>div{background:var(--ac-bg);padding:0.7rem 1rem;flex:1;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--ac);font-weight:600;}
+.st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);}
+
+/* CARDS */
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+.cards-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+.cards-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.8rem;margin-bottom:1.2rem;}
+@media(max-width:680px){.cards-2,.cards-3,.cards-4{grid-template-columns:1fr;}}
+@media(max-width:800px) and (min-width:681px){.cards-3{grid-template-columns:1fr 1fr;}.cards-4{grid-template-columns:1fr 1fr;}}
+
+.drug-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.drug-card-header{padding:0.6rem 0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.drug-card-body{padding:0.7rem 0.9rem;}
+.drug-card-body ul{padding-left:1rem;}
+.drug-card-body li{font-size:0.78rem;line-height:1.5;color:var(--text);margin-bottom:0.12rem;}
+.drug-card-body li span{color:var(--danger);font-weight:600;}
+.dc-name{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;}
+.dc-tag{font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;color:white;padding:0.1rem 0.4rem;border-radius:2px;}
+
+/* TABLAS */
+.drug-table{width:100%;border-collapse:collapse;margin-bottom:1.2rem;font-size:0.78rem;}
+.drug-table th{background:#1a0a2e;color:white;font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.45rem 0.6rem;text-align:left;}
+.drug-table td{padding:0.45rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.drug-table tr:nth-child(even){background:#f8f6fc;}
+.drug-table tr:hover{background:var(--ac-bg);}
+.drug-name{font-weight:700;color:#2a1040;}
+.dose-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:var(--info-bg);color:var(--info);border:1px solid #90b0d0;border-radius:3px;padding:0.1rem 0.35rem;white-space:nowrap;}
+.danger-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:var(--danger-bg);color:var(--danger);border:1px solid #d08080;border-radius:3px;padding:0.1rem 0.35rem;}
+.ok-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:var(--ok-bg);color:var(--ok);border:1px solid #80c080;border-radius:3px;padding:0.1rem 0.35rem;}
+.ac-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:var(--ac-bg);color:var(--ac);border:1px solid #c0a0e0;border-radius:3px;padding:0.1rem 0.35rem;}
+
+/* TRASTORNO CARDS */
+.trastorno{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--ac);border-radius:8px;padding:0.9rem 1.1rem;margin-bottom:0.8rem;}
+.trastorno h4{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#2a1040;margin-bottom:0.3rem;}
+.trastorno-meta{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.5rem;}
+.tmeta{font-family:'JetBrains Mono',monospace;font-size:0.55rem;padding:0.1rem 0.5rem;border-radius:3px;border:1px solid;}
+.trastorno p{font-size:0.78rem;line-height:1.5;color:var(--text);}
+.trastorno ul{padding-left:1rem;margin-top:0.3rem;}
+.trastorno li{font-size:0.78rem;line-height:1.5;color:var(--text);}
+
+/* CRISIS */
+.crisis-box{background:#fff0ee;border:2px solid var(--danger);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1rem;}
+.crisis-box h3{font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--danger);margin-bottom:0.5rem;}
+.crisis-box p{font-size:0.8rem;line-height:1.5;}
+.crisis-box ol{padding-left:1.2rem;margin-top:0.4rem;}
+.crisis-box li{font-size:0.78rem;line-height:1.5;margin-bottom:0.2rem;}
+
+/* ESCALA DSM */
+.dsm-criterios{background:var(--ac-bg);border:1px solid var(--ac-light);border-radius:8px;padding:1rem;margin-bottom:1rem;}
+.dsm-criterios h4{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--ac);margin-bottom:0.6rem;}
+.dsm-criterios ul{padding-left:1rem;}
+.dsm-criterios li{font-size:0.78rem;line-height:1.5;margin-bottom:0.15rem;}
+
+/* PERLAS */
+.perlas{background:#fffce6;border:1px solid #e0c020;border-radius:10px;overflow:hidden;margin-top:2rem;}
+.perlas-header{background:#c09010;color:white;padding:0.7rem 1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.2em;}
+.perlas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:600px){.perlas-grid{grid-template-columns:1fr;}}
+.perla{padding:0.8rem 1.1rem;border-bottom:1px solid #e8d870;font-size:0.79rem;line-height:1.5;}
+.perla:nth-child(odd){border-right:1px solid #e8d870;}
+.perla strong{color:#2a1800;}
+
+/* GLOSARIO */
+.glosario{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.6rem;margin-top:1rem;}
+.glosa{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.7rem;}
+.glosa dt{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;}
+.glosa dd{font-size:0.73rem;color:var(--muted);margin-top:0.1rem;line-height:1.4;}
+
+/* SUICIDIO BOX */
+.suicidio-box{background:#f8f0ff;border:2px solid #9040c0;border-radius:8px;padding:1rem 1.2rem;margin-bottom:1rem;}
+.suicidio-box h3{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.15em;color:#7030a0;margin-bottom:0.5rem;}
+.suicidio-box p,.suicidio-box li{font-size:0.79rem;line-height:1.5;}
+.suicidio-box ul{padding-left:1rem;margin-top:0.3rem;}
+
+@media(max-width:800px){main{padding:1rem 1rem 3rem;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">Cápsulas de Repaso · Salud Mental</div>
+    <h1>Psicofarmacología y <span>Trastornos Mentales</span></h1>
+    <div class="header-sub">DSM-5 · Antipsicóticos · Antidepresivos · Ansiolíticos · Conducta Suicida</div>
+    <div class="pills">
+      <span class="pill">Psicosis · Esquizofrenia · TAB</span>
+      <span class="pill">Depresión · Ansiedad · TOC · TEPT</span>
+      <span class="pill">Crisis psiquiátrica · Conducta suicida</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════ 01. ANTIPSICÓTICOS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">01 · Antipsicóticos</span>
+  <div class="st">Típicos (1.ª generación) y Atípicos (2.ª generación)</div>
+</div></div>
+
+<div class="cards-2">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0e8ff;">
+      <span style="font-size:1.3rem;">🧱</span>
+      <div><div class="dc-tag" style="background:#4a2a7a;">1.ª GENERACIÓN · TÍPICOS</div><div class="dc-name">Antipsicóticos convencionales</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Mecanismo:</strong> Bloqueo D₂ en sistema mesolímbico</li>
+        <li><strong>Ejemplos:</strong> Haloperidol, clorpromazina, flufenazina, trifluoperazina</li>
+        <li><strong>Eficacia:</strong> Síntomas positivos (alucinaciones, delirios, desorganización)</li>
+        <li><strong>Poca eficacia:</strong> Síntomas negativos (aplanamiento afectivo, abulia, alogia)</li>
+        <li><span>Efectos extrapiramidales (EPS):</span> Distonía aguda, acatisia, parkinsonismo, discinesia tardía</li>
+        <li><strong>Distonía aguda:</strong> Tratamiento → biperideno im (anticolinérgico)</li>
+        <li><strong>Haloperidol iv:</strong> Agitación psicótica aguda en urgencias · riesgo QT</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0e8ff;">
+      <span style="font-size:1.3rem;">🌀</span>
+      <div><div class="dc-tag" style="background:#7a3a9a;">2.ª GENERACIÓN · ATÍPICOS</div><div class="dc-name">Antipsicóticos de segunda generación</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Mecanismo:</strong> D₂ + 5-HT₂A (bloqueadores) — menor EPS</li>
+        <li><strong>Ejemplos:</strong> Risperidona, olanzapina, quetiapina, aripiprazol, clozapina</li>
+        <li><strong>Ventaja:</strong> Mejor tolerancia neurológica · eficacia síntomas negativos</li>
+        <li><span>Síndrome metabólico:</span> ↑ Peso, hiperglucemia, dislipemia (especialmente olanzapina y clozapina)</li>
+        <li><strong>Clozapina:</strong> Más eficaz pero → <span>agranulocitosis</span> (hemograma semanal)</li>
+        <li><strong>Risperidona:</strong> Más EPS que otros atípicos en dosis altas</li>
+        <li><strong>Aripiprazol:</strong> Agonista parcial D₂ · menor ganancia de peso</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="crisis-box">
+  <h3>⚠️ Síndrome Neuroléptico Maligno (SNM) — Emergencia</h3>
+  <p><strong>Tétrada clásica:</strong> <strong>Fiebre muy alta + Rigidez muscular + Alteración consciencia + Disautonomía</strong> (taquicardia, HTA lábil, diaforesis). Más frecuente con antipsicóticos típicos de alta potencia (haloperidol).</p>
+  <ol>
+    <li>Suspender inmediatamente el antipsicótico</li>
+    <li>Soporte vital: hidratación iv, control temperatura</li>
+    <li>Dantroleno 1–2 mg/kg iv (relajante muscular)</li>
+    <li>Bromocriptina (agonista dopaminérgico) 2,5–10 mg/8 h</li>
+    <li>UCI si gravedad alta · mortalidad 10–20% sin tratamiento</li>
+  </ol>
+  <p style="margin-top:0.5rem;"><strong>Diferencial:</strong> Síndrome serotoninérgico (mioclonías &gt; rigidez, hiperreflexia, inicio brusco) vs SNM (inicio más gradual, rigidez en tubo de plomo).</p>
+</div>
+
+<!-- ══════════════ 02. ANTIDEPRESIVOS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">02 · Antidepresivos</span>
+  <div class="st">Grupos, Mecanismos e Interacciones Clave</div>
+</div></div>
+
+<table class="drug-table">
+  <thead>
+    <tr><th>Grupo</th><th>Mecanismo</th><th>Ejemplos</th><th>Indicaciones</th><th>Precaución/RAM</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="drug-name">ISRS</span></td>
+      <td>Inhibición recaptación serotonina (5-HT)</td>
+      <td>Fluoxetina, sertralina, escitalopram, paroxetina, fluvoxamina</td>
+      <td>Depresión, TOC, ansiedad, TEPT, fobia social</td>
+      <td>Sínd. serotoninérgico con IMAO/tramadol · disfunción sexual · náuseas inicio</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">IRSN</span></td>
+      <td>Inhibición recaptación 5-HT + noradrenalina (NA)</td>
+      <td>Venlafaxina, duloxetina, desvenlafaxina</td>
+      <td>Depresión, dolor neuropático, fibromialgia, ansiedad generalizada</td>
+      <td>↑ TA con dosis altas · síndrome discontinuación brusca</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">ADT (tricíclicos)</span></td>
+      <td>Inhibición recaptación 5-HT + NA + bloqueos anticolinérgicos, antihistamínicos, α₁</td>
+      <td>Amitriptilina, clomipramina, imipramina, nortriptilina</td>
+      <td>Depresión grave, dolor crónico, TOC (clomipramina), enuresis</td>
+      <td>Cardiotóxicos en sobredosis (QTc, bloqueo AV) · boca seca · retención urinaria · peso</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">IMAO</span></td>
+      <td>Inhiben MAO (monoaminooxidasa) → ↑ 5-HT, NA, DA</td>
+      <td>Fenelzina, tranilcipromina (irreversibles) · Moclobemida (reversible RIMA)</td>
+      <td>Depresión atípica, fobia social</td>
+      <td>Crisis hipertensiva con tiramina (quesos, embutidos) · interacciones letales con ISRS</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Otros</span></td>
+      <td>Varios mecanismos</td>
+      <td>Mirtazapina (α₂), bupropión (NA+DA), trazodona (5-HT₂A), agomelatina (melatonina)</td>
+      <td>Según perfil: mirtazapina → bajo peso/insomnio; bupropión → depesación/TDAH</td>
+      <td>Bupropión: ↓ umbral epiléptico · Trazodona: priapismo</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="cards-2">
+  <div class="dsm-criterios">
+    <h4>⏰ Latencia de antidepresivos — Clave de examen</h4>
+    <ul>
+      <li>Inicio del efecto antidepresivo: <strong>2–4 semanas</strong> (no antes)</li>
+      <li>El sueño y el apetito mejoran primero (semana 1–2)</li>
+      <li>El ánimo mejora después (semana 2–4)</li>
+      <li>Efecto máximo: <strong>6–8 semanas</strong></li>
+      <li>Primer episodio: mantener <strong>6–12 meses</strong> tras remisión</li>
+      <li>2 episodios: 2 años. 3+ episodios: indefinido</li>
+      <li><span style="color:var(--danger);font-weight:600;">No suspender bruscamente:</span> síndrome discontinuación (mareo, náuseas, parestesias, "electric shock")</li>
+    </ul>
+  </div>
+  <div class="dsm-criterios">
+    <h4>🚫 Interacciones IMAO — Absolutamente contraindicadas</h4>
+    <ul>
+      <li><strong>IMAO + ISRS/IRSN:</strong> Síndrome serotoninérgico grave → muerte</li>
+      <li><strong>IMAO + tramadol/meperidina:</strong> Síndrome serotoninérgico</li>
+      <li><strong>IMAO + tiramina</strong> (quesos maduros, vino tinto, embutidos): Crisis hipertensiva</li>
+      <li><strong>Periodo de lavado:</strong> 14 días al cambiar de IMAO a ISRS (5 semanas si fluoxetina por su vida media larga)</li>
+      <li>ADT + IMAO: hiperpirexia, convulsiones → contraindicado</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════ 03. ANSIOLÍTICOS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">03 · Ansiolíticos y Sedantes</span>
+  <div class="st">Benzodiacepinas, Buspirona y Otros</div>
+</div></div>
+
+<table class="drug-table">
+  <thead>
+    <tr><th>Fármaco</th><th>Duración acción</th><th>Indicaciones</th><th>Dependencia</th><th>Antídoto</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="drug-name">Diazepam</span></td>
+      <td>Larga (t½ 20–80 h + metabolitos activos)</td>
+      <td>Ansiedad, espasmos musculares, abstinencia alcohólica, estatus epiléptico iv/rectal</td>
+      <td><span class="danger-tag">Alta</span></td>
+      <td><span class="ac-tag">🔑 Flumazenil</span></td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Lorazepam</span></td>
+      <td>Intermedia (t½ 10–20 h)</td>
+      <td>Ansiedad aguda, agitación hospitalaria, antiemético en quimio, preoperatorio</td>
+      <td><span class="danger-tag">Alta</span></td>
+      <td><span class="ac-tag">🔑 Flumazenil</span></td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Alprazolam</span></td>
+      <td>Corta (t½ 6–12 h)</td>
+      <td>Trastorno pánico, ansiedad generalizada</td>
+      <td><span class="danger-tag">Muy alta</span></td>
+      <td><span class="ac-tag">🔑 Flumazenil</span></td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Midazolam</span></td>
+      <td>Muy corta (t½ 1–4 h)</td>
+      <td>Sedación procedimental, preanestesia, estatus epiléptico</td>
+      <td><span class="danger-tag">Alta</span></td>
+      <td><span class="ac-tag">🔑 Flumazenil</span></td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Buspirona</span></td>
+      <td>Sin acción inmediata (inicio 2–4 semanas)</td>
+      <td>Ansiedad generalizada crónica · no para ansiedad aguda</td>
+      <td><span class="ok-tag">Baja</span></td>
+      <td>No necesario</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Zolpidem / Zopiclona</span></td>
+      <td>Corta (hipnóticos "Z")</td>
+      <td>Insomnio · No para ansiedad</td>
+      <td><span class="danger-tag">Moderada</span></td>
+      <td><span class="ac-tag">🔑 Flumazenil (parcial)</span></td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Hidroxizina</span></td>
+      <td>Intermedia (antihistamínico H₁)</td>
+      <td>Ansiedad leve-moderada, urticaria, prurigo</td>
+      <td><span class="ok-tag">Sin dependencia</span></td>
+      <td>No necesario</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="crisis-box" style="border-color:#7040c0;background:#f8f0ff;">
+  <h3 style="color:#7040c0;">⚠️ Abstinencia de benzodiacepinas — Síntomas y tratamiento</h3>
+  <p><strong>Síntomas:</strong> Ansiedad rebote, insomnio, irritabilidad, temblores, diaforesis, náuseas. En abstinencia grave: <strong>convulsiones y psicosis</strong> (especialmente BZD de vida media corta retiradas bruscamente).</p>
+  <p style="margin-top:0.4rem;"><strong>Tratamiento:</strong> Reducción gradual (10% de dosis cada 1–2 semanas) · cambio a BZD de vida media larga (diazepam) · apoyo psicológico. Nunca retirada brusca en dependientes.</p>
+</div>
+
+<!-- ══════════════ 04. ESTABILIZADORES DEL HUMOR ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">04 · Estabilizadores del Humor</span>
+  <div class="st">Litio, Valproato, Lamotrigina y Carbamazepina</div>
+</div></div>
+
+<div class="cards-2">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0e8ff;">
+      <span style="font-size:1.4rem;">⚗️</span>
+      <div><div class="dc-tag" style="background:#4a2a7a;">LITIO</div><div class="dc-name">Sales de litio — El clásico</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Indicación:</strong> TAB (trastorno afectivo bipolar) · manía · profilaxis</li>
+        <li><strong>Litemia terapéutica:</strong> <span class="dose-tag">0,6–1,2 mEq/l (mantenimiento)</span></li>
+        <li><strong>Litemia tóxica:</strong> <span class="danger-tag">&gt;1,5 mEq/l</span> → síntomas; <span class="danger-tag">&gt;2 mEq/l</span> → emergencia</li>
+        <li><strong>Signos toxicidad:</strong> Temblor grueso, ataxia, confusión, convulsiones</li>
+        <li><strong>Control:</strong> Litemia cada 3–6 meses · función renal · TSH</li>
+        <li><span>Interacción crítica:</span> AINE + diuréticos tiazídicos → ↑ litemia → toxicidad</li>
+        <li><strong>Teratogénesis:</strong> Riesgo malformación cardíaca (Ebstein) → anticonceptivos</li>
+        <li><strong>Tratamiento intoxicación:</strong> Hidratación NaCl iv · hemodiálisis si grave</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0f6fc;">
+      <span style="font-size:1.4rem;">💊</span>
+      <div><div class="dc-tag" style="background:#1a5a8a;">OTROS ESTABILIZADORES</div><div class="dc-name">Antiepilépticos con efecto estabilizador</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Valproato (ácido valproico):</strong> TAB, epilepsia, migraña · teratogénico (espina bífida, síndrome de Valproato) → <span class="danger-tag">evitar en embarazo</span></li>
+        <li><strong>Lamotrigina:</strong> Depresión bipolar mantenimiento · Stevens-Johnson si titulación rápida</li>
+        <li><strong>Carbamazepina:</strong> TAB (fase maníaca), neuralgia del trigémino · inductor CYP · agranulocitosis</li>
+        <li><strong>Oxcarbazepina:</strong> Mejor perfil que carbamacepina · hiponatremia</li>
+        <li><strong>Monitorización:</strong> Hemograma, función hepática, niveles plasmáticos</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 05. TRASTORNOS MENTALES DSM-5 ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">05 · Trastornos Mentales DSM-5</span>
+  <div class="st">Criterios Diagnósticos y Tratamiento Primera Línea</div>
+</div></div>
+
+<div class="trastorno" style="border-left-color:#4a2a7a;">
+  <h4>Esquizofrenia</h4>
+  <div class="trastorno-meta">
+    <span class="tmeta" style="color:#4a2a7a;border-color:#c0a0e0;background:#f0e8ff;">Psicosis</span>
+    <span class="tmeta" style="color:#1a5a8a;border-color:#90b0d0;background:#f0f6fc;">Crónico · Episódico</span>
+  </div>
+  <p><strong>Criterios DSM-5 (2+ durante ≥1 mes, al menos 1 de los 3 primeros):</strong></p>
+  <ul>
+    <li>Alucinaciones (auditivas &gt; visuales) · Delirios (persecución, grandiosidad) · Habla desorganizada · Comportamiento desorganizado o catatónico · Síntomas negativos</li>
+    <li><strong>Síntomas positivos:</strong> Alucinaciones, delirios, desorganización — responden a antipsicóticos</li>
+    <li><strong>Síntomas negativos:</strong> Abulia, alogia, aplanamiento afectivo, anhedonia — peor respuesta</li>
+    <li><strong>Tratamiento:</strong> Antipsicótico atípico (risperidona, olanzapina, quetiapina) · si resistente: <strong>clozapina</strong></li>
+    <li><strong>Fase aguda:</strong> Hospitalización si peligro · antipsicótico + lorazepam si agitación</li>
+  </ul>
+</div>
+
+<div class="trastorno" style="border-left-color:#1a5a8a;">
+  <h4>Trastorno Afectivo Bipolar (TAB) — Tipos I y II</h4>
+  <div class="trastorno-meta">
+    <span class="tmeta" style="color:#1a5a8a;border-color:#90b0d0;background:#f0f6fc;">TAB I · TAB II</span>
+    <span class="tmeta" style="color:#7a3a9a;border-color:#c0a0e0;background:#f0e8ff;">Cíclico</span>
+  </div>
+  <ul>
+    <li><strong>TAB I:</strong> ≥1 episodio maníaco (≥7 días, con síntomas psicóticos o que requiere hospitalización)</li>
+    <li><strong>TAB II:</strong> Al menos 1 episodio hipomaníaco + 1 depresivo mayor (NO maníaco completo)</li>
+    <li><strong>Manía:</strong> Grandiosidad, disminución necesidad sueño, logorrea, distractibilidad, impulsividad, hipersexualidad</li>
+    <li><strong>Ciclotimia:</strong> Síntomas hipomaníacos + depresivos subumbrales durante ≥2 años</li>
+    <li><strong>Tratamiento agudo manía:</strong> Litio, valproato, antipsicótico atípico · nunca antidepresivo solo (puede precipitar ciclación rápida o manía)</li>
+    <li><strong>Mantenimiento:</strong> Litio (primera elección) · lamotrigina (mejor fase depresiva)</li>
+  </ul>
+</div>
+
+<div class="trastorno" style="border-left-color:#c02030;">
+  <h4>Episodio Depresivo Mayor (EDM)</h4>
+  <div class="trastorno-meta">
+    <span class="tmeta" style="color:#c02030;border-color:#d08080;background:#fdf0f0;">≥5 criterios · ≥2 semanas</span>
+  </div>
+  <p><strong>Criterios DSM-5 (≥5 de los siguientes, al menos 1 = ánimo deprimido O anhedonia):</strong></p>
+  <ul>
+    <li>Ánimo deprimido · Anhedonia · Cambios peso/apetito · Insomnio o hipersomnia · Agitación/enlentecimiento psicomotor · Fatiga · Sentimientos de inutilidad/culpa · Dificultad concentración · Ideas de muerte/suicidio</li>
+    <li><strong>Tratamiento primera línea:</strong> ISRS (sertralina, escitalopram) + psicoterapia (TCC)</li>
+    <li><strong>Depresión grave con riesgo suicida:</strong> Hospitalización + antidepresivo + vigilancia estrecha primeras semanas</li>
+    <li><strong>Depresión resistente:</strong> Cambio de antidepresivo, asociación, TEC (electroconvulsivoterapia)</li>
+  </ul>
+</div>
+
+<div class="trastorno" style="border-left-color:#c07010;">
+  <h4>Trastornos de Ansiedad</h4>
+  <div class="trastorno-meta">
+    <span class="tmeta" style="color:#c07010;border-color:#e0a060;background:#fff8ec;">TAG · Pánico · Fobia · TEPT · TOC</span>
+  </div>
+  <ul>
+    <li><strong>TAG (Trastorno Ansiedad Generalizada):</strong> Preocupación excesiva &gt;6 meses · ISRS/IRSN + TCC · buspirona a largo plazo</li>
+    <li><strong>Trastorno de pánico:</strong> Ataques bruscos con síntomas autonómicos · ISRS + TCC · BZD solo fase aguda</li>
+    <li><strong>TEPT:</strong> Reexperimentación + evitación + hiperactivación tras trauma · Primera línea: ISRS (sertralina, paroxetina) + EMDR</li>
+    <li><strong>TOC:</strong> Obsesiones + compulsiones &gt;1 h/día · Primera línea: ISRS dosis alta (especialmente fluvoxamina, clomipramina) + TCC (EPR)</li>
+    <li><strong>Fobia social:</strong> ISRS · β-bloqueantes (propranolol) para situaciones puntuales · TCC</li>
+  </ul>
+</div>
+
+<!-- ══════════════ 06. CONDUCTA SUICIDA ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">06 · Conducta Suicida</span>
+  <div class="st">Factores de Riesgo, Evaluación e Intervención Enfermera</div>
+</div></div>
+
+<div class="suicidio-box">
+  <h3>🔍 Factores de riesgo de suicidio — Mnemotécnico IS PATH WARM</h3>
+  <p><strong>I</strong>deación · <strong>S</strong>ubstancias · <strong>P</strong>lan · <strong>A</strong>cceso a medios · <strong>T</strong>iempo (reciente) · <strong>H</strong>istoria (intentos previos) · <strong>W</strong>rathfulness (ira) · <strong>A</strong>islamiento · <strong>R</strong>ollo (cambios) · <strong>M</strong>ood (cambio brusco positivo)</p>
+</div>
+
+<div class="cards-2">
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#fdf0f0;">
+      <span style="font-size:1.3rem;">⚠️</span>
+      <div><div class="dc-tag" style="background:#c02030;">FACTORES DE RIESGO</div><div class="dc-name">Alto riesgo suicida</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Mayor riesgo:</strong> Intento previo (el predictor más potente)</li>
+        <li>Plan elaborado + acceso a medio letal</li>
+        <li>Depresión grave con anhedonia total</li>
+        <li>Aislamiento social · alcoholismo · dolor crónico</li>
+        <li>Pérdidas recientes (trabajo, pareja, salud)</li>
+        <li>Psicosis con voces que ordenan el suicidio</li>
+        <li><strong>Cambio brusco a calma:</strong> puede indicar decisión tomada</li>
+        <li>Hombres &gt; mujeres en letalidad · mujeres &gt; hombres en intentos</li>
+      </ul>
+    </div>
+  </div>
+  <div class="drug-card">
+    <div class="drug-card-header" style="background:#f0faf0;">
+      <span style="font-size:1.3rem;">🛡️</span>
+      <div><div class="dc-tag" style="background:#1a7a3a;">INTERVENCIÓN ENFERMERA</div><div class="dc-name">Protocolo de seguridad</div></div>
+    </div>
+    <div class="drug-card-body">
+      <ul>
+        <li><strong>Escala Columbia (C-SSRS):</strong> Evaluación estructurada del riesgo suicida</li>
+        <li>Preguntar directamente sobre ideación (NO aumenta el riesgo)</li>
+        <li>Retirar objetos peligrosos del entorno (medicamentos, objetos cortantes)</li>
+        <li>Supervisión continua si riesgo alto (cada 15 min o visual continua)</li>
+        <li><strong>Contrato de seguridad:</strong> No reemplaza la evaluación clínica</li>
+        <li>No dejar solo en cambios de turno</li>
+        <li>Hospitalización involuntaria si riesgo inminente</li>
+        <li>Psicoeducación a familia: señales de alarma</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 07. CRISIS PSIQUIÁTRICA AGUDA ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">07 · Urgencias Psiquiátricas</span>
+  <div class="st">Manejo de la Agitación Psicomotriz</div>
+</div></div>
+
+<div class="crisis-box">
+  <h3>🚨 Protocolo de agitación psicomotriz — Enfermería</h3>
+  <ol>
+    <li><strong>Desescalada verbal:</strong> Ambiente calmado, tono bajo, espacio personal, no amenazar — primera intervención SIEMPRE</li>
+    <li><strong>Contención mecánica:</strong> Si riesgo para el paciente o personal, protocolo institucional, supervisión enfermera continua, revisar circulación, comunicación y dignidad</li>
+    <li><strong>Sedación farmacológica:</strong>
+      <ul>
+        <li>Agitación leve-moderada: <strong>Lorazepam 1–2 mg oral o im</strong></li>
+        <li>Agitación grave: <strong>Haloperidol 5 mg im + lorazepam 2 mg im</strong> (TIQ: típico + BZD)</li>
+        <li>Alternativa: <strong>Olanzapina 10 mg im</strong> (no combinar con lorazepam im → depresión resp.)</li>
+        <li>Psicosis + agitación grave: haloperidol + prometazina im (Acufase)</li>
+      </ul>
+    </li>
+    <li><strong>Monitorización:</strong> SatO₂, FR, PA, nivel de consciencia tras sedación</li>
+    <li><strong>Documentación</strong> completa del episodio y medidas aplicadas</li>
+  </ol>
+</div>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-header">⭐ Perlas tipo examen INGESA / Enfermería Militar</div>
+  <div class="perlas-grid">
+    <div class="perla">★ <strong>Síndrome Neuroléptico Maligno</strong> → Tétrada: fiebre alta + rigidez "tubo de plomo" + alteración consciencia + disautonomía. Suspender antipsicótico + dantroleno + bromocriptina.</div>
+    <div class="perla">★ <strong>Latencia antidepresivos</strong> → Efecto terapéutico a las 2–4 semanas. El sueño y apetito mejoran antes que el ánimo. No suspender en ese periodo por "ineficacia".</div>
+    <div class="perla">★ <strong>Litio: margen terapéutico estrecho</strong> → Terapéutico 0,6–1,2 mEq/l · tóxico &gt;1,5 mEq/l. AINE y tiazidas aumentan litemia (↓ excreción renal). Control seriado obligatorio.</div>
+    <div class="perla">★ <strong>IMAO + tiramina</strong> → Crisis hipertensiva (quesos maduros, vino tinto, embutidos). Periodo de lavado 14 días entre IMAO e ISRS (5 semanas si venía de fluoxetina).</div>
+    <div class="perla">★ <strong>Clozapina</strong> → Antipsicótico más eficaz en esquizofrenia resistente pero único riesgo de <strong>agranulocitosis</strong>: hemograma semanal (4 semanas), quincenal (6 meses), mensual después.</div>
+    <div class="perla">★ <strong>TAB: nunca antidepresivo solo</strong> → En depresión bipolar, el antidepresivo solo puede precipitar manía o ciclación rápida. Siempre asociar estabilizador del humor.</div>
+    <div class="perla">★ <strong>Intento de suicidio previo</strong> → Predictor más potente de suicidio consumado. Factor de riesgo número 1 a recordar en examen. Riesgo 10× mayor que población general.</div>
+    <div class="perla">★ <strong>Olanzapina im + lorazepam im</strong> → Combinación CONTRAINDICADA (depresión respiratoria grave, hipotensión, muerte). Combinar olanzapina con BZD oral o esperar 1 h entre administraciones im.</div>
+    <div class="perla">★ <strong>Abstinencia de BZD</strong> → Puede causar convulsiones (igual que abstinencia de alcohol). Retirada siempre gradual. Más peligrosa en BZD de vida media corta (alprazolam &gt; lorazepam &gt; diazepam).</div>
+    <div class="perla">★ <strong>Valproato en el embarazo</strong> → Contraindicado (espina bífida, síndrome de valproato fetal). Si imprescindible: ácido fólico 5 mg/día. El más teratogénico de los estabilizadores.</div>
+    <div class="perla">★ <strong>TOC: tratamiento farmacológico</strong> → ISRS a dosis más altas que en depresión. Clomipramina (ADT) si ISRS no eficaz. Mínimo 12 semanas para valorar respuesta. TCC con Exposición y Prevención de Respuesta (EPR).</div>
+    <div class="perla">★ <strong>Desescalada verbal</strong> → Primera intervención en agitación psicomotriz SIEMPRE antes de la contención mecánica o farmacológica. Ambiente calmado, voz baja, no confrontar, ofrecer alternativas.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh" style="margin-top:2rem;"><div class="sb"></div><div>
+  <span class="sn">Glosario</span>
+  <div class="st">Abreviaturas y Términos Clave</div>
+</div></div>
+<div class="glosario">
+  <dl class="glosa"><dt>ISRS</dt><dd>Inhibidores Selectivos de la Recaptación de Serotonina</dd></dl>
+  <dl class="glosa"><dt>IRSN</dt><dd>Inhibidores de Recaptación Serotonina-Noradrenalina</dd></dl>
+  <dl class="glosa"><dt>ADT</dt><dd>Antidepresivos Tricíclicos</dd></dl>
+  <dl class="glosa"><dt>IMAO</dt><dd>Inhibidores de la Monoaminooxidasa</dd></dl>
+  <dl class="glosa"><dt>TAB</dt><dd>Trastorno Afectivo Bipolar</dd></dl>
+  <dl class="glosa"><dt>EPS</dt><dd>Efectos Extrapiramidales: distonía, acatisia, parkinsonismo</dd></dl>
+  <dl class="glosa"><dt>SNM</dt><dd>Síndrome Neuroléptico Maligno — emergencia por antipsicóticos</dd></dl>
+  <dl class="glosa"><dt>C-SSRS</dt><dd>Columbia Suicide Severity Rating Scale — evaluación riesgo suicida</dd></dl>
+  <dl class="glosa"><dt>TCC</dt><dd>Terapia Cognitivo-Conductual</dd></dl>
+  <dl class="glosa"><dt>EPR</dt><dd>Exposición y Prevención de Respuesta — tratamiento TOC</dd></dl>
+  <dl class="glosa"><dt>TEC</dt><dd>Terapia Electroconvulsivante — depresión grave resistente</dd></dl>
+  <dl class="glosa"><dt>BZD</dt><dd>Benzodiacepinas — ansiolíticos y sedantes</dd></dl>
+</div>
+
+</main>
+</body>
+</html>

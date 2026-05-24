@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EVIDENCIA · Biblioteca de Recursos</title>
+<title>EVIDENCIA · Biblioteca de Recursos · Enfermería Militar 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -13,37 +13,52 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-.sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--navy);padding:1.5rem 1rem;overflow-y:auto;z-index:100;}
-.sidebar-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem;color:white;letter-spacing:0.05em;margin-bottom:0.3rem;}
+.sidebar{position:fixed;top:0;left:0;width:265px;height:100vh;background:var(--navy);padding:1.2rem 1rem;overflow-y:auto;z-index:100;}
+.sidebar-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.2rem;color:white;letter-spacing:0.05em;margin-bottom:0.2rem;}
 .sidebar-logo span{color:#e8a030;}
-.sidebar-sub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#90a8c0;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.5rem;}
-.cat-label{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.15em;color:#90a8c0;margin:1rem 0 0.4rem;padding-left:0.3rem;}
-.sidebar-link{display:block;padding:0.45rem 0.7rem;border-radius:5px;font-size:0.78rem;color:#c8d8e8;text-decoration:none;margin-bottom:0.15rem;transition:background 0.15s;}
+.sidebar-sub{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:#90a8c0;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem;}
+.sidebar-exam{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:#e8c870;background:#ffffff15;border:1px solid #e8c87030;border-radius:4px;padding:0.4rem 0.6rem;margin-bottom:1.2rem;line-height:1.5;}
+.cat-label{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.15em;color:#6080a0;margin:0.9rem 0 0.3rem;padding-left:0.3rem;}
+.sidebar-link{display:block;padding:0.35rem 0.6rem;border-radius:5px;font-size:0.75rem;color:#c8d8e8;text-decoration:none;margin-bottom:0.1rem;transition:background 0.15s;line-height:1.3;}
 .sidebar-link:hover{background:#ffffff18;color:white;}
-.sidebar-count{display:inline-block;background:#ffffff20;font-family:'JetBrains Mono',monospace;font-size:0.55rem;padding:0.08rem 0.4rem;border-radius:10px;margin-left:0.3rem;vertical-align:middle;}
+.sidebar-count{display:inline-block;background:#ffffff20;font-family:'JetBrains Mono',monospace;font-size:0.5rem;padding:0.05rem 0.35rem;border-radius:10px;margin-left:0.3rem;vertical-align:middle;}
 .new-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e8a030;margin-left:0.4rem;vertical-align:middle;}
+.gap-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#c04040;margin-left:0.4rem;vertical-align:middle;opacity:0.7;}
 
-.main{margin-left:260px;padding:2rem;}
-.page-title{font-family:'Playfair Display',serif;font-weight:900;font-size:2rem;color:var(--navy);margin-bottom:0.3rem;}
-.page-sub{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2rem;}
-.total-badge{display:inline-block;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.62rem;padding:0.2rem 0.7rem;border-radius:3px;margin-left:0.5rem;vertical-align:middle;}
+.main{margin-left:265px;padding:2rem;}
+.page-header{margin-bottom:1.5rem;}
+.page-title{font-family:'Playfair Display',serif;font-weight:900;font-size:1.9rem;color:var(--navy);margin-bottom:0.2rem;}
+.page-sub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.8rem;}
+.total-badge{display:inline-block;background:var(--navy);color:white;font-family:'JetBrains Mono',monospace;font-size:0.6rem;padding:0.2rem 0.7rem;border-radius:3px;margin-left:0.5rem;vertical-align:middle;}
+.exam-bar{background:#fff8e6;border:1px solid #e0c060;border-radius:8px;padding:0.8rem 1rem;display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+.exam-pill{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;}
+.exam-pill strong{color:#8a6010;}
+.legend-bar{display:flex;gap:1.2rem;margin-bottom:1.5rem;flex-wrap:wrap;align-items:center;}
+.leg{display:flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);}
+.leg-dot{width:8px;height:8px;border-radius:50%;}
 
 .section-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);margin:1.8rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:0.5rem;}
+.section-desc{font-size:0.75rem;color:var(--muted);margin:-0.4rem 0 0.8rem;font-style:italic;}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:0.9rem;}
 .resource-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;text-decoration:none;color:var(--text);transition:box-shadow 0.2s,transform 0.15s;display:block;}
 .resource-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.12);transform:translateY(-2px);}
 .card-color{height:5px;}
-.card-body{padding:0.9rem 1rem;}
-.card-tag{font-family:'JetBrains Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:0.35rem;}
-.card-name{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;line-height:1.3;margin-bottom:0.3rem;}
-.card-desc{font-size:0.75rem;color:var(--muted);line-height:1.4;}
-.card-footer{padding:0.5rem 1rem;background:var(--warm);border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;}
+.card-body{padding:0.8rem 1rem;}
+.card-tag{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:0.3rem;}
+.card-name{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;line-height:1.3;margin-bottom:0.25rem;}
+.card-desc{font-size:0.72rem;color:var(--muted);line-height:1.4;}
+.card-footer{padding:0.45rem 1rem;background:var(--warm);border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.57rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;}
 .card-footer::before{content:'→';color:var(--gold);}
 .card-new .card-footer{background:#fef9ed;border-top-color:#e8c87a;}
-.card-new .card-footer::after{content:'NUEVO';background:#e8a030;color:white;font-size:0.48rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;margin-left:auto;letter-spacing:0.1em;}
-.card-updated .card-footer{background:#edf5fe;border-top-color:#7ab0e0;}
-.card-updated .card-footer::after{content:'ACTUALIZADO';background:#1a5a8a;color:white;font-size:0.45rem;font-weight:700;padding:0.08rem 0.4rem;border-radius:2px;margin-left:auto;letter-spacing:0.1em;}
+.card-new .card-footer::after{content:'NUEVO';background:#e8a030;color:white;font-size:0.45rem;font-weight:700;padding:0.06rem 0.35rem;border-radius:2px;margin-left:auto;letter-spacing:0.1em;}
+.card-updated .card-footer::after{content:'ACTUALIZADO';background:#1a5a8a;color:white;font-size:0.43rem;font-weight:700;padding:0.06rem 0.35rem;border-radius:2px;margin-left:auto;}
+
+/* GAP CARD — tema pendiente */
+.gap-card{background:#fff8f6;border:1px dashed #c04040;border-radius:10px;overflow:hidden;display:block;opacity:0.75;}
+.gap-card .card-footer{background:#fff0ee;border-top-color:#c04040;}
+.gap-card .card-footer::before{content:'⚠';color:#c04040;}
+.gap-card .card-footer::after{content:'PENDIENTE';background:#c04040;color:white;font-size:0.43rem;font-weight:700;padding:0.06rem 0.35rem;border-radius:2px;margin-left:auto;}
 
 @media(max-width:768px){
   .sidebar{width:100%;height:auto;position:relative;}
@@ -56,302 +71,249 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
 
 <div class="sidebar">
   <div class="sidebar-logo">·EVIDENCIA</div>
-  <div class="sidebar-sub">INGESA Enfermería · Oposiciones</div>
+  <div class="sidebar-sub">Enfermería Militar · Cuerpo Militar de Sanidad 2026</div>
+  <div class="sidebar-exam">
+    📋 250 preguntas test · 5h<br>
+    🏃 Pruebas físicas · 💬 Inglés B1<br>
+    🎓 62 plazas · Ingreso agosto 2026
+  </div>
 
-  <div class="cat-label">Categorías</div>
-  <a href="#legislacion" class="sidebar-link">⚖️ Legislación sanitaria <span class="sidebar-count">8</span></a>
-  <a href="#derechos" class="sidebar-link">🛡️ Derechos y protección <span class="sidebar-count">3</span></a>
-  <a href="#estatuto" class="sidebar-link">🏛️ Estatuto Marco <span class="sidebar-count">3</span></a>
-  <a href="#ap" class="sidebar-link">🏥 AP · Salud Comunitaria <span class="sidebar-count">4</span></a>
-  <a href="#urgencias" class="sidebar-link">🚨 Urgencias y Críticos <span class="sidebar-count">8</span></a>
-  <a href="#ginecologia" class="sidebar-link">👩 Ginecología y Obstetricia <span class="sidebar-count">6</span></a>
-  <a href="#enfermeria" class="sidebar-link">🩺 Enfermería clínica <span class="sidebar-count">6</span></a>
-  <a href="#cronicos" class="sidebar-link">💊 Crónicos prevalentes <span class="sidebar-count">8</span></a>
+  <div class="cat-label">— Bloque I · Fundamentos</div>
+  <a href="#metodologia-enfermera" class="sidebar-link">🩺 Metodología y Teoría Enfermera <span class="sidebar-count">5</span></a>
+  <a href="#etica-legislacion" class="sidebar-link">⚖️ Ética, Bioética y Legislación <span class="sidebar-count">9</span></a>
+  <a href="#epidemiologia-salud-publica" class="sidebar-link">🦠 Epidemiología y Salud Pública <span class="sidebar-count">5</span></a>
+
+  <div class="cat-label">— Bloque II · Clínica General</div>
+  <a href="#urgencias-criticos" class="sidebar-link">🚨 Urgencias y Paciente Crítico <span class="sidebar-count">8</span></a>
+  <a href="#cardiovascular" class="sidebar-link">❤️ Cardiovascular y Hemodinámica <span class="sidebar-count">3</span></a>
   <a href="#respiratorio" class="sidebar-link">🫁 Respiratorio <span class="sidebar-count">5</span></a>
-  <a href="#digestivo" class="sidebar-link">🍽️ Digestivo <span class="sidebar-count">1</span></a>
+  <a href="#metabolico-endocrino" class="sidebar-link">💊 Metabólico y Endocrino <span class="sidebar-count">4</span></a>
+  <a href="#hematologia-oncologia" class="sidebar-link">🩸 Hematología y Oncología <span class="sidebar-count">4</span></a>
+  <a href="#nefro-digestivo" class="sidebar-link">🫀 Nefrología y Digestivo <span class="sidebar-count">4</span></a>
   <a href="#neurologia" class="sidebar-link">🧠 Neurología <span class="sidebar-count">5</span></a>
-  <a href="#inmunologia" class="sidebar-link">🧬 Inmunología · Vacunas <span class="sidebar-count">3</span></a>
-  <a href="#anatomia" class="sidebar-link">🦷 Anatomía <span class="sidebar-count">3</span></a>
-  <a href="#metodologia" class="sidebar-link">🔬 Metodología · EBE <span class="sidebar-count">3</span></a>
-  <a href="#teoria" class="sidebar-link">🟣 Teoría enfermera <span class="sidebar-count">3</span></a>
-  <a href="#reumatologia" class="sidebar-link">🦴 Reumatología · Climaterio <span class="sidebar-count">1</span></a>
-  <a href="#oncologia-tumores" class="sidebar-link">🎗️ Oncología clínica <span class="sidebar-count">2</span></a>
-  <a href="#salud-mental" class="sidebar-link">🧩 Salud Mental <span class="sidebar-count">1</span></a>
-  <a href="#pediatria" class="sidebar-link">👶 Pediatría <span class="sidebar-count">2</span></a>
-  <a href="#fisiopatologia" class="sidebar-link">⚗️ Fisiopatología <span class="sidebar-count">1</span><span class="new-dot"></span></a>
-  <a href="#tests" class="sidebar-link">📝 Tests tipo OPE <span class="sidebar-count">3</span></a>
+  <a href="#infecto-inmuno" class="sidebar-link">🧬 Infectología e Inmunología <span class="sidebar-count">6</span></a>
+  <a href="#musculoesqueletico" class="sidebar-link">🦴 Musculoesquelético <span class="sidebar-count">3</span></a>
+  <a href="#farmacologia" class="sidebar-link">💉 Farmacología <span class="sidebar-count">2</span></a>
+
+  <div class="cat-label">— Bloque III · Especialidades</div>
+  <a href="#materno-infantil" class="sidebar-link">👶 Materno-Infantil y Pediatría <span class="sidebar-count">7</span></a>
+  <a href="#salud-mental" class="sidebar-link">🧩 Salud Mental <span class="sidebar-count">2</span></a>
+  <a href="#geriatria" class="sidebar-link">🧓 Geriatría y Crónico Complejo <span class="sidebar-count">2</span></a>
+
+  <div class="cat-label">— Bloque IV · Anatomía y Fisiopatología</div>
+  <a href="#anatomia" class="sidebar-link">🦷 Anatomía <span class="sidebar-count">4</span></a>
+  <a href="#fisiopatologia" class="sidebar-link">⚗️ Fisiopatología <span class="sidebar-count">1</span></a>
+
+  <div class="cat-label">— Bloque V · EBE e Investigación</div>
+  <a href="#metodologia-investigacion" class="sidebar-link">🔬 Metodología e Investigación <span class="sidebar-count">3</span></a>
+
+  <div class="cat-label">— Tests y Simulacros</div>
+  <a href="#tests" class="sidebar-link">📝 Tests INGESA tipo OPE <span class="sidebar-count">3</span></a>
 </div>
 
 <div class="main">
-  <div class="page-title">Biblioteca de recursos <span class="total-badge">83 recursos</span></div>
-  <div class="page-sub">Recursos visuales · INGESA 2026 · Actualizado 24·05·2026</div>
-
-  <!-- ── LEGISLACIÓN ── -->
-  <div class="section-title" id="legislacion">⚖️ Legislación sanitaria</div>
-  <div class="cards">
-    <a href="constitucion_española.html" class="resource-card">
-      <div class="card-color" style="background:#1e5f8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1e5f8a">Constitución · 1978</div><div class="card-name">Constitución Española</div><div class="card-desc">Artículos sanitarios, derechos fundamentales, distribución competencial sanidad</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="ley_14_1986_general_sanidad.html" class="resource-card">
-      <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Ley 14/1986</div><div class="card-name">Ley General de Sanidad</div><div class="card-desc">Creación del SNS, universalidad, financiación pública, Áreas de Salud</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="ley_16_2003_cohesion_sns.html" class="resource-card">
-      <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Ley 16/2003</div><div class="card-name">Cohesión y Calidad del SNS</div><div class="card-desc">6 ámbitos P·F·P·I·I·C, CISNS, cartera de servicios, organismos del SNS</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="cisns_tipos_acuerdos.html" class="resource-card">
-      <div class="card-color" style="background:#0d2137"></div>
-      <div class="card-body"><div class="card-tag" style="color:#0d2137">CISNS · Acuerdos</div><div class="card-name">Tipos de acuerdos del CISNS</div><div class="card-desc">Recomendaciones · Convenios · Actuaciones coordinadas — escala de vinculación</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="art12_lo4_2000_extranjeria_sanidad.html" class="resource-card">
-      <div class="card-color" style="background:#8a1a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a1a1a">LO 4/2000 · Art. 12</div><div class="card-name">Extranjería y Sanidad</div><div class="card-desc">Acceso a la sanidad pública de ciudadanos extranjeros, art. 12 LO 4/2000, urgencias, menores</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="ingesa_estructura_porhi.html" class="resource-card">
-      <div class="card-color" style="background:#2a5a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a5a8a">INGESA · Estructura</div><div class="card-name">INGESA — Estructura y PORHI</div><div class="card-desc">Organización INGESA Ceuta y Melilla, cartera servicios, personal, convenios</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="legislacion_bioetica_clinica.html" class="resource-card">
-      <div class="card-color" style="background:#6a1a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#6a1a3a">Bioética · Legislación</div><div class="card-name">Legislación, Bioética y Clínica</div><div class="card-desc">RD 1302/2018 prescripción enfermera, LO 3/2021 eutanasia, escalas funcionales, burnout CIE-11</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="limpieza_desinfeccion_esterilizacion.html" class="resource-card">
-      <div class="card-color" style="background:#2a6a5a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a6a5a">Higiene · Control infección</div><div class="card-name">Limpieza, Desinfección y Esterilización</div><div class="card-desc">Clasificación Spaulding, niveles desinfección, métodos esterilización, cadena epidemiológica</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
+  <div class="page-header">
+    <div class="page-title">Biblioteca de recursos <span class="total-badge">87 recursos</span></div>
+    <div class="page-sub">Enfermería Militar CMS 2026 · INGESA 2026 · Actualizado 24·05·2026</div>
   </div>
 
-  <!-- ── DERECHOS ── -->
-  <div class="section-title" id="derechos">🛡️ Derechos y protección</div>
-  <div class="cards">
-    <a href="lo_1_2004_violencia_genero.html" class="resource-card">
-      <div class="card-color" style="background:#8a1a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a1a3a">LO 1/2004</div><div class="card-name">Violencia de Género</div><div class="card-desc">Medidas de protección integral, tipos de violencia, indicadores detección, protocolo sanitario</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="rdl_1_2013_discapacidad.html" class="resource-card">
-      <div class="card-color" style="background:#5a4a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#5a4a8a">RDL 1/2013</div><div class="card-name">Discapacidad — Derechos</div><div class="card-desc">Derechos personas con discapacidad, accesibilidad, prestaciones, grado de discapacidad</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="ley_31_1995_prl.html" class="resource-card">
-      <div class="card-color" style="background:#7a5a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#7a5a1a">Ley 31/1995 · PRL</div><div class="card-name">Prevención de Riesgos Laborales</div><div class="card-desc">Derechos y obligaciones, evaluación de riesgos, vigilancia de la salud, servicios de prevención</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
+  <div class="exam-bar">
+    <span class="exam-pill"><strong>EXAMEN:</strong> 250 preguntas tipo test · 5 horas · Descuento por error</span>
+    <span class="exam-pill"><strong>PRUEBA PRÁCTICA:</strong> Supuesto clínico escrito · 60 min</span>
+    <span class="exam-pill"><strong>INGLÉS:</strong> B1 eliminatorio · 60 preguntas</span>
+    <span class="exam-pill"><strong>FÍSICAS:</strong> Flexiones · Plancha · 2000m · Natación 50m</span>
+    <span class="exam-pill"><strong>PLAZAS 2026:</strong> 62 (45 directo + 17 promoción)</span>
   </div>
 
-  <!-- ── ESTATUTO MARCO ── -->
-  <div class="section-title" id="estatuto">🏛️ Estatuto Marco</div>
-  <div class="cards">
-    <a href="estatuto_marco_1_clasificacion.html" class="resource-card">
-      <div class="card-color" style="background:#0d2137"></div>
-      <div class="card-body"><div class="card-tag" style="color:#0d2137">EM · Clasificación</div><div class="card-name">Estatuto Marco — Clasificación</div><div class="card-desc">Grupos A1/A2/C1/C2, categorías profesionales, jornada laboral, situaciones administrativas</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="estatuto_marco_2_planificacion_derechos.html" class="resource-card">
-      <div class="card-color" style="background:#1a3a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a3a6a">EM · Planificación</div><div class="card-name">Estatuto Marco — Derechos y Planificación</div><div class="card-desc">Derechos y deberes del personal estatutario, representación sindical, movilidad</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="estatuto_marco_3_carrera_retribuciones.html" class="resource-card">
-      <div class="card-color" style="background:#3a1a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#3a1a6a">EM · Carrera</div><div class="card-name">Estatuto Marco — Carrera y Retribuciones</div><div class="card-desc">Carrera profesional, sistema retributivo, complementos, régimen disciplinario, incompatibilidades</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
+  <div class="legend-bar">
+    <div class="leg"><div class="leg-dot" style="background:#e8a030"></div> Recurso nuevo</div>
+    <div class="leg"><div class="leg-dot" style="background:#1a5a8a"></div> Actualizado</div>
+    <div class="leg"><div class="leg-dot" style="background:#c04040;opacity:0.7"></div> Tema pendiente (hueco de examen)</div>
   </div>
 
-  <!-- ── AP · SALUD COMUNITARIA ── -->
-  <div class="section-title" id="ap">🏥 Atención Primaria · Salud Comunitaria</div>
-  <div class="cards">
-    <a href="promocion_salud_educacion.html" class="resource-card">
-      <div class="card-color" style="background:#2a7a4a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a7a4a">AP · Promoción</div><div class="card-name">Promoción de la Salud y Educación</div><div class="card-desc">Carta Ottawa, determinantes salud, Lalonde, niveles prevención, educación para la salud</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="programas_ap_cribados.html" class="resource-card">
-      <div class="card-color" style="background:#2a7a4a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a7a4a">AP · Cribados</div><div class="card-name">Programas AP y Cribados</div><div class="card-desc">Programas del adulto y niño sano, cribados oncológicos SNS 2024, actividades preventivas</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="epidemiologia_indicadores.html" class="resource-card">
-      <div class="card-color" style="background:#1a5a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5a3a">Epidemiología</div><div class="card-name">Epidemiología e Indicadores</div><div class="card-desc">Incidencia, prevalencia, sensibilidad, especificidad, VPP/VPN, tasas brutas/ajustadas</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="actividad_fisica_oms.html" class="resource-card">
-      <div class="card-color" style="background:#2a8a2a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a8a2a">OMS · Actividad Física</div><div class="card-name">Actividad Física OMS 2020</div><div class="card-desc">Recomendaciones por grupos de edad, intensidades, sedentarismo, beneficios para la salud</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
+  <!-- ══════════════════════════════════════
+       BLOQUE I — FUNDAMENTOS
+  ══════════════════════════════════════ -->
 
-  <!-- ── URGENCIAS Y CRÍTICOS ── -->
-  <div class="section-title" id="urgencias">🚨 Urgencias y Críticos</div>
+  <!-- ── METODOLOGÍA Y TEORÍA ENFERMERA ── -->
+  <div class="section-title" id="metodologia-enfermera">🩺 Metodología Enfermera y Teoría</div>
+  <div class="section-desc">PAE, modelos teóricos, taxonomías NANDA-NOC-NIC — bloque fijo en todos los exámenes de enfermería</div>
   <div class="cards">
-    <a href="erc2025-svb.html" class="resource-card">
-      <div class="card-color" style="background:#c02030"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c02030">ERC 2025 · SVB/SVA</div><div class="card-name">Soporte Vital — ERC 2025</div><div class="card-desc">Algoritmos SVB/SVA adulto y pediátrico, cadena de supervivencia, fármacos PCR, DESA</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="svb_sva_situaciones_especiales.html" class="resource-card">
-      <div class="card-color" style="background:#b5282a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#b5282a">ERC · Situaciones especiales</div><div class="card-name">SVB/SVA — Situaciones Especiales</div><div class="card-desc">RCP en embarazo, hipotermia, electrocución, ahogamiento, trauma · causas reversibles 4H4T</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="shock_sepsis_sdra_vm.html" class="resource-card">
-      <div class="card-color" style="background:#8a1a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a1a1a">Críticos · Shock</div><div class="card-name">Shock, Sepsis, SDRA y VM</div><div class="card-desc">Tipos de shock, qSOFA/SOFA, Berlín SDRA, modos ventilación, parámetros ventilatorios</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="trauma_quemados_zero_dispositivos.html" class="resource-card">
-      <div class="card-color" style="background:#7a3a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#7a3a1a">Trauma · Zero</div><div class="card-name">Trauma, Quemados y Dispositivos Zero</div><div class="card-desc">ATLS, regla 9, Parkland, bacteriemia zero, neumonía zero, ITU zero — paquetes de medidas</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="triage_sistemas_start_meta_sieve.html" class="resource-card">
-      <div class="card-color" style="background:#c05020"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c05020">Triage · Catástrofes</div><div class="card-name">Triage — START, META, SIEVE</div><div class="card-desc">Sistemas de triage: START adulto, JumpSTART pediátrico, META, SIEVE · colores y criterios</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="quemados_wallace_parkland.html" class="resource-card">
-      <div class="card-color" style="background:#b56820"></div>
-      <div class="card-body"><div class="card-tag" style="color:#b56820">Quemados · Wallace</div><div class="card-name">Quemados — Wallace y Parkland</div><div class="card-desc">Regla de los 9, clasificación por profundidad, fórmula Parkland, cuidados locales, criterios ingreso</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="trauma_avanzado_blast_balistico_torniquete.html" class="resource-card">
-      <div class="card-color" style="background:#6a2a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#6a2a1a">Trauma avanzado · Militar</div><div class="card-name">Trauma Avanzado — Blast, Balístico, Torniquete</div><div class="card-desc">Lesiones por explosión, herida balística, torniquete TCCC, MARCH, TECC · enfermería militar</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="nrbc_agentes_quimicos_guerra.html" class="resource-card">
-      <div class="card-color" style="background:#3a5a2a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#3a5a2a">NRBC · Guerra química</div><div class="card-name">NRBC — Agentes Químicos de Guerra</div><div class="card-desc">Agentes nerviosos, vesicantes, asfixiantes, sanguíneos · antídotos · descontaminación · triage NRBC</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
-
-  <!-- ── GINECOLOGÍA Y OBSTETRICIA ── -->
-  <div class="section-title" id="ginecologia">👩 Ginecología y Obstetricia</div>
-  <div class="cards">
-    <a href="gestacion_parto.html" class="resource-card">
-      <div class="card-color" style="background:#9a3a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#9a3a6a">Obstetricia · Parto</div><div class="card-name">Gestación y Parto</div><div class="card-desc">Control prenatal, periodos del parto, maniobras, monitorización fetal, Apgar, atención inmediata</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="emergencias_intraparto.html" class="resource-card">
-      <div class="card-color" style="background:#8a1a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a1a3a">Obstetricia · Urgencias</div><div class="card-name">Emergencias Intraparto</div><div class="card-desc">Distocia hombros, procidencia cordón, hemorragia postparto, eclampsia — algoritmos actualizados</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="patologia_obstetrica_profilaxis.html" class="resource-card">
-      <div class="card-color" style="background:#7a1a4a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#7a1a4a">Obstetricia · Patología</div><div class="card-name">Patología Obstétrica y Profilaxis</div><div class="card-desc">Preeclampsia, diabetes gestacional, aborto, tromboprofilaxis, incompatibilidad Rh, TORCH</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="ciclo_ovarico_endometrial.html" class="resource-card">
-      <div class="card-color" style="background:#9a1a5a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#9a1a5a">Ginecología · Ciclo</div><div class="card-name">Ciclo Ovárico y Endometrial</div><div class="card-desc">Fases folicular/ovulatoria/lútea, hormonas FSH/LH/E2/P4, endometrio, temperatura basal</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="lactancia_anticoncepcion.html" class="resource-card">
-      <div class="card-color" style="background:#7a3a5a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#7a3a5a">Lactancia · Anticoncepción</div><div class="card-name">Lactancia y Anticoncepción</div><div class="card-desc">Tipos de lactancia, ventajas, contraindicaciones, métodos anticonceptivos, índice Pearl</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="vacunas_embarazo.html" class="resource-card">
-      <div class="card-color" style="background:#6a4a7a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#6a4a7a">Vacunas · Embarazo</div><div class="card-name">Vacunas en el Embarazo</div><div class="card-desc">Calendario vacunal gestacional, contraindicaciones, dTpa, gripe, COVID, Tdap — por trimestre</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
-
-  <!-- ── ENFERMERÍA CLÍNICA ── -->
-  <div class="section-title" id="enfermeria">🩺 Enfermería clínica y procedimientos</div>
-  <div class="cards">
-    <a href="escalera_analgesica_oms.html" class="resource-card">
-      <div class="card-color" style="background:#c47a10"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c47a10">Analgesia · OMS</div><div class="card-name">Escalera Analgésica OMS</div><div class="card-desc">3 peldaños + 4.º intervencionista, fármacos por escalón, dosis morfina equivalente, efectos adversos</div></div>
+    <a href="proceso_enfermero.html" class="resource-card">
+      <div class="card-color" style="background:#3a6a5a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#3a6a5a">PAE · NANDA-NOC-NIC</div><div class="card-name">Proceso Enfermero (PAE)</div><div class="card-desc">5 etapas VDPEE, diagnósticos NANDA PES, NOC/NIC, taxonomías, caso clínico integrado</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="marcos_valoracion_enfermera.html" class="resource-card">
       <div class="card-color" style="background:#4a6a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#4a6a8a">Valoración</div><div class="card-name">Marcos de Valoración Enfermera</div><div class="card-desc">14 necesidades Henderson, 11 patrones Gordon, dominios NANDA · comparativa y aplicación clínica</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#4a6a8a">Valoración · Henderson · Gordon</div><div class="card-name">Marcos de Valoración Enfermera</div><div class="card-desc">14 necesidades Henderson, 11 patrones Gordon, dominios NANDA · comparativa y aplicación clínica</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="proceso_enfermero.html" class="resource-card">
-      <div class="card-color" style="background:#3a6a5a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#3a6a5a">PAE · Proceso</div><div class="card-name">Proceso Enfermero (PAE)</div><div class="card-desc">5 etapas VDPEE, diagnósticos NANDA PES, NOC/NIC, taxonomías, caso clínico integrado</div></div>
+    <a href="modelos_teorias_enfermeria.html" class="resource-card">
+      <div class="card-color" style="background:#5a4a30"></div>
+      <div class="card-body"><div class="card-tag" style="color:#5a4a30">Teoría · Kérouac · Marriner</div><div class="card-name">Modelos y Teorías de Enfermería</div><div class="card-desc">Metaparadigma, 3 paradigmas Kérouac, 6 escuelas, 13 autoras con palabra clave</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="ecg_isquemia_lesion_iam_codigos.html" class="resource-card">
-      <div class="card-color" style="background:#c02030"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c02030">ECG · IAM</div><div class="card-name">ECG — Isquemia, Lesión, IAM y Códigos</div><div class="card-desc">Ondas ECG normales, isquemia/lesión/necrosis, localización IAM por derivaciones, código infarto</div></div>
+    <a href="peplau_relaciones_interpersonales.html" class="resource-card">
+      <div class="card-color" style="background:#5a2a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#5a2a8a">Teoría · Peplau</div><div class="card-name">Modelo de Relaciones Interpersonales</div><div class="card-desc">4 fases O·I·E·R, 6 roles E·R·D·L·C·S, enfermería psiquiátrica</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="vasos_ecg_hemodinamica_perlas.html" class="resource-card">
-      <div class="card-color" style="background:#b5282a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#b5282a">Cardiología · Hemodinámica</div><div class="card-name">Vasos, ECG y Hemodinámica — Perlas</div><div class="card-desc">Grandes vasos, presiones normales, GC, RVS, Swan-Ganz, arritmias frecuentes tipo OPE</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="geriatria_gineco_criticos_perlas.html" class="resource-card">
-      <div class="card-color" style="background:#6a5a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#6a5a1a">Geriatría · Perlas</div><div class="card-name">Geriatría, Ginecología y Críticos — Perlas</div><div class="card-desc">Síndromes geriátricos, escalas valoración, perlas tipo OPE ginecología y paciente crítico</div></div>
+    <a href="piaget_desarrollo_cognitivo.html" class="resource-card">
+      <div class="card-color" style="background:#4a3a20"></div>
+      <div class="card-body"><div class="card-tag" style="color:#4a3a20">Psicología · Desarrollo</div><div class="card-name">Piaget — Desarrollo Cognitivo</div><div class="card-desc">4 estadios S·P·O·F, adquisiciones por etapa, conservación, egocentrismo, aplicación enfermera</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── CRÓNICOS PREVALENTES ── -->
-  <div class="section-title" id="cronicos">💊 Crónicos prevalentes</div>
+  <!-- ── ÉTICA, BIOÉTICA Y LEGISLACIÓN ── -->
+  <div class="section-title" id="etica-legislacion">⚖️ Ética, Bioética y Marco Legislativo</div>
+  <div class="section-desc">Bloque de legislación presente en el examen · manuales Army Nursing Legislación · frecuentemente 20–30 preguntas</div>
+  <div class="cards">
+    <a href="constitucion_española.html" class="resource-card">
+      <div class="card-color" style="background:#1e5f8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1e5f8a">Constitución · 1978</div><div class="card-name">Constitución Española</div><div class="card-desc">Artículos sanitarios, derechos fundamentales, distribución competencial</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="ley_14_1986_general_sanidad.html" class="resource-card">
+      <div class="card-color" style="background:#1a6a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Ley 14/1986</div><div class="card-name">Ley General de Sanidad</div><div class="card-desc">Creación SNS, universalidad, financiación pública, Áreas de Salud, títulos I–VII</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="ley_16_2003_cohesion_sns.html" class="resource-card">
+      <div class="card-color" style="background:#1a6a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Ley 16/2003 · Cohesión</div><div class="card-name">Cohesión y Calidad del SNS</div><div class="card-desc">6 ámbitos P·F·P·I·I·C, CISNS, cartera servicios, calidad, organismos SNS</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="cisns_tipos_acuerdos.html" class="resource-card">
+      <div class="card-color" style="background:#0d2137"></div>
+      <div class="card-body"><div class="card-tag" style="color:#0d2137">CISNS · Acuerdos</div><div class="card-name">CISNS — Tipos de Acuerdos</div><div class="card-desc">Recomendaciones, convenios, actuaciones coordinadas — escala de vinculación</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="legislacion_bioetica_clinica.html" class="resource-card">
+      <div class="card-color" style="background:#6a1a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a1a3a">Bioética · RD 1302/2018 · LO 3/2021</div><div class="card-name">Legislación, Bioética y Clínica</div><div class="card-desc">Prescripción enfermera, eutanasia, escalas funcionales, burnout CIE-11, principios bioéticos</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="estatuto_marco_1_clasificacion.html" class="resource-card">
+      <div class="card-color" style="background:#0d2137"></div>
+      <div class="card-body"><div class="card-tag" style="color:#0d2137">EM · Ley 55/2003</div><div class="card-name">Estatuto Marco — Clasificación</div><div class="card-desc">Grupos A1/A2/C1/C2, categorías, jornada, situaciones administrativas</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="estatuto_marco_2_planificacion_derechos.html" class="resource-card">
+      <div class="card-color" style="background:#1a3a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a3a6a">EM · Derechos y Deberes</div><div class="card-name">Estatuto Marco — Derechos y Planificación</div><div class="card-desc">Derechos y deberes estatutarios, representación sindical, movilidad</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="estatuto_marco_3_carrera_retribuciones.html" class="resource-card">
+      <div class="card-color" style="background:#3a1a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#3a1a6a">EM · Carrera Profesional</div><div class="card-name">Estatuto Marco — Carrera y Retribuciones</div><div class="card-desc">Carrera profesional, retribuciones, complementos, régimen disciplinario</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="lo_1_2004_violencia_genero.html" class="resource-card">
+      <div class="card-color" style="background:#8a1a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a1a3a">LO 1/2004 · Violencia Género</div><div class="card-name">Violencia de Género</div><div class="card-desc">Medidas protección integral, tipos violencia, indicadores, protocolo sanitario</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── EPIDEMIOLOGÍA Y SALUD PÚBLICA ── -->
+  <div class="section-title" id="epidemiologia-salud-publica">🦠 Epidemiología y Salud Pública</div>
+  <div class="section-desc">Manual Army Nursing Epidemiología · cadena epidemiológica, enfermedades transmisibles, vacunación, organismos OMS/ECDC</div>
+  <div class="cards">
+    <a href="epidemiologia_indicadores.html" class="resource-card">
+      <div class="card-color" style="background:#1a5a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a3a">Epidemiología · Indicadores</div><div class="card-name">Epidemiología e Indicadores</div><div class="card-desc">Incidencia, prevalencia, S/E, VPP/VPN, tasas brutas/ajustadas, cadena epidemiológica</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="promocion_salud_educacion.html" class="resource-card">
+      <div class="card-color" style="background:#2a7a4a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a7a4a">Salud Pública · Ottawa</div><div class="card-name">Promoción de la Salud y Educación</div><div class="card-desc">Carta Ottawa, determinantes salud, Lalonde, niveles prevención, educación para la salud</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="programas_ap_cribados.html" class="resource-card">
+      <div class="card-color" style="background:#2a7a4a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a7a4a">AP · Cribados SNS 2024</div><div class="card-name">Programas AP y Cribados</div><div class="card-desc">Programas adulto/niño sano, cribados oncológicos SNS 2024, actividades preventivas</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="actividad_fisica_oms.html" class="resource-card">
+      <div class="card-color" style="background:#2a8a2a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a8a2a">OMS 2020 · Actividad Física</div><div class="card-name">Actividad Física OMS 2020</div><div class="card-desc">Recomendaciones por grupos de edad, intensidades, sedentarismo, beneficios</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="limpieza_desinfeccion_esterilizacion.html" class="resource-card">
+      <div class="card-color" style="background:#2a6a5a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a6a5a">Higiene · Control Infección</div><div class="card-name">Limpieza, Desinfección y Esterilización</div><div class="card-desc">Clasificación Spaulding, niveles desinfección, métodos esterilización, cadena epidemiológica</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       BLOQUE II — CLÍNICA GENERAL
+  ══════════════════════════════════════ -->
+
+  <!-- ── URGENCIAS Y CRÍTICOS ── -->
+  <div class="section-title" id="urgencias-criticos">🚨 Urgencias, Emergencias y Paciente Crítico</div>
+  <div class="section-desc">Alto peso en el examen · RCP, shock, trauma, triage — bloque clave para enfermería de urgencias</div>
+  <div class="cards">
+    <a href="erc2025-svb.html" class="resource-card">
+      <div class="card-color" style="background:#c02030"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c02030">ERC 2025 · SVB/SVA</div><div class="card-name">Soporte Vital — ERC 2025</div><div class="card-desc">Algoritmos SVB/SVA adulto y pediátrico, cadena supervivencia, fármacos PCR, DESA</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="svb_sva_situaciones_especiales.html" class="resource-card">
+      <div class="card-color" style="background:#b5282a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">ERC · Situaciones Especiales</div><div class="card-name">SVB/SVA — Situaciones Especiales</div><div class="card-desc">RCP embarazo, hipotermia, electrocución, ahogamiento, trauma · causas reversibles 4H4T</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="shock_sepsis_sdra_vm.html" class="resource-card">
+      <div class="card-color" style="background:#8a1a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a1a1a">Críticos · Sepsis · SDRA</div><div class="card-name">Shock, Sepsis, SDRA y VM</div><div class="card-desc">Tipos shock, qSOFA/SOFA, criterios Berlín SDRA, modos ventilación, parámetros ventilatorios</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="triage_sistemas_start_meta_sieve.html" class="resource-card">
+      <div class="card-color" style="background:#c05020"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c05020">Triage · Catástrofes</div><div class="card-name">Triage — START, META, SIEVE</div><div class="card-desc">START adulto, JumpSTART pediátrico, META, SIEVE · colores y criterios</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="quemados_wallace_parkland.html" class="resource-card">
+      <div class="card-color" style="background:#b56820"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b56820">Quemados · Wallace · Parkland</div><div class="card-name">Quemados — Wallace y Parkland</div><div class="card-desc">Regla 9, profundidad, Parkland, cuidados locales, criterios ingreso</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="trauma_quemados_zero_dispositivos.html" class="resource-card">
+      <div class="card-color" style="background:#7a3a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#7a3a1a">Trauma · Dispositivos Zero</div><div class="card-name">Trauma, Quemados y Zero</div><div class="card-desc">ATLS, bacteriemia zero, neumonía zero, ITU zero — paquetes de medidas</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="trauma_avanzado_blast_balistico_torniquete.html" class="resource-card">
+      <div class="card-color" style="background:#6a2a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a2a1a">Trauma · Militar · TCCC</div><div class="card-name">Trauma Avanzado — Blast, Balístico, Torniquete</div><div class="card-desc">Lesiones explosión, herida balística, torniquete TCCC, MARCH, TECC · enfermería militar</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="nrbc_agentes_quimicos_guerra.html" class="resource-card">
+      <div class="card-color" style="background:#3a5a2a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#3a5a2a">NRBC · Guerra Química</div><div class="card-name">NRBC — Agentes Químicos de Guerra</div><div class="card-desc">Agentes nerviosos, vesicantes, asfixiantes, sanguíneos · antídotos · descontaminación</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── CARDIOVASCULAR ── -->
+  <div class="section-title" id="cardiovascular">❤️ Cardiovascular y Hemodinámica</div>
   <div class="cards">
     <a href="ic_ecv.html" class="resource-card">
       <div class="card-color" style="background:#c02030"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c02030">Cardiología · ESC 2023</div><div class="card-name">IC y Enfermedad Cardiovascular</div><div class="card-desc">Estadios IC, FEVI, tratamiento pilar, HTA, fibrilación auricular, anticoagulación — ESC 2023</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#c02030">Cardiología · ESC 2023</div><div class="card-name">IC y Enfermedad Cardiovascular</div><div class="card-desc">Estadios IC, FEVI, tratamiento pilar, HTA, FA, anticoagulación — ESC 2023</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="diabetes_mellitus.html" class="resource-card">
-      <div class="card-color" style="background:#2a8a2a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a8a2a">Diabetes · ADA 2026</div><div class="card-name">Diabetes Mellitus</div><div class="card-desc">Criterios diagnósticos, tipos DM, tratamiento escalonado ADA 2026, complicaciones agudas y crónicas</div></div>
+    <a href="ecg_isquemia_lesion_iam_codigos.html" class="resource-card">
+      <div class="card-color" style="background:#c02030"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c02030">ECG · IAM · Código Infarto</div><div class="card-name">ECG — Isquemia, Lesión, IAM y Códigos</div><div class="card-desc">Ondas ECG normales, isquemia/lesión/necrosis, localización IAM por derivaciones</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="dm_riesgo_vascular.html" class="resource-card">
-      <div class="card-color" style="background:#2a7a2a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a7a2a">DM · Riesgo cardiovascular</div><div class="card-name">DM y Riesgo Vascular</div><div class="card-desc">Score SCORE2, objetivos lipídicos por riesgo, HbA1c, tablas de riesgo CV, estatinas</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="nefro_irc_hd_dp.html" class="resource-card">
-      <div class="card-color" style="background:#6a1a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#6a1a8a">Nefrología · KDIGO 2024</div><div class="card-name">IRC, Hemodiálisis y Diálisis Peritoneal</div><div class="card-desc">Estadios ERC CKD-EPI, HD vs DP, accesos vasculares, complicaciones, KDIGO 2024</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="anemia_clasificacion_diagnostico.html" class="resource-card">
-      <div class="card-color" style="background:#c43a10"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c43a10">Hematología</div><div class="card-name">Anemia — Clasificación y Diagnóstico</div><div class="card-desc">Clasificación morfológica VCM, ferropénica vs B12 vs hemolítica, algoritmo diagnóstico, reticulocitos</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="digestivo_renal_perlas.html" class="resource-card">
-      <div class="card-color" style="background:#8a4a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a4a1a">Digestivo · Renal · Perlas</div><div class="card-name">Digestivo y Renal — Perlas OPE</div><div class="card-desc">Hepatitis, cirrosis, EII, SII, IRC avanzada · fórmulas, perlas tipo examen, asociaciones clave</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="endocrino_locomotor_perlas.html" class="resource-card">
-      <div class="card-color" style="background:#8a5a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a5a1a">Endocrino · Locomotor</div><div class="card-name">Endocrino y Locomotor — Perlas OPE</div><div class="card-desc">Tiroides, suprarrenal, hipófisis, AR, LES, gota, osteoartritis · perlas tipo examen INGESA</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="its_diagnostico_clasificacion.html" class="resource-card">
-      <div class="card-color" style="background:#2a6a4a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a6a4a">Infectología · ITS</div><div class="card-name">ITS — Diagnóstico y Clasificación</div><div class="card-desc">Sífilis, gonorrea, clamidiasis, VHS, VPH, tricomoniasis · diagnóstico, tratamiento, notificación</div></div>
+    <a href="vasos_ecg_hemodinamica_perlas.html" class="resource-card">
+      <div class="card-color" style="background:#b5282a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">Hemodinámica · Swan-Ganz</div><div class="card-name">Vasos, ECG y Hemodinámica — Perlas</div><div class="card-desc">Grandes vasos, presiones normales, GC, RVS, Swan-Ganz, arritmias OPE</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
@@ -361,37 +323,102 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   <div class="cards">
     <a href="epoc_gold_2025.html" class="resource-card">
       <div class="card-color" style="background:#1a5a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">EPOC · GOLD 2025</div><div class="card-name">EPOC — GOLD 2025</div><div class="card-desc">Estadios espirométricos GOLD I-IV, grupos ABCE, tratamiento escalonado, exacerbaciones</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">EPOC · GOLD 2025</div><div class="card-name">EPOC — GOLD 2025</div><div class="card-desc">Estadios GOLD I-IV, grupos ABCE, tratamiento escalonado, exacerbaciones</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="epoc_asma_cronicos.html" class="resource-card">
       <div class="card-color" style="background:#1a4a7a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a4a7a">EPOC · Asma · Crónicos</div><div class="card-name">EPOC y Asma — Crónicos</div><div class="card-desc">Comparativa EPOC vs asma, GINA 2024, escalones terapéuticos, dispositivos inhaladores</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a7a">EPOC · Asma · GINA 2024</div><div class="card-name">EPOC y Asma — Crónicos</div><div class="card-desc">Comparativa EPOC vs asma, GINA 2024, escalones terapéuticos, inhaladores</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="patologias_obstructivas.html" class="resource-card">
       <div class="card-color" style="background:#1e6aaa"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1e6aaa">Neumología · Obstructivas</div><div class="card-name">Patologías Obstructivas</div><div class="card-desc">EPOC, asma, bronquiectasias, FQ, AOS · Tiffeneau &lt;0,7 · espirometría · dosis pediátricas asma</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1e6aaa">Neumología · Obstructivas</div><div class="card-name">Patologías Obstructivas</div><div class="card-desc">EPOC, asma, bronquiectasias, FQ, AOS · Tiffeneau &lt;0,7 · espirometría</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="patologias_restrictivas.html" class="resource-card">
       <div class="card-color" style="background:#6a1a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#6a1a8a">Neumología · Restrictivas</div><div class="card-name">Patologías Restrictivas</div><div class="card-desc">CPT &lt;80%, fibrosis, SDRA, neumotórax, derrame, atelectasia · timpanismo vs matidez ★★</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a1a8a">Neumología · Restrictivas</div><div class="card-name">Patologías Restrictivas</div><div class="card-desc">CPT &lt;80%, fibrosis, SDRA, neumotórax, derrame · timpanismo vs matidez</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="farmacologia_respiratoria.html" class="resource-card">
       <div class="card-color" style="background:#1a4a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a4a8a">Farmacología · Respiratorio</div><div class="card-name">Farmacología Respiratoria</div><div class="card-desc">SABA/LABA/SAMA/LAMA · CI/CS · teofilina · montelukast · antibióticos NAC · mecanismos</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a8a">Farmacología · Inhaladores</div><div class="card-name">Farmacología Respiratoria</div><div class="card-desc">SABA/LABA/SAMA/LAMA · CI/CS · teofilina · montelukast · antibióticos NAC</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── DIGESTIVO ── -->
-  <div class="section-title" id="digestivo">🍽️ Digestivo</div>
+  <!-- ── METABÓLICO Y ENDOCRINO ── -->
+  <div class="section-title" id="metabolico-endocrino">💊 Metabólico, Endocrino y Riesgo Vascular</div>
   <div class="cards">
+    <a href="diabetes_mellitus.html" class="resource-card">
+      <div class="card-color" style="background:#2a8a2a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a8a2a">Diabetes · ADA 2026</div><div class="card-name">Diabetes Mellitus</div><div class="card-desc">Criterios diagnósticos, tipos DM, tratamiento ADA 2026, complicaciones agudas y crónicas</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="dm_riesgo_vascular.html" class="resource-card">
+      <div class="card-color" style="background:#2a7a2a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a7a2a">DM · Riesgo CV</div><div class="card-name">DM y Riesgo Vascular</div><div class="card-desc">SCORE2, objetivos lipídicos, HbA1c, tablas riesgo CV, estatinas</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="endocrino_locomotor_perlas.html" class="resource-card">
+      <div class="card-color" style="background:#8a5a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a5a1a">Endocrino · Perlas OPE</div><div class="card-name">Endocrino y Locomotor — Perlas</div><div class="card-desc">Tiroides, suprarrenal, hipófisis, AR, LES, gota, osteoartritis · perlas tipo examen</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="electrolit-fisiologia_1.html" class="resource-card">
+      <div class="card-color" style="background:#1a5fa8"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5fa8">Electrolitos · Ácido-Base</div><div class="card-name">Hidroelectrolítico — Fisiopatología Clínica</div><div class="card-desc">Na · K · Ca · Mg · equilibrio ácido-base · gases arteriales · algoritmos interactivos</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── HEMATOLOGÍA Y ONCOLOGÍA ── -->
+  <div class="section-title" id="hematologia-oncologia">🩸 Hematología y Oncología</div>
+  <div class="cards">
+    <a href="anemia_clasificacion_diagnostico.html" class="resource-card">
+      <div class="card-color" style="background:#c43a10"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c43a10">Hematología · Anemia</div><div class="card-name">Anemia — Clasificación y Diagnóstico</div><div class="card-desc">Clasificación morfológica VCM, ferropénica vs B12 vs hemolítica, algoritmo diagnóstico</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="oncologia_tumores_enfermeria.html" class="resource-card">
+      <div class="card-color" style="background:#9a1a40"></div>
+      <div class="card-body"><div class="card-tag" style="color:#9a1a40">Oncología · Tumores</div><div class="card-name">Oncología Tumores — Enfermería</div><div class="card-desc">Tipos tumorales, TNM, síntomas alarma, toxicidades tratamiento, cuidados enfermería</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="oncologia_screening_toxicidad.html" class="resource-card">
+      <div class="card-color" style="background:#8a1a30"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a1a30">Oncología · Cribado · Toxicidad</div><div class="card-name">Oncología — Screening y Toxicidad</div><div class="card-desc">Cribados SNS 2024, ECOG/Karnofsky, toxicidad quimio por órgano, extravasación</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="escalera_analgesica_oms.html" class="resource-card">
+      <div class="card-color" style="background:#c47a10"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c47a10">Analgesia · OMS</div><div class="card-name">Escalera Analgésica OMS</div><div class="card-desc">3 peldaños + 4.º intervencionista, fármacos, morfina equivalente, efectos adversos</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── NEFROLOGÍA Y DIGESTIVO ── -->
+  <div class="section-title" id="nefro-digestivo">🫀 Nefrología y Digestivo</div>
+  <div class="cards">
+    <a href="nefro_irc_hd_dp.html" class="resource-card">
+      <div class="card-color" style="background:#6a1a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a1a8a">Nefrología · KDIGO 2024</div><div class="card-name">IRC, Hemodiálisis y Diálisis Peritoneal</div><div class="card-desc">Estadios ERC CKD-EPI, HD vs DP, accesos vasculares, complicaciones, KDIGO 2024</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
     <a href="fisiologia_digestiva.html" class="resource-card">
       <div class="card-color" style="background:#c4681a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#c4681a">Fisiología · Digestivo</div><div class="card-name">Fisiología Digestiva</div><div class="card-desc">Motilidad, secreción, digestión y absorción de nutrientes, regulación hormonal digestiva</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#c4681a">Fisiología Digestiva</div><div class="card-name">Fisiología Digestiva</div><div class="card-desc">Motilidad, secreción, digestión y absorción, regulación hormonal digestiva</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="digestivo_renal_perlas.html" class="resource-card">
+      <div class="card-color" style="background:#8a4a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a4a1a">Digestivo · Renal · Perlas</div><div class="card-name">Digestivo y Renal — Perlas OPE</div><div class="card-desc">Hepatitis, cirrosis, EII, SII, IRC avanzada · fórmulas, asociaciones clave</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="osteoporosis-climaterio.html" class="resource-card">
+      <div class="card-color" style="background:#7a1a5a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#7a1a5a">Reumatología · Climaterio</div><div class="card-name">Osteoporosis y Climaterio</div><div class="card-desc">T-score, factores riesgo, bifosfonatos, THS, menopausia, síntomas vasomotores</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
@@ -401,202 +428,262 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tex
   <div class="cards">
     <a href="neurologia_completo.html" class="resource-card">
       <div class="card-color" style="background:#1a6a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Neurología · Completo</div><div class="card-name">Neurología — Recurso Completo</div><div class="card-desc">ACV isquémico/hemorrágico, epilepsia, Parkinson, esclerosis múltiple, cefaleas, meningitis</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Neurología · Completo</div><div class="card-name">Neurología — Recurso Completo</div><div class="card-desc">ACV, epilepsia, Parkinson, EM, cefaleas, meningitis</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="neuroanatomia_clinica_perlas.html" class="resource-card">
       <div class="card-color" style="background:#1a5a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5a6a">Neuroanatomía · Perlas</div><div class="card-name">Neuroanatomía Clínica — Perlas</div><div class="card-desc">Dermatomas, miotomas, vías sensitivo-motoras, pares craneales clínica, síndromes medulares</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a6a">Neuroanatomía · Perlas</div><div class="card-name">Neuroanatomía Clínica — Perlas</div><div class="card-desc">Dermatomas, miotomas, vías sensitivo-motoras, pares craneales, síndromes medulares</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="vias_sensitivas_ilustracion.html" class="resource-card">
       <div class="card-color" style="background:#2a5a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a5a6a">Neuroanatomía · Vías</div><div class="card-name">Vías Sensitivas — Ilustración</div><div class="card-desc">Vía lemniscal, espinotalamica, decusaciones, déficits por nivel lesional, Brown-Séquard</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a5a6a">Vías Sensitivas</div><div class="card-name">Vías Sensitivas — Ilustración</div><div class="card-desc">Vía lemniscal, espinotalámica, decusaciones, Brown-Séquard</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="alzheimer_infografia (1).html" class="resource-card">
       <div class="card-color" style="background:#1a6a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Neurología · Alzheimer</div><div class="card-name">Alzheimer — Infografía</div><div class="card-desc">Estadios, criterios diagnósticos, biomarcadores, tratamiento farmacológico y no farmacológico</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Neurología · Alzheimer</div><div class="card-name">Alzheimer — Infografía</div><div class="card-desc">Estadios, criterios diagnósticos, biomarcadores, tratamiento farmacológico</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="banderas_rojas_cefalea.html" class="resource-card">
       <div class="card-color" style="background:#8a1a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a1a1a">Neurología · Cefalea</div><div class="card-name">Banderas Rojas en Cefalea</div><div class="card-desc">Signos de alarma cefalea secundaria, criterios derivación urgente, migraña vs tensional vs en racimos</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a1a1a">Cefalea · Banderas Rojas</div><div class="card-name">Banderas Rojas en Cefalea</div><div class="card-desc">Signos alarma, criterios derivación urgente, migraña vs tensional vs en racimos</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── INMUNOLOGÍA · VACUNAS ── -->
-  <div class="section-title" id="inmunologia">🧬 Inmunología · Vacunas · Infectología</div>
+  <!-- ── INFECTOLOGÍA E INMUNOLOGÍA ── -->
+  <div class="section-title" id="infecto-inmuno">🧬 Infectología, Inmunología y Vacunas</div>
+  <div class="section-desc">Presente en ambos manuales Army Nursing · enfermedades transmisibles, cadena epidemiológica, vacunación</div>
   <div class="cards">
     <a href="inmunologia.html" class="resource-card">
       <div class="card-color" style="background:#2a6a4a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a6a4a">Inmunología</div><div class="card-name">Inmunología</div><div class="card-desc">Inmunidad innata y adaptativa, células inmunes, linfocitos T y B, hipersensibilidad tipos I-IV</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a6a4a">Inmunología</div><div class="card-name">Inmunología</div><div class="card-desc">Inmunidad innata/adaptativa, células inmunes, linfocitos T y B, hipersensibilidad I-IV</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="inmunologia-vacunas-hbv.html" class="resource-card">
       <div class="card-color" style="background:#2a6a4a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a6a4a">Vacunas · HBV</div><div class="card-name">Inmunología y Vacunas VHB</div><div class="card-desc">Tipos de vacunas, calendario vacunal, hepatitis B serología, pauta vacunación, accidente biológico</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a6a4a">Vacunas · VHB</div><div class="card-name">Inmunología y Vacunas VHB</div><div class="card-desc">Tipos vacunas, calendario vacunal, hepatitis B serología, pauta, accidente biológico</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="vacunas_tipos_calendario.html" class="resource-card">
       <div class="card-color" style="background:#1a6a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Vacunas · Calendario</div><div class="card-name">Vacunas — Tipos y Calendario</div><div class="card-desc">Clasificación por composición, calendario vacunal español vigente, vacunas del adulto y viajero</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a3a">Vacunas · Calendario</div><div class="card-name">Vacunas — Tipos y Calendario</div><div class="card-desc">Clasificación por composición, calendario vacunal español vigente, adulto y viajero</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="its_diagnostico_clasificacion.html" class="resource-card">
+      <div class="card-color" style="background:#2a6a4a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a6a4a">ITS · Infectología</div><div class="card-name">ITS — Diagnóstico y Clasificación</div><div class="card-desc">Sífilis, gonorrea, clamidiasis, VHS, VPH, tricomoniasis · diagnóstico, tratamiento</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="emergencias_respiratorias.html" class="resource-card">
+      <div class="card-color" style="background:#b5282a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#b5282a">Urgencias · Infecto-Respiratorio</div><div class="card-name">Emergencias Respiratorias</div><div class="card-desc">TEP masivo, neumotórax tensión, anafilaxia, epiglotitis · ABCDE · dosis pediátrica</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="art12_lo4_2000_extranjeria_sanidad.html" class="resource-card">
+      <div class="card-color" style="background:#8a1a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a1a1a">LO 4/2000 · Art. 12</div><div class="card-name">Extranjería y Sanidad</div><div class="card-desc">Acceso sanidad pública extranjeros, urgencias, menores, Ceuta y Melilla</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── ANATOMÍA ── -->
-  <div class="section-title" id="anatomia">🦷 Anatomía</div>
+  <!-- ── MUSCULOESQUELÉTICO ── -->
+  <div class="section-title" id="musculoesqueletico">🦴 Musculoesquelético y Traumatología</div>
   <div class="cards">
-    <a href="pares_craneales.html" class="resource-card">
-      <div class="card-color" style="background:#1a6a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Anatomía · Neurología</div><div class="card-name">Pares Craneales — Completo</div><div class="card-desc">Los 12 pares: función, tipo sensitivo/motor/mixto, síndromes, lesiones, prueba clínica por par</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="pares_craneales_v2.html" class="resource-card">
-      <div class="card-color" style="background:#1a5a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5a6a">Anatomía · Visual</div><div class="card-name">Pares Craneales — Visual SVG</div><div class="card-desc">SVG interactivo cara/tronco, campos visuales, Bell vs ACV, síndromes por piso del tronco</div></div>
+    <a href="traumatologia_musculoesqueletico.html" class="resource-card">
+      <div class="card-color" style="background:#5a7a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#5a7a1a">Traumatología</div><div class="card-name">Traumatología Musculoesquelética</div><div class="card-desc">Fracturas, consolidación, luxaciones, esguinces, compartimento, inmovilización</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="articulaciones.html" class="resource-card">
       <div class="card-color" style="background:#5a7a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#5a7a1a">Anatomía · Locomotor</div><div class="card-name">Articulaciones</div><div class="card-desc">Clasificación diartrosis/anfiartrosis/sinartrosis, movimientos, cartílago, líquido sinovial, patología</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#5a7a1a">Anatomía · Locomotor</div><div class="card-name">Articulaciones</div><div class="card-desc">Diartrosis/anfiartrosis/sinartrosis, movimientos, cartílago, líquido sinovial, patología</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="ataxia_tipos_infografia.html" class="resource-card">
+      <div class="card-color" style="background:#2a4a7a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a4a7a">Neurología · Ataxia</div><div class="card-name">Ataxia — Tipos e Infografía</div><div class="card-desc">Cerebelosa vs sensitiva vs vestibular, pruebas clínicas, causas, diagnóstico</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ── FARMACOLOGÍA ── -->
+  <div class="section-title" id="farmacologia">💉 Farmacología Clínica</div>
+  <div class="section-desc">⚠️ Hueco importante — fármacos de alto riesgo, interacciones, vías de administración entran en el test de 250 preguntas</div>
+  <div class="cards">
+    <a href="farmacologia_respiratoria.html" class="resource-card">
+      <div class="card-color" style="background:#1a4a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a8a">Farmacología · Respiratorio</div><div class="card-name">Farmacología Respiratoria</div><div class="card-desc">SABA/LABA/SAMA/LAMA · CI/CS · teofilina · montelukast · mecanismos</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="farmacos_alto_riesgo.html" class="resource-card card-new">
+      <div class="card-color" style="background:#c47a10"></div>
+      <div class="card-body"><div class="card-tag" style="color:#c47a10">ISMP · Alto Riesgo</div><div class="card-name">Fármacos de Alto Riesgo e Interacciones</div><div class="card-desc">Insulinas, heparina, KCl iv, opioides, anticoagulantes · antídotos · regla 5 correctos · vías administración · interacciones graves</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       BLOQUE III — ESPECIALIDADES
+  ══════════════════════════════════════ -->
+
+  <!-- ── MATERNO-INFANTIL ── -->
+  <div class="section-title" id="materno-infantil">👶 Materno-Infantil, Obstetricia y Pediatría</div>
+  <div class="cards">
+    <a href="gestacion_parto.html" class="resource-card">
+      <div class="card-color" style="background:#9a3a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#9a3a6a">Obstetricia · Parto</div><div class="card-name">Gestación y Parto</div><div class="card-desc">Control prenatal, periodos parto, maniobras, monitorización fetal, Apgar</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="emergencias_intraparto.html" class="resource-card">
+      <div class="card-color" style="background:#8a1a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#8a1a3a">Obstetricia · Urgencias</div><div class="card-name">Emergencias Intraparto</div><div class="card-desc">Distocia hombros, procidencia cordón, hemorragia postparto, eclampsia</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="patologia_obstetrica_profilaxis.html" class="resource-card">
+      <div class="card-color" style="background:#7a1a4a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#7a1a4a">Obstetricia · Patología</div><div class="card-name">Patología Obstétrica y Profilaxis</div><div class="card-desc">Preeclampsia, DG, aborto, tromboprofilaxis, Rh, TORCH</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="ciclo_ovarico_endometrial.html" class="resource-card">
+      <div class="card-color" style="background:#9a1a5a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#9a1a5a">Ginecología · Ciclo</div><div class="card-name">Ciclo Ovárico y Endometrial</div><div class="card-desc">Fases folicular/ovulatoria/lútea, hormonas FSH/LH/E2/P4, temperatura basal</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="lactancia_anticoncepcion.html" class="resource-card">
+      <div class="card-color" style="background:#7a3a5a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#7a3a5a">Lactancia · Anticoncepción</div><div class="card-name">Lactancia y Anticoncepción</div><div class="card-desc">Tipos lactancia, ventajas, contraindicaciones, métodos anticonceptivos, índice Pearl</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="vacunas_embarazo.html" class="resource-card">
+      <div class="card-color" style="background:#6a4a7a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a4a7a">Vacunas · Embarazo</div><div class="card-name">Vacunas en el Embarazo</div><div class="card-desc">Calendario vacunal gestacional, contraindicaciones, dTpa, gripe, COVID — por trimestre</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="denticion.html" class="resource-card">
       <div class="card-color" style="background:#7a5000"></div>
-      <div class="card-body"><div class="card-tag" style="color:#7a5000">Anatomía · Dentición</div><div class="card-name">Dentición — Temporal y Permanente</div><div class="card-desc">Notación FDI, arcadas interactivas con tooltips, cronología erupción/caída, fórmulas dentales</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
-
-  <!-- ── METODOLOGÍA ── -->
-  <div class="section-title" id="metodologia">🔬 Metodología · EBE · Investigación</div>
-  <div class="cards">
-    <a href="metodologia_investigacion.html" class="resource-card">
-      <div class="card-color" style="background:#4a1a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#4a1a6a">EBE · Diseños</div><div class="card-name">Metodología de la Investigación</div><div class="card-desc">Pirámide de evidencia · diseños observacionales · muestreo · variables · escalas · errores</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="revision_sistematica.html" class="resource-card">
-      <div class="card-color" style="background:#1a5a3a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5a3a">EBE · RS · PRISMA</div><div class="card-name">Revisión Sistemática — Guía Completa</div><div class="card-desc">11 pasos · PICO · PRISMA 4 fases · GRADE · checklists por fase · consejos TFM</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="metodo_cientifico_estadistica.html" class="resource-card">
-      <div class="card-color" style="background:#1a4a6e"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a4a6e">Estadística · Ética</div><div class="card-name">Método Científico · Estadística · Ética</div><div class="card-desc">6 fases método · protocolo · principialismo · descriptiva · inferencial · IC · p-valor · errores α/β</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
-
-  <!-- ── TEORÍA ENFERMERA ── -->
-  <div class="section-title" id="teoria">🟣 Teoría enfermera</div>
-  <div class="cards">
-    <a href="peplau_relaciones_interpersonales.html" class="resource-card">
-      <div class="card-color" style="background:#5a2a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#5a2a8a">Teoría · Peplau</div><div class="card-name">Modelo de Relaciones Interpersonales</div><div class="card-desc">4 fases O·I·E·R, 6 roles E·R·D·L·C·S, enfermería psiquiátrica</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="modelos_teorias_enfermeria.html" class="resource-card">
-      <div class="card-color" style="background:#5a4a30"></div>
-      <div class="card-body"><div class="card-tag" style="color:#5a4a30">Teoría · Kérouac · Marriner</div><div class="card-name">Modelos y Teorías de Enfermería</div><div class="card-desc">Metaparadigma 4 elementos, 3 paradigmas Kérouac, 6 escuelas, 13 autoras con palabra clave</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="piaget_desarrollo_cognitivo.html" class="resource-card">
-      <div class="card-color" style="background:#4a3a20"></div>
-      <div class="card-body"><div class="card-tag" style="color:#4a3a20">Psicología · Piaget</div><div class="card-name">Piaget — Desarrollo Cognitivo</div><div class="card-desc">4 estadios S·P·O·F, adquisiciones por etapa, conservación, egocentrismo, aplicación clínica</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
-
-  <!-- ── REUMATOLOGÍA / CLIMATERIO ── -->
-  <div class="section-title" id="reumatologia">🦴 Reumatología y Climaterio</div>
-  <div class="cards">
-    <a href="osteoporosis-climaterio.html" class="resource-card">
-      <div class="card-color" style="background:#7a1a5a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#7a1a5a">Reumatología · Climaterio</div><div class="card-name">Osteoporosis y Climaterio</div><div class="card-desc">Criterios OMS T-score, factores riesgo, bifosfonatos, THS, menopausia, síntomas vasomotores</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-  </div>
-
-  <!-- ── ONCOLOGÍA ── -->
-  <div class="section-title" id="oncologia-tumores">🎗️ Oncología clínica</div>
-  <div class="cards">
-    <a href="oncologia_tumores_enfermeria.html" class="resource-card">
-      <div class="card-color" style="background:#9a1a40"></div>
-      <div class="card-body"><div class="card-tag" style="color:#9a1a40">Oncología · Tumores</div><div class="card-name">Oncología Tumores — Enfermería</div><div class="card-desc">Tipos tumorales, estadificación TNM, síntomas de alarma, toxicidades tratamiento, cuidados enfermería</div></div>
-      <div class="card-footer">Abrir recurso</div>
-    </a>
-    <a href="oncologia_screening_toxicidad.html" class="resource-card">
-      <div class="card-color" style="background:#8a1a30"></div>
-      <div class="card-body"><div class="card-tag" style="color:#8a1a30">Oncología · Cribado</div><div class="card-name">Oncología — Screening y Toxicidad</div><div class="card-desc">Cribados SNS 2024, escalas ECOG/Karnofsky, toxicidad quimioterapia por órgano, extravasación</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#7a5000">Pediatría · Dentición</div><div class="card-name">Dentición — Temporal y Permanente</div><div class="card-desc">Notación FDI, arcadas interactivas, cronología erupción/caída, fórmulas dentales</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
   <!-- ── SALUD MENTAL ── -->
   <div class="section-title" id="salud-mental">🧩 Salud Mental</div>
+  <div class="section-desc">⚠️ Hueco importante — psicofármacos, trastornos DSM-5, crisis psiquiátricas son frecuentes en los 250 test</div>
   <div class="cards">
     <a href="tca_trastornos_conducta_alimentaria.html" class="resource-card">
       <div class="card-color" style="background:#3a3a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#3a3a8a">Salud Mental · TCA</div><div class="card-name">TCA — Trastornos de Conducta Alimentaria</div><div class="card-desc">DSM-5 criterios AN/BN/TCAP, epidemiología, criterios hospitalización, NANDA-NOC-NIC, farmacología</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#3a3a8a">Salud Mental · TCA · DSM-5</div><div class="card-name">TCA — Trastornos de Conducta Alimentaria</div><div class="card-desc">DSM-5 AN/BN/TCAP, criterios hospitalización, NANDA-NOC-NIC, farmacología</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="psicofarmacologia_salud_mental.html" class="resource-card card-new">
+      <div class="card-color" style="background:#3a3a8a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#3a3a8a">DSM-5 · Psicofármacos</div><div class="card-name">Psicofarmacología y Trastornos Mentales</div><div class="card-desc">Antipsicóticos típicos/atípicos, antidepresivos ISRS/ADT/IMAO, ansiolíticos BZD, estabilizadores litio/valproato · esquizofrenia, TAB, depresión, ansiedad · conducta suicida · SNM</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── PEDIATRÍA ── -->
-  <div class="section-title" id="pediatria">👶 Pediatría y Desarrollo</div>
+  <!-- ── GERIATRÍA ── -->
+  <div class="section-title" id="geriatria">🧓 Geriatría y Paciente Crónico Complejo</div>
+  <div class="section-desc">⚠️ Hueco importante — síndromes geriátricos, escalas, delirium, úlceras por presión entran frecuentemente</div>
   <div class="cards">
-    <a href="tipos_memoria.html" class="resource-card">
-      <div class="card-color" style="background:#4a6a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#4a6a8a">Psicología · Memoria</div><div class="card-name">Tipos de Memoria</div><div class="card-desc">Memoria declarativa/no declarativa, a corto/largo plazo, codificación, consolidación, patología</div></div>
+    <a href="geriatria_gineco_criticos_perlas.html" class="resource-card">
+      <div class="card-color" style="background:#6a5a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a5a1a">Geriatría · Perlas OPE</div><div class="card-name">Geriatría, Ginecología y Críticos — Perlas</div><div class="card-desc">Síndromes geriátricos, escalas valoración, perlas tipo OPE ginecología y crítico</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
-    <a href="ataxia_tipos_infografia.html" class="resource-card">
-      <div class="card-color" style="background:#2a4a7a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#2a4a7a">Neurología · Ataxia</div><div class="card-name">Ataxia — Tipos e Infografía</div><div class="card-desc">Ataxia cerebelosa vs sensitiva vs vestibular, pruebas clínicas, causas más frecuentes, diagnóstico</div></div>
+    <a href="sindromes_geriatricos_upp.html" class="resource-card card-new">
+      <div class="card-color" style="background:#6a5a1a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#6a5a1a">EPUAP 2019 · EWGSOP2 · Beers</div><div class="card-name">Síndromes Geriátricos y Úlceras por Presión</div><div class="card-desc">Delirium (CAM, tipos), caídas (Morse, Tinetti), sarcopenia EWGSOP2, fragilidad Fried, UPP categorías I-IV, escalas Braden/Norton, polifarmacia criterios Beers 2023</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── TRAUMATOLOGÍA MUSCULOESQUELÉTICA ── -->
-  <div class="section-title" id="traumatologia">🦴 Traumatología</div>
+  <!-- ══════════════════════════════════════
+       BLOQUE IV — ANATOMÍA Y FISIOPATOLOGÍA
+  ══════════════════════════════════════ -->
+
+  <!-- ── ANATOMÍA ── -->
+  <div class="section-title" id="anatomia">🦷 Anatomía</div>
   <div class="cards">
-    <a href="traumatologia_musculoesqueletico.html" class="resource-card">
-      <div class="card-color" style="background:#5a7a1a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#5a7a1a">Traumatología</div><div class="card-name">Traumatología Musculoesquelética</div><div class="card-desc">Fracturas (clasificación, consolidación), luxaciones, esguinces, compartimento, inmovilización</div></div>
+    <a href="pares_craneales.html" class="resource-card">
+      <div class="card-color" style="background:#1a6a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a6a6a">Anatomía · Pares Craneales</div><div class="card-name">Pares Craneales — Completo</div><div class="card-desc">12 pares: función, tipo S/M/mixto, síndromes, lesiones, prueba clínica por par</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="pares_craneales_v2.html" class="resource-card">
+      <div class="card-color" style="background:#1a5a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a6a">Anatomía · Visual SVG</div><div class="card-name">Pares Craneales — Visual SVG</div><div class="card-desc">SVG interactivo cara/tronco, campos visuales, Bell vs ACV, síndromes piso tronco</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="denticion.html" class="resource-card">
+      <div class="card-color" style="background:#7a5000"></div>
+      <div class="card-body"><div class="card-tag" style="color:#7a5000">Anatomía · Dentición</div><div class="card-name">Dentición — Temporal y Permanente</div><div class="card-desc">Notación FDI, arcadas interactivas, cronología erupción/caída</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="vias_sensitivas_ilustracion.html" class="resource-card">
+      <div class="card-color" style="background:#2a5a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#2a5a6a">Anatomía · Vías Sensitivas</div><div class="card-name">Vías Sensitivas — Ilustración</div><div class="card-desc">Vía lemniscal, espinotalámica, decusaciones, déficits por nivel lesional</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
   <!-- ── FISIOPATOLOGÍA ── -->
-  <div class="section-title" id="fisiopatologia">⚗️ Fisiopatología clínica</div>
+  <div class="section-title" id="fisiopatologia">⚗️ Fisiopatología Clínica</div>
   <div class="cards">
     <a href="electrolit-fisiologia_1.html" class="resource-card card-new">
       <div class="card-color" style="background:#1a5fa8"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5fa8">Electrolitos · Ácido-Base</div><div class="card-name">Hidroelectrolítico — Fisiopatología Clínica</div><div class="card-desc">Na · K · Ca · Mg · equilibrio ácido-base · gases arteriales · algoritmos diagnósticos interactivos por ion</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5fa8">Electrolitos · Ácido-Base</div><div class="card-name">Hidroelectrolítico — Fisiopatología Clínica</div><div class="card-desc">Na · K · Ca · Mg · equilibrio ácido-base · gases arteriales · algoritmos interactivos</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>
 
-  <!-- ── TESTS TIPO OPE ── -->
-  <div class="section-title" id="tests">📝 Tests tipo OPE · Simulacros</div>
+  <!-- ══════════════════════════════════════
+       BLOQUE V — EBE E INVESTIGACIÓN
+  ══════════════════════════════════════ -->
+
+  <!-- ── METODOLOGÍA E INVESTIGACIÓN ── -->
+  <div class="section-title" id="metodologia-investigacion">🔬 Metodología e Investigación (EBE)</div>
+  <div class="cards">
+    <a href="metodologia_investigacion.html" class="resource-card">
+      <div class="card-color" style="background:#4a1a6a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#4a1a6a">EBE · Diseños</div><div class="card-name">Metodología de la Investigación</div><div class="card-desc">Pirámide evidencia, diseños observacionales, muestreo, variables, escalas, errores</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="revision_sistematica.html" class="resource-card">
+      <div class="card-color" style="background:#1a5a3a"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a3a">EBE · RS · PRISMA</div><div class="card-name">Revisión Sistemática — Guía Completa</div><div class="card-desc">11 pasos · PICO · PRISMA 4 fases · GRADE · checklists por fase</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+    <a href="metodo_cientifico_estadistica.html" class="resource-card">
+      <div class="card-color" style="background:#1a4a6e"></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a4a6e">Estadística · Ética Investigación</div><div class="card-name">Método Científico · Estadística · Ética</div><div class="card-desc">6 fases, principialismo, descriptiva, inferencial, IC, p-valor, errores α/β</div></div>
+      <div class="card-footer">Abrir recurso</div>
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TESTS TIPO OPE
+  ══════════════════════════════════════ -->
+
+  <div class="section-title" id="tests">📝 Tests INGESA tipo OPE · Simulacros</div>
+  <div class="section-desc">Exámenes oficiales auditados con corrección inmediata y explicaciones — útiles para calibrar el nivel del examen de enfermería militar</div>
   <div class="cards">
     <a href="test_ingesa_2019.html" class="resource-card">
       <div class="card-color" style="background:#1a8a6a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a8a6a">Test OPE · 2019</div><div class="card-name">Test INGESA 2019</div><div class="card-desc">Examen oficial 2019 con respuestas auditadas · 75 preguntas · corrección inmediata · explicaciones</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a8a6a">Test OPE · INGESA 2019</div><div class="card-name">Test INGESA 2019</div><div class="card-desc">Examen oficial 2019 auditado · 75 preguntas · corrección inmediata · explicaciones</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="test_ingesa_2021.html" class="resource-card">
       <div class="card-color" style="background:#1a5a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">Test OPE · 2021</div><div class="card-name">Test INGESA 2021</div><div class="card-desc">Examen oficial 2021 con respuestas auditadas · 75 preguntas · corrección inmediata · explicaciones</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#1a5a8a">Test OPE · INGESA 2021</div><div class="card-name">Test INGESA 2021</div><div class="card-desc">Examen oficial 2021 auditado · 75 preguntas · corrección inmediata · explicaciones</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
     <a href="test_ingesa_2024.html" class="resource-card">
       <div class="card-color" style="background:#5a1a8a"></div>
-      <div class="card-body"><div class="card-tag" style="color:#5a1a8a">Test OPE · 2024</div><div class="card-name">Test INGESA 2024</div><div class="card-desc">Examen oficial 2024 con respuestas auditadas · 75 preguntas · corrección inmediata · explicaciones</div></div>
+      <div class="card-body"><div class="card-tag" style="color:#5a1a8a">Test OPE · INGESA 2024</div><div class="card-name">Test INGESA 2024</div><div class="card-desc">Examen oficial 2024 auditado · 75 preguntas · corrección inmediata · explicaciones</div></div>
       <div class="card-footer">Abrir recurso</div>
     </a>
   </div>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Síndromes Geriátricos y Úlceras por Presión — Geriatría Enfermería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0;--surface:#ffffff;--border:#ddd8c8;--text:#1a1510;--muted:#7a6f5a;
+  --ac:#6a5a1a;--ac2:#9a8a2a;--ac-bg:#fdf8e8;--ac-light:#e8d888;
+  --danger:#c02030;--danger-bg:#fdf0f0;
+  --ok:#1a7a3a;--ok-bg:#f0faf0;
+  --warn:#c07010;--warn-bg:#fff8ec;
+  --info:#1a5a8a;--info-bg:#f0f6fc;
+  --warm:#eeeae0;
+  --cat1:#c02030;--cat2:#c07010;--cat3:#1a7a3a;--cat4:#1a5a8a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+.header{background:#1a1508;color:white;padding:2rem 2.5rem 1.8rem;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(60deg,transparent,transparent 40px,rgba(168,148,40,0.05) 40px,rgba(168,148,40,0.05) 41px);}
+.header-inner{position:relative;max-width:1000px;margin:0 auto;}
+.header-tag{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ac-light);margin-bottom:0.7rem;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:0.5rem;}
+.header h1 span{color:#d4c060;}
+.header-sub{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:rgba(255,255,255,0.5);letter-spacing:0.1em;margin-bottom:1rem;}
+.pills{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.pill{font-family:'JetBrains Mono',monospace;font-size:0.57rem;padding:0.2rem 0.7rem;border-radius:20px;border:1px solid rgba(212,192,96,0.4);color:rgba(230,210,130,0.9);background:rgba(168,148,40,0.1);}
+
+main{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 4rem;}
+
+.sh{display:flex;align-items:stretch;gap:0;margin:2rem 0 1rem;border-radius:6px;overflow:hidden;}
+.sb{width:5px;background:var(--ac);flex-shrink:0;}
+.sh>div{background:var(--ac-bg);padding:0.7rem 1rem;flex:1;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--ac);font-weight:600;}
+.st{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);}
+
+.cards-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+.cards-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.2rem;}
+@media(max-width:680px){.cards-2,.cards-3{grid-template-columns:1fr;}}
+@media(max-width:800px) and (min-width:681px){.cards-3{grid-template-columns:1fr 1fr;}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.card-header{padding:0.6rem 0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.card-body{padding:0.7rem 0.9rem;}
+.card-body ul{padding-left:1rem;}
+.card-body li{font-size:0.78rem;line-height:1.5;margin-bottom:0.12rem;}
+.card-body li span{color:var(--danger);font-weight:600;}
+.c-name{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;}
+.c-tag{font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.1em;color:white;padding:0.1rem 0.4rem;border-radius:2px;}
+
+.drug-table{width:100%;border-collapse:collapse;margin-bottom:1.2rem;font-size:0.78rem;}
+.drug-table th{background:#1a1508;color:white;font-family:'JetBrains Mono',monospace;font-size:0.53rem;text-transform:uppercase;letter-spacing:0.1em;padding:0.45rem 0.6rem;text-align:left;}
+.drug-table td{padding:0.45rem 0.6rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4;}
+.drug-table tr:nth-child(even){background:#f7f5f0;}
+.drug-table tr:hover{background:var(--ac-bg);}
+.drug-name{font-weight:700;color:#1a1508;}
+.b-tag{font-family:'JetBrains Mono',monospace;font-size:0.58rem;border-radius:3px;padding:0.1rem 0.4rem;border:1px solid;}
+.b-danger{background:var(--danger-bg);color:var(--danger);border-color:#d08080;}
+.b-warn{background:var(--warn-bg);color:var(--warn);border-color:#d0a060;}
+.b-ok{background:var(--ok-bg);color:var(--ok);border-color:#80c080;}
+.b-info{background:var(--info-bg);color:var(--info);border-color:#90b0d0;}
+.b-ac{background:var(--ac-bg);color:var(--ac);border-color:var(--ac-light);}
+
+/* UPP CATEGORÍAS */
+.upp-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:0.7rem;margin-bottom:1.2rem;}
+@media(max-width:680px){.upp-cats{grid-template-columns:1fr 1fr;}}
+.upp-cat{border-radius:8px;overflow:hidden;border:2px solid;}
+.upp-cat-header{padding:0.5rem 0.8rem;color:white;text-align:center;}
+.upp-cat-body{padding:0.7rem 0.8rem;}
+.upp-cat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;line-height:1;}
+.upp-cat-label{font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.12em;margin-top:0.1rem;}
+.upp-cat-body p{font-size:0.72rem;line-height:1.4;color:var(--text);}
+.upp-cat-body strong{display:block;font-size:0.68rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;}
+
+/* ESCALA NORTON / BRADEN */
+.escala-norton{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1rem;font-size:0.72rem;}
+.en-header{background:#1a1508;color:white;padding:0.4rem 0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.5rem;text-transform:uppercase;letter-spacing:0.08em;text-align:center;border-right:1px solid rgba(255,255,255,0.15);}
+.en-header:last-child{border-right:none;}
+.en-cell{padding:0.4rem 0.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;line-height:1.3;}
+.en-cell:last-child{border-right:none;}
+.en-row:nth-child(even) .en-cell{background:#f7f5f0;}
+
+/* 5M */
+.cinco-m{display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;margin-bottom:1.2rem;}
+@media(max-width:680px){.cinco-m{grid-template-columns:1fr;}}
+@media(max-width:800px) and (min-width:681px){.cinco-m{grid-template-columns:1fr 1fr;}}
+.m-card{background:var(--surface);border:2px solid var(--ac-light);border-radius:8px;padding:0.8rem 0.7rem;text-align:center;}
+.m-letter{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--ac);line-height:1;}
+.m-word{font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ac2);margin-top:0.15rem;}
+.m-desc{font-size:0.72rem;color:var(--muted);margin-top:0.3rem;line-height:1.3;}
+
+/* DELIRIUM */
+.delirium-table{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.2rem;}
+@media(max-width:680px){.delirium-table{grid-template-columns:1fr;}}
+.d-col-header{background:#1a1508;color:white;padding:0.5rem 0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.1em;border-right:1px solid rgba(255,255,255,0.1);}
+.d-col{padding:0.7rem 0.9rem;border-right:1px solid var(--border);}
+.d-col:last-child{border-right:none;}
+.d-col ul{padding-left:0.9rem;}
+.d-col li{font-size:0.76rem;line-height:1.5;margin-bottom:0.15rem;}
+
+/* ALERT */
+.alert{border-radius:8px;padding:0.9rem 1.1rem;margin-bottom:1rem;display:flex;gap:0.8rem;align-items:flex-start;}
+.alert-icon{font-size:1.3rem;flex-shrink:0;}
+.alert-body h3{font-family:'JetBrains Mono',monospace;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.3rem;}
+.alert-body p,.alert-body li{font-size:0.79rem;line-height:1.5;}
+.alert-body ul{padding-left:1rem;margin-top:0.2rem;}
+.alert-danger{background:var(--danger-bg);border:1px solid #d08080;}
+.alert-danger h3{color:var(--danger);}
+.alert-warn{background:var(--warn-bg);border:1px solid #d0a060;}
+.alert-warn h3{color:var(--warn);}
+.alert-ok{background:var(--ok-bg);border:1px solid #80c080;}
+.alert-ok h3{color:var(--ok);}
+.alert-info{background:var(--info-bg);border:1px solid #90b0d0;}
+.alert-info h3{color:var(--info);}
+
+/* PERLAS */
+.perlas{background:#fffce6;border:1px solid #e0c020;border-radius:10px;overflow:hidden;margin-top:2rem;}
+.perlas-header{background:#c09010;color:white;padding:0.7rem 1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.2em;}
+.perlas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:600px){.perlas-grid{grid-template-columns:1fr;}}
+.perla{padding:0.8rem 1.1rem;border-bottom:1px solid #e8d870;font-size:0.79rem;line-height:1.5;}
+.perla:nth-child(odd){border-right:1px solid #e8d870;}
+.perla strong{color:#2a1800;}
+
+/* GLOSARIO */
+.glosario{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.6rem;margin-top:1rem;}
+.glosa{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.7rem;}
+.glosa dt{font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:0.08em;}
+.glosa dd{font-size:0.73rem;color:var(--muted);margin-top:0.1rem;line-height:1.4;}
+
+@media(max-width:800px){main{padding:1rem 1rem 3rem;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">Cápsulas de Repaso · Geriatría Clínica</div>
+    <h1>Síndromes Geriátricos y <span>Úlceras por Presión</span></h1>
+    <div class="header-sub">Delirium · Caídas · Sarcopenia · UPP EPUAP 2019 · Escalas Braden y Norton · Polifarmacia</div>
+    <div class="pills">
+      <span class="pill">EWGSOP2 Sarcopenia 2019</span>
+      <span class="pill">EPUAP/NPUAP/PPPIA 2019</span>
+      <span class="pill">5M Geriatría</span>
+      <span class="pill">Criterios Beers 2023</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════ 01. 5M GERIATRÍA ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">01 · Marco Conceptual</span>
+  <div class="st">Las 5M de la Geriatría — Framework de Atención Integral</div>
+</div></div>
+
+<div class="cinco-m">
+  <div class="m-card"><div class="m-letter">M</div><div class="m-word">Mind</div><div class="m-desc">Demencia, delirium, depresión, deterioro cognitivo</div></div>
+  <div class="m-card"><div class="m-letter">M</div><div class="m-word">Mobility</div><div class="m-desc">Caídas, sarcopenia, marcha, encamamiento, UPP</div></div>
+  <div class="m-card"><div class="m-letter">M</div><div class="m-word">Medications</div><div class="m-desc">Polifarmacia, medicación inapropiada, criterios Beers</div></div>
+  <div class="m-card"><div class="m-letter">M</div><div class="m-word">Multicomplexity</div><div class="m-desc">Multimorbilidad, fragilidad, síndromes geriátricos</div></div>
+  <div class="m-card"><div class="m-letter">M</div><div class="m-word">Matters most</div><div class="m-desc">Preferencias del paciente, objetivos, calidad de vida, cuidados paliativos</div></div>
+</div>
+
+<!-- ══════════════ 02. DELIRIUM ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">02 · Delirium</span>
+  <div class="st">Diagnóstico Diferencial, Factores de Riesgo y Manejo Enfermero</div>
+</div></div>
+
+<div class="alert alert-danger">
+  <div class="alert-icon">⚡</div>
+  <div class="alert-body">
+    <h3>Delirium — Definición DSM-5</h3>
+    <p>Trastorno de la <strong>atención y la conciencia</strong> que se desarrolla en un período de tiempo <strong>corto</strong> (horas-días), con tendencia a la <strong>fluctuación</strong> a lo largo del día, causado por una condición médica subyacente. Es una <strong>emergencia médica</strong>: asociado a mayor mortalidad, institucionalización y deterioro funcional. Prevalencia en hospitalizados: 14–56%.</p>
+  </div>
+</div>
+
+<div class="delirium-table">
+  <div>
+    <div class="d-col-header" style="background:#c02030;">⚡ Delirium Hiperactivo (25%)</div>
+    <div class="d-col">
+      <ul>
+        <li>Agitación psicomotriz</li>
+        <li>Alucinaciones (visuales &gt; auditivas)</li>
+        <li>Ideas delirantes</li>
+        <li>Intentos de quitarse vías/sonda</li>
+        <li>Fácil de detectar</li>
+        <li>Mejor pronóstico relativo</li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <div class="d-col-header" style="background:#6a5a1a;">😶 Delirium Hipoactivo (50%)</div>
+    <div class="d-col">
+      <ul>
+        <li>Somnolencia, letargia</li>
+        <li>Reducción actividad motora</li>
+        <li>Menos llamativo — más infradiagnosticado</li>
+        <li>Peor pronóstico (mayor mortalidad)</li>
+        <li>Confundible con depresión o demencia</li>
+        <li>Frecuente en ancianos posquirúrgicos</li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <div class="d-col-header" style="background:#1a5a8a;">🔄 Delirium Mixto (25%)</div>
+    <div class="d-col">
+      <ul>
+        <li>Alternancia hiper/hipoactividad</li>
+        <li>Fluctuación característica</li>
+        <li>Más frecuente que formas puras</li>
+        <li>Peor para el cuidador</li>
+        <li>Evaluación repetida a lo largo del día</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cards-2">
+  <div class="card">
+    <div class="card-header" style="background:#fdf8e8;">
+      <span style="font-size:1.2rem;">🔍</span>
+      <div><div class="c-tag" style="background:#6a5a1a;">DIAGNÓSTICO</div><div class="c-name">Herramientas de cribado</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>CAM (Confusion Assessment Method):</strong> Gold standard enfermería. 4 criterios: (1) inicio agudo y fluctuante, (2) inatención, (3) pensamiento desorganizado, (4) alteración nivel conciencia. Diagnóstico: 1+2+(3 o 4)</li>
+        <li><strong>CAM-ICU:</strong> Para pacientes intubados/con ventilación mecánica</li>
+        <li><strong>Escala NEECHAM:</strong> Observación del comportamiento en enfermería</li>
+        <li><strong>4AT:</strong> Rápida, no requiere formación especializada</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" style="background:#fdf0f0;">
+      <span style="font-size:1.2rem;">⚠️</span>
+      <div><div class="c-tag" style="background:#c02030;">FACTORES RIESGO</div><div class="c-name">Precipitantes y predisponentes</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Predisponentes (baseline):</strong> Edad &gt;65 años, demencia, deterioro funcional, deshidratación crónica, déficit sensorial</li>
+        <li><strong>Precipitantes agudos (PINCH ME):</strong> Pain (dolor), Infección, Nutrición, Constipación, Hipoxia, Medicamentos, Environment (entorno), Sueño</li>
+        <li><strong>Fármacos precipitantes:</strong> Anticolinérgicos, BZD, opioides, corticoides, polimedicación</li>
+        <li><strong>Postquirúrgico:</strong> Mayor riesgo: cirugía cardíaca, fractura de cadera</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-info">
+  <div class="alert-icon">🛡️</div>
+  <div class="alert-body">
+    <h3>Manejo no farmacológico del delirium — Intervenciones HELP (Hospital Elder Life Program)</h3>
+    <ul>
+      <li><strong>Orientación:</strong> Reloj grande visible, calendario, iluminación natural, nombrar la fecha</li>
+      <li><strong>Sueño:</strong> Evitar procedimientos nocturnos, reducir ruido, no sedantes</li>
+      <li><strong>Movilización precoz:</strong> Levantarse a las 24 h si posible, fisioterapia</li>
+      <li><strong>Hidratación y nutrición:</strong> Control estricto de ingesta, posición adecuada</li>
+      <li><strong>Corrección déficits sensoriales:</strong> Gafas y audífonos disponibles</li>
+      <li><strong>Farmacológico si necesario:</strong> Haloperidol 0,5–1 mg (dosis bajas) · NO BZD (empeoran delirium salvo abstinencia alcohólica)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Delirium vs Demencia -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">02b · Diagnóstico Diferencial</span>
+  <div class="st">Delirium vs Demencia vs Depresión — Los 3 "D"</div>
+</div></div>
+
+<table class="drug-table">
+  <thead>
+    <tr><th>Característica</th><th>Delirium</th><th>Demencia</th><th>Depresión</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Inicio</strong></td><td>Agudo (horas-días)</td><td>Insidioso (meses-años)</td><td>Subagudo (semanas)</td></tr>
+    <tr><td><strong>Curso</strong></td><td>Fluctuante (empeora noche)</td><td>Progresivo, estable</td><td>Persistente, constante</td></tr>
+    <tr><td><strong>Conciencia</strong></td><td>Alterada (↓ nivel)</td><td>Normal hasta fases avanzadas</td><td>Normal</td></tr>
+    <tr><td><strong>Atención</strong></td><td><span class="b-danger">Muy alterada</span></td><td>Alterada en fases avanzadas</td><td>Concentración ↓</td></tr>
+    <tr><td><strong>Causa orgánica</strong></td><td><span class="b-danger">Siempre buscar</span></td><td>No necesariamente</td><td>Factores precipitantes</td></tr>
+    <tr><td><strong>Reversible</strong></td><td>Sí, si se trata causa</td><td>Generalmente no</td><td>Sí, con tratamiento</td></tr>
+    <tr><td><strong>Psicomotricidad</strong></td><td>Variable (hiper/hipo)</td><td>Apraxia, rigidez tardía</td><td>Enlentecimiento</td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════ 03. CAÍDAS ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">03 · Síndrome de Caídas</span>
+  <div class="st">Factores de Riesgo, Evaluación y Prevención</div>
+</div></div>
+
+<div class="cards-2">
+  <div class="card">
+    <div class="card-header" style="background:#fdf8e8;">
+      <span style="font-size:1.2rem;">🦶</span>
+      <div><div class="c-tag" style="background:#6a5a1a;">EVALUACIÓN CAÍDAS</div><div class="c-name">Escalas validadas</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Escala de Morse (Morse Fall Scale):</strong> 6 ítems. Puntuación 0–125. <span style="color:var(--danger);">≥45: alto riesgo</span></li>
+        <li>Ítems: historia de caídas, diagnóstico secundario, ayuda para deambular, terapia iv/heparina, marcha, estado mental</li>
+        <li><strong>Escala Downton:</strong> Factores de riesgo intrínseco y extrínseco</li>
+        <li><strong>Test "Timed Up and Go" (TUG):</strong> &gt;20 seg = alto riesgo caída. Levantarse de silla, caminar 3 m, volver, sentarse</li>
+        <li><strong>Test de Tinetti:</strong> Equilibrio (16 pts) + marcha (12 pts). &lt;19 pts = riesgo caída</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" style="background:#f0faf0;">
+      <span style="font-size:1.2rem;">🛡️</span>
+      <div><div class="c-tag" style="background:#1a7a3a;">PREVENCIÓN</div><div class="c-name">Intervenciones enfermeras</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li>Identificación visual (pulsera, señal en habitación)</li>
+        <li>Cama en posición baja · frenos bloqueados</li>
+        <li>Iluminación nocturna · suelo antideslizante</li>
+        <li>Calzado cerrado y antideslizante</li>
+        <li>Barandillas laterales disponibles (no siempre indicado poner las 2 laterales = sujeción)</li>
+        <li>Timbre al alcance · objetos personales accesibles</li>
+        <li>Revisar polifarmacia: suspender hipnóticos, diuréticos nocturnos, antihipertensivos</li>
+        <li>Fisioterapia: ejercicio equilibrio (Tai Chi evidencia en prevención)</li>
+        <li>Vitamina D si déficit (↑ fuerza muscular)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 04. SARCOPENIA EWGSOP2 ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">04 · Sarcopenia</span>
+  <div class="st">Criterios EWGSOP2 2019 — Diagnóstico y Tratamiento</div>
+</div></div>
+
+<div class="alert alert-warn">
+  <div class="alert-icon">💪</div>
+  <div class="alert-body">
+    <h3>Sarcopenia — Definición EWGSOP2 (European Working Group on Sarcopenia in Older People)</h3>
+    <p>Enfermedad muscular caracterizada por <strong>pérdida de masa muscular + pérdida de fuerza o rendimiento físico</strong>. No es solo consecuencia del envejecimiento normal. Asociada a caídas, fracturas, discapacidad y mortalidad. Prevalencia: 5–13% en 60–70 años; 11–50% en &gt;80 años.</p>
+  </div>
+</div>
+
+<table class="drug-table">
+  <thead>
+    <tr><th>Criterio EWGSOP2</th><th>Herramienta</th><th>Punto de corte</th><th>Significado</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="drug-name">Cribado</span></td>
+      <td>SARC-F (cuestionario 5 ítems)</td>
+      <td><span class="b-danger">≥4 puntos</span></td>
+      <td>Probable sarcopenia → completar evaluación</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Fuerza muscular</span></td>
+      <td>Dinamometría manual (Grip Strength)</td>
+      <td><span class="b-danger">Hombre &lt;27 kg · Mujer &lt;16 kg</span></td>
+      <td>↓ Fuerza = primer paso diagnóstico · predictor independiente de mortalidad</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Masa muscular</span></td>
+      <td>DXA (gold standard) · BIA (bioimpedancia)</td>
+      <td>Índice masa muscular apendicular ajustado a talla²</td>
+      <td>Confirma diagnóstico junto a baja fuerza</td>
+    </tr>
+    <tr>
+      <td><span class="drug-name">Rendimiento físico</span></td>
+      <td>Test de velocidad de marcha (4 m) · TUG · SPPB</td>
+      <td><span class="b-danger">Velocidad &lt;0,8 m/s · TUG &gt;20 seg</span></td>
+      <td>Sarcopenia grave si deterioro físico añadido a ↓ fuerza y masa</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="cards-2">
+  <div class="card">
+    <div class="card-header" style="background:#fdf8e8;"><span style="font-size:1.2rem;">🥩</span>
+      <div><div class="c-tag" style="background:#6a5a1a;">TRATAMIENTO</div><div class="c-name">Sarcopenia — Intervenciones</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Ejercicio resistencia (PRIMERA LÍNEA):</strong> 2–3 sesiones/semana, músculos grandes, progresivo</li>
+        <li><strong>Proteínas:</strong> 1,2–1,5 g/kg/día (vs 0,8 g/kg en adultos jóvenes) · leucina clave</li>
+        <li><strong>Vitamina D:</strong> Si déficit (&lt;20 ng/ml) → suplementar 800–1000 UI/día</li>
+        <li><strong>Creatina:</strong> Evidencia moderada como suplemento</li>
+        <li>No hay fármaco aprobado específicamente para sarcopenia (2024)</li>
+        <li><strong>Fragilidad:</strong> Fried criteria: 3+ de 5 → frágil. Prefrágil: 1–2</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" style="background:#fff8ec;"><span style="font-size:1.2rem;">📊</span>
+      <div><div class="c-tag" style="background:#c07010;">FRAGILIDAD · FRIED</div><div class="c-name">Criterios de fragilidad (Fried 2001)</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>1. Pérdida de peso involuntaria</strong> ≥4,5 kg en el último año</li>
+        <li><strong>2. Agotamiento</strong> (fatiga autorreferida)</li>
+        <li><strong>3. Baja actividad física</strong> (kcal/semana)</li>
+        <li><strong>4. Lentitud de marcha</strong> (&lt;0,8 m/s ajustado sexo/talla)</li>
+        <li><strong>5. Debilidad muscular</strong> (dinamometría ajustada sexo/IMC)</li>
+        <li><span style="color:var(--ok);font-weight:600;">0 criterios:</span> Robusto · <span style="color:var(--warn);font-weight:600;">1–2:</span> Prefrágil · <span style="color:var(--danger);font-weight:600;">≥3:</span> Frágil</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 05. UPP ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">05 · Úlceras por Presión (UPP)</span>
+  <div class="st">Clasificación EPUAP/NPUAP/PPPIA 2019 · Escalas Braden y Norton</div>
+</div></div>
+
+<div class="alert alert-danger">
+  <div class="alert-icon">🛑</div>
+  <div class="alert-body">
+    <h3>UPP — Definición NPUAP/EPUAP/PPPIA 2019</h3>
+    <p>Lesión localizada en la piel y/o tejidos subyacentes, generalmente sobre prominencia ósea, como resultado de presión, o de presión combinada con cizallamiento. Prevalencia hospitalaria en España: 7–8%. 95% son prevenibles.</p>
+  </div>
+</div>
+
+<div class="upp-cats">
+  <div class="upp-cat" style="border-color:#e8b0b0;background:#fff8f8;">
+    <div class="upp-cat-header" style="background:#c02030;">
+      <div class="upp-cat-num">I</div>
+      <div class="upp-cat-label">Eritema no blanqueable</div>
+    </div>
+    <div class="upp-cat-body">
+      <strong style="color:#c02030;">CATEGORÍA I</strong>
+      <p>Piel íntegra con eritema que <strong>no blanquea</strong> a la presión. Color rojizo persistente. Puede doler, endurecer o estar caliente/fría respecto a tejido adyacente. Más difícil de detectar en piel oscura.</p>
+    </div>
+  </div>
+  <div class="upp-cat" style="border-color:#e8c0a0;background:#fff8f0;">
+    <div class="upp-cat-header" style="background:#c07010;">
+      <div class="upp-cat-num">II</div>
+      <div class="upp-cat-label">Pérdida parcial espesor</div>
+    </div>
+    <div class="upp-cat-body">
+      <strong style="color:#c07010;">CATEGORÍA II</strong>
+      <p>Pérdida parcial del espesor dérmico que se presenta como úlcera abierta superficial con lecho de la herida rojo-rosado, sin esfacelo. También puede presentarse como flictena o ampolla intacta llena de suero.</p>
+    </div>
+  </div>
+  <div class="upp-cat" style="border-color:#d0a860;background:#fffaf0;">
+    <div class="upp-cat-header" style="background:#8a6010;">
+      <div class="upp-cat-num">III</div>
+      <div class="upp-cat-label">Pérdida total espesor</div>
+    </div>
+    <div class="upp-cat-body">
+      <strong style="color:#8a6010;">CATEGORÍA III</strong>
+      <p>Pérdida total del espesor de la piel. Puede ser visible el tejido adiposo subcutáneo pero no músculo, hueso o tendón. Puede haber esfacelo, tunelizaciones. Profundidad variable según localización.</p>
+    </div>
+  </div>
+  <div class="upp-cat" style="border-color:#808080;background:#f8f8f8;">
+    <div class="upp-cat-header" style="background:#303030;">
+      <div class="upp-cat-num">IV</div>
+      <div class="upp-cat-label">Pérdida total + exposición</div>
+    </div>
+    <div class="upp-cat-body">
+      <strong style="color:#303030;">CATEGORÍA IV</strong>
+      <p>Pérdida total del espesor tisular con exposición de hueso, tendón o músculo. Puede haber esfacelo o escara. Osteomielitis posible. Profundidad máxima — siempre grave.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cards-2">
+  <div class="card">
+    <div class="card-header" style="background:#fdf0f0;"><span style="font-size:1.2rem;">📊</span>
+      <div><div class="c-tag" style="background:#c02030;">ESCALA BRADEN</div><div class="c-name">Valoración riesgo UPP — Más usada</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>6 subescalas:</strong> Percepción sensorial, Humedad, Actividad, Movilidad, Nutrición, Fricción y Cizallamiento</li>
+        <li><strong>Puntuación:</strong> 6–23 puntos</li>
+        <li><span class="b-danger">≤9: Riesgo muy alto</span></li>
+        <li><span class="b-danger">10–12: Riesgo alto</span></li>
+        <li><span class="b-warn">13–14: Riesgo moderado</span></li>
+        <li><span class="b-ok">15–18: Riesgo bajo</span></li>
+        <li><span class="b-ok">19–23: Sin riesgo</span></li>
+        <li><strong>Punto de corte más usado:</strong> ≤16 = en riesgo → intervención</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" style="background:#fdf8e8;"><span style="font-size:1.2rem;">📋</span>
+      <div><div class="c-tag" style="background:#6a5a1a;">ESCALA NORTON</div><div class="c-name">Más sencilla — 5 ítems</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>5 dimensiones:</strong> Condición física, Estado mental, Actividad, Movilidad, Incontinencia</li>
+        <li><strong>Cada dimensión:</strong> 1 (peor) a 4 (mejor)</li>
+        <li><strong>Puntuación total:</strong> 5–20</li>
+        <li><span class="b-danger">≤14: Riesgo · ≤12: Alto riesgo · ≤10: Muy alto</span></li>
+        <li>A <strong>menor puntuación</strong>, mayor riesgo (inversa a Braden)</li>
+        <li>Fácil y rápida · menos sensible que Braden</li>
+        <li>Usada frecuentemente en atención primaria y residencias</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:1.2rem;">
+  <div class="card-header" style="background:#f0faf0;"><span style="font-size:1.2rem;">🛡️</span>
+    <div><div class="c-tag" style="background:#1a7a3a;">PREVENCIÓN UPP</div><div class="c-name">Intervenciones NPUAP/EPUAP 2019</div></div>
+  </div>
+  <div class="card-body">
+    <div class="cards-3" style="margin:0;gap:0.8rem;">
+      <ul style="padding-left:1rem;">
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Cambios posturales:</strong> Cada 2 h en cama, cada 1 h en sillón (si no hay colchón especial)</li>
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Colchón:</strong> Viscoelástico o de presión alterna según riesgo</li>
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Inclinación cama:</strong> Máx. 30° para evitar cizallamiento</li>
+      </ul>
+      <ul style="padding-left:1rem;">
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Piel:</strong> Hidratación, no masajear prominencias, apósitos preventivos</li>
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Nutrición:</strong> Proteínas 1,25–1,5 g/kg/día, vitamina C, zinc</li>
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Incontinencia:</strong> Control exhaustivo, barreras cutáneas</li>
+      </ul>
+      <ul style="padding-left:1rem;">
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Talones:</strong> Elevar con almohada debajo de pantorrilla, no bajo el talón</li>
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>No usar:</strong> Flotadores, masajes en zonas enrojecidas, agua caliente</li>
+        <li style="font-size:0.78rem;margin-bottom:0.2rem;"><strong>Registro:</strong> Documentar valoración del riesgo al ingreso y según evolución</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 06. POLIFARMACIA ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">06 · Polifarmacia y Medicación Inapropiada</span>
+  <div class="st">Criterios Beers 2023 y Criterios STOPP/START</div>
+</div></div>
+
+<div class="cards-2">
+  <div class="card">
+    <div class="card-header" style="background:#fff8ec;"><span style="font-size:1.2rem;">💊</span>
+      <div><div class="c-tag" style="background:#c07010;">CRITERIOS BEERS 2023</div><div class="c-name">Medicación inapropiada en mayores</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Polifarmacia:</strong> ≥5 medicamentos simultáneos · Hiperpolifarmacia: ≥10</li>
+        <li><strong>BEERS:</strong> Lista de fármacos potencialmente inapropiados en ≥65 años (American Geriatrics Society)</li>
+        <li><span>Fármacos BEERS más frecuentes:</span></li>
+        <li>BZD de larga acción (diazepam) → riesgo caídas/delirium</li>
+        <li>Antihistamínicos de 1.ª generación (difenhidramina) → efecto anticolinérgico</li>
+        <li>AINE sistémicos → GI, renal, cardiovascular</li>
+        <li>Antiespasmódicos urinarios (oxibutinina) → anticolinérgico</li>
+        <li>Hipoglucemiantes de acción larga (glibenclamida) → hipoglucemia</li>
+        <li>Antipsicóticos en demencia → ↑ mortalidad (Black Box Warning FDA)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" style="background:#f0e8ff;"><span style="font-size:1.2rem;">🔍</span>
+      <div><div class="c-tag" style="background:#4a2a7a;">STOPP/START</div><div class="c-name">Criterios europeos (v3 2023)</div></div>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li><strong>STOPP (Screening Tool of Older Person's Prescriptions):</strong> Medicamentos que se deberían retirar</li>
+        <li><strong>START (Screening Tool to Alert to Right Treatment):</strong> Medicamentos que se deberían prescribir y no están</li>
+        <li>STOPP incluye: BZD, AINE, anticolinérgicos, duplicidades terapéuticas</li>
+        <li>START incluye: estatinas en ECV establecida, IECAs en IC, bifosfonatos en osteoporosis con corticoides</li>
+        <li><strong>Conciliación farmacológica:</strong> Al ingreso, traslado y alta hospitalaria → responsabilidad de enfermería</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 07. VALORACIÓN GERIÁTRICA INTEGRAL ══════════════ -->
+<div class="sh"><div class="sb"></div><div>
+  <span class="sn">07 · Escalas de Valoración Geriátrica</span>
+  <div class="st">Instrumentos de Evaluación Integral — Los Más Importantes</div>
+</div></div>
+
+<table class="drug-table">
+  <thead>
+    <tr><th>Escala</th><th>Mide</th><th>Puntuación relevante</th><th>Ámbito de uso</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="drug-name">Barthel</span></td><td>ABVD (Actividades Básicas de la Vida Diaria): baño, vestido, aseo, deambulación, continencia, alimentación, traslados</td><td><span class="b-danger">&lt;20: Dependencia total · 20–35: Grave · 40–55: Moderada · 60–90: Leve</span> · 100: Independiente</td><td>Hospital, residencia, AP</td></tr>
+    <tr><td><span class="drug-name">Lawton y Brody</span></td><td>AIVD (Actividades Instrumentales): usar teléfono, compras, cocinar, transporte, medicación, dinero</td><td>0–8 (mujeres) / 0–5 (hombres). Menor puntuación = mayor dependencia</td><td>Comunidad, residencia</td></tr>
+    <tr><td><span class="drug-name">MEC / MMSE</span></td><td>Función cognitiva global (Folstein): orientación, registro, atención, memoria, lenguaje, copia</td><td><span class="b-danger">&lt;18: Demencia grave · 18–23: Moderada · 24–27: Leve · ≥28: Normal</span> (ajustar por edad/educación)</td><td>Cribado, seguimiento</td></tr>
+    <tr><td><span class="drug-name">MNA (Mini Nutritional Assessment)</span></td><td>Estado nutricional en ancianos</td><td><span class="b-danger">&lt;17: Malnutrición · 17–23,5: Riesgo · ≥24: Normal</span></td><td>Hospital, residencia, comunidad</td></tr>
+    <tr><td><span class="drug-name">Escala de Gijón (OARS)</span></td><td>Riesgo sociofamiliar: situación familiar, económica, vivienda, relaciones, apoyo</td><td><span class="b-danger">&gt;16: Problema social · 10–16: Riesgo social</span></td><td>Atención Primaria, Trabajo Social</td></tr>
+    <tr><td><span class="drug-name">GDS (Escala Depresión Geriátrica)</span></td><td>Depresión en ancianos (Yesavage). Versión 15 ítems o 30 ítems</td><td>GDS-15: <span class="b-danger">≥6: Probable depresión</span> · GDS-30: ≥11</td><td>Atención primaria, residencia</td></tr>
+    <tr><td><span class="drug-name">SPPB (Short Physical Performance Battery)</span></td><td>Rendimiento físico: equilibrio, velocidad marcha 4m, levantarse de silla × 5</td><td><span class="b-danger">0–6: Bajo rendimiento (sarcopenia grave) · 7–9: Intermedio · 10–12: Bueno</span></td><td>Investigación, clínica geriatría</td></tr>
+  </tbody>
+</table>
+
+<!-- PERLAS -->
+<div class="perlas">
+  <div class="perlas-header">⭐ Perlas tipo examen INGESA / Enfermería Militar</div>
+  <div class="perlas-grid">
+    <div class="perla">★ <strong>Delirium: diagnóstico con CAM</strong> → Criterios: (1) inicio agudo + fluctuación, (2) inatención, (3) pensamiento desorganizado o (4) alteración conciencia. Los 4 criterios: 1+2+(3 ó 4).</div>
+    <div class="perla">★ <strong>Delirium hipoactivo</strong> → El más infradiagnosticado y de peor pronóstico. Somnolencia, letargia. No confundir con demencia (crónica, no fluctúa) ni depresión.</div>
+    <div class="perla">★ <strong>UPP Categoría I</strong> → Eritema que NO blanquea a la presión. Piel íntegra. Más difícil de detectar en piel oscura. Primera señal de alarma → intervención inmediata.</div>
+    <div class="perla">★ <strong>Escala Braden</strong> → A menor puntuación, mayor riesgo UPP. Punto corte ≤16 = riesgo. 6 subescalas: Percepción, Humedad, Actividad, Movilidad, Nutrición, Fricción.</div>
+    <div class="perla">★ <strong>Escala Norton</strong> → A menor puntuación, mayor riesgo (inversa: ≤14 = riesgo). 5 ítems: Condición física, Estado mental, Actividad, Movilidad, Incontinencia. Más sencilla que Braden.</div>
+    <div class="perla">★ <strong>Cambios posturales UPP</strong> → Cada 2 horas en cama · cada 1 hora en sillón (sin colchón de presión alterna). Inclinación máxima de cabecera: 30° para evitar cizallamiento.</div>
+    <div class="perla">★ <strong>EWGSOP2 Sarcopenia</strong> → Diagnóstico: baja FUERZA muscular (dinamometría: H &lt;27 kg, M &lt;16 kg) + baja masa. Grave si además rendimiento físico reducido (velocidad &lt;0,8 m/s).</div>
+    <div class="perla">★ <strong>Criterios Fried de fragilidad</strong> → 5 criterios: pérdida peso, agotamiento, baja actividad, lentitud marcha, debilidad muscular. 3+ = frágil · 1–2 = prefrágil · 0 = robusto.</div>
+    <div class="perla">★ <strong>Barthel &lt;20</strong> → Dependencia total. Escala más usada para ABVD en España. Puntuación va de 0 (dependencia total) a 100 (independencia total) en intervalos de 5.</div>
+    <div class="perla">★ <strong>Antipsicóticos en demencia</strong> → Criterios Beers: asociados a ↑ mortalidad en ancianos con demencia (Black Box Warning FDA). Solo usar si riesgo grave para el paciente o terceros.</div>
+    <div class="perla">★ <strong>Prevención caídas: evidencia más sólida</strong> → Ejercicio multicomponente (fuerza + equilibrio) como Tai Chi. Vitamina D si déficit. Revisión polifarmacia. Adaptación entorno.</div>
+    <div class="perla">★ <strong>MEC/MMSE</strong> → &lt;18 demencia grave · 18–23 moderada · 24–27 leve · ≥28 normal. Ajustar puntos por escolaridad y edad. No diagnostica por sí solo: herramienta de cribado.</div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div class="sh" style="margin-top:2rem;"><div class="sb"></div><div>
+  <span class="sn">Glosario</span>
+  <div class="st">Abreviaturas y Términos Clave</div>
+</div></div>
+<div class="glosario">
+  <dl class="glosa"><dt>ABVD</dt><dd>Actividades Básicas de la Vida Diaria (Barthel)</dd></dl>
+  <dl class="glosa"><dt>AIVD</dt><dd>Actividades Instrumentales de la Vida Diaria (Lawton)</dd></dl>
+  <dl class="glosa"><dt>CAM</dt><dd>Confusion Assessment Method — diagnóstico delirium</dd></dl>
+  <dl class="glosa"><dt>EWGSOP2</dt><dd>European Working Group on Sarcopenia in Older People v2 (2019)</dd></dl>
+  <dl class="glosa"><dt>EPUAP</dt><dd>European Pressure Ulcer Advisory Panel</dd></dl>
+  <dl class="glosa"><dt>NPUAP</dt><dd>National Pressure Ulcer Advisory Panel (EE.UU.)</dd></dl>
+  <dl class="glosa"><dt>UPP</dt><dd>Úlcera por Presión (también LESCAH: lesión cutánea)</dd></dl>
+  <dl class="glosa"><dt>MNA</dt><dd>Mini Nutritional Assessment — estado nutricional</dd></dl>
+  <dl class="glosa"><dt>MEC</dt><dd>Mini Examen Cognoscitivo (versión española del MMSE)</dd></dl>
+  <dl class="glosa"><dt>SPPB</dt><dd>Short Physical Performance Battery — rendimiento físico</dd></dl>
+  <dl class="glosa"><dt>GDS</dt><dd>Geriatric Depression Scale — escala depresión geriátrica</dd></dl>
+  <dl class="glosa"><dt>STOPP</dt><dd>Screening Tool of Older Person's Prescriptions (medicación inapropiada)</dd></dl>
+</div>
+
+</main>
+</body>
+</html>
